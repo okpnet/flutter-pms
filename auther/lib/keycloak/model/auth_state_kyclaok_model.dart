@@ -1,5 +1,6 @@
 import 'dart:convert';
-import 'package:auther/core/auth_model/authentication_model.dart';
+
+import 'package:auther_controller/core/auth_model/authentication_model.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 
 part 'auth_state_kyclaok_model.mapper.dart';

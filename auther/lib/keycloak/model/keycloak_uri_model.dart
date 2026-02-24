@@ -1,13 +1,10 @@
 import 'dart:convert';
 import 'dart:math';
 
-import 'package:auther/core/auth_model/iauth_uri_model.dart';
+import 'package:auther_controller/constant/server_constant.dart';
+import 'package:auther_controller/constant/uri_constant.dart';
+import 'package:auther_controller/core/auth_model/iauth_uri_model.dart';
 import 'package:crypto/crypto.dart';
-
-// ignore: constant_identifier_names
-const String CHARENGE_METHOD = 'S256';
-// ignore: constant_identifier_names
-const List<String> DEFAULT_SCOPES = ['openid', 'profile', 'email'];
 
 //Keycloak向けエントリーモデル
 final class KeycloakUriModel implements IAuthUriModel {
@@ -18,7 +15,6 @@ final class KeycloakUriModel implements IAuthUriModel {
   final String redirectUri;
   final String codeVerifier;
   final String codeChallenge;
-  final int port;
   final int timeoutSec;
   final List<String> scopes;
 
@@ -35,11 +31,8 @@ final class KeycloakUriModel implements IAuthUriModel {
     required this.realms,
     required this.clientId,
     required this.redirectUri,
-    // ignore: unused_element_parameter
-    this.port = 45035,
-    // ignore: unused_element_parameter
-    this.timeoutSec = 30,
-    this.scopes = DEFAULT_SCOPES,
+    this.timeoutSec = ServerConstant.DEFAULT_TIMEOUT,
+    this.scopes = UriConstant.DEFAULT_SCOPES,
   });
   //URLパラメーター生成
   Map<String, dynamic> createUrlParameter() {
@@ -49,7 +42,7 @@ final class KeycloakUriModel implements IAuthUriModel {
       'redirect_uri': redirectUri.toString(),
       'scope': scopes.join(' '),
       'code_challenge': codeChallenge,
-      'code_challenge_method': CHARENGE_METHOD,
+      'code_challenge_method': UriConstant.CHARENGE_METHOD,
     };
     return result;
   }
@@ -58,7 +51,7 @@ final class KeycloakUriModel implements IAuthUriModel {
   @override
   Uri get authorizationUrl {
     final uri = Uri.parse(
-      '$keycloakUrl/realms/$realms/protocol/openid-connect/${IAuthUriModel.ENDPOINT_AUTH}',
+      '$keycloakUrl/realms/$realms/protocol/openid-connect/${UriConstant.ENDPOINT_AUTH}',
     );
     final newUri = uri.replace(queryParameters: createUrlParameter());
     return newUri;
@@ -68,7 +61,7 @@ final class KeycloakUriModel implements IAuthUriModel {
   @override
   Uri get tokenUrl {
     final uri = Uri.parse(
-      '$keycloakUrl/realms/$realms/protocol/openid-connect/${IAuthUriModel.ENDPOINT_TOKEN}',
+      '$keycloakUrl/realms/$realms/protocol/openid-connect/${UriConstant.ENDPOINT_TOKEN}',
     );
     return uri;
   }
@@ -77,7 +70,7 @@ final class KeycloakUriModel implements IAuthUriModel {
   @override
   Uri get logoutUrl {
     final uri = Uri.parse(
-      '$keycloakUrl/realms/$realms/protocol/openid-connect/${IAuthUriModel.ENDPOINT_LOGOUT}',
+      '$keycloakUrl/realms/$realms/protocol/openid-connect/${UriConstant.ENDPOINT_LOGOUT}',
     );
     return uri;
   }
@@ -87,7 +80,7 @@ final class KeycloakUriModel implements IAuthUriModel {
     required String keycloakUrl,
     required String realms,
     required String clientId,
-    required String redirectUri,
+    required String redirectUrl,
     // ignore: unused_element_parameter
     int port = 45035,
     // ignore: unused_element_parameter
@@ -117,8 +110,7 @@ final class KeycloakUriModel implements IAuthUriModel {
       keycloakUrl: keycloakUrl,
       realms: realms,
       clientId: clientId,
-      redirectUri: redirectUri,
-      port: port,
+      redirectUri: redirectUrl,
       timeoutSec: timeoutSec,
       scopes: scopes,
     );

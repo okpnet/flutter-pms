@@ -1,6 +1,4 @@
-//読み込みインターフェイス
-import 'package:auther/options/defaultresult.dart';
-import 'package:auther/storages/converter/storage_item_converter.dart';
+part of '../storage.dart';
 
 abstract interface class IStorageReader {
   Map<String, StorageItemConverter> get converters;

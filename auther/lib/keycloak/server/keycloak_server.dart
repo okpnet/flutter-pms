@@ -1,15 +1,16 @@
-import 'package:auther/core/auth_model/authentication_model.dart';
-import 'package:auther/core/auth_model/iauth_uri_model.dart';
-import 'package:auther/core/auth_server/iauth_server.dart';
-import 'package:auther/core/authenticate/authentication.dart';
-import 'package:auther/errors/error.dart';
-import 'package:auther/keycloak/converter/authentication_model_converter.dart';
-import 'package:auther/keycloak/model/keycloak_uri_model.dart';
-import 'package:auther/keycloak/server/keycloak_auth_state_handler.dart';
-import 'package:auther/keycloak/server/keycloak_http_client.dart';
-import 'package:auther/logger/ilogger.dart';
-import 'package:auther/options/result.dart';
-import 'package:auther/storages/rider_writer/istorage_reader_writer.dart';
+import 'package:auther_controller/core/auth_model/auth_state_type.dart';
+import 'package:auther_controller/core/auth_model/authentication_model.dart';
+import 'package:auther_controller/core/auth_model/iauth_uri_model.dart';
+import 'package:auther_controller/core/auth_server/iauth_server.dart';
+import 'package:auther_controller/core/authenticate/authentication.dart';
+import 'package:auther_controller/errors/error.dart';
+import 'package:auther_controller/keycloak/converter/authentication_model_converter.dart';
+import 'package:auther_controller/keycloak/model/keycloak_uri_model.dart';
+import 'package:auther_controller/keycloak/server/keycloak_auth_state_handler.dart';
+import 'package:auther_controller/keycloak/server/keycloak_http_client.dart';
+import 'package:auther_controller/logger/ilogger.dart';
+import 'package:auther_controller/options/results/result.dart';
+import 'package:auther_controller/storages/storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -19,7 +20,6 @@ final class KeycloakServer implements IAuthServer {
   final IAuthUriModel authUriModel;
   final IStorageReaderWriter readerWriter;
   final String key = UniqueKey().toString();
-  final Ref ref;
   ILogger? _logger;
 
   // 責務分割: HTTP通信とストレージ管理
@@ -29,11 +29,7 @@ final class KeycloakServer implements IAuthServer {
   KeycloakUriModel get uriModel => authUriModel as KeycloakUriModel;
 
   // コンストラクタ
-  KeycloakServer._({
-    required this.ref,
-    required this.readerWriter,
-    required this.authUriModel,
-  }) {
+  KeycloakServer._({required this.readerWriter, required this.authUriModel}) {
     readerWriter.converters.addAll({
       (AuthenticationModel).toString(): AuthenticationModelConverter(),
     });
@@ -43,12 +39,10 @@ final class KeycloakServer implements IAuthServer {
 
   // インスタンス生成
   factory KeycloakServer.create({
-    required Ref ref,
     required IAuthUriModel authUriModel,
     required IStorageReaderWriter readWriter,
   }) {
     final provider = KeycloakServer._(
-      ref: ref,
       readerWriter: readWriter,
       authUriModel: authUriModel,
     );
@@ -56,7 +50,7 @@ final class KeycloakServer implements IAuthServer {
   }
   // トークンの更新
   @override
-  Future<void> refreshToken() async {
+  Future<ConnectStateResult<AuthStateType>> refreshToken() async {
     final model = await _authStateHandler.getStoredAuthModel();
 
     if (model != null && _authStateHandler.isTokenExpired(model)) {
@@ -75,7 +69,7 @@ final class KeycloakServer implements IAuthServer {
 
   // ログアウト: ポストで送信
   @override
-  Future<void> logout() async {
+  Future<ConnectStateResult<AuthStateType>> logout() async {
     final model = await _authStateHandler.getStoredAuthModel();
 
     if (model != null && _authStateHandler.isTokenExpired(model)) {
@@ -95,7 +89,7 @@ final class KeycloakServer implements IAuthServer {
 
   // ログイン: ローカルサーバのコールバック
   @override
-  Future<void> login({String? code}) async {
+  Future<ConnectStateResult<AuthStateType>> login({String? code}) async {
     try {
       if (code == null || code.isEmpty) {
         _logger?.error('No authorization code in callback.');

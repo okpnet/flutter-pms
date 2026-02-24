@@ -2,9 +2,11 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:auther/core/auth_model/authentication_model.dart';
-import 'package:auther/keycloak/model/keycloak_uri_model.dart';
-import 'package:auther/options/connect_state_result.dart';
+import 'package:auther_controller/core/auth_model/authentication_model.dart';
+import 'package:auther_controller/errors/error.dart';
+import 'package:auther_controller/keycloak/model/auth_state_kyclaok_model.dart';
+import 'package:auther_controller/keycloak/model/keycloak_uri_model.dart';
+import 'package:auther_controller/options/results/result.dart';
 import 'package:http/http.dart' as http;
 
 /// POST通信の種類
@@ -36,7 +38,7 @@ class KeycloakHttpClient {
             body: body,
           )
           .timeout(
-            ConstantDuration.networkTimeout,
+            Duration(seconds: uriModel.timeoutSec),
             onTimeout: () {
               throw NetworkTimeoutException();
             },

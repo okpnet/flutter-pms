@@ -1,4 +1,4 @@
-import 'package:auther/core/auth_model/auth_state_type.dart';
+import 'package:auther_controller/core/auth_model/auth_state_type.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 

@@ -1,9 +1,9 @@
 import 'dart:developer';
 
-import 'package:flutter_win_webview_go_router/services/options/defaultresult.dart';
-import 'package:flutter_win_webview_go_router/services/providers/auth/auth_model/auth_state_type.dart';
-import 'package:flutter_win_webview_go_router/services/providers/auth/auth_model/authentication_model.dart';
-import 'package:flutter_win_webview_go_router/services/storages/rider_writer/istorage_reader_writer.dart';
+import 'package:auther_controller/core/auth_model/auth_state_type.dart';
+import 'package:auther_controller/core/auth_model/authentication_model.dart';
+import 'package:auther_controller/options/results/result.dart';
+import 'package:auther_controller/storages/storage.dart';
 
 /// 認証状態をストレージで管理するクラス
 class KeycloakAuthStateHandler {

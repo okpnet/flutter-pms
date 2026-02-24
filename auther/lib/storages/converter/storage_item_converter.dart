@@ -1,3 +1,5 @@
+part of '../storage.dart';
+
 //抽象化インターフェイス
 abstract interface class StorageItemConverter {}
 

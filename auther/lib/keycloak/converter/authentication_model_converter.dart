@@ -1,5 +1,5 @@
-import 'package:auther/core/auth_model/authentication_model.dart';
-import 'package:auther/storages/converter/storage_item_converter.dart';
+import 'package:auther_controller/core/auth_model/authentication_model.dart';
+import 'package:auther_controller/storages/storage.dart';
 
 class AuthenticationModelConverter
     implements StorageTypeConverter<AuthenticationModel> {

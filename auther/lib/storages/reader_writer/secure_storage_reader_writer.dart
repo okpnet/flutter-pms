@@ -1,8 +1,4 @@
-import 'dart:async';
-import 'package:auther/options/defaultresult.dart';
-import 'package:auther/storages/converter/storage_item_converter.dart';
-import 'package:auther/storages/rider_writer/istorage_reader_writer.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+part of '../storage.dart';
 
 //ストレージ読み書き
 class SecureStorageReaderWriter implements IStorageReaderWriter {
@@ -17,7 +13,12 @@ class SecureStorageReaderWriter implements IStorageReaderWriter {
   @override
   Map<String, StorageItemConverter> get converters => _converters;
   //コンストラクタ
-  SecureStorageReaderWriter();
+  SecureStorageReaderWriter(
+    map, {
+    Map<String, StorageItemConverter>? anyConverters,
+  }) {
+    if (anyConverters != null) _converters.addAll(anyConverters);
+  }
   //キーでストレージにアクセス
   @override
   dynamic operator [](String key) {

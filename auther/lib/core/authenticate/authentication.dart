@@ -1,6 +1,5 @@
 import 'dart:developer';
-
-import 'package:auther/core/auth_model/auth_state_type.dart';
+import 'package:auther_controller/core/auth_model/auth_state_type.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'authentication.g.dart';
