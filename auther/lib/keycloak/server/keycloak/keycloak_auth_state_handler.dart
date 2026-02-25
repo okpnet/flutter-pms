@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:auther_controller/core/auth_model/auth_state_type.dart';
 import 'package:auther_controller/core/auth_model/authentication_model.dart';
 import 'package:auther_controller/options/results/result.dart';

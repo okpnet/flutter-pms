@@ -1,6 +1,3 @@
-import 'dart:io';
-import 'dart:nativewrappers/_internal/vm/bin/vmservice_io.dart';
-
 import 'package:auther_controller/constant/server_constant.dart';
 import 'package:auther_controller/constant/uri_constant.dart';
 import 'package:auther_controller/core/auth_model/auth_state_type.dart';
@@ -9,7 +6,7 @@ import 'package:auther_controller/errors/error.dart';
 import 'package:auther_controller/keycloak/converter/authentication_model_converter.dart';
 import 'package:auther_controller/keycloak/model/keycloak_uri_model.dart';
 import 'package:auther_controller/keycloak/server/callback/callback_server.dart';
-import 'package:auther_controller/keycloak/server/keycloak_server.dart';
+import 'package:auther_controller/keycloak/server/keycloak/keycloak_server.dart';
 import 'package:auther_controller/logger/ilogger.dart';
 import 'package:auther_controller/options/results/result.dart';
 import 'package:auther_controller/storages/storage.dart';
@@ -65,11 +62,11 @@ class AuthController extends _$AuthController {
       throw Exception('keyclaokServer or Callback server create result null.');
     }
 
-    await _callbackServer!.init((code) => _keycloakServer!.login({code: code}));
+    await _callbackServer!.init((code) => _keycloakServer!.login(code));
 
     //破棄登録
     ref.onDispose(() async {
-      await _callbackServer?.close();
+      _callbackServer?.dispose();
       _callbackServer = null;
     });
   }
