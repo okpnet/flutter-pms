@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'authentication.dart';
+part of 'auth_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,28 +9,28 @@ part of 'authentication.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(Authentication)
-final authenticationProvider = AuthenticationProvider._();
+@ProviderFor(AuthController)
+final authControllerProvider = AuthControllerProvider._();
 
-final class AuthenticationProvider
-    extends $NotifierProvider<Authentication, AuthStateType> {
-  AuthenticationProvider._()
+final class AuthControllerProvider
+    extends $NotifierProvider<AuthController, AuthStateType> {
+  AuthControllerProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'authenticationProvider',
+        name: r'authControllerProvider',
         isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$authenticationHash();
+  String debugGetCreateSourceHash() => _$authControllerHash();
 
   @$internal
   @override
-  Authentication create() => Authentication();
+  AuthController create() => AuthController();
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(AuthStateType value) {
@@ -41,9 +41,9 @@ final class AuthenticationProvider
   }
 }
 
-String _$authenticationHash() => r'61283540eeb6e4577ce759f6046bb0ecae10f855';
+String _$authControllerHash() => r'41434b000d9605787a97d367070379c2689ac122';
 
-abstract class _$Authentication extends $Notifier<AuthStateType> {
+abstract class _$AuthController extends $Notifier<AuthStateType> {
   AuthStateType build();
   @$mustCallSuper
   @override

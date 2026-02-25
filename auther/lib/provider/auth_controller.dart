@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:nativewrappers/_internal/vm/bin/vmservice_io.dart';
 
 import 'package:auther_controller/constant/server_constant.dart';
 import 'package:auther_controller/constant/uri_constant.dart';
@@ -7,17 +8,22 @@ import 'package:auther_controller/core/auth_model/authentication_model.dart';
 import 'package:auther_controller/errors/error.dart';
 import 'package:auther_controller/keycloak/converter/authentication_model_converter.dart';
 import 'package:auther_controller/keycloak/model/keycloak_uri_model.dart';
+import 'package:auther_controller/keycloak/server/callback/callback_server.dart';
 import 'package:auther_controller/keycloak/server/keycloak_server.dart';
 import 'package:auther_controller/logger/ilogger.dart';
 import 'package:auther_controller/options/results/result.dart';
 import 'package:auther_controller/storages/storage.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+part 'auth_controller.g.dart';
+
+@Riverpod(keepAlive: true)
 class AuthController extends _$AuthController {
-  HttpServer? _server;
+  CallbackServer? _callbackServer;
   KeycloakServer? _keycloakServer;
   ILogger? _loger;
   AuthController();
+
   @override
   AuthStateType build() {
     return AuthStateType.signedOut;
@@ -52,27 +58,41 @@ class AuthController extends _$AuthController {
       readWriter: readWriter,
     );
 
-    final url = Uri(path: uriModel.redirectUri);
     //コールバックサーバ
-    _server = await HttpServer.bind(InternetAddress.loopbackIPv4, url.port);
+    _callbackServer = CallbackServer(url: uriModel.redirectUri);
+
+    if (_keycloakServer == null || _callbackServer == null) {
+      throw Exception('keyclaokServer or Callback server create result null.');
+    }
+
+    await _callbackServer!.init((code) => _keycloakServer!.login({code: code}));
+
+    //破棄登録
+    ref.onDispose(() async {
+      await _callbackServer?.close();
+      _callbackServer = null;
+    });
   }
 
+  //トークン更新
   Future<void> refreshToken() async {
     if (!_validate()) return;
     final result = await _keycloakServer?.refreshToken();
     _logging(result);
   }
 
+  //ログイン
   Future<void> login() async {
     if (!_validate()) return;
   }
 
+  //ログアウト
   Future<void> logout() async {
     if (!_validate()) return;
   }
 
   bool _validate() {
-    final result = _keycloakServer != null && _server != null;
+    final result = _keycloakServer != null && _callbackServer != null;
     _loger?.debug('initi state : $result');
     return result;
   }

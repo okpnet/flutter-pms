@@ -2,8 +2,6 @@ import 'package:auther_controller/core/auth_model/auth_state_type.dart';
 import 'package:auther_controller/core/auth_model/authentication_model.dart';
 import 'package:auther_controller/core/auth_model/iauth_uri_model.dart';
 import 'package:auther_controller/core/auth_server/iauth_server.dart';
-import 'package:auther_controller/core/authenticate/authentication.dart';
-import 'package:auther_controller/errors/error.dart';
 import 'package:auther_controller/keycloak/converter/authentication_model_converter.dart';
 import 'package:auther_controller/keycloak/model/keycloak_uri_model.dart';
 import 'package:auther_controller/keycloak/server/keycloak_auth_state_handler.dart';
@@ -12,7 +10,6 @@ import 'package:auther_controller/logger/ilogger.dart';
 import 'package:auther_controller/options/results/result.dart';
 import 'package:auther_controller/storages/storage.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // 定数定義は keycloak_auth_state_handler.dart に移動
 
@@ -48,6 +45,26 @@ final class KeycloakServer implements IAuthServer {
     );
     return provider;
   }
+
+  ConnectStateResult<AuthStateType> _createState(
+    ConnectStateResult<AuthenticationModel> model,
+  ) {
+    switch (model) {
+      case SuccessState<AuthenticationModel>():
+        _authStateHandler.saveAuthModel(model.value);
+        return SuccessState<AuthStateType>(
+          model.value.isAccessTokenExpired,
+          statusCode: model.statusCode,
+        );
+      case FailureState<AuthenticationModel>():
+        _authStateHandler.clearAuthState();
+        return FailureState<AuthStateType>(
+          model.error,
+          statusCode: model.statusCode,
+        );
+    }
+  }
+
   // トークンの更新
   @override
   Future<ConnectStateResult<AuthStateType>> refreshToken() async {
@@ -55,60 +72,44 @@ final class KeycloakServer implements IAuthServer {
 
     if (model != null && _authStateHandler.isTokenExpired(model)) {
       final result = await _httpClient.post(PostType.token, model.code!);
-      switch (result) {
-        case SuccessState<AuthenticationModel>():
-          await _authStateHandler.saveAuthModel(result.value);
-          break;
-        case FailureState<AuthenticationModel>():
-          _logger?.warnig('refresh token error', ex: result.error);
-          _error(result.error);
-          break;
-      }
+
+      return _createState(result);
     }
+    return FailureState(Exception('Token is unexists or expired in storage.'));
   }
 
   // ログアウト: ポストで送信
   @override
   Future<ConnectStateResult<AuthStateType>> logout() async {
     final model = await _authStateHandler.getStoredAuthModel();
-
-    if (model != null && _authStateHandler.isTokenExpired(model)) {
-      final result = await _httpClient.post(PostType.logout, model.code!);
-      switch (result) {
-        case SuccessState<AuthenticationModel>():
-          ref.read(authenticationProvider.notifier).changeSignout();
-          break;
-        case FailureState<AuthenticationModel>():
-          _logger?.warnig('signout error', ex: result.error);
-          _error(result.error);
-          break;
+    try {
+      if (model != null && _authStateHandler.isTokenExpired(model)) {
+        final result = await _httpClient.post(PostType.logout, model.code!);
+        return _createState(result);
+      }
+      return SuccessState<AuthStateType>(AuthStateType.signedOut);
+    } catch (ex, st) {
+      return FailureState<AuthStateType>(ex as Exception);
+    } finally {
+      if (model != null) {
+        await _authStateHandler.clearAuthState();
       }
     }
-    await _authStateHandler.clearAuthState();
   }
 
   // ログイン: ローカルサーバのコールバック
   @override
-  Future<ConnectStateResult<AuthStateType>> login({String? code}) async {
+  Future<ConnectStateResult<AuthStateType>> login(String code) async {
     try {
-      if (code == null || code.isEmpty) {
+      if (code.isEmpty) {
         _logger?.error('No authorization code in callback.');
-        return;
+        return FailureState<AuthStateType>(Exception('Argment code is empty.'));
       }
-
       final result = await _httpClient.post(PostType.token, code);
-      switch (result) {
-        case SuccessState<AuthenticationModel>():
-          ref.read(authenticationProvider.notifier).changeSignIn();
-          _logger?.debug('login');
-          break;
-        case FailureState<AuthenticationModel>():
-          _logger?.warnig('signin error', ex: result.error);
-          _error(result.error);
-          break;
-      }
+      return _createState(result);
     } catch (e, st) {
       _logger?.critical('Callback wait error', ex: e as Exception, st: st);
+      return FailureState<AuthStateType>(e as Exception);
     }
   }
 
@@ -127,16 +128,6 @@ final class KeycloakServer implements IAuthServer {
       );
     } finally {
       _logger?.debug('KeycloakProvider disposed');
-    }
-  }
-
-  void _error(Exception ex) {
-    switch (ex) {
-      case NetworkTimeoutException():
-        ref.read(authenticationProvider.notifier).networkError();
-        break;
-      default:
-        return;
     }
   }
 }
