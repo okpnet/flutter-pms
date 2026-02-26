@@ -1,3 +1,4 @@
+//ロガーラップクラス
 abstract interface class ILogger {
   void debug(String? message, {Exception? ex, StackTrace? st});
   void info(String? message, {Exception? ex, StackTrace? st});

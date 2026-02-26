@@ -9,4 +9,10 @@ final class UriConstant {
   static const String CHARENGE_METHOD = 'S256';
   // ignore: constant_identifier_names
   static const List<String> DEFAULT_SCOPES = ['openid', 'profile', 'email'];
+  // ignore: constant_identifier_names
+  static const String RELMS = 'realms';
+  // ignore: constant_identifier_names
+  static const String PROTOCOL = 'protocol';
+  // ignore: constant_identifier_names
+  static const String OPNEID_CONNECT = 'openid-connect';
 }

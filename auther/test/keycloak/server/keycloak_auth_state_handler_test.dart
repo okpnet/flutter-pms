@@ -71,7 +71,7 @@ void main() {
         );
 
         await fakeStorage.write<AuthenticationModel>(
-          KeycloakAuthStateHandler.AUTH_MODEL_KEY,
+          StorageConstant.TOKEN_STORAGE_KEY,
           testModel,
         );
 
@@ -104,7 +104,7 @@ void main() {
         await handler.saveAuthModel(model);
 
         final stored = await fakeStorage.read<AuthenticationModel>(
-          KeycloakAuthStateHandler.AUTH_MODEL_KEY,
+          StorageConstant.TOKEN_STORAGE_KEY,
         );
         expect(stored, isA<Success<AuthenticationModel>>());
         expect((stored as Success<AuthenticationModel>).value, model);
@@ -124,7 +124,7 @@ void main() {
         await handler.saveAuthModel(model2);
 
         final stored = await fakeStorage.read<AuthenticationModel>(
-          KeycloakAuthStateHandler.AUTH_MODEL_KEY,
+          StorageConstant.TOKEN_STORAGE_KEY,
         );
         expect((stored as Success<AuthenticationModel>).value, model2);
       });
@@ -294,7 +294,7 @@ void main() {
 
     group('edge cases', () {
       test('AUTH_MODEL_KEY が正しく設定されている', () {
-        expect(KeycloakAuthStateHandler.AUTH_MODEL_KEY, 'authstate');
+        expect(StorageConstant.TOKEN_STORAGE_KEY, 'authstate');
       });
 
       test('ハンドラーのインスタンス化', () {

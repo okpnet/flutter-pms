@@ -3,16 +3,18 @@ import 'package:auther_controller/core/auth_model/authentication_model.dart';
 import 'package:auther_controller/options/results/result.dart';
 import 'package:auther_controller/storages/storage.dart';
 
+part '../../../constant/storage_constant.dart';
+
 /// 認証状態をストレージで管理するクラス
 class KeycloakAuthStateHandler {
   final IStorageReaderWriter readerWriter;
-  static const String AUTH_MODEL_KEY = "authstate";
-
   KeycloakAuthStateHandler({required this.readerWriter});
 
   /// ストレージから認証モデルを取得
   Future<AuthenticationModel?> getStoredAuthModel() async {
-    final result = await readerWriter.read<AuthenticationModel>(AUTH_MODEL_KEY);
+    final result = await readerWriter.read<AuthenticationModel>(
+      StorageConstant.TOKEN_STORAGE_KEY,
+    );
     return switch (result) {
       Success<AuthenticationModel>() => result.value,
       Failure<AuthenticationModel>() => null,
@@ -22,7 +24,10 @@ class KeycloakAuthStateHandler {
 
   /// 認証モデルをストレージに保存
   Future<void> saveAuthModel(AuthenticationModel model) async {
-    await readerWriter.write<AuthenticationModel>(AUTH_MODEL_KEY, model);
+    await readerWriter.write<AuthenticationModel>(
+      StorageConstant.TOKEN_STORAGE_KEY,
+      model,
+    );
   }
 
   /// トークンが有効期限切れかどうかを確認
@@ -32,7 +37,7 @@ class KeycloakAuthStateHandler {
 
   /// ストレージから認証状態を削除
   Future<void> clearAuthState() async {
-    await readerWriter.delete(AUTH_MODEL_KEY);
+    await readerWriter.delete(StorageConstant.TOKEN_STORAGE_KEY);
   }
 
   /// トークン更新が必要かどうかを確認

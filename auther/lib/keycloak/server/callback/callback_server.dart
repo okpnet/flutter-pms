@@ -11,12 +11,19 @@ class CallbackServer {
     Function(String code) completeDelegate, {
     Function()? failerDelegate,
   }) async {
-    final uri = Uri(path: url);
-    _callbackServer = await HttpServer.bind(uri, uri.port);
+    // URL文字列をパースし、ホストとポートを取得する
+    final uri = Uri.parse(url);
+
+    final bindHost = uri.host.isNotEmpty
+        ? uri.host
+        : InternetAddress.loopbackIPv4.address;
+    final bindPort = uri.hasPort && uri.port > 0 ? uri.port : 0;
+
+    _callbackServer = await HttpServer.bind(bindHost, bindPort);
     if (_callbackServer == null) {
       throw Exception('HttpServer bind result null.');
     }
-
+    //コールバックイベントハンドラ
     _callbackServer!.listen((HttpRequest request) {
       final uri = request.uri;
 
@@ -43,4 +50,7 @@ class CallbackServer {
       () => _callbackServer!.close(),
     ).whenComplete(() => _callbackServer = null);
   }
+
+  /// ポート番号 (テスト用)
+  int? get port => _callbackServer?.port;
 }

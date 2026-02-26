@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:auther_controller/constant/server_constant.dart';
 import 'package:auther_controller/core/auth_model/authentication_model.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 
@@ -21,9 +22,9 @@ class AuthStateKyclaokModel extends AuthenticationModel
   factory AuthStateKyclaokModel.fromResponse(String code, String body) {
     final map = json.decode(body) as Map<String, dynamic>;
     return AuthStateKyclaokModel(
-      accessToken: map['access_token'] as String?,
-      refreshToken: map['refresh_token'] as String?,
-      tokenId: map['id_token'] as String?,
+      accessToken: map[ServerConstant.RESPONSE_KEY_ACCTOKEN] as String?,
+      refreshToken: map[ServerConstant.RESPONSE_KEY_REFTOKEN] as String?,
+      tokenId: map[ServerConstant.RESPONSE_KEY_IDTOKEN] as String?,
       code: code,
     );
   }

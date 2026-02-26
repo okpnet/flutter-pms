@@ -18,6 +18,9 @@ final class KeycloakUriModel implements IAuthUriModel {
   final int timeoutSec;
   final List<String> scopes;
 
+  String get baseUrl =>
+      '$keycloakUrl/${UriConstant.RELMS}/$realms/${UriConstant.PROTOCOL}/${UriConstant.OPNEID_CONNECT}';
+
   @override
   String toString() {
     return '{keycloakUrl: $keycloakUrl, realms: $realms, clientId: $clientId, redirectUri: $redirectUri, codeVerifier: $codeVerifier, codeChallenge: $codeChallenge, scopes: $scopes}';
@@ -50,9 +53,7 @@ final class KeycloakUriModel implements IAuthUriModel {
   // Authorization URL
   @override
   Uri get authorizationUrl {
-    final uri = Uri.parse(
-      '$keycloakUrl/realms/$realms/protocol/openid-connect/${UriConstant.ENDPOINT_AUTH}',
-    );
+    final uri = Uri.parse('$baseUrl/${UriConstant.ENDPOINT_AUTH}');
     final newUri = uri.replace(queryParameters: createUrlParameter());
     return newUri;
   }
@@ -60,18 +61,14 @@ final class KeycloakUriModel implements IAuthUriModel {
   // Token URL
   @override
   Uri get tokenUrl {
-    final uri = Uri.parse(
-      '$keycloakUrl/realms/$realms/protocol/openid-connect/${UriConstant.ENDPOINT_TOKEN}',
-    );
+    final uri = Uri.parse('$baseUrl/${UriConstant.ENDPOINT_TOKEN}');
     return uri;
   }
 
   // Logout URL
   @override
   Uri get logoutUrl {
-    final uri = Uri.parse(
-      '$keycloakUrl/realms/$realms/protocol/openid-connect/${UriConstant.ENDPOINT_LOGOUT}',
-    );
+    final uri = Uri.parse('$baseUrl/${UriConstant.ENDPOINT_LOGOUT}');
     return uri;
   }
 

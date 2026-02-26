@@ -26,22 +26,32 @@ final class KeycloakServer implements IAuthServer {
   KeycloakUriModel get uriModel => authUriModel as KeycloakUriModel;
 
   // コンストラクタ
-  KeycloakServer._({required this.readerWriter, required this.authUriModel}) {
+  KeycloakServer._({
+    required this.readerWriter,
+    required this.authUriModel,
+    KeycloakHttpClient? httpClient,
+    KeycloakAuthStateHandler? authStateHandler,
+  }) {
     readerWriter.converters.addAll({
       (AuthenticationModel).toString(): AuthenticationModelConverter(),
     });
-    _httpClient = KeycloakHttpClient(uriModel: uriModel);
-    _authStateHandler = KeycloakAuthStateHandler(readerWriter: readerWriter);
+    _httpClient = httpClient ?? KeycloakHttpClient(uriModel: uriModel);
+    _authStateHandler =
+        authStateHandler ?? KeycloakAuthStateHandler(readerWriter: readerWriter);
   }
 
   // インスタンス生成
   factory KeycloakServer.create({
     required IAuthUriModel authUriModel,
     required IStorageReaderWriter readWriter,
+    KeycloakHttpClient? httpClient,
+    KeycloakAuthStateHandler? authStateHandler,
   }) {
     final provider = KeycloakServer._(
       readerWriter: readWriter,
       authUriModel: authUriModel,
+      httpClient: httpClient,
+      authStateHandler: authStateHandler,
     );
     return provider;
   }
@@ -52,6 +62,7 @@ final class KeycloakServer implements IAuthServer {
     switch (model) {
       case SuccessState<AuthenticationModel>():
         _authStateHandler.saveAuthModel(model.value);
+        // isAccessTokenExpired already returns AuthStateType
         return SuccessState<AuthStateType>(
           model.value.isAccessTokenExpired,
           statusCode: model.statusCode,

@@ -1,13 +1,12 @@
+import 'package:auther_controller/auth_controller.dart';
 import 'package:auther_controller/constant/server_constant.dart';
 import 'package:auther_controller/constant/uri_constant.dart';
-import 'package:auther_controller/core/auth_model/auth_state_type.dart';
 import 'package:auther_controller/core/auth_model/authentication_model.dart';
 import 'package:auther_controller/errors/error.dart';
 import 'package:auther_controller/keycloak/converter/authentication_model_converter.dart';
 import 'package:auther_controller/keycloak/model/keycloak_uri_model.dart';
 import 'package:auther_controller/keycloak/server/callback/callback_server.dart';
 import 'package:auther_controller/keycloak/server/keycloak/keycloak_server.dart';
-import 'package:auther_controller/logger/ilogger.dart';
 import 'package:auther_controller/options/results/result.dart';
 import 'package:auther_controller/storages/storage.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -78,14 +77,16 @@ class AuthController extends _$AuthController {
     _logging(result);
   }
 
-  //ログイン
-  Future<void> login() async {
-    if (!_validate()) return;
-  }
+  // //ログイン
+  // Future<void> login() async {
+  //   if (!_validate()) return;
+  // }
 
   //ログアウト
   Future<void> logout() async {
     if (!_validate()) return;
+    final result = await _keycloakServer?.logout();
+    _logging(result);
   }
 
   bool _validate() {
