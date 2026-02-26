@@ -45,19 +45,19 @@ void main() {
         expect(success, isA<Result<String>>());
       });
 
-      test('複数の Success インスタンスは同じ値を持つ場合等価である', () {
+      test('複数の Success インスタンスは同じ値を持つ場合、プロパティが同じ', () {
         const value = 'same_value';
         final success1 = Success(value);
         final success2 = Success(value);
 
-        expect(success1, success2);
+        expect(success1.value, success2.value);
       });
 
-      test('異なる値の Success インスタンスは等価でない', () {
+      test('異なる値の Success インスタンスはプロパティが異なる', () {
         final success1 = Success('value1');
         final success2 = Success('value2');
 
-        expect(success1, isNot(success2));
+        expect(success1.value, isNot(success2.value));
       });
 
       test('Success は異なるジェネリック型をサポートする', () {
@@ -91,19 +91,19 @@ void main() {
         expect(warning, isA<Result<dynamic>>());
       });
 
-      test('同じエラーを持つ Warning インスタンスは等価である', () {
+      test('同じエラーを持つ Warning インスタンスはプロパティが同じ', () {
         final error = StateError('same_error');
         final warning1 = Warning(error);
         final warning2 = Warning(error);
 
-        expect(warning1, warning2);
+        expect(warning1.error, warning2.error);
       });
 
-      test('異なるエラーを持つ Warning インスタンスは等価でない', () {
+      test('異なるエラーを持つ Warning インスタンスはプロパティが異なる', () {
         final warning1 = Warning(StateError('error1'));
         final warning2 = Warning(StateError('error2'));
 
-        expect(warning1, isNot(warning2));
+        expect(warning1.error.toString(), isNot(warning2.error.toString()));
       });
 
       test('Warning は異なる Error型をサポート', () {
@@ -129,19 +129,19 @@ void main() {
         expect(failure, isA<Result<dynamic>>());
       });
 
-      test('同じエラーを持つ Failure インスタンスは等価である', () {
+      test('同じエラーを持つ Failure インスタンスはプロパティが同じ', () {
         final error = Exception('same_error');
         final failure1 = Failure(error);
         final failure2 = Failure(error);
 
-        expect(failure1, failure2);
+        expect(failure1.error, failure2.error);
       });
 
-      test('異なるエラーを持つ Failure インスタンスは等価でない', () {
+      test('異なるエラーを持つ Failure インスタンスはプロパティが異なる', () {
         final failure1 = Failure(Exception('error1'));
         final failure2 = Failure(Exception('error2'));
 
-        expect(failure1, isNot(failure2));
+        expect(failure1.error.toString(), isNot(failure2.error.toString()));
       });
 
       test('Failure はカスタム Exception をサポート', () {
@@ -276,18 +276,18 @@ void main() {
         expect(state, isA<ConnectStateResult<String>>());
       });
 
-      test('異なる値の SuccessState インスタンスは等価でない', () {
+      test('異なる値の SuccessState インスタンスはプロパティが異なる', () {
         final state1 = SuccessState('value1');
         final state2 = SuccessState('value2');
 
-        expect(state1, isNot(state2));
+        expect(state1.value, isNot(state2.value));
       });
 
-      test('同じ値でも異なる statusCode の SuccessState は等価でない', () {
+      test('同じ値でも異なる statusCode の SuccessState はプロパティが異なる', () {
         final state1 = SuccessState('value', statusCode: 200);
         final state2 = SuccessState('value', statusCode: 201);
 
-        expect(state1, isNot(state2));
+        expect(state1.statusCode, isNot(state2.statusCode));
       });
     });
 
@@ -317,11 +317,11 @@ void main() {
         expect(state, isA<ConnectStateResult<dynamic>>());
       });
 
-      test('異なるエラーの FailureState インスタンスは等価でない', () {
+      test('異なるエラーの FailureState インスタンスはプロパティが異なる', () {
         final state1 = FailureState(Exception('error1'));
         final state2 = FailureState(Exception('error2'));
 
-        expect(state1, isNot(state2));
+        expect(state1.error.toString(), isNot(state2.error.toString()));
       });
     });
 

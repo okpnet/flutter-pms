@@ -30,8 +30,6 @@ class AuthController extends _$AuthController {
     required String realms,
     required String clientId,
     required String redirectUrl,
-    required String codeVerifier,
-    required String codeChallenge,
     int timeoutSec = ServerConstant.DEFAULT_TIMEOUT,
     List<String> scopes = UriConstant.DEFAULT_SCOPES,
     ILogger? logger,

@@ -293,8 +293,9 @@ void main() {
     });
 
     group('edge cases', () {
-      test('AUTH_MODEL_KEY が正しく設定されている', () {
-        expect(StorageConstant.TOKEN_STORAGE_KEY, 'authstate');
+      test('ストレージキーが正しく設定されている', () {
+        expect(StorageConstant.TOKEN_STORAGE_KEY,
+            'A79A4E2E-5364-49AC-8D0A-10CB7A10AD01');
       });
 
       test('ハンドラーのインスタンス化', () {
