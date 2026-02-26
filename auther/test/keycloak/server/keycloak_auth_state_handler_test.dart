@@ -294,8 +294,10 @@ void main() {
 
     group('edge cases', () {
       test('ストレージキーが正しく設定されている', () {
-        expect(StorageConstant.TOKEN_STORAGE_KEY,
-            'A79A4E2E-5364-49AC-8D0A-10CB7A10AD01');
+        expect(
+          StorageConstant.TOKEN_STORAGE_KEY,
+          'A79A4E2E-5364-49AC-8D0A-10CB7A10AD01',
+        );
       });
 
       test('ハンドラーのインスタンス化', () {

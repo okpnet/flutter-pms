@@ -83,8 +83,10 @@ void main() {
 
         expect(url.queryParameters['response_type'], 'code');
         expect(url.queryParameters['client_id'], 'qual-app');
-        expect(url.queryParameters['redirect_uri'],
-            'http://127.0.0.1:45035/callback');
+        expect(
+          url.queryParameters['redirect_uri'],
+          'http://127.0.0.1:45035/callback',
+        );
         expect(url.queryParameters['scope'], isNotEmpty);
         expect(url.queryParameters['code_challenge'], isNotEmpty);
       });
@@ -174,10 +176,8 @@ void main() {
           scopes: ['openid'],
         );
 
-        expect(
-            model1.authorizationUrl.toString().contains('realm1'), true);
-        expect(
-            model2.authorizationUrl.toString().contains('realm2'), true);
+        expect(model1.authorizationUrl.toString().contains('realm1'), true);
+        expect(model2.authorizationUrl.toString().contains('realm2'), true);
       });
     });
 
