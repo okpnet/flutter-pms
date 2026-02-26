@@ -1,0 +1,20 @@
+name: pms_authenticator_example
+
+environment:
+  sdk: '>=3.10.0 <4.0.0'
+  flutter: '>=1.17.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  pms_authenticator:
+    path: ../
+  webview_flutter: any
+  webview_win_floating: any
+  url_launcher: any
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
