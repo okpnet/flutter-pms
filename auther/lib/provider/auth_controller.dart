@@ -112,4 +112,9 @@ class AuthController extends _$AuthController {
     }
     return false;
   }
+
+  void dispose() {
+    _callbackServer?.dispose();
+    _keycloakServer?.dispose();
+  }
 }
