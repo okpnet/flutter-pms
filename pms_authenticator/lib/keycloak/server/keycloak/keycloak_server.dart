@@ -6,7 +6,7 @@ import 'package:pms_authenticator/keycloak/converter/authentication_model_conver
 import 'package:pms_authenticator/keycloak/model/keycloak_uri_model.dart';
 import 'package:pms_authenticator/keycloak/server/keycloak/keycloak_auth_state_handler.dart';
 import 'package:pms_authenticator/keycloak/server/keycloak/keycloak_http_client.dart';
-import 'package:pms_authenticator/logger/ilogger.dart';
+import 'package:pms_logger/logger_provider.dart';
 import 'package:pms_authenticator/options/results/result.dart';
 import 'package:pms_authenticator/storages/storage.dart';
 import 'package:flutter/foundation.dart';

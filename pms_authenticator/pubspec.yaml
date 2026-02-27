@@ -21,6 +21,7 @@ dependencies:
     git:
       url: https://github.com/okpnet/flutter-pms.git
       path: pms_logger
+      ref: 1e38fe8d3fcb5724cc8414a2bcd4b072eee6ba9a
 dev_dependencies:
   flutter_test:
     sdk: flutter
