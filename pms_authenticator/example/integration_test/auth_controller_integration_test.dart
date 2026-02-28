@@ -97,7 +97,7 @@ void main() {
       Widget webview = Center(
         child: ElevatedButton(
           onPressed: () =>
-              launchUrlString(uriModel.authorizationUrl.toString()),
+              launchUrlString(uriModel.authorizationUri.toString()),
           child: const Text('Open Keycloak Login'),
         ),
       );

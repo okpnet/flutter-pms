@@ -52,7 +52,7 @@ final class KeycloakUriModel implements IAuthUriModel {
 
   // Authorization URL
   @override
-  Uri get authorizationUrl {
+  Uri get authorizationUri {
     final uri = Uri.parse('$baseUrl/${UriConstant.ENDPOINT_AUTH}');
     final newUri = uri.replace(queryParameters: createUrlParameter());
     return newUri;
@@ -60,14 +60,14 @@ final class KeycloakUriModel implements IAuthUriModel {
 
   // Token URL
   @override
-  Uri get tokenUrl {
+  Uri get tokenUri {
     final uri = Uri.parse('$baseUrl/${UriConstant.ENDPOINT_TOKEN}');
     return uri;
   }
 
   // Logout URL
   @override
-  Uri get logoutUrl {
+  Uri get logoutUri {
     final uri = Uri.parse('$baseUrl/${UriConstant.ENDPOINT_LOGOUT}');
     return uri;
   }

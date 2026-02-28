@@ -65,8 +65,8 @@ class KeycloakHttpClient {
   /// POST先URIを取得
   Uri _getPostUri(PostType type) {
     return switch (type) {
-      PostType.logout => uriModel.logoutUrl,
-      _ => uriModel.tokenUrl,
+      PostType.logout => uriModel.logoutUri,
+      _ => uriModel.tokenUri,
     };
   }
 

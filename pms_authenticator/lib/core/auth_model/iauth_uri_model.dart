@@ -1,8 +1,8 @@
 abstract interface class IAuthUriModel {
   // Authorization URL
-  Uri get authorizationUrl;
+  Uri get authorizationUri;
   // Token URL
-  Uri get tokenUrl;
+  Uri get tokenUri;
   // Logout URL
-  Uri get logoutUrl;
+  Uri get logoutUri;
 }

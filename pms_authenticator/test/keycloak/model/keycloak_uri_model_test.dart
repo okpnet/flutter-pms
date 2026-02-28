@@ -170,7 +170,7 @@ void main() {
       });
     });
 
-    group('authorizationUrl', () {
+    group('authorizationUri', () {
       test('正しいエンドポイントを含むURLが生成される', () {
         final model = KeycloakUriModel.generate(
           keycloakUrl: testKeycloakUrl,
@@ -180,7 +180,7 @@ void main() {
           scopes: testScopes,
         );
 
-        final url = model.authorizationUrl;
+        final url = model.authorizationUri;
 
         expect(url.toString(), contains('/realms/$testRealms'));
         expect(
@@ -198,7 +198,7 @@ void main() {
           scopes: testScopes,
         );
 
-        final url = model.authorizationUrl;
+        final url = model.authorizationUri;
 
         expect(url.queryParameters.containsKey('response_type'), true);
         expect(url.queryParameters.containsKey('client_id'), true);
@@ -215,13 +215,13 @@ void main() {
           scopes: testScopes,
         );
 
-        final url = model.authorizationUrl;
+        final url = model.authorizationUri;
 
         expect(url.scheme, 'https');
       });
     });
 
-    group('tokenUrl', () {
+    group('tokenUri', () {
       test('正しいエンドポイントを含むURLが生成される', () {
         final model = KeycloakUriModel.generate(
           keycloakUrl: testKeycloakUrl,
@@ -231,7 +231,7 @@ void main() {
           scopes: testScopes,
         );
 
-        final url = model.tokenUrl;
+        final url = model.tokenUri;
 
         expect(url.toString(), contains('/realms/$testRealms'));
         expect(
@@ -249,7 +249,7 @@ void main() {
           scopes: testScopes,
         );
 
-        final url = model.tokenUrl;
+        final url = model.tokenUri;
 
         expect(url.queryParameters.isEmpty, true);
       });
@@ -263,13 +263,13 @@ void main() {
           scopes: testScopes,
         );
 
-        final url = model.tokenUrl;
+        final url = model.tokenUri;
 
         expect(url.scheme, 'https');
       });
     });
 
-    group('logoutUrl', () {
+    group('logoutUri', () {
       test('正しいエンドポイントを含むURLが生成される', () {
         final model = KeycloakUriModel.generate(
           keycloakUrl: testKeycloakUrl,
@@ -279,7 +279,7 @@ void main() {
           scopes: testScopes,
         );
 
-        final url = model.logoutUrl;
+        final url = model.logoutUri;
 
         expect(url.toString(), contains('/realms/$testRealms'));
         expect(
@@ -297,7 +297,7 @@ void main() {
           scopes: testScopes,
         );
 
-        final url = model.logoutUrl;
+        final url = model.logoutUri;
 
         expect(url.queryParameters.isEmpty, true);
       });
@@ -311,7 +311,7 @@ void main() {
           scopes: testScopes,
         );
 
-        final url = model.logoutUrl;
+        final url = model.logoutUri;
 
         expect(url.scheme, 'https');
       });
@@ -365,7 +365,7 @@ void main() {
           scopes: testScopes,
         );
 
-        final url = model.authorizationUrl;
+        final url = model.authorizationUri;
 
         expect(
           url.queryParameters['client_id'],
@@ -390,7 +390,7 @@ void main() {
           scopes: scopes,
         );
 
-        final url = model.authorizationUrl;
+        final url = model.authorizationUri;
         final scopeParam = url.queryParameters['scope'];
 
         for (final scope in scopes) {
@@ -408,9 +408,9 @@ void main() {
           scopes: testScopes,
         );
 
-        expect(model.authorizationUrl.toString(), contains(differentUrl));
-        expect(model.tokenUrl.toString(), contains(differentUrl));
-        expect(model.logoutUrl.toString(), contains(differentUrl));
+        expect(model.authorizationUri.toString(), contains(differentUrl));
+        expect(model.tokenUri.toString(), contains(differentUrl));
+        expect(model.logoutUri.toString(), contains(differentUrl));
       });
     });
 
@@ -427,7 +427,7 @@ void main() {
         expect(model, isA<IAuthUriModel>());
       });
 
-      test('authorizationUrl getterが存在する', () {
+      test('authorizationUri getterが存在する', () {
         final model = KeycloakUriModel.generate(
           keycloakUrl: testKeycloakUrl,
           realms: testRealms,
@@ -436,10 +436,10 @@ void main() {
           scopes: testScopes,
         );
 
-        expect(model.authorizationUrl, isA<Uri>());
+        expect(model.authorizationUri, isA<Uri>());
       });
 
-      test('tokenUrl getterが存在する', () {
+      test('tokenUri getterが存在する', () {
         final model = KeycloakUriModel.generate(
           keycloakUrl: testKeycloakUrl,
           realms: testRealms,
@@ -448,10 +448,10 @@ void main() {
           scopes: testScopes,
         );
 
-        expect(model.tokenUrl, isA<Uri>());
+        expect(model.tokenUri, isA<Uri>());
       });
 
-      test('logoutUrl getterが存在する', () {
+      test('logoutUri getterが存在する', () {
         final model = KeycloakUriModel.generate(
           keycloakUrl: testKeycloakUrl,
           realms: testRealms,
@@ -460,7 +460,7 @@ void main() {
           scopes: testScopes,
         );
 
-        expect(model.logoutUrl, isA<Uri>());
+        expect(model.logoutUri, isA<Uri>());
       });
     });
   });

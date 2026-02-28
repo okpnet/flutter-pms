@@ -18,6 +18,11 @@ class AuthController extends _$AuthController {
   CallbackServer? _callbackServer;
   KeycloakServer? _keycloakServer;
   ILogger? _loger;
+
+  Uri? get loginUri => _keycloakServer?.uriModel.authorizationUri;
+  Uri? get logoutUri => _keycloakServer?.uriModel.logoutUri;
+  Uri? get tokenUri => _keycloakServer?.uriModel.tokenUri;
+
   AuthController();
 
   @override

@@ -18,21 +18,21 @@ void main() {
 
     group('KeycloakUriModel', () {
       test('authorizationUrl is correctly generated', () {
-        final url = uriModel.authorizationUrl;
+        final url = uriModel.authorizationUri;
         expect(url.toString(), contains('https://qmspi.local:8443'));
         expect(url.toString(), contains('/realms/pms'));
         expect(url.toString(), contains('auth'));
       });
 
-      test('tokenUrl is correctly generated', () {
-        final url = uriModel.tokenUrl;
+      test('tokenUri is correctly generated', () {
+        final url = uriModel.tokenUri;
         expect(url.toString(), contains('https://qmspi.local:8443'));
         expect(url.toString(), contains('/realms/pms'));
         expect(url.toString(), contains('token'));
       });
 
-      test('logoutUrl is correctly generated', () {
-        final url = uriModel.logoutUrl;
+      test('logoutUri is correctly generated', () {
+        final url = uriModel.logoutUri;
         expect(url.toString(), contains('https://qmspi.local:8443'));
         expect(url.toString(), contains('/realms/pms'));
         expect(url.toString(), contains('logout'));
@@ -78,8 +78,8 @@ void main() {
         expect(params['code_challenge_method'], 'S256');
       });
 
-      test('authorizationUrl includes all required parameters', () {
-        final url = uriModel.authorizationUrl;
+      test('authorizationUri includes all required parameters', () {
+        final url = uriModel.authorizationUri;
 
         expect(url.queryParameters['response_type'], 'code');
         expect(url.queryParameters['client_id'], 'qual-app');
@@ -127,33 +127,33 @@ void main() {
     });
 
     group('OAuth2/OIDC Compliance', () {
-      test('authorizationUrl uses HTTPS', () {
-        final url = uriModel.authorizationUrl;
+      test('authorizationUri uses HTTPS', () {
+        final url = uriModel.authorizationUri;
         expect(url.scheme, 'https');
       });
 
-      test('tokenUrl uses HTTPS', () {
-        final url = uriModel.tokenUrl;
+      test('tokenUri uses HTTPS', () {
+        final url = uriModel.tokenUri;
         expect(url.scheme, 'https');
       });
 
-      test('logoutUrl uses HTTPS', () {
-        final url = uriModel.logoutUrl;
+      test('logoutUri uses HTTPS', () {
+        final url = uriModel.logoutUri;
         expect(url.scheme, 'https');
       });
 
-      test('authorizationUrl follows OpenID Connect standard path', () {
-        final url = uriModel.authorizationUrl.toString();
+      test('authorizationUri follows OpenID Connect standard path', () {
+        final url = uriModel.authorizationUri.toString();
         expect(url, contains('/protocol/openid-connect/auth'));
       });
 
-      test('tokenUrl follows OpenID Connect standard path', () {
-        final url = uriModel.tokenUrl.toString();
+      test('tokenUri follows OpenID Connect standard path', () {
+        final url = uriModel.tokenUri.toString();
         expect(url, contains('/protocol/openid-connect/token'));
       });
 
-      test('logoutUrl follows OpenID Connect standard path', () {
-        final url = uriModel.logoutUrl.toString();
+      test('logoutUri follows OpenID Connect standard path', () {
+        final url = uriModel.logoutUri.toString();
         expect(url, contains('/protocol/openid-connect/logout'));
       });
     });
@@ -176,8 +176,8 @@ void main() {
           scopes: ['openid'],
         );
 
-        expect(model1.authorizationUrl.toString().contains('realm1'), true);
-        expect(model2.authorizationUrl.toString().contains('realm2'), true);
+        expect(model1.authorizationUri.toString().contains('realm1'), true);
+        expect(model2.authorizationUri.toString().contains('realm2'), true);
       });
     });
 
@@ -191,7 +191,7 @@ void main() {
           scopes: ['openid', 'profile', 'email', 'address', 'phone'],
         );
 
-        final url = model.authorizationUrl;
+        final url = model.authorizationUri;
         final scope = url.queryParameters['scope'];
 
         expect(scope, contains('openid'));
@@ -210,7 +210,7 @@ void main() {
           scopes: ['openid'],
         );
 
-        final url = model.authorizationUrl;
+        final url = model.authorizationUri;
         expect(url.queryParameters['redirect_uri'], isNotEmpty);
       });
 
