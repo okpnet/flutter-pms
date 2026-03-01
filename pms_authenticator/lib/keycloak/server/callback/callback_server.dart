@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
 class CallbackServer {
@@ -38,6 +39,7 @@ class CallbackServer {
         failerDelegate?.call();
         return;
       }
+      log('code:$code');
       completeDelegate(code);
     });
   }

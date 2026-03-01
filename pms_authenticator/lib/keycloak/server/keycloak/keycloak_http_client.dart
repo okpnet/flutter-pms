@@ -23,32 +23,38 @@ class KeycloakHttpClient {
     PostType type,
     String code,
   ) async {
-    try {
-      if (code.isEmpty) throw Exception('code is empty');
+    final postFuture = () async {
+      try {
+        if (code.isEmpty) throw Exception('code is empty');
 
-      final body = _buildRequestBody(code);
-      final postUri = _getPostUri(type);
+        final body = _buildRequestBody(code);
+        final postUri = _getPostUri(type);
 
-      // 自己証明書エラー可否
-      HttpOverrides.global = PermitInvalidCertification();
-      final res = await http
-          .post(
-            postUri,
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            body: body,
-          )
-          .timeout(
-            Duration(seconds: uriModel.timeoutSec),
-            onTimeout: () {
-              throw NetworkTimeoutException();
-            },
-          );
+        log('uri:$postUri');
+        log('body:${body.toString()}');
 
-      return _handleResponse(type, code, res);
-    } catch (ex) {
-      log('Token exchange error: $ex');
-      return ConnectStateResult.failure(ex as Exception);
-    }
+        // 自己証明書エラー可否
+        HttpOverrides.global = PermitInvalidCertification();
+        final res = await http
+            .post(
+              postUri,
+              headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+              body: body,
+            )
+            .timeout(
+              Duration(seconds: uriModel.timeoutSec),
+              onTimeout: () {
+                throw NetworkTimeoutException();
+              },
+            );
+
+        return _handleResponse(type, code, res);
+      } catch (ex) {
+        log('Token exchange error: $ex');
+        return ConnectStateResult<AuthenticationModel>.failure(ex as Exception);
+      }
+    }();
+    return postFuture;
   }
 
   /// リクエストボディを構築

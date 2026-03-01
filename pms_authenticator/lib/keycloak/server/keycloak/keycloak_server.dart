@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:pms_authenticator/core/auth_model/auth_state_type.dart';
 import 'package:pms_authenticator/core/auth_model/authentication_model.dart';
 import 'package:pms_authenticator/core/auth_model/iauth_uri_model.dart';
@@ -17,7 +19,7 @@ final class KeycloakServer implements IAuthServer {
   final IAuthUriModel authUriModel;
   final IStorageReaderWriter readerWriter;
   final String key = UniqueKey().toString();
-  ILogger? _logger;
+  late final ILogger? _logger;
 
   // 責務分割: HTTP通信とストレージ管理
   late final KeycloakHttpClient _httpClient;
@@ -31,6 +33,7 @@ final class KeycloakServer implements IAuthServer {
     required this.authUriModel,
     KeycloakHttpClient? httpClient,
     KeycloakAuthStateHandler? authStateHandler,
+    ILogger? logger,
   }) {
     readerWriter.converters.addAll({
       (AuthenticationModel).toString(): AuthenticationModelConverter(),
@@ -39,6 +42,9 @@ final class KeycloakServer implements IAuthServer {
     _authStateHandler =
         authStateHandler ??
         KeycloakAuthStateHandler(readerWriter: readerWriter);
+    _logger = logger;
+    log('keycloak codeChallenge:${uriModel.codeChallenge}');
+    log('keycloak codecodeVerifier:${uriModel.codeVerifier}');
   }
 
   // インスタンス生成
@@ -47,12 +53,14 @@ final class KeycloakServer implements IAuthServer {
     required IStorageReaderWriter readWriter,
     KeycloakHttpClient? httpClient,
     KeycloakAuthStateHandler? authStateHandler,
+    ILogger? logger,
   }) {
     final provider = KeycloakServer._(
       readerWriter: readWriter,
       authUriModel: authUriModel,
       httpClient: httpClient,
       authStateHandler: authStateHandler,
+      logger: logger,
     );
     return provider;
   }

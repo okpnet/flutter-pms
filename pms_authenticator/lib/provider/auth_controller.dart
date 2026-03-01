@@ -1,8 +1,9 @@
+import 'dart:developer';
+
 import 'package:pms_authenticator/auth_controller.dart';
 import 'package:pms_authenticator/constant/server_constant.dart';
 import 'package:pms_authenticator/constant/uri_constant.dart';
 import 'package:pms_authenticator/core/auth_model/authentication_model.dart';
-import 'package:pms_authenticator/errors/error.dart';
 import 'package:pms_authenticator/keycloak/converter/authentication_model_converter.dart';
 import 'package:pms_authenticator/keycloak/model/keycloak_uri_model.dart';
 import 'package:pms_authenticator/keycloak/server/callback/callback_server.dart';
@@ -47,7 +48,7 @@ class AuthController extends _$AuthController {
       redirectUrl: redirectUrl,
       scopes: scopes,
     );
-
+    // log('code veriy:${uriModel.codeVerifier}');
     final readWriter = SecureStorageReaderWriter({
       (AuthenticationModel).toString(): AuthenticationModelConverter(),
     });
@@ -55,6 +56,7 @@ class AuthController extends _$AuthController {
     _keycloakServer = KeycloakServer.create(
       authUriModel: uriModel,
       readWriter: readWriter,
+      logger: logger,
     );
 
     //コールバックサーバ
@@ -64,7 +66,16 @@ class AuthController extends _$AuthController {
       throw Exception('keyclaokServer or Callback server create result null.');
     }
 
-    await _callbackServer!.init((code) => _keycloakServer!.login(code));
+    await _callbackServer!.init((code) {
+      Future<void> loginPostStateChanged() async {
+        final result = await _keycloakServer!.login(code);
+        _logging(result);
+      }
+
+      log('callback codeChallenge:${uriModel.codeChallenge}');
+      log('callback codeVerifier:${uriModel.codeVerifier}');
+      loginPostStateChanged();
+    });
 
     //破棄登録
     ref.onDispose(() async {
@@ -98,24 +109,28 @@ class AuthController extends _$AuthController {
     return result;
   }
 
-  bool _logging(ConnectStateResult<AuthStateType>? result) {
+  void _logging(ConnectStateResult<AuthStateType>? result) {
     if (result == null) {
       _loger?.critical('result is null.');
-      return false;
+      _update(AuthStateType.fail);
+      return;
     }
     switch (result) {
       case SuccessState():
         _loger?.debug('change state : ${result.value}');
-        return true;
+        _update(result.value);
+        break;
       case FailureState():
-        if (result.error is NetworkTimeoutException) {
-          _loger?.debug('timeout exception:');
-          return true;
-        }
         _loger?.error('server error', ex: result.error);
+        _update(AuthStateType.fail);
         break;
     }
-    return false;
+  }
+
+  //state更新。同じであれば更新しない(通知されない)。
+  void _update(AuthStateType newState) {
+    if (newState == state) return;
+    state = newState;
   }
 
   void dispose() {

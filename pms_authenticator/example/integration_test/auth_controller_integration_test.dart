@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:pms_authenticator/auth_controller.dart';
 import 'package:pms_authenticator/keycloak/model/keycloak_uri_model.dart';
 import 'package:pms_authenticator/options/results/result.dart';
 import 'package:pms_authenticator/provider/auth_controller.dart';
@@ -13,6 +14,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -48,7 +50,7 @@ void main() {
 
     setUp(() async {
       uriModel = KeycloakUriModel.generate(
-        keycloakUrl: 'https://qmspi.local:8443',
+        keycloakUrl: 'https://okp-04.local:8443',
         clientId: 'qual-app',
         realms: 'pms',
         redirectUrl: 'http://127.0.0.1:45035/callback',
@@ -64,6 +66,7 @@ void main() {
         realms: uriModel.realms,
         clientId: uriModel.clientId,
         redirectUrl: uriModel.redirectUri,
+        logger: Logger(),
       );
     });
 
@@ -94,36 +97,16 @@ void main() {
       // in this environment), provide a simple button that opens the
       // Keycloak authorization URL in the system browser. Manually perform
       // login there; the local callback server will capture the code.
-      Widget webview = Center(
-        child: ElevatedButton(
-          onPressed: () =>
-              launchUrlString(uriModel.authorizationUri.toString()),
-          child: const Text('Open Keycloak Login'),
+      WebViewController? webViewController = WebViewController();
+      webViewController.setJavaScriptMode(JavaScriptMode.unrestricted);
+      await webViewController.loadRequest(uriModel.authorizationUri);
+      Widget webview = Material(
+        child: Scaffold(
+          body: Stack(
+            children: [WebViewWidget(controller: webViewController!)],
+          ),
         ),
       );
-      // if (Platform.isWindows) {
-      //   webview = WebViewWinFloating(
-      //     initialUrl: uriModel.authorizationUrl.toString(),
-      //     javascriptEnabled: true,
-      //     navigationDelegate: (NavigationRequest req) {
-      //       if (req.url.startsWith(uriModel.redirectUri)) {
-      //         return NavigationDecision.prevent;
-      //       }
-      //       return NavigationDecision.navigate;
-      //     },
-      //   );
-      // } else {
-      //   webview = WebView(
-      //     initialUrl: uriModel.authorizationUrl.toString(),
-      //     javascriptMode: JavascriptMode.unrestricted,
-      //     navigationDelegate: (NavigationRequest req) {
-      //       if (req.url.startsWith(uriModel.redirectUri)) {
-      //         return NavigationDecision.prevent;
-      //       }
-      //       return NavigationDecision.navigate;
-      //     },
-      //   );
-      // }
 
       await tester.pumpWidget(
         MaterialApp(
@@ -136,7 +119,7 @@ void main() {
 
       // wait until controller state leaves signedOut (login completed)
       await loginCompleter.future.timeout(
-        const Duration(minutes: 5),
+        const Duration(minutes: 2),
         onTimeout: () => fail('Timeout waiting for login'),
       );
 
