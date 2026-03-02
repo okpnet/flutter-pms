@@ -40,7 +40,7 @@ void main() {
 
     test('warnig メソッドが呼び出せる', () {
       final logger = Logger();
-      expect(() => logger.warnig('test message'), returnsNormally);
+      expect(() => logger.warning('test message'), returnsNormally);
     });
 
     test('例外とスタックトレース付きでログ出力できる', () {
@@ -49,7 +49,8 @@ void main() {
       final st = StackTrace.current;
 
       expect(
-        () => logger.error('error with exception', ex: ex, st: st),
+        () =>
+            logger.error('error with exception', exception: ex, stackTrace: st),
         returnsNormally,
       );
     });

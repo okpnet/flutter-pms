@@ -10,22 +10,22 @@ class Logger implements ILogger {
   factory Logger() => _instance;
 
   @override
-  void critical(String? message, {Exception? ex, StackTrace? st}) =>
-      _logger.critical(message, ex, st);
+  void critical(String? message, {Object? exception, StackTrace? stackTrace}) =>
+      _logger.critical(message, exception, stackTrace);
 
   @override
-  void debug(String? message, {Exception? ex, StackTrace? st}) =>
-      _logger.debug(message, ex, st);
+  void debug(String? message, {Object? exception, StackTrace? stackTrace}) =>
+      _logger.debug(message, exception, stackTrace);
 
   @override
-  void error(String? message, {Exception? ex, StackTrace? st}) =>
-      _logger.error(message, ex, st);
+  void error(String? message, {Object? exception, StackTrace? stackTrace}) =>
+      _logger.error(message, exception, stackTrace);
 
   @override
-  void info(String? message, {Exception? ex, StackTrace? st}) =>
-      _logger.info(message, ex, st);
+  void info(String? message, {Object? exception, StackTrace? stackTrace}) =>
+      _logger.info(message, exception, stackTrace);
 
   @override
-  void warnig(String? message, {Exception? ex, StackTrace? st}) =>
-      _logger.warning(message, ex, st);
+  void warning(String? message, {Object? exception, StackTrace? stackTrace}) =>
+      _logger.warning(message, exception, stackTrace);
 }
