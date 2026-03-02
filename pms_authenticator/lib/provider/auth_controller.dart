@@ -104,8 +104,8 @@ class AuthController extends _$AuthController {
     } catch (ex, st) {
       _logger?.critical(
         'PROVIDER INITIALIZE FAILED.',
-        ex: ex as Exception,
-        st: st,
+        exception: ex as Exception,
+        stackTrace: st,
       );
     }
   }
@@ -151,7 +151,7 @@ class AuthController extends _$AuthController {
         _update(result.value);
         break;
       case FailureState():
-        _logger?.error('POST CONNECTION IS FAILED', ex: result.error);
+        _logger?.error('POST CONNECTION IS FAILED', exception: result.error);
         _update(AuthStateType.fail);
         break;
     }
