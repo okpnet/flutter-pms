@@ -19,7 +19,6 @@ final class KeycloakServer implements IAuthServer {
   final IAuthUriModel authUriModel;
   final IStorageReaderWriter readerWriter;
   final String key = UniqueKey().toString();
-  late final ILogger? _logger;
 
   // 責務分割: HTTP通信とストレージ管理
   late final KeycloakHttpClient _httpClient;
@@ -33,7 +32,6 @@ final class KeycloakServer implements IAuthServer {
     required this.authUriModel,
     KeycloakHttpClient? httpClient,
     KeycloakAuthStateHandler? authStateHandler,
-    ILogger? logger,
   }) {
     readerWriter.converters.addAll({
       (AuthenticationModel).toString(): AuthenticationModelConverter(),
@@ -42,9 +40,9 @@ final class KeycloakServer implements IAuthServer {
     _authStateHandler =
         authStateHandler ??
         KeycloakAuthStateHandler(readerWriter: readerWriter);
-    _logger = logger;
-    log('keycloak codeChallenge:${uriModel.codeChallenge}');
-    log('keycloak codecodeVerifier:${uriModel.codeVerifier}');
+    //debug
+    // log('keycloak codeChallenge:${uriModel.codeChallenge}');
+    // log('keycloak codecodeVerifier:${uriModel.codeVerifier}');
   }
 
   // インスタンス生成
@@ -60,7 +58,6 @@ final class KeycloakServer implements IAuthServer {
       authUriModel: authUriModel,
       httpClient: httpClient,
       authStateHandler: authStateHandler,
-      logger: logger,
     );
     return provider;
   }
@@ -122,32 +119,15 @@ final class KeycloakServer implements IAuthServer {
   Future<ConnectStateResult<AuthStateType>> login(String code) async {
     try {
       if (code.isEmpty) {
-        _logger?.error('No authorization code in callback.');
         return FailureState<AuthStateType>(Exception('Argment code is empty.'));
       }
+      //debug
+      // log('code charenge KeycloakServer:${uriModel.codeChallenge}');
+      // log('code veriy KeycloakServer:${uriModel.codeVerifier}');
       final result = await _httpClient.post(PostType.token, code);
       return _createState(result);
     } catch (e, st) {
-      _logger?.critical('Callback wait error', ex: e as Exception, st: st);
       return FailureState<AuthStateType>(e as Exception);
-    }
-  }
-
-  Future<void> dispose() async {
-    // callbackServer?.close(force: true);
-    try {
-      for (int counter = 0; counter < 1000; counter++) {
-        await Future.delayed(const Duration(milliseconds: 120));
-      }
-      _logger?.debug('KeycloakProvider post completed or timed out.');
-    } catch (e, st) {
-      _logger?.critical(
-        'Error waiting for in-flight post to complete',
-        ex: e as Exception,
-        st: st,
-      );
-    } finally {
-      _logger?.debug('KeycloakProvider disposed');
     }
   }
 }

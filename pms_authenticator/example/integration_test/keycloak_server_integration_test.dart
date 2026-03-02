@@ -75,7 +75,6 @@ void main() {
 
     tearDown(() async {
       callbackServer.dispose();
-      await server.dispose();
     });
 
     testWidgets('full interactive login/logout sequence', (

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:pms_authenticator/auth_controller.dart';
 import 'package:pms_authenticator/constant/server_constant.dart';
 import 'package:pms_authenticator/constant/uri_constant.dart';
@@ -18,7 +16,7 @@ part 'auth_controller.g.dart';
 class AuthController extends _$AuthController {
   CallbackServer? _callbackServer;
   KeycloakServer? _keycloakServer;
-  ILogger? _loger;
+  ILogger? _logger;
 
   Uri? get loginUri => _keycloakServer?.uriModel.authorizationUri;
   Uri? get logoutUri => _keycloakServer?.uriModel.logoutUri;
@@ -40,55 +38,85 @@ class AuthController extends _$AuthController {
     List<String> scopes = UriConstant.DEFAULT_SCOPES,
     ILogger? logger,
   }) async {
-    _loger = logger;
-    final uriModel = KeycloakUriModel.generate(
-      keycloakUrl: authUrlroot,
-      realms: realms,
-      clientId: clientId,
-      redirectUrl: redirectUrl,
-      scopes: scopes,
-    );
-    // log('code veriy:${uriModel.codeVerifier}');
-    final readWriter = SecureStorageReaderWriter({
-      (AuthenticationModel).toString(): AuthenticationModelConverter(),
-    });
+    _logger = logger;
 
-    _keycloakServer = KeycloakServer.create(
-      authUriModel: uriModel,
-      readWriter: readWriter,
-      logger: logger,
-    );
+    try {
+      final uriModel = KeycloakUriModel.generate(
+        keycloakUrl: authUrlroot,
+        realms: realms,
+        clientId: clientId,
+        redirectUrl: redirectUrl,
+        scopes: scopes,
+      );
+      //debug
+      // log('code charenge AuthController:${uriModel.codeChallenge}');
+      // log('code veriy AuthController:${uriModel.codeVerifier}');
+      final readWriter = SecureStorageReaderWriter({
+        (AuthenticationModel).toString(): AuthenticationModelConverter(),
+      });
 
-    //コールバックサーバ
-    _callbackServer = CallbackServer(url: uriModel.redirectUri);
+      _keycloakServer = KeycloakServer.create(
+        authUriModel: uriModel,
+        readWriter: readWriter,
+        logger: logger,
+      );
 
-    if (_keycloakServer == null || _callbackServer == null) {
-      throw Exception('keyclaokServer or Callback server create result null.');
-    }
+      //コールバックサーバ
+      _callbackServer = CallbackServer(
+        url: uriModel.redirectUri,
+        logger: logger,
+      );
 
-    await _callbackServer!.init((code) {
-      Future<void> loginPostStateChanged() async {
-        final result = await _keycloakServer!.login(code);
-        _logging(result);
+      if (_keycloakServer == null || _callbackServer == null) {
+        throw Exception(
+          'keyclaokServer or Callback server create result null.',
+        );
       }
 
-      log('callback codeChallenge:${uriModel.codeChallenge}');
-      log('callback codeVerifier:${uriModel.codeVerifier}');
-      loginPostStateChanged();
-    });
+      _logger?.debug('Server initialize success.${uriModel.baseUrl}');
 
-    //破棄登録
-    ref.onDispose(() async {
-      _callbackServer?.dispose();
-      _callbackServer = null;
-    });
+      await _callbackServer!.init((code) {
+        Future<void> loginPostStateChanged() async {
+          _logger?.debug('response code : $code');
+          _logger?.info('LOGIN START ${uriModel.authorizationUri}');
+          final result = await _keycloakServer!.login(code);
+          _logging(result);
+          _logger?.info('LOGIN COMPLETE');
+        }
+
+        //debug
+        // log('callback codeChallenge:${uriModel.codeChallenge}');
+        // log('callback codeVerifier:${uriModel.codeVerifier}');
+        loginPostStateChanged();
+        _logger?.debug(
+          'Registered the login success function.${uriModel.redirectUri}',
+        );
+      });
+
+      //破棄登録
+      ref.onDispose(() async {
+        _callbackServer?.dispose();
+        _callbackServer = null;
+      });
+
+      _logger?.debug('The provider registerd dispose function.');
+      _logger?.info('PROVIDER INITIALIZE COMPLETE');
+    } catch (ex, st) {
+      _logger?.critical(
+        'PROVIDER INITIALIZE FAILED.',
+        ex: ex as Exception,
+        st: st,
+      );
+    }
   }
 
   //トークン更新
   Future<void> refreshToken() async {
+    _logger?.info('TOKEN REFRESH START');
     if (!_validate()) return;
     final result = await _keycloakServer?.refreshToken();
     _logging(result);
+    _logger?.info('TOKEN REFRESH COMPLETE');
   }
 
   // //ログイン
@@ -98,30 +126,32 @@ class AuthController extends _$AuthController {
 
   //ログアウト
   Future<void> logout() async {
+    _logger?.info('LOGOUT START');
     if (!_validate()) return;
     final result = await _keycloakServer?.logout();
     _logging(result);
+    _logger?.info('LOGOUT COMPLETE');
   }
 
   bool _validate() {
     final result = _keycloakServer != null && _callbackServer != null;
-    _loger?.debug('initi state : $result');
+    _logger?.debug('check state: $result');
     return result;
   }
 
   void _logging(ConnectStateResult<AuthStateType>? result) {
     if (result == null) {
-      _loger?.critical('result is null.');
+      _logger?.error('RESULT OF THE POST CONNECTION IS NULL');
       _update(AuthStateType.fail);
       return;
     }
     switch (result) {
       case SuccessState():
-        _loger?.debug('change state : ${result.value}');
+        _logger?.debug('result state : ${result.value}');
         _update(result.value);
         break;
       case FailureState():
-        _loger?.error('server error', ex: result.error);
+        _logger?.error('POST CONNECTION IS FAILED', ex: result.error);
         _update(AuthStateType.fail);
         break;
     }
@@ -129,12 +159,13 @@ class AuthController extends _$AuthController {
 
   //state更新。同じであれば更新しない(通知されない)。
   void _update(AuthStateType newState) {
+    _logger?.debug('change state ${newState == state}: $state -> $newState');
     if (newState == state) return;
     state = newState;
   }
 
   void dispose() {
     _callbackServer?.dispose();
-    _keycloakServer?.dispose();
+    _keycloakServer = null;
   }
 }

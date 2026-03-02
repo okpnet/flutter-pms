@@ -1,19 +1,15 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:pms_authenticator/auth_controller.dart';
 import 'package:pms_authenticator/keycloak/model/keycloak_uri_model.dart';
 import 'package:pms_authenticator/options/results/result.dart';
-import 'package:pms_authenticator/provider/auth_controller.dart';
 import 'package:pms_authenticator/storages/storage.dart';
 import 'package:pms_authenticator/keycloak/server/keycloak/keycloak_auth_state_handler.dart';
 import 'package:pms_authenticator/core/auth_model/authentication_model.dart';
-import 'package:pms_authenticator/core/auth_model/auth_state_type.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:riverpod/riverpod.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 void main() {
@@ -50,7 +46,8 @@ void main() {
 
     setUp(() async {
       uriModel = KeycloakUriModel.generate(
-        keycloakUrl: 'https://okp-04.local:8443',
+        // keycloakUrl: 'https://okp-04.local:8443',
+        keycloakUrl: 'https://qmspi.local:8443',
         clientId: 'qual-app',
         realms: 'pms',
         redirectUrl: 'http://127.0.0.1:45035/callback',
