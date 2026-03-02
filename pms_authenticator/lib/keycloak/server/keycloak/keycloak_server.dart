@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:pms_authenticator/core/auth_model/auth_state_type.dart';
 import 'package:pms_authenticator/core/auth_model/authentication_model.dart';
 import 'package:pms_authenticator/core/auth_model/iauth_uri_model.dart';
@@ -40,9 +38,6 @@ final class KeycloakServer implements IAuthServer {
     _authStateHandler =
         authStateHandler ??
         KeycloakAuthStateHandler(readerWriter: readerWriter);
-    //debug
-    // log('keycloak codeChallenge:${uriModel.codeChallenge}');
-    // log('keycloak codecodeVerifier:${uriModel.codeVerifier}');
   }
 
   // インスタンス生成
@@ -121,9 +116,6 @@ final class KeycloakServer implements IAuthServer {
       if (code.isEmpty) {
         return FailureState<AuthStateType>(Exception('Argment code is empty.'));
       }
-      //debug
-      // log('code charenge KeycloakServer:${uriModel.codeChallenge}');
-      // log('code veriy KeycloakServer:${uriModel.codeVerifier}');
       final result = await _httpClient.post(PostType.token, code);
       return _createState(result);
     } catch (e, st) {

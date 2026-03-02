@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:io';
 
+import 'package:pms_authenticator/constant/uri_constant.dart';
 import 'package:pms_authenticator/core/auth_model/authentication_model.dart';
 import 'package:pms_authenticator/errors/error.dart';
 import 'package:pms_authenticator/keycloak/model/auth_state_kyclaok_model.dart';
@@ -30,9 +30,6 @@ class KeycloakHttpClient {
         final body = _buildRequestBody(code);
         final postUri = _getPostUri(type);
 
-        log('uri:$postUri');
-        log('body:${body.toString()}');
-
         // 自己証明書エラー可否
         HttpOverrides.global = PermitInvalidCertification();
         final res = await http
@@ -50,7 +47,6 @@ class KeycloakHttpClient {
 
         return _handleResponse(type, code, res);
       } catch (ex) {
-        log('Token exchange error: $ex');
         return ConnectStateResult<AuthenticationModel>.failure(ex as Exception);
       }
     }();
@@ -60,11 +56,11 @@ class KeycloakHttpClient {
   /// リクエストボディを構築
   Map<String, String> _buildRequestBody(String code) {
     return <String, String>{
-      'grant_type': 'authorization_code',
-      'client_id': uriModel.clientId,
-      'code': code,
-      'redirect_uri': uriModel.redirectUri,
-      'code_verifier': uriModel.codeVerifier, // ★ PKCE
+      UriConstant.GRANT_TYPE: 'authorization_code',
+      UriConstant.CLIENT_ID: uriModel.clientId,
+      UriConstant.CODE: code,
+      UriConstant.REDIRECT_URI: uriModel.redirectUri,
+      UriConstant.CODE_VERIFIER: uriModel.codeVerifier, // ★ PKCE
     };
   }
 
