@@ -119,6 +119,19 @@ class AuthController extends _$AuthController {
     _logger?.info('TOKEN REFRESH COMPLETE');
   }
 
+  //有効期限チェック
+  // isExpiredは、認証状態が有効期限切れかどうかを返すプロパティで、非同期にトークンの状態を確認します。
+  Future<bool> checkAndApplyExpiration() async {
+    if (!_validate()) throw Exception('Server is not initialized.');
+    final isExpired = await _keycloakServer!.isExpried;
+    if (isExpired) {
+      _logger?.info('TOKEN IS EXPIRED');
+      _update(AuthStateType.expired);
+    } else {
+      _logger?.info('TOKEN IS VALID');
+    }
+    return isExpired;
+  }
   // //ログイン
   // Future<void> login() async {
   //   if (!_validate()) return;

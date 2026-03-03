@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:pms_authenticator/core/auth_model/auth_state_type.dart';
 import 'package:pms_authenticator/core/auth_model/authentication_model.dart';
 import 'package:pms_authenticator/core/auth_model/iauth_uri_model.dart';
@@ -21,8 +23,14 @@ final class KeycloakServer implements IAuthServer {
   // 責務分割: HTTP通信とストレージ管理
   late final KeycloakHttpClient _httpClient;
   late final KeycloakAuthStateHandler _authStateHandler;
-
+  //アクセスに必要なURLの取得
+  //使用者がURLを必要とするときは、KeycloakUriModelから直接アクセスすることができます。
   KeycloakUriModel get uriModel => authUriModel as KeycloakUriModel;
+  //有効期限チェック
+  // isExpiredは、認証状態が有効期限切れかどうかを返すプロパティで、非同期にトークンの状態を確認します。
+  @override
+  FutureOr<bool> get isExpried async =>
+      await _authStateHandler.shouldRefreshToken();
 
   // コンストラクタ
   KeycloakServer._({
