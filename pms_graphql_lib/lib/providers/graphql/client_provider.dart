@@ -19,11 +19,16 @@ final class GraphQLClientProvider {
   late final Duration timeLimit;
   late final GraphQLClient client;
 
-  GraphQLClientProvider(this._url, {int? timeLimit, isHasura = false}) {
+  GraphQLClientProvider(
+    this._url, {
+    int? timeLimit,
+    isHasura = false,
+    GraphQLClient? graphQLClient,
+  }) {
     this.timeLimit = timeLimit != null
         ? Duration(seconds: timeLimit)
         : const Duration(seconds: GraphqlConstants.timeoutDurationInSeconds);
-    client = _initialize();
+    client = graphQLClient ?? _initialize();
   }
 
   // GraphQLのクエリやミューテーションがタイムアウトした場合にスローされる例外を作成する関数
@@ -167,7 +172,7 @@ final class GraphQLClientProvider {
   //GraphQLClientを初期化する関数。HttpLinkを作成し、GraphQLClientを作成する。デフォルトのポリシーは、クエリとミューテーションの両方で、ネットワークからデータを取得し、すべてのエラーを処理するように設定されている。
   GraphQLClient _initialize() {
     final httpLink = HttpLink(_url);
-    client = GraphQLClient(
+    final _client = GraphQLClient(
       link: httpLink,
       cache: GraphQLCache(),
       defaultPolicies: DefaultPolicies(
@@ -178,6 +183,6 @@ final class GraphQLClientProvider {
         ),
       ),
     );
-    return client;
+    return _client;
   }
 }
