@@ -7,4 +7,4 @@ targets:
           outputDirectory: "generated" #生成されたクラスの保管DIR
           schemaPath: "lib/graphql/schema.graphql" #Typeやらの
           clients: #ここが無いとOptionsが生成されない
-            - graphql
+            - graphql_flutter

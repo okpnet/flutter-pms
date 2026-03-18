@@ -22,7 +22,7 @@ final class GraphQLClientProvider {
 
   GraphQLClientProvider(
     this.url, {
-    this.headers=const {},
+    this.headers = const {},
     int? timeLimit,
     isHasura = false,
     GraphQLClient? graphQLClient,
@@ -173,9 +173,11 @@ final class GraphQLClientProvider {
 
   //GraphQLClientを初期化する関数。HttpLinkを作成し、GraphQLClientを作成する。デフォルトのポリシーは、クエリとミューテーションの両方で、ネットワークからデータを取得し、すべてのエラーを処理するように設定されている。
   GraphQLClient _initialize() {
-    final httpLink = HttpLink(url,defaultHeaders: headers);
+    final httpLink = HttpLink(url, defaultHeaders: headers);
     final _client = GraphQLClient(
       link: httpLink,
+      queryRequestTimeout: timeLimit,
+
       cache: GraphQLCache(),
       defaultPolicies: DefaultPolicies(
         query: Policies(fetch: FetchPolicy.networkOnly, error: ErrorPolicy.all),
