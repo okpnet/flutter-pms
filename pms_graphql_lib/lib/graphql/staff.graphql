@@ -1,5 +1,5 @@
-query StaffQuery {
-  tests_info_staff(where: {remove: {_eq: false, _is_null: true}}) {
+query StaffQuery($remove:Boolean=false,$where: tests_info_staff_bool_exp) {
+  tests_info_staff(where: {and:[{remove:{_eq:$remove}},$where]}) {
     code
     kana
     name
@@ -13,7 +13,7 @@ query StaffQuery {
     update_user_id
     remarks
   }
-  tests_info_staff_aggregate(where: {remove: {_eq: false, _is_null: true}}) {
+  tests_info_staff_aggregate(where: {remove: {_eq: $remove}}) {
     aggregate {
       count
     }

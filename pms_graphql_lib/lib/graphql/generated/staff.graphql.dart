@@ -1,4 +1,140 @@
+import 'dart:async';
+import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
+import 'package:graphql/client.dart' as graphql;
+import 'package:graphql_flutter/graphql_flutter.dart' as graphql_flutter;
+import 'schema.graphql.dart';
+
+class Variables$Query$StaffQuery {
+  factory Variables$Query$StaffQuery({
+    bool? remove,
+    Input$tests_info_staff_bool_exp? where,
+  }) => Variables$Query$StaffQuery._({
+    if (remove != null) r'remove': remove,
+    if (where != null) r'where': where,
+  });
+
+  Variables$Query$StaffQuery._(this._$data);
+
+  factory Variables$Query$StaffQuery.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    if (data.containsKey('remove')) {
+      final l$remove = data['remove'];
+      result$data['remove'] = (l$remove as bool?);
+    }
+    if (data.containsKey('where')) {
+      final l$where = data['where'];
+      result$data['where'] = l$where == null
+          ? null
+          : Input$tests_info_staff_bool_exp.fromJson(
+              (l$where as Map<String, dynamic>),
+            );
+    }
+    return Variables$Query$StaffQuery._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  bool? get remove => (_$data['remove'] as bool?);
+
+  Input$tests_info_staff_bool_exp? get where =>
+      (_$data['where'] as Input$tests_info_staff_bool_exp?);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    if (_$data.containsKey('remove')) {
+      final l$remove = remove;
+      result$data['remove'] = l$remove;
+    }
+    if (_$data.containsKey('where')) {
+      final l$where = where;
+      result$data['where'] = l$where?.toJson();
+    }
+    return result$data;
+  }
+
+  CopyWith$Variables$Query$StaffQuery<Variables$Query$StaffQuery>
+  get copyWith => CopyWith$Variables$Query$StaffQuery(this, (i) => i);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Variables$Query$StaffQuery ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$remove = remove;
+    final lOther$remove = other.remove;
+    if (_$data.containsKey('remove') != other._$data.containsKey('remove')) {
+      return false;
+    }
+    if (l$remove != lOther$remove) {
+      return false;
+    }
+    final l$where = where;
+    final lOther$where = other.where;
+    if (_$data.containsKey('where') != other._$data.containsKey('where')) {
+      return false;
+    }
+    if (l$where != lOther$where) {
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$remove = remove;
+    final l$where = where;
+    return Object.hashAll([
+      _$data.containsKey('remove') ? l$remove : const {},
+      _$data.containsKey('where') ? l$where : const {},
+    ]);
+  }
+}
+
+abstract class CopyWith$Variables$Query$StaffQuery<TRes> {
+  factory CopyWith$Variables$Query$StaffQuery(
+    Variables$Query$StaffQuery instance,
+    TRes Function(Variables$Query$StaffQuery) then,
+  ) = _CopyWithImpl$Variables$Query$StaffQuery;
+
+  factory CopyWith$Variables$Query$StaffQuery.stub(TRes res) =
+      _CopyWithStubImpl$Variables$Query$StaffQuery;
+
+  TRes call({bool? remove, Input$tests_info_staff_bool_exp? where});
+}
+
+class _CopyWithImpl$Variables$Query$StaffQuery<TRes>
+    implements CopyWith$Variables$Query$StaffQuery<TRes> {
+  _CopyWithImpl$Variables$Query$StaffQuery(this._instance, this._then);
+
+  final Variables$Query$StaffQuery _instance;
+
+  final TRes Function(Variables$Query$StaffQuery) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({Object? remove = _undefined, Object? where = _undefined}) => _then(
+    Variables$Query$StaffQuery._({
+      ..._instance._$data,
+      if (remove != _undefined) 'remove': (remove as bool?),
+      if (where != _undefined)
+        'where': (where as Input$tests_info_staff_bool_exp?),
+    }),
+  );
+}
+
+class _CopyWithStubImpl$Variables$Query$StaffQuery<TRes>
+    implements CopyWith$Variables$Query$StaffQuery<TRes> {
+  _CopyWithStubImpl$Variables$Query$StaffQuery(this._res);
+
+  TRes _res;
+
+  call({bool? remove, Input$tests_info_staff_bool_exp? where}) => _res;
+}
 
 class Query$StaffQuery {
   Query$StaffQuery({
@@ -210,7 +346,26 @@ const documentNodeQueryStaffQuery = DocumentNode(
     OperationDefinitionNode(
       type: OperationType.query,
       name: NameNode(value: 'StaffQuery'),
-      variableDefinitions: [],
+      variableDefinitions: [
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'remove')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'Boolean'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: BooleanValueNode(value: false)),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'where')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'tests_info_staff_bool_exp'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+      ],
       directives: [],
       selectionSet: SelectionSetNode(
         selections: [
@@ -223,17 +378,27 @@ const documentNodeQueryStaffQuery = DocumentNode(
                 value: ObjectValueNode(
                   fields: [
                     ObjectFieldNode(
-                      name: NameNode(value: 'remove'),
-                      value: ObjectValueNode(
-                        fields: [
-                          ObjectFieldNode(
-                            name: NameNode(value: '_eq'),
-                            value: BooleanValueNode(value: false),
+                      name: NameNode(value: 'and'),
+                      value: ListValueNode(
+                        values: [
+                          ObjectValueNode(
+                            fields: [
+                              ObjectFieldNode(
+                                name: NameNode(value: 'remove'),
+                                value: ObjectValueNode(
+                                  fields: [
+                                    ObjectFieldNode(
+                                      name: NameNode(value: '_eq'),
+                                      value: VariableNode(
+                                        name: NameNode(value: 'remove'),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
-                          ObjectFieldNode(
-                            name: NameNode(value: '_is_null'),
-                            value: BooleanValueNode(value: true),
-                          ),
+                          VariableNode(name: NameNode(value: 'where')),
                         ],
                       ),
                     ),
@@ -352,11 +517,9 @@ const documentNodeQueryStaffQuery = DocumentNode(
                         fields: [
                           ObjectFieldNode(
                             name: NameNode(value: '_eq'),
-                            value: BooleanValueNode(value: false),
-                          ),
-                          ObjectFieldNode(
-                            name: NameNode(value: '_is_null'),
-                            value: BooleanValueNode(value: true),
+                            value: VariableNode(
+                              name: NameNode(value: 'remove'),
+                            ),
                           ),
                         ],
                       ),
@@ -414,6 +577,154 @@ const documentNodeQueryStaffQuery = DocumentNode(
     ),
   ],
 );
+Query$StaffQuery _parserFn$Query$StaffQuery(Map<String, dynamic> data) =>
+    Query$StaffQuery.fromJson(data);
+typedef OnQueryComplete$Query$StaffQuery =
+    FutureOr<void> Function(Map<String, dynamic>?, Query$StaffQuery?);
+
+class Options$Query$StaffQuery extends graphql.QueryOptions<Query$StaffQuery> {
+  Options$Query$StaffQuery({
+    String? operationName,
+    Variables$Query$StaffQuery? variables,
+    graphql.FetchPolicy? fetchPolicy,
+    graphql.ErrorPolicy? errorPolicy,
+    graphql.CacheRereadPolicy? cacheRereadPolicy,
+    Object? optimisticResult,
+    Query$StaffQuery? typedOptimisticResult,
+    Duration? pollInterval,
+    graphql.Context? context,
+    OnQueryComplete$Query$StaffQuery? onComplete,
+    graphql.OnQueryError? onError,
+  }) : onCompleteWithParsed = onComplete,
+       super(
+         variables: variables?.toJson() ?? {},
+         operationName: operationName,
+         fetchPolicy: fetchPolicy,
+         errorPolicy: errorPolicy,
+         cacheRereadPolicy: cacheRereadPolicy,
+         optimisticResult: optimisticResult ?? typedOptimisticResult?.toJson(),
+         pollInterval: pollInterval,
+         context: context,
+         onComplete: onComplete == null
+             ? null
+             : (data) => onComplete(
+                 data,
+                 data == null ? null : _parserFn$Query$StaffQuery(data),
+               ),
+         onError: onError,
+         document: documentNodeQueryStaffQuery,
+         parserFn: _parserFn$Query$StaffQuery,
+       );
+
+  final OnQueryComplete$Query$StaffQuery? onCompleteWithParsed;
+
+  @override
+  List<Object?> get properties => [
+    ...super.onComplete == null
+        ? super.properties
+        : super.properties.where((property) => property != onComplete),
+    onCompleteWithParsed,
+  ];
+}
+
+class WatchOptions$Query$StaffQuery
+    extends graphql.WatchQueryOptions<Query$StaffQuery> {
+  WatchOptions$Query$StaffQuery({
+    String? operationName,
+    Variables$Query$StaffQuery? variables,
+    graphql.FetchPolicy? fetchPolicy,
+    graphql.ErrorPolicy? errorPolicy,
+    graphql.CacheRereadPolicy? cacheRereadPolicy,
+    Object? optimisticResult,
+    Query$StaffQuery? typedOptimisticResult,
+    graphql.Context? context,
+    Duration? pollInterval,
+    bool? eagerlyFetchResults,
+    bool carryForwardDataOnException = true,
+    bool fetchResults = false,
+  }) : super(
+         variables: variables?.toJson() ?? {},
+         operationName: operationName,
+         fetchPolicy: fetchPolicy,
+         errorPolicy: errorPolicy,
+         cacheRereadPolicy: cacheRereadPolicy,
+         optimisticResult: optimisticResult ?? typedOptimisticResult?.toJson(),
+         context: context,
+         document: documentNodeQueryStaffQuery,
+         pollInterval: pollInterval,
+         eagerlyFetchResults: eagerlyFetchResults,
+         carryForwardDataOnException: carryForwardDataOnException,
+         fetchResults: fetchResults,
+         parserFn: _parserFn$Query$StaffQuery,
+       );
+}
+
+class FetchMoreOptions$Query$StaffQuery extends graphql.FetchMoreOptions {
+  FetchMoreOptions$Query$StaffQuery({
+    required graphql.UpdateQuery updateQuery,
+    Variables$Query$StaffQuery? variables,
+  }) : super(
+         updateQuery: updateQuery,
+         variables: variables?.toJson() ?? {},
+         document: documentNodeQueryStaffQuery,
+       );
+}
+
+extension ClientExtension$Query$StaffQuery on graphql.GraphQLClient {
+  Future<graphql.QueryResult<Query$StaffQuery>> query$StaffQuery([
+    Options$Query$StaffQuery? options,
+  ]) async => await this.query(options ?? Options$Query$StaffQuery());
+
+  graphql.ObservableQuery<Query$StaffQuery> watchQuery$StaffQuery([
+    WatchOptions$Query$StaffQuery? options,
+  ]) => this.watchQuery(options ?? WatchOptions$Query$StaffQuery());
+
+  void writeQuery$StaffQuery({
+    required Query$StaffQuery data,
+    Variables$Query$StaffQuery? variables,
+    bool broadcast = true,
+  }) => this.writeQuery(
+    graphql.Request(
+      operation: graphql.Operation(document: documentNodeQueryStaffQuery),
+      variables: variables?.toJson() ?? const {},
+    ),
+    data: data.toJson(),
+    broadcast: broadcast,
+  );
+
+  Query$StaffQuery? readQuery$StaffQuery({
+    Variables$Query$StaffQuery? variables,
+    bool optimistic = true,
+  }) {
+    final result = this.readQuery(
+      graphql.Request(
+        operation: graphql.Operation(document: documentNodeQueryStaffQuery),
+        variables: variables?.toJson() ?? const {},
+      ),
+      optimistic: optimistic,
+    );
+    return result == null ? null : Query$StaffQuery.fromJson(result);
+  }
+}
+
+graphql_flutter.QueryHookResult<Query$StaffQuery> useQuery$StaffQuery([
+  Options$Query$StaffQuery? options,
+]) => graphql_flutter.useQuery(options ?? Options$Query$StaffQuery());
+graphql.ObservableQuery<Query$StaffQuery> useWatchQuery$StaffQuery([
+  WatchOptions$Query$StaffQuery? options,
+]) => graphql_flutter.useWatchQuery(options ?? WatchOptions$Query$StaffQuery());
+
+class Query$StaffQuery$Widget extends graphql_flutter.Query<Query$StaffQuery> {
+  Query$StaffQuery$Widget({
+    widgets.Key? key,
+    Options$Query$StaffQuery? options,
+    required graphql_flutter.QueryBuilder<Query$StaffQuery> builder,
+  }) : super(
+         key: key,
+         options: options ?? Options$Query$StaffQuery(),
+         builder: builder,
+       );
+}
 
 class Query$StaffQuery$tests_info_staff {
   Query$StaffQuery$tests_info_staff({
@@ -1515,6 +1826,198 @@ const documentNodeMutationStaffEdit = DocumentNode(
     ),
   ],
 );
+Mutation$StaffEdit _parserFn$Mutation$StaffEdit(Map<String, dynamic> data) =>
+    Mutation$StaffEdit.fromJson(data);
+typedef OnMutationCompleted$Mutation$StaffEdit =
+    FutureOr<void> Function(Map<String, dynamic>?, Mutation$StaffEdit?);
+
+class Options$Mutation$StaffEdit
+    extends graphql.MutationOptions<Mutation$StaffEdit> {
+  Options$Mutation$StaffEdit({
+    String? operationName,
+    graphql.FetchPolicy? fetchPolicy,
+    graphql.ErrorPolicy? errorPolicy,
+    graphql.CacheRereadPolicy? cacheRereadPolicy,
+    Object? optimisticResult,
+    Mutation$StaffEdit? typedOptimisticResult,
+    graphql.Context? context,
+    OnMutationCompleted$Mutation$StaffEdit? onCompleted,
+    graphql.OnMutationUpdate<Mutation$StaffEdit>? update,
+    graphql.OnError? onError,
+  }) : onCompletedWithParsed = onCompleted,
+       super(
+         operationName: operationName,
+         fetchPolicy: fetchPolicy,
+         errorPolicy: errorPolicy,
+         cacheRereadPolicy: cacheRereadPolicy,
+         optimisticResult: optimisticResult ?? typedOptimisticResult?.toJson(),
+         context: context,
+         onCompleted: onCompleted == null
+             ? null
+             : (data) => onCompleted(
+                 data,
+                 data == null ? null : _parserFn$Mutation$StaffEdit(data),
+               ),
+         update: update,
+         onError: onError,
+         document: documentNodeMutationStaffEdit,
+         parserFn: _parserFn$Mutation$StaffEdit,
+       );
+
+  final OnMutationCompleted$Mutation$StaffEdit? onCompletedWithParsed;
+
+  @override
+  List<Object?> get properties => [
+    ...super.onCompleted == null
+        ? super.properties
+        : super.properties.where((property) => property != onCompleted),
+    onCompletedWithParsed,
+  ];
+}
+
+class WatchOptions$Mutation$StaffEdit
+    extends graphql.WatchQueryOptions<Mutation$StaffEdit> {
+  WatchOptions$Mutation$StaffEdit({
+    String? operationName,
+    graphql.FetchPolicy? fetchPolicy,
+    graphql.ErrorPolicy? errorPolicy,
+    graphql.CacheRereadPolicy? cacheRereadPolicy,
+    Object? optimisticResult,
+    Mutation$StaffEdit? typedOptimisticResult,
+    graphql.Context? context,
+    Duration? pollInterval,
+    bool? eagerlyFetchResults,
+    bool carryForwardDataOnException = true,
+    bool fetchResults = false,
+  }) : super(
+         operationName: operationName,
+         fetchPolicy: fetchPolicy,
+         errorPolicy: errorPolicy,
+         cacheRereadPolicy: cacheRereadPolicy,
+         optimisticResult: optimisticResult ?? typedOptimisticResult?.toJson(),
+         context: context,
+         document: documentNodeMutationStaffEdit,
+         pollInterval: pollInterval,
+         eagerlyFetchResults: eagerlyFetchResults,
+         carryForwardDataOnException: carryForwardDataOnException,
+         fetchResults: fetchResults,
+         parserFn: _parserFn$Mutation$StaffEdit,
+       );
+}
+
+extension ClientExtension$Mutation$StaffEdit on graphql.GraphQLClient {
+  Future<graphql.QueryResult<Mutation$StaffEdit>> mutate$StaffEdit([
+    Options$Mutation$StaffEdit? options,
+  ]) async => await this.mutate(options ?? Options$Mutation$StaffEdit());
+
+  graphql.ObservableQuery<Mutation$StaffEdit> watchMutation$StaffEdit([
+    WatchOptions$Mutation$StaffEdit? options,
+  ]) => this.watchMutation(options ?? WatchOptions$Mutation$StaffEdit());
+}
+
+class Mutation$StaffEdit$HookResult {
+  Mutation$StaffEdit$HookResult(this.runMutation, this.result);
+
+  final RunMutation$Mutation$StaffEdit runMutation;
+
+  final graphql.QueryResult<Mutation$StaffEdit> result;
+}
+
+Mutation$StaffEdit$HookResult useMutation$StaffEdit([
+  WidgetOptions$Mutation$StaffEdit? options,
+]) {
+  final result = graphql_flutter.useMutation(
+    options ?? WidgetOptions$Mutation$StaffEdit(),
+  );
+  return Mutation$StaffEdit$HookResult(
+    ({optimisticResult, typedOptimisticResult}) => result.runMutation(
+      const {},
+      optimisticResult: optimisticResult ?? typedOptimisticResult?.toJson(),
+    ),
+    result.result,
+  );
+}
+
+graphql.ObservableQuery<Mutation$StaffEdit> useWatchMutation$StaffEdit([
+  WatchOptions$Mutation$StaffEdit? options,
+]) => graphql_flutter.useWatchMutation(
+  options ?? WatchOptions$Mutation$StaffEdit(),
+);
+
+class WidgetOptions$Mutation$StaffEdit
+    extends graphql.MutationOptions<Mutation$StaffEdit> {
+  WidgetOptions$Mutation$StaffEdit({
+    String? operationName,
+    graphql.FetchPolicy? fetchPolicy,
+    graphql.ErrorPolicy? errorPolicy,
+    graphql.CacheRereadPolicy? cacheRereadPolicy,
+    Object? optimisticResult,
+    Mutation$StaffEdit? typedOptimisticResult,
+    graphql.Context? context,
+    OnMutationCompleted$Mutation$StaffEdit? onCompleted,
+    graphql.OnMutationUpdate<Mutation$StaffEdit>? update,
+    graphql.OnError? onError,
+  }) : onCompletedWithParsed = onCompleted,
+       super(
+         operationName: operationName,
+         fetchPolicy: fetchPolicy,
+         errorPolicy: errorPolicy,
+         cacheRereadPolicy: cacheRereadPolicy,
+         optimisticResult: optimisticResult ?? typedOptimisticResult?.toJson(),
+         context: context,
+         onCompleted: onCompleted == null
+             ? null
+             : (data) => onCompleted(
+                 data,
+                 data == null ? null : _parserFn$Mutation$StaffEdit(data),
+               ),
+         update: update,
+         onError: onError,
+         document: documentNodeMutationStaffEdit,
+         parserFn: _parserFn$Mutation$StaffEdit,
+       );
+
+  final OnMutationCompleted$Mutation$StaffEdit? onCompletedWithParsed;
+
+  @override
+  List<Object?> get properties => [
+    ...super.onCompleted == null
+        ? super.properties
+        : super.properties.where((property) => property != onCompleted),
+    onCompletedWithParsed,
+  ];
+}
+
+typedef RunMutation$Mutation$StaffEdit =
+    graphql.MultiSourceResult<Mutation$StaffEdit> Function({
+      Object? optimisticResult,
+      Mutation$StaffEdit? typedOptimisticResult,
+    });
+typedef Builder$Mutation$StaffEdit =
+    widgets.Widget Function(
+      RunMutation$Mutation$StaffEdit,
+      graphql.QueryResult<Mutation$StaffEdit>?,
+    );
+
+class Mutation$StaffEdit$Widget
+    extends graphql_flutter.Mutation<Mutation$StaffEdit> {
+  Mutation$StaffEdit$Widget({
+    widgets.Key? key,
+    WidgetOptions$Mutation$StaffEdit? options,
+    required Builder$Mutation$StaffEdit builder,
+  }) : super(
+         key: key,
+         options: options ?? WidgetOptions$Mutation$StaffEdit(),
+         builder: (run, result) => builder(
+           ({optimisticResult, typedOptimisticResult}) => run(
+             const {},
+             optimisticResult:
+                 optimisticResult ?? typedOptimisticResult?.toJson(),
+           ),
+           result,
+         ),
+       );
+}
 
 class Mutation$StaffEdit$insert_tests_info_staff {
   Mutation$StaffEdit$insert_tests_info_staff({
