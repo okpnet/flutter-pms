@@ -1,8 +1,6 @@
 import 'dart:async';
-import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
-import 'package:graphql_flutter/graphql_flutter.dart' as graphql_flutter;
 import 'schema.graphql.dart';
 
 class Variables$Query$StaffQuery {
@@ -378,7 +376,7 @@ const documentNodeQueryStaffQuery = DocumentNode(
                 value: ObjectValueNode(
                   fields: [
                     ObjectFieldNode(
-                      name: NameNode(value: 'and'),
+                      name: NameNode(value: '_and'),
                       value: ListValueNode(
                         values: [
                           ObjectValueNode(
@@ -705,25 +703,6 @@ extension ClientExtension$Query$StaffQuery on graphql.GraphQLClient {
     );
     return result == null ? null : Query$StaffQuery.fromJson(result);
   }
-}
-
-graphql_flutter.QueryHookResult<Query$StaffQuery> useQuery$StaffQuery([
-  Options$Query$StaffQuery? options,
-]) => graphql_flutter.useQuery(options ?? Options$Query$StaffQuery());
-graphql.ObservableQuery<Query$StaffQuery> useWatchQuery$StaffQuery([
-  WatchOptions$Query$StaffQuery? options,
-]) => graphql_flutter.useWatchQuery(options ?? WatchOptions$Query$StaffQuery());
-
-class Query$StaffQuery$Widget extends graphql_flutter.Query<Query$StaffQuery> {
-  Query$StaffQuery$Widget({
-    widgets.Key? key,
-    Options$Query$StaffQuery? options,
-    required graphql_flutter.QueryBuilder<Query$StaffQuery> builder,
-  }) : super(
-         key: key,
-         options: options ?? Options$Query$StaffQuery(),
-         builder: builder,
-       );
 }
 
 class Query$StaffQuery$tests_info_staff {
@@ -1913,110 +1892,6 @@ extension ClientExtension$Mutation$StaffEdit on graphql.GraphQLClient {
   graphql.ObservableQuery<Mutation$StaffEdit> watchMutation$StaffEdit([
     WatchOptions$Mutation$StaffEdit? options,
   ]) => this.watchMutation(options ?? WatchOptions$Mutation$StaffEdit());
-}
-
-class Mutation$StaffEdit$HookResult {
-  Mutation$StaffEdit$HookResult(this.runMutation, this.result);
-
-  final RunMutation$Mutation$StaffEdit runMutation;
-
-  final graphql.QueryResult<Mutation$StaffEdit> result;
-}
-
-Mutation$StaffEdit$HookResult useMutation$StaffEdit([
-  WidgetOptions$Mutation$StaffEdit? options,
-]) {
-  final result = graphql_flutter.useMutation(
-    options ?? WidgetOptions$Mutation$StaffEdit(),
-  );
-  return Mutation$StaffEdit$HookResult(
-    ({optimisticResult, typedOptimisticResult}) => result.runMutation(
-      const {},
-      optimisticResult: optimisticResult ?? typedOptimisticResult?.toJson(),
-    ),
-    result.result,
-  );
-}
-
-graphql.ObservableQuery<Mutation$StaffEdit> useWatchMutation$StaffEdit([
-  WatchOptions$Mutation$StaffEdit? options,
-]) => graphql_flutter.useWatchMutation(
-  options ?? WatchOptions$Mutation$StaffEdit(),
-);
-
-class WidgetOptions$Mutation$StaffEdit
-    extends graphql.MutationOptions<Mutation$StaffEdit> {
-  WidgetOptions$Mutation$StaffEdit({
-    String? operationName,
-    graphql.FetchPolicy? fetchPolicy,
-    graphql.ErrorPolicy? errorPolicy,
-    graphql.CacheRereadPolicy? cacheRereadPolicy,
-    Object? optimisticResult,
-    Mutation$StaffEdit? typedOptimisticResult,
-    graphql.Context? context,
-    OnMutationCompleted$Mutation$StaffEdit? onCompleted,
-    graphql.OnMutationUpdate<Mutation$StaffEdit>? update,
-    graphql.OnError? onError,
-  }) : onCompletedWithParsed = onCompleted,
-       super(
-         operationName: operationName,
-         fetchPolicy: fetchPolicy,
-         errorPolicy: errorPolicy,
-         cacheRereadPolicy: cacheRereadPolicy,
-         optimisticResult: optimisticResult ?? typedOptimisticResult?.toJson(),
-         context: context,
-         onCompleted: onCompleted == null
-             ? null
-             : (data) => onCompleted(
-                 data,
-                 data == null ? null : _parserFn$Mutation$StaffEdit(data),
-               ),
-         update: update,
-         onError: onError,
-         document: documentNodeMutationStaffEdit,
-         parserFn: _parserFn$Mutation$StaffEdit,
-       );
-
-  final OnMutationCompleted$Mutation$StaffEdit? onCompletedWithParsed;
-
-  @override
-  List<Object?> get properties => [
-    ...super.onCompleted == null
-        ? super.properties
-        : super.properties.where((property) => property != onCompleted),
-    onCompletedWithParsed,
-  ];
-}
-
-typedef RunMutation$Mutation$StaffEdit =
-    graphql.MultiSourceResult<Mutation$StaffEdit> Function({
-      Object? optimisticResult,
-      Mutation$StaffEdit? typedOptimisticResult,
-    });
-typedef Builder$Mutation$StaffEdit =
-    widgets.Widget Function(
-      RunMutation$Mutation$StaffEdit,
-      graphql.QueryResult<Mutation$StaffEdit>?,
-    );
-
-class Mutation$StaffEdit$Widget
-    extends graphql_flutter.Mutation<Mutation$StaffEdit> {
-  Mutation$StaffEdit$Widget({
-    widgets.Key? key,
-    WidgetOptions$Mutation$StaffEdit? options,
-    required Builder$Mutation$StaffEdit builder,
-  }) : super(
-         key: key,
-         options: options ?? WidgetOptions$Mutation$StaffEdit(),
-         builder: (run, result) => builder(
-           ({optimisticResult, typedOptimisticResult}) => run(
-             const {},
-             optimisticResult:
-                 optimisticResult ?? typedOptimisticResult?.toJson(),
-           ),
-           result,
-         ),
-       );
 }
 
 class Mutation$StaffEdit$insert_tests_info_staff {

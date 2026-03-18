@@ -20,7 +20,7 @@ void main() {
     test('should initialize with default timeout', () {
       final provider = GraphQLClientProvider(
         url,
-        // graphQLClient: mockClient,
+        graphQLClient: mockClient,
       );
       expect(provider.timeLimit.inSeconds, 10);
     });
@@ -29,20 +29,13 @@ void main() {
       final provider = GraphQLClientProvider(
         url,
         timeLimit: 60,
-        // graphQLClient: mockClient,
+        graphQLClient: mockClient,
       );
       expect(provider.timeLimit.inSeconds, 60);
     });
 
     test('query should return result on success', () async {
-      final provider = GraphQLClientProvider(
-        url,
-        // graphQLClient: mockClient,
-      );
-      final options =QueryOptions(document: documentNodeQueryStaffQuery,variables: provider)
-        
-      );
-      options.
+      final provider = GraphQLClientProvider(url, graphQLClient: mockClient);
       final options = QueryOptions(document: gql('query { test }'));
       final expectedResult = QueryResult(
         source: QueryResultSource.network,

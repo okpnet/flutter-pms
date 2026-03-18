@@ -11,7 +11,8 @@ enum MutationType { insert, update }
 // It initializes the client with default policies for queries and mutations, ensuring that all operations fetch data from the network and handle errors appropriately.
 // The `query` method allows you to execute GraphQL queries with a timeout mechanism, throwing a custom exception if the operation exceeds the specified duration.
 final class GraphQLClientProvider {
-  final String _url;
+  final String url;
+  final Map<String, String> headers;
   final bool isHasura = false;
   final GraphQLConverterCollection converterCollection =
       CollectionFactory.createCollection();
@@ -20,7 +21,8 @@ final class GraphQLClientProvider {
   late final GraphQLClient client;
 
   GraphQLClientProvider(
-    this._url, {
+    this.url, {
+    this.headers=const {},
     int? timeLimit,
     isHasura = false,
     GraphQLClient? graphQLClient,
@@ -171,7 +173,7 @@ final class GraphQLClientProvider {
 
   //GraphQLClientを初期化する関数。HttpLinkを作成し、GraphQLClientを作成する。デフォルトのポリシーは、クエリとミューテーションの両方で、ネットワークからデータを取得し、すべてのエラーを処理するように設定されている。
   GraphQLClient _initialize() {
-    final httpLink = HttpLink(_url);
+    final httpLink = HttpLink(url,defaultHeaders: headers);
     final _client = GraphQLClient(
       link: httpLink,
       cache: GraphQLCache(),
