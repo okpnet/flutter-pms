@@ -167,7 +167,7 @@ final class GraphQLClientProvider {
   //GraphQLClientを初期化する関数。HttpLinkを作成し、GraphQLClientを作成する。デフォルトのポリシーは、クエリとミューテーションの両方で、ネットワークからデータを取得し、すべてのエラーを処理するように設定されている。
   GraphQLClient _initialize() {
     final httpLink = HttpLink(_url);
-    client = GraphQLClient(
+    final createClient = GraphQLClient(
       link: httpLink,
       cache: GraphQLCache(),
       defaultPolicies: DefaultPolicies(
@@ -178,6 +178,6 @@ final class GraphQLClientProvider {
         ),
       ),
     );
-    return client;
+    return createClient;
   }
 }
