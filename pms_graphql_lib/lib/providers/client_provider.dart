@@ -1,9 +1,10 @@
 import 'package:graphql/client.dart';
 import 'package:pms_graphql_lib/constants/graphql_constant.dart';
-import 'package:pms_graphql_lib/edit_models/_base/iedit_model.dart';
-import 'package:pms_graphql_lib/exceptions/graphql/graphql_exception.dart';
-import 'package:pms_graphql_lib/graphql_converters/collection/graphql_converter_collection.dart';
+import 'package:pms_graphql_lib/exceptions/graphql_exception.dart';
 import "package:collection/collection.dart";
+import 'package:pms_graphql_model_lib/edit_models/_base/iedit_model.dart';
+import 'package:pms_graphql_model_lib/graphql_converters/collection/graphql_converter_collection.dart';
+import 'package:pms_logger_lib/logger_provider.dart';
 
 enum MutationType { insert, update }
 
@@ -11,6 +12,7 @@ enum MutationType { insert, update }
 // It initializes the client with default policies for queries and mutations, ensuring that all operations fetch data from the network and handle errors appropriately.
 // The `query` method allows you to execute GraphQL queries with a timeout mechanism, throwing a custom exception if the operation exceeds the specified duration.
 final class GraphQLClientProvider {
+  final ILogger? logger;
   final String url;
   final Map<String, String> headers;
   final bool isHasura = false;
@@ -24,6 +26,7 @@ final class GraphQLClientProvider {
     this.url, {
     this.headers = const {},
     int? timeLimit,
+    this.logger,
     isHasura = false,
     GraphQLClient? graphQLClient,
   }) {
@@ -55,9 +58,18 @@ final class GraphQLClientProvider {
   Future<List<QueryResult>> _execute(
     List<(MutationType, MutationOptions)> values,
   ) async {
-    return isHasura
-        ? await _executeHasura(values)
-        : await _executeNotHasura(values);
+    try {
+      return isHasura
+          ? await _executeHasura(values)
+          : await _executeNotHasura(values);
+    } catch (ex, stackTrace) {
+      logger?.error(
+        'Error executing mutations: $ex',
+        exception: ex,
+        stackTrace: stackTrace,
+      );
+      rethrow;
+    }
   }
 
   //not hasuraの場合は、MutationOptionsのDocumentをキーにしてグループ化せずに、順番に実行する
@@ -138,12 +150,21 @@ final class GraphQLClientProvider {
 
   //クエリを実行する関数。引数は、QueryOptions。クエリがタイムアウトした場合は、GraphqlTimeoutExceptionをスローする。
   Future<QueryResult> query(QueryOptions options) async {
-    return await client
-        .query(options)
-        .timeout(
-          timeLimit,
-          onTimeout: () => throw _createTimeoutException('query'),
-        );
+    try {
+      return await client
+          .query(options)
+          .timeout(
+            timeLimit,
+            onTimeout: () => throw _createTimeoutException('query'),
+          );
+    } catch (ex, stackTrace) {
+      logger?.error(
+        'Error executing query: $ex',
+        exception: ex,
+        stackTrace: stackTrace,
+      );
+      rethrow;
+    }
   }
 
   //モデルのリストを受け取り、モデルの型に対応するコンバーターが存在するか確認する。存在しない場合は例外をスローする。モデルの型に対応するコンバーターを取得する。モデルが新規かどうかで、insertオプションかupdateオプションを作成する。作成したオプションと、モデルが新規かどうかをタプルにして返す。最後に、作成したオプションのリストを_execute関数に渡して実行する。
@@ -174,7 +195,7 @@ final class GraphQLClientProvider {
   //GraphQLClientを初期化する関数。HttpLinkを作成し、GraphQLClientを作成する。デフォルトのポリシーは、クエリとミューテーションの両方で、ネットワークからデータを取得し、すべてのエラーを処理するように設定されている。
   GraphQLClient _initialize() {
     final httpLink = HttpLink(url, defaultHeaders: headers);
-    final _client = GraphQLClient(
+    final result = GraphQLClient(
       link: httpLink,
       queryRequestTimeout: timeLimit,
 
@@ -187,6 +208,9 @@ final class GraphQLClientProvider {
         ),
       ),
     );
-    return _client;
+    logger?.debug(
+      'Initializing GraphQL client: url=$url, headers=$headers, timeLimit=${timeLimit.inSeconds}s',
+    );
+    return result;
   }
 }

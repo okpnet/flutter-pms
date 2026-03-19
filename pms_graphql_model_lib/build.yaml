@@ -1,12 +1,10 @@
 targets:
   $default:
-    sources:
-      - test_graphql/**
     builders:
       graphql_codegen:
         options:
-          schemaPath: "test_graphql/schema/schema.graphql" #Typeやらの
-          assetsPath: test_graphql/**/*.graphql
+          assetsPath: "lib/graphql/**.graphql" #graphqlsソース
           outputDirectory: "generated" #生成されたクラスの保管DIR
+          schemaPath: "lib/graphql/schema.graphql" #Typeやらの
           clients: #ここが無いとOptionsが生成されない
-            - graphql_flutter
+            - graphql_flutterP

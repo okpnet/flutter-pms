@@ -1,7 +1,8 @@
-import 'package:pms_graphql_lib/edit_models/_base/iedit_model.dart';
-import 'package:pms_graphql_lib/graphql_converters/converters/i_graphql_converter.dart';
+import 'package:pms_graphql_model_lib/edit_models/_base/iedit_model.dart';
+import 'package:graphql/client.dart';
 
 part 'collection_factory.dart';
+part '../converters/i_graphql_converter.dart';
 
 final class GraphQLConverterCollection {
   final Map<String, IGraphQLConverter> _converters = {};

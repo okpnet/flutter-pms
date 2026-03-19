@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pms_graphql_lib/providers/graphql/client_provider.dart';
+import 'package:pms_graphql_lib/providers/client_provider.dart';
 import 'package:pms_graphql_lib/graphql/generated/staff.graphql.dart';
 import 'package:pms_graphql_lib/graphql/generated/schema.graphql.dart';
 

@@ -1,8 +1,7 @@
-name: pms_graphql_lib
-description: "graphql client for pms"
+name: pms_logger_lib
+description: "A new Flutter package project."
 version: 0.0.1
 homepage:
-publish_to: none
 
 environment:
   sdk: ^3.10.8
@@ -11,23 +10,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  json_annotation: #^4.11.0
-  graphql: ^5.2.3
-  graphql_flutter: ^5.1.0
-  collection: #^1.19.1
-  pms_logger_lib:
-    path: ../pms_logger_lib
-  pms_graphql_model_lib:
-    path: ../pms_graphql_model_lib
+  talker: ^5.1.14
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
-  build_runner: ^2.12.1
-  json_serializable: ^6.13.0
-  graphql_codegen: #^3.0.1
-  mockito: ^5.4.4
+  flutter_lints: ^6.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

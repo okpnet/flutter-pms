@@ -2,9 +2,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:graphql/client.dart';
-import 'package:pms_graphql_lib/providers/graphql/client_provider.dart';
-import 'package:pms_graphql_lib/exceptions/graphql/graphql_exception.dart';
-import 'package:pms_graphql_lib/graphql/generated/staff.graphql.dart';
+import 'package:pms_graphql_lib/providers/client_provider.dart';
+import 'package:pms_graphql_lib/exceptions/graphql_exception.dart';
 // Generate mocks
 @GenerateMocks([GraphQLClient])
 import 'client_provider_test.mocks.dart';
@@ -18,10 +17,7 @@ void main() {
 
   group('GraphQLClientProvider', () {
     test('should initialize with default timeout', () {
-      final provider = GraphQLClientProvider(
-        url,
-        graphQLClient: mockClient,
-      );
+      final provider = GraphQLClientProvider(url, graphQLClient: mockClient);
       expect(provider.timeLimit.inSeconds, 10);
     });
 

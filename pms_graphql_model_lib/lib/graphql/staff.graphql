@@ -1,5 +1,10 @@
 query StaffQuery($remove:Boolean=false,$where: tests_info_staff_bool_exp) {
-  tests_info_staff(where: {_and:[{remove:{_eq:$remove}},$where]}) {
+  tests_info_staff(
+      where: {
+        remove:{_eq:$remove},
+        _and:[$where]
+      }
+    ) {
     code
     kana
     name
