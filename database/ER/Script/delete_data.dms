@@ -1,0 +1,20 @@
+﻿var result=application.getActiveWindow();
+if (result.formType != "A5EREditor") {
+    alert("アクティブウィンドウをERエディタにしてから実行してください。");
+    exit();
+}
+
+var scheme="tests";
+var query="";
+
+for (var idx in result.document.objects) {
+    var o = result.document.objects[idx];
+    if (o.objectType == "Entity") {
+        query+="--" + o.lName + "\n";
+        query+="DELETE" + "\n";
+        query+="FROM" + "\n";
+        query+=scheme +"."  + o.pName + ";" + "\n";;
+    }
+}
+
+application.newSqlEditor(query);

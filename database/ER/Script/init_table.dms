@@ -1,0 +1,25 @@
+﻿//Title:QualDB初期化クエリ生成テスト用
+//Author:hayato 
+//Data:2023/06/01
+
+var frmER =(function(){
+	var result=application.getActiveWindow();
+	if (result.formType != "A5EREditor") {
+    	alert("アクティブウィンドウをERエディタにしてから実行してください。");
+    	exit();
+	}
+	return result;
+})();
+
+var test="*@INT";
+var check=test.replace(/^\*/,"");//OK
+var source="@INTERVAL=interval";
+var reg=new RegExp("^"+check+"\\W[\\w]*");//ok
+for(var i in frmER.document.domains)
+{
+	println(frmER.document.domains[i].name);
+}
+println(reg.test(source));
+
+var arry=[];
+println(arry.join(','));

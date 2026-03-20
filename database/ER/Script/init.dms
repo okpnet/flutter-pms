@@ -1,0 +1,505 @@
+﻿//Title:QualDB初期化クエリ生成
+//Author:hayato 
+//Data:2023/06/01
+
+var frmER =(function(){
+	var result=application.getActiveWindow();
+	if (result.formType != "A5EREditor") {
+    	alert("アクティブウィンドウをERエディタにしてから実行してください。");
+    	exit();
+	}
+	return result;
+})();
+//CONST
+var CR="\n";
+var SCHEMA="debug";
+var TAB="    ";
+//extension
+var tabs=function(e){
+    var tabResults="";
+    if(0>=e)return tabResults;
+    for(var i=0;e>i;i++) tabResults+="    ";
+    return tabResults;
+};
+//検索条件に一致する最初
+var toFirst=function(array,func){
+    for(var index in array){
+        if(func(array[index]))return array[index];
+    }
+    return null;
+};
+//検索条件に一致する
+var toWhere=function(array,func){//func->result bool,argment array[i]
+    var result=new Array;
+    var deleteIndexs=new Array;
+    for(var index in array){
+        if(func(array[index]))result.add(array[index]);
+    }
+    return result;
+};
+//存在する場合はTrue
+var Any=function(array,e){
+    for(var index in array){
+        if(array[index]==e)return true;
+    }
+    return false;
+};
+
+//生成クラス
+class Creater{
+	commonAttrs;
+	entityArray;
+    viewArray;
+	relArray;
+    domainArray;
+    //コンストラクタ
+    function Creater(doc){
+        //テーブルセット
+        this.entityArray=select(doc.objects,function(e){
+            if(e.objectType=="Entity")return e;
+        });
+        //リレーションシップセット
+        this.relArray=select(doc.objects,function(e){
+            if(e.objectType=="Relation")return e;
+        });
+        //ビューセット
+        this.viewArray=select(doc.objects,function(e){
+            if(e.objectType=="View")return e;
+        });
+        this.commonAttrs=doc.commonAttributes;
+        this.domainArray=doc.domains;
+    }
+	//SELECTメソッド
+    function select(array,func){
+    	var result=new Array;
+    	for(var i in array){
+    		var funcResult=func(array[i]);
+    		if(funcResult != null)result.add(funcResult);
+    	}
+    	return result;
+    }
+	//名前からエンティティ検索
+	function findEntityName(name){
+		for(var i in this.entityArray){
+			var entity=this.entityArray[i];
+			if(entity.pName==name)return entity;
+		}
+		return null;
+	}
+	//リレーションインスタンスからリレーション検索
+	function findRel(rel){
+		for(var i in this.relArray){
+			var relation=this.relArray[i];
+			if(relation==rel)return rel;
+		}
+		return null;
+	}
+    //テーブルドロップ生成
+    function dropTable(){
+        var result="-- Phase:Table drop "+entityArray.length+CR;
+        for(var index in entityArray){//テーブル
+            var entity=entityArray[index];
+            result+="drop table if exists "+SCHEMA+"."+entity.pName+" cascade;"+CR;
+        }
+        for(var viewIndex in viewArray){
+            var view=viewArray[viewIndex];
+            result+="drop view if exists "+SCHEMA+"."+view.pName+";"+CR;
+        }
+        return result;
+    }
+	//トリガー生成
+	function triggerBuild(){
+	  	if(this.relArray.length==0)return "not exists relationship.";
+        var regex=new RegExp('^l[a-z]+_');
+
+        var buildResult="--Created Trigger";
+        
+		for(var index in this.relArray){
+			var rel=this.relArray[index];
+
+			if(regex.test(rel.entityPName1))
+			{
+                buildResult+=triggerBuildRel(rel)+CR;
+			}
+		}
+
+		return buildResult;
+	}
+	//テーブルクエリ生成
+	function tableBuild(){
+        var result="-- *****Created entities*****"+CR;
+        //テーブル生成デリゲート
+        var createSqlTables=function(title,tableArray){
+            result+="--Created "+title+" table "+tableArray.length+CR;
+		    for(var index in tableArray){
+			    result+=tableCreate(tableArray[index])+CR;
+		    }
+        };
+        //キー生成デリゲート
+        var createSqlPkeys=function(title,tableArray){
+            result+="--Created "+title+" primary key "+tableArray.length+CR;
+		    for(var index in tableArray){
+			    result+=tablePkCreate(tableArray[index])+CR;
+		    }
+        };
+        //コメント生成デリゲート
+        var createSqlComment=function(title,tableArray){
+            result+="--Created "+title+" Comment "+tableArray.length+CR;
+		    for(var index in tableArray){
+			    result+=tableCommentBuild(tableArray[index])+CR;
+		    }
+        };
+        
+		//インフォメーションテーブル
+		var infoReg=new RegExp("^i[\\w]+_");
+		var infotables=toWhere(entityArray,function(e){
+			return infoReg.test(e.pName);
+		});
+		//インフォメーションテーブル
+		var latestReg=new RegExp("^l[\\w]+_");
+		var latesttables=toWhere(entityArray,function(e){
+			return latestReg.test(e.pName);
+		});
+		//マスターテーブル
+		var mstrReg=new RegExp("^m[\\w]+_");
+		var mstrtables=toWhere(entityArray,function(e){
+			return mstrReg.test(e.pName);
+		});
+		
+		//トラザクションテーブル
+		var transReg=new RegExp("^t[\\w]+_");
+		var transtables=toWhere(entityArray,function(e){
+			return transReg.test(e.pName);
+		});
+		
+		//テーブル生成
+        createSqlTables("information",infotables);
+        createSqlTables("latest",latesttables);
+        createSqlTables("master",mstrtables);
+        createSqlTables("transaction",transtables);
+        
+		//キー生成
+		createSqlPkeys("information",infotables);
+		createSqlPkeys("latest",latesttables);
+        createSqlPkeys("master",mstrtables);
+        createSqlPkeys("transaction",transtables);
+        
+        //コメント
+        createSqlComment("information",infotables);
+		createSqlComment("latest",latesttables);
+        createSqlComment("master",mstrtables);
+        createSqlComment("transaction",transtables);
+        
+        //ビュー生成
+        result+=viewCreateAll();
+        //外部キー
+        result+=relationCreate();
+        //トリガー生成
+        result+=triggerBuild();
+		return result;
+	}
+	//ビュー全体
+	function viewCreateAll(){
+		var result="--Phase:Created view "+this.viewArray.length+CR;
+		for(var index in this.viewArray){
+            result+=viewCreate(this.viewArray[index])+CR;
+        }
+		return result;
+	}
+    //ビュー単体
+    function viewCreate(view){
+        var result="-- "+view.pName+" view"+CR;
+        //result+="drop view if exists "+view.pName+";"+CR;
+        result+="create view "+SCHEMA+"."+view.pName+" as"+CR;
+        result+=view.query+CR;
+        result=result.replace(/public/g,SCHEMA);
+
+        return result;
+    }
+    //テーブル単体作成
+    function tableCreate(entity){
+        var result="-- "+entity.pName+" table"+CR;
+        var columns=GetColumnNames(entity);
+		
+        //result+="drop table if exists "+SCHEMA+"."+entity.pName+" cascade;"+CR;
+        result+="create table "+SCHEMA+"."+entity.pName+" ("+CR;
+        for(var index in columns){
+            var col=columns[index];
+            result+=tabs(1)+col.pName+" ";
+            var coltype=col.dataType.replace(/^\*/,"");
+            var type=toFirst(domainArray,function(d){
+				var domainReg=new RegExp("^"+coltype+"\\W[\\w]*");
+				return domainReg.test(d.name);
+            });
+			
+            if(type!=null){
+                result+=type.name.split(/\=/)[1];
+            }else{
+				switch(col.dataType){
+					case "@INT":
+						result+="integer";
+						break;
+					case "@DATE":
+						result+="date";
+						break;
+					default:
+						result+=col.dataType;
+						break;
+				}
+            }
+			
+			if(col.defaultValue.length==0 && !col.notNull){
+				result+=" default null";
+			}else if(col.defaultValue.length>0){
+				result+=" default " + col.defaultValue;
+			}else if(col.notNull){
+				result+=" not null";
+			}
+			
+            if(columns.length-1!=index)result+=",";
+            result+=CR;
+        }
+        result+=");"+CR;
+        return result; 
+    }
+    //テーブルPRIMARY KEY 単体作成
+    function tablePkCreate(entity){
+        var result="-- "+entity.pName+" table PK"+CR;
+        var columns=GetColumnNames(entity);
+		var keyCol=select(toWhere(GetColumnNames(entity),function(e){
+			return e.keyIdx>=0;
+		}).sort(function(a,b){
+			return a-b;
+		}),function(e){
+			return e.pName;
+		}).join(',');
+		
+		if(keyCol.length==0)return "";
+		
+        result+="create unique index "+entity.pName+"_PKI"+CR;
+		result+=tabs(1)+"on "+SCHEMA+"."+entity.pName+"("+keyCol+");"+CR;
+		result+="alter table "+SCHEMA+"."+entity.pName+CR;
+		result+=tabs(1)+"add constraint "+entity.pName+"_PKC primary key "+"("+keyCol+");"+CR;
+		return result;
+    }
+    //リレーションシップ作成
+    function relationCreate(){
+        var result="-- Phase:FOREIGN KEYS " + relArray.length + " --"+CR;
+		var arrayIX=new Array;
+		var arrayFK=new Array;
+		
+        for(var index in entityArray){
+            var rels=toWhere(relArray,function(e){
+                return e.entityPName2==entityArray[index].pName;
+            });//indexのエンティティ取得
+
+            for(var relIndex in rels){//エンティティに該当するリレーションシップ
+                var rel=rels[relIndex];
+                var pTable=findEntityName(rel.entityPName1);//親テーブ。entityArray[index]と同じ。
+                var cTable=findEntityName(rel.entityPName2);//子テーブル
+				
+				if(rel.attributes1=="latest_id")continue;
+				
+				if( rel.attributes1.split(",").length>1 | toWhere(pTable.attributes,function(e){return (e.pName==rel.attributes1 && e.keyIdx==0);}).length>0)
+				{
+					var ix= relIndex + "|" + rel.entityPName1 + "|" + rel.attributes1;
+					//var ix="alter table "+SCHEMA+"."+rel.entityPName1+" add constraint " + rel.entityPName1 + "_IX" + relIndex +" unique ("+rel.attributes1+");" +CR;
+	                var fk="alter table "+SCHEMA+"."+rel.entityPName2+" add constraint " + rel.entityPName2 + "_FK" + relIndex +" foreign key ("+rel.attributes2+") references " +SCHEMA+"."+ rel.entityPName1 + " (" + rel.attributes1 + ") DEFERRABLE INITIALLY DEFERRED;" +CR;
+	                if(!Any(arrayIX,ix))arrayIX.add(ix);
+					
+	                //if(!Any(arrayIX,ix))arrayIX.add(ix);
+					//arrayFK.add(fk);
+					var test=toFirst(arrayIX,function(e){return (e[1]==rel.entityPName1 && e[2]==rel.attributes2);});
+					println(test);
+					arrayFK.add(test[0] + "|" + rel.entityPName2+"|"+rel.attributes2 + "|" + fksplitter);
+				}
+            }
+			
+        }
+		println(arrayIX.length+" "+arrayFK.length);
+		var ix="";
+		var ixArray=new Array;
+		for(var relIndex in arrayIX){
+			var ixspritter=arrayIX[relIndex].split('|');
+			ix+="alter table "+SCHEMA+"."+ixspritter[1]+" add constraint " + ixspritter[1] + "_IX" + relIndex +" unique ("+ixspritter[2]+");" +CR;
+			ixArray.add(ixspritter[0]+"|"+ ixspritter[1] + "_IX" + relIndex);
+		}
+		var fk="";
+		for(var relIndex in arrayFK){
+			var fksplitter=arrayFK[relIndex].split("|");
+			var refIx=toFirst(ixArray,function(e){return e[0]==fksplitter[0];});
+			fk+="alter table "+SCHEMA+"."+fksplitter[1]+" add constraint " + fksplitter[1] + "_FK" + relIndex +" foreign key ("+fksplitter[2]+") references " +SCHEMA+"."+ fksplitter[2] + " " + fksplitter[3] + " DEFERRABLE INITIALLY DEFERRED;" +CR;
+		}
+		result+="-- uniq "+arrayIX.length+CR;
+		result+=ix;
+		result+="-- foreign key"+arrayFK.length+CR;
+		result+=arrayFK.join("");
+        return result;
+    }
+	//テーブルコメント
+	function tableCommentBuild(entity){
+		var result="-- "+entity.pName+" table comment"+CR;
+        var columns=GetColumnNames(entity);
+		
+		if(entity.lName.length>0){
+			result+="comment on table "+SCHEMA+"."+entity.pName+" is '"+entity.lName+"';"+CR;		
+		}
+
+		for(var index in columns){
+			if(columns[index].lName.length==0)continue;
+			result+="comment on column "+SCHEMA+"."+entity.pName+"."+columns[index].pName+" is '"+columns[index].lName+"';"+CR;
+		}
+		return result;
+	}
+	//リレーションからトリガーファンクション生成
+    //リレーションシップのキーは1つであることが前提条件
+    //"SELECT * INTO latest_row FROM "+SCHEMA+"."+rel.entityPName1+" WHERE "+rel.attributes1+"=NEW."+rel.attributes2+";"
+	function triggerBuildRel(rel){
+        
+		var parentEntity=this.findEntityName(rel.entityPName1);
+		var childEntity=this.findEntityName(rel.entityPName2);
+        
+        if(rel.entityPName2 == null){
+//            println(format("error:entity1 is '%s'.entity2 is not exists.",rel.entityPName1));
+            return "error:entity1 is "+rel.entityPName1+". entity2 is not exists.";
+        }
+		
+		var columns=GetColumnNames(childEntity);
+		var latestColmuns=GetColumnNames(parentEntity);
+        
+        if(latestColmuns == null || latestColmuns.length==0){
+            return "error:entity1 is "+rel.entityPName1+". entity2 is not exists.";
+        }
+       
+		var result="-- "+rel.entityPName2+" revision management trigger"+CR;
+
+		result+="CREATE OR REPLACE FUNCTION "+SCHEMA+"."+rel.entityPName2+"_latests() RETURNS trigger AS"+CR;
+		result+="$BODY$"+CR;
+		result+="DECLARE"+CR;
+		result+=tabs(1)+"latest_row record;"+CR;
+		result+="BEGIN"+CR;
+		result+=tabs(1)+"IF (TG_OP = 'UPDATE') THEN"+CR;
+		/*
+		result+=tabs(2)+"SELECT * INTO latest_row FROM "+SCHEMA+"."+rel.entityPName1+" WHERE "+rel.attributes1+"=NEW."+rel.attributes2+";"+CR;
+		result+=tabs(2)+"IF (FOUND) THEN"+CR;
+		result+=tabs(3)+"INSERT INTO "+rel.entityPName2+" ("+CR;
+
+		for(var index in columns){
+			var columnName=columns[index].pName;
+			if(columns.length-1!=index)columnName+=",";
+			result+=tabs(4)+columnName+CR;
+		}
+		result+=tabs(3)+")"+CR;
+		result+=tabs(3)+"VALUES"+CR;
+		result+=tabs(3)+"("+CR;
+		for(var index in columns){
+			var columnName="NEW."+columns[index].pName;
+			if(columns[index].pName=="latest_revision")columnName="latest_row.latest_revision+1";
+			if(columns.length-1!=index)columnName+=",";
+			result+=tabs(4)+columnName+CR;
+		}
+
+		result+=tabs(3)+");"+CR;
+		result+=tabs(2)+"ELSE"+CR;
+		result+=tabs(3)+"INSERT INTO "+rel.entityPName2+" ("+CR;
+		for(var index in columns){
+			var columnName=columns[index].pName;
+			if(columns.length-1!=index)columnName+=",";
+			result+=tabs(4)+columnName+CR;
+		}
+		result+=tabs(3)+")"+CR;
+		result+=tabs(3)+"VALUES"+CR;
+		result+=tabs(3)+"("+CR;
+		for(var index in columns){
+			var columnName="NEW."+columns[index].pName;
+			if(columns[index].pName=="latest_revision")columnName="NEW.latest_revision+1";
+			if(columns.length-1!=index)columnName+=",";
+			result+=tabs(4)+columnName+CR;
+		}
+		result+=tabs(3)+");"+CR;
+		result+=tabs(2)+"END IF;"+CR;
+		*/
+		result+=tabs(2)+"RETURN NEW;"+CR;
+//		result+=tabs(2)+"RETURN NULL;"+CR;
+		result+=tabs(1)+"ELSEIF(TG_OP='INSERT') THEN"+CR;
+		result+=tabs(2)+"SELECT * INTO latest_row FROM "+SCHEMA+"."+rel.entityPName1+" WHERE "+rel.attributes1+"=NEW."+rel.attributes2+";"+CR;
+		result+=tabs(2)+"IF (NOT FOUND) THEN"+CR;
+		result+=tabs(3)+"INSERT INTO "+SCHEMA+"."+rel.entityPName1+" ("+CR;
+		for(var index in latestColmuns){
+			var columnName=latestColmuns[index].pName;
+			if(latestColmuns.length-1!=index)columnName+=",";
+			result+=tabs(4)+columnName+CR;
+		}
+		result+=tabs(3)+")"+CR;
+		result+=tabs(3)+"VALUES"+CR;
+		result+=tabs(3)+"("+CR;
+		for(var index in latestColmuns){
+			var columnName="NEW."+latestColmuns[index].pName;
+			if(latestColmuns[index].pName=="latest_revision")
+			{
+				columnName="0";
+			}else if(latestColmuns[index].pName=="latest_id"){
+				columnName="gen_random_uuid()";
+			}
+			if(latestColmuns.length-1!=index)columnName+=",";
+			result+=tabs(4)+columnName+CR;
+		}
+		result+=tabs(3)+") RETURNING * INTO latest_row;"+CR;
+		result+=tabs(3)+"NEW.latest_id := latest_row.latest_id;"+CR;
+		result+=tabs(3)+"NEW.latest_revision := latest_row.latest_revision;"+CR;
+		result+=tabs(2)+"ELSE"+CR;
+		result+=tabs(3)+"UPDATE "+SCHEMA+"."+rel.entityPName1+""+CR;
+		result+=tabs(3)+"SET"+CR;
+		for(var index in latestColmuns){
+			if(latestColmuns[index].pName=="latest_id")continue;
+			var columnName=latestColmuns[index].pName+"=NEW."+latestColmuns[index].pName;
+			if(latestColmuns[index].pName=="latest_revision")columnName=latestColmuns[index].pName+"=latest_row.latest_revision+1";
+			if(latestColmuns.length-1!=index)columnName+=",";
+			result+=tabs(4)+columnName+CR;
+		}
+		result+=tabs(3)+"WHERE"+CR;
+		result+=tabs(4)+"latest_id = latest_row.latest_id;"+CR;
+		result+=tabs(3)+"NEW.latest_revision := latest_row.latest_revision+1;"+CR;
+		result+=tabs(2)+"END IF;"+CR;
+		result+=tabs(2)+"RETURN NEW;"+CR;
+		result+=tabs(1)+"END IF;"+CR;
+		result+="END"+CR;
+		result+="$BODY$"+CR;
+		result+="LANGUAGE plpgsql VOLATILE;"+CR;
+		//result+="DROP TRIGGER IF EXISTS "+SCHEMA+"."+rel.entityPName2+"_latests on "+SCHEMA+"."+rel.entityPName2+";"+CR;
+		result+="CREATE TRIGGER "+rel.entityPName2+"_latests BEFORE INSERT OR UPDATE OR DELETE ON "+SCHEMA+"."+rel.entityPName2+" FOR EACH ROW EXECUTE"+CR;
+		result+="PROCEDURE "+SCHEMA+"."+rel.entityPName2+"_latests();"+CR;
+		result+=CR;
+//        println(result);
+		return result;
+	}
+	//エンティティから列取得
+	function GetColumnNames(entity){
+		var regex=new RegExp('^gen_random_uuid[.]+');
+        var resultArray=select(entity.attributes,function(e){
+			if(!regex.test(e.defaultValue))return e;
+        });
+		return resultArray.concat(this.commonAttrs);
+	}
+}
+var creater=new Creater(frmER.document);
+/*デバッグ
+println(creater.entityArray.length);
+println(creater.relArray.length);
+var result=creater.triggerBuild();
+*/
+var result="";//'SET search_path = '+SCHEMA+', "$user", public;'+CR;
+
+result+=creater.dropTable();//テーブル消去
+result+=creater.tableBuild();//メイン
+
+//result+=creater.viewCreateAll();//ビューテスト
+//result+=creater.relationCreate();//リレーションシップテスト
+//result+=creater.triggerBuild();//トリガーテスト
+//println(result);
+println("done!");
+var view=application.newSqlEditor(result);
+
+//view.activate();
+
+

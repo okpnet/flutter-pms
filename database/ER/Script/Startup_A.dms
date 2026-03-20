@@ -1,0 +1,1183 @@
+﻿//Title:QualDB初期化クエリ生成
+//Author:hayato
+//Data:2023/06/01
+
+var domainArray=new Array;//ERで使用しているドメイン
+var commonAttrs=new Array;//ERで使用しているコモンドメイン
+//CONST
+var CR="\n";
+var SCHEMA="tests";
+var TAB="    ";
+
+//拡張
+var ext={
+    "toFirst":function(array,func){
+        for(var index in array){
+            if(func(array[index]))return array[index];
+        }
+        return null;
+      },
+    "toWhere":function(array,func){//func->result bool,argment array[i]
+        var result=new Array;
+        for(var index in array){
+            if(func(array[index]))result.add(array[index]);
+        }
+        return result;
+        },
+    "toAny":function(array,func){
+        for(var index in array){
+            if(func(array[index]))return true;
+        }
+        return false;
+    },
+    "toSelect":function(array,func){
+        var result=new Array;
+        for(var i in array){
+            var funcResult=func(array[i]);
+            if(funcResult != null)result.add(funcResult);
+        }
+        return result;
+    },
+    "tabs":function(e){
+        var tabResults="";
+        if(0>=e)return tabResults;
+        for(var i=0;e>i;i++) tabResults+="    ";
+        return tabResults;
+    },
+    "count":function(array){
+        var count=0;
+        for(var i in array){
+            count++;
+        }
+        return count;
+    },
+    "enumrable":function(array,func){//function(arrayType,percentProgress)
+        var len=ext.count(array);
+        for(var index in array){
+            var count=(index/len*100).toFixed();
+            func(array[index],count);
+        }
+    },
+    "join":function(array,grue){
+        var len=ext.count(array);
+        var result="";
+        if(len ==0){
+            return result;
+        }
+
+        for(var index in array){
+            result+=array[index];
+            if(len > index + 1){
+                result+=grue;
+            }
+        }
+        return result;
+    }
+};
+
+//グローバル
+var domainArray=new Array;//ERで使用しているドメイン
+var commonAttrs=new Array;//ERで使用しているコモンドメイン
+var entityArray=new Array;//テーブルセット
+var relArray=new Array;//リレーションシップセット
+var viewArray=new Array;//ビューセット
+
+//
+class Progress{
+    PrefixStr="";
+    SuffixStr="DONE!";
+    MaxCount=0;
+    Step=10;
+    StepStr="#";
+    StrCnt=20;
+    Counter=0;
+    ProgressVal=0;
+    //
+    function Progress(prefixStr,step,maxCount){
+        PrefixStr=prefixStr;
+        Step=step;
+        MaxCount=maxCount;
+    }
+
+    //
+    function up(){
+        Counter++;
+        var prefix=GetPrefix();
+        if(Counter==1)
+        {
+            print(prefix);
+        }
+        
+        if(Counter>MaxCount)return;
+        stepStrCount=1;
+
+        var prg=Math.floor(Counter*Step/MaxCount);
+        if(prg>ProgressVal){
+            ProgressVal=prg;
+            print(StepStr);
+        }
+        if(prg>=Step){
+            if(Step>Counter){
+                var steps="";
+                for(var i=0;(Step-Counter)>i;i++)steps+=StepStr;
+                print(steps);
+            }
+            println(SuffixStr);
+        }
+    }
+    //
+    function GetPrefix(){
+        var max=StrCnt-PrefixStr.length;
+        if(0>max)return PrefixStr;
+        var buffer=PrefixStr;
+        for(var i=0;max>i;i++){
+            buffer+=" ";
+        }
+        return buffer;
+    }
+}
+//列クラス
+class Column{
+    Attr=null;//A5ERAttribute
+    //コンストラクタ
+    function Column(attr){
+        Attr=attr;
+    }
+    //コメントクエリ
+    function GetCommentQuery(schema,tableName){
+        if(Attr.lName == null || Attr.lName.length==0)return "";
+        return "comment on column "+schema+"."+tableName+"."+Attr.pName+" is '"+Attr.lName+"';"+CR;
+    }
+    //クエリ
+    function GetQuery(schema){
+        if(Attr==null)return "";
+        var result=ext.tabs(1)+Attr.pName+" ";
+        var coltype=Attr.dataType.replace(/^\*/,"");
+        var type=ext.toFirst(domainArray,function(d){
+            var domainReg=new RegExp("^"+coltype+"\\W[\\w]*");
+            return domainReg.test(d.name);
+        });
+
+        if(type!=null){
+                result+=type.name.split(/\=/)[1];
+        }else{
+            switch(Attr.dataType){
+                case "@INT":
+                    result+="integer";
+                    break;
+                case "@DATE":
+                    result+="date";
+                    break;
+                default:
+                    result+=Attr.dataType;
+                    break;
+            }
+        }
+
+        if(Attr.defaultValue.length==0 && !Attr.notNull){
+            result+=" default null";
+        }else if(Attr.defaultValue.length>0){
+            result+=" default " + Attr.defaultValue;
+        }else if(Attr.notNull){
+            result+=" not null";
+        }
+
+		if(Attr.option.length>0){
+			result+=" " + Attr.option;
+		}
+
+        return result;
+    }
+}
+
+//ユニークインデックスクラス
+class UniqueIndex{
+    Name="";
+    Attr="";
+    IsIndex=0;
+    IsUniqueIndex=false;
+    //コンストラクタ
+    function UniqueIndex(tableName,attr,isUniqueIndex,index){
+        IsIndex=index;
+        Name=tableName;
+        Attr=attr;
+        IsUniqueIndex=isUniqueIndex;
+    }
+    //クエリ生成
+    function GetQuery(schema){
+        if(IsUniqueIndex == true){
+            return "create unique index "+ GetName() + CR + ext.tabs(1) + " on " +schema+"."+Name+ "("+Attr+");"; 
+        }
+        return "alter table "+schema+"."+Name + CR + ext.tabs(1) + " add constraint " + GetName() + " unique ("+Attr+");" +CR;
+    }
+    //名前
+    function GetName(){
+        return Name + "_IX" + IsIndex;
+    }
+}
+
+//トリガークラス
+class Trigger{
+    Relation=null;
+	IsEntity=null;
+    //コンストラクタ
+    function Trigger(relation,entity){
+        Relation=relation;
+		IsEntity=entity;
+    }
+    //トリガー削除クエリ
+    function GetDropQuery(schema){
+        if(Relation == null)
+            return "DROP TRIGGER IF EXISTS "+IsEntity.pName+"_updatetimes on "+schema+"."+IsEntity.pName+";"+CR;
+        return "DROP TRIGGER IF EXISTS "+Relation.entityPName2+"_latests on "+schema+"."+Relation.entityPName2+";"+CR;
+    }
+    //クエリ生成
+    function GetUpdateQuery(schema,parentEntity){
+        var result="-- "+parentEntity.Name+" update trigger"+CR;
+
+        result+="CREATE OR REPLACE FUNCTION "+schema+"."+parentEntity.Name+"_updatetime() RETURNS trigger AS"+CR;
+        result+="$BODY$"+CR;
+        result+="DECLARE"+CR;
+        result+=ext.tabs(1)+"latest_row record;"+CR;
+        result+="BEGIN"+CR;
+        result+=ext.tabs(1)+"IF (TG_OP = 'UPDATE') THEN"+CR;
+        result+=ext.tabs(2)+"NEW.update_at:=now();"+CR;
+        result+=ext.tabs(2)+"RETURN NEW;"+CR;
+        result+=ext.tabs(1)+"ELSEIF (TG_OP='INSERT') THEN"+CR;
+		//GUIDの自動キー生成列は強制的に自動生成にする=>EntityFrameworkが自動キー列に対策
+		for(var primaryIndex in ext.toWhere(parentEntity.Columns,function(e){return e.Attr.defaultValue=="gen_random_uuid()";})){
+			if(parentEntity.Columns[primaryIndex].Attr.defaultValue=="gen_random_uuid()" && parentEntity.Columns[primaryIndex].Attr.pName!="history_id")
+				result+=ext.tabs(2)+"NEW." + parentEntity.Columns[primaryIndex].Attr.pName + " := " + parentEntity.Columns[primaryIndex].Attr.defaultValue + ";"+CR;
+		}
+        result+=ext.tabs(2)+"NEW.update_at:=now();"+CR;
+        result+=ext.tabs(2)+"RETURN NEW;"+CR;
+		result+=ext.tabs(1)+"ELSEIF (TG_OP = 'DELETE') THEN"+CR;
+		result+=ext.tabs(2)+"RETURN OLD;"+CR;
+        result+=ext.tabs(1)+"END IF;"+CR;
+        result+="END"+CR;
+        result+="$BODY$"+CR;
+        result+="LANGUAGE plpgsql VOLATILE;"+CR;
+        //result+="DROP TRIGGER IF EXISTS "+schema+"."+rel.entityPName2+"_latests on "+SCHEMA+"."+rel.entityPName2+";"+CR;
+        result+="CREATE TRIGGER "+parentEntity.Name+"_updatetimes BEFORE INSERT OR UPDATE OR DELETE ON "+schema+"."+parentEntity.Name+" FOR EACH ROW EXECUTE"+CR;
+        result+="PROCEDURE "+schema+"."+parentEntity.Name+"_updatetime();"+CR;
+        result+=CR;
+//        println(result);
+        return result;
+    }
+    //クエリ生成
+    function GetQuery(schema,parentEntity,childEntity){
+       	if(Relation == null)return GetUpdateQuery(schema,parentEntity);
+        if(Relation.entityPName2 == null){
+            return "error:entity1 is "+rel.entityPName1+". entity2 is not exists.";
+        }
+
+        var latestColmuns=ext.toWhere(childEntity.Columns,function(e){return !(new RegExp('^gen_random_uuid[.]+').test(e.Attr.defaultValue));});
+        var parentColmuns=ext.toWhere(parentEntity.Columns,function(e){return !(new RegExp('^gen_random_uuid[.]+').test(e.Attr.defaultValue));});
+        var idColumn=ext.toFirst(parentEntity.Columns,function(e){return (e.Attr.keyIdx==0);});
+
+        if(latestColmuns == null || latestColmuns.length==0){
+            return "error:entity1 is "+Relation.entityPName1+". entity2 is not exists.";
+        }
+
+        var result="-- "+Relation.entityPName1+" history trigger"+CR;
+
+        result+="CREATE OR REPLACE FUNCTION "+schema+"."+Relation.entityPName1+"_history() RETURNS trigger AS"+CR;
+        result+="$BODY$"+CR;
+        result+="DECLARE"+CR;
+        result+=ext.tabs(1)+"revisions int;"+CR;
+        result+="BEGIN"+CR;
+        result+=ext.tabs(1)+"IF TG_OP='INSERT' THEN"+CR;
+        result+=ext.tabs(2)+"NEW."+idColumn.Attr.pName+":= gen_random_uuid();"+CR;//強制
+        result+=ext.tabs(1)+"END IF;"+CR;
+        result+=ext.tabs(1)+"IF (TG_OP = 'UPDATE') OR (TG_OP='INSERT') THEN"+CR;
+        //レビジョンの取得と変更
+        result+=ext.tabs(2)+"SELECT Max(revision) INTO revisions FROM "+schema+"."+Relation.entityPName2+" WHERE "+idColumn.Attr.pName+"=NEW."+idColumn.Attr.pName+";"+CR;
+        result+=ext.tabs(2)+"IF (revisions >= 0) THEN"+CR;
+        result+=ext.tabs(3)+"NEW.revision := revisions + 1;"+CR;
+        result+=ext.tabs(2)+"ELSE"+CR;
+        result+=ext.tabs(3)+"NEW.revision := 1;"+CR;//レビジョンの変更
+        result+=ext.tabs(2)+"END IF;"+CR;
+        
+        result+=ext.tabs(2)+"NEW.update_at := now();"+CR;//更新日時の追加
+        
+        //履歴へ追加
+        result+=ext.tabs(3)+"INSERT INTO "+schema+"."+Relation.entityPName2+" ("+CR;
+        for(var index in parentColmuns){
+            var columnName=parentColmuns[index].Attr.pName;
+            if(parentColmuns.length-1!=index)columnName+=",";
+            result+=ext.tabs(4)+columnName+CR;
+        }
+        result+=ext.tabs(3)+")"+CR;
+        result+=ext.tabs(3)+"VALUES"+CR;
+        result+=ext.tabs(3)+"("+CR;
+        for(var index in parentColmuns){
+            var columnVal="NEW."+parentColmuns[index].Attr.pName;
+            if(parentColmuns.length-1!=index)columnVal+=",";
+            result+=ext.tabs(4)+columnVal+CR;
+        }
+        result+=ext.tabs(3)+");"+CR;
+        result+=ext.tabs(2)+"RETURN NEW;"+CR;
+		result+=ext.tabs(1)+"ELSEIF (TG_OP = 'DELETE') THEN"+CR;
+		result+=ext.tabs(2)+"RETURN OLD;"+CR;
+        result+=ext.tabs(1)+"END IF;"+CR;
+        result+="END"+CR;
+        result+="$BODY$"+CR;
+        result+="LANGUAGE plpgsql VOLATILE;"+CR;
+        result+="CREATE TRIGGER "+Relation.entityPName1+"_history BEFORE INSERT OR UPDATE OR DELETE ON "+schema+"."+Relation.entityPName1+" FOR EACH ROW EXECUTE"+CR;
+        result+="PROCEDURE "+schema+"."+Relation.entityPName1+"_history();"+CR;
+        result+=CR;
+//        println(result);
+        return result;
+    }
+}
+
+//エンティティクラス
+class Entity{
+    Name="";
+    lName="";
+    Comment="";
+    IsView=false;
+    ViewQuery="";
+    Columns=new Array;
+    UniqueIndexs=new Array;
+    IsTrigger=null;
+    IsRelations=null;
+    IsFkRelations=null;
+    //コンストラクタ
+    function Entity(entity,relations){
+        Name=entity.pName;
+        if(entity.objectType=="Entity"){
+            IsView=false;
+            lName=entity.lName;
+            Comment=entity.comment;
+            for(var index in entity.attributes)Columns.add(new Column(entity.attributes[index]));
+            for(var index in commonAttrs)Columns.add(new Column(commonAttrs[index]));
+            IsRelations=ext.toWhere(relations,function(e){return (e.entityPName1==Name && !new RegExp("^history_id").test(e.attributes1));});
+            IsFkRelations=ext.toWhere(relations,function(e){return (e.entityPName2==Name);});// && !new RegExp("^history_id").test(e.attributes2));});
+            
+            var pkColumns=ext.toWhere(Columns,function(e){return e.Attr.keyIdx>=0;});
+//PKからユニークインデックスが生成されるので不要
+//            if(ext.count(pkColumns) > 0){
+//                var pkColumnStr=ext.join(ext.toSelect(pkColumns,function(e){return e.Attr.pName;}),",");
+//                UniqueIndexs.add(new UniqueIndex(Name,pkColumnStr,UniqueIndexs.length+1));
+//                println(pkColumnStr);
+//            }
+            
+            for(var index in entity.indexes){
+                //ERに追加しているインデックス
+                //0:指定されていない 1ユニークインデックス: 2:ユニーク制約
+                if(entity.indexes[index].indexType==0) continue;
+                UniqueIndexs.add(new UniqueIndex(Name,entity.indexes[index].attributes,entity.indexes[index].indexType==1,UniqueIndexs.length+1));
+            }
+//ユニークキーに外部キー単体を含めてしまうので削除
+//            for(var index in IsRelations){
+//                if(!ext.toAny(UniqueIndexs,function(e){return (e.Attr==IsRelations[index].attributes1);})){
+//                    UniqueIndexs.add(new UniqueIndex(Name,IsRelations[index].attributes1,UniqueIndexs.length+1));
+//                }
+//            }
+
+            var triggerRel=ext.toFirst(relations,function(e){return (e.entityPName1==Name && e.entityPName2==("history_"+Name));});
+            if(triggerRel != null){
+				IsTrigger=new Trigger(triggerRel,null);
+			}else{
+				IsTrigger=new Trigger(null,entity);
+			}
+
+        }else if(entity.objectType=="View"){
+            IsView=true;
+            ViewQury=entity.query;
+        }
+
+    }
+	//テーブル全レコード削除
+	function GetDeleteQuery(schema){
+		if(IsView)return "";
+		return "--caution!! "+Name+" table all recodes delete."+CR+"delete from "+schema+"."+Name+";"+CR;
+	}
+    //テーブル消去クエリ
+    function GetDropQuery(schema){
+        if(!IsView){
+            return "drop table if exists "+schema+"."+Name+" cascade;"+CR;
+        }else{
+            return "drop view if exists "+schema+"."+Name+";"+CR;
+        }
+    }
+    //コメントクエリ生成
+    function GetCommentQuery(schema){
+        if(IsView)return "";
+        var result= "comment on table "+schema+"."+Name+" is '"+lName+"';"+CR;
+        for(var index in Columns){
+            var colComment=Columns[index].GetCommentQuery(schema,Name);
+            if(colComment.length>0)result+=colComment;
+        }
+        return result;
+    }
+    //PKクエリ生成
+    function GetPkQuery(schema){
+        if(IsView)return "";
+        var result="";
+        var keyCol=ext.toSelect(ext.toWhere(Columns,function(e){
+            return e.Attr.keyIdx>=0;
+        }).sort(function(a,b){
+            return a-b;
+        }),function(e){
+            return e.Attr.pName;
+        }).join(',');
+
+        if(keyCol.length==0)return "";
+
+        var result = "create unique index "+Name+"_PKI"+CR;
+        result+=ext.tabs(1)+"on "+schema+"."+Name+"("+keyCol+");"+CR;
+        result+="alter table "+schema+"."+Name+CR;
+        result+=ext.tabs(1)+"add constraint "+Name+"_PKC primary key "+"("+keyCol+");"+CR;
+        return result;
+    }
+    //ユニークキー生成
+    function GetUniqueQuery(schema){
+        if(IsView)return "";
+        var result="";
+
+        for(var index in UniqueIndexs){
+            result+=UniqueIndexs[index].GetQuery(schema,Name);
+        }
+        return result;
+    }
+    //外部キー作成
+    function GetFkQuery(schema,entities){
+        var result="";
+        var relationReg=new RegExp("^hrchy_[!-~]+$");
+        if(relationReg.test(Name)){
+            return result;
+        }
+        for(var index in IsFkRelations){
+            var rel=IsFkRelations[index];
+            //if(new RegExp("^history_id").test(rel.attributes2))continue;
+            var fkentity=ext.toFirst(entities,function(e){return (e.Name==rel.entityPName1);});
+            if(fkentity==null)continue;
+            var fk=ext.toFirst(fkentity.UniqueIndexs,function(e){return (e.Attr==rel.attributes1);});
+            if(fk == null)continue;
+            
+			var fkUpdate=""; 
+			var fkDelete="";
+            result+="alter table "+schema+"."+Name+" add constraint " + Name + "_FK" + (index+1) +" foreign key ("+rel.attributes2+") references " +schema+"."+ fk.Name + " (" + fk.Attr + ")" + fkDelete + fkUpdate +" DEFERRABLE INITIALLY DEFERRED;" +CR;
+        }
+        
+        result+="alter table "+schema+"."+Name+" add constraint " + Name + "_updater_FK foreign key (update_user_history_id,update_user_id) references " + schema + ".history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;"+CR;
+        return result;
+    }
+    //テーブル生成クエリ
+    function GetQuery(schema){
+        if(IsView)return "";
+        var result = "create table " + schema + "." + Name + " (" + CR;
+        for(var index in Columns){
+            result+=Columns[index].GetQuery(schema);
+            if(Columns.length-1!=index)result+=",";
+            result+=CR;
+        }
+        result+=");"+CR;
+        return result;
+    }
+    //トリガークエリ
+    function GetTriggerQuery(schema,entities){
+        if(IsView || IsTrigger==null)return "";
+		var child=null;
+		
+		if(IsTrigger.Relation != null){
+			child=ext.toFirst(entities,function(e){return e.Name==IsTrigger.Relation.entityPName1;});
+		}
+
+        return IsTrigger.GetQuery(schema,this,child);
+    }
+    //トリガー
+    function Init(entities,relations){
+        var reg=new RegExp("^(info_|mstr_)");
+        var latestReg=new RegExp("^history_"+Name);
+        if(!reg.test(Name))return;
+        var latest=ext.toFirst(entities,function(e){return latestReg.test(e.Name);});
+        var rel=ext.toFirst(relations,function(e){
+            return e.entityPName1==Name && e.entityPName2==("history_"+Name);
+         });
+        if(rel != null && latest !=null){
+            Trigger=new Trigger(rel,latest);
+        }
+    }
+}
+
+//階級エンティティクラス
+//エンティティにparent_から始まるColumnがあること=>Ancestorとして使用。
+class Hierarchy{
+    RelEntity=null;
+    HrchyEntity=null;
+    Relations=null;
+    //コンストラクタ
+    function Hierarchy(relEntity,hrchyEntity,relations){
+        
+        RelEntity=relEntity;
+        HrchyEntity=hrchyEntity;
+        Relations=relations;
+//		GetQuery("public");
+    }
+    //トリガー生成
+    function GetQuery(schema){
+        var reg=new RegExp(",");
+        var parentReg=new RegExp("^parent_");
+		var propLen=ext.count(Relations);
+		
+		var parentEntity=Relations[0].entityPName1;
+		var hierarchyEntity=Relations[0].entityPName2;
+		
+        var ancestor=ext.toFirst(Relations,function(e){
+            var cols=reg.split(e.attributes1);
+            return ext.toAny(cols,function(col){return parentReg.test(col);});
+        });
+        
+        var descendant=ext.toFirst(Relations,function(e){
+			return e!=ancestor;
+        });
+        
+        if(ancestor==null || descendant==null){
+            println("Column in " + parentEntity +" name starting with 'parent_' does not exist.");
+            return "";
+        }
+
+        var ancestorParent=reg.split(ancestor.attributes1);
+        var ancestorChild=reg.split(ancestor.attributes2);
+        var descendantParent=reg.split(descendant.attributes1);
+        var descendantChild=reg.split(descendant.attributes2);
+        
+        var strFunc=function(buffers,joinWord,bufFunc){
+            var len=ext.count(buffers);
+            var result="";
+            for(var i in buffers){
+                result+=bufFunc(buffers[i],i);
+                if(i!=(len-1)){
+                    result+=joinWord;
+                }
+            }
+            return result;
+        };
+
+        var result="-- "+parentEntity+" hierarchy table after trigger"+CR;
+
+        result+="CREATE OR REPLACE FUNCTION "+schema+"."+parentEntity+"_hierarchy() RETURNS trigger AS"+CR;
+        result+="$BODY$"+CR;
+        result+="DECLARE"+CR;
+        result+=ext.tabs(1)+"counter int;"+CR;
+        result+="BEGIN"+CR;
+        result+=ext.tabs(1)+"IF (TG_OP='INSERT') THEN"+CR;
+        result+=ext.tabs(2)+"INSERT INTO "+schema+"."+hierarchyEntity+CR;
+        result+=ext.tabs(2)+"("+CR;
+        result+=ext.tabs(3)+strFunc(ancestorChild,","+CR+ext.tabs(3),function(e,i){return e;})+","+CR;
+        result+=ext.tabs(3)+strFunc(descendantChild,","+CR+ext.tabs(3),function(e,i){return e;})+","+CR;
+        result+=ext.tabs(3)+strFunc(commonAttrs,","+CR+ext.tabs(3),function(e,i){return e.pName;})+CR;
+        result+=ext.tabs(2)+")"+CR;
+        result+=ext.tabs(2)+"VALUES"+CR;
+        result+=ext.tabs(2)+"("+CR;
+        result+=ext.tabs(3)+strFunc(descendantParent,","+CR+ext.tabs(3),function(e,i){return "NEW."+e;})+","+CR;
+        result+=ext.tabs(3)+strFunc(descendantParent,","+CR+ext.tabs(3),function(e,i){return "NEW."+e;})+","+CR;
+        result+=ext.tabs(3)+strFunc(commonAttrs,","+CR+ext.tabs(3),function(e,i){
+            return "NEW."+e.pName;
+        })+CR;
+        result+=ext.tabs(2)+");"+CR;
+		result+=CR;
+        result+=ext.tabs(2)+"INSERT INTO "+schema+"."+hierarchyEntity+CR;
+        result+=ext.tabs(2)+"("+CR;
+        result+=ext.tabs(3)+strFunc(ancestorChild,","+CR+ext.tabs(3),function(e,i){return e;})+","+CR;
+        result+=ext.tabs(3)+strFunc(descendantChild,","+CR+ext.tabs(3),function(e,i){return e;})+","+CR;
+        result+=ext.tabs(3)+strFunc(commonAttrs,","+CR+ext.tabs(3),function(e,i){return e.pName;})+CR;
+        result+=ext.tabs(2)+")"+CR;
+        result+=ext.tabs(2)+"SELECT"+CR;
+        result+=ext.tabs(3)+strFunc(ancestorChild,","+CR+ext.tabs(3),function(e,i){return e;})+","+CR;
+        result+=ext.tabs(3)+strFunc(descendantParent,","+CR+ext.tabs(3),function(e,i){return "NEW."+e;})+","+CR;
+        result+=ext.tabs(3)+strFunc(commonAttrs,","+CR+ext.tabs(3),function(e,i){
+            return "NEW."+e.pName;
+        })+CR;
+        result+=ext.tabs(2)+"FROM"+CR;
+        result+=ext.tabs(3)+schema+"."+hierarchyEntity+CR;
+        result+=ext.tabs(2)+"WHERE"+CR;
+		result+=ext.tabs(3)+"("+CR+strFunc(descendantChild,ext.tabs(3)+"AND"+CR,function(e,i){
+			return ext.tabs(4)+ e + "= NEW." + ancestorParent[i] + CR;
+		});
+		result+=ext.tabs(3)+")"+CR;
+        result+=ext.tabs(2)+"AND"+CR;
+        result+=ext.tabs(3)+"remove=FALSE;"+CR;
+		result+=CR;
+        result+=ext.tabs(1)+"ELSEIF (TG_OP = 'UPDATE') THEN"+CR;
+		result+=ext.tabs(2)+"IF "+strFunc(ancestorParent," OR ",function(e,i){return "(NEW."+e+ " IS DISTINCT FROM " +"OLD."+e+")";})+" THEN";
+        result+=" --親の付けかえ"+CR;
+        result+=ext.tabs(3)+"DELETE--子孫削除"+CR;
+        result+=ext.tabs(3)+"FROM"+CR;
+        result+=ext.tabs(4)+schema+"."+hierarchyEntity+" h"+CR;
+        result+=ext.tabs(3)+"WHERE"+CR;
+        result+=ext.tabs(4)+"EXISTS"+CR;
+        result+=ext.tabs(4)+"("+CR;
+        result+=ext.tabs(5)+"SELECT"+CR;
+        result+=ext.tabs(6)+"1"+CR;
+        result+=ext.tabs(5)+"FROM"+CR;
+        result+=ext.tabs(6)+schema+"."+hierarchyEntity+" h1"+CR;
+        result+=ext.tabs(5)+"WHERE"+CR;
+		result+=ext.tabs(5)+"("+CR+strFunc(ancestorChild,ext.tabs(6)+"AND"+CR,function(e,i){
+			return ext.tabs(6)+"h1."+ e + "= NEW." + descendantParent[i] + CR;
+		});
+		result+=ext.tabs(5)+")"+CR;
+        result+=ext.tabs(5)+"AND"+CR;
+				result+=ext.tabs(5)+"("+CR+strFunc(descendantChild,ext.tabs(6)+"AND"+CR,function(e,i){
+			return ext.tabs(6)+"h1."+ e + "= h." + e + CR;
+		});
+        result+=ext.tabs(5)+")"+CR;
+		result+=ext.tabs(4)+")"+CR;
+        result+=ext.tabs(4)+"AND"+CR;
+        result+=ext.tabs(5)+"NOT"+CR;
+        result+=ext.tabs(5)+"("+CR+strFunc(ancestorChild,ext.tabs(6)+"AND"+CR,function(e,i){
+			return ext.tabs(6)+"h."+ e + " = h." + descendantChild[i] + CR;
+		});
+        result+=ext.tabs(5)+")"+CR;
+        result+=ext.tabs(4)+"AND"+CR;
+        result+=ext.tabs(5)+"NOT"+CR;
+				result+=ext.tabs(5)+"("+CR+strFunc(ancestorChild,ext.tabs(6)+"AND"+CR,function(e,i){
+			return ext.tabs(6)+"h."+ e + " = NEW." + descendantParent[i] + CR;
+		});
+        result+=ext.tabs(5)+");"+CR;
+        result+=ext.tabs(3)+"--挿入"+CR;
+        result+=ext.tabs(3)+"INSERT INTO "+schema+"."+hierarchyEntity+CR;
+        result+=ext.tabs(3)+"("+CR;
+        result+=ext.tabs(4)+strFunc(ancestorChild,","+CR+ext.tabs(4),function(e,i){return e;})+","+CR;
+        result+=ext.tabs(4)+strFunc(descendantChild,","+CR+ext.tabs(4),function(e,i){return e;})+","+CR;
+        result+=ext.tabs(4)+strFunc(commonAttrs,","+CR+ext.tabs(4),function(e,i){return e.pName;})+CR;
+        result+=ext.tabs(3)+")"+CR;
+        result+=ext.tabs(3)+"SELECT"+CR;
+        result+=ext.tabs(4)+strFunc(ancestorChild,","+CR+ext.tabs(4),function(e,i){return "h."+e;})+","+CR;
+        result+=ext.tabs(4)+strFunc(descendantChild,","+CR+ext.tabs(4),function(e,i){return "h1."+e;})+","+CR;
+        result+=ext.tabs(4)+strFunc(commonAttrs,","+CR+ext.tabs(4),function(e,i){
+            return "NEW."+e.pName;
+        })+CR;
+        result+=ext.tabs(3)+"FROM"+CR;
+        result+=ext.tabs(4)+schema+"."+hierarchyEntity+" h"+CR;
+        result+=ext.tabs(3)+"CROSS JOIN"+CR;
+        result+=ext.tabs(4)+schema+"."+hierarchyEntity+" h1"+CR;
+        result+=ext.tabs(3)+"WHERE"+CR;
+        result+=ext.tabs(3)+"("+CR+strFunc(descendantChild,ext.tabs(4)+"AND"+CR,function(e,i){
+			return ext.tabs(4)+"h."+ e + "= NEW." + ancestorParent[i] + CR;
+		});
+        result+=ext.tabs(3)+")"+CR;
+        result+=ext.tabs(3)+"AND"+CR;
+        result+=ext.tabs(4)+"EXISTS"+CR;
+        result+=ext.tabs(4)+"("+CR;
+        result+=ext.tabs(5)+"SELECT"+CR;
+        result+=ext.tabs(6)+"1"+CR;
+        result+=ext.tabs(5)+"FROM"+CR;
+        result+=ext.tabs(6)+schema+"."+hierarchyEntity+" h2"+CR;
+        result+=ext.tabs(5)+"WHERE"+CR;
+        result+=ext.tabs(6)+"("+CR+strFunc(ancestorChild,ext.tabs(7)+"AND"+CR,function(e,i){
+			return ext.tabs(7)+"h2."+ e + " = h1." + e + CR;
+		});
+        result+=ext.tabs(6)+")"+CR;
+        result+=ext.tabs(6)+"AND"+CR;
+        result+=ext.tabs(6)+"("+CR+strFunc(ancestorChild,ext.tabs(7)+"AND"+CR,function(e,i){
+			return ext.tabs(7)+"h2."+ e + "= NEW." + descendantParent[i] + CR;
+		});
+        result+=ext.tabs(6)+")"+CR;
+        result+=ext.tabs(4)+");"+CR;
+        result+=ext.tabs(2)+"ELSE"+CR;
+        result+=ext.tabs(2)+"--子孫共々その他の更新。"+CR;
+        result+=ext.tabs(3)+"UPDATE"+CR;
+        result+=ext.tabs(4)+schema+"."+hierarchyEntity+CR;
+        result+=ext.tabs(3)+"SET"+CR;
+        //コモンドメイン
+        result+=strFunc(commonAttrs,","+CR,function(e,i){
+			return ext.tabs(4)+ e.pName + "= NEW." + e.pName;
+		})+CR;
+        result+=ext.tabs(3)+"WHERE"+CR;
+        result+=ext.tabs(4)+"EXISTS"+CR;
+        result+=ext.tabs(4)+"("+CR;
+        result+=ext.tabs(5)+"SELECT"+CR;
+        result+=ext.tabs(6)+"1"+CR;
+        result+=ext.tabs(5)+"FROM"+CR;
+        result+=ext.tabs(6)+schema+"."+hierarchyEntity+" h1"+CR;
+        result+=ext.tabs(5)+"WHERE"+CR;
+        result+=ext.tabs(6)+"("+CR+strFunc(ancestorChild,ext.tabs(7)+"AND"+CR,function(e,i){
+			return ext.tabs(7)+"h1."+ e + "= NEW." + descendantParent[i] + CR;
+		});
+        result+=ext.tabs(6)+")"+CR;
+        result+=ext.tabs(6)+"AND"+CR;
+        result+=ext.tabs(6)+"("+CR+strFunc(descendantChild,ext.tabs(7)+"AND"+CR,function(e,i){
+			return ext.tabs(7)+"h1."+ e + " = "+hierarchyEntity + "." + e + CR;
+		});
+        result+=ext.tabs(6)+")"+CR;
+        result+=ext.tabs(4)+");"+CR;
+        result+=ext.tabs(2)+"END IF;"+CR;
+        result+=ext.tabs(1)+"ELSEIF (TG_OP = 'DELETE') THEN"+CR;
+        result+=ext.tabs(2)+"DELETE--子孫削除"+CR;
+        result+=ext.tabs(2)+"FROM"+CR;
+        result+=ext.tabs(3)+schema+"."+hierarchyEntity+" h"+CR;
+        result+=ext.tabs(2)+"WHERE"+CR;
+        result+=ext.tabs(3)+"EXISTS"+CR;
+        result+=ext.tabs(3)+"("+CR;
+        result+=ext.tabs(4)+"SELECT"+CR;
+        result+=ext.tabs(5)+"1"+CR;
+        result+=ext.tabs(4)+"FROM"+CR;
+        result+=ext.tabs(5)+schema+"."+hierarchyEntity+" h1"+CR;
+        result+=ext.tabs(4)+"WHERE"+CR;
+        result+=ext.tabs(5)+"("+CR+strFunc(ancestorChild,ext.tabs(6)+"AND"+CR,function(e,i){
+			return ext.tabs(6)+"h1."+ e + "= OLD." + descendantParent[i] + CR;
+		});
+        result+=ext.tabs(5)+")"+CR;
+        result+=ext.tabs(5)+"AND"+CR;
+        result+=ext.tabs(5)+"("+CR+strFunc(descendantChild,ext.tabs(6)+"AND"+CR,function(e,i){
+			return ext.tabs(6)+"h1."+ e + "= h." + e + CR;
+		});
+        result+=ext.tabs(5)+")"+CR;
+        result+=ext.tabs(3)+");"+CR;
+        result+=CR;
+        result+=ext.tabs(2)+"SELECT"+CR;
+        result+=ext.tabs(3)+"COUNT(*) INTO counter"+CR;
+        result+=ext.tabs(2)+"FROM"+CR;
+        result+=ext.tabs(3)+schema+"."+parentEntity+" h"+CR;
+        result+=ext.tabs(2)+"WHERE"+CR;
+        result+=ext.tabs(3)+"NOT EXISTS"+CR;
+        result+=ext.tabs(3)+"("+CR;
+        result+=ext.tabs(4)+"SELECT"+CR;
+        result+=ext.tabs(5)+"1"+CR;
+        result+=ext.tabs(4)+"FROM"+CR;
+        result+=ext.tabs(5)+schema+"."+hierarchyEntity+" h1"+CR;
+        result+=ext.tabs(4)+"WHERE"+CR;
+        result+=ext.tabs(5)+"("+CR+strFunc(descendantChild,ext.tabs(6)+"AND"+CR,function(e,i){
+			return ext.tabs(6)+"h1."+ e + "= h." + descendantParent[i] + CR;
+		});
+        result+=ext.tabs(5)+")"+CR;
+        result+=ext.tabs(3)+");"+CR;
+        result+=ext.tabs(2)+"IF (counter>0) THEN"+CR;
+        result+=ext.tabs(3)+"DELETE"+CR;
+        result+=ext.tabs(3)+"FROM"+CR;
+        result+=ext.tabs(4)+schema+"."+parentEntity+" h"+CR;
+        result+=ext.tabs(3)+"WHERE"+CR;
+        result+=ext.tabs(3)+"NOT EXISTS"+CR;
+        result+=ext.tabs(3)+"("+CR;
+        result+=ext.tabs(4)+"SELECT"+CR;
+        result+=ext.tabs(5)+"1"+CR;
+        result+=ext.tabs(4)+"FROM"+CR;
+        result+=ext.tabs(5)+schema+"."+hierarchyEntity+" h1"+CR;
+        result+=ext.tabs(4)+"WHERE"+CR;
+        result+=ext.tabs(5)+"("+CR+strFunc(descendantChild,ext.tabs(6)+"AND"+CR,function(e,i){
+			return ext.tabs(6)+"h1."+ e + "= h." + descendantParent[i] + CR;
+		});
+        result+=ext.tabs(5)+")"+CR;
+        result+=ext.tabs(3)+");"+CR;
+        result+=ext.tabs(2)+"END IF;"+CR;
+        result+=ext.tabs(1)+"END IF;"+CR;
+        result+=ext.tabs(1)+"RETURN NULL;"+CR;
+        result+="END"+CR;
+        result+="$BODY$"+CR;
+        result+="LANGUAGE plpgsql VOLATILE;"+CR;
+        result+="CREATE OR REPLACE TRIGGER "+parentEntity+"_hierarchy AFTER INSERT OR UPDATE OR DELETE ON "+schema+"."+parentEntity+" FOR EACH ROW EXECUTE"+CR;
+        result+="PROCEDURE "+schema+"."+parentEntity+"_hierarchy();"+CR;
+        result+=CR;
+        //println(result);
+        return result;
+//DECLARE
+//	counter int;
+//BEGIN
+//	IF (TG_OP='INSERT') THEN
+//		INSERT INTO hichy_depertment
+//		(
+//			ancestor,
+//			descendant
+//		)
+//		VALUES
+//		(
+//			NEW.id,
+//			NEW.id
+//		);
+//		INSERT INTO hichy_depertment
+//		(
+//			ancestor,
+//			descendant
+//		)
+//		SELECT
+//			ancestor
+//			,NEW.id
+//		FROM
+//			hichy_depertment
+//		WHERE
+//			descendant=NEW.parent
+//		AND
+//			remove=FALSE;
+//	ELSEIF (TG_OP = 'UPDATE') THEN
+//		IF (NEW.parent <> OLD.parent) THEN
+//			--親の付けかえ
+//			DELETE--子孫削除
+//			FROM
+//			hichy_depertment h
+//			WHERE
+//			EXISTS 
+//			(
+//				SELECT 
+//					1 
+//				FROM 
+//					hichy_depertment h1
+//				WHERE 
+//					h1.ancestor=NEW.id 
+//				AND 
+//				h1.descendant=h.descendant
+//			)
+//			AND
+//			h.ancestor<>h.descendant
+//			AND
+//			h.ancestor<>NEW.id;
+//			--挿入
+//			INSERT INTO hichy_depertment
+//			(
+//				ancestor,
+//				descendant
+//			)
+//			SELECT
+//				h.ancestor,
+//				h1.descendant
+//			FROM 
+//				hichy_depertment h
+//			CROSS JOIN
+//				hichy_depertment h1
+//			WHERE
+//				h.descendant = NEW.parent
+//			AND 
+//				EXISTS 
+//				(
+//					SELECT 
+//					1 
+//					FROM 
+//					hichy_depertment h2 
+//					WHERE
+//					h2.ancestor=  h1.ancestor
+//					AND
+//					h2.ancestor=NEW.id
+//				);
+//		ELSE
+//			--子孫共々その他の更新。
+//			UPDATE
+//				hichy_depertment
+//			SET
+//				remove=true
+//			FROM
+//				hichy_depertment h
+//			WHERE
+//				hichy_depertment.id=h.id
+//			AND
+//				EXISTS 
+//				(
+//					SELECT 
+//						1 
+//					FROM 
+//						hichy_depertment h1
+//					WHERE 
+//						h1.ancestor=33 
+//					AND 
+//					h1.descendant=h.descendant
+//				);
+//		END IF;
+//	ELSEIF (TG_OP = 'DELETE') THEN
+//		DELETE--子孫削除
+//		FROM
+//			hichy_depertment h
+//		WHERE
+//		EXISTS 
+//		(
+//			SELECT 
+//				1 
+//			FROM 
+//				hichy_depertment h1
+//			WHERE 
+//				h1.ancestor=OLD.id 
+//			AND 
+//			h1.descendant=h.descendant
+//		);
+//		SELECT
+//			COUNT(*) INTO counter
+//		FROM
+//			info_depertment h
+//		WHERE
+//			NOT EXISTS (SELECT 1 FROM hichy_depertment h1 WHERE h1.descendant= h.id);
+//
+//		IF (counter>0) THEN
+//			DELETE
+//			FROM
+//				info_depertment h
+//			WHERE
+//				NOT EXISTS (SELECT 1 FROM hichy_depertment h1 WHERE h1.descendant= h.id);
+//		END IF;
+//	END IF;
+//	RETURN NULL;
+//END
+
+
+    }
+}
+
+//生成クラス
+class GeneratManager{
+    IsSchema ="";
+
+    entityArray=new Array;//テーブルセット
+    relArray=new Array;//リレーションシップセット
+    viewArray=new Array;//ビューセット
+    hierarchyArray=new Array;//hierarchyテーブルセット
+	//コンストラクタ
+    function GeneratManager(doc,schema){
+        IsSchema=schema;
+        
+        var len=0;
+        var entsLen=0;
+        var ents=new Array;
+        var rels=new Array;
+        
+        var prg=new Progress("ER objects",10,ext.count(doc.objects));
+        ext.enumrable(doc.objects,function(e,progress){
+            prg.up();
+            if(e.objectType=="Entity"){
+                ents.add(e);
+                entsLen++;
+            }else if(e.objectType=="Relation" || e.objectType=="View"){
+                rels.add(e);
+            }
+        });
+
+        
+        //リレーションシップセット
+        relArray=rels;
+        
+        //テーブルセット
+        prg=new Progress("Entity",10,ext.count(ents));
+        ext.enumrable(ents,function(e,progress){
+            prg.up();
+            entityArray.add(new Entity(e,relArray));
+        });
+        
+		
+        //hierarchyテーブルセット
+        
+        var hierarchyEntities=ext.toWhere(ents,function(e){//hierarchyテーブルズ
+            var reg=new RegExp("^hrchy_");
+            return reg.test(e.pName);
+        });
+        prg=new Progress("Hierarchy",10,ext.count(hierarchyEntities));
+        ext.enumrable(hierarchyEntities,function(e,progress){
+            prg.up();
+            var rels=ext.toWhere(relArray,function(t){//祖先と子孫の2つのリレーションシップを取得
+                return t.entityPName2==e.pName;
+            });
+            
+            if(ext.count(rels)!=2){
+                println(" Hierarchical "+e.pName+" entity requires 2 relationships, but only "+ext.count(rels)+" relationship was given.");
+                return;
+            }
+            
+            var ent=ext.toFirst(ents,function(e)
+                {
+                    return rels[0].entityPName1==e.pName;//リレーション先のエンティティを取得
+                });
+            
+            if(ent==null){
+                println("hierarchy "+e.pName+" relation ship entity "+ rels[0].entityPName1 +" not found inentity array.");
+                return;
+            }
+            
+            hierarchyArray.add(new Hierarchy(ent,e,rels));
+        });
+
+    }
+    
+	function CreateDeleteAll(){
+		var query="";
+        for(var index in entityArray){
+			query+=entityArray[index].GetDeleteQuery(IsSchema);
+        }
+        NewPage(query);
+        return query;
+	}
+    //  全エンティティのクエリ生成
+    //dropFlg ドロップクエリを先頭に追加する
+    function CreateAll(dropFlg,preffix,suffix){
+        var counter=0;
+        var max=0;
+        var query=preffix+CR;
+
+        max=ext.count(entityArray);
+        var prg=new Progress("Drop",10,max);
+        if(dropFlg){
+            query +="--" +max+ ".drop tables"+CR;
+            ext.enumrable(entityArray,function(e,progress){
+                prg.up();
+                query+=e.GetDropQuery(IsSchema);
+            });
+        }
+        var tables=ext.toWhere(entityArray,function(e){return !e.IsView;});
+        
+        max=ext.count(tables);
+        query +="--" +max+ ".create tables"+CR;
+        prg=new Progress("Table",10,max);
+        ext.enumrable(tables,function(e,progress){
+            prg.up();
+            query+=e.GetQuery(IsSchema);
+        });
+
+
+        query +="--" +max+ ".add table comments"+CR;
+        prg=new Progress("Comment",10,max);
+        ext.enumrable(tables,function(e,progress){
+            prg.up();
+            query+=e.GetCommentQuery(IsSchema);
+        });
+
+        query +="--" +max+ ".add table primary key and index"+CR;
+        prg=new Progress("primary key",10,max);
+        ext.enumrable(tables,function(e,progress){
+            prg.up();
+            query+=e.GetPkQuery(IsSchema);
+            query+=e.GetUniqueQuery(IsSchema);
+        });
+
+        query +="--" +max+ ".add table foreign key"+CR;
+        prg=new Progress("foreign key",10,max);
+        ext.enumrable(tables,function(e,progress){
+            prg.up();
+            query+=e.GetFkQuery(IsSchema,entityArray);
+        });
+
+        query +="--" +max+ ".add table trigger"+CR;
+        prg=new Progress("trigger",10,max);
+        ext.enumrable(tables,function(e,progress){
+            prg.up();
+            if(dropFlg)query+=e.IsTrigger.GetDropQuery(IsSchema);
+            query+=e.GetTriggerQuery(IsSchema,entityArray);
+        });
+        
+        max=ext.count(hierarchyArray);
+        query +="--" +max+ ".add hierarchy trigger"+CR;
+        prg=new Progress("hierarchy",10,max);
+        ext.enumrable(hierarchyArray,function(e,progress){
+            prg.up();
+            query+=e.GetQuery(IsSchema);
+        });
+
+        max=ext.count(viewArray);
+        query +="--" +max+ ".create view"+CR;
+        query +=CreateView();
+        query +=suffix;
+        NewPage(query);
+        return query;
+    }
+    //エンティティ配列名からクエリ生成
+    function CreateEntityFromNames(names,dropFlg){
+        if(names.length==0)return "";
+        var query="-- create tables "+names.length;
+        for(var index in names){
+            query+=CreateEntityQuery(names[index],dropFlg);
+        }
+        NewPage(query);
+        return query;
+    }
+    //エンティティ名からクエリ生成
+    function CreateEntityFromName(name,dropFlg){
+        var entity=ext.toFirst(entityArray,function(e){return e.Name==name;});
+        if(entity==null)return "";
+        var query=CreateEntityQuery(name,dropFlg);
+        NewPage(query);
+        return query;
+    }
+    //消去のみのクエリ生成
+    function CreateAllDrop(){
+        var query="-caution!! all table recodes delete.-"+CR;
+        for(var index in entityArray){
+            if(entityArray[index].IsTrigger != null)
+                query+=entityArray[index].IsTrigger.GetDropQuery(IsSchema)+CR;
+        }
+        for(var index in entityArray){
+            query+=entityArray[index].GetDropQuery(IsSchema)+CR;
+        }
+        NewPage(query);
+        return query;
+    }
+    //エンティティ名から消去クエリ生成
+    function CreateDropFromName(name){
+        var entity=ext.toFirst(entityArray,function(e){return e.Name==name;});
+        if(entity==null)return "";
+        var query="";
+        query+=entity.GetDropQuery(IsSchema);
+        query+=entity.IsTrigger.GetDropQuery(IsSchema)+CR;
+        NewPage(query);
+        return query;
+    }
+    //ビュー生成
+    function CreateView(){
+        var query="";
+        var views=ext.toWhere(entityArray,function(e){return e.IsView;});
+        for(var index in views){
+            query+=views[index].GetQuery(IsSchema);
+        }
+        return query;
+    }
+    //タブページ追加
+    function NewPage(query){
+        //println(query);
+        var editer=application.newSqlEditor(query);
+    }
+    //名前からエンティティクエリ生成
+    function CreateEntityQuery(name,dropFlg){
+        var entity=ext.toFirst(entityArray,function(e){return e.Name==name;});
+        if(entity==null)return "";
+        var query="";
+
+        query+="-- create "+ entity.Name;
+        if(dropFlg)query+=entity.GetDropQuery(IsSchema);
+        if(entity.IsView){
+            query+=" view"+CR;
+        }else{
+            query+=" table"+CR;
+        }
+        if(dropFlg)query+=entity.GetDropQuery(IsSchema);
+        query+=entity.GetQuery(IsSchema);
+        
+        if(!entity.IsView){
+            query+=entity.GetCommentQuery(IsSchema)+CR;
+            query+=entity.GetPkQuery(IsSchema)+CR;
+            query+=entity.GetUniqueQuery(IsSchema)+CR;
+            query+=entity.GetFkQuery(IsSchema,entityArray)+CR;
+            if(entity.IsTrigger!=null){
+                query+=entity.IsTrigger.GetDropQuery(IsSchema)+CR;
+                query+=entity.GetTriggerQuery(IsSchema,entityArray)+CR;
+            }
+            
+        }
+        var hierarchy=ext.toFirst(hierarchyArray,function(e,progress){
+            return e.RelEntity.pName==name;
+        });
+        if(hierarchy!=null){
+            query+=hierarchy.GetQuery(IsSchema);
+        }
+        return query;
+    }
+}
+
+var selectEntities=new Array;
+var mng =(function(){
+    var result=application.getActiveWindow();
+    if (result.formType != "A5EREditor") {
+        alert("アクティブウィンドウをERエディタにしてから実行してください。");
+        exit();
+    }
+
+    selectEntities=ext.toSelect(ext.toWhere(result.document.selectedObjects,function(e)
+        {
+            return e.objectType=="Entity";
+        }),function(e){return e.pName;});
+
+    commonAttrs=result.document.commonAttributes;
+    domainArray=result.document.domains;
+    return new GeneratManager(result.document,SCHEMA);
+})();
+
+//mng.CreateDropFromName("info_company");//名前のテーブルを消去
+//mng.CreateAllDrop();//全テーブル消去
+mng.CreateAll(false,"\\c test_avocado","");//全テーブル生成
+//mng.CreateEntityFromNames(selectEntities,false);//選択しているアイテムから
+//mng.CreateDeleteAll();//全テーブルの全レコード削除
+

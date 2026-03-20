@@ -1,10 +1,11 @@
-import 'package:graphql/client.dart';
-import 'package:pms_graphql_lib/constants/graphql_constant.dart';
-import 'package:pms_graphql_lib/exceptions/graphql_exception.dart';
 import "package:collection/collection.dart";
-import 'package:pms_graphql_model_lib/edit_models/_base/iedit_model.dart';
-import 'package:pms_graphql_model_lib/graphql_converters/collection/graphql_converter_collection.dart';
+import 'package:graphql/client.dart';
 import 'package:pms_logger_lib/logger_provider.dart';
+import 'package:gql/language.dart';
+import 'package:pms_graphql_lib/constants/graphql_constant.dart';
+import 'package:pms_graphql_lib/edit_models/_base/iedit_model.dart';
+import 'package:pms_graphql_lib/exceptions/graphql_exception.dart';
+import 'package:pms_graphql_lib/graphql_converters/collection/graphql_converter_collection.dart';
 
 enum MutationType { insert, update }
 
@@ -16,8 +17,7 @@ final class GraphQLClientProvider {
   final String url;
   final Map<String, String> headers;
   final bool isHasura = false;
-  final GraphQLConverterCollection converterCollection =
-      CollectionFactory.createCollection();
+  final GraphQLConverterCollection? converterCollection;
 
   late final Duration timeLimit;
   late final GraphQLClient client;
@@ -25,6 +25,7 @@ final class GraphQLClientProvider {
   GraphQLClientProvider(
     this.url, {
     this.headers = const {},
+    this.converterCollection,
     int? timeLimit,
     this.logger,
     isHasura = false,
@@ -46,6 +47,9 @@ final class GraphQLClientProvider {
 
   //mutationを実行する関数。引数は、MutationOptionsと、MutationOptionsのDocumentをキーにしてグループ化したもの。グループ化したものは、同じDocumentを持つオプションをinsertとupdateで分けて実行するために使用する。
   Future<QueryResult> _mutation(String key, MutationOptions options) async {
+    logger?.debug(
+      'mutation:${printNode(options.document)} variables:${options.variables}',
+    );
     return await client
         .mutate(options)
         .timeout(
@@ -151,6 +155,9 @@ final class GraphQLClientProvider {
   //クエリを実行する関数。引数は、QueryOptions。クエリがタイムアウトした場合は、GraphqlTimeoutExceptionをスローする。
   Future<QueryResult> query(QueryOptions options) async {
     try {
+      logger?.debug(
+        'query:${printNode(options.document)} variables:${options.variables}',
+      );
       return await client
           .query(options)
           .timeout(
@@ -169,9 +176,14 @@ final class GraphQLClientProvider {
 
   //モデルのリストを受け取り、モデルの型に対応するコンバーターが存在するか確認する。存在しない場合は例外をスローする。モデルの型に対応するコンバーターを取得する。モデルが新規かどうかで、insertオプションかupdateオプションを作成する。作成したオプションと、モデルが新規かどうかをタプルにして返す。最後に、作成したオプションのリストを_execute関数に渡して実行する。
   Future<List<QueryResult>> save(List<IEditModel> models) async {
+    if (converterCollection == null) {
+      throw ArgumentError(
+        'Converter collection is required to save models. Please provide a converter collection.',
+      );
+    }
     for (var model in models) {
       //モデルの型に対応するコンバーターが存在するか確認する。存在しない場合は例外をスローする
-      if (!converterCollection.hasConverterFromInstance(model)) {
+      if (!converterCollection!.hasConverterFromInstance(model)) {
         throw ArgumentError(
           'No converter found for type ${model.runtimeType}. Please add a converter for this type.',
         );
@@ -179,8 +191,13 @@ final class GraphQLClientProvider {
     }
 
     final values = models.map((model) {
+      if (converterCollection == null) {
+        throw ArgumentError(
+          'Converter collection is required to save models. Please provide a converter collection.',
+        );
+      }
       //モデルの型に対応するコンバーターを取得する。モデルが新規かどうかで、insertオプションかupdateオプションを作成する。作成したオプションと、モデルが新規かどうかをタプルにして返す
-      final converter = converterCollection.getConverterFromInstance(model)!;
+      final converter = converterCollection!.getConverterFromInstance(model)!;
       final mutationType = model.isNew
           ? MutationType.insert
           : MutationType.update;

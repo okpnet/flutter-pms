@@ -1,0 +1,250 @@
+﻿//拡張
+var ext={
+    "toFirst":function(array,func){
+        for(var index in array){
+            if(func(array[index]))return array[index];
+        }
+        return null;
+      },
+    "toWhere":function(array,func){//func->result bool,argment array[i]
+        var result=new Array;
+        for(var index in array){
+            if(func(array[index]))result.add(array[index]);
+        }
+        return result;
+        },
+    "toAny":function(array,func){
+        for(var index in array){
+            if(func(array[index]))return true;
+        }
+        return false;
+    },
+    "toSelect":function(array,func){
+        var result=new Array;
+        for(var i in array){
+            var funcResult=func(array[i]);
+            if(funcResult != null)result.add(funcResult);
+        }
+        return result;
+    },
+    "tabs":function(e){
+        var tabResults="";
+        if(0>=e)return tabResults;
+        for(var i=0;e>i;i++) tabResults+="    ";
+        return tabResults;
+    }
+};
+class Hierarchy{
+    RelEntity=null;
+    HrchyEntity=null;
+    Relation=null;
+    //コンストラクタ
+    function Hierarchy(relEntity,hrchyEntity,relation){
+        RelEntity=relEntity;
+        HrchyEntity=hrchyEntity;
+        Relation=relation;
+    }
+    //トリガー生成
+    function GetQuery(schema){
+
+        if(Relation.entityPName2 == null){
+            return "error:entity1 is "+rel.entityPName1+". entity2 is not exists.";
+        }
+
+        var ancestorColmuns=ext.toWhere(HrchyEntity.Columns,function(e){return !(new RegExp('^ancestor[.]+').test(e.Attr.defaultValue));});
+        var descendantColmuns=ext.toWhere(HrchyEntity.Columns,function(e){return !(new RegExp('^descendant[.]+').test(e.Attr.defaultValue));});
+        var parentColmuns=ext.toWhere(RelEntity.Columns,function(e){return !(new RegExp('^parent_[.]+').test(e.Attr.defaultValue));});
+        var idColumn=ext.toFirst(RelEntity.Columns,function(e){return (e.Attr.keyIdx==0);});
+        
+
+//
+//        if(latestColmuns == null || latestColmuns.length==0){
+//            return "error:entity1 is "+Relation.entityPName1+". entity2 is not exists.";
+//        }
+//
+        var result="-- "+Relation.entityPName1+" closure table after trigger"+CR;
+
+        result+="CREATE OR REPLACE FUNCTION "+schema+"."+Relation.entityPName1+"_hierarchy() RETURNS trigger AS"+CR;
+        result+="$BODY$"+CR;
+        result+="DECLARE"+CR;
+        result+=ext.tabs(1)+"revisions int;"+CR;
+        result+="BEGIN"+CR;
+
+
+//DECLARE
+//	counter int;
+//BEGIN
+//	IF (TG_OP='INSERT') THEN
+//		INSERT INTO hichy_depertment
+//		(
+//			ancestor,
+//			descendant
+//		)
+//		VALUES
+//		(
+//			NEW.id,
+//			NEW.id
+//		);
+//		INSERT INTO hichy_depertment
+//		(
+//			ancestor,
+//			descendant
+//		)
+//		SELECT
+//			ancestor
+//			,NEW.id
+//		FROM
+//			hichy_depertment
+//		WHERE
+//			descendant=NEW.parent
+//		AND
+//			remove=FALSE;
+//	ELSEIF (TG_OP = 'UPDATE') THEN
+//		IF (NEW.parent <> OLD.parent) THEN
+//			--親の付けかえ
+//			DELETE--子孫削除
+//			FROM
+//			hichy_depertment h
+//			WHERE
+//			EXISTS 
+//			(
+//				SELECT 
+//					1 
+//				FROM 
+//					hichy_depertment h1
+//				WHERE 
+//					h1.ancestor=NEW.id 
+//				AND 
+//				h1.descendant=h.descendant
+//			)
+//			AND
+//			h.ancestor<>h.descendant
+//			AND
+//			h.ancestor<>NEW.id;
+//			--挿入
+//			INSERT INTO hichy_depertment
+//			(
+//				ancestor,
+//				descendant
+//			)
+//			SELECT
+//				h.ancestor,
+//				h1.descendant
+//			FROM 
+//				hichy_depertment h
+//			CROSS JOIN
+//				hichy_depertment h1
+//			WHERE
+//				h.descendant = NEW.parent
+//			AND 
+//				EXISTS 
+//				(
+//					SELECT 
+//					1 
+//					FROM 
+//					hichy_depertment h2 
+//					WHERE
+//					h2.ancestor=  h1.ancestor
+//					AND
+//					h2.ancestor=NEW.id
+//				);
+//		ELSE
+//			--子孫共々その他の更新。
+//			UPDATE
+//				hichy_depertment
+//			SET
+//				remove=true
+//			FROM
+//				hichy_depertment h
+//			WHERE
+//				hichy_depertment.id=h.id
+//			AND
+//				EXISTS 
+//				(
+//					SELECT 
+//						1 
+//					FROM 
+//						hichy_depertment h1
+//					WHERE 
+//						h1.ancestor=33 
+//					AND 
+//					h1.descendant=h.descendant
+//				);
+//		END IF;
+//	ELSEIF (TG_OP = 'DELETE') THEN
+//		DELETE--子孫削除
+//		FROM
+//			hichy_depertment h
+//		WHERE
+//		EXISTS 
+//		(
+//			SELECT 
+//				1 
+//			FROM 
+//				hichy_depertment h1
+//			WHERE 
+//				h1.ancestor=OLD.id 
+//			AND 
+//			h1.descendant=h.descendant
+//		);
+//		SELECT
+//			COUNT(*) INTO counter
+//		FROM
+//			info_depertment h
+//		WHERE
+//			NOT EXISTS (SELECT 1 FROM hichy_depertment h1 WHERE h1.descendant= h.id);
+//
+//		IF (counter>0) THEN
+//			DELETE
+//			FROM
+//				info_depertment h
+//			WHERE
+//				NOT EXISTS (SELECT 1 FROM hichy_depertment h1 WHERE h1.descendant= h.id);
+//		END IF;
+//	END IF;
+//	RETURN NULL;
+//END
+
+
+    }
+}
+
+
+var result=application.getActiveWindow();
+if (result.formType != "A5EREditor") {
+    alert("アクティブウィンドウをERエディタにしてから実行してください。");
+    exit();
+}
+println("=>"+result.document.selectedObjects.length);
+selectEntities=ext.toSelect(ext.toWhere(result.document.selectedObjects,function(e)
+    {
+        return e.objectType=="Entity";
+    }),function(e){return e.pName;});
+println("selectEntities=>"+selectEntities.length);
+commonAttrs=result.document.commonAttributes;
+println("commonAttrs=>"+commonAttrs.length);
+domainArray=result.document.domains;
+println("domainArray=>"+domainArray.length);
+
+
+
+
+
+var mng =(function(){
+    var result=application.getActiveWindow();
+    if (result.formType != "A5EREditor") {
+        alert("アクティブウィンドウをERエディタにしてから実行してください。");
+        exit();
+    }
+    println("=>"+result.document.selectedObjects.length);
+    selectEntities=ext.toSelect(ext.toWhere(result.document.selectedObjects,function(e)
+        {
+            return e.objectType=="Entity";
+        }),function(e){return e.pName;});
+    println("=>"+selectEntities.length);
+    commonAttrs=result.document.commonAttributes;
+    domainArray=result.document.domains;
+    return commonAttrs;
+})();
+println("start");
+println(mng);

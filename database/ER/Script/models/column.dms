@@ -1,0 +1,13 @@
+﻿
+class Column{
+	Attr//A5ERAttribute
+	//コンストラクタ
+	function Column(attr){
+		Attr=attr;
+	}
+	//クエリ
+	function GetQuery(schema){
+		if(Attr==null)return "";
+		
+	}
+}

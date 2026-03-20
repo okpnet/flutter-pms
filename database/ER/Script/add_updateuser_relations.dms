@@ -1,0 +1,105 @@
+﻿//Title:QualDB初期化クエリ生成
+//Author:hayato 
+//Data:2023/06/01
+
+var frmER =(function(){
+	var result=application.getActiveWindow();
+	if (result.formType != "A5EREditor") {
+    	alert("アクティブウィンドウをERエディタにしてから実行してください。");
+    	exit();
+	}
+	return result;
+})();
+
+var ext={
+    "toFirst":function(array,func){
+        for(var index in array){
+            if(func(array[index]))return array[index];
+        }
+        return null;
+      },
+    "toWhere":function(array,func){//func->result bool,argment array[i]
+        var result=new Array;
+        for(var index in array){
+            if(func(array[index]))result.add(array[index]);
+        }
+        return result;
+        },
+    "toAny":function(array,func){
+        for(var index in array){
+            if(func(array[index]))return true;
+        }
+        return false;
+    },
+    "toSelect":function(array,func){
+        var result=new Array;
+        for(var i in array){
+            var funcResult=func(array[i]);
+            if(funcResult != null)result.add(funcResult);
+        }
+        return result;
+    },
+    "tabs":function(e){
+        var tabResults="";
+        if(0>=e)return tabResults;
+        for(var i=0;e>i;i++) tabResults+="    ";
+        return tabResults;
+    }
+};
+
+var select=function(array,func){
+    	var result=new Array;
+    	for(var i in array){
+    		var funcResult=func(array[i]);
+    		if(funcResult != null)result.add(funcResult);
+    	}
+    	return result;
+    };
+    
+    
+var create=function(doc){
+        //テーブルセット
+        var entityArray=ext.toSelect(doc.objects,function(e){
+            if(e.objectType=="Entity")return e;
+        });
+        //リレーションシップセット
+        var relArray=ext.toSelect(doc.objects,function(e){
+            if(e.objectType=="Relation")return e;
+        });
+        //ビューセット
+        var viewArray=ext.toSelect(doc.objects,function(e){
+            if(e.objectType=="View")return e;
+        });
+        
+        var exists=function(a){
+            for(var i in relArray){
+                if(relArray[i].entityPName1==a.entityPName1 &&
+                    relArray[i].entityPName2==a.entityPName2 &&
+                    relArray[i].attributes1==a.attributes1 &&
+                     relArray[i].attributes2==a.attributes2)
+                     {
+                        return true;
+                     }
+            }
+            return false;
+        };
+        
+        for(var index in entityArray){
+            if(!ext.toAny(relArray,function(e){
+                return (e.entityPName1=="info_staff" && e.entityPName2===entityArray[index].pName && e.attributes1=="staff_id" && e.attributes2=="update_user");
+            })){
+                println("=>"+entityArray[index].pName);
+                var rel=doc.objects.addRelation();
+                rel.entityPName1="info_staff";
+                rel.entityPName2=entityArray[index].pName;
+                rel.attributes1="staff_id";
+                rel.attributes2="update_user";
+                rel.relationType1=1;
+                rel.relationType2=3;
+                rel.relationCaption="auto create.";
+
+            }
+            
+        }
+};
+create(frmER.document);

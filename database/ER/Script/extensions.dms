@@ -1,0 +1,38 @@
+﻿//拡張
+var ext={
+    "toFirst":function(array,func){
+        for(var index in array){
+            if(func(array[index]))return array[index];
+        }
+        return null;
+      },
+    "toWhere":function(array,func){//func->result bool,argment array[i]
+        var result=new Array;
+        for(var index in array){
+            if(func(array[index]))result.add(array[index]);
+        }
+        return result;
+        },
+    "toAny":function(array,func){
+        for(var index in array){
+            if(func(array[index]))return true;
+        }
+        return false;
+    },
+    "toSelect":function(array,func){
+        var result=new Array;
+        for(var i in array){
+            var funcResult=func(array[i]);
+            if(funcResult != null)result.add(funcResult);
+        }
+        return result;
+    },
+    "tabs":function(e){
+        var tabResults="";
+        if(0>=e)return tabResults;
+        for(var i=0;e>i;i++) tabResults+="    ";
+        return tabResults;
+    }
+};
+
+Extensions=ext;

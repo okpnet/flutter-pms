@@ -1,0 +1,488 @@
+<svg host="65bd71144e" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="979px" height="842px" viewBox="-0.5 -0.5 979 842" content="&lt;mxfile&gt;&lt;diagram id=&quot;EoDSt3H6v0G2X_kK15RB&quot; name=&quot;ページ1&quot;&gt;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&lt;/diagram&gt;&lt;/mxfile&gt;">
+    <defs/>
+    <g>
+        <path d="M 120 20 L 420 20 L 420 73.63" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 420 78.88 L 416.5 71.88 L 420 73.63 L 423.5 71.88 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <rect x="0" y="0" width="120" height="40" rx="6" ry="6" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 118px; height: 1px; padding-top: 20px; margin-left: 1px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 10px; font-family: &quot;MyricaM M&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                受注
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="60" y="23" fill="rgb(0, 0, 0)" font-family="MyricaM M" font-size="10px" text-anchor="middle">
+                    受注
+                </text>
+            </switch>
+        </g>
+        <path d="M 220 120 L 220 153.63" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 220 158.88 L 216.5 151.88 L 220 153.63 L 223.5 151.88 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <rect x="160" y="80" width="120" height="40" rx="6" ry="6" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 118px; height: 1px; padding-top: 100px; margin-left: 161px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 10px; font-family: &quot;MyricaM M&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                社内発注
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="220" y="103" fill="rgb(0, 0, 0)" font-family="MyricaM M" font-size="10px" text-anchor="middle">
+                    社内発注
+                </text>
+            </switch>
+        </g>
+        <path d="M 480 100 L 817.63 100" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 822.88 100 L 815.88 103.5 L 817.63 100 L 815.88 96.5 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <rect x="360" y="80" width="120" height="40" rx="6" ry="6" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 118px; height: 1px; padding-top: 100px; margin-left: 361px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 10px; font-family: &quot;MyricaM M&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                明細
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="420" y="103" fill="rgb(0, 0, 0)" font-family="MyricaM M" font-size="10px" text-anchor="middle">
+                    明細
+                </text>
+            </switch>
+        </g>
+        <path d="M 280 180 L 854 180 L 854 233.63" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 854 238.88 L 850.5 231.88 L 854 233.63 L 857.5 231.88 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <rect x="160" y="160" width="120" height="40" rx="6" ry="6" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 118px; height: 1px; padding-top: 180px; margin-left: 161px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 10px; font-family: &quot;MyricaM M&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                明細
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="220" y="183" fill="rgb(0, 0, 0)" font-family="MyricaM M" font-size="10px" text-anchor="middle">
+                    明細
+                </text>
+            </switch>
+        </g>
+        <path d="M 884 360 L 884 393.63" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 884 398.88 L 880.5 391.88 L 884 393.63 L 887.5 391.88 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <rect x="824" y="320" width="120" height="40" rx="6" ry="6" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 118px; height: 1px; padding-top: 340px; margin-left: 825px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 10px; font-family: &quot;MyricaM M&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                作業指示
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="884" y="343" fill="rgb(0, 0, 0)" font-family="MyricaM M" font-size="10px" text-anchor="middle">
+                    作業指示
+                </text>
+            </switch>
+        </g>
+        <path d="M 884 280 L 884 313.63" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 884 318.88 L 880.5 311.88 L 884 313.63 L 887.5 311.88 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 824 260 L 486.37 260" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 481.12 260 L 488.12 256.5 L 486.37 260 L 488.12 263.5 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 824 270 L 772 270 L 772 300 L 728.12 300" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" stroke-dasharray="3 3" pointer-events="stroke"/>
+        <path d="M 721.12 300 L 728.12 296.5 L 728.12 303.5 Z" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <rect x="824" y="240" width="120" height="40" rx="6" ry="6" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 118px; height: 1px; padding-top: 260px; margin-left: 825px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 10px; font-family: &quot;MyricaM M&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                生産計画
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="884" y="263" fill="rgb(0, 0, 0)" font-family="MyricaM M" font-size="10px" text-anchor="middle">
+                    生産計画
+                </text>
+            </switch>
+        </g>
+        <path d="M 420 360 L 420 393.63" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 420 398.88 L 416.5 391.88 L 420 393.63 L 423.5 391.88 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 480 420 L 540 420 L 540 620 L 591.88 620" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" stroke-dasharray="3 3" pointer-events="stroke"/>
+        <path d="M 598.88 620 L 591.88 623.5 L 591.88 616.5 Z" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <rect x="360" y="320" width="120" height="40" rx="6" ry="6" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 118px; height: 1px; padding-top: 340px; margin-left: 361px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 10px; font-family: &quot;MyricaM M&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                発注アイテム
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="420" y="343" fill="rgb(0, 0, 0)" font-family="MyricaM M" font-size="10px" text-anchor="middle">
+                    発注アイテム
+                </text>
+            </switch>
+        </g>
+        <path d="M 420 280 L 420 313.63" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 420 318.88 L 416.5 311.88 L 420 313.63 L 423.5 311.88 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 360 260 L 288.12 260" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" stroke-dasharray="3 3" pointer-events="stroke"/>
+        <path d="M 281.12 260 L 288.12 256.5 L 288.12 263.5 Z" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <rect x="360" y="240" width="120" height="40" rx="6" ry="6" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 118px; height: 1px; padding-top: 260px; margin-left: 361px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 10px; font-family: &quot;MyricaM M&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                払出予定
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="420" y="263" fill="rgb(0, 0, 0)" font-family="MyricaM M" font-size="10px" text-anchor="middle">
+                    払出予定
+                </text>
+            </switch>
+        </g>
+        <path d="M 884 440 L 884 473.63" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 884 478.88 L 880.5 471.88 L 884 473.63 L 887.5 471.88 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <rect x="824" y="400" width="120" height="40" rx="6" ry="6" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 118px; height: 1px; padding-top: 420px; margin-left: 825px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 10px; font-family: &quot;MyricaM M&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                払出予定
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="884" y="423" fill="rgb(0, 0, 0)" font-family="MyricaM M" font-size="10px" text-anchor="middle">
+                    払出予定
+                </text>
+            </switch>
+        </g>
+        <path d="M 420 520 L 420 553.63" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 420 558.88 L 416.5 551.88 L 420 553.63 L 423.5 551.88 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 480 500 L 490 500 L 490 423 M 490 417 M 490 417 L 490 350 L 488.12 350" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" stroke-dasharray="3 3" pointer-events="stroke"/>
+        <path d="M 481.12 350 L 488.12 346.5 L 488.12 353.5 Z" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <rect x="360" y="480" width="120" height="40" rx="6" ry="6" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 118px; height: 1px; padding-top: 500px; margin-left: 361px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 10px; font-family: &quot;MyricaM M&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                注文書
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="420" y="503" fill="rgb(0, 0, 0)" font-family="MyricaM M" font-size="10px" text-anchor="middle">
+                    注文書
+                </text>
+            </switch>
+        </g>
+        <path d="M 420 600 L 420 633.63" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 420 638.88 L 416.5 631.88 L 420 633.63 L 423.5 631.88 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 480 580 L 500 580 L 500 423 M 500 417 M 500 417 L 500 340 L 488.12 340" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" stroke-dasharray="3 3" pointer-events="stroke"/>
+        <path d="M 481.12 340 L 488.12 336.5 L 488.12 343.5 Z" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <rect x="360" y="560" width="120" height="40" rx="6" ry="6" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 118px; height: 1px; padding-top: 580px; margin-left: 361px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 10px; font-family: &quot;MyricaM M&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                受入
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="420" y="583" fill="rgb(0, 0, 0)" font-family="MyricaM M" font-size="10px" text-anchor="middle">
+                    受入
+                </text>
+            </switch>
+        </g>
+        <path d="M 360 660 L 340 660 L 340 270 L 351.88 270" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 358.88 270 L 351.88 273.5 L 351.88 266.5 Z" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 420 680 L 420 740 L 593.63 740" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 598.88 740 L 591.88 743.5 L 593.63 740 L 591.88 736.5 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 360 670 L 220 670 L 220 288.12" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" stroke-dasharray="3 3" pointer-events="stroke"/>
+        <path d="M 220 281.12 L 223.5 288.12 L 216.5 288.12 Z" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <rect x="360" y="640" width="120" height="40" rx="6" ry="6" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 118px; height: 1px; padding-top: 660px; margin-left: 361px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 10px; font-family: &quot;MyricaM M&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                払出
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="420" y="663" fill="rgb(0, 0, 0)" font-family="MyricaM M" font-size="10px" text-anchor="middle">
+                    払出
+                </text>
+            </switch>
+        </g>
+        <path d="M 884 520 L 884 553.63" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 884 558.88 L 880.5 551.88 L 884 553.63 L 887.5 551.88 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 824 500 L 772 500 L 772 740 L 728.12 740" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" stroke-dasharray="3 3" pointer-events="stroke"/>
+        <path d="M 721.12 740 L 728.12 736.5 L 728.12 743.5 Z" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <rect x="824" y="480" width="120" height="40" rx="6" ry="6" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 118px; height: 1px; padding-top: 500px; margin-left: 825px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 10px; font-family: &quot;MyricaM M&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                作業実績
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="884" y="503" fill="rgb(0, 0, 0)" font-family="MyricaM M" font-size="10px" text-anchor="middle">
+                    作業実績
+                </text>
+            </switch>
+        </g>
+        <path d="M 944 580 L 954 580 L 954 420 L 950.37 420" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 945.12 420 L 952.12 416.5 L 950.37 420 L 952.12 423.5 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <rect x="824" y="560" width="120" height="40" rx="6" ry="6" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 118px; height: 1px; padding-top: 580px; margin-left: 825px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 10px; font-family: &quot;MyricaM M&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                払出
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="884" y="583" fill="rgb(0, 0, 0)" font-family="MyricaM M" font-size="10px" text-anchor="middle">
+                    払出
+                </text>
+            </switch>
+        </g>
+        <path d="M 884 600 L 884 793.63" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 884 798.88 L 880.5 791.88 L 884 793.63 L 887.5 791.88 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 884 120 L 884 233.63" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 884 238.88 L 880.5 231.88 L 884 233.63 L 887.5 231.88 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <rect x="824" y="80" width="120" height="40" rx="6" ry="6" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 118px; height: 1px; padding-top: 100px; margin-left: 825px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 10px; font-family: &quot;MyricaM M&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                出荷予定
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="884" y="103" fill="rgb(0, 0, 0)" font-family="MyricaM M" font-size="10px" text-anchor="middle">
+                    出荷予定
+                </text>
+            </switch>
+        </g>
+        <path d="M 824 820 L 190 820 L 190 288.12" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" stroke-dasharray="3 3" pointer-events="stroke"/>
+        <path d="M 190 281.12 L 193.5 288.12 L 186.5 288.12 Z" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 944 820 L 970 820 L 970 100 L 952.12 100" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" stroke-dasharray="3 3" pointer-events="stroke"/>
+        <path d="M 945.12 100 L 952.12 96.5 L 952.12 103.5 Z" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <rect x="824" y="800" width="120" height="40" rx="6" ry="6" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 118px; height: 1px; padding-top: 820px; margin-left: 825px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 10px; font-family: &quot;MyricaM M&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                出荷
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="884" y="823" fill="rgb(0, 0, 0)" font-family="MyricaM M" font-size="10px" text-anchor="middle">
+                    出荷
+                </text>
+            </switch>
+        </g>
+        <path d="M 420 440 L 420 473.63" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 420 478.88 L 416.5 471.88 L 420 473.63 L 423.5 471.88 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <rect x="360" y="400" width="120" height="40" rx="6" ry="6" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 118px; height: 1px; padding-top: 420px; margin-left: 361px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 10px; font-family: &quot;MyricaM M&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                外部供給者別
+                                <br/>
+                                アイテム選択
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="420" y="423" fill="rgb(0, 0, 0)" font-family="MyricaM M" font-size="10px" text-anchor="middle">
+                    外部供給者別
+アイテム選択
+                </text>
+            </switch>
+        </g>
+        <path d="M 660 600 L 660 568.12" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" stroke-dasharray="3 3" pointer-events="stroke"/>
+        <path d="M 660 561.12 L 663.5 568.12 L 656.5 568.12 Z" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <rect x="600" y="600" width="120" height="40" rx="6" ry="6" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 118px; height: 1px; padding-top: 620px; margin-left: 601px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 10px; font-family: &quot;MyricaM M&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                外部供給者
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="660" y="623" fill="rgb(0, 0, 0)" font-family="MyricaM M" font-size="10px" text-anchor="middle">
+                    外部供給者
+                </text>
+            </switch>
+        </g>
+        <rect x="160" y="240" width="120" height="40" rx="6" ry="6" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 118px; height: 1px; padding-top: 260px; margin-left: 161px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 10px; font-family: &quot;MyricaM M&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                場所
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="220" y="263" fill="rgb(0, 0, 0)" font-family="MyricaM M" font-size="10px" text-anchor="middle">
+                    場所
+                </text>
+            </switch>
+        </g>
+        <rect x="600" y="280" width="120" height="40" rx="6" ry="6" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 118px; height: 1px; padding-top: 300px; margin-left: 601px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 10px; font-family: &quot;MyricaM M&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                品目
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="660" y="303" fill="rgb(0, 0, 0)" font-family="MyricaM M" font-size="10px" text-anchor="middle">
+                    品目
+                </text>
+            </switch>
+        </g>
+        <path d="M 660 360 L 660 328.12" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" stroke-dasharray="3 3" pointer-events="stroke"/>
+        <path d="M 660 321.12 L 663.5 328.12 L 656.5 328.12 Z" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <rect x="600" y="360" width="120" height="40" rx="6" ry="6" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 118px; height: 1px; padding-top: 380px; margin-left: 601px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 10px; font-family: &quot;MyricaM M&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                品目工程
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="660" y="383" fill="rgb(0, 0, 0)" font-family="MyricaM M" font-size="10px" text-anchor="middle">
+                    品目工程
+                </text>
+            </switch>
+        </g>
+        <path d="M 660 440 L 660 408.12" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" stroke-dasharray="3 3" pointer-events="stroke"/>
+        <path d="M 660 401.12 L 663.5 408.12 L 656.5 408.12 Z" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <rect x="600" y="440" width="120" height="40" rx="6" ry="6" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 118px; height: 1px; padding-top: 460px; margin-left: 601px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 10px; font-family: &quot;MyricaM M&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                工程
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="660" y="463" fill="rgb(0, 0, 0)" font-family="MyricaM M" font-size="10px" text-anchor="middle">
+                    工程
+                </text>
+            </switch>
+        </g>
+        <path d="M 660 520 L 660 488.12" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" stroke-dasharray="3 3" pointer-events="stroke"/>
+        <path d="M 660 481.12 L 663.5 488.12 L 656.5 488.12 Z" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <rect x="600" y="520" width="120" height="40" rx="6" ry="6" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 118px; height: 1px; padding-top: 540px; margin-left: 601px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 10px; font-family: &quot;MyricaM M&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                利用可能外部供給者
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="660" y="543" fill="rgb(0, 0, 0)" font-family="MyricaM M" font-size="10px" text-anchor="middle">
+                    利用可能外部供給者
+                </text>
+            </switch>
+        </g>
+        <rect x="600" y="720" width="120" height="40" rx="6" ry="6" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 118px; height: 1px; padding-top: 740px; margin-left: 601px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 10px; font-family: &quot;MyricaM M&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                引当予定
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="660" y="743" fill="rgb(0, 0, 0)" font-family="MyricaM M" font-size="10px" text-anchor="middle">
+                    引当予定
+                </text>
+            </switch>
+        </g>
+    </g>
+    <switch>
+        <g requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"/>
+        <a transform="translate(0,-5)" xlink:href="https://www.diagrams.net/doc/faq/svg-export-text-problems" target="_blank">
+            <text text-anchor="middle" font-size="10px" x="50%" y="100%">
+                Text is not SVG - cannot display
+            </text>
+        </a>
+    </switch>
+</svg>

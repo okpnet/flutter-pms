@@ -1,0 +1,5 @@
+﻿//CONST
+import column.*;
+var CR="\n";
+var SCHEMA="debug";
+var TAB="    ";

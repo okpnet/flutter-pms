@@ -28,7 +28,9 @@ dev_dependencies:
   json_serializable: ^6.13.0
   graphql_codegen: #^3.0.1
   mockito: ^5.4.4
-
+  dart_mappable: #
+  dart_mappable_builder: #
+  import_sorter: #
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -65,3 +67,12 @@ flutter:
   #
   # For details regarding fonts in packages, see
   # https://flutter.dev/to/font-from-package
+import_sorter: 
+  comments: false # ファイル上部に自動生成コメントを追加しない
+  ignored_files:  # 生成ファイルを無視
+    - '\/*\.freezed.dart'
+    - '\/*\.g.dart'       
+  remove_unused: true      # 未使用のインポートを自動的に削除
+  alphabetize: true        # 各インポートグループ内でアルファベット順に並べ替え
+  blank_lines_between_groups: 1 # インポートグループ間に1行の空行を追加
+  sort_directives: true    # export文やpartディレクティブも並べ替え対象に含める

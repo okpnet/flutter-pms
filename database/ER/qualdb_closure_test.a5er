@@ -1,0 +1,130 @@
+﻿# A5:ER FORMAT:17
+# A5:ER ENCODING:UTF8
+# A5:ER Mk-1 Copyright © 2007 m.matsubara
+# A5:SQL Mk-2 Version 2.18.3 beta 2 Copyright © 1997 - 2023 m.matsubara
+#  https://a5m2.mmatsubara.com
+
+[Manager]
+ProjectName=ClosurerTest
+Author=
+MaxEntityRowShow=1000
+ReadOnlyRecommend=0
+Page=Main
+PageInfo="Main",7,"A2Landscape",$FFFFFF
+LogicalView=1
+DecodeDomain=0
+ViewModePageIndividually=1
+ViewMode=7
+ViewFormat=0
+UseNondependenceDashLine=0
+FontName=MyricaM M
+FontSize=8
+PaperSize=A4Landscape
+HeaderLeft=
+HeaderCenter=
+HeaderRight=
+FooterLeft=
+FooterCenter=
+FooterRight=
+ShowPageoutRelation=1
+RDBMSType=7
+RDBMSTypeName=PostgreSQL
+GenerateDropTableStatement=1
+DropTableIfExists=1
+CommonField="備考","remarks","@VARCHAR(1024)",,,"","",$FFFFFFFF
+CommonField="更新日時","update_at","@DATETIME",,,"now()","",$FFFFFFFF
+CommonField="更新者id","update_user_id","bigint",,,"","",$FFFFFFFF
+CommonField="更新者履歴id","update_user_history_id","bigint",,,"","",$FFFFFFFF
+CommonField="削除","remove","boolean","NOT NULL",,"\qf\q","",$FFFFFFFF
+DefaultPkName=%0:s_PKC
+DefaultPkIndexName=%0:s_PKI
+DefaultIndexName=%0:s_IX%1:d
+DefaultFkName=%0:s_FK%1:d
+SqlSeparator=0
+UpperCaseKeyword=0
+ShowTag=1
+ShowCommonAttributes=1
+BugFixEntityWidth=1
+
+[Entity]
+PName=info_departments
+LName=組織情報
+Comment=
+TableOption=
+Page=MAIN
+Left=650
+Top=250
+Field="組織情報id","info_department_id","bigserial","NOT NULL",0,"","",$FFFFFFFF,""
+Field="会社id","info_company_id","bigint","NOT NULL",,"1","",$FFFFFFFF,""
+Field="親組織id","parent_info_department_id","bigint",,,"","",$FFFFFFFF,""
+Field="名前","name","@VARCHAR(1024)",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20240411190801
+Position="MAIN",650,250
+ZOrder=1
+
+[Entity]
+PName=hrchy_info_departments
+LName=組織階級
+Comment=
+TableOption=
+Page=MAIN
+Left=1900
+Top=400
+Field="id","hrchy_info_department_id","bigserial","NOT NULL",0,"","",$FFFFFFFF,""
+Field="祖先会社ID","ancestor_info_company_id","bigint","NOT NULL",,"","",$FFFFFFFF,""
+Field="祖先組織ID","ancestor_info_department_id","bigint","NOT NULL",,"","",$FFFFFFFF,""
+Field="子孫会社ID","descendant__info_company_id","bigint","NOT NULL",,"","",$FFFFFFFF,""
+Field="子孫組織ID","descendant_info_department_id","bigint","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20240411190608
+Position="MAIN",1900,400
+ZOrder=2
+
+[Relation]
+Entity1=info_departments
+Entity2=hrchy_info_departments
+RelationType1=1
+RelationType2=3
+Fields1=info_department_id,info_company_id
+Fields2=descendant_info_department_id,descendant__info_company_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,9508,8745,1240,R,R,""
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20240411185228
+LineMode=0
+Bar1=951
+Bar2=874
+Bar3=124
+TermPos1=R
+TermPos2=R
+ZOrder=4
+
+[Relation]
+Entity1=info_departments
+Entity2=hrchy_info_departments
+RelationType1=2
+RelationType2=3
+Fields1=parent_info_department_id,info_company_id
+Fields2=ancestor_info_department_id,ancestor_info_company_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,1255,8745,1076,R,R,""
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20240411190810
+LineMode=0
+Bar1=126
+Bar2=874
+Bar3=108
+TermPos1=R
+TermPos2=R
+ZOrder=5

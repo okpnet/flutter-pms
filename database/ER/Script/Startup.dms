@@ -1,0 +1,639 @@
+﻿//Title:QualDB初期化クエリ生成
+//Author:hayato
+//Data:2023/06/01
+
+var domainArray=new Array;//ERで使用しているドメイン
+var commonAttrs=new Array;//ERで使用しているコモンドメイン
+//CONST
+var CR="\n";
+var SCHEMA="tests";
+var TAB="    ";
+
+//拡張
+var ext={
+    "toFirst":function(array,func){
+        for(var index in array){
+            if(func(array[index]))return array[index];
+        }
+        return null;
+      },
+    "toWhere":function(array,func){//func->result bool,argment array[i]
+        var result=new Array;
+        for(var index in array){
+            if(func(array[index]))result.add(array[index]);
+        }
+        return result;
+        },
+    "toAny":function(array,func){
+        for(var index in array){
+            if(func(array[index]))return true;
+        }
+        return false;
+    },
+    "toSelect":function(array,func){
+        var result=new Array;
+        for(var i in array){
+            var funcResult=func(array[i]);
+            if(funcResult != null)result.add(funcResult);
+        }
+        return result;
+    },
+    "tabs":function(e){
+        var tabResults="";
+        if(0>=e)return tabResults;
+        for(var i=0;e>i;i++) tabResults+="    ";
+        return tabResults;
+    }
+};
+
+//グローバル
+var domainArray=new Array;//ERで使用しているドメイン
+var commonAttrs=new Array;//ERで使用しているコモンドメイン
+var entityArray=new Array;//テーブルセット
+var relArray=new Array;//リレーションシップセット
+var viewArray=new Array;//ビューセット
+
+//列クラス
+class Column{
+    Attr=null;//A5ERAttribute
+    //コンストラクタ
+    function Column(attr){
+        Attr=attr;
+    }
+    //コメントクエリ
+    function GetCommentQuery(schema,tableName){
+        if(Attr.lName == null || Attr.lName.length==0)return "";
+        return "comment on column "+schema+"."+tableName+"."+Attr.pName+" is '"+Attr.lName+"';"+CR;
+    }
+    //クエリ
+    function GetQuery(schema){
+        if(Attr==null)return "";
+        var result=ext.tabs(1)+Attr.pName+" ";
+        var coltype=Attr.dataType.replace(/^\*/,"");
+        var type=ext.toFirst(domainArray,function(d){
+            var domainReg=new RegExp("^"+coltype+"\\W[\\w]*");
+            return domainReg.test(d.name);
+        });
+
+        if(type!=null){
+                result+=type.name.split(/\=/)[1];
+        }else{
+            switch(Attr.dataType){
+                case "@INT":
+                    result+="integer";
+                    break;
+                case "@DATE":
+                    result+="date";
+                    break;
+                default:
+                    result+=Attr.dataType;
+                    break;
+            }
+        }
+
+        if(Attr.defaultValue.length==0 && !Attr.notNull){
+            result+=" default null";
+        }else if(Attr.defaultValue.length>0){
+            result+=" default " + Attr.defaultValue;
+        }else if(Attr.notNull){
+            result+=" not null";
+        }
+
+		if(Attr.option.length>0){
+			result+=" " + Attr.option;
+		}
+
+        return result;
+    }
+}
+
+//ユニークインデックスクラス
+class UniqueIndex{
+    Name="";
+    Attr="";
+    IsIndex=0;
+    //コンストラクタ
+    function UniqueIndex(tableName,attr,index){
+        IsIndex=index;
+        Name=tableName;
+        Attr=attr;
+    }
+    //クエリ生成
+    function GetQuery(schema){
+        return "alter table "+schema+"."+Name+" add constraint " + GetName() + " unique ("+Attr+");" +CR;
+    }
+    //名前
+    function GetName(){
+        return Name + "_IX" + IsIndex;
+    }
+}
+
+//トリガークラス
+class Trigger{
+    Relation=null;
+	IsEntity=null;
+    //コンストラクタ
+    function Trigger(relation,entity){
+        Relation=relation;
+		IsEntity=entity;
+    }
+    //トリガー削除クエリ
+    function GetDropQuery(schema){
+        if(Relation == null)
+            return "DROP TRIGGER IF EXISTS "+IsEntity.pName+"_updatetimes on "+schema+"."+IsEntity.pName+";"+CR;
+        return "DROP TRIGGER IF EXISTS "+Relation.entityPName2+"_latests on "+schema+"."+Relation.entityPName2+";"+CR;
+    }
+    //クエリ生成
+    function GetUpdateQuery(schema,parentEntity){
+        var result="-- "+parentEntity.Name+" update trigger"+CR;
+
+        result+="CREATE OR REPLACE FUNCTION "+schema+"."+parentEntity.Name+"_updatetime() RETURNS trigger AS"+CR;
+        result+="$BODY$"+CR;
+        result+="DECLARE"+CR;
+        result+=ext.tabs(1)+"latest_row record;"+CR;
+        result+="BEGIN"+CR;
+        result+=ext.tabs(1)+"IF (TG_OP = 'UPDATE') THEN"+CR;
+        result+=ext.tabs(2)+"NEW.update_at:=now();"+CR;
+        result+=ext.tabs(2)+"RETURN NEW;"+CR;
+        result+=ext.tabs(1)+"ELSEIF (TG_OP='INSERT') THEN"+CR;
+		//GUIDの自動キー生成列は強制的に自動生成にする=>EntityFrameworkが自動キー列に対策
+		for(var primaryIndex in ext.toWhere(parentEntity.Columns,function(e){return e.Attr.defaultValue=="gen_random_uuid()";})){
+			if(parentEntity.Columns[primaryIndex].Attr.defaultValue=="gen_random_uuid()" && parentEntity.Columns[primaryIndex].Attr.pName!="latest_id")
+				result+=ext.tabs(2)+"NEW." + parentEntity.Columns[primaryIndex].Attr.pName + " := " + parentEntity.Columns[primaryIndex].Attr.defaultValue + ";"+CR;
+		}
+        result+=ext.tabs(2)+"NEW.update_at:=now();"+CR;
+        result+=ext.tabs(2)+"RETURN NEW;"+CR;
+		result+=ext.tabs(1)+"ELSEIF (TG_OP = 'DELETE') THEN"+CR;
+		result+=ext.tabs(2)+"RETURN OLD;"+CR;
+        result+=ext.tabs(1)+"END IF;"+CR;
+        result+="END"+CR;
+        result+="$BODY$"+CR;
+        result+="LANGUAGE plpgsql VOLATILE;"+CR;
+        //result+="DROP TRIGGER IF EXISTS "+schema+"."+rel.entityPName2+"_latests on "+SCHEMA+"."+rel.entityPName2+";"+CR;
+        result+="CREATE TRIGGER "+parentEntity.Name+"_updatetimes BEFORE INSERT OR UPDATE OR DELETE ON "+schema+"."+parentEntity.Name+" FOR EACH ROW EXECUTE"+CR;
+        result+="PROCEDURE "+schema+"."+parentEntity.Name+"_updatetime();"+CR;
+        result+=CR;
+//        println(result);
+        return result;
+    }
+    //クエリ生成
+    function GetQuery(schema,parentEntity,childEntity){
+       	if(Relation == null)return GetUpdateQuery(schema,parentEntity);
+        if(Relation.entityPName2 == null){
+            return "error:entity1 is "+rel.entityPName1+". entity2 is not exists.";
+        }
+
+        var latestColmuns=ext.toWhere(childEntity.Columns,function(e){return !(new RegExp('^gen_random_uuid[.]+').test(e.Attr.defaultValue));});
+        var parentColmuns=ext.toWhere(parentEntity.Columns,function(e){return !(new RegExp('^gen_random_uuid[.]+').test(e.Attr.defaultValue));});
+
+        if(latestColmuns == null || latestColmuns.length==0){
+            return "error:entity1 is "+Relation.entityPName1+". entity2 is not exists.";
+        }
+
+        var result="-- "+Relation.entityPName2+" revision management trigger"+CR;
+
+        result+="CREATE OR REPLACE FUNCTION "+schema+"."+Relation.entityPName2+"_latests() RETURNS trigger AS"+CR;
+        result+="$BODY$"+CR;
+        result+="DECLARE"+CR;
+        result+=ext.tabs(1)+"latest_row record;"+CR;
+        result+="BEGIN"+CR;
+        result+=ext.tabs(1)+"IF (TG_OP = 'UPDATE') THEN"+CR;
+        result+=ext.tabs(3)+"INSERT INTO "+schema+"."+Relation.entityPName2+" ("+CR;
+        for(var index in parentColmuns){
+            var columnName=parentColmuns[index].Attr.pName;
+            if(parentColmuns.length-1!=index)columnName+=",";
+            result+=ext.tabs(4)+columnName+CR;
+        }
+        result+=ext.tabs(3)+")"+CR;
+        result+=ext.tabs(3)+"VALUES"+CR;
+        result+=ext.tabs(3)+"("+CR;
+        for(var index in parentColmuns){
+            var columnVal="NEW."+parentColmuns[index].Attr.pName;
+            if(parentColmuns[index].Attr.keyIdx>=0 && parentColmuns[index].Attr.defaultValue=="gen_random_uuid()"){//キーの設定
+                columnVal="gen_random_uuid()";
+            }else if(parentColmuns[index].Attr.pName=="latest_revision"){
+                columnVal="0";
+            }else if(parentColmuns[index].Attr.pName=="latest_id"){
+                columnVal="gen_random_uuid()";
+            }else if(parentColmuns[index].Attr.pName=="update_at"){
+				columnVal="now()";
+			}
+            if(parentColmuns.length-1!=index)columnVal+=",";
+            result+=ext.tabs(4)+columnVal+CR;
+        }
+        result+=ext.tabs(3)+");"+CR;
+        result+=ext.tabs(2)+"RETURN NULL;"+CR;
+        result+=ext.tabs(1)+"ELSEIF(TG_OP='INSERT') THEN"+CR;
+		result+=ext.tabs(2)+"NEW.update_at := now();"+CR;
+        result+=ext.tabs(2)+"SELECT * INTO latest_row FROM "+schema+"."+Relation.entityPName1+" WHERE "+Relation.attributes1+"=NEW."+Relation.attributes2+";"+CR;
+        result+=ext.tabs(2)+"IF (NOT FOUND) THEN"+CR;
+        result+=ext.tabs(3)+"INSERT INTO "+schema+"."+Relation.entityPName1+" ("+CR;
+        for(var index in latestColmuns){
+            var columnName=latestColmuns[index].Attr.pName;
+            if(latestColmuns.length-1!=index)columnName+=",";
+            result+=ext.tabs(4)+columnName+CR;
+        }
+        result+=ext.tabs(3)+")"+CR;
+        result+=ext.tabs(3)+"VALUES"+CR;
+        result+=ext.tabs(3)+"("+CR;
+        for(var index in latestColmuns){
+            var columnName="NEW."+latestColmuns[index].Attr.pName;
+            if(latestColmuns[index].Attr.pName=="latest_revision")
+            {
+                columnName="0";
+            }else if(latestColmuns[index].Attr.pName=="latest_id"){
+                columnName="gen_random_uuid()";
+            }else if(latestColmuns[index].Attr.pName=="update_at"){
+				columnName="now()";
+			}
+            if(latestColmuns.length-1!=index)columnName+=",";
+            result+=ext.tabs(4)+columnName+CR;
+        }
+        result+=ext.tabs(3)+") RETURNING * INTO latest_row;"+CR;
+        result+=ext.tabs(3)+"NEW.latest_id := latest_row.latest_id;"+CR;
+        result+=ext.tabs(3)+"NEW.latest_revision := latest_row.latest_revision;"+CR;
+		//GUIDの自動キー生成列は強制的に自動生成にする=>EntityFrameworkが自動キー列に対策
+		for(var primaryIndex in ext.toWhere(parentEntity.Columns,function(e){return e.Attr.defaultValue=="gen_random_uuid()";})){
+			if(parentEntity.Columns[primaryIndex].Attr.defaultValue=="gen_random_uuid()")
+				result+=ext.tabs(3)+"NEW." + parentEntity.Columns[primaryIndex].Attr.pName + " := " + parentEntity.Columns[primaryIndex].Attr.defaultValue + ";"+CR;
+		}
+
+        result+=ext.tabs(2)+"ELSE"+CR;
+        result+=ext.tabs(3)+"UPDATE "+schema+"."+Relation.entityPName1+""+CR;
+        result+=ext.tabs(3)+"SET"+CR;
+        for(var index in latestColmuns){
+            if(latestColmuns[index].Attr.pName=="latest_id")continue;
+            var columnName=latestColmuns[index].Attr.pName+"=NEW."+latestColmuns[index].Attr.pName;
+            if(latestColmuns[index].Attr.pName=="latest_revision")columnName=latestColmuns[index].Attr.pName+"=latest_row.latest_revision+1";
+            if(latestColmuns[index].Attr.pName=="update_at")columnName=latestColmuns[index].Attr.pName+"=now()";
+			if(latestColmuns.length-1!=index)columnName+=",";
+            result+=ext.tabs(4)+columnName+CR;
+        }
+        result+=ext.tabs(3)+"WHERE"+CR;
+        result+=ext.tabs(4)+"latest_id = latest_row.latest_id;"+CR;
+        result+=ext.tabs(3)+"NEW.latest_revision := latest_row.latest_revision+1;"+CR;
+        result+=ext.tabs(2)+"END IF;"+CR;
+        result+=ext.tabs(2)+"RETURN NEW;"+CR;
+		result+=ext.tabs(1)+"ELSEIF (TG_OP = 'DELETE') THEN"+CR;
+		result+=ext.tabs(2)+"RETURN OLD;"+CR;
+        result+=ext.tabs(1)+"END IF;"+CR;
+        result+="END"+CR;
+        result+="$BODY$"+CR;
+        result+="LANGUAGE plpgsql VOLATILE;"+CR;
+        //result+="DROP TRIGGER IF EXISTS "+schema+"."+rel.entityPName2+"_latests on "+SCHEMA+"."+rel.entityPName2+";"+CR;
+        result+="CREATE TRIGGER "+Relation.entityPName2+"_latests BEFORE INSERT OR UPDATE OR DELETE ON "+schema+"."+Relation.entityPName2+" FOR EACH ROW EXECUTE"+CR;
+        result+="PROCEDURE "+schema+"."+Relation.entityPName2+"_latests();"+CR;
+        result+=CR;
+//        println(result);
+        return result;
+    }
+}
+
+//エンティティクラス
+class Entity{
+    Name="";
+    lName="";
+    Comment="";
+    IsView=false;
+    ViewQuery="";
+    Columns=new Array;
+    UniqueIndexs=new Array;
+    IsTrigger=null;
+    IsRelations=null;
+    IsFkRelations=null;
+    //コンストラクタ
+    function Entity(entity,relations){
+        Name=entity.pName;
+        if(entity.objectType=="Entity"){
+            IsView=false;
+            lName=entity.lName;
+            Comment=entity.comment;
+            for(var index in entity.attributes)Columns.add(new Column(entity.attributes[index]));
+            for(var index in commonAttrs)Columns.add(new Column(commonAttrs[index]));
+            IsRelations=ext.toWhere(relations,function(e){return (e.entityPName1==Name && !new RegExp("^latest_id").test(e.attributes1));});
+            IsFkRelations=ext.toWhere(relations,function(e){return (e.entityPName2==Name && !new RegExp("^latest_id").test(e.attributes2));});
+            for(var index in IsRelations){
+                if(!ext.toAny(UniqueIndexs,function(e){return (e.Attr==IsRelations[index].attributes1);})){
+                    UniqueIndexs.add(new UniqueIndex(Name,IsRelations[index].attributes1,UniqueIndexs.length+1));
+                }
+            }
+            var triggerRel=ext.toFirst(relations,function(e){return (e.entityPName2==Name && e.entityPName1==("latest_"+Name));});
+            if(triggerRel != null){
+				IsTrigger=new Trigger(triggerRel,null);
+			}else{
+				IsTrigger=new Trigger(null,entity);
+			}
+        }else if(entity.objectType=="View"){
+            IsView=true;
+            ViewQury=entity.query;
+        }
+
+    }
+	//テーブル全レコード削除
+	function GetDeleteQuery(schema){
+		if(IsView)return "";
+		return "--caution!! "+Name+" table all recodes delete."+CR+"delete from "+schema+"."+Name+";"+CR;
+	}
+    //テーブル消去クエリ
+    function GetDropQuery(schema){
+        if(!IsView){
+            return "drop table if exists "+schema+"."+Name+" cascade;"+CR;
+        }else{
+            return "drop view if exists "+schema+"."+Name+";"+CR;
+        }
+    }
+    //コメントクエリ生成
+    function GetCommentQuery(schema){
+        if(IsView)return "";
+        var result= "comment on table "+schema+"."+Name+" is '"+lName+"';"+CR;
+        for(var index in Columns){
+            var colComment=Columns[index].GetCommentQuery(schema,Name);
+            if(colComment.length>0)result+=colComment;
+        }
+        return result;
+    }
+    //PKクエリ生成
+    function GetPkQuery(schema){
+        if(IsView)return "";
+        var result="";
+        var keyCol=ext.toSelect(ext.toWhere(Columns,function(e){
+            return e.Attr.keyIdx>=0;
+        }).sort(function(a,b){
+            return a-b;
+        }),function(e){
+            return e.Attr.pName;
+        }).join(',');
+
+        if(keyCol.length==0)return "";
+
+        var result = "create unique index "+Name+"_PKI"+CR;
+        result+=ext.tabs(1)+"on "+schema+"."+Name+"("+keyCol+");"+CR;
+        result+="alter table "+schema+"."+Name+CR;
+        result+=ext.tabs(1)+"add constraint "+Name+"_PKC primary key "+"("+keyCol+");"+CR;
+        return result;
+    }
+    //ユニークキー生成
+    function GetUniqueQuery(schema){
+        if(IsView)return "";
+        var result="";
+
+        for(var index in UniqueIndexs){
+            result+=UniqueIndexs[index].GetQuery(schema,Name);
+        }
+        return result;
+    }
+    //外部キー作成
+    function GetFkQuery(schema,entities){
+        var result="";
+        for(var index in IsFkRelations){
+            var rel=IsFkRelations[index];
+            if(new RegExp("^latest_id").test(rel.attributes2))continue;
+            var fkentity=ext.toFirst(entities,function(e){return (e.Name==rel.entityPName1);});
+            if(fkentity==null)continue;
+            var fk=ext.toFirst(fkentity.UniqueIndexs,function(e){return (e.Attr==rel.attributes1);});
+            if(fk == null)continue;
+            result+="alter table "+schema+"."+Name+" add constraint " + Name + "_FK" + (index+1) +" foreign key ("+rel.attributes2+") references " +schema+"."+ fk.Name + " (" + fk.Attr + ") ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY DEFERRED;" +CR;
+        }
+        return result;
+    }
+    //テーブル生成クエリ
+    function GetQuery(schema){
+        if(IsView)return "";
+        var result = "create table " + schema + "." + Name + " (" + CR;
+        for(var index in Columns){
+            result+=Columns[index].GetQuery(schema);
+            if(Columns.length-1!=index)result+=",";
+            result+=CR;
+        }
+        result+=");"+CR;
+        return result;
+    }
+    //トリガークエリ
+    function GetTriggerQuery(schema,entities){
+        if(IsView || IsTrigger==null)return "";
+		var child=null;
+		if(IsTrigger.Relation != null){
+			child=ext.toFirst(entities,function(e){return e.Name==IsTrigger.Relation.entityPName1;});
+		}
+
+        return IsTrigger.GetQuery(schema,this,child);
+    }
+    //トリガー
+    function Init(entities,relations){
+        var reg=new RegExp("^(info_|mstr_)");
+        var latestReg=new RegExp("^latest_"+Name);
+        if(!reg.test(Name))return;
+        var latest=ext.toFirst(entities,function(e){return latestReg.test(e.Name);});
+        var rel=ext.toFirst(relations,function(e){
+            return e.entityPName1==Name && e.entityPName2==("latest_"+Name);
+         });
+        if(rel != null && latest !=null){
+            Trigger=new Trigger(rel,latest);
+        }
+    }
+}
+
+class GeneratManager{
+    IsSchema ="";
+
+    entityArray=new Array;//テーブルセット
+    relArray=new Array;//リレーションシップセット
+    viewArray=new Array;//ビューセット
+	//コンストラクタ
+    function GeneratManager(doc,schema){
+        IsSchema=schema;
+
+        //リレーションシップセット
+        print("create relations");
+        relArray=ext.toSelect(doc.objects,function(e){
+            print(".");
+            if(e.objectType=="Relation")return e;
+        });
+        print("done!"+CR);
+        //テーブルセット
+        print("create entities");
+        entityArray=ext.toSelect(doc.objects,function(e){
+            print(".");
+            if(e.objectType=="Entity" || e.objectType=="View")return new Entity(e,relArray);
+        });
+        print("done!"+CR);
+    }
+	function CreateDeleteAll(){
+		var query="";
+        for(var index in entityArray){
+			query+=entityArray[index].GetDeleteQuery(IsSchema);
+        }
+        NewPage(query);
+        return query;
+	}
+    //  全エンティティのクエリ生成
+    //dropFlg ドロップクエリを先頭に追加する
+    function CreateAll(dropFlg){
+        var query="";
+        var index=1;
+        if(dropFlg){
+            query +="--" +index+ ".drop tables"+CR;
+            print("drop        ");
+            for(var index in entityArray){
+                query+=entityArray[index].GetDropQuery(IsSchema);
+                print(".");
+            }
+            println("done!");
+            index++;
+        }
+        var tables=ext.toWhere(entityArray,function(e){return !e.IsView;});
+        query +="--" +index+ ".create tables"+CR;
+        print("table       ");
+        for(var index in tables){
+            query+=tables[index].GetQuery(IsSchema);
+            print(".");
+        }
+         println("done!");
+        index++;
+        query +="--" +index+ ".add table comments"+CR;
+        print("comment     ");
+        for(var index in tables){
+            query+=tables[index].GetCommentQuery(IsSchema);
+        }
+         println("done!");
+        index++;
+        query +="--" +index+ ".add table primary key and index"+CR;
+        print("primary key ");
+        for(var index in tables){
+            query+=tables[index].GetPkQuery(IsSchema);
+            query+=tables[index].GetUniqueQuery(IsSchema);
+            print(".");
+        }
+         println("done!");
+        index++;
+        query +="--" +index+ ".add table foreign key"+CR;
+        print("foreign key ");
+        for(var index in tables){
+            query+=tables[index].GetFkQuery(IsSchema,entityArray);
+        }
+         println("done!");
+        index++;
+        query +="--" +index+ ".add table trigger"+CR;
+        print("trigger     ");
+        for(var index in tables){
+            if(tables[index].IsTrigger!=null){
+                if(dropFlg)query+=tables[index].IsTrigger.GetDropQuery(IsSchema);
+                query+=tables[index].GetTriggerQuery(IsSchema,entityArray);
+            }
+            print(".");
+        }
+        println("done!");
+        index++;
+        query +="--" +index+ ".create view"+CR;
+        query +=CreateView();
+        NewPage(query);
+        return query;
+    }
+    //エンティティ配列名からクエリ生成
+    function CreateEntityFromNames(names,dropFlg){
+        if(names.length==0)return "";
+        var query="-- create tables "+names.length;
+        for(var index in names){
+            query+=CreateEntityQuery(names[index],dropFlg);
+        }
+        NewPage(query);
+        return query;
+    }
+    //エンティティ名からクエリ生成
+    function CreateEntityFromName(name,dropFlg){
+        var entity=ext.toFirst(entityArray,function(e){return e.Name==name;});
+        if(entity==null)return "";
+        var query=CreateEntityQuery(name,dropFlg);
+        NewPage(query);
+        return query;
+    }
+    //消去のみのクエリ生成
+    function CreateAllDrop(){
+        var query="-caution!! all table recodes delete.-"+CR;
+        for(var index in entityArray){
+            if(entityArray[index].IsTrigger != null)
+                query+=entityArray[index].IsTrigger.GetDropQuery(IsSchema)+CR;
+        }
+        for(var index in entityArray){
+            query+=entityArray[index].GetDropQuery(IsSchema)+CR;
+        }
+        NewPage(query);
+        return query;
+    }
+    //エンティティ名から消去クエリ生成
+    function CreateDropFromName(name){
+        var entity=ext.toFirst(entityArray,function(e){return e.Name==name;});
+        if(entity==null)return "";
+        var query="";
+        query+=entity.GetDropQuery(IsSchema);
+        query+=entity.IsTrigger.GetDropQuery(IsSchema)+CR;
+        NewPage(query);
+        return query;
+    }
+    //ビュー生成
+    function CreateView(){
+        var query="";
+        var views=ext.toWhere(entityArray,function(e){return e.IsView;});
+        for(var index in views){
+            query+=views[index].GetQuery(IsSchema);
+        }
+        return query;
+    }
+    //タブページ追加
+    function NewPage(query){
+        //println(query);
+        var editer=application.newSqlEditor(query);
+    }
+    //名前からエンティティクエリ生成
+    function CreateEntityQuery(name,dropFlg){
+        var entity=ext.toFirst(entityArray,function(e){return e.Name==name;});
+        if(entity==null)return "";
+        var query="";
+
+        query+="-- create "+ entity.Name;
+        if(dropFlg)query+=entity.GetDropQuery(IsSchema);
+        if(entity.IsView){
+            query+=" view"+CR;
+        }else{
+            query+=" table"+CR;
+        }
+        if(dropFlg)query+=entity.GetDropQuery(IsSchema);
+        query+=entity.GetQuery(IsSchema);
+        if(!entity.IsView){
+            query+=entity.GetCommentQuery(IsSchema)+CR;
+            query+=entity.GetPkQuery(IsSchema)+CR;
+            query+=entity.GetUniqueQuery(IsSchema)+CR;
+            query+=entity.GetFkQuery(IsSchema,entityArray)+CR;
+            if(entity.IsTrigger!=null){
+                query+=entity.IsTrigger.GetDropQuery(IsSchema)+CR;
+                query+=entity.GetTriggerQuery(IsSchema,entityArray)+CR;
+            }
+        }
+        return query;
+    }
+}
+
+var selectEntities=new Array;
+var mng =(function(){
+    var result=application.getActiveWindow();
+    if (result.formType != "A5EREditor") {
+        alert("アクティブウィンドウをERエディタにしてから実行してください。");
+        exit();
+    }
+    println("=>"+result.document.selectedObjects.length);
+    selectEntities=ext.toSelect(ext.toWhere(result.document.selectedObjects,function(e)
+        {
+            return e.objectType=="Entity";
+        }),function(e){return e.pName;});
+    println("=>"+selectEntities.length);
+    commonAttrs=result.document.commonAttributes;
+    domainArray=result.document.domains;
+    return new GeneratManager(result.document,SCHEMA);
+})();
+
+//mng.CreateDropFromName("info_company");//名前のテーブルを消去
+//mng.CreateAllDrop();//全テーブル消去
+//mng.CreateAll(false);//全テーブル生成
+mng.CreateEntityFromNames(selectEntities,false);//選択しているアイテムから
+//mng.CreateDeleteAll();//全テーブルの全レコード削除
+
