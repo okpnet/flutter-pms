@@ -1,5 +1,6 @@
 import "package:collection/collection.dart";
 import 'package:graphql/client.dart';
+import 'package:pms_graphql_lib/extends/dupricate.dart';
 import 'package:pms_logger_lib/logger_provider.dart';
 import 'package:gql/language.dart';
 import 'package:pms_graphql_lib/constants/graphql_constant.dart';
@@ -16,7 +17,7 @@ final class GraphQLClientProvider {
   final ILogger? logger;
   final String url;
   final Map<String, String> headers;
-  final bool isHasura = false;
+  final bool isHasura;
   final GraphQLConverterCollection? converterCollection;
 
   late final Duration timeLimit;
@@ -28,7 +29,7 @@ final class GraphQLClientProvider {
     this.converterCollection,
     int? timeLimit,
     this.logger,
-    isHasura = false,
+    this.isHasura = false,
     GraphQLClient? graphQLClient,
   }) {
     this.timeLimit = timeLimit != null
@@ -84,7 +85,7 @@ final class GraphQLClientProvider {
     return await Future.wait(
       values.map((value) async {
         try {
-          return await _mutation(value.$2.document.toString(), value.$2);
+          return await _mutation(printNode(value.$2.document), value.$2);
         } on GraphqlTimeoutException {
           rethrow;
         }
@@ -97,9 +98,7 @@ final class GraphQLClientProvider {
     List<(MutationType, MutationOptions)> values,
   ) async {
     //MutationOptionsのDocumentをキーにしてグループ化する
-    final documentGroups = values.groupListsBy(
-      (key) => key.$2.document.toString(),
-    );
+    final documentGroups = values.groupListsBy((key) => key.$2.document);
     //グループごとにinsertとupdateのオプションを分けて実行するrequestを作成する
     final asyncFunc = List<Future<QueryResult>>.empty(growable: true);
 
@@ -107,20 +106,23 @@ final class GraphQLClientProvider {
       //同じDocumentを持つオプションをinsertとupdateで分ける
       final insertOptions = group
           .where((value) => value.$1 == MutationType.insert)
-          .map((e) => e.$2.variables.toString());
+          .map((e) => e.$2.variables.values)
+          .expand((list) => list)
+          .expand((map) => map)
+          .toList();
       final updateOptions = group
           .where((value) => value.$1 == MutationType.update)
-          .map((e) => e.$2.variables.toString());
+          .toList();
 
       if (insertOptions.isNotEmpty) {
         //insertオプションがある場合はinsertのrequestを作成する
         final func = () async {
           try {
             final options = MutationOptions(
-              document: gql(document),
-              variables: {'objects': insertOptions.toList()},
+              document: document,
+              variables: {'objects': insertOptions},
             );
-            return await _mutation(document, options);
+            return await _mutation(printNode(document), options);
           } on GraphqlTimeoutException {
             rethrow;
           }
@@ -130,18 +132,16 @@ final class GraphQLClientProvider {
 
       if (updateOptions.isNotEmpty) {
         //updateオプションがある場合はupdateのrequestを作成する
-        final func = () async {
-          try {
-            final options = MutationOptions(
-              document: gql(document),
-              variables: {'objects': updateOptions.toList()},
-            );
-            return await _mutation(document, options);
-          } on GraphqlTimeoutException {
-            rethrow;
-          }
-        }();
-        asyncFunc.add(func); //リクエストを実行するFutureをリストに追加する
+        for (var value in updateOptions) {
+          final func = () async {
+            try {
+              return await _mutation(printNode(document), value.$2);
+            } on GraphqlTimeoutException {
+              rethrow;
+            }
+          }();
+          asyncFunc.add(func); //リクエストを実行するFutureをリストに追加する
+        }
       }
     });
 
@@ -189,8 +189,15 @@ final class GraphQLClientProvider {
         );
       }
     }
-
-    final values = models.map((model) {
+    //重複アイテムの除外、重複のログ
+    final dupricateList = removeDuplicates(models, preferLast: true);
+    final logs = dupricateList.logs.groupListsBy((log) => log.originalIndex);
+    if (logs.isNotEmpty) {
+      //重複の警告
+      logger?.info('duplicate list:${logs.toString()}');
+    }
+    final values = dupricateList.uniqueList.map((model) {
+      //重複をのぞいたリスト
       if (converterCollection == null) {
         throw ArgumentError(
           'Converter collection is required to save models. Please provide a converter collection.',

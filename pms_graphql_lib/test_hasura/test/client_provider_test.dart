@@ -34,9 +34,8 @@ void main() {
 
   test('should execute mutation successfully', () async {
     final insertModel = StaffEditModel(
-      name: 'test',
-      code: 'code',
-      info_staff_id: null, //'00000000-0000-0000-0000-000000000000',
+      name: 'testtesttesttest',
+      code: 'AAAAAAAA',
     );
     final collection = GraphQLConverterCollection([
       CollectionItem<StaffEditModel>(StaffEditModelConverter()),
@@ -48,11 +47,65 @@ void main() {
         'x-hasura-admin-secret': 'admin',
       },
       timeLimit: 10,
+      isHasura: true,
       converterCollection: collection,
       logger: Logger(),
     );
     final result = await provider.save([insertModel]);
+    debugPrint(result.map((e) => e.data).toString());
+    debugPrint(result.first.exception.toString());
+    expect(result.first.hasException, false);
+  });
+  test('should execute update successfully', () async {
+    final updateModel = StaffEditModel(
+      name: 'test',
+      code: 'ABBBC',
+      info_staff_id: '8c069b8b-388c-4815-be90-6a13ad471976',
+    );
+    final collection = GraphQLConverterCollection([
+      CollectionItem<StaffEditModel>(StaffEditModelConverter()),
+    ]);
+    final provider = GraphQLClientProvider(
+      endpoint,
+      headers: {
+        'content-type': 'application/json',
+        'x-hasura-admin-secret': 'admin',
+      },
+      timeLimit: 10,
+      isHasura: true,
+      converterCollection: collection,
+      logger: Logger(),
+    );
+    final result = await provider.save([updateModel]);
     debugPrint(result.first.data.toString());
+    debugPrint(result.first.exception.toString());
+    expect(result.first.hasException, false);
+  });
+
+  test('should execute multiple insert successfully', () async {
+    final insertModel1 = StaffEditModel(name: 'multi test4', code: 'ABC4');
+    final insertModel2 = StaffEditModel(name: 'multi test5', code: 'ABC5');
+    final insertModel3 = StaffEditModel(name: 'multi test6', code: 'ABC6');
+    final collection = GraphQLConverterCollection([
+      CollectionItem<StaffEditModel>(StaffEditModelConverter()),
+    ]);
+    final provider = GraphQLClientProvider(
+      endpoint,
+      headers: {
+        'content-type': 'application/json',
+        'x-hasura-admin-secret': 'admin',
+      },
+      timeLimit: 10,
+      converterCollection: collection,
+      isHasura: true,
+      logger: Logger(),
+    );
+    final result = await provider.save([
+      insertModel1,
+      insertModel2,
+      insertModel3,
+    ]);
+    debugPrint(result.map((e) => e.data).toString());
     debugPrint(result.first.exception.toString());
     expect(result.first.hasException, false);
   });

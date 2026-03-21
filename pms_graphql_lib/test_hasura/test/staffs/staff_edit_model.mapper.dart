@@ -33,6 +33,7 @@ class StaffEditModelMapper extends ClassMapperBase<StaffEditModel> {
     'info_staff_id',
     _$info_staff_id,
     opt: true,
+    def: defauld_id,
   );
   static String? _$kana(StaffEditModel v) => v.kana;
   static const Field<StaffEditModel, String> _f$kana = Field(

@@ -28,10 +28,30 @@ query StaffQuery($remove:Boolean=false,$where: tests_info_staff_bool_exp!) {
 
 mutation InsertStaff($objects: [tests_info_staff_insert_input!]!) {
   insert_tests_info_staff(objects: $objects){
+    returning {
+      info_staff_id
+    }
   }
 }
 
 mutation UpdateStaff($_set: tests_info_staff_set_input = {}, $_eq: uuid = "") {
   update_tests_info_staff(where: {info_staff_id: {_eq: $_eq}}, _set: $_set){
+    returning {
+      code
+      info_company_id
+      info_office_id
+      info_staff_id
+      kana
+      name
+      phone
+      private_phone
+      remarks
+      remove
+      revision
+      sex
+      update_at
+      update_user_history_id
+      update_user_id
+    }
   }
 }

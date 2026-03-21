@@ -1620,6 +1620,30 @@ const documentNodeMutationInsertStaff = DocumentNode(
             selectionSet: SelectionSetNode(
               selections: [
                 FieldNode(
+                  name: NameNode(value: 'returning'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: SelectionSetNode(
+                    selections: [
+                      FieldNode(
+                        name: NameNode(value: 'info_staff_id'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: '__typename'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                    ],
+                  ),
+                ),
+                FieldNode(
                   name: NameNode(value: '__typename'),
                   alias: null,
                   arguments: [],
@@ -1841,22 +1865,36 @@ class Mutation$InsertStaff$Widget
 
 class Mutation$InsertStaff$insert_tests_info_staff {
   Mutation$InsertStaff$insert_tests_info_staff({
+    required this.returning,
     this.$__typename = 'tests_info_staff_mutation_response',
   });
 
   factory Mutation$InsertStaff$insert_tests_info_staff.fromJson(
     Map<String, dynamic> json,
   ) {
+    final l$returning = json['returning'];
     final l$$__typename = json['__typename'];
     return Mutation$InsertStaff$insert_tests_info_staff(
+      returning: (l$returning as List<dynamic>)
+          .map(
+            (e) =>
+                Mutation$InsertStaff$insert_tests_info_staff$returning.fromJson(
+                  (e as Map<String, dynamic>),
+                ),
+          )
+          .toList(),
       $__typename: (l$$__typename as String),
     );
   }
+
+  final List<Mutation$InsertStaff$insert_tests_info_staff$returning> returning;
 
   final String $__typename;
 
   Map<String, dynamic> toJson() {
     final _resultData = <String, dynamic>{};
+    final l$returning = returning;
+    _resultData['returning'] = l$returning.map((e) => e.toJson()).toList();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -1864,8 +1902,12 @@ class Mutation$InsertStaff$insert_tests_info_staff {
 
   @override
   int get hashCode {
+    final l$returning = returning;
     final l$$__typename = $__typename;
-    return Object.hashAll([l$$__typename]);
+    return Object.hashAll([
+      Object.hashAll(l$returning.map((v) => v)),
+      l$$__typename,
+    ]);
   }
 
   @override
@@ -1876,6 +1918,18 @@ class Mutation$InsertStaff$insert_tests_info_staff {
     if (other is! Mutation$InsertStaff$insert_tests_info_staff ||
         runtimeType != other.runtimeType) {
       return false;
+    }
+    final l$returning = returning;
+    final lOther$returning = other.returning;
+    if (l$returning.length != lOther$returning.length) {
+      return false;
+    }
+    for (int i = 0; i < l$returning.length; i++) {
+      final l$returning$entry = l$returning[i];
+      final lOther$returning$entry = lOther$returning[i];
+      if (l$returning$entry != lOther$returning$entry) {
+        return false;
+      }
     }
     final l$$__typename = $__typename;
     final lOther$$__typename = other.$__typename;
@@ -1904,7 +1958,20 @@ abstract class CopyWith$Mutation$InsertStaff$insert_tests_info_staff<TRes> {
   factory CopyWith$Mutation$InsertStaff$insert_tests_info_staff.stub(TRes res) =
       _CopyWithStubImpl$Mutation$InsertStaff$insert_tests_info_staff;
 
-  TRes call({String? $__typename});
+  TRes call({
+    List<Mutation$InsertStaff$insert_tests_info_staff$returning>? returning,
+    String? $__typename,
+  });
+  TRes returning(
+    Iterable<Mutation$InsertStaff$insert_tests_info_staff$returning> Function(
+      Iterable<
+        CopyWith$Mutation$InsertStaff$insert_tests_info_staff$returning<
+          Mutation$InsertStaff$insert_tests_info_staff$returning
+        >
+      >,
+    )
+    _fn,
+  );
 }
 
 class _CopyWithImpl$Mutation$InsertStaff$insert_tests_info_staff<TRes>
@@ -1920,12 +1987,41 @@ class _CopyWithImpl$Mutation$InsertStaff$insert_tests_info_staff<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  TRes call({Object? $__typename = _undefined}) => _then(
+  TRes call({
+    Object? returning = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
     Mutation$InsertStaff$insert_tests_info_staff(
+      returning: returning == _undefined || returning == null
+          ? _instance.returning
+          : (returning
+                as List<
+                  Mutation$InsertStaff$insert_tests_info_staff$returning
+                >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
+  );
+
+  TRes returning(
+    Iterable<Mutation$InsertStaff$insert_tests_info_staff$returning> Function(
+      Iterable<
+        CopyWith$Mutation$InsertStaff$insert_tests_info_staff$returning<
+          Mutation$InsertStaff$insert_tests_info_staff$returning
+        >
+      >,
+    )
+    _fn,
+  ) => call(
+    returning: _fn(
+      _instance.returning.map(
+        (e) => CopyWith$Mutation$InsertStaff$insert_tests_info_staff$returning(
+          e,
+          (i) => i,
+        ),
+      ),
+    ).toList(),
   );
 }
 
@@ -1935,7 +2031,143 @@ class _CopyWithStubImpl$Mutation$InsertStaff$insert_tests_info_staff<TRes>
 
   TRes _res;
 
-  call({String? $__typename}) => _res;
+  call({
+    List<Mutation$InsertStaff$insert_tests_info_staff$returning>? returning,
+    String? $__typename,
+  }) => _res;
+
+  returning(_fn) => _res;
+}
+
+class Mutation$InsertStaff$insert_tests_info_staff$returning {
+  Mutation$InsertStaff$insert_tests_info_staff$returning({
+    required this.info_staff_id,
+    this.$__typename = 'tests_info_staff',
+  });
+
+  factory Mutation$InsertStaff$insert_tests_info_staff$returning.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$info_staff_id = json['info_staff_id'];
+    final l$$__typename = json['__typename'];
+    return Mutation$InsertStaff$insert_tests_info_staff$returning(
+      info_staff_id: (l$info_staff_id as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String info_staff_id;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$info_staff_id = info_staff_id;
+    _resultData['info_staff_id'] = l$info_staff_id;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$info_staff_id = info_staff_id;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$info_staff_id, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Mutation$InsertStaff$insert_tests_info_staff$returning ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$info_staff_id = info_staff_id;
+    final lOther$info_staff_id = other.info_staff_id;
+    if (l$info_staff_id != lOther$info_staff_id) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$InsertStaff$insert_tests_info_staff$returning
+    on Mutation$InsertStaff$insert_tests_info_staff$returning {
+  CopyWith$Mutation$InsertStaff$insert_tests_info_staff$returning<
+    Mutation$InsertStaff$insert_tests_info_staff$returning
+  >
+  get copyWith =>
+      CopyWith$Mutation$InsertStaff$insert_tests_info_staff$returning(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$InsertStaff$insert_tests_info_staff$returning<
+  TRes
+> {
+  factory CopyWith$Mutation$InsertStaff$insert_tests_info_staff$returning(
+    Mutation$InsertStaff$insert_tests_info_staff$returning instance,
+    TRes Function(Mutation$InsertStaff$insert_tests_info_staff$returning) then,
+  ) = _CopyWithImpl$Mutation$InsertStaff$insert_tests_info_staff$returning;
+
+  factory CopyWith$Mutation$InsertStaff$insert_tests_info_staff$returning.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$InsertStaff$insert_tests_info_staff$returning;
+
+  TRes call({String? info_staff_id, String? $__typename});
+}
+
+class _CopyWithImpl$Mutation$InsertStaff$insert_tests_info_staff$returning<TRes>
+    implements
+        CopyWith$Mutation$InsertStaff$insert_tests_info_staff$returning<TRes> {
+  _CopyWithImpl$Mutation$InsertStaff$insert_tests_info_staff$returning(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$InsertStaff$insert_tests_info_staff$returning _instance;
+
+  final TRes Function(Mutation$InsertStaff$insert_tests_info_staff$returning)
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? info_staff_id = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$InsertStaff$insert_tests_info_staff$returning(
+      info_staff_id: info_staff_id == _undefined || info_staff_id == null
+          ? _instance.info_staff_id
+          : (info_staff_id as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$InsertStaff$insert_tests_info_staff$returning<
+  TRes
+>
+    implements
+        CopyWith$Mutation$InsertStaff$insert_tests_info_staff$returning<TRes> {
+  _CopyWithStubImpl$Mutation$InsertStaff$insert_tests_info_staff$returning(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? info_staff_id, String? $__typename}) => _res;
 }
 
 class Variables$Mutation$UpdateStaff {
@@ -2266,6 +2498,128 @@ const documentNodeMutationUpdateStaff = DocumentNode(
             selectionSet: SelectionSetNode(
               selections: [
                 FieldNode(
+                  name: NameNode(value: 'returning'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: SelectionSetNode(
+                    selections: [
+                      FieldNode(
+                        name: NameNode(value: 'code'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'info_company_id'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'info_office_id'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'info_staff_id'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'kana'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'name'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'phone'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'private_phone'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'remove'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'revision'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'sex'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'update_at'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'update_user_history_id'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'update_user_id'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: '__typename'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                    ],
+                  ),
+                ),
+                FieldNode(
                   name: NameNode(value: '__typename'),
                   alias: null,
                   arguments: [],
@@ -2489,22 +2843,36 @@ class Mutation$UpdateStaff$Widget
 
 class Mutation$UpdateStaff$update_tests_info_staff {
   Mutation$UpdateStaff$update_tests_info_staff({
+    required this.returning,
     this.$__typename = 'tests_info_staff_mutation_response',
   });
 
   factory Mutation$UpdateStaff$update_tests_info_staff.fromJson(
     Map<String, dynamic> json,
   ) {
+    final l$returning = json['returning'];
     final l$$__typename = json['__typename'];
     return Mutation$UpdateStaff$update_tests_info_staff(
+      returning: (l$returning as List<dynamic>)
+          .map(
+            (e) =>
+                Mutation$UpdateStaff$update_tests_info_staff$returning.fromJson(
+                  (e as Map<String, dynamic>),
+                ),
+          )
+          .toList(),
       $__typename: (l$$__typename as String),
     );
   }
+
+  final List<Mutation$UpdateStaff$update_tests_info_staff$returning> returning;
 
   final String $__typename;
 
   Map<String, dynamic> toJson() {
     final _resultData = <String, dynamic>{};
+    final l$returning = returning;
+    _resultData['returning'] = l$returning.map((e) => e.toJson()).toList();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -2512,8 +2880,12 @@ class Mutation$UpdateStaff$update_tests_info_staff {
 
   @override
   int get hashCode {
+    final l$returning = returning;
     final l$$__typename = $__typename;
-    return Object.hashAll([l$$__typename]);
+    return Object.hashAll([
+      Object.hashAll(l$returning.map((v) => v)),
+      l$$__typename,
+    ]);
   }
 
   @override
@@ -2524,6 +2896,18 @@ class Mutation$UpdateStaff$update_tests_info_staff {
     if (other is! Mutation$UpdateStaff$update_tests_info_staff ||
         runtimeType != other.runtimeType) {
       return false;
+    }
+    final l$returning = returning;
+    final lOther$returning = other.returning;
+    if (l$returning.length != lOther$returning.length) {
+      return false;
+    }
+    for (int i = 0; i < l$returning.length; i++) {
+      final l$returning$entry = l$returning[i];
+      final lOther$returning$entry = lOther$returning[i];
+      if (l$returning$entry != lOther$returning$entry) {
+        return false;
+      }
     }
     final l$$__typename = $__typename;
     final lOther$$__typename = other.$__typename;
@@ -2552,7 +2936,20 @@ abstract class CopyWith$Mutation$UpdateStaff$update_tests_info_staff<TRes> {
   factory CopyWith$Mutation$UpdateStaff$update_tests_info_staff.stub(TRes res) =
       _CopyWithStubImpl$Mutation$UpdateStaff$update_tests_info_staff;
 
-  TRes call({String? $__typename});
+  TRes call({
+    List<Mutation$UpdateStaff$update_tests_info_staff$returning>? returning,
+    String? $__typename,
+  });
+  TRes returning(
+    Iterable<Mutation$UpdateStaff$update_tests_info_staff$returning> Function(
+      Iterable<
+        CopyWith$Mutation$UpdateStaff$update_tests_info_staff$returning<
+          Mutation$UpdateStaff$update_tests_info_staff$returning
+        >
+      >,
+    )
+    _fn,
+  );
 }
 
 class _CopyWithImpl$Mutation$UpdateStaff$update_tests_info_staff<TRes>
@@ -2568,12 +2965,41 @@ class _CopyWithImpl$Mutation$UpdateStaff$update_tests_info_staff<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  TRes call({Object? $__typename = _undefined}) => _then(
+  TRes call({
+    Object? returning = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
     Mutation$UpdateStaff$update_tests_info_staff(
+      returning: returning == _undefined || returning == null
+          ? _instance.returning
+          : (returning
+                as List<
+                  Mutation$UpdateStaff$update_tests_info_staff$returning
+                >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
+  );
+
+  TRes returning(
+    Iterable<Mutation$UpdateStaff$update_tests_info_staff$returning> Function(
+      Iterable<
+        CopyWith$Mutation$UpdateStaff$update_tests_info_staff$returning<
+          Mutation$UpdateStaff$update_tests_info_staff$returning
+        >
+      >,
+    )
+    _fn,
+  ) => call(
+    returning: _fn(
+      _instance.returning.map(
+        (e) => CopyWith$Mutation$UpdateStaff$update_tests_info_staff$returning(
+          e,
+          (i) => i,
+        ),
+      ),
+    ).toList(),
   );
 }
 
@@ -2583,5 +3009,418 @@ class _CopyWithStubImpl$Mutation$UpdateStaff$update_tests_info_staff<TRes>
 
   TRes _res;
 
-  call({String? $__typename}) => _res;
+  call({
+    List<Mutation$UpdateStaff$update_tests_info_staff$returning>? returning,
+    String? $__typename,
+  }) => _res;
+
+  returning(_fn) => _res;
+}
+
+class Mutation$UpdateStaff$update_tests_info_staff$returning {
+  Mutation$UpdateStaff$update_tests_info_staff$returning({
+    this.code,
+    this.info_company_id,
+    this.info_office_id,
+    required this.info_staff_id,
+    this.kana,
+    required this.name,
+    this.phone,
+    this.private_phone,
+    this.remarks,
+    this.remove,
+    this.revision,
+    this.sex,
+    this.update_at,
+    this.update_user_history_id,
+    this.update_user_id,
+    this.$__typename = 'tests_info_staff',
+  });
+
+  factory Mutation$UpdateStaff$update_tests_info_staff$returning.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$code = json['code'];
+    final l$info_company_id = json['info_company_id'];
+    final l$info_office_id = json['info_office_id'];
+    final l$info_staff_id = json['info_staff_id'];
+    final l$kana = json['kana'];
+    final l$name = json['name'];
+    final l$phone = json['phone'];
+    final l$private_phone = json['private_phone'];
+    final l$remarks = json['remarks'];
+    final l$remove = json['remove'];
+    final l$revision = json['revision'];
+    final l$sex = json['sex'];
+    final l$update_at = json['update_at'];
+    final l$update_user_history_id = json['update_user_history_id'];
+    final l$update_user_id = json['update_user_id'];
+    final l$$__typename = json['__typename'];
+    return Mutation$UpdateStaff$update_tests_info_staff$returning(
+      code: (l$code as String?),
+      info_company_id: (l$info_company_id as String?),
+      info_office_id: (l$info_office_id as String?),
+      info_staff_id: (l$info_staff_id as String),
+      kana: (l$kana as String?),
+      name: (l$name as String),
+      phone: (l$phone as String?),
+      private_phone: (l$private_phone as String?),
+      remarks: (l$remarks as String?),
+      remove: (l$remove as bool?),
+      revision: (l$revision as int?),
+      sex: (l$sex as String?),
+      update_at: (l$update_at as String?),
+      update_user_history_id: (l$update_user_history_id as String?),
+      update_user_id: (l$update_user_id as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? code;
+
+  final String? info_company_id;
+
+  final String? info_office_id;
+
+  final String info_staff_id;
+
+  final String? kana;
+
+  final String name;
+
+  final String? phone;
+
+  final String? private_phone;
+
+  final String? remarks;
+
+  final bool? remove;
+
+  final int? revision;
+
+  final String? sex;
+
+  final String? update_at;
+
+  final String? update_user_history_id;
+
+  final String? update_user_id;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$code = code;
+    _resultData['code'] = l$code;
+    final l$info_company_id = info_company_id;
+    _resultData['info_company_id'] = l$info_company_id;
+    final l$info_office_id = info_office_id;
+    _resultData['info_office_id'] = l$info_office_id;
+    final l$info_staff_id = info_staff_id;
+    _resultData['info_staff_id'] = l$info_staff_id;
+    final l$kana = kana;
+    _resultData['kana'] = l$kana;
+    final l$name = name;
+    _resultData['name'] = l$name;
+    final l$phone = phone;
+    _resultData['phone'] = l$phone;
+    final l$private_phone = private_phone;
+    _resultData['private_phone'] = l$private_phone;
+    final l$remarks = remarks;
+    _resultData['remarks'] = l$remarks;
+    final l$remove = remove;
+    _resultData['remove'] = l$remove;
+    final l$revision = revision;
+    _resultData['revision'] = l$revision;
+    final l$sex = sex;
+    _resultData['sex'] = l$sex;
+    final l$update_at = update_at;
+    _resultData['update_at'] = l$update_at;
+    final l$update_user_history_id = update_user_history_id;
+    _resultData['update_user_history_id'] = l$update_user_history_id;
+    final l$update_user_id = update_user_id;
+    _resultData['update_user_id'] = l$update_user_id;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$code = code;
+    final l$info_company_id = info_company_id;
+    final l$info_office_id = info_office_id;
+    final l$info_staff_id = info_staff_id;
+    final l$kana = kana;
+    final l$name = name;
+    final l$phone = phone;
+    final l$private_phone = private_phone;
+    final l$remarks = remarks;
+    final l$remove = remove;
+    final l$revision = revision;
+    final l$sex = sex;
+    final l$update_at = update_at;
+    final l$update_user_history_id = update_user_history_id;
+    final l$update_user_id = update_user_id;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$code,
+      l$info_company_id,
+      l$info_office_id,
+      l$info_staff_id,
+      l$kana,
+      l$name,
+      l$phone,
+      l$private_phone,
+      l$remarks,
+      l$remove,
+      l$revision,
+      l$sex,
+      l$update_at,
+      l$update_user_history_id,
+      l$update_user_id,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Mutation$UpdateStaff$update_tests_info_staff$returning ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$code = code;
+    final lOther$code = other.code;
+    if (l$code != lOther$code) {
+      return false;
+    }
+    final l$info_company_id = info_company_id;
+    final lOther$info_company_id = other.info_company_id;
+    if (l$info_company_id != lOther$info_company_id) {
+      return false;
+    }
+    final l$info_office_id = info_office_id;
+    final lOther$info_office_id = other.info_office_id;
+    if (l$info_office_id != lOther$info_office_id) {
+      return false;
+    }
+    final l$info_staff_id = info_staff_id;
+    final lOther$info_staff_id = other.info_staff_id;
+    if (l$info_staff_id != lOther$info_staff_id) {
+      return false;
+    }
+    final l$kana = kana;
+    final lOther$kana = other.kana;
+    if (l$kana != lOther$kana) {
+      return false;
+    }
+    final l$name = name;
+    final lOther$name = other.name;
+    if (l$name != lOther$name) {
+      return false;
+    }
+    final l$phone = phone;
+    final lOther$phone = other.phone;
+    if (l$phone != lOther$phone) {
+      return false;
+    }
+    final l$private_phone = private_phone;
+    final lOther$private_phone = other.private_phone;
+    if (l$private_phone != lOther$private_phone) {
+      return false;
+    }
+    final l$remarks = remarks;
+    final lOther$remarks = other.remarks;
+    if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$remove = remove;
+    final lOther$remove = other.remove;
+    if (l$remove != lOther$remove) {
+      return false;
+    }
+    final l$revision = revision;
+    final lOther$revision = other.revision;
+    if (l$revision != lOther$revision) {
+      return false;
+    }
+    final l$sex = sex;
+    final lOther$sex = other.sex;
+    if (l$sex != lOther$sex) {
+      return false;
+    }
+    final l$update_at = update_at;
+    final lOther$update_at = other.update_at;
+    if (l$update_at != lOther$update_at) {
+      return false;
+    }
+    final l$update_user_history_id = update_user_history_id;
+    final lOther$update_user_history_id = other.update_user_history_id;
+    if (l$update_user_history_id != lOther$update_user_history_id) {
+      return false;
+    }
+    final l$update_user_id = update_user_id;
+    final lOther$update_user_id = other.update_user_id;
+    if (l$update_user_id != lOther$update_user_id) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$UpdateStaff$update_tests_info_staff$returning
+    on Mutation$UpdateStaff$update_tests_info_staff$returning {
+  CopyWith$Mutation$UpdateStaff$update_tests_info_staff$returning<
+    Mutation$UpdateStaff$update_tests_info_staff$returning
+  >
+  get copyWith =>
+      CopyWith$Mutation$UpdateStaff$update_tests_info_staff$returning(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$UpdateStaff$update_tests_info_staff$returning<
+  TRes
+> {
+  factory CopyWith$Mutation$UpdateStaff$update_tests_info_staff$returning(
+    Mutation$UpdateStaff$update_tests_info_staff$returning instance,
+    TRes Function(Mutation$UpdateStaff$update_tests_info_staff$returning) then,
+  ) = _CopyWithImpl$Mutation$UpdateStaff$update_tests_info_staff$returning;
+
+  factory CopyWith$Mutation$UpdateStaff$update_tests_info_staff$returning.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$UpdateStaff$update_tests_info_staff$returning;
+
+  TRes call({
+    String? code,
+    String? info_company_id,
+    String? info_office_id,
+    String? info_staff_id,
+    String? kana,
+    String? name,
+    String? phone,
+    String? private_phone,
+    String? remarks,
+    bool? remove,
+    int? revision,
+    String? sex,
+    String? update_at,
+    String? update_user_history_id,
+    String? update_user_id,
+    String? $__typename,
+  });
+}
+
+class _CopyWithImpl$Mutation$UpdateStaff$update_tests_info_staff$returning<TRes>
+    implements
+        CopyWith$Mutation$UpdateStaff$update_tests_info_staff$returning<TRes> {
+  _CopyWithImpl$Mutation$UpdateStaff$update_tests_info_staff$returning(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$UpdateStaff$update_tests_info_staff$returning _instance;
+
+  final TRes Function(Mutation$UpdateStaff$update_tests_info_staff$returning)
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? code = _undefined,
+    Object? info_company_id = _undefined,
+    Object? info_office_id = _undefined,
+    Object? info_staff_id = _undefined,
+    Object? kana = _undefined,
+    Object? name = _undefined,
+    Object? phone = _undefined,
+    Object? private_phone = _undefined,
+    Object? remarks = _undefined,
+    Object? remove = _undefined,
+    Object? revision = _undefined,
+    Object? sex = _undefined,
+    Object? update_at = _undefined,
+    Object? update_user_history_id = _undefined,
+    Object? update_user_id = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$UpdateStaff$update_tests_info_staff$returning(
+      code: code == _undefined ? _instance.code : (code as String?),
+      info_company_id: info_company_id == _undefined
+          ? _instance.info_company_id
+          : (info_company_id as String?),
+      info_office_id: info_office_id == _undefined
+          ? _instance.info_office_id
+          : (info_office_id as String?),
+      info_staff_id: info_staff_id == _undefined || info_staff_id == null
+          ? _instance.info_staff_id
+          : (info_staff_id as String),
+      kana: kana == _undefined ? _instance.kana : (kana as String?),
+      name: name == _undefined || name == null
+          ? _instance.name
+          : (name as String),
+      phone: phone == _undefined ? _instance.phone : (phone as String?),
+      private_phone: private_phone == _undefined
+          ? _instance.private_phone
+          : (private_phone as String?),
+      remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      remove: remove == _undefined ? _instance.remove : (remove as bool?),
+      revision: revision == _undefined
+          ? _instance.revision
+          : (revision as int?),
+      sex: sex == _undefined ? _instance.sex : (sex as String?),
+      update_at: update_at == _undefined
+          ? _instance.update_at
+          : (update_at as String?),
+      update_user_history_id: update_user_history_id == _undefined
+          ? _instance.update_user_history_id
+          : (update_user_history_id as String?),
+      update_user_id: update_user_id == _undefined
+          ? _instance.update_user_id
+          : (update_user_id as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$UpdateStaff$update_tests_info_staff$returning<
+  TRes
+>
+    implements
+        CopyWith$Mutation$UpdateStaff$update_tests_info_staff$returning<TRes> {
+  _CopyWithStubImpl$Mutation$UpdateStaff$update_tests_info_staff$returning(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? code,
+    String? info_company_id,
+    String? info_office_id,
+    String? info_staff_id,
+    String? kana,
+    String? name,
+    String? phone,
+    String? private_phone,
+    String? remarks,
+    bool? remove,
+    int? revision,
+    String? sex,
+    String? update_at,
+    String? update_user_history_id,
+    String? update_user_id,
+    String? $__typename,
+  }) => _res;
 }

@@ -3,9 +3,11 @@ import 'package:pms_graphql_lib/edit_models/_base/iedit_model.dart';
 
 part 'staff_edit_model.mapper.dart';
 
+const String defauld_id = '00000000-0000-0000-0000-000000000000';
+
 @MappableClass()
 class StaffEditModel with StaffEditModelMappable implements IEditModel {
-  String? info_staff_id;
+  String? info_staff_id = defauld_id;
   String? code;
   String? kana;
   String? name;
@@ -21,7 +23,7 @@ class StaffEditModel with StaffEditModelMappable implements IEditModel {
 
   StaffEditModel({
     this.code,
-    this.info_staff_id,
+    this.info_staff_id = defauld_id,
     this.kana,
     this.name,
     this.phone,
@@ -34,8 +36,7 @@ class StaffEditModel with StaffEditModelMappable implements IEditModel {
   bool get isNew =>
       info_staff_id == null ||
       info_staff_id!.isEmpty ||
-      info_staff_id == '00000000-0000-0000-0000-000000000000' ||
-      info_staff_id == 'null';
+      info_staff_id == '00000000-0000-0000-0000-000000000000';
 
   @override
   bool get isValid => true;

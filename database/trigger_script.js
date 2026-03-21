@@ -1,4 +1,4 @@
-﻿//Title:QualDB初期化クエリ生成
+//Title:QualDB初期化クエリ生成
 //Author:hayato
 //Data:2023/06/01
 
@@ -8,9 +8,6 @@ var commonAttrs=new Array;//ERで使用しているコモンドメイン
 var CR="\n";
 var SCHEMA="tests";
 var TAB="    ";
-var HIERARCHY_METHOD_PRIFIX="trg_03_hierarchy";
-var UPDATE_TRIGGER_PRIFIX="trg_01_updatetimes";
-var HISTORY_TRIGGER_PRIFX="trg_02_history";
 
 //拡張
 var ext={
@@ -230,16 +227,14 @@ class Trigger{
     }
     //トリガー削除クエリ
     function GetDropQuery(schema){
-        //if(Relation == null)
-        //    return "DROP TRIGGER IF EXISTS "+UPDATE_TRIGGER_PRIFIX+"_"+IsEntity.pName+" on "+schema+"."+IsEntity.pName+";"+CR;
-        var result="DROP TRIGGER IF EXISTS "+UPDATE_TRIGGER_PRIFIX+"_"+IsEntity.pName+" on "+schema+"."+IsEntity.pName+";"+CR;
-        result += "DROP TRIGGER IF EXISTS "+HISTORY_TRIGGER_PRIFX+"_"+Relation.entityPName2+" on "+schema+"."+Relation.entityPName2+";"+CR;
-        return result;
+        if(Relation == null)
+            return "DROP TRIGGER IF EXISTS "+IsEntity.pName+"_updatetimes on "+schema+"."+IsEntity.pName+";"+CR;
+        return "DROP TRIGGER IF EXISTS "+Relation.entityPName2+"_latests on "+schema+"."+Relation.entityPName2+";"+CR;
     }
     //更新日時トリガークエリ生成
     function GetUpdateQuery(schema,parentEntity){
         var result="-- "+parentEntity.Name+" update trigger"+CR;
-        result+="CREATE OR REPLACE FUNCTION "+schema+"."+UPDATE_TRIGGER_PRIFIX+"_"+parentEntity.Name+"() RETURNS trigger AS"+CR;
+        result+="CREATE OR REPLACE FUNCTION "+schema+"."+parentEntity.Name+"_updatetime() RETURNS trigger AS"+CR;
         result+="$BODY$"+CR;
         result+="DECLARE"+CR;
         result+=ext.tabs(1)+"latest_row record;"+CR;
@@ -263,8 +258,8 @@ class Trigger{
         result+="$BODY$"+CR;
         result+="LANGUAGE plpgsql VOLATILE;"+CR;
         //result+="DROP TRIGGER IF EXISTS "+schema+"."+rel.entityPName2+"_latests on "+SCHEMA+"."+rel.entityPName2+";"+CR;
-        result+="CREATE TRIGGER "+UPDATE_TRIGGER_PRIFIX+"_"+parentEntity.Name+" BEFORE INSERT OR UPDATE OR DELETE ON "+schema+"."+parentEntity.Name+" FOR EACH ROW EXECUTE"+CR;
-        result+="PROCEDURE "+schema+"."+UPDATE_TRIGGER_PRIFIX+"_"+parentEntity.Name+"();"+CR;
+        result+="CREATE TRIGGER "+parentEntity.Name+"_updatetimes BEFORE INSERT OR UPDATE OR DELETE ON "+schema+"."+parentEntity.Name+" FOR EACH ROW EXECUTE"+CR;
+        result+="PROCEDURE "+schema+"."+parentEntity.Name+"_updatetime();"+CR;
         result+=CR;
         //println(result);
         return result;
@@ -285,12 +280,15 @@ class Trigger{
         }
 
         var result="-- "+Relation.entityPName1+" history trigger"+CR;
-        result+=GetUpdateQuery(schema,parentEntity)+CR;
-        result+="CREATE OR REPLACE FUNCTION "+schema+"."+HISTORY_TRIGGER_PRIFX+"_"+Relation.entityPName1+"() RETURNS trigger AS"+CR;
+
+        result+="CREATE OR REPLACE FUNCTION "+schema+"."+Relation.entityPName1+"_history() RETURNS trigger AS"+CR;
         result+="$BODY$"+CR;
         result+="DECLARE"+CR;
         result+=ext.tabs(1)+"revisions int;"+CR;
         result+="BEGIN"+CR;
+        result+=ext.tabs(1)+"IF (TG_OP='INSERT') THEN"+CR;
+        result+=ext.tabs(2)+"NEW."+idColumn.Attr.pName+" := gen_random_uuid();"+CR;//強制
+        result+=ext.tabs(1)+"END IF;"+CR;
         result+=ext.tabs(1)+"IF (TG_OP = 'UPDATE') OR (TG_OP='INSERT') THEN"+CR;
         //レビジョンの取得と変更
         result+=ext.tabs(2)+"SELECT Max(revision) INTO revisions FROM "+schema+"."+Relation.entityPName2+" WHERE "+idColumn.Attr.pName+"=NEW."+idColumn.Attr.pName+";"+CR;
@@ -299,22 +297,25 @@ class Trigger{
         result+=ext.tabs(2)+"ELSE"+CR;
         result+=ext.tabs(3)+"NEW.revision := 1;"+CR;//レビジョンの変更
         result+=ext.tabs(2)+"END IF;"+CR;
+        
+        result+=ext.tabs(2)+"NEW.update_at := now();"+CR;//更新日時の追加
+        
         //履歴へ追加
-        result+=ext.tabs(2)+"INSERT INTO "+schema+"."+Relation.entityPName2+" ("+CR;
+        result+=ext.tabs(3)+"INSERT INTO "+schema+"."+Relation.entityPName2+" ("+CR;
         for(var index in parentColmuns){
             var columnName=parentColmuns[index].Attr.pName;
             if(parentColmuns.length-1!=index)columnName+=",";
-            result+=ext.tabs(3)+columnName+CR;
+            result+=ext.tabs(4)+columnName+CR;
         }
-        result+=ext.tabs(2)+")"+CR;
-        result+=ext.tabs(2)+"VALUES"+CR;
-        result+=ext.tabs(2)+"("+CR;
+        result+=ext.tabs(3)+")"+CR;
+        result+=ext.tabs(3)+"VALUES"+CR;
+        result+=ext.tabs(3)+"("+CR;
         for(var index in parentColmuns){
             var columnVal="NEW."+parentColmuns[index].Attr.pName;
             if(parentColmuns.length-1!=index)columnVal+=",";
-            result+=ext.tabs(3)+columnVal+CR;
+            result+=ext.tabs(4)+columnVal+CR;
         }
-        result+=ext.tabs(2)+");"+CR;
+        result+=ext.tabs(3)+");"+CR;
         result+=ext.tabs(2)+"RETURN NEW;"+CR;
 		result+=ext.tabs(1)+"ELSEIF (TG_OP = 'DELETE') THEN"+CR;
 		result+=ext.tabs(2)+"RETURN OLD;"+CR;
@@ -322,8 +323,8 @@ class Trigger{
         result+="END"+CR;
         result+="$BODY$"+CR;
         result+="LANGUAGE plpgsql VOLATILE;"+CR;
-        result+="CREATE TRIGGER "+HISTORY_TRIGGER_PRIFX+"_"+Relation.entityPName1+" BEFORE INSERT OR UPDATE OR DELETE ON "+schema+"."+Relation.entityPName1+" FOR EACH ROW EXECUTE"+CR;
-        result+="PROCEDURE "+schema+"."+HISTORY_TRIGGER_PRIFX+"_"+Relation.entityPName1+"();"+CR;
+        result+="CREATE TRIGGER "+Relation.entityPName1+"_history BEFORE INSERT OR UPDATE OR DELETE ON "+schema+"."+Relation.entityPName1+" FOR EACH ROW EXECUTE"+CR;
+        result+="PROCEDURE "+schema+"."+Relation.entityPName1+"_history();"+CR;
         result+=CR;
 //        println(result);
         return result;
@@ -514,12 +515,7 @@ class Hierarchy{
         RelEntity=relEntity;
         HrchyEntity=hrchyEntity;
         Relations=relations;
-        //GetQuery("public");
-    }
-    //トリガー削除クエリ
-    function GetDropQuery(schema){
-        var result="DROP TRIGGER IF EXISTS "+HIERARCHY_METHOD_PRIFIX+"_"+parentEntity+" on "+schema+"."+parentEntity+";"+CR;
-        return result;
+//		GetQuery("public");
     }
     //トリガー生成
     function GetQuery(schema){
@@ -563,7 +559,7 @@ class Hierarchy{
 
         var result="-- "+parentEntity+" hierarchy table after trigger"+CR;
 
-        result+="CREATE OR REPLACE FUNCTION "+schema+"."+HIERARCHY_METHOD_PRIFIX+"_"+parentEntity+"() RETURNS trigger AS"+CR;
+        result+="CREATE OR REPLACE FUNCTION "+schema+"."+parentEntity+"_hierarchy() RETURNS trigger AS"+CR;
         result+="$BODY$"+CR;
         result+="DECLARE"+CR;
         result+=ext.tabs(1)+"counter int;"+CR;
@@ -773,8 +769,8 @@ class Hierarchy{
         result+="END"+CR;
         result+="$BODY$"+CR;
         result+="LANGUAGE plpgsql VOLATILE;"+CR;
-        result+="CREATE OR REPLACE TRIGGER "+HIERARCHY_METHOD_PRIFIX+"_"+parentEntity+" AFTER INSERT OR UPDATE OR DELETE ON "+schema+"."+parentEntity+" FOR EACH ROW EXECUTE"+CR;
-        result+="PROCEDURE "+schema+"."+HIERARCHY_METHOD_PRIFIX+"_"+parentEntity+"();"+CR;
+        result+="CREATE OR REPLACE TRIGGER "+parentEntity+"_hierarchy AFTER INSERT OR UPDATE OR DELETE ON "+schema+"."+parentEntity+" FOR EACH ROW EXECUTE"+CR;
+        result+="PROCEDURE "+schema+"."+parentEntity+"_hierarchy();"+CR;
         result+=CR;
         //println(result);
         return result;

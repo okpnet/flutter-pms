@@ -1,7 +1,7 @@
 ﻿# A5:ER FORMAT:18
 # A5:ER ENCODING:UTF8
 # A5:ER Mk-1 Copyright © 2007 m.matsubara
-# A5:SQL Mk-2 Version 2.20.0 beta 24 Copyright © 1997 - 2024 m.matsubara
+# A5:SQL Mk-2 Version 2.20.0 beta 20 Copyright © 1997 - 2024 m.matsubara
 #  https://a5m2.mmatsubara.com
 
 [Manager]
@@ -680,8 +680,8 @@ Comment=
 TableInnerOption=
 TableOption=
 Page=トラザクション
-Left=1350
-Top=200
+Left=1349
+Top=204
 Field="受注id","trans_order_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="顧客履歴id","customer_history_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="顧客id","mstr_stakeholder_id","*@UUID","NOT NULL",2,"","",$FFFFFFFF,""
@@ -698,7 +698,7 @@ EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20231004153927
-Position="トラザクション",1350,200
+Position="トラザクション",1349,204
 ZOrder=73
 
 [Entity]
