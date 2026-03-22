@@ -1,6 +1,6 @@
 import 'package:graphql/client.dart';
 
-import 'package:pms_graphql_lib/edit_models/_base/iedit_model.dart';
+import 'package:pms_graphql_lib/edit_models/iedit_model.dart';
 
 part '../converters/i_graphql_converter.dart';
 part 'collection_item.dart';

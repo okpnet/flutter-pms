@@ -1,4 +1,4 @@
-import 'package:pms_graphql_lib/edit_models/_base/iedit_model.dart';
+import 'package:pms_graphql_lib/edit_models/iedit_model.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 
 part 'user_edit_model.mapper.dart';

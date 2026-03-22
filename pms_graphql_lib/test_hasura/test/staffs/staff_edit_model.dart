@@ -1,5 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:pms_graphql_lib/edit_models/_base/iedit_model.dart';
+import 'package:pms_graphql_lib/edit_models/iedit_model.dart';
 
 part 'staff_edit_model.mapper.dart';
 

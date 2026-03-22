@@ -10,6 +10,7 @@ import 'staffs/staff_edit_model_converter.dart';
 
 void main() {
   const String endpoint = 'http://okp-03.local:8080/v1/graphql';
+  const String failendpoint = 'http://www.example.com';
   test('should execute query successfully', () async {
     final provider = GraphQLClientProvider(
       endpoint,
@@ -148,5 +149,27 @@ void main() {
     debugPrint(result.map((e) => e.data).toString());
     debugPrint(result.first.exception.toString());
     expect(result.first.hasException, false);
+  });
+
+  test('should timeout exception ', () async {
+    final provider = GraphQLClientProvider(
+      failendpoint,
+      headers: {
+        'content-type': 'application/json',
+        'x-hasura-admin-secret': 'admin',
+      },
+      timeLimit: 1,
+      logger: Logger(),
+    );
+    final queryOptions = Options$Query$StaffQuery(
+      variables: Variables$Query$StaffQuery(
+        remove: false,
+        where: Input$tests_info_staff_bool_exp(),
+      ),
+    );
+    final result = await provider.query(queryOptions);
+    debugPrint(result.data.toString());
+    debugPrint(result.exception.toString());
+    expect(result.hasException, false);
   });
 }

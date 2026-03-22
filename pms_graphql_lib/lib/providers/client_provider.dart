@@ -1,10 +1,12 @@
 import "package:collection/collection.dart";
 import 'package:graphql/client.dart';
+import 'package:pms_graphql_lib/exceptions/graphql_provider_exception.dart';
 import 'package:pms_graphql_lib/extends/dupricate.dart';
+import 'package:pms_graphql_lib/results/graphql_prover_result.dart';
 import 'package:pms_logger_lib/logger_provider.dart';
 import 'package:gql/language.dart';
 import 'package:pms_graphql_lib/constants/graphql_constant.dart';
-import 'package:pms_graphql_lib/edit_models/_base/iedit_model.dart';
+import 'package:pms_graphql_lib/edit_models/iedit_model.dart';
 import 'package:pms_graphql_lib/exceptions/graphql_exception.dart';
 import 'package:pms_graphql_lib/graphql_converters/collection/graphql_converter_collection.dart';
 
@@ -172,6 +174,18 @@ final class GraphQLClientProvider {
       );
       rethrow;
     }
+  }
+
+  GraphqlProverResult<Map<dynamic, dynamic>> createResult(
+    QueryResult resultValue,
+  ) {
+    if (!resultValue.hasException) {
+      return Ok<Map>(resultValue.data!);
+    }
+    return switch (resultValue.exception) {
+      LinkException()=>Err<Map<String,dynamic>>(NetworkError(resultValue.exception.linkException.) )
+      _ => Err<Map<dynamic, dynamic>>(),
+    };
   }
 
   //モデルのリストを受け取り、モデルの型に対応するコンバーターが存在するか確認する。存在しない場合は例外をスローする。モデルの型に対応するコンバーターを取得する。モデルが新規かどうかで、insertオプションかupdateオプションを作成する。作成したオプションと、モデルが新規かどうかをタプルにして返す。最後に、作成したオプションのリストを_execute関数に渡して実行する。
