@@ -1,17 +1,4 @@
-import 'dart:async';
-
-import "package:collection/collection.dart";
-import 'package:graphql/client.dart';
-import 'package:pms_graphql_lib/exceptions/graphql_provider_exception.dart';
-import 'package:pms_graphql_lib/extends/dupricate.dart';
-import 'package:pms_graphql_lib/results/graphql_prover_result.dart';
-import 'package:pms_graphql_model_lib/graphql/generated/schema.graphql.dart';
-import 'package:pms_logger_lib/logger_provider.dart';
-import 'package:gql/language.dart';
-import 'package:pms_graphql_lib/constants/graphql_constant.dart';
-import 'package:pms_graphql_lib/edit_models/iedit_model.dart';
-import 'package:pms_graphql_lib/exceptions/graphql_exception.dart';
-import 'package:pms_graphql_lib/graphql_converters/collection/graphql_converter_collection.dart';
+part of '../pms_graphql_provider.dart';
 
 enum MutationType { insert, update }
 
@@ -197,33 +184,42 @@ final class GraphQLClientProvider {
     }
 
     final exception = resultValue.exception?.linkException?.originalException;
+
+    if (exception == null &&
+        resultValue.exception != null &&
+        resultValue.exception!.graphqlErrors.isNotEmpty) {
+      return Err<Map<String, dynamic>>(
+        DeveloperError('Null'),
+        graphqlErrors: resultValue.exception!.graphqlErrors.toString(),
+      );
+    }
+
     final resultErr = switch (exception) {
       ContextWriteException _ => DeveloperError(
-        (ContextWriteException).toString(),
+        exception.toString(),
         internalExeption: exception,
       ),
       ContextReadException _ => DeveloperError(
-        (ContextReadException).toString(),
+        exception.toString(),
         internalExeption: exception,
       ),
-      ResponseFormatException _ => ServerError(
-        (ResponseFormatException).toString(),
-        0,
-      ),
+      ResponseFormatException _ => ServerError(exception.toString(), 0),
       RequestFormatException _ => DeveloperError(
-        (RequestFormatException).toString(),
+        exception.toString(),
         internalExeption: exception,
       ),
       ServerException _ => ServerError(
-        (ServerException).toString(),
+        exception.toString(),
         exception.statusCode ?? -1,
       ),
       FormatException _ => DeveloperError(
-        (RequestFormatException).toString(),
+        exception.toString(),
         internalExeption: exception,
       ),
+      TimeoutException _ => TimeoutError(exception.toString()),
+      SocketException _ => NetworkError(exception.toString()),
       _ => throw Exception(
-        'not implement convert from ${exception.runtimeType.toString()}',
+        '"${exception.runtimeType.toString()}" class not implement convert to "GraphqlProviderException" class.',
       ),
     };
     return Err<Map<String, dynamic>>(
