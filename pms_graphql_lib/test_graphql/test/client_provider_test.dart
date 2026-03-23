@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pms_graphql_lib/graphql_converters/collection/graphql_converter_collection.dart';
 import 'package:pms_graphql_lib/providers/client_provider.dart';
+import 'package:pms_graphql_lib/results/graphql_prover_result.dart';
 import 'package:pms_logger_lib/logger_provider.dart';
 
 import '../graphql/generated/get_users.graphql.dart';
@@ -9,20 +10,51 @@ import 'user/user_edit_model.dart';
 import 'user/user_edit_model_converter.dart';
 
 void main() {
+  const String url = 'https://gorest.co.in/public/v2/graphql';
+  const String failUrl = 'https://fail.example.com';
   test('should execute query successfully', () async {
     final provider = GraphQLClientProvider(
-      'https://gorest.co.in/public/v2/graphql',
-      headers: {'Authorization': 'Bearer YOUR_TOKEN'},
+      url,
       timeLimit: 10,
       logger: Logger(),
     );
 
     final result = await provider.query(Options$Query$GetUsers());
-    debugPrint(result.data.toString());
-    expect(result.hasException, false);
+    var except = false;
+    switch (result) {
+      case Ok<Map<String, dynamic>> resultOk:
+        debugPrint(resultOk.value.toString());
+        except = true;
+        break;
+      case Err<Map<String, dynamic>> resultFail:
+        debugPrint(resultFail.toString());
+        break;
+      default:
+        debugPrint(result.toString());
+        break;
+    }
+    debugPrint(result.toString());
+    expect(true, except);
   });
 
-  test('should handle query error', () async {
+  test('should handle url fail error', () async {
+    final collection = GraphQLConverterCollection([
+      CollectionItem<UserEditModel>(UserEditModelConverter()),
+    ]);
+    final provider = GraphQLClientProvider(
+      failUrl,
+      converterCollection: collection,
+      timeLimit: 10,
+      logger: Logger(),
+    );
+    final query = Options$Query$GetUsers();
+    final result = await provider.query(query);
+    debugPrint(result.toString());
+
+    expect(true, result is Ok);
+  });
+
+  test('should handle insert', () async {
     final collection = GraphQLConverterCollection([
       CollectionItem<UserEditModel>(UserEditModelConverter()),
     ]);
@@ -47,7 +79,7 @@ void main() {
     );
     final result = await provider.save([insertMolde]);
     debugPrint(result.toString());
-    expect(result.first.hasException, false);
+    expect(true, result is Ok);
   });
 
   test('should handle update', () async {
@@ -70,6 +102,6 @@ void main() {
     );
     final result = await provider.save([updateMolde]);
     debugPrint(result.toString());
-    expect(result.first.hasException, false);
+    expect(true, result is Ok);
   });
 }

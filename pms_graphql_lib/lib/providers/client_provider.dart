@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import "package:collection/collection.dart";
 import 'package:graphql/client.dart';
 import 'package:pms_graphql_lib/exceptions/graphql_provider_exception.dart';
 import 'package:pms_graphql_lib/extends/dupricate.dart';
 import 'package:pms_graphql_lib/results/graphql_prover_result.dart';
+import 'package:pms_graphql_model_lib/graphql/generated/schema.graphql.dart';
 import 'package:pms_logger_lib/logger_provider.dart';
 import 'package:gql/language.dart';
 import 'package:pms_graphql_lib/constants/graphql_constant.dart';
@@ -49,20 +52,24 @@ final class GraphQLClientProvider {
   }
 
   //mutationを実行する関数。引数は、MutationOptionsと、MutationOptionsのDocumentをキーにしてグループ化したもの。グループ化したものは、同じDocumentを持つオプションをinsertとupdateで分けて実行するために使用する。
-  Future<QueryResult> _mutation(String key, MutationOptions options) async {
+  Future<GraphqlProverResult<Map<String, dynamic>>> _mutation(
+    String key,
+    MutationOptions options,
+  ) async {
     logger?.debug(
       'mutation:${printNode(options.document)} variables:${options.variables}',
     );
-    return await client
+    final result = await client
         .mutate(options)
         .timeout(
           timeLimit,
           onTimeout: () => throw _createTimeoutException(key),
         );
+    return _createResult(result);
   }
 
   //複数のMutationOptionsを受け取り、hasuraかどうかで実行方法を分ける
-  Future<List<QueryResult>> _execute(
+  Future<List<GraphqlProverResult<Map<String, dynamic>>>> _execute(
     List<(MutationType, MutationOptions)> values,
   ) async {
     try {
@@ -80,7 +87,7 @@ final class GraphQLClientProvider {
   }
 
   //not hasuraの場合は、MutationOptionsのDocumentをキーにしてグループ化せずに、順番に実行する
-  Future<List<QueryResult>> _executeNotHasura(
+  Future<List<GraphqlProverResult<Map<String, dynamic>>>> _executeNotHasura(
     List<(MutationType, MutationOptions)> values,
   ) async {
     //not hasura
@@ -96,13 +103,16 @@ final class GraphQLClientProvider {
   }
 
   //hasuraの場合は、MutationOptionsのDocumentをキーにしてグループ化し、同じDocumentを持つオプションをinsertとupdateで分けて実行する
-  Future<List<QueryResult>> _executeHasura(
+  Future<List<GraphqlProverResult<Map<String, dynamic>>>> _executeHasura(
     List<(MutationType, MutationOptions)> values,
   ) async {
     //MutationOptionsのDocumentをキーにしてグループ化する
     final documentGroups = values.groupListsBy((key) => key.$2.document);
     //グループごとにinsertとupdateのオプションを分けて実行するrequestを作成する
-    final asyncFunc = List<Future<QueryResult>>.empty(growable: true);
+    final asyncFunc =
+        List<Future<GraphqlProverResult<Map<String, dynamic>>>>.empty(
+          growable: true,
+        );
 
     documentGroups.forEach((document, group) {
       //同じDocumentを持つオプションをinsertとupdateで分ける
@@ -155,17 +165,20 @@ final class GraphQLClientProvider {
   }
 
   //クエリを実行する関数。引数は、QueryOptions。クエリがタイムアウトした場合は、GraphqlTimeoutExceptionをスローする。
-  Future<QueryResult> query(QueryOptions options) async {
+  Future<GraphqlProverResult<Map<dynamic, dynamic>>> query(
+    QueryOptions options,
+  ) async {
     try {
       logger?.debug(
         'query:${printNode(options.document)} variables:${options.variables}',
       );
-      return await client
+      final result = await client
           .query(options)
           .timeout(
             timeLimit,
             onTimeout: () => throw _createTimeoutException('query'),
           );
+      return _createResult(result);
     } catch (ex, stackTrace) {
       logger?.error(
         'Error executing query: $ex',
@@ -176,20 +189,54 @@ final class GraphQLClientProvider {
     }
   }
 
-  GraphqlProverResult<Map<dynamic, dynamic>> createResult(
+  GraphqlProverResult<Map<String, dynamic>> _createResult(
     QueryResult resultValue,
   ) {
     if (!resultValue.hasException) {
-      return Ok<Map>(resultValue.data!);
+      return Ok<Map<String, dynamic>>(resultValue.data!);
     }
-    return switch (resultValue.exception) {
-      LinkException()=>Err<Map<String,dynamic>>(NetworkError(resultValue.exception.linkException.) )
-      _ => Err<Map<dynamic, dynamic>>(),
+
+    final exception = resultValue.exception?.linkException?.originalException;
+    final resultErr = switch (exception) {
+      ContextWriteException _ => DeveloperError(
+        (ContextWriteException).toString(),
+        internalExeption: exception,
+      ),
+      ContextReadException _ => DeveloperError(
+        (ContextReadException).toString(),
+        internalExeption: exception,
+      ),
+      ResponseFormatException _ => ServerError(
+        (ResponseFormatException).toString(),
+        0,
+      ),
+      RequestFormatException _ => DeveloperError(
+        (RequestFormatException).toString(),
+        internalExeption: exception,
+      ),
+      ServerException _ => ServerError(
+        (ServerException).toString(),
+        exception.statusCode ?? -1,
+      ),
+      FormatException _ => DeveloperError(
+        (RequestFormatException).toString(),
+        internalExeption: exception,
+      ),
+      _ => throw Exception(
+        'not implement convert from ${exception.runtimeType.toString()}',
+      ),
     };
+    return Err<Map<String, dynamic>>(
+      resultErr,
+      graphqlErrors: resultValue.exception?.graphqlErrors.join("\r"),
+      data: resultValue.data,
+    );
   }
 
   //モデルのリストを受け取り、モデルの型に対応するコンバーターが存在するか確認する。存在しない場合は例外をスローする。モデルの型に対応するコンバーターを取得する。モデルが新規かどうかで、insertオプションかupdateオプションを作成する。作成したオプションと、モデルが新規かどうかをタプルにして返す。最後に、作成したオプションのリストを_execute関数に渡して実行する。
-  Future<List<QueryResult>> save(List<IEditModel> models) async {
+  Future<List<GraphqlProverResult<Map<String, dynamic>>>> save(
+    List<IEditModel> models,
+  ) async {
     if (converterCollection == null) {
       throw ArgumentError(
         'Converter collection is required to save models. Please provide a converter collection.',
