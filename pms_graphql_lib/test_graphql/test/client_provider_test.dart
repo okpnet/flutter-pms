@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:pms_graphql_lib/graphql_converters/collection/graphql_converter_collection.dart';
 import 'package:pms_graphql_lib/pms_graphql_provider.dart';
 import 'package:pms_graphql_lib/results/graphql_prover_result.dart';
+import 'package:pms_graphql_model_lib/graphql/generated/staff.graphql.dart';
 import 'package:pms_logger_lib/logger_provider.dart';
 
 import '../graphql/generated/get_users.graphql.dart';
@@ -109,5 +110,16 @@ void main() {
     final result = await provider.save([updateMolde]);
     debugPrint(result.toString());
     expect(result.where((val) => val is Ok).length == result.length, true);
+  });
+
+  test('should handle asc sort', () async {
+    final provider = GraphQLClientProvider(
+      url + '/users?sort=name&order=asc',
+      timeLimit: 10,
+      logger: Logger(),
+    );
+    final result = await provider.query(Options$Query$GetUsers());
+    debugPrint(result.toString());
+    expect(result is Err, true);
   });
 }

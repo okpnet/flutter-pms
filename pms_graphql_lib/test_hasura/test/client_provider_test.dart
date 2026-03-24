@@ -2,9 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pms_graphql_lib/graphql_converters/collection/graphql_converter_collection.dart';
 import 'package:pms_graphql_lib/pms_graphql_provider.dart';
-import 'package:pms_graphql_lib/providers/client_provider.dart';
 import 'package:pms_logger_lib/logger_provider.dart';
 import '../graphql/generated/schema.graphql.dart';
+import '../graphql/generated/sort.graphql.dart' hide Enum$order_by;
 import '../graphql/generated/staff.graphql.dart';
 import 'staffs/staff_edit_model.dart';
 import 'staffs/staff_edit_model_converter.dart';
@@ -26,6 +26,7 @@ void main() {
       variables: Variables$Query$StaffQuery(
         remove: false,
         where: Input$tests_info_staff_bool_exp(),
+        order_by:[Input$tests_info_staff_order_by(name: Enum$order_by.asc))] 
       ),
     );
     final result = await provider.query(queryOptions);
