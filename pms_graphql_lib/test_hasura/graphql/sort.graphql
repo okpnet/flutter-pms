@@ -1,0 +1,9 @@
+enum order_by {
+  asc
+  desc
+}
+
+input items_order_by {
+  name: order_by
+  created_at: order_by
+}
