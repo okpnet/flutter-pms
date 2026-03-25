@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pms_utility_widget/standardized_buttons/button.dart';
 import 'package:pms_utility_widget_example/loading_indicators/mini_indicator.dart';
 
 class MainView extends StatelessWidget {
@@ -13,8 +14,43 @@ class MainView extends StatelessWidget {
         title: Text(title),
       ),
       body: Center(
-        child: Stack(
+        child: Column(
           children: [
+            PrimaryButton.icon(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => MiniIndicator()),
+                );
+              },
+              label: Text('プライマリボタン'),
+              icon: Icon(Icons.abc_rounded),
+            ),
+            SecondaryButton.icon(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => MiniIndicator()),
+                );
+              },
+              label: Text('セカンダリボタン'),
+              icon: Icon(Icons.abc_rounded),
+            ),
+            TertiaryButton.icon(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => MiniIndicator()),
+                );
+              },
+              label: Text('ターシャリボタン'),
+              icon: Icon(Icons.abc_rounded),
+            ),
+            IconButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => MiniIndicator()),
+                );
+              },
+              icon: Icon(Icons.abc_rounded),
+            ),
             OutlinedButton.icon(
               label: Text('ミニインジケータ表示'),
               icon: Icon(Icons.abc_rounded),

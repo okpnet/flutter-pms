@@ -1,0 +1,45 @@
+{
+    // IntelliSense を使用して利用可能な属性を学べます。
+    // 既存の属性の説明をホバーして表示します。
+    // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "pms_utility_widget",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "pms_utility_widget (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "pms_utility_widget (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "pms_utility_widget_example",
+            "cwd": "example\\pms_utility_widget_example",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "pms_utility_widget_example (profile mode)",
+            "cwd": "example\\pms_utility_widget_example",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "pms_utility_widget_example (release mode)",
+            "cwd": "example\\pms_utility_widget_example",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
