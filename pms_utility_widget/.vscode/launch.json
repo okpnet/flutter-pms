@@ -5,23 +5,6 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "pms_utility_widget",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "pms_utility_widget (profile mode)",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile"
-        },
-        {
-            "name": "pms_utility_widget (release mode)",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "release"
-        },
-        {
             "name": "pms_utility_widget_example",
             "cwd": "example\\pms_utility_widget_example",
             "request": "launch",

@@ -1,8 +1,8 @@
 part of 'button.dart';
 
-class PrimaryIconButton extends StandardizedIconButtonBase
+class TertiaryIconButton extends StandardizedIconButtonBase
     with AppButtonColorMixin {
-  const PrimaryIconButton({
+  const TertiaryIconButton({
     super.key,
     required super.onPressed,
     super.onLongPress,
@@ -18,12 +18,10 @@ class PrimaryIconButton extends StandardizedIconButtonBase
   @override
   ButtonStyle createButtonStyle(BuildContext context) {
     final background = bg(context);
-    final foreground = fg(context);
+    // final foreground = fg(context);
 
-    return ElevatedButton.styleFrom(
-      backgroundColor: background,
-      foregroundColor: foreground,
-      elevation: ButtonStyleConstant.ELEVATION,
+    return TextButton.styleFrom(
+      foregroundColor: background,
       padding: EdgeInsets.symmetric(
         vertical: size.iconPadingSize,
         horizontal: size.iconPadingSize,

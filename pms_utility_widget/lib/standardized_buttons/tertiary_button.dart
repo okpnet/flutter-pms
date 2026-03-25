@@ -30,13 +30,16 @@ class TertiaryButton extends StandardizedButtonBase with AppButtonColorMixin {
 
   ButtonStyle createButtonStyle(BuildContext context) {
     final background = bg(context);
-    final foreground = fg(context);
+    // final foreground = fg(context);
 
     return TextButton.styleFrom(
       foregroundColor: background,
       padding: EdgeInsets.symmetric(
         vertical: ButtonStyleConstant.PADING_V,
         horizontal: ButtonStyleConstant.PADING_H,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(ButtonStyleConstant.RADIUS),
       ),
     );
   }

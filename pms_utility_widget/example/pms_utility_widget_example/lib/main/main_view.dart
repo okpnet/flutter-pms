@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pms_utility_widget/standardized_buttons/button.dart';
+import 'package:pms_utility_widget_example/buttons/buttons_view.dart';
 import 'package:pms_utility_widget_example/loading_indicators/mini_indicator.dart';
 
 class MainView extends StatelessWidget {
@@ -16,39 +17,13 @@ class MainView extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            PrimaryButton.icon(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => MiniIndicator()),
-                );
-              },
-              label: Text('プライマリボタン'),
-              icon: Icon(Icons.abc_rounded),
-            ),
-            SecondaryButton.icon(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => MiniIndicator()),
-                );
-              },
-              label: Text('セカンダリボタン'),
-              icon: Icon(Icons.abc_rounded),
-            ),
             TertiaryButton.icon(
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => MiniIndicator()),
-                );
+                Navigator.of(
+                  context,
+                ).push(MaterialPageRoute(builder: (context) => ButtonsView()));
               },
-              label: Text('ターシャリボタン'),
-              icon: Icon(Icons.abc_rounded),
-            ),
-            IconButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => MiniIndicator()),
-                );
-              },
+              label: Text('ボタン'),
               icon: Icon(Icons.abc_rounded),
             ),
             OutlinedButton.icon(
