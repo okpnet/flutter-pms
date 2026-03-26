@@ -17,6 +17,7 @@ class MainView extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
+            ElevatedButton(onPressed: onPressed, child: child)
             TertiaryButton.icon(
               onPressed: () {
                 Navigator.of(
