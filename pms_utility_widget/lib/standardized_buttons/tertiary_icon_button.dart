@@ -16,19 +16,6 @@ class TertiaryIconButton extends StandardizedIconButtonBase
     super.size = ButtonSize.small,
   });
   @override
-  ButtonStyle createButtonStyle(BuildContext context) {
-    final background = bg(context);
-    // final foreground = fg(context);
-
-    return TextButton.styleFrom(
-      foregroundColor: background,
-      padding: EdgeInsets.symmetric(
-        vertical: size.iconPadingSize,
-        horizontal: size.iconPadingSize,
-      ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(ButtonStyleConstant.RADIUS),
-      ),
-    );
-  }
+  ButtonStyle createButtonStyle(BuildContext context) =>
+      ButtonStyleHelper.tertiaryIcon(context, size: size);
 }

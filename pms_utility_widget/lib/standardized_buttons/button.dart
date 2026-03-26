@@ -10,6 +10,7 @@ part 'button_enums.dart';
 part 'secondary_icon_button.dart';
 part 'tertiary_icon_button.dart';
 part 'button_style_helper.dart';
+part 'pms_button.dart';
 
 mixin AppButtonColorMixin {
   Color bg(BuildContext context) => Theme.of(context).colorScheme.primary;
@@ -26,11 +27,11 @@ abstract class StandardizedButtonBase extends StatelessWidget {
   final bool? autofocus;
   final Clip? clipBehavior;
   final WidgetStatesController? statesController;
-  final Widget? icon;
-  final Widget? label;
   final Widget? child;
   final IconAlignment? iconAlignment;
   final String? tooltip;
+  final Widget? icon;
+  final Widget? label;
 
   const StandardizedButtonBase({
     super.key,

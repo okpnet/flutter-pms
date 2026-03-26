@@ -16,21 +16,6 @@ class SecondaryIconButton extends StandardizedIconButtonBase
     super.size = ButtonSize.small,
   });
   @override
-  ButtonStyle createButtonStyle(BuildContext context) {
-    final background = bg(context);
-    // final foreground = fg(context);
-
-    return OutlinedButton.styleFrom(
-      foregroundColor: background,
-      side: BorderSide(color: background),
-      elevation: ButtonStyleConstant.ELEVATION,
-      padding: EdgeInsets.symmetric(
-        vertical: size.iconPadingSize,
-        horizontal: size.iconPadingSize,
-      ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(ButtonStyleConstant.RADIUS),
-      ),
-    );
-  }
+  ButtonStyle createButtonStyle(BuildContext context) =>
+      ButtonStyleHelper.secondaryIcn(context, size: size);
 }

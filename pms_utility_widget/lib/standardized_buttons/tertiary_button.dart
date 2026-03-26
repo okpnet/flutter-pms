@@ -46,7 +46,7 @@ class TertiaryButton extends StandardizedButtonBase with AppButtonColorMixin {
 
   @override
   Widget build(BuildContext context) {
-    final style = createButtonStyle(context);
+    final style = ButtonStyleHelper.tertiary(context);
     return icon == null
         ? TextButton(onPressed: onPressed, style: style, child: child!)
         : TextButton.icon(

@@ -47,7 +47,7 @@ class SecondaryButton extends StandardizedButtonBase with AppButtonColorMixin {
 
   @override
   Widget build(BuildContext context) {
-    final style = createButtonStyle(context);
+    final style = ButtonStyleHelper.secondary(context);
     return icon == null
         ? OutlinedButton(onPressed: onPressed, style: style, child: child)
         : OutlinedButton.icon(
