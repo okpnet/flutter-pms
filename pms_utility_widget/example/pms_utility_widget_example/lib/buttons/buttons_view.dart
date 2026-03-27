@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pms_utility_widget/loding_indicator/indicators.dart';
-import 'package:pms_utility_widget/standardized_buttons/button.dart';
+import 'package:pms_utility_widget/buttons/button.dart';
 
 class ButtonsView extends StatelessWidget {
   const ButtonsView({super.key});
@@ -15,32 +15,38 @@ class ButtonsView extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            PrimaryButton.icon(
+            PmsButton.primaryWithIcon(
+              context,
               onPressed: navigatorToBack,
               icon: Icon(Icons.home),
               label: const Text('Primary button'),
             ),
-            SecondaryButton.icon(
+            PmsButton.secondaryWithIcon(
+              context,
               onPressed: navigatorToBack,
               icon: Icon(Icons.alarm_on),
               label: const Text('Secondary button'),
             ),
-            TertiaryButton.icon(
+            PmsButton.tertiaryWithIcon(
+              context,
               onPressed: navigatorToBack,
               icon: Icon(Icons.zoom_in),
               label: const Text('Tertiary button'),
             ),
-            PrimaryIconButton(
+            PmsIconButton.primary(
+              context,
               onPressed: navigatorToBack,
               icon: Icon(Icons.password),
               size: ButtonSize.small,
             ),
-            SecondaryIconButton(
+            PmsIconButton.secondary(
+              context,
               onPressed: navigatorToBack,
               icon: Icon(Icons.password),
               size: ButtonSize.mediam,
             ),
-            TertiaryIconButton(
+            PmsIconButton.tertiary(
+              context,
               onPressed: navigatorToBack,
               icon: Icon(Icons.password),
               size: ButtonSize.large,

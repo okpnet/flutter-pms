@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pms_utility_widget/standardized_buttons/button.dart';
+import 'package:pms_utility_widget/buttons/button.dart';
 import 'package:pms_utility_widget_example/buttons/buttons_view.dart';
+import 'package:pms_utility_widget_example/fields/fields.dart';
 import 'package:pms_utility_widget_example/loading_indicators/mini_indicator.dart';
 
 class MainView extends StatelessWidget {
@@ -16,14 +17,26 @@ class MainView extends StatelessWidget {
       ),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TertiaryButton.icon(
+            PmsButton.primaryWithIcon(
+              context,
               onPressed: () {
                 Navigator.of(
                   context,
                 ).push(MaterialPageRoute(builder: (context) => ButtonsView()));
               },
               label: Text('ボタン'),
+              icon: Icon(Icons.abc_rounded),
+            ),
+            PmsButton.primaryWithIcon(
+              context,
+              onPressed: () {
+                Navigator.of(
+                  context,
+                ).push(MaterialPageRoute(builder: (context) => Fields()));
+              },
+              label: Text('テキストインプット'),
               icon: Icon(Icons.abc_rounded),
             ),
             OutlinedButton.icon(

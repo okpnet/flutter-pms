@@ -1,38 +1,8 @@
 part of 'button.dart';
 
-class PmsButton extends StandardizedButtonBase with AppButtonColorMixin {
-  final ButtonStyleType type;
-
-  PmsButton._({
-    super.key,
-    required super.onPressed,
-    super.onLongPress,
-    super.onHover,
-    super.onFocusChange,
-    super.focusNode,
-    super.autofocus = false,
-    super.clipBehavior,
-    super.statesController,
-    required super.child,
-    required this.type,
-  });
-
-  PmsButton._icon({
-    super.key,
-    required super.onPressed,
-    super.onLongPress,
-    super.onHover,
-    super.onFocusChange,
-    super.focusNode,
-    super.autofocus = false,
-    super.clipBehavior,
-    super.statesController,
-    required super.icon,
-    required super.label,
-    required this.type,
-  });
-
-  factory PmsButton.primary({
+class PmsButton {
+  static ButtonStyleButton primary(
+    BuildContext context, {
     Key? key,
     required VoidCallback onPressed,
     VoidCallback? onLongPress,
@@ -46,7 +16,7 @@ class PmsButton extends StandardizedButtonBase with AppButtonColorMixin {
     IconAlignment? iconAlignment,
     String? tooltip,
   }) {
-    return PmsButton._(
+    return ElevatedButton(
       key: key,
       onPressed: onPressed,
       onLongPress: onLongPress,
@@ -56,12 +26,13 @@ class PmsButton extends StandardizedButtonBase with AppButtonColorMixin {
       autofocus: false,
       clipBehavior: clipBehavior,
       statesController: statesController,
-      type: ButtonStyleType.primary,
+      style: ButtonStyleHelper.primary(context),
       child: child,
     );
   }
 
-  factory PmsButton.secondary({
+  static ButtonStyleButton secondary(
+    BuildContext context, {
     Key? key,
     required VoidCallback onPressed,
     VoidCallback? onLongPress,
@@ -75,7 +46,7 @@ class PmsButton extends StandardizedButtonBase with AppButtonColorMixin {
     IconAlignment? iconAlignment,
     String? tooltip,
   }) {
-    return PmsButton._(
+    return OutlinedButton(
       key: key,
       onPressed: onPressed,
       onLongPress: onLongPress,
@@ -85,12 +56,13 @@ class PmsButton extends StandardizedButtonBase with AppButtonColorMixin {
       autofocus: false,
       clipBehavior: clipBehavior,
       statesController: statesController,
-      type: ButtonStyleType.secondary,
+      style: ButtonStyleHelper.secondary(context),
       child: child,
     );
   }
 
-  factory PmsButton.tertiary({
+  static ButtonStyleButton tertiary(
+    BuildContext context, {
     Key? key,
     required VoidCallback onPressed,
     VoidCallback? onLongPress,
@@ -104,7 +76,7 @@ class PmsButton extends StandardizedButtonBase with AppButtonColorMixin {
     IconAlignment? iconAlignment,
     String? tooltip,
   }) {
-    return PmsButton._(
+    return TextButton(
       key: key,
       onPressed: onPressed,
       onLongPress: onLongPress,
@@ -114,11 +86,13 @@ class PmsButton extends StandardizedButtonBase with AppButtonColorMixin {
       autofocus: false,
       clipBehavior: clipBehavior,
       statesController: statesController,
-      type: ButtonStyleType.tertiary,
-      child: child,
+      style: ButtonStyleHelper.tertiary(context),
+      child: child!,
     );
   }
-  factory PmsButton.primaryWithIcon({
+
+  static ButtonStyleButton primaryWithIcon(
+    BuildContext context, {
     Key? key,
     required VoidCallback onPressed,
     VoidCallback? onLongPress,
@@ -133,7 +107,7 @@ class PmsButton extends StandardizedButtonBase with AppButtonColorMixin {
     String? tooltip,
     required Icon icon,
   }) {
-    return PmsButton._icon(
+    return ElevatedButton.icon(
       key: key,
       onPressed: onPressed,
       onLongPress: onLongPress,
@@ -143,13 +117,14 @@ class PmsButton extends StandardizedButtonBase with AppButtonColorMixin {
       autofocus: false,
       clipBehavior: clipBehavior,
       statesController: statesController,
-      type: ButtonStyleType.primary,
-      label: label,
+      style: ButtonStyleHelper.primary(context),
+      label: label!,
       icon: icon,
     );
   }
 
-  factory PmsButton.secondaryWithIcon({
+  static ButtonStyleButton secondaryWithIcon(
+    BuildContext context, {
     Key? key,
     required VoidCallback onPressed,
     VoidCallback? onLongPress,
@@ -164,7 +139,7 @@ class PmsButton extends StandardizedButtonBase with AppButtonColorMixin {
     String? tooltip,
     required Icon icon,
   }) {
-    return PmsButton._icon(
+    return OutlinedButton.icon(
       key: key,
       onPressed: onPressed,
       onLongPress: onLongPress,
@@ -174,13 +149,14 @@ class PmsButton extends StandardizedButtonBase with AppButtonColorMixin {
       autofocus: false,
       clipBehavior: clipBehavior,
       statesController: statesController,
-      type: ButtonStyleType.secondary,
-      label: label,
+      style: ButtonStyleHelper.secondary(context),
+      label: label!,
       icon: icon,
     );
   }
 
-  factory PmsButton.tertiaryWithIcon({
+  static ButtonStyleButton tertiaryWithIcon(
+    BuildContext context, {
     Key? key,
     required VoidCallback onPressed,
     VoidCallback? onLongPress,
@@ -195,7 +171,7 @@ class PmsButton extends StandardizedButtonBase with AppButtonColorMixin {
     String? tooltip,
     required Icon icon,
   }) {
-    return PmsButton._icon(
+    return TextButton.icon(
       key: key,
       onPressed: onPressed,
       onLongPress: onLongPress,
@@ -205,42 +181,9 @@ class PmsButton extends StandardizedButtonBase with AppButtonColorMixin {
       autofocus: false,
       clipBehavior: clipBehavior,
       statesController: statesController,
-      type: ButtonStyleType.tertiary,
-      label: label,
+      style: ButtonStyleHelper.tertiary(context),
+      label: label!,
       icon: icon,
     );
-  }
-  @override
-  Widget build(BuildContext context) {
-    final style = ButtonStyleHelper.primary(context);
-    return switch (type) {
-      ButtonStyleType.primary =>
-        icon == null
-            ? ElevatedButton(onPressed: onPressed, style: style, child: child)
-            : ElevatedButton.icon(
-                onPressed: onPressed,
-                style: style,
-                icon: icon!,
-                label: label!,
-              ),
-      ButtonStyleType.secondary =>
-        icon == null
-            ? OutlinedButton(onPressed: onPressed, style: style, child: child)
-            : OutlinedButton.icon(
-                onPressed: onPressed,
-                style: style,
-                icon: icon!,
-                label: label!,
-              ),
-      ButtonStyleType.tertiary =>
-        icon == null
-            ? TextButton(onPressed: onPressed, style: style, child: child!)
-            : TextButton.icon(
-                onPressed: onPressed,
-                style: style,
-                icon: icon!,
-                label: label!,
-              ),
-    };
   }
 }

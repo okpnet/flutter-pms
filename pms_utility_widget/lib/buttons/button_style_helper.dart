@@ -25,7 +25,7 @@ class ButtonStyleHelper with MixinWidgetHelper {
     // final foreground = fg(context);
 
     return OutlinedButton.styleFrom(
-      foregroundColor: background,
+      // foregroundColor: background,
       side: BorderSide(color: background),
       padding: EdgeInsets.symmetric(
         vertical: ButtonStyleConstant.PADING_V,
@@ -43,7 +43,7 @@ class ButtonStyleHelper with MixinWidgetHelper {
     // final foreground = fg(context);
 
     return TextButton.styleFrom(
-      foregroundColor: background,
+      // foregroundColor: background,
       padding: EdgeInsets.symmetric(
         vertical: ButtonStyleConstant.PADING_V,
         horizontal: ButtonStyleConstant.PADING_H,
@@ -77,7 +77,7 @@ class ButtonStyleHelper with MixinWidgetHelper {
   }
 
   //セカンダリアイコンボタンスタイルヘルパー
-  static ButtonStyle secondaryIcn(
+  static ButtonStyle secondaryIcon(
     BuildContext context, {
     ButtonSize size = ButtonSize.small,
   }) {
