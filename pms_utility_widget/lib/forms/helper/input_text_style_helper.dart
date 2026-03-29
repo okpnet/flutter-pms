@@ -1,6 +1,6 @@
-part of 'field.dart';
+part of '../field.dart';
 
-class InputTextHelper with MixinWidgetHelper {
+class InputTextStyleHelper with MixinWidgetHelper {
   static InputBorder primary() {
     return OutlineInputBorder(
       borderRadius: const BorderRadius.all(

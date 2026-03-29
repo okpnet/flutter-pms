@@ -1,4 +1,4 @@
-part of 'button.dart';
+part of '../button.dart';
 
 class ButtonStyleHelper with MixinWidgetHelper {
   //プライマリボタンスタイルヘルパー
@@ -39,7 +39,7 @@ class ButtonStyleHelper with MixinWidgetHelper {
 
   //ターシャリ-ボタンスタイルヘルパー
   static ButtonStyle tertiary(BuildContext context) {
-    final background = MixinWidgetHelper.bg(context);
+    //final background = MixinWidgetHelper.bg(context);
     // final foreground = fg(context);
 
     return TextButton.styleFrom(

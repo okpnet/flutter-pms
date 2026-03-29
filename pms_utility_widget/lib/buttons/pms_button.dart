@@ -1,7 +1,7 @@
 part of 'button.dart';
 
 class PmsButton {
-  static ButtonStyleButton primary(
+  static Widget primary(
     BuildContext context, {
     Key? key,
     required VoidCallback onPressed,
@@ -16,22 +16,24 @@ class PmsButton {
     IconAlignment? iconAlignment,
     String? tooltip,
   }) {
-    return ElevatedButton(
-      key: key,
-      onPressed: onPressed,
-      onLongPress: onLongPress,
-      onHover: onHover,
-      onFocusChange: onFocusChange,
-      focusNode: focusNode,
-      autofocus: false,
-      clipBehavior: clipBehavior,
-      statesController: statesController,
-      style: ButtonStyleHelper.primary(context),
-      child: child,
+    return LayoutWidgetHelper.paddingField(
+      child: ElevatedButton(
+        key: key,
+        onPressed: onPressed,
+        onLongPress: onLongPress,
+        onHover: onHover,
+        onFocusChange: onFocusChange,
+        focusNode: focusNode,
+        autofocus: false,
+        clipBehavior: clipBehavior,
+        statesController: statesController,
+        style: ButtonStyleHelper.primary(context),
+        child: child,
+      ),
     );
   }
 
-  static ButtonStyleButton secondary(
+  static Widget secondary(
     BuildContext context, {
     Key? key,
     required VoidCallback onPressed,
@@ -46,22 +48,24 @@ class PmsButton {
     IconAlignment? iconAlignment,
     String? tooltip,
   }) {
-    return OutlinedButton(
-      key: key,
-      onPressed: onPressed,
-      onLongPress: onLongPress,
-      onHover: onHover,
-      onFocusChange: onFocusChange,
-      focusNode: focusNode,
-      autofocus: false,
-      clipBehavior: clipBehavior,
-      statesController: statesController,
-      style: ButtonStyleHelper.secondary(context),
-      child: child,
+    return LayoutWidgetHelper.paddingField(
+      child: OutlinedButton(
+        key: key,
+        onPressed: onPressed,
+        onLongPress: onLongPress,
+        onHover: onHover,
+        onFocusChange: onFocusChange,
+        focusNode: focusNode,
+        autofocus: false,
+        clipBehavior: clipBehavior,
+        statesController: statesController,
+        style: ButtonStyleHelper.secondary(context),
+        child: child,
+      ),
     );
   }
 
-  static ButtonStyleButton tertiary(
+  static Widget tertiary(
     BuildContext context, {
     Key? key,
     required VoidCallback onPressed,
@@ -76,22 +80,24 @@ class PmsButton {
     IconAlignment? iconAlignment,
     String? tooltip,
   }) {
-    return TextButton(
-      key: key,
-      onPressed: onPressed,
-      onLongPress: onLongPress,
-      onHover: onHover,
-      onFocusChange: onFocusChange,
-      focusNode: focusNode,
-      autofocus: false,
-      clipBehavior: clipBehavior,
-      statesController: statesController,
-      style: ButtonStyleHelper.tertiary(context),
-      child: child!,
+    return LayoutWidgetHelper.paddingField(
+      child: TextButton(
+        key: key,
+        onPressed: onPressed,
+        onLongPress: onLongPress,
+        onHover: onHover,
+        onFocusChange: onFocusChange,
+        focusNode: focusNode,
+        autofocus: false,
+        clipBehavior: clipBehavior,
+        statesController: statesController,
+        style: ButtonStyleHelper.tertiary(context),
+        child: child!,
+      ),
     );
   }
 
-  static ButtonStyleButton primaryWithIcon(
+  static Widget primaryWithIcon(
     BuildContext context, {
     Key? key,
     required VoidCallback onPressed,
@@ -107,23 +113,25 @@ class PmsButton {
     String? tooltip,
     required Icon icon,
   }) {
-    return ElevatedButton.icon(
-      key: key,
-      onPressed: onPressed,
-      onLongPress: onLongPress,
-      onHover: onHover,
-      onFocusChange: onFocusChange,
-      focusNode: focusNode,
-      autofocus: false,
-      clipBehavior: clipBehavior,
-      statesController: statesController,
-      style: ButtonStyleHelper.primary(context),
-      label: label!,
-      icon: icon,
+    return LayoutWidgetHelper.paddingField(
+      child: ElevatedButton.icon(
+        key: key,
+        onPressed: onPressed,
+        onLongPress: onLongPress,
+        onHover: onHover,
+        onFocusChange: onFocusChange,
+        focusNode: focusNode,
+        autofocus: false,
+        clipBehavior: clipBehavior,
+        statesController: statesController,
+        style: ButtonStyleHelper.primary(context),
+        label: label!,
+        icon: icon,
+      ),
     );
   }
 
-  static ButtonStyleButton secondaryWithIcon(
+  static Widget secondaryWithIcon(
     BuildContext context, {
     Key? key,
     required VoidCallback onPressed,
@@ -139,23 +147,25 @@ class PmsButton {
     String? tooltip,
     required Icon icon,
   }) {
-    return OutlinedButton.icon(
-      key: key,
-      onPressed: onPressed,
-      onLongPress: onLongPress,
-      onHover: onHover,
-      onFocusChange: onFocusChange,
-      focusNode: focusNode,
-      autofocus: false,
-      clipBehavior: clipBehavior,
-      statesController: statesController,
-      style: ButtonStyleHelper.secondary(context),
-      label: label!,
-      icon: icon,
+    return LayoutWidgetHelper.paddingField(
+      child: OutlinedButton.icon(
+        key: key,
+        onPressed: onPressed,
+        onLongPress: onLongPress,
+        onHover: onHover,
+        onFocusChange: onFocusChange,
+        focusNode: focusNode,
+        autofocus: false,
+        clipBehavior: clipBehavior,
+        statesController: statesController,
+        style: ButtonStyleHelper.secondary(context),
+        label: label!,
+        icon: icon,
+      ),
     );
   }
 
-  static ButtonStyleButton tertiaryWithIcon(
+  static Widget tertiaryWithIcon(
     BuildContext context, {
     Key? key,
     required VoidCallback onPressed,
@@ -171,19 +181,21 @@ class PmsButton {
     String? tooltip,
     required Icon icon,
   }) {
-    return TextButton.icon(
-      key: key,
-      onPressed: onPressed,
-      onLongPress: onLongPress,
-      onHover: onHover,
-      onFocusChange: onFocusChange,
-      focusNode: focusNode,
-      autofocus: false,
-      clipBehavior: clipBehavior,
-      statesController: statesController,
-      style: ButtonStyleHelper.tertiary(context),
-      label: label!,
-      icon: icon,
+    return LayoutWidgetHelper.paddingField(
+      child: TextButton.icon(
+        key: key,
+        onPressed: onPressed,
+        onLongPress: onLongPress,
+        onHover: onHover,
+        onFocusChange: onFocusChange,
+        focusNode: focusNode,
+        autofocus: false,
+        clipBehavior: clipBehavior,
+        statesController: statesController,
+        style: ButtonStyleHelper.tertiary(context),
+        label: label!,
+        icon: icon,
+      ),
     );
   }
 }

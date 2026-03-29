@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:pms_utility_widget/styles/export/widget_design.dart';
 
 mixin MixinWidgetHelper {
   static Color bg(BuildContext context) =>
