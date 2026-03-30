@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:utility_widget/buttons/ut_button.dart';
-import 'package:pms_utility_widget_example/buttons/buttons_view.dart';
-import 'package:pms_utility_widget_example/fields/fields.dart';
-import 'package:pms_utility_widget_example/loading_indicators/mini_indicator.dart';
+import 'package:utility_widget_example/buttons/buttons_view.dart';
+import 'package:utility_widget_example/fields/fields.dart';
+import 'package:utility_widget_example/loading_indicators/mini_indicator.dart';
 
 class MainView extends StatelessWidget {
   final String title;
@@ -14,6 +14,30 @@ class MainView extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(title),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            DrawerHeader(
+              child: Text('Drawer Header'),
+              decoration: BoxDecoration(color: Colors.blue),
+            ),
+            ListTile(
+              title: Text('Item 1'),
+              onTap: () {
+                // Do something
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text('Item 2'),
+              onTap: () {
+                // Do something
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
       ),
       body: Center(
         child: Column(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pms_utility_widget_example/loading_indicators/mini_indicator.dart';
-import 'package:pms_utility_widget_example/main/main_view.dart';
+import 'package:utility_widget_example/loading_indicators/mini_indicator.dart';
+import 'package:utility_widget_example/main/main_view.dart';
 
 void main() {
   runApp(MyApp());
