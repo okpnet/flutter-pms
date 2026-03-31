@@ -1,8 +1,8 @@
 part of '../ut_button.dart';
 
 class UtButton {
-  static Widget primary(
-    BuildContext context, {
+  static Widget primary({
+    required BuildContext context,
     Key? key,
     required VoidCallback onPressed,
     VoidCallback? onLongPress,
@@ -33,8 +33,8 @@ class UtButton {
     );
   }
 
-  static Widget secondary(
-    BuildContext context, {
+  static Widget secondary({
+    required BuildContext context,
     Key? key,
     required VoidCallback onPressed,
     VoidCallback? onLongPress,
@@ -65,8 +65,8 @@ class UtButton {
     );
   }
 
-  static Widget tertiary(
-    BuildContext context, {
+  static Widget tertiary({
+    required BuildContext context,
     Key? key,
     required VoidCallback onPressed,
     VoidCallback? onLongPress,
@@ -97,8 +97,8 @@ class UtButton {
     );
   }
 
-  static Widget primaryWithIcon(
-    BuildContext context, {
+  static Widget primaryWithIcon({
+    required BuildContext context,
     Key? key,
     required VoidCallback onPressed,
     VoidCallback? onLongPress,
@@ -131,8 +131,8 @@ class UtButton {
     );
   }
 
-  static Widget secondaryWithIcon(
-    BuildContext context, {
+  static Widget secondaryWithIcon({
+    required BuildContext context,
     Key? key,
     required VoidCallback onPressed,
     VoidCallback? onLongPress,
@@ -165,8 +165,8 @@ class UtButton {
     );
   }
 
-  static Widget tertiaryWithIcon(
-    BuildContext context, {
+  static Widget tertiaryWithIcon({
+    required BuildContext context,
     Key? key,
     required VoidCallback onPressed,
     VoidCallback? onLongPress,

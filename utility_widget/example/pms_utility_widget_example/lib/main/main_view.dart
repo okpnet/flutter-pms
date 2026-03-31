@@ -11,7 +11,6 @@ class MainView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -21,11 +20,21 @@ class MainView extends StatelessWidget {
         child: ListView(
           children: [
             DrawerHeader(
-              child: Text('Drawer Header'),
               decoration: BoxDecoration(color: Colors.blue),
+              child: Row(
+                children: [
+                  SizedBox(width: 50, height: 50),
+                  Text('test'),
+                  UtIconButton.tertiary(
+                    context: context,
+                    icon: Icon(Icons.settings),
+                    size: UtButtonSize.mediam,
+                    onPressed: () {},
+                  ),
+                ],
+              ),
             ),
             ListTile(
-              
               title: Text('Item 1'),
               onTap: () {
                 // Do something
@@ -42,68 +51,72 @@ class MainView extends StatelessWidget {
           ],
         ),
       ),
-      body:Row(children: [
-              NavigationRail(
-                extended: true,
-        selectedIndex: 0,
-        // onDestinationSelected: (value) => ,
-        leading: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () {
-            // アクションを実行
-          },
-        ),
-        destinations: [
-          NavigationRailDestination(
-            icon: Icon(Icons.favorite),
-            label: Text('Favorites'),
+      body: Row(
+        children: [
+          NavigationRail(
+            extended: true,
+            selectedIndex: 0,
+            // onDestinationSelected: (value) => ,
+            leading: FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () {
+                // アクションを実行
+              },
+            ),
+            destinations: [
+              NavigationRailDestination(
+                icon: Icon(Icons.favorite),
+                label: Text('Favorites'),
+              ),
+              NavigationRailDestination(
+                icon: Icon(Icons.bookmark),
+                label: Text('Bookmarks'),
+              ),
+              // 他のNavigationRailDestinationを追加...
+            ],
           ),
-          NavigationRailDestination(
-            icon: Icon(Icons.bookmark),
-            label: Text('Bookmarks'),
+          Expanded(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  UtButton.primaryWithIcon(
+                    context: context,
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => ButtonsView()),
+                      );
+                    },
+                    label: Text('ボタン'),
+                    icon: Icon(Icons.abc_rounded),
+                  ),
+                  UtButton.primaryWithIcon(
+                    context: context,
+                    onPressed: () {
+                      Navigator.of(
+                        context,
+                      ).push(MaterialPageRoute(builder: (context) => Fields()));
+                    },
+                    label: Text('テキストインプット'),
+                    icon: Icon(Icons.abc_rounded),
+                  ),
+                  OutlinedButton.icon(
+                    label: Text('ミニインジケータ表示'),
+                    icon: Icon(Icons.abc_rounded),
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => MiniIndicator(),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
           ),
-          // 他のNavigationRailDestinationを追加...
         ],
       ),
-      Expanded(child: 
-       Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            UtButton.primaryWithIcon(
-              context,
-              onPressed: () {
-                Navigator.of(
-                  context,
-                ).push(MaterialPageRoute(builder: (context) => ButtonsView()));
-              },
-              label: Text('ボタン'),
-              icon: Icon(Icons.abc_rounded),
-            ),
-            UtButton.primaryWithIcon(
-              context,
-              onPressed: () {
-                Navigator.of(
-                  context,
-                ).push(MaterialPageRoute(builder: (context) => Fields()));
-              },
-              label: Text('テキストインプット'),
-              icon: Icon(Icons.abc_rounded),
-            ),
-            OutlinedButton.icon(
-              label: Text('ミニインジケータ表示'),
-              icon: Icon(Icons.abc_rounded),
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => MiniIndicator()),
-                );
-              },
-            ),
-          ],
-        ),
-      )),
-        ],
-      )
     );
   }
 }

@@ -1,8 +1,8 @@
 part of '../ut_button.dart';
 
 class UtIconButton {
-  static Widget primary(
-    BuildContext context, {
+  static Widget primary({
+    required BuildContext context,
     Key? key,
     VisualDensity? visualDensity,
     // EdgeInsetsGeometry? padding,
@@ -61,8 +61,8 @@ class UtIconButton {
     );
   }
 
-  static Widget secondary(
-    BuildContext context, {
+  static Widget secondary({
+    required BuildContext context,
     Key? key,
     VisualDensity? visualDensity,
     // EdgeInsetsGeometry? padding,
@@ -112,7 +112,7 @@ class UtIconButton {
         tooltip: tooltip,
         enableFeedback: enableFeedback,
         constraints: constraints,
-        style:UtButtonStyleHelper.secondaryIcon(context, size: size),
+        style: UtButtonStyleHelper.secondaryIcon(context, size: size),
         isSelected: isSelected,
         selectedIcon: selectedIcon,
         statesController: statesController,
@@ -121,8 +121,8 @@ class UtIconButton {
     );
   }
 
-  static Widget tertiary(
-    BuildContext context, {
+  static Widget tertiary({
+    required BuildContext context,
     Key? key,
     VisualDensity? visualDensity,
     // EdgeInsetsGeometry? padding,

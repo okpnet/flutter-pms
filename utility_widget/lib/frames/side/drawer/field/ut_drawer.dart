@@ -1,7 +1,17 @@
 part of '../ut_drawer.dart';
 
 class UtDrawer {
-  static Widget drawer({required List<Widget> children}) {
-    return Drawer(child: ListView(children: children));
+  static Widget drawer({
+    DrawerHeader? header,
+    List<UtSideItem> children = const [],
+  }) {
+    return Drawer(
+      child: ListView(
+        children: [
+          ...[for (var item in children) item.createDrawerItem()],
+          ?header,
+        ],
+      ),
+    );
   }
 }
