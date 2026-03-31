@@ -1,0 +1,3 @@
+enum SideMenuItemType{
+  drawer,navigationrail
+}

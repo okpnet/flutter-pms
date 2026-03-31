@@ -6,10 +6,12 @@ import 'package:utility_widget_example/loading_indicators/mini_indicator.dart';
 
 class MainView extends StatelessWidget {
   final String title;
+
   const MainView({required this.title, super.key});
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -23,6 +25,7 @@ class MainView extends StatelessWidget {
               decoration: BoxDecoration(color: Colors.blue),
             ),
             ListTile(
+              
               title: Text('Item 1'),
               onTap: () {
                 // Do something
@@ -39,7 +42,31 @@ class MainView extends StatelessWidget {
           ],
         ),
       ),
-      body: Center(
+      body:Row(children: [
+              NavigationRail(
+                extended: true,
+        selectedIndex: 0,
+        // onDestinationSelected: (value) => ,
+        leading: FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: () {
+            // アクションを実行
+          },
+        ),
+        destinations: [
+          NavigationRailDestination(
+            icon: Icon(Icons.favorite),
+            label: Text('Favorites'),
+          ),
+          NavigationRailDestination(
+            icon: Icon(Icons.bookmark),
+            label: Text('Bookmarks'),
+          ),
+          // 他のNavigationRailDestinationを追加...
+        ],
+      ),
+      Expanded(child: 
+       Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -74,7 +101,9 @@ class MainView extends StatelessWidget {
             ),
           ],
         ),
-      ),
+      )),
+        ],
+      )
     );
   }
 }
