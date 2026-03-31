@@ -1,7 +1,7 @@
 ﻿# A5:ER FORMAT:18
 # A5:ER ENCODING:UTF8
 # A5:ER Mk-1 Copyright © 2007 m.matsubara
-# A5:SQL Mk-2 Version 2.20.0 beta 20 Copyright © 1997 - 2024 m.matsubara
+# A5:SQL Mk-2 Version 2.20.0 beta 24 Copyright © 1997 - 2024 m.matsubara
 #  https://a5m2.mmatsubara.com
 
 [Manager]
@@ -1938,8 +1938,8 @@ Comment=
 TableInnerOption=
 TableOption=
 Page=インフォメーションー人
-Left=550
-Top=1100
+Left=300
+Top=900
 Field="アサインID","info_assign_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="担当者id","info_staff_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="役割ID","info_role_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
@@ -1952,7 +1952,7 @@ Tag=2.Personnel
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20240720140356
-Position="インフォメーションー人",550,1100
+Position="インフォメーションー人",300,900
 ZOrder=220
 
 [Relation]
@@ -3474,7 +3474,7 @@ Comment=
 TableInnerOption=
 TableOption=
 Page=インフォメーションー人
-Left=700
+Left=200
 Top=2650
 Field="役割ID","info_role_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="順位","priority","*@SMALLINT","NOT NULL",,"","",$FFFFFFFF,""
@@ -3486,7 +3486,7 @@ Tag=2.Personnel
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20240720140308
-Position="インフォメーションー人",700,2650
+Position="インフォメーションー人",200,2650
 ZOrder=368
 
 [Entity]
@@ -5387,7 +5387,7 @@ EffectMode=None
 Tag=2.Personnel
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20241221084234
+ModifiedDateTime=20260401074058
 Position="インフォメーションー人",3100,1300
 ZOrder=630
 
@@ -5566,8 +5566,8 @@ Comment=
 TableInnerOption=
 TableOption=
 Page=インフォメーションー人
-Left=1000
-Top=1750
+Left=700
+Top=1650
 Field="履歴id","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="役割ID","info_role_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="順位","priority","*@SMALLINT","NOT NULL",,"","",$FFFFFFFF,""
@@ -5579,7 +5579,7 @@ Tag=2.Personnel
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20240720140339
-Position="インフォメーションー人",1000,1750
+Position="インフォメーションー人",700,1650
 ZOrder=644
 
 [Relation]
@@ -14581,3 +14581,94 @@ Bar3=502
 TermPos1=R
 TermPos2=R
 ZOrder=918
+
+[Entity]
+PName=info_staff_icon
+LName=担当者アイコン情報
+Comment=
+TableInnerOption=
+TableOption=
+Page=インフォメーションー人
+Left=1250
+Top=3100
+Field="アイコンID","info_role_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
+Field="ファイルid","trans_file_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="担当者ID","info_staff_id","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
+Field="担当者履歴ID","info_staff_history_id","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
+Field="名称","name","*@VARCHAR255",,,"","",$FFFFFFFF,""
+Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+EffectMode=None
+Tag=2.Personnel
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20260401074752
+Position="インフォメーションー人",1250,3100
+ZOrder=919
+
+[Relation]
+Entity1=trans_file
+Entity2=info_staff_icon
+RelationType1=1
+RelationType2=3
+Fields1=trans_file_id
+Fields2=trans_file_id
+Cardinarity1=
+Cardinarity2=
+Position="インフォメーションー人",0,8692,1308,3360,R,R,""
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20260401074740
+LineMode=0
+Bar1=869
+Bar2=131
+Bar3=336
+TermPos1=R
+TermPos2=R
+ZOrder=920
+
+[Entity]
+PName=history_info_staff_icon
+LName=担当者アイコン履歴
+Comment=
+TableInnerOption=
+TableOption=
+Page=インフォメーションー人
+Left=2550
+Top=3500
+Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
+Field="アイコンID","info_role_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
+Field="ファイルid","trans_file_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="担当者ID","info_staff_id","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
+Field="担当者履歴ID","info_staff_history_id","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
+Field="名称","name","*@VARCHAR255",,,"","",$FFFFFFFF,""
+Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+EffectMode=None
+Tag=2.Personnel
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20260401074808
+Position="インフォメーションー人",2550,3500
+ZOrder=921
+
+[Relation]
+Entity1=info_staff_icon
+Entity2=history_info_staff_icon
+RelationType1=2
+RelationType2=3
+Fields1=info_role_id
+Fields2=info_role_id
+Cardinarity1=
+Cardinarity2=
+Position="インフォメーションー人",0,9237,3684,5061,R,R,""
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20260401074832
+LineMode=0
+Bar1=924
+Bar2=368
+Bar3=506
+TermPos1=R
+TermPos2=R
+ZOrder=922
