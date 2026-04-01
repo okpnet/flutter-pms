@@ -3,13 +3,14 @@
 //Data:2023/06/01
 
 var frmER =(function(){
-	var result=application.getActiveWindow();
-	if (result.formType != "A5EREditor") {
-    	alert("アクティブウィンドウをERエディタにしてから実行してください。");
-    	exit();
-	}
-	return result;
-})();
+        var result=application.getActiveWindow();
+        if (result.formType != "A5EREditor") {
+            alert("アクティブウィンドウをERエディタにしてから実行してください。");
+            exit();
+        }
+        return result;
+    })();
+
 
 var ext={
     "toFirst":function(array,func){
@@ -44,175 +45,83 @@ var ext={
         if(0>=e)return tabResults;
         for(var i=0;e>i;i++) tabResults+="    ";
         return tabResults;
+    },
+    "toFor":function(array,func){
+        for(var i in array){
+            var funcResult=func(i,array[i]);
+        }
     }
 };
 
 var select=function(array,func){
-    	var result=new Array;
-    	for(var i in array){
-    		var funcResult=func(array[i]);
-    		if(funcResult != null)result.add(funcResult);
-    	}
-    	return result;
+        var result=new Array;
+        for(var i in array){
+            var funcResult=func(array[i]);
+            if(funcResult != null)result.add(funcResult);
+        }
+        return result;
     };
-    
-    
+
+
 var create=function(doc){
-        //テーブルセット
-        var entityArray=ext.toSelect(doc.objects,function(e){
-            if(e.objectType=="Entity")return e;
-        });
-        //リレーションシップセット
-        var relArray=ext.toSelect(doc.objects,function(e){
-            if(e.objectType=="Relation")return e;
-        });
-        //ビューセット
-        var viewArray=ext.toSelect(doc.objects,function(e){
-            if(e.objectType=="View")return e;
-        });
-        
-        var exists=function(a){
-            for(var i in relArray){
-                if(relArray[i].entityPName1==a.entityPName1 &&
-                    relArray[i].entityPName2==a.entityPName2 &&
-                    relArray[i].attributes1==a.attributes1 &&
-                     relArray[i].attributes2==a.attributes2)
-                     {
-                        return true;
-                     }
-            }
-            return false;
-        };
-        //間違えて追加したRelを削除
-//        var counter=0;
-//        while((counter-1) != doc.objects.length){
-//            if(doc.objects[counter].objectType=="Relation" && doc.objects[counter].attributes1=="history_id,staff_id"){
-//                println(doc.objects[counter].entityPName1);
-//                doc.objects.delete(counter);
-//                counter=0;
-//            }
-//            counter++;
-//        }
+    //ヒエラルキーは除くテーブルセット
+    var entityArray=ext.toSelect(doc.objects,function(e){
+        var reg=new RegExp("^hrchy_[!-~]+");
+        if(e.objectType=="Entity" && !reg.test(e.pName))return e;
+    });
 
+    //リレーションシップセット
+    var relArray=ext.toSelect(doc.objects,function(e){
+        if(e.objectType=="Relation")return e;
+    });
+    //ビューセット
+    var viewArray=ext.toSelect(doc.objects,function(e){
+        if(e.objectType=="View")return e;
+    });
 
-
-        
-        for(var index in entityArray){
-            var reg=new RegExp("^hrchy_[!-~]+");
-            if(reg.test(entityArray[index].pName))continue;
-            if(!ext.toAny(relArray,function(e){
-                return (e.entityPName1=="history_info_staff" && e.entityPName2==entityArray[index].pName && e.attributes1=="history_id,info_staff_id" && e.attributes2=="update_user_history_id,update_user_id");
-            })){
-                println("=>"+entityArray[index].pName);
-                var rel=doc.objects.addRelation();
-                rel.entityPName1="history_info_staff";
-                rel.entityPName2=entityArray[index].pName;
-                rel.attributes1="history_id,indo_staff_id";
-                rel.attributes2="update_user_history_id,update_user_id";
-                rel.relationType1=1;
-                rel.relationType2=3;
-                rel.relationCaption="auto create.";
+    var exists=function(a){
+        for(var i in relArray){
+            if(relArray[i].entityPName1==a.entityPName1 &&
+                relArray[i].entityPName2==a.entityPName2 &&
+                relArray[i].attributes1==a.attributes1 &&
+                relArray[i].attributes2==a.attributes2)
+            {
+                return true;
             }
         }
-
-
-//            var history=new Array;
-//            var mstrInfo=new Array;
-//            for(var i in doc.objects){
-//                if(doc.objects[i].objectType=="Entity"){
-//                    if(doc.objects[i].pName.indexOf("history_")>=0){
-//                        history.push({name:doc.objects[i].pName,index:i});
-//                    }else if(doc.objects[i].pName.indexOf("mstr_")>=0 || doc.objects[i].pName.indexOf("info_")>=0){
-//                        mstrInfo.push({name:doc.objects[i].pName,index:i});
-//                    }
-//                }
-//            }
-//            for(var i in mstrInfo){
-//                //println("FIND:"+mstrInfo[i].name);
-//                var hisIndex=-1;
-//                for(var histryI in history){
-//                    //println("FIND: history->"+history[histryI].name);
-//                    if(history[histryI].name=="history_"+mstrInfo[i].name){
-//                        hisIndex=history[histryI].index;
-//                        break;
-//                    }
-//                } 
-//                if(0>hisIndex)break;
-//                println("CSTART:"+doc.objects[mstrInfo[i].index].pName + " == " + doc.objects[hisIndex].pName);
-//                if(doc.objects[mstrInfo[i].index].attributes.length+1!=doc.objects[hisIndex].attributes.length){
-//                      println("UNMATCH:" + doc.objects[mstrInfo[i].index].pName + " length:" + (doc.objects[mstrInfo[i].index].attributes.length+1) + "!=" + doc.objects[hisIndex].pName + " length:" + doc.objects[hisIndex].attributes.length);
-//                }
-//                else{
-//                    //println("MATCH LENGTH:" + doc.objects[mstrInfo[i].index].pName + "!=" + doc.objects[hisIndex].pName);
-//                
-//                    for(var coli in doc.objects[mstrInfo[i].index].attributes){
-//                        if(doc.objects[mstrInfo[i].index].attributes[coli].pName!=doc.objects[hisIndex].attributes[coli+1].pName){
-//                            println("UNMATCHCOLUMN:" +doc.objects[mstrInfo[i].index].attributes[coli].pName + " -> " + doc.objects[hisIndex].attributes[coli+1].pName);
-//                            //doc.objects[hisIndex].attributes[coli+1].pName=+doc.objects[mstrInfo[i].index].attributes[coli].pName;
-//                        }else{
-//                            //println("MATCHCOLUMN:" +doc.objects[mstrInfo[i].index].attributes[coli].pName + "==" + doc.objects[hisIndex].attributes[coli+1].pName);
-//                        }
-//                    }
-//                }
-//				println("");
-//            }
-
-
-            
-//間違えていたID名の修正
-//            var hash=new Array;
-//            for(var i in doc.objects){
-//                if(doc.objects[i].objectType=="Entity"){
-//                    hash.push({name:doc.objects[i].pName,index:i});
-//                }
-//            }
-//            for(var index in doc.objects){
-//                if(doc.objects[index].objectType=="Relation" && doc.objects[index].attributes1!=doc.objects[index].attributes2 && doc.objects[index].attributes2!="update_user_history_id,update_user_id"){
-//                    var hs1=ext.toFirst(hash,function(e){return e.name==doc.objects[index].entityPName1;});
-//                    var hs2=ext.toFirst(hash,function(e){return e.name==doc.objects[index].entityPName2;});
-//                    println("BEFORE:" + hs1.name+ " -> " + hs2.name + " : " + doc.objects[index].attributes1 + " -> " +doc.objects[index].attributes2);
-//                    
-//                    var cols1=doc.objects[index].attributes1.split(",");
-//                    var cols2=doc.objects[index].attributes2.split(",");
-//                    
-//                        
-//                        for(var hsi in cols2){
-//                            var existsCount=0;
-//                            for(var exists in doc.objects[hs2.index].attributes){
-//                                if(doc.objects[hs2.index].attributes[exists].pName==cols1[hsi])existsCount++;
-//                            }
-//                            if(existsCount>0){
-//                                println("SKIP:"+doc.objects[hs2.index].attributes[exists].pName + "<- " + cols1[hsi]);
-//                                continue;
-//                            }
-//                            try{
-//                                for(var coli in doc.objects[hs2.index].attributes){
-//                                    if(doc.objects[hs2.index].attributes[coli].pName==cols2[hsi] && doc.objects[hs2.index].attributes[coli].pName != cols1[hsi] && 0 > cols2[hsi].indexOf("parent")){
-//                                        println("EDIT:" + doc.objects[hs2.index].attributes[coli].pName + "<-" + cols1[hsi]);
-//                                        //doc.objects[hs2.index].attributes[coli].pName=cols1[hsi];
-//                                    }
-//                                }
-//
-//                            }catch(e){
-//                                println("EXCEPTION:" + e + hs1.name+ " -> " + hs2.name + " : " + doc.objects[index].attributes1 + " -> " +doc.objects[index].attributes2);
-//                            }
-//                        }
-//
-//                    
-//
-//                    println("");
-//                }
-//            }
-            println("Done!!");
-
-
-//        
-//        var rels=ext.toWhere(relArray,function(e){
-//                return e.attributes1!=e.attributes1 && (e.attributes2!="update_user_history_id,update_user_id" || e.entityPName2.indexOf("history_")==0 || e.attributes1!=e.attributes);
-//            });
-//        for(var index in rels){
-//            println(rels[index].entityPName1);
-//        }
-
+        return false;
+    };
+    //重複の削除
+    ext.toFor(entityArray,function(index,entity){
+        //メンテナンス用ループ
+        var relsTemp=ext.toWhere(relArray,function(e){
+            if(e.entityPName2==entity.pName)return e;
+        });
+        ext.toFor(relsTemp,function(i,e){
+            println(e.entityPName2+"\t"+e.entityPName1+"\t"+e.attributes1+"\t"+e.attributes2+"\t"+e.relationCaption);
+        });
+        //重複を除外する
+        var rels=ext.toWhere(relArray,function(e){
+            if(e.entityPName2==entity.pName &&
+                e.entityPName1=="history_info_staff" &&
+                e.attributes1=="history_id,info_staff_id" &&
+                e.attributes2=="update_user_history_id,update_user_id")return e;
+        });
+        // if(rels.length==0){
+        //     ext.toFor(rels,function(i,rel){
+        //         println(rel.entityPName2+"\t"+rel.entityPName1+"\t"+rel.attributes1+"\t"+rel.attributes2+"\t"+rel.relationCaption);
+        //     });
+        //     println("=>"+entity.pName);
+        //     var rel=doc.objects.addRelation();
+        //     rel.entityPName1="history_info_staff";
+        //     rel.entityPName2=entity.pName;
+        //     rel.attributes1="history_id,indo_staff_id";
+        //     rel.attributes2="update_user_history_id,update_user_id";
+        //     rel.relationType1=1;
+        //     rel.relationType2=3;
+        //     rel.relationCaption="auto create.";
+        // }
+    });
+    println("Done!!");
 };
 create(frmER.document);
