@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:utility_widget/buttons/ut_button.dart';
+import 'package:utility_widget/frames/side/header/ut_header.dart';
 import 'package:utility_widget_example/buttons/buttons_view.dart';
+import 'package:utility_widget_example/constant/asset.dart';
 import 'package:utility_widget_example/fields/fields.dart';
 import 'package:utility_widget_example/loading_indicators/mini_indicator.dart';
 
@@ -21,17 +25,11 @@ class MainView extends StatelessWidget {
           children: [
             DrawerHeader(
               decoration: BoxDecoration(color: Colors.blue),
-              child: Row(
-                children: [
-                  SizedBox(width: 50, height: 50),
-                  Text('test'),
-                  UtIconButton.tertiary(
-                    context: context,
-                    icon: Icon(Icons.settings),
-                    size: UtButtonSize.mediam,
-                    onPressed: () {},
-                  ),
-                ],
+              child: UtAccountHeader.primary(
+                account: 'test',
+                context: context,
+                iconString: Asset.image,
+                settingOnPress: () {},
               ),
             ),
             ListTile(

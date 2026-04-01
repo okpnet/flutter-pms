@@ -7,4 +7,12 @@ class UtLayoutWidgetHelper {
       child: child,
     );
   }
+
+  static Widget containerWidthExpand({required Widget child}) {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(UtLayoutConstant.PADDING_ALL),
+      child: child,
+    );
+  }
 }
