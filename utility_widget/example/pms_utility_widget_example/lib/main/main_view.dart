@@ -1,8 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:utility_widget/buttons/ut_button.dart';
-import 'package:utility_widget/frames/side/header/ut_header.dart';
+import 'package:utility_widget/frames/scaffold/ut_scaffold.dart';
+import 'package:utility_widget/frames/side/ut_sidemenu.dart';
 import 'package:utility_widget_example/buttons/buttons_view.dart';
 import 'package:utility_widget_example/constant/asset.dart';
 import 'package:utility_widget_example/fields/fields.dart';
@@ -15,105 +14,69 @@ class MainView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return UtScaffold.hasSidemenu(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(title),
       ),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            DrawerHeader(
-              decoration: BoxDecoration(color: Colors.blue),
-              child: UtAccountHeader.primary(
-                account: 'test',
-                context: context,
-                iconString: Asset.image,
-                settingOnPress: () {},
-              ),
-            ),
-            ListTile(
-              title: Text('Item 1'),
-              onTap: () {
-                // Do something
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: Text('Item 2'),
-              onTap: () {
-                // Do something
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
+      accountItem: UtAccontItem(
+        account: 'test',
+        iconBase64String: Asset.image,
+        settingOnPress: () {},
       ),
-      body: Row(
-        children: [
-          NavigationRail(
-            extended: true,
-            selectedIndex: 0,
-            // onDestinationSelected: (value) => ,
-            leading: FloatingActionButton(
-              child: Icon(Icons.add),
-              onPressed: () {
-                // アクションを実行
-              },
-            ),
-            destinations: [
-              NavigationRailDestination(
-                icon: Icon(Icons.favorite),
-                label: Text('Favorites'),
+      sidemenuItems: [
+        UtSideItem(
+          label: 'Item 1',
+          icon: Icon(Icons.favorite),
+          onPress: () {
+            // Do something
+          },
+        ),
+        UtSideItem(
+          label: 'Item 2',
+          icon: Icon(Icons.bookmark),
+          onPress: () {
+            // Do something
+          },
+        ),
+      ],
+      body: Expanded(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              UtButton.primaryWithIcon(
+                context: context,
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => ButtonsView()),
+                  );
+                },
+                label: Text('ボタン'),
+                icon: Icon(Icons.abc_rounded),
               ),
-              NavigationRailDestination(
-                icon: Icon(Icons.bookmark),
-                label: Text('Bookmarks'),
+              UtButton.primaryWithIcon(
+                context: context,
+                onPressed: () {
+                  Navigator.of(
+                    context,
+                  ).push(MaterialPageRoute(builder: (context) => Fields()));
+                },
+                label: Text('テキストインプット'),
+                icon: Icon(Icons.abc_rounded),
               ),
-              // 他のNavigationRailDestinationを追加...
+              OutlinedButton.icon(
+                label: Text('ミニインジケータ表示'),
+                icon: Icon(Icons.abc_rounded),
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => MiniIndicator()),
+                  );
+                },
+              ),
             ],
           ),
-          Expanded(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  UtButton.primaryWithIcon(
-                    context: context,
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => ButtonsView()),
-                      );
-                    },
-                    label: Text('ボタン'),
-                    icon: Icon(Icons.abc_rounded),
-                  ),
-                  UtButton.primaryWithIcon(
-                    context: context,
-                    onPressed: () {
-                      Navigator.of(
-                        context,
-                      ).push(MaterialPageRoute(builder: (context) => Fields()));
-                    },
-                    label: Text('テキストインプット'),
-                    icon: Icon(Icons.abc_rounded),
-                  ),
-                  OutlinedButton.icon(
-                    label: Text('ミニインジケータ表示'),
-                    icon: Icon(Icons.abc_rounded),
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => MiniIndicator(),
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

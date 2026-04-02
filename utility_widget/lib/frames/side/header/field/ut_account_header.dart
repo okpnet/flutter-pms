@@ -1,13 +1,13 @@
 part of '../ut_header.dart';
 
 class UtAccountHeader {
-  static Widget primary({
+  static Widget of({
     required BuildContext context,
-    required String account,
-    String? iconString,
-    VoidCallback? settingOnPress,
+    required UtAccontItem accountItem,
   }) {
-    final bytes = iconString != null ? base64Decode(iconString) : null;
+    final bytes = accountItem.iconBase64String != null
+        ? base64Decode(accountItem.iconBase64String!)
+        : null;
     return UtLayoutWidgetHelper.containerWidthExpand(
       child: Row(
         children: [
@@ -15,10 +15,12 @@ class UtAccountHeader {
             Expanded(
               child: Align(
                 alignment: AlignmentGeometry.center,
-                child: Image.memory(
-                  bytes,
-                  height: UtSideConstant.iconSize.height,
-                  width: UtSideConstant.iconSize.width,
+                child: ClipOval(
+                  child: Image.memory(
+                    bytes,
+                    height: UtSideConstant.iconSize.height,
+                    width: UtSideConstant.iconSize.width,
+                  ),
                 ),
               ),
             ),
@@ -26,7 +28,7 @@ class UtAccountHeader {
             child: Align(
               alignment: AlignmentGeometry.centerLeft,
               child: Text(
-                account,
+                accountItem.account,
                 softWrap: true,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -38,7 +40,7 @@ class UtAccountHeader {
               ),
             ),
           ),
-          if (settingOnPress != null)
+          if (accountItem.settingOnPress != null)
             Expanded(
               child: Align(
                 alignment: AlignmentGeometry.centerRight,
@@ -46,7 +48,7 @@ class UtAccountHeader {
                   context: context,
                   icon: Icon(Icons.settings_outlined),
                   size: UtButtonSize.mediam,
-                  onPressed: settingOnPress,
+                  onPressed: accountItem.settingOnPress,
                 ),
               ),
             ),
