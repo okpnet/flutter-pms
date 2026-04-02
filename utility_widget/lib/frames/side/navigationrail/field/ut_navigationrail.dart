@@ -4,7 +4,14 @@ class UtNavigationrail {
   static Widget of({Widget? leading, List<UtSideItem> items = const []}) {
     final selectedIndex = items.indexWhere((item) => item.isSelected);
     return NavigationRail(
-      //leading: leading,
+      leading: leading != null
+          ? ConstrainedBox(
+              constraints: BoxConstraints(
+                maxWidth: UtSideConstant.headerMaxWidth,
+              ),
+              child: UtLayoutWidgetHelper.containerWidthExpand(child: leading),
+            )
+          : null,
       extended: true,
       onDestinationSelected: (index) {
         if (0 > index || index >= items.length) {

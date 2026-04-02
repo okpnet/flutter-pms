@@ -22,13 +22,13 @@ class UtScaffold {
                 body: Row(
                   children: [
                     UtNavigationrail.of(items: sidemenuItems, leading: header),
-                    Expanded(child: body),
+                    body,
                   ],
                 ),
               )
             : Scaffold(
                 appBar: appBar,
-                drawer: UtDrawer.of(children: sidemenuItems, header: header),
+                drawer: UtDrawer.of(children: const [], header: header),
                 body: body,
               );
       },

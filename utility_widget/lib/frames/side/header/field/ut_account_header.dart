@@ -5,26 +5,26 @@ class UtAccountHeader {
     required BuildContext context,
     required UtAccontItem accountItem,
   }) {
-    final bytes = accountItem.iconBase64String != null
-        ? base64Decode(accountItem.iconBase64String!)
-        : null;
     return UtLayoutWidgetHelper.containerWidthExpand(
       child: Row(
         children: [
-          if (bytes != null)
-            Expanded(
-              child: Align(
-                alignment: AlignmentGeometry.center,
-                child: ClipOval(
-                  child: Image.memory(
-                    bytes,
-                    height: UtSideConstant.iconSize.height,
-                    width: UtSideConstant.iconSize.width,
-                  ),
-                ),
-              ),
+          Flexible(
+            flex: 1,
+            child: Align(
+              alignment: AlignmentGeometry.center,
+              child: accountItem.iconImageBytes != null
+                  ? ClipOval(
+                      child: Image.memory(
+                        accountItem.iconImageBytes!,
+                        height: UtSideConstant.iconSize.height,
+                        width: UtSideConstant.iconSize.width,
+                      ),
+                    )
+                  : const SizedBox.shrink(),
             ),
-          Expanded(
+          ),
+          Flexible(
+            flex: 1,
             child: Align(
               alignment: AlignmentGeometry.centerLeft,
               child: Text(
@@ -40,18 +40,20 @@ class UtAccountHeader {
               ),
             ),
           ),
-          if (accountItem.settingOnPress != null)
-            Expanded(
-              child: Align(
-                alignment: AlignmentGeometry.centerRight,
-                child: UtIconButton.tertiary(
-                  context: context,
-                  icon: Icon(Icons.settings_outlined),
-                  size: UtButtonSize.mediam,
-                  onPressed: accountItem.settingOnPress,
-                ),
-              ),
+          Flexible(
+            flex: 1,
+            child: Align(
+              alignment: AlignmentGeometry.centerRight,
+              child: accountItem.settingOnPress != null
+                  ? UtIconButton.tertiary(
+                      context: context,
+                      icon: Icon(Icons.settings_outlined),
+                      size: UtButtonSize.mediam,
+                      onPressed: accountItem.settingOnPress,
+                    )
+                  : const SizedBox.shrink(),
             ),
+          ),
         ],
       ),
     );

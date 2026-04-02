@@ -6,4 +6,5 @@ class UtSideConstant {
     height: 50,
   );
   static const double accountFontSizeScale = 1.5;
+  static const double headerMaxWidth = 200;
 }
