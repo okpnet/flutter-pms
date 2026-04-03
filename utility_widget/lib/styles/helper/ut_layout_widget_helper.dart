@@ -8,7 +8,7 @@ class UtLayoutWidgetHelper {
     );
   }
 
-  static Widget containerWidthExpand({required Widget child}) {
+  static Widget containerAllPading({required Widget child}) {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(UtLayoutConstant.PADDING_ALL),
