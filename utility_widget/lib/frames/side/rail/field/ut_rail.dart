@@ -13,14 +13,10 @@ class UtRail {
     final menuWidth = width > UtSideConstant.headerMaxWidth
         ? width
         : UtSideConstant.headerMaxWidth;
+
     return NavigationRail(
-      backgroundColor: Colors.yellow,
+      backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
       scrollable: true,
-      // leading: leading != null
-      //     ? IntrinsicWidth(
-      //         child: UtLayoutWidgetHelper.containerAllPading(child: leading),
-      //       )
-      //     : null,
       leading: leading != null
           ? ConstrainedBox(
               constraints: BoxConstraints(maxWidth: menuWidth),

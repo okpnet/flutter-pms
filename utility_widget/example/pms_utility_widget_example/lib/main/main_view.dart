@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:utility_widget/buttons/ut_button.dart';
+import 'package:utility_widget/frames/body/ut_body.dart';
 import 'package:utility_widget/frames/side/ut_sidemenu.dart';
 import 'package:utility_widget_example/buttons/buttons_view.dart';
 import 'package:utility_widget_example/constant/asset.dart';
@@ -55,38 +56,51 @@ class MainView extends StatelessWidget {
         context: context,
         accountItem: account,
         sidemenuItems: sidemenuItems,
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+        body: UtBody.titleSet(
+          title: 'タイトル',
+          context: context,
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              UtButton.primaryWithIcon(
-                context: context,
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => ButtonsView()),
-                  );
-                },
-                label: Text('ボタン'),
-                icon: Icon(Icons.abc_rounded),
-              ),
-              UtButton.primaryWithIcon(
-                context: context,
-                onPressed: () {
-                  Navigator.of(
-                    context,
-                  ).push(MaterialPageRoute(builder: (context) => Fields()));
-                },
-                label: Text('テキストインプット'),
-                icon: Icon(Icons.abc_rounded),
-              ),
-              OutlinedButton.icon(
-                label: Text('ミニインジケータ表示'),
-                icon: Icon(Icons.abc_rounded),
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => MiniIndicator()),
-                  );
-                },
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    UtButton.primaryWithIcon(
+                      context: context,
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => ButtonsView(),
+                          ),
+                        );
+                      },
+                      label: Text('ボタン'),
+                      icon: Icon(Icons.abc_rounded),
+                    ),
+                    UtButton.primaryWithIcon(
+                      context: context,
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => Fields()),
+                        );
+                      },
+                      label: Text('テキストインプット'),
+                      icon: Icon(Icons.abc_rounded),
+                    ),
+                    OutlinedButton.icon(
+                      label: Text('ミニインジケータ表示'),
+                      icon: Icon(Icons.abc_rounded),
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => MiniIndicator(),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

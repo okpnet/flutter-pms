@@ -16,4 +16,6 @@ class UtLayoutConstant {
   static const double WIDTH_M = 400;
   static const double WIDTH_ML = 560;
   static const double WIDTH_L = 0;
+  //NavigationRailに切り替える画面幅
+  static const double desktopStyleWidthBoundary = 600;
 }

@@ -4,13 +4,13 @@ class UtSidemenu {
   //Drawerが必要な狭い幅のときTure
   static bool isDrawer(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    return UtSideConstant.navigationRailChangeWidth >= width;
+    return UtLayoutConstant.desktopStyleWidthBoundary >= width;
   }
 
   //NavigationRailが必要な広い幅のときTrue
   static bool isRail(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    return width >= UtSideConstant.navigationRailChangeWidth;
+    return width >= UtLayoutConstant.desktopStyleWidthBoundary;
   }
 
   //Drawerが有効のとき、body直下にExpandが存在すると例外が発生する。body直下にExpandを置かなければ問題は発生しない。
@@ -40,6 +40,12 @@ class UtSidemenu {
     List<UtSideItem> sidemenuItems = const [],
   }) {
     final isRail = UtSidemenu.isRail(context);
+    final bothsidePadding =
+        MediaQuery.of(context).size.width *
+        UtSideConstant.bodyBothsidePaddingPercentage;
+    final sizeBoxWidht = bothsidePadding > UtSideConstant.minBodyBottomPadding
+        ? UtSideConstant.minBodyBottomPadding
+        : bothsidePadding;
     return isRail
         ? Row(
             children: [
@@ -53,7 +59,9 @@ class UtSidemenu {
                       )
                     : null,
               ),
-              ?body,
+              if (body != null) SizedBox(width: sizeBoxWidht),
+              if (body != null) Expanded(child: body),
+              if (body != null) SizedBox(width: sizeBoxWidht),
             ],
           )
         : body;

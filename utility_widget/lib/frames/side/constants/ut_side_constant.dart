@@ -14,8 +14,10 @@ class UtSideConstant {
   static const double headerMaxWidth = 320;
   //アカウント名の幅。これ以上は折り返し2行まで表示。
   static const double headerNameMaxWidth = 160;
-  //NavigationRailに切り替える画面幅
-  static const double navigationRailChangeWidth = 600;
+
   //アカウントアイコンとアカウント名のスペース
   static const double accountPaddingSpace = 20;
+
+  static const double bodyBothsidePaddingPercentage = 0.05;
+  static const double minBodyBottomPadding = 16;
 }
