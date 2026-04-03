@@ -7,7 +7,7 @@ class UtSideConstant {
     height: 50,
   );
   //アカウント名のフォントサイズの拡大率
-  static const double accountFontSizeScale = 1.5;
+  static const double accountFontSizeScale = 1.25;
   //画面幅に対するメニューの幅の最小割合
   static const double headerWidthPercentage = 0.12;
   //メニューの幅の固定最大値
@@ -16,7 +16,7 @@ class UtSideConstant {
   static const double headerNameMaxWidth = 160;
 
   //アカウントアイコンとアカウント名のスペース
-  static const double accountPaddingSpace = 20;
+  static const double accountPaddingSpace = 12;
 
   static const double bodyBothsidePaddingPercentage = 0.05;
   static const double minBodyBottomPadding = 16;

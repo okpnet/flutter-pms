@@ -40,30 +40,51 @@ class UtAccountHeader {
           //         : const SizedBox.shrink(),
           //   ),
           // ),
-          Padding(
-            padding: EdgeInsets.only(left: UtSideConstant.accountPaddingSpace),
-            child: Align(
-              alignment: AlignmentGeometry.centerLeft,
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  maxWidth: UtSideConstant.headerNameMaxWidth,
-                ),
-                child: Text(
-                  accountItem.account,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  softWrap: true,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: UtFontScale.of(
-                      context: context,
-                      scale: UtSideConstant.accountFontSizeScale,
-                    ),
+          Container(
+            margin: EdgeInsets.only(left: UtSideConstant.accountPaddingSpace),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                maxWidth: UtSideConstant.headerNameMaxWidth,
+              ),
+              child: Text(
+                accountItem.account,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                softWrap: true,
+                style: TextStyle(
+                  //fontWeight: FontWeight.bold,
+                  fontSize: UtFontScale.of(
+                    context: context,
+                    scale: UtSideConstant.accountFontSizeScale,
                   ),
                 ),
               ),
             ),
           ),
+          // Padding(
+          //   padding: EdgeInsets.only(left: UtSideConstant.accountPaddingSpace),
+          //   child: Align(
+          //     alignment: AlignmentGeometry.centerLeft,
+          //     child: ConstrainedBox(
+          //       constraints: BoxConstraints(
+          //         maxWidth: UtSideConstant.headerNameMaxWidth,
+          //       ),
+          //       child: Text(
+          //         accountItem.account,
+          //         maxLines: 2,
+          //         overflow: TextOverflow.ellipsis,
+          //         softWrap: true,
+          //         style: TextStyle(
+          //           //fontWeight: FontWeight.bold,
+          //           fontSize: UtFontScale.of(
+          //             context: context,
+          //             scale: UtSideConstant.accountFontSizeScale,
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
 
           // Flexible(
           //   flex: 1,
@@ -142,7 +163,7 @@ class UtAccountHeader {
                 overflow: TextOverflow.ellipsis,
                 softWrap: true,
                 style: TextStyle(
-                  fontWeight: FontWeight.bold,
+                  //fontWeight: FontWeight.bold,
                   fontSize: UtFontScale.of(
                     context: context,
                     scale: UtSideConstant.accountFontSizeScale,

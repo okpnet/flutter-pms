@@ -35,8 +35,8 @@ class MainView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final account = UtAccontItem(
-      account: 'test test test account',
-      // account: 'test',
+      // account: 'test test test account',
+      account: 'James and Williams',
       iconImageBytes: image,
       settingOnPress: () {},
     );
