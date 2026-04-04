@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:utility_widget/buttons/ut_button.dart';
 import 'package:utility_widget/frames/body/ut_body.dart';
 import 'package:utility_widget/frames/side/ut_sidemenu.dart';
+import 'package:utility_widget_example/app_design/logout.dart';
 import 'package:utility_widget_example/buttons/buttons_view.dart';
 import 'package:utility_widget_example/constant/asset.dart';
 import 'package:utility_widget_example/fields/fields.dart';
@@ -38,7 +39,20 @@ class MainView extends StatelessWidget {
       // account: 'test test test account',
       account: 'James and Williams',
       iconImageBytes: image,
-      settingOnPress: () {},
+      options: [
+        UtSideItem(
+          label: '設定',
+          icon: Icon(Icons.settings_outlined),
+          onPress: () {},
+        ),
+        UtSideItem(
+          label: 'ログアウト',
+          icon: Icon(Icons.logout),
+          onPress: () => Navigator.of(
+            context,
+          ).push(MaterialPageRoute(builder: (context) => Logout(title: title))),
+        ),
+      ],
     );
 
     return Scaffold(

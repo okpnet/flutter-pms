@@ -5,11 +5,13 @@ class UtSideItem {
   final String label;
   final VoidCallback onPress;
   final bool isSelected;
+  final List<UtSidemenu>? options;
   UtSideItem({
     this.icon,
     required this.label,
     required this.onPress,
     this.isSelected = false,
+    this.options
   });
   NavigationRailDestination createNavigationRailItem() {
     if (icon == null) {
@@ -22,5 +24,30 @@ class UtSideItem {
 
   ListTile createDrawerItem() {
     return ListTile(leading: icon, title: Text(label), onTap: onPress);
+  }
+
+  MenuItemButton createMenubutton() {
+    return MenuItemButton(
+      onPressed: onPress,
+      leadingIcon: icon,
+      child: Text(label),
+    );
+  }
+
+  Widget createExpansion(){
+    if(item!=null)
+    return ExpansionTile(title: Text(label),leading: icon,children: [],)
+  }
+  //再帰
+  Widget? _createExpansion(List<UtSideItem> arrayResult,UtSideItem? item){
+    if(item == null){
+      return null;
+    }
+    final 
+    if(item.options!=null){
+      for(var _item in item.options){
+        _createExpansion(_item);
+      }
+    }
   }
 }
