@@ -5,13 +5,13 @@ class UtSideItem {
   final String label;
   final VoidCallback onPress;
   final bool isSelected;
-  final List<UtSidemenu>? options;
+  final List<UtSideItem>? options;
   UtSideItem({
     this.icon,
     required this.label,
     required this.onPress,
     this.isSelected = false,
-    this.options
+    this.options,
   });
   NavigationRailDestination createNavigationRailItem() {
     if (icon == null) {
@@ -34,20 +34,20 @@ class UtSideItem {
     );
   }
 
-  Widget createExpansion(){
-    if(item!=null)
-    return ExpansionTile(title: Text(label),leading: icon,children: [],)
+  Widget createExpansion() {
+    return _createExpansion(this);
   }
+
   //再帰
-  Widget? _createExpansion(List<UtSideItem> arrayResult,UtSideItem? item){
-    if(item == null){
-      return null;
+  Widget _createExpansion(UtSideItem item) {
+    if (item.options == null || item.options!.isEmpty) {
+      return item.createDrawerItem();
     }
-    final 
-    if(item.options!=null){
-      for(var _item in item.options){
-        _createExpansion(_item);
-      }
-    }
+    return ExpansionTile(
+      title: Text(item.label),
+      leading: item.icon,
+
+      children: [for (var value in item.options!) _createExpansion(value)],
+    );
   }
 }

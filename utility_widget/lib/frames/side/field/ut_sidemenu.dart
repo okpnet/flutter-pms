@@ -66,4 +66,38 @@ class UtSidemenu {
           )
         : body;
   }
+
+  static Widget? expansion({
+    required BuildContext context,
+    UtAccontItem? accountItem,
+    Widget? body,
+    List<UtSideItem> sidemenuItems = const [],
+  }) {
+    final isRail = UtSidemenu.isRail(context);
+    final bothsidePadding =
+        MediaQuery.of(context).size.width *
+        UtSideConstant.bodyBothsidePaddingPercentage;
+    final sizeBoxWidht = bothsidePadding > UtSideConstant.minBodyBottomPadding
+        ? UtSideConstant.minBodyBottomPadding
+        : bothsidePadding;
+    return isRail
+        ? Row(
+            children: [
+              UtExpansionMenu.of(
+                context: context,
+                leading: accountItem != null
+                    ? UtAccountHeader.ofRail(
+                        context: context,
+                        accountItem: accountItem,
+                      )
+                    : null,
+                items: sidemenuItems,
+              ),
+              if (body != null) SizedBox(width: sizeBoxWidht),
+              if (body != null) Expanded(child: body),
+              if (body != null) SizedBox(width: sizeBoxWidht),
+            ],
+          )
+        : body;
+  }
 }

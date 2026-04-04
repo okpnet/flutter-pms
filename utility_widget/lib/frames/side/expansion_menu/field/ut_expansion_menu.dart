@@ -21,7 +21,7 @@ class UtExpansionMenu {
                 child: UtLayoutWidgetHelper.containerAllPading(child: leading),
               )
             : SizedBox.shrink(),
-        for (var item in items) item.createNavigationRailItem(),
+        for (var item in items) item.createExpansion(),
       ],
     );
   }
