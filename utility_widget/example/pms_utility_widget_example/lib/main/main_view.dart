@@ -66,7 +66,7 @@ class MainView extends StatelessWidget {
         sidemenuItems: sidemenuItems,
       ),
       // body: SizedBox.shrink(),
-      body: UtSidemenu.rail(
+      body: UtSidemenu.expansion(
         context: context,
         accountItem: account,
         sidemenuItems: sidemenuItems,
