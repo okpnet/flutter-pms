@@ -32,7 +32,7 @@ class UtLayoutConstant {
   static const int LEFT = 0x1;
   static const int ALL = 0xF;
   static const double PADDING_ALL = 5;
-  static const double DEFAULT_MARGIN = 5;
+
   static const double MA_ALL = 5;
   static const double WIDTH_S = 280;
   static const double WIDTH_SM = 320;

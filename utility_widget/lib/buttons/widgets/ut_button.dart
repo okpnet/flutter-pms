@@ -5,6 +5,7 @@ class UtButton extends StatelessWidget {
   final Icon? icon;
   final UtColorStyle type;
   final VoidCallback onPressed;
+  final String? hint;
 
   const UtButton({
     super.key,
@@ -12,6 +13,7 @@ class UtButton extends StatelessWidget {
     required this.label,
     required this.type,
     required this.onPressed,
+    this.hint,
   });
 
   @override
