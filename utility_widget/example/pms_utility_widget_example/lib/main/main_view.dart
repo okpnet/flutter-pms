@@ -81,7 +81,6 @@ class MainView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     UtButton.primaryWithIcon(
-                      context: context,
                       onPressed: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
@@ -89,21 +88,20 @@ class MainView extends StatelessWidget {
                           ),
                         );
                       },
-                      label: Text('ボタン'),
+                      label: 'ボタン',
                       icon: Icon(Icons.abc_rounded),
                     ),
                     UtButton.primaryWithIcon(
-                      context: context,
                       onPressed: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(builder: (context) => Fields()),
                         );
                       },
-                      label: Text('テキストインプット'),
+                      label: 'テキストインプット',
                       icon: Icon(Icons.abc_rounded),
                     ),
-                    OutlinedButton.icon(
-                      label: Text('ミニインジケータ表示'),
+                    UtButton.primaryWithIcon(
+                      label: 'ミニインジケータ表示',
                       icon: Icon(Icons.abc_rounded),
                       onPressed: () {
                         Navigator.of(context).push(

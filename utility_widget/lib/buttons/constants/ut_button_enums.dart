@@ -1,7 +1,5 @@
 part of '../ut_button.dart';
 
-enum UtButtonEnums { primary, secondary, tertiary }
-
 enum UtButtonSize {
   small(UtButtonStyleConstant.ICON_S, UtButtonStyleConstant.ICON_PADING_S),
   mediam(UtButtonStyleConstant.ICON_M, UtButtonStyleConstant.ICON_PADING_M),

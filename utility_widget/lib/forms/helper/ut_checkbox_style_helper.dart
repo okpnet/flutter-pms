@@ -1,4 +1,4 @@
-part of '../ut_field.dart';
+part of '../ut_input_field.dart';
 
 class UtCheckboxStyleHelper with UtMixinWidgetHelper {
   static WidgetStateProperty<Color?> primary(BuildContext context) {

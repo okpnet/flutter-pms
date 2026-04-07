@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:utility_widget/forms/ut_field.dart';
+import 'package:utility_widget/forms/ut_input_field.dart';
 
 class Fields extends StatelessWidget {
   const Fields({super.key});
@@ -9,7 +9,7 @@ class Fields extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            UtTextField.primary(
+            UtTextInput(
               initialValue: 'インプットフィールド',
               maxLines: 1,
               maxLength: 16,
@@ -32,36 +32,15 @@ class Fields extends StatelessWidget {
                 ),
               ),
             ),
-            UtCheckboxField.primary(
-              context: context,
-              value: true,
-              onChanged: (value) => false,
-            ),
-            UtCheckboxField.primary(
-              context: context,
+            UtCheckboxInput.primary(value: true, onChanged: (value) => false),
+            UtCheckboxInput.primary(value: false, onChanged: (value) => false),
+            UtCheckboxInput.secondary(value: true, onChanged: (value) => false),
+            UtCheckboxInput.secondary(
               value: false,
               onChanged: (value) => false,
             ),
-            UtCheckboxField.secondary(
-              context: context,
-              value: true,
-              onChanged: (value) => false,
-            ),
-            UtCheckboxField.secondary(
-              context: context,
-              value: false,
-              onChanged: (value) => false,
-            ),
-            UtCheckboxField.tertiary(
-              context: context,
-              value: true,
-              onChanged: (value) => false,
-            ),
-            UtCheckboxField.tertiary(
-              context: context,
-              value: false,
-              onChanged: (value) => false,
-            ),
+            UtCheckboxInput.tertiary(value: true, onChanged: (value) => false),
+            UtCheckboxInput.tertiary(value: false, onChanged: (value) => false),
           ],
         ),
       ),

@@ -24,11 +24,10 @@ class Logout extends StatelessWidget {
                 Text('ログアウトしました'),
                 SizedBox.shrink(),
                 UtButton.primaryWithIcon(
-                  context: context,
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  label: Text('トップページに移動する'),
+                  label: 'トップページに移動する',
                   icon: Icon(Icons.move_up),
                 ),
               ],

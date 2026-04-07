@@ -16,37 +16,31 @@ class ButtonsView extends StatelessWidget {
         child: Column(
           children: [
             UtButton.primaryWithIcon(
-              context: context,
               onPressed: navigatorToBack,
               icon: Icon(Icons.home),
-              label: const Text('Primary button'),
+              label: 'Primary button',
             ),
             UtButton.secondaryWithIcon(
-              context: context,
               onPressed: navigatorToBack,
               icon: Icon(Icons.alarm_on),
-              label: const Text('Secondary button'),
+              label: 'Secondary button',
             ),
             UtButton.tertiaryWithIcon(
-              context: context,
               onPressed: navigatorToBack,
               icon: Icon(Icons.zoom_in),
-              label: const Text('Tertiary button'),
+              label: 'Tertiary button',
             ),
-            UtIconButton.primary(
-              context: context,
+            UtIconButton.parimary(
               onPressed: navigatorToBack,
               icon: Icon(Icons.password),
               size: UtButtonSize.small,
             ),
             UtIconButton.secondary(
-              context: context,
               onPressed: navigatorToBack,
               icon: Icon(Icons.password),
               size: UtButtonSize.mediam,
             ),
             UtIconButton.tertiary(
-              context: context,
               onPressed: navigatorToBack,
               icon: Icon(Icons.password),
               size: UtButtonSize.large,
