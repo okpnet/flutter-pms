@@ -38,6 +38,7 @@ class UtButton extends StatelessWidget {
             onPressed: onPressed,
             style: UtButtonStyleHelper.primary(context),
             label: Text(label),
+            icon: icon,
           );
   }
 

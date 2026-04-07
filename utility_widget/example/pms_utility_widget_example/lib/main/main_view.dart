@@ -71,11 +71,12 @@ class MainView extends StatelessWidget {
         accountItem: account,
         sidemenuItems: sidemenuItems,
         body: UtBody.titleSet(
-          title: 'タイトル',
+          title: 'メインのタイトル',
           context: context,
           body: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              Text("body"),
               Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

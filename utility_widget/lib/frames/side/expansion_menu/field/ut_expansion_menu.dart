@@ -15,7 +15,7 @@ class UtExpansionMenu {
     final test = [for (var item in items) item.createExpansion()];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [ListTile(title: Text('test'))],
+      children: [],
       // children: [
       //   leading != null
       //       ? ConstrainedBox(

@@ -14,6 +14,8 @@ class UtTextInput extends StatelessWidget {
   final ValueChanged<String>? onFieldSubmitted;
   final bool? enabled;
   final Widget? label;
+  final UtColorStyle type;
+
   const UtTextInput({
     super.key,
     this.initialValue,
@@ -29,11 +31,17 @@ class UtTextInput extends StatelessWidget {
     this.onEditingComplete,
     this.onFieldSubmitted,
     this.label,
+    this.type = UtColorStyle.primary,
   });
 
   @override
   Widget build(BuildContext context) {
-    return UtLayoutWidgetHelper.containerAllMargin(child: _primary());
+    return UtLayoutWidgetHelper.containerAllMargin(
+      child: switch (type) {
+        UtColorStyle.primary => _primary(),
+        _ => throw Exception('Not impletement UtTextInput type $type'),
+      },
+    );
   }
 
   Widget _primary() {
@@ -59,4 +67,36 @@ class UtTextInput extends StatelessWidget {
       onFieldSubmitted: onFieldSubmitted,
     );
   }
+
+  factory UtTextInput.primary({
+    Key? key,
+    String? initialValue,
+    int? maxLines,
+    int? minLines,
+    bool expands = false,
+    int? maxLength,
+    Icon? suffixIcon,
+    Icon? prefixIcon,
+    TextInputType? keyboardType,
+    ValueChanged<String>? onChanged,
+    VoidCallback? onEditingComplete,
+    ValueChanged<String>? onFieldSubmitted,
+    bool? enabled,
+    Widget? label,
+  }) => UtTextInput(
+    key: key,
+    enabled: enabled,
+    initialValue: initialValue,
+    keyboardType: keyboardType,
+    label: label,
+    maxLength: maxLength,
+    maxLines: maxLines,
+    minLines: minLines,
+    onChanged: onChanged,
+    onEditingComplete: onEditingComplete,
+    onFieldSubmitted: onFieldSubmitted,
+    prefixIcon: prefixIcon,
+    suffixIcon: suffixIcon,
+    type: UtColorStyle.primary,
+  );
 }

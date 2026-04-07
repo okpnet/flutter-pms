@@ -52,7 +52,12 @@ class UtBody {
     Widget? body,
   }) {
     final isNarrow = issNarrow(context);
-    return _titleSet(context: context, title: title, isNarrow: isNarrow);
+    return _titleSet(
+      context: context,
+      title: title,
+      isNarrow: isNarrow,
+      body: body,
+    );
   }
 
   ///左右に[UtBodyConstant.minPaddingSize]を持つタイトルセット

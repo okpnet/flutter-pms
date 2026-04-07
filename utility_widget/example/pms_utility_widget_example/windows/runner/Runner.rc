@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "pms_utility_widget_example" "\0"
+            VALUE "FileDescription", "utility_widget_example" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "pms_utility_widget_example" "\0"
+            VALUE "InternalName", "utility_widget_example" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2026 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "pms_utility_widget_example.exe" "\0"
-            VALUE "ProductName", "pms_utility_widget_example" "\0"
+            VALUE "OriginalFilename", "utility_widget_example.exe" "\0"
+            VALUE "ProductName", "utility_widget_example" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
