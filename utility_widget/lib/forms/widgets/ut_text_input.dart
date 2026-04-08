@@ -15,6 +15,7 @@ class UtTextInput extends StatelessWidget {
   final bool? enabled;
   final Widget? label;
   final UtColorStyle type;
+  final String? hint;
 
   const UtTextInput({
     super.key,
@@ -32,15 +33,17 @@ class UtTextInput extends StatelessWidget {
     this.onFieldSubmitted,
     this.label,
     this.type = UtColorStyle.primary,
+    this.hint,
   });
 
   @override
   Widget build(BuildContext context) {
-    return UtLayoutWidgetHelper.containerAllMargin(
-      child: switch (type) {
-        UtColorStyle.primary => _primary(),
-        _ => throw Exception('Not impletement UtTextInput type $type'),
-      },
+    final body = switch (type) {
+      UtColorStyle.primary => _primary(),
+      _ => throw Exception('Not impletement UtTextInput type $type'),
+    };
+    return UtLayoutMargin(
+      child: hint != null ? UtTooltip(title: hint!, child: body) : body,
     );
   }
 

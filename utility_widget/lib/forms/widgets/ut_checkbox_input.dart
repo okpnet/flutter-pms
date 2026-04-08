@@ -5,32 +5,36 @@ class UtCheckboxInput extends StatelessWidget {
   final ValueChanged<bool?> onChanged;
   final bool? value;
   final String? label;
+  final String? hint;
+
   const UtCheckboxInput({
     super.key,
     required this.type,
     required this.onChanged,
     this.value,
     this.label,
+    this.hint,
   });
 
   @override
   Widget build(BuildContext context) {
-    return UtLayoutWidgetHelper.containerAllMargin(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          switch (type) {
-            UtColorStyle.primary => _primary(context),
-            UtColorStyle.secondary => _secondary(context),
-            UtColorStyle.tertiary => _tertiary(context),
-          },
-          if (label != null)
-            UtLayoutWidgetHelper.container(
-              child: Text(label!),
-              direction: UtDirection.all ^ UtDirection.left,
-            ),
-        ],
-      ),
+    final body = Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        switch (type) {
+          UtColorStyle.primary => _primary(context),
+          UtColorStyle.secondary => _secondary(context),
+          UtColorStyle.tertiary => _tertiary(context),
+        },
+        if (label != null)
+          UtLayoutMargin(
+            direction: UtDirection.all ^ UtDirection.left,
+            child: Text(label!),
+          ),
+      ],
+    );
+    return UtLayoutMargin(
+      child: hint != null ? UtTooltip(title: hint!, child: body) : body,
     );
   }
 

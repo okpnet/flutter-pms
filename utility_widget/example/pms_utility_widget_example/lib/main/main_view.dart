@@ -60,13 +60,13 @@ class MainView extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(title),
       ),
-      drawer: UtSidemenu.drawer(
+      drawer: UtSidemenu.ofDrawer(
         context: context,
         accountItem: account,
         sidemenuItems: sidemenuItems,
       ),
       // body: SizedBox.shrink(),
-      body: UtSidemenu.expansion(
+      body: UtSidemenu.ofExpansion(
         context: context,
         accountItem: account,
         sidemenuItems: sidemenuItems,

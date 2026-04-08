@@ -1,35 +1,37 @@
 part of '../ut_header.dart';
 
-class UtAccountHeader {
+class UtAccountHeader extends StatelessWidget with UtSideMixin {
+  final UtAccontItem accountItem;
+  UtAccountHeader({super.key, required this.accountItem});
+
+  @override
+  Widget build(BuildContext context) {
+    debugPrint('Header not mixed drawer and expantion now.');
+    return ofDrawer(context: context);
+  }
+
   //NavigationRail用アカウントヘッダ
-  static Widget ofRail({
-    required BuildContext context,
-    required UtAccontItem accountItem,
-  }) {
-    return UtLayoutWidgetHelper.containerAllPading(
+  Widget ofRail({required BuildContext context}) {
+    return UtLayoutMargin(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           accountItem.iconImageBytes != null
               ? Container(
-                  margin: EdgeInsets.only(
-                    left: UtSideConstant.accountPaddingSpace,
-                  ),
+                  margin: EdgeInsets.only(left: accountPaddingSpace),
                   child: ClipOval(
                     child: Image.memory(
                       accountItem.iconImageBytes!,
-                      height: UtSideConstant.iconSize.height,
-                      width: UtSideConstant.iconSize.width,
+                      height: iconSize.height,
+                      width: iconSize.width,
                     ),
                   ),
                 )
               : const SizedBox.shrink(),
           Container(
-            margin: EdgeInsets.only(left: UtSideConstant.accountPaddingSpace),
+            margin: EdgeInsets.only(left: accountPaddingSpace),
             child: ConstrainedBox(
-              constraints: BoxConstraints(
-                maxWidth: UtSideConstant.headerNameMaxWidth,
-              ),
+              constraints: BoxConstraints(maxWidth: headerNameMaxWidth),
               child: Text(
                 accountItem.account,
                 maxLines: 2,
@@ -39,7 +41,7 @@ class UtAccountHeader {
                   //fontWeight: FontWeight.bold,
                   fontSize: UtFontScale.of(
                     context: context,
-                    scale: UtSideConstant.accountFontSizeScale,
+                    scale: accountFontSizeScale,
                   ),
                 ),
               ),
@@ -84,11 +86,8 @@ class UtAccountHeader {
   }
 
   //Drawer用アカウントヘッダ
-  static Widget ofDrawer({
-    required BuildContext context,
-    required UtAccontItem accountItem,
-  }) {
-    return UtLayoutWidgetHelper.containerAllPading(
+  Widget ofDrawer({required BuildContext context}) {
+    return UtLayoutMargin(
       child: Row(
         children: [
           if (accountItem.iconImageBytes != null)
@@ -97,8 +96,8 @@ class UtAccountHeader {
                 alignment: AlignmentGeometry.center,
                 child: Image.memory(
                   accountItem.iconImageBytes!,
-                  height: UtSideConstant.iconSize.height,
-                  width: UtSideConstant.iconSize.width,
+                  height: iconSize.height,
+                  width: iconSize.width,
                 ),
               ),
             ),
@@ -114,7 +113,7 @@ class UtAccountHeader {
                   //fontWeight: FontWeight.bold,
                   fontSize: UtFontScale.of(
                     context: context,
-                    scale: UtSideConstant.accountFontSizeScale,
+                    scale: accountFontSizeScale,
                   ),
                 ),
               ),

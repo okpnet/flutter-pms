@@ -5,6 +5,7 @@ class UtIconButton extends StatelessWidget {
   final UtColorStyle type;
   final VoidCallback onPressed;
   final UtButtonSize size;
+  final String? hint;
 
   const UtIconButton({
     super.key,
@@ -12,16 +13,18 @@ class UtIconButton extends StatelessWidget {
     required this.type,
     required this.onPressed,
     required this.size,
+    this.hint,
   });
 
   @override
   Widget build(BuildContext context) {
-    return UtLayoutWidgetHelper.containerAllMargin(
-      child: switch (type) {
-        UtColorStyle.primary => _primary(context),
-        UtColorStyle.secondary => _secondary(context),
-        UtColorStyle.tertiary => _tertiary(context),
-      },
+    final body = switch (type) {
+      UtColorStyle.primary => _primary(context),
+      UtColorStyle.secondary => _secondary(context),
+      UtColorStyle.tertiary => _tertiary(context),
+    };
+    return UtLayoutMargin(
+      child: hint != null ? UtTooltip(title: hint!, child: body) : body,
     );
   }
 

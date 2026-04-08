@@ -5,6 +5,7 @@ class UtRadioInput<T> extends StatelessWidget {
   final UtColorStyle type;
   final String? title;
   final String? subTitle;
+  final String? hint;
 
   const UtRadioInput({
     super.key,
@@ -12,15 +13,17 @@ class UtRadioInput<T> extends StatelessWidget {
     this.title,
     this.subTitle,
     this.type = UtColorStyle.primary,
+    this.hint,
   });
 
   @override
   Widget build(BuildContext context) {
-    return UtLayoutWidgetHelper.containerAllMargin(
-      child: switch (type) {
-        UtColorStyle.primary => _primary(),
-        _ => throw Exception('Not implement UtRadioInput type.'),
-      },
+    final body = switch (type) {
+      UtColorStyle.primary => _primary(),
+      _ => throw Exception('Not implement UtRadioInput type.'),
+    };
+    return UtLayoutMargin(
+      child: hint != null ? UtTooltip(title: hint!, child: body) : body,
     );
   }
 

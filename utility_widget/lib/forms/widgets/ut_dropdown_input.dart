@@ -8,6 +8,7 @@ class UtDropdownInput<T> extends StatelessWidget {
   final List<DropdownMenuItem<T>>? items;
   final ValueChanged<T?>? onChanged;
   final UtColorStyle type;
+  final String? hint;
 
   const UtDropdownInput({
     super.key,
@@ -18,15 +19,17 @@ class UtDropdownInput<T> extends StatelessWidget {
     this.label,
     this.items = const [],
     this.type = UtColorStyle.primary,
+    this.hint,
   });
 
   @override
   Widget build(BuildContext context) {
-    return UtLayoutWidgetHelper.containerAllMargin(
-      child: switch (type) {
-        UtColorStyle.primary => _primary(),
-        _ => throw Exception('Not implement UtDropdownInput type.'),
-      },
+    final body = switch (type) {
+      UtColorStyle.primary => _primary(),
+      _ => throw Exception('Not implement UtDropdownInput type.'),
+    };
+    return UtLayoutMargin(
+      child: hint != null ? UtTooltip(title: hint!, child: body) : body,
     );
   }
 
@@ -55,11 +58,12 @@ class UtDropdownInput<T> extends StatelessWidget {
     String? label,
     List<DropdownMenuItem<T>>? items,
     ValueChanged<T?>? onChanged,
+    required hint,
   }) => UtDropdownInput<T>(
     key: key,
     onChanged: onChanged,
     initialValue: initialValue,
-    items: [],
+    items: items,
     label: label,
     prefixIcon: prefixIcon,
     suffixIcon: suffixIcon,

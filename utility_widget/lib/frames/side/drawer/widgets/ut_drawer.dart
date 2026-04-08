@@ -1,7 +1,12 @@
 part of '../ut_drawer.dart';
 
-class UtDrawer {
-  static Widget of({Widget? header, List<UtSideItem> children = const []}) {
+class UtDrawer extends StatelessWidget {
+  final Widget? header;
+  final List<UtSideItem> children;
+  const UtDrawer({super.key, this.header, this.children = const []});
+
+  @override
+  Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
         children: [

@@ -8,22 +8,25 @@ class Fields extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Column(
+          //crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             UtTextInput(
               initialValue: 'インプットフィールド',
               maxLines: 1,
               maxLength: 16,
               label: const Text('入力データ'),
+              hint: 'ヒント',
               suffixIcon: Icon(Icons.back_hand),
               prefixIcon: Icon(Icons.cable),
             ),
             IntrinsicWidth(
               child: ConstrainedBox(
                 constraints: const BoxConstraints(minWidth: 600),
-                child: UtDropdownField.primary(
+                child: UtDropdownInput.primary(
                   initialValue: 'A',
-                  label: const Text('入力データ'),
+                  label: '入力データ',
                   prefixIcon: Icon(Icons.cable),
+                  hint: 'ドロップダウンヒント',
                   items: [
                     DropdownMenuItem(value: 'A', child: Text('Aです')),
                     DropdownMenuItem(value: 'B', child: Text('Bです')),

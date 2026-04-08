@@ -18,12 +18,13 @@ class UtButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return UtLayoutWidgetHelper.containerAllMargin(
-      child: switch (type) {
-        UtColorStyle.primary => _primary(context),
-        UtColorStyle.secondary => _secondary(context),
-        UtColorStyle.tertiary => _tertiary(context),
-      },
+    final body = switch (type) {
+      UtColorStyle.primary => _primary(context),
+      UtColorStyle.secondary => _secondary(context),
+      UtColorStyle.tertiary => _tertiary(context),
+    };
+    return UtLayoutMargin(
+      child: hint != null ? UtTooltip(title: hint!, child: body) : body,
     );
   }
 

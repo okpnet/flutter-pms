@@ -1,12 +1,6 @@
 part of '../ut_body.dart';
 
 class UtBody {
-  ///規定幅より狭いかどうか
-  static bool issNarrow(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    return UtLayoutConstant.desktopStyleWidthBoundary > width;
-  }
-
   ///以下の組み合わせ上下に[UtBodyConstant.minPaddingSize]。規定幅より狭い場合は左右にもあわせて[UtBodyConstant.minPaddingSize]があるタイトルセット
   ///タイトル
   ///body
@@ -51,7 +45,7 @@ class UtBody {
     required String title,
     Widget? body,
   }) {
-    final isNarrow = issNarrow(context);
+    final isNarrow = UtLayoutHelper.isNarrow(context);
     return _titleSet(
       context: context,
       title: title,
@@ -67,7 +61,7 @@ class UtBody {
     CrossAxisAlignment crossAxisAligment = CrossAxisAlignment.start,
     Widget? body,
   }) {
-    final isNarrow = issNarrow(context);
+    final isNarrow = UtLayoutHelper.isNarrow(context);
     return Row(
       crossAxisAlignment: crossAxisAligment,
       children: [
@@ -86,7 +80,7 @@ class UtBody {
     Widget? body,
   }) {
     final width = MediaQuery.of(context).size.width;
-    final isNarrow = issNarrow(context);
+    final isNarrow = UtLayoutHelper.isNarrow(context);
     final paddingWidth = isNarrow
         ? UtBodyConstant.minPaddingSize
         : width * UtBodyConstant.widePaddingBothSideRate;
