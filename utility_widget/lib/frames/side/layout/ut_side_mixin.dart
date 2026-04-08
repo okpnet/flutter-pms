@@ -19,4 +19,21 @@ mixin UtSideMixin on StatelessWidget {
         MediaQuery.of(context).size.width * headerWidthPercentage; //メニュー幅
     return width > headerMaxWidth ? width : headerMaxWidth;
   }
+
+  Widget createExpansion() {
+    return _createExpansion(this);
+  }
+
+  //再帰
+  Widget _createExpansion(UtSideItem item) {
+    if (item.options == null || item.options!.isEmpty) {
+      return item.createDrawerItem();
+    }
+    return ExpansionTile(
+      title: Text(item.label),
+      leading: item.icon,
+
+      children: [for (var value in item.options!) _createExpansion(value)],
+    );
+  }
 }

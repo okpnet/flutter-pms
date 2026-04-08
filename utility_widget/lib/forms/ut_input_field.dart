@@ -1,7 +1,4 @@
 // Flutter imports:
-import 'dart:async';
-
-import 'package:flutter/services.dart';
 
 // Project imports:
 import 'package:utility_widget/extends/ut_mixin_widget_helper.dart';

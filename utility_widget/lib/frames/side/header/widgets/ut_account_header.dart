@@ -12,7 +12,7 @@ class UtAccountHeader extends StatelessWidget with UtSideMixin {
 
   //NavigationRail用アカウントヘッダ
   Widget ofRail({required BuildContext context}) {
-    return UtLayoutMargin(
+    return UtLayoutCrevice.margin(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -87,7 +87,7 @@ class UtAccountHeader extends StatelessWidget with UtSideMixin {
 
   //Drawer用アカウントヘッダ
   Widget ofDrawer({required BuildContext context}) {
-    return UtLayoutMargin(
+    return UtLayoutCrevice.margin(
       child: Row(
         children: [
           if (accountItem.iconImageBytes != null)

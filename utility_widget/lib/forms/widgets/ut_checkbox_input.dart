@@ -27,13 +27,13 @@ class UtCheckboxInput extends StatelessWidget {
           UtColorStyle.tertiary => _tertiary(context),
         },
         if (label != null)
-          UtLayoutMargin(
+          UtLayoutCrevice.margin(
             direction: UtDirection.all ^ UtDirection.left,
             child: Text(label!),
           ),
       ],
     );
-    return UtLayoutMargin(
+    return UtLayoutCrevice.margin(
       child: hint != null ? UtTooltip(title: hint!, child: body) : body,
     );
   }

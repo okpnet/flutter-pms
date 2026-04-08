@@ -42,7 +42,7 @@ class UtTextInput extends StatelessWidget {
       UtColorStyle.primary => _primary(),
       _ => throw Exception('Not impletement UtTextInput type $type'),
     };
-    return UtLayoutMargin(
+    return UtLayoutCrevice.margin(
       child: hint != null ? UtTooltip(title: hint!, child: body) : body,
     );
   }

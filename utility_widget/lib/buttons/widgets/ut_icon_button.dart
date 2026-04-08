@@ -1,13 +1,13 @@
 part of '../ut_button.dart';
 
-class UtIconButton extends StatelessWidget {
+class UtIconButton extends StatelessWidget with UtButtonMixin {
   final Icon icon;
   final UtColorStyle type;
   final VoidCallback onPressed;
   final UtButtonSize size;
   final String? hint;
 
-  const UtIconButton({
+  UtIconButton({
     super.key,
     required this.icon,
     required this.type,
@@ -23,7 +23,7 @@ class UtIconButton extends StatelessWidget {
       UtColorStyle.secondary => _secondary(context),
       UtColorStyle.tertiary => _tertiary(context),
     };
-    return UtLayoutMargin(
+    return UtLayoutCrevice.margin(
       child: hint != null ? UtTooltip(title: hint!, child: body) : body,
     );
   }
@@ -33,7 +33,7 @@ class UtIconButton extends StatelessWidget {
       icon: icon,
       iconSize: size.iconSize,
       onPressed: onPressed,
-      style: UtButtonStyleHelper.primaryIcon(context, size: size),
+      style: primaryIcon(context, size: size),
     );
   }
 
@@ -42,7 +42,7 @@ class UtIconButton extends StatelessWidget {
       icon: icon,
       iconSize: size.iconSize,
       onPressed: onPressed,
-      style: UtButtonStyleHelper.secondaryIcon(context, size: size),
+      style: secondaryIcon(context, size: size),
     );
   }
 
@@ -51,7 +51,7 @@ class UtIconButton extends StatelessWidget {
       icon: icon,
       iconSize: size.iconSize,
       onPressed: onPressed,
-      style: UtButtonStyleHelper.tertiaryIcon(context, size: size),
+      style: tertiaryIcon(context, size: size),
     );
   }
 

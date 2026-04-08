@@ -22,7 +22,7 @@ class UtRadioInput<T> extends StatelessWidget {
       UtColorStyle.primary => _primary(),
       _ => throw Exception('Not implement UtRadioInput type.'),
     };
-    return UtLayoutMargin(
+    return UtLayoutCrevice.margin(
       child: hint != null ? UtTooltip(title: hint!, child: body) : body,
     );
   }

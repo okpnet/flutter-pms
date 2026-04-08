@@ -3,19 +3,19 @@ part of '../ut_input_field.dart';
 class UtCheckboxStyleHelper with UtMixinWidgetHelper {
   static WidgetStateProperty<Color?> primary(BuildContext context) {
     final background = UtMixinWidgetHelper.bg(context);
-    final foreground = UtMixinWidgetHelper.fg(context);
+    // final foreground = UtMixinWidgetHelper.fg(context);
     return WidgetStateColor.resolveWith((state) => background);
   }
 
   static BorderSide secondarySide(BuildContext context) {
     final background = UtMixinWidgetHelper.bg(context);
-    final foreground = UtMixinWidgetHelper.fg(context);
+    // final foreground = UtMixinWidgetHelper.fg(context);
     return BorderSide(color: background, width: UtInputFieldConstant.SIDE_W);
   }
 
   static Color secondaryColor(BuildContext context) {
     final background = UtMixinWidgetHelper.bg(context);
-    final foreground = UtMixinWidgetHelper.fg(context);
+    // final foreground = UtMixinWidgetHelper.fg(context);
     return background;
   }
 

@@ -28,7 +28,7 @@ class UtDropdownInput<T> extends StatelessWidget {
       UtColorStyle.primary => _primary(),
       _ => throw Exception('Not implement UtDropdownInput type.'),
     };
-    return UtLayoutMargin(
+    return UtLayoutCrevice.margin(
       child: hint != null ? UtTooltip(title: hint!, child: body) : body,
     );
   }

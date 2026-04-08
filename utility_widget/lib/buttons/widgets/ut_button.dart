@@ -1,13 +1,13 @@
 part of '../ut_button.dart';
 
-class UtButton extends StatelessWidget {
+class UtButton extends StatelessWidget with UtButtonMixin {
   final String label;
   final Icon? icon;
   final UtColorStyle type;
   final VoidCallback onPressed;
   final String? hint;
 
-  const UtButton({
+  UtButton({
     super.key,
     this.icon,
     required this.label,
@@ -23,7 +23,7 @@ class UtButton extends StatelessWidget {
       UtColorStyle.secondary => _secondary(context),
       UtColorStyle.tertiary => _tertiary(context),
     };
-    return UtLayoutMargin(
+    return UtLayoutCrevice.margin(
       child: hint != null ? UtTooltip(title: hint!, child: body) : body,
     );
   }
@@ -33,13 +33,13 @@ class UtButton extends StatelessWidget {
         ? ElevatedButton(
             key: key,
             onPressed: onPressed,
-            style: UtButtonStyleHelper.primary(context),
+            style: primary(context),
             child: Text(label),
           )
         : ElevatedButton.icon(
             key: key,
             onPressed: onPressed,
-            style: UtButtonStyleHelper.primary(context),
+            style: primary(context),
             label: Text(label),
             icon: icon,
           );
@@ -50,13 +50,13 @@ class UtButton extends StatelessWidget {
         ? OutlinedButton(
             key: key,
             onPressed: onPressed,
-            style: UtButtonStyleHelper.secondary(context),
+            style: secondary(context),
             child: Text(label),
           )
         : OutlinedButton.icon(
             key: key,
             onPressed: onPressed,
-            style: UtButtonStyleHelper.secondary(context),
+            style: secondary(context),
             label: Text(label),
             icon: icon,
           );
@@ -67,13 +67,13 @@ class UtButton extends StatelessWidget {
         ? TextButton(
             key: key,
             onPressed: onPressed,
-            style: UtButtonStyleHelper.tertiary(context),
+            style: tertiary(context),
             child: Text(label),
           )
         : TextButton.icon(
             key: key,
             onPressed: onPressed,
-            style: UtButtonStyleHelper.tertiary(context),
+            style: tertiary(context),
             icon: icon,
             label: Text(label),
           );

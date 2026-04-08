@@ -1,9 +1,9 @@
 part of '../ut_button.dart';
 
 enum UtButtonSize {
-  small(UtButtonStyleConstant.ICON_S, UtButtonStyleConstant.ICON_PADING_S),
-  mediam(UtButtonStyleConstant.ICON_M, UtButtonStyleConstant.ICON_PADING_M),
-  large(UtButtonStyleConstant.ICON_L, UtButtonStyleConstant.ICON_PADING_L);
+  small(12, 2),
+  mediam(24, 8),
+  large(36, 16);
 
   final double iconSize;
   final double iconPadingSize;
