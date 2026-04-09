@@ -15,6 +15,10 @@ mixin UtSideMixin on Widget {
   final double headerNameMaxWidth = 160;
   //アカウントアイコンとアカウント名のスペース
   final double accountPaddingSpace = 12;
+  //現在選択されているメニューアイテムゲッター
+  UtSideItem? get selectedItem => null;
+  //メニューアイテム選択を実行したときのメソッドのゲッター
+  void Function(UtSideItem)? get onSelectItem => null;
 
   Color backGroundColor(BuildContext context) =>
       Theme.of(context).colorScheme.surfaceContainerLowest;
@@ -33,17 +37,25 @@ mixin UtSideMixin on Widget {
   }
 
   //Listtile生成
-  ListTile createListtile({
+  Widget createListtile({
     required UtSideItem item,
     required BuildContext context,
   }) {
-    return ListTile(
-      selected: item.isSelected,
-      leading: item.icon,
-      selectedColor: hilightColor(context),
-      focusColor: hilightColor(context),
-      title: Text(item.label, style: TextStyle(color: frontColor(context))),
-      onTap: item.onPress,
+    return ColoredBox(
+      color: item == selectedItem ? hilightColor(context) : Colors.transparent,
+      child: ListTile(
+        selected: item == selectedItem,
+        leading: item.icon,
+        // selectedTileColor: hilightColor(context),
+        focusColor: hilightColor(context),
+        title: Text(item.label, style: TextStyle(color: frontColor(context))),
+        onTap: () {
+          if (onSelectItem != null) {
+            onSelectItem!(item);
+          }
+          item.onPress();
+        },
+      ),
     );
   }
 
