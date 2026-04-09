@@ -1,6 +1,6 @@
 part of '../ut_input_field.dart';
 
-class UtDropdownInput<T> extends StatelessWidget {
+class UtDropdownInput<T> extends StatelessWidget with UtInputTextStyleMixin {
   final T? initialValue;
   final Icon? suffixIcon;
   final Icon? prefixIcon;
@@ -37,13 +37,11 @@ class UtDropdownInput<T> extends StatelessWidget {
     return DropdownButtonFormField<T>(
       initialValue: initialValue,
       decoration: InputDecoration(
-        border: InputTextStyleHelper.primary(),
+        border: primary(),
         suffixIcon: suffixIcon,
         prefixIcon: prefixIcon,
         label: label != null ? Text(label!) : null,
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: UtInputFieldConstant.PADDING_H,
-        ),
+        contentPadding: createPadddingInsets(),
       ),
       items: items,
       onChanged: onChanged,

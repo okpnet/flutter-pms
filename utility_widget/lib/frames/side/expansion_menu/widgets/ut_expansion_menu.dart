@@ -1,7 +1,6 @@
 part of '../ut_expansion_menu.dart';
 
-class UtExpansionMenu extends StatelessWidget
-    with UtSideMixin, UtThemeColorMixin {
+class UtExpansionMenu extends StatelessWidget with UtSideMixin {
   final Widget? header;
   final List<UtSideItem> items;
   UtExpansionMenu({super.key, this.items = const [], this.header});
@@ -9,7 +8,7 @@ class UtExpansionMenu extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return ColoredBox(
-      color: themeColors(context).secondaryContainer,
+      color: backGroundColor(context),
       child: ConstrainedBox(
         constraints: BoxConstraints(maxWidth: menuWidth(context)),
 
@@ -18,7 +17,10 @@ class UtExpansionMenu extends StatelessWidget
           // children: [],
           children: [
             if (header != null) UtLayoutPadding(child: header!),
-            ...[for (var item in items) item.createExpansion()],
+            ...[
+              for (var item in items)
+                createBranchMenuItem(item: item, context: context),
+            ],
           ],
         ),
       ),

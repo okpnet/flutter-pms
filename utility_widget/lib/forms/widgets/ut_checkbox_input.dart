@@ -1,13 +1,13 @@
 part of '../ut_input_field.dart';
 
-class UtCheckboxInput extends StatelessWidget {
+class UtCheckboxInput extends StatelessWidget with UtCheckboxStyleMixin {
   final UtColorStyle type;
   final ValueChanged<bool?> onChanged;
   final bool? value;
   final String? label;
   final String? hint;
 
-  const UtCheckboxInput({
+  UtCheckboxInput({
     super.key,
     required this.type,
     required this.onChanged,
@@ -43,7 +43,7 @@ class UtCheckboxInput extends StatelessWidget {
       key: key,
       value: value,
       onChanged: onChanged,
-      fillColor: UtCheckboxStyleHelper.primary(context),
+      fillColor: primary(context),
     );
   }
 
@@ -52,9 +52,9 @@ class UtCheckboxInput extends StatelessWidget {
       key: key,
       value: value,
       onChanged: onChanged,
-      fillColor: UtCheckboxStyleHelper.transparent(),
-      checkColor: UtCheckboxStyleHelper.secondaryColor(context),
-      side: UtCheckboxStyleHelper.secondarySide(context),
+      fillColor: transparent(),
+      checkColor: secondaryColor(context),
+      side: secondarySide(context),
     );
   }
 
@@ -63,9 +63,9 @@ class UtCheckboxInput extends StatelessWidget {
       key: key,
       value: value,
       onChanged: onChanged,
-      fillColor: UtCheckboxStyleHelper.transparent(),
-      checkColor: UtCheckboxStyleHelper.secondaryColor(context),
-      side: UtCheckboxStyleHelper.tertiarySide(),
+      fillColor: transparent(),
+      checkColor: secondaryColor(context),
+      side: tertiarySide(),
     );
   }
 

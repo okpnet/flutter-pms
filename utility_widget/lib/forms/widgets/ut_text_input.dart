@@ -1,6 +1,6 @@
 part of '../ut_input_field.dart';
 
-class UtTextInput extends StatelessWidget {
+class UtTextInput extends StatelessWidget with UtInputTextStyleMixin {
   final String? initialValue;
   final int? maxLines;
   final int? minLines;
@@ -51,13 +51,11 @@ class UtTextInput extends StatelessWidget {
     return TextFormField(
       key: key,
       decoration: InputDecoration(
-        border: InputTextStyleHelper.primary(),
+        border: primary(),
         suffixIcon: suffixIcon,
         prefixIcon: prefixIcon,
         label: label,
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: UtInputFieldConstant.PADDING_H,
-        ),
+        contentPadding: createPadddingInsets(),
       ),
       keyboardType: keyboardType,
       maxLines: maxLines,

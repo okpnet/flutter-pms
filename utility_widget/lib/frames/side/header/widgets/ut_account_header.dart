@@ -57,7 +57,7 @@ class UtAccountHeader extends StatelessWidget with UtSideMixin {
                       trailingIcon: Icon(Icons.arrow_drop_down),
                       menuChildren: [
                         for (var item in accountItem.options!)
-                          item.createMenubutton(),
+                          createMenubutton(item: item, context: context),
                       ],
                       //leadingIcon: Icon(Icons.arrow_drop_down),
                       child: SizedBox.shrink(),
@@ -127,7 +127,7 @@ class UtAccountHeader extends StatelessWidget with UtSideMixin {
                   trailingIcon: Icon(Icons.arrow_drop_down),
                   menuChildren: [
                     for (var item in accountItem.options!)
-                      item.createMenubutton(),
+                      createMenubutton(item: item, context: context),
                   ],
                   // leadingIcon: Icon(Icons.settings_outlined),
                   child: SizedBox.shrink(),
