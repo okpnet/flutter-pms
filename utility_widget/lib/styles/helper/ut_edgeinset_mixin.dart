@@ -1,5 +1,5 @@
 import 'package:utility_widget/styles/export/ut_widget_design.dart';
-import 'package:utility_widget/styles/layout/ut_direction.dart';
+import 'package:utility_widget/styles/layout_model/ut_direction.dart';
 
 mixin UtEdgeinsetMixin {
   final double _defaultMargin = 5;

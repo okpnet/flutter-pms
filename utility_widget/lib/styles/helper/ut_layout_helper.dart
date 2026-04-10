@@ -1,6 +1,6 @@
 import 'package:utility_widget/styles/export/ut_widget_design.dart';
 
-mixin UtLayoutHelper {
+class UtLayoutHelper {
   //NavigationRailに切り替える画面幅
   static const double desktopStyleWidthBoundary = 600;
   // static const double get desktopStyleWidthBoundary => 600;

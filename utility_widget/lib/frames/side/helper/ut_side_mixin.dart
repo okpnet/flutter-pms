@@ -3,6 +3,7 @@ import 'package:utility_widget/styles/export/ut_widget_design.dart';
 import '../ut_sidemenu.dart';
 
 mixin UtSideMixin on Widget {
+  final double defaultPadding = 5;
   //アカウントアイコンのサイズ
   final ({double width, double height}) iconSize = (width: 50, height: 50);
   //アカウント名のフォントサイズの拡大率
@@ -10,7 +11,7 @@ mixin UtSideMixin on Widget {
   //画面幅に対するメニューの幅の最小割合
   final double headerWidthPercentage = 0.12;
   //メニューの幅の固定最大値
-  final double headerMaxWidth = 320;
+  final double headerMaxWidth = 340;
   //アカウント名の幅。これ以上は折り返し2行まで表示。
   final double headerNameMaxWidth = 160;
   //アカウントアイコンとアカウント名のスペース
@@ -20,14 +21,16 @@ mixin UtSideMixin on Widget {
   //メニューアイテム選択を実行したときのメソッドのゲッター
   void Function(UtSideItem)? get onSelectItem => null;
 
+  ColorScheme colorScheme(BuildContext context) =>
+      Theme.of(context).colorScheme;
+
   Color backGroundColor(BuildContext context) =>
-      Theme.of(context).colorScheme.surfaceContainerLowest;
+      colorScheme(context).surfaceContainerLowest;
 
   Color hilightColor(BuildContext context) =>
-      Theme.of(context).colorScheme.secondaryContainer;
+      colorScheme(context).secondaryContainer;
 
-  Color frontColor(BuildContext context) =>
-      Theme.of(context).colorScheme.onSurface;
+  Color frontColor(BuildContext context) => colorScheme(context).onSurface;
 
   //サイドメニュー幅計算
   double menuWidth(BuildContext context) {
