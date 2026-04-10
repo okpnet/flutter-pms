@@ -4,12 +4,12 @@ class UtExpansionMenu extends StatelessWidget with UtSideMixin {
   final UtSideItem? selected;
   final Widget? header;
   final List<UtSideItem> items;
-  final void Function(UtSideItem)? onSelect;
+  final ValueChanged<UtSideItem>? onSelect;
 
   UtExpansionMenu({
     super.key,
-    this.selected,
-    this.onSelect,
+    required this.selected,
+    required this.onSelect,
     this.items = const [],
     this.header,
   });

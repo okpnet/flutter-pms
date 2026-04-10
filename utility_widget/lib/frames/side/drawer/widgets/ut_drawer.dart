@@ -1,9 +1,18 @@
 part of '../ut_drawer.dart';
 
 class UtDrawer extends StatelessWidget with UtSideMixin {
+  final UtSideItem? selected;
   final Widget? header;
-  final List<UtSideItem> children;
-  UtDrawer({super.key, this.header, this.children = const []});
+  final List<UtSideItem> items;
+  final ValueChanged<UtSideItem>? onSelect;
+
+  UtDrawer({
+    super.key,
+    required this.selected,
+    required this.onSelect,
+    this.items = const [],
+    this.header,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +22,7 @@ class UtDrawer extends StatelessWidget with UtSideMixin {
         children: [
           if (header != null) DrawerHeader(child: header),
           ...[
-            for (var item in children)
+            for (var item in items)
               createBranchMenuItem(item: item, context: context),
           ],
         ],
