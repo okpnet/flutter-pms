@@ -8,7 +8,7 @@ class UtLayoutPadding extends StatelessWidget with UtEdgeinsetMixin {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: edgeInsetsOf(direction: direction),
+      padding: edgeInsetsBuilder(direction: direction),
       child: child,
     );
   }

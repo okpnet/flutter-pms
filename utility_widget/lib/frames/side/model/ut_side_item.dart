@@ -4,13 +4,24 @@ class UtSideItem {
   final Icon? icon;
   final String label;
   final VoidCallback onPress;
-  final bool isSelected;
   final List<UtSideItem>? options;
+
   UtSideItem({
     this.icon,
     required this.label,
     required this.onPress,
-    this.isSelected = false,
     this.options,
   });
+
+  UtSideItem copyWith({
+    Icon? icon,
+    String? label,
+    VoidCallback? onPress,
+    List<UtSideItem>? options,
+  }) => UtSideItem(
+    label: label ?? this.label,
+    onPress: onPress ?? this.onPress,
+    icon: icon ?? this.icon,
+    options: options ?? this.options,
+  );
 }

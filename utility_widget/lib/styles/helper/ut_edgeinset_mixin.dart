@@ -2,18 +2,23 @@ import 'package:utility_widget/styles/export/ut_widget_design.dart';
 import 'package:utility_widget/styles/layout_model/ut_direction.dart';
 
 mixin UtEdgeinsetMixin {
-  final double _defaultMargin = 5;
+  final double _edgeInsetsValue = 5;
 
-  EdgeInsets edgeInsetsOf({UtDirection? direction}) {
-    if (direction == null) return EdgeInsets.all(_defaultMargin);
+  double get defaultMargin => _edgeInsetsValue;
+
+  double get defaultPadding => _edgeInsetsValue;
+
+  EdgeInsets edgeInsetsBuilder({UtDirection? direction, double? value}) {
+    final edgeValue = value ?? _edgeInsetsValue;
+    if (direction == null) return EdgeInsets.all(edgeValue);
     return switch (direction.bit) {
-      0xf => EdgeInsets.all(_defaultMargin),
+      0xf => EdgeInsets.all(edgeValue),
       0x0 => EdgeInsets.zero,
       _ => EdgeInsets.only(
-        bottom: direction.isBottom() ? _defaultMargin : 0,
-        left: direction.isLeft() ? _defaultMargin : 0,
-        right: direction.isRight() ? _defaultMargin : 0,
-        top: direction.isTop() ? _defaultMargin : 0,
+        bottom: direction.isBottom() ? edgeValue : 0,
+        left: direction.isLeft() ? edgeValue : 0,
+        right: direction.isRight() ? edgeValue : 0,
+        top: direction.isTop() ? edgeValue : 0,
       ),
     };
   }

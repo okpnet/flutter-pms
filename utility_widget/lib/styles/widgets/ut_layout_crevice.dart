@@ -17,11 +17,11 @@ class UtLayoutCrevice extends StatelessWidget with UtEdgeinsetMixin {
   Widget build(BuildContext context) {
     return switch (type) {
       CreviceType.margin => Container(
-        margin: edgeInsetsOf(direction: direction),
+        margin: edgeInsetsBuilder(direction: direction),
         child: child,
       ),
       CreviceType.padding => Padding(
-        padding: edgeInsetsOf(direction: direction),
+        padding: edgeInsetsBuilder(direction: direction),
         child: child,
       ),
     };

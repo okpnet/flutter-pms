@@ -1,73 +1,85 @@
 part of '../ut_body.dart';
 
-class UtBody {
+class UtBody extends StatelessWidget with UtEdgeinsetMixin {
+  final String? title;
+  final Widget body;
+  final UtDirection paddingDirection;
+  UtBody({
+    super.key,
+    this.title,
+    required this.body,
+    this.paddingDirection = UtDirection.all,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }
+
   ///以下の組み合わせ上下に[UtBodyConstant.minPaddingSize]。規定幅より狭い場合は左右にもあわせて[UtBodyConstant.minPaddingSize]があるタイトルセット
   ///タイトル
   ///body
-  static Widget _titleSet({
-    required BuildContext context,
-    required String title,
-    required bool isNarrow,
-    Widget? body,
-  }) {
+  Widget _titleSet({required BuildContext context, required bool isNarrow}) {
     return Column(
       children: [
-        Padding(
-          padding: isNarrow
-              ? EdgeInsets.all(UtBodyConstant.minPaddingSize)
-              : EdgeInsets.only(
-                  top: UtBodyConstant.minPaddingSize,
-                  bottom: UtBodyConstant.minPaddingSize,
-                ),
-          child: Align(
-            alignment: AlignmentGeometry.centerLeft,
-            child: Text(
-              title,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontSize: UtFontScale.of(
-                  context: context,
-                  scale: UtBodyConstant.titleFontSizeScale,
+        if (title != null)
+          Padding(
+            padding: edgeInsetsBuilder(
+              direction: isNarrow
+                  ? UtDirection.all ^ UtDirection.bottom
+                  : UtDirection.top,
+              value: UtBodyConstant.minPaddingSize,
+            ),
+            child: Align(
+              alignment: AlignmentGeometry.centerLeft,
+              child: Text(
+                title!,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: UtFontScale.of(
+                    context: context,
+                    scale: UtBodyConstant.titleFontSizeScale,
+                  ),
                 ),
               ),
             ),
           ),
+        Padding(
+          padding: edgeInsetsBuilder(
+            direction: isNarrow ? UtDirection.all : UtDirection.vertical,
+            value: UtBodyConstant.minPaddingSize,
+          ),
+          child: body,
         ),
-        ?body,
       ],
     );
   }
 
   ///左右にスペースのない標準タイトルセット
-  static Widget titleSet({
-    required BuildContext context,
-    required String title,
-    Widget? body,
-  }) {
+  Widget titleSet({required BuildContext context, Widget? body}) {
     final isNarrow = UtLayoutHelper.isNarrow(context);
-    return _titleSet(
-      context: context,
-      title: title,
-      isNarrow: isNarrow,
-      body: body,
-    );
+    return _titleSet(context: context, isNarrow: isNarrow);
   }
 
   ///左右に[UtBodyConstant.minPaddingSize]を持つタイトルセット
-  static Widget titleSetBothPaddingNarrow({
+  Widget bothPadding({
     required BuildContext context,
-    required String title,
-    CrossAxisAlignment crossAxisAligment = CrossAxisAlignment.start,
-    Widget? body,
+    required bool contentsNarrow,
+    required bool isNarrow,
   }) {
-    final isNarrow = UtLayoutHelper.isNarrow(context);
+    final marginWidth = UtLayoutHelper.isNarrow(context)
+        ? UtBodyConstant.minPaddingSize
+        : MediaQuery.of(context).size.width *
+              UtBodyConstant.widePaddingBothSideRate;
+
     return Row(
-      crossAxisAlignment: crossAxisAligment,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(width: UtBodyConstant.minPaddingSize),
-        _titleSet(context: context, title: title, isNarrow: isNarrow),
-        SizedBox(width: UtBodyConstant.minPaddingSize),
+        SizedBox(width: marginWidth),
+        _titleSet(context: context, isNarrow: isNarrow),
+        SizedBox(width: marginWidth),
       ],
     );
   }

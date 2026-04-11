@@ -3,7 +3,6 @@ import 'package:utility_widget/styles/export/ut_widget_design.dart';
 import '../ut_sidemenu.dart';
 
 mixin UtSideMixin on Widget {
-  final double defaultPadding = 5;
   //アカウントアイコンのサイズ
   final ({double width, double height}) iconSize = (width: 50, height: 50);
   //アカウント名のフォントサイズの拡大率
@@ -80,7 +79,7 @@ mixin UtSideMixin on Widget {
     List<Widget> children = const [],
   }) {
     return ColoredBox(
-      color: item.isSelected ? hilightColor(context) : Colors.transparent,
+      color: item == selectedItem ? hilightColor(context) : Colors.transparent,
       child: ExpansionTile(
         backgroundColor: backGroundColor(context),
         textColor: frontColor(context),
