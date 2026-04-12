@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/foundation.dart';
+import 'package:utility_widget/frames/body/ut_body.dart';
 import 'package:utility_widget/frames/side/expansion_menu/ut_expansion_menu.dart';
 
 // Project imports:

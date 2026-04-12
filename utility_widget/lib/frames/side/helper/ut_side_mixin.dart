@@ -48,7 +48,7 @@ mixin UtSideMixin on Widget {
       child: ListTile(
         selected: item == selectedItem,
         leading: item.icon,
-        // selectedTileColor: hilightColor(context),
+        selectedTileColor: hilightColor(context),
         focusColor: hilightColor(context),
         title: Text(item.label, style: TextStyle(color: frontColor(context))),
         onTap: () {

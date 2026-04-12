@@ -10,7 +10,7 @@ class UtSidemenu {
     UtAccontItem? accountItem,
     List<UtSideItem> sidemenuItems = const [],
   }) {
-    final isNarrow = UtLayoutHelper.isNarrow(context);
+    final isNarrow = UtLayoutHelper.isMobile(context);
     return isNarrow
         ? UtDrawer(
             key: key,
@@ -33,8 +33,7 @@ class UtSidemenu {
     Widget? body,
     List<UtSideItem> sidemenuItems = const [],
   }) {
-    final isNarrow = UtLayoutHelper.isNarrow(context);
-    final sizeBoxWidht = UtLayoutHelper.bothSidePadding(context);
+    final isNarrow = UtLayoutHelper.isMobile(context);
     return !isNarrow
         ? Row(
             children: [
@@ -47,9 +46,7 @@ class UtSidemenu {
                     : null,
                 items: sidemenuItems,
               ),
-              if (body != null) SizedBox(width: sizeBoxWidht),
               if (body != null) Expanded(child: body),
-              if (body != null) SizedBox(width: sizeBoxWidht),
             ],
           )
         : body;

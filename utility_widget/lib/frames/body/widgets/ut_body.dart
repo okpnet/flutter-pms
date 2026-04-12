@@ -13,20 +13,35 @@ class UtBody extends StatelessWidget with UtEdgeinsetMixin {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    final isMobile = UtLayoutHelper.isMobile(context);
+    return LayoutBuilder(
+      builder: (context, _constrains) {
+        final width = _constrains.widthConstraints().maxWidth;
+        final isFullwidth = UtLayoutHelper.isFullwidthFromWidth(width);
+        final margin = !isFullwidth
+            ? UtBodyConstant.minPaddingSize
+            : width * UtBodyConstant.widePaddingBothSideRate;
+        return Container(
+          margin: edgeInsetsBuilder(
+            direction: UtDirection.horizontal,
+            value: margin,
+          ),
+          child: _titleSet(context: context, isMobile: isMobile),
+        );
+      },
+    );
   }
 
   ///以下の組み合わせ上下に[UtBodyConstant.minPaddingSize]。規定幅より狭い場合は左右にもあわせて[UtBodyConstant.minPaddingSize]があるタイトルセット
   ///タイトル
   ///body
-  Widget _titleSet({required BuildContext context, required bool isNarrow}) {
+  Widget _titleSet({required BuildContext context, required bool isMobile}) {
     return Column(
       children: [
         if (title != null)
           Padding(
             padding: edgeInsetsBuilder(
-              direction: isNarrow
+              direction: isMobile
                   ? UtDirection.all ^ UtDirection.bottom
                   : UtDirection.top,
               value: UtBodyConstant.minPaddingSize,
@@ -48,60 +63,11 @@ class UtBody extends StatelessWidget with UtEdgeinsetMixin {
           ),
         Padding(
           padding: edgeInsetsBuilder(
-            direction: isNarrow ? UtDirection.all : UtDirection.vertical,
+            direction: isMobile ? UtDirection.all : UtDirection.vertical,
             value: UtBodyConstant.minPaddingSize,
           ),
           child: body,
         ),
-      ],
-    );
-  }
-
-  ///左右にスペースのない標準タイトルセット
-  Widget titleSet({required BuildContext context, Widget? body}) {
-    final isNarrow = UtLayoutHelper.isNarrow(context);
-    return _titleSet(context: context, isNarrow: isNarrow);
-  }
-
-  ///左右に[UtBodyConstant.minPaddingSize]を持つタイトルセット
-  Widget bothPadding({
-    required BuildContext context,
-    required bool contentsNarrow,
-    required bool isNarrow,
-  }) {
-    final marginWidth = UtLayoutHelper.isNarrow(context)
-        ? UtBodyConstant.minPaddingSize
-        : MediaQuery.of(context).size.width *
-              UtBodyConstant.widePaddingBothSideRate;
-
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(width: marginWidth),
-        _titleSet(context: context, isNarrow: isNarrow),
-        SizedBox(width: marginWidth),
-      ],
-    );
-  }
-
-  ///左右に[UtBodyConstant.minPaddingSize]を持つタイトルセット
-  static Widget titleSetBothPaddingWide({
-    required BuildContext context,
-    required String title,
-    CrossAxisAlignment crossAxisAligment = CrossAxisAlignment.start,
-    Widget? body,
-  }) {
-    final width = MediaQuery.of(context).size.width;
-    final isNarrow = UtLayoutHelper.isNarrow(context);
-    final paddingWidth = isNarrow
-        ? UtBodyConstant.minPaddingSize
-        : width * UtBodyConstant.widePaddingBothSideRate;
-    return Row(
-      crossAxisAlignment: crossAxisAligment,
-      children: [
-        SizedBox(width: paddingWidth),
-        _titleSet(context: context, title: title, isNarrow: isNarrow),
-        SizedBox(width: paddingWidth),
       ],
     );
   }
