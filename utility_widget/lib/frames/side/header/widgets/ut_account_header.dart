@@ -3,12 +3,7 @@ part of '../ut_header.dart';
 class UtAccountHeader extends StatelessWidget
     with UtSideMixin, UtEdgeinsetMixin {
   final UtAccontItem accountItem;
-  final bool isNarrowWidth;
-  UtAccountHeader({
-    super.key,
-    required this.accountItem,
-    required this.isNarrowWidth,
-  });
+  UtAccountHeader({super.key, required this.accountItem});
 
   @override
   Widget build(BuildContext context) {

@@ -78,7 +78,9 @@ class _SidemenuScafold extends State<SidemenuScafold> {
       drawer: UtSidemenu.ofDrawer(
         context: context,
         selected: selectItem,
-        onSelect: (value) => selectItem = value,
+        onSelect: (value) => setState(() {
+          selectItem = value;
+        }),
         accountItem: buildAccountItem(context, widget.title),
         sidemenuItems: buildSiedemenuItems(),
       ),
@@ -86,7 +88,9 @@ class _SidemenuScafold extends State<SidemenuScafold> {
       body: UtSidemenu.ofExpansion(
         context: context,
         selected: selectItem,
-        onSelect: (value) => selectItem = value,
+        onSelect: (value) => setState(() {
+          selectItem = value;
+        }),
         accountItem: buildAccountItem(context, widget.title),
         sidemenuItems: buildSiedemenuItems(),
         body: widget.child,

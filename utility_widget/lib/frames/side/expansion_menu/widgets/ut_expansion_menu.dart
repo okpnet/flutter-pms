@@ -31,7 +31,12 @@ class UtExpansionMenu extends StatelessWidget with UtSideMixin {
           crossAxisAlignment: CrossAxisAlignment.start,
           // children: [],
           children: [
-            if (header != null) UtLayoutPadding(child: header!),
+            if (header != null)
+              UtLayoutCrevice.margin(
+                direction: UtDirection.vertical,
+                child: header!,
+              ),
+            // ?header,
             ...[
               for (var item in items)
                 buildBranchMenuItem(item: item, context: context),

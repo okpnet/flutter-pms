@@ -20,11 +20,7 @@ class UtDrawer extends StatelessWidget with UtSideMixin, UtEdgeinsetMixin {
       backgroundColor: backGroundColor(context),
       child: ListView(
         children: [
-          if (header != null)
-            SizedBox(
-              height: accountHeadderHight,
-              child: DrawerHeader(child: header),
-            ),
+          ?header,
           ...[
             for (var item in items)
               buildBranchMenuItem(item: item, context: context),

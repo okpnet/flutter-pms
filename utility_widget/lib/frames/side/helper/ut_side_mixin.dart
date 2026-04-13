@@ -1,4 +1,6 @@
 import 'package:utility_widget/styles/export/ut_widget_design.dart';
+import 'package:utility_widget/styles/layout_model/ut_direction.dart';
+import 'package:utility_widget/styles/ut_style.dart';
 
 import '../ut_sidemenu.dart';
 
@@ -43,17 +45,21 @@ mixin UtSideMixin on Widget {
   Widget buildListtile({
     required UtSideItem item,
     required BuildContext context,
+    required bool hasSelected,
     VoidCallback Function(UtSideItem)? onTapBuilder,
   }) {
-    return ColoredBox(
-      color: item == selectedItem ? hilightColor(context) : Colors.transparent,
-      child: ListTile(
-        selected: item == selectedItem,
-        leading: item.icon,
-        selectedTileColor: hilightColor(context),
-        focusColor: hilightColor(context),
-        title: Text(item.label, style: TextStyle(color: frontColor(context))),
-        onTap: onTapBuilder != null ? onTapBuilder(item) : null,
+    return UtLayoutCrevice.margin(
+      direction: UtDirection.horizontal,
+      child: ColoredBox(
+        color: hasSelected ? hilightColor(context) : Colors.transparent,
+        child: ListTile(
+          selected: item == selectedItem,
+          leading: item.icon,
+          selectedTileColor: hilightColor(context),
+          focusColor: hilightColor(context),
+          title: Text(item.label, style: TextStyle(color: frontColor(context))),
+          onTap: onTapBuilder != null ? onTapBuilder(item) : null,
+        ),
       ),
     );
   }
@@ -73,16 +79,21 @@ mixin UtSideMixin on Widget {
   Widget buildExpansionTile({
     required UtSideItem item,
     required BuildContext context,
+    required bool hasSelected,
     List<Widget> children = const [],
   }) {
-    return ColoredBox(
-      color: item == selectedItem ? hilightColor(context) : Colors.transparent,
-      child: ExpansionTile(
-        backgroundColor: backGroundColor(context),
-        textColor: frontColor(context),
-        title: Text(item.label, style: TextStyle(color: frontColor(context))),
-        leading: item.icon,
-        children: children,
+    return UtLayoutCrevice.margin(
+      direction: UtDirection.horizontal,
+      child: ColoredBox(
+        color: hasSelected ? hilightColor(context) : Colors.transparent,
+        child: ExpansionTile(
+          backgroundColor: backGroundColor(context),
+          initiallyExpanded: hasSelected,
+          textColor: frontColor(context),
+          title: Text(item.label, style: TextStyle(color: frontColor(context))),
+          leading: item.icon,
+          children: children,
+        ),
       ),
     );
   }
@@ -92,15 +103,25 @@ mixin UtSideMixin on Widget {
     required UtSideItem item,
     required BuildContext context,
   }) {
-    return _buildeBranchMenuItemRecursive(item, context);
+    final hasSelected = hasSelectedFind(item);
+    return _buildeBranchMenuItemRecursive(
+      item: item,
+      context: context,
+      hasSelected: hasSelected,
+    );
   }
 
   //再帰
-  Widget _buildeBranchMenuItemRecursive(UtSideItem item, BuildContext context) {
+  Widget _buildeBranchMenuItemRecursive({
+    required UtSideItem item,
+    required BuildContext context,
+    required bool hasSelected,
+  }) {
     if (item.options == null || item.options!.isEmpty) {
       return buildListtile(
         item: item,
         context: context,
+        hasSelected: item == selectedItem,
         onTapBuilder: (item) {
           return () {
             if (onSelectItem != null) {
@@ -115,10 +136,39 @@ mixin UtSideMixin on Widget {
     return buildExpansionTile(
       item: item,
       context: context,
+      hasSelected: hasSelected,
       children: [
         for (var value in item.options!)
-          _buildeBranchMenuItemRecursive(value, context),
+          _buildeBranchMenuItemRecursive(
+            item: value,
+            context: context,
+            hasSelected: hasSelected,
+          ),
       ],
     );
+  }
+
+  ///選択を含んでいるか
+  bool hasSelectedFind(UtSideItem item) {
+    if (selectedItem == null) {
+      return false;
+    }
+    final list = flatToList(item);
+    return list.contains(selectedItem);
+  }
+
+  ///木構造の平坦化
+  List<UtSideItem> flatToList(UtSideItem item) {
+    var result = [item];
+    if (item.options == null || item.options!.isEmpty) {
+      return result;
+    }
+    for (var child in item.options!) {
+      final list = flatToList(child);
+      if (list.isNotEmpty) {
+        list.addAll(list);
+      }
+    }
+    return result;
   }
 }
