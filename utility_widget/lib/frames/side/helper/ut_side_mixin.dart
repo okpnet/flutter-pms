@@ -3,6 +3,7 @@ import 'package:utility_widget/styles/export/ut_widget_design.dart';
 import '../ut_sidemenu.dart';
 
 mixin UtSideMixin on Widget {
+  final double accountHeadderHight = 50 + 10;
   //アカウントアイコンのサイズ
   final ({double width, double height}) iconSize = (width: 50, height: 50);
   //アカウント名のフォントサイズの拡大率
@@ -39,9 +40,10 @@ mixin UtSideMixin on Widget {
   }
 
   //Listtile生成
-  Widget createListtile({
+  Widget buildListtile({
     required UtSideItem item,
     required BuildContext context,
+    VoidCallback Function(UtSideItem)? onTapBuilder,
   }) {
     return ColoredBox(
       color: item == selectedItem ? hilightColor(context) : Colors.transparent,
@@ -51,18 +53,13 @@ mixin UtSideMixin on Widget {
         selectedTileColor: hilightColor(context),
         focusColor: hilightColor(context),
         title: Text(item.label, style: TextStyle(color: frontColor(context))),
-        onTap: () {
-          if (onSelectItem != null) {
-            onSelectItem!(item);
-          }
-          item.onPress();
-        },
+        onTap: onTapBuilder != null ? onTapBuilder(item) : null,
       ),
     );
   }
 
   //メニューボタン生成
-  MenuItemButton createMenubutton({
+  MenuItemButton buildMenubutton({
     required UtSideItem item,
     required BuildContext context,
   }) {
@@ -73,7 +70,7 @@ mixin UtSideMixin on Widget {
     );
   }
 
-  Widget createExpansionTile({
+  Widget buildExpansionTile({
     required UtSideItem item,
     required BuildContext context,
     List<Widget> children = const [],
@@ -91,25 +88,36 @@ mixin UtSideMixin on Widget {
   }
 
   //ツリーメニュー生成
-  Widget createBranchMenuItem({
+  Widget buildBranchMenuItem({
     required UtSideItem item,
     required BuildContext context,
   }) {
-    return _createBranchMenuItemRecursive(item, context);
+    return _buildeBranchMenuItemRecursive(item, context);
   }
 
   //再帰
-  Widget _createBranchMenuItemRecursive(UtSideItem item, BuildContext context) {
+  Widget _buildeBranchMenuItemRecursive(UtSideItem item, BuildContext context) {
     if (item.options == null || item.options!.isEmpty) {
-      return createListtile(item: item, context: context);
+      return buildListtile(
+        item: item,
+        context: context,
+        onTapBuilder: (item) {
+          return () {
+            if (onSelectItem != null) {
+              onSelectItem!(item);
+            }
+            item.onPress();
+          };
+        },
+      );
     }
 
-    return createExpansionTile(
+    return buildExpansionTile(
       item: item,
       context: context,
       children: [
         for (var value in item.options!)
-          _createBranchMenuItemRecursive(value, context),
+          _buildeBranchMenuItemRecursive(value, context),
       ],
     );
   }

@@ -1,6 +1,6 @@
 part of '../ut_drawer.dart';
 
-class UtDrawer extends StatelessWidget with UtSideMixin {
+class UtDrawer extends StatelessWidget with UtSideMixin, UtEdgeinsetMixin {
   final UtSideItem? selected;
   final Widget? header;
   final List<UtSideItem> items;
@@ -20,10 +20,14 @@ class UtDrawer extends StatelessWidget with UtSideMixin {
       backgroundColor: backGroundColor(context),
       child: ListView(
         children: [
-          if (header != null) DrawerHeader(child: header),
+          if (header != null)
+            SizedBox(
+              height: accountHeadderHight,
+              child: DrawerHeader(child: header),
+            ),
           ...[
             for (var item in items)
-              createBranchMenuItem(item: item, context: context),
+              buildBranchMenuItem(item: item, context: context),
           ],
         ],
       ),

@@ -18,7 +18,7 @@ class UtSidemenu {
             selected: selected,
             items: sidemenuItems,
             header: accountItem != null
-                ? UtAccountHeader(accountItem: accountItem)
+                ? UtAccountHeader(accountItem: accountItem, isNarrowWidth: true)
                 : null,
           )
         : null;
@@ -42,7 +42,10 @@ class UtSidemenu {
                 selected: selected,
                 onSelect: onSelect,
                 header: accountItem != null
-                    ? UtAccountHeader(accountItem: accountItem)
+                    ? UtAccountHeader(
+                        accountItem: accountItem,
+                        isNarrowWidth: false,
+                      )
                     : null,
                 items: sidemenuItems,
               ),

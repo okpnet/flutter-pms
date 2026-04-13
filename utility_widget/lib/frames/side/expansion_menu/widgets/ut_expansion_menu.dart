@@ -34,7 +34,7 @@ class UtExpansionMenu extends StatelessWidget with UtSideMixin {
             if (header != null) UtLayoutPadding(child: header!),
             ...[
               for (var item in items)
-                createBranchMenuItem(item: item, context: context),
+                buildBranchMenuItem(item: item, context: context),
             ],
           ],
         ),

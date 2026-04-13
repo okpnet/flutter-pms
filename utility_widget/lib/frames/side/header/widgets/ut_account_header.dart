@@ -3,22 +3,26 @@ part of '../ut_header.dart';
 class UtAccountHeader extends StatelessWidget
     with UtSideMixin, UtEdgeinsetMixin {
   final UtAccontItem accountItem;
-  UtAccountHeader({super.key, required this.accountItem});
+  final bool isNarrowWidth;
+  UtAccountHeader({
+    super.key,
+    required this.accountItem,
+    required this.isNarrowWidth,
+  });
 
   @override
   Widget build(BuildContext context) {
     final bgColor = colorScheme(context).surfaceContainerHighest;
-    final height = iconSize.height + defaultPadding * 2;
     return Container(
       color: bgColor, //backGroundColor(context),
-      height: height,
+      height: accountHeadderHight,
       padding: edgeInsetsBuilder(direction: UtDirection.vertical),
       child: ListTile(
         tileColor: bgColor,
         leading: accountIconBuilder(),
         title: titleBuilder(context),
-        trailing: trailingBuilder(),
-        // dense: true,
+        trailing: trailingPopupMenuBuilder(),
+        //dense: true,
       ),
     );
   }
@@ -48,10 +52,11 @@ class UtAccountHeader extends StatelessWidget
     ),
   );
 
-  Widget? trailingBuilder() {
+  Widget? trailingPopupMenuBuilder() {
     if (accountItem.options == null || accountItem.options!.isEmpty) {
       return null;
     }
+
     return PopupMenuButton(
       icon: Icon(Icons.arrow_drop_down),
       itemBuilder: (BuildContext context) => <PopupMenuEntry<UtSideItem>>[
