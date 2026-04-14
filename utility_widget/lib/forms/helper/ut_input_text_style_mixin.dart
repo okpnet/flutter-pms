@@ -1,5 +1,5 @@
-import 'package:utility_widget/styles/export/ut_widget_design.dart';
-
+// Project imports:
+import '../../styles/export/ut_widget_design.dart';
 import '../../styles/helper/ut_mixin_widget_helper.dart';
 
 mixin UtInputTextStyleMixin on Widget {

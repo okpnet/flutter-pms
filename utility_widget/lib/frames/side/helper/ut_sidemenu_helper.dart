@@ -1,6 +1,6 @@
 part of '../ut_sidemenu.dart';
 
-class UtSidemenu {
+class UtSidemenuHelper {
   //Drawerが有効のとき、body直下にExpandが存在すると例外が発生する。body直下にExpandを置かなければ問題は発生しない。
   static Widget? ofDrawer({
     Key? key,

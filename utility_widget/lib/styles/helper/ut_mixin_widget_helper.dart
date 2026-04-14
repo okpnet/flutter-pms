@@ -1,5 +1,5 @@
 // Project imports:
-import 'package:utility_widget/styles/export/ut_widget_design.dart';
+import '../export/ut_widget_design.dart';
 
 class UtMixinWidgetHelper {
   //   static Color bg(BuildContext context) =>

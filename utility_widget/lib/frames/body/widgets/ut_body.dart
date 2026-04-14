@@ -1,7 +1,7 @@
 part of '../ut_body.dart';
 
 class UtBody extends StatelessWidget with UtEdgeinsetMixin {
-  final String? title;
+  final Widget? title;
   final Widget body;
   final UtDirection paddingDirection;
   UtBody({
@@ -48,19 +48,10 @@ class UtBody extends StatelessWidget with UtEdgeinsetMixin {
             ),
             child: Align(
               alignment: AlignmentGeometry.centerLeft,
-              child: Text(
-                title!,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontSize: UtFontScale.of(
-                    context: context,
-                    scale: UtBodyConstant.titleFontSizeScale,
-                  ),
-                ),
-              ),
+              child: title!,
             ),
           ),
+
         Padding(
           padding: edgeInsetsBuilder(
             direction: isMobile ? UtDirection.all : UtDirection.vertical,

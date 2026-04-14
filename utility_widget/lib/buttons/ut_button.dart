@@ -1,7 +1,8 @@
 // Project imports:
-import 'package:utility_widget/buttons/helper/ut_button_mixin.dart';
-import 'package:utility_widget/styles/export/ut_widget_design.dart';
-import 'package:utility_widget/styles/ut_style.dart';
+import '../styles/constans/ut_color_style.dart';
+import '../styles/export/ut_widget_design.dart';
+import '../styles/ut_style.dart';
+import 'helper/ut_button_mixin.dart';
 
 part 'constants/ut_button_enums.dart';
 part 'widgets/ut_button.dart';

@@ -1,7 +1,8 @@
-import 'package:utility_widget/styles/export/ut_widget_design.dart';
-import 'package:utility_widget/styles/layout_model/ut_direction.dart';
-import 'package:utility_widget/styles/ut_style.dart';
-
+// Project imports:
+import '../../../styles/constans/ut_style_default_constant.dart';
+import '../../../styles/export/ut_widget_design.dart';
+import '../../../styles/layout_model/ut_direction.dart';
+import '../../../styles/ut_style.dart';
 import '../ut_sidemenu.dart';
 
 mixin UtSideMixin on Widget {
@@ -18,6 +19,10 @@ mixin UtSideMixin on Widget {
   final double headerNameMaxWidth = 160;
   //アカウントアイコンとアカウント名のスペース
   final double accountPaddingSpace = 12;
+
+  ///レベル毎の下位のスペース
+  final double levelSpace = 10;
+
   //現在選択されているメニューアイテムゲッター
   UtSideItem? get selectedItem => null;
   //メニューアイテム選択を実行したときのメソッドのゲッター
@@ -41,19 +46,35 @@ mixin UtSideMixin on Widget {
     return width > headerMaxWidth ? width : headerMaxWidth;
   }
 
+  ///レベル深さで左側
+  EdgeInsets _buildEdgeinsetsFromLevel(int level) {
+    final defaultValue = UtStyleDefaultConstant.edgeInsetsDefaultValue;
+    return level == 1
+        ? EdgeInsets.all(defaultValue)
+        : EdgeInsets.only(
+            left: levelSpace * level,
+            bottom: defaultValue,
+            right: defaultValue,
+            top: defaultValue,
+          );
+  }
+
   //Listtile生成
   Widget buildListtile({
     required UtSideItem item,
     required BuildContext context,
     required bool hasSelected,
+    required int level,
     VoidCallback Function(UtSideItem)? onTapBuilder,
   }) {
-    return UtLayoutCrevice.margin(
-      direction: UtDirection.horizontal,
-      child: ColoredBox(
-        color: hasSelected ? hilightColor(context) : Colors.transparent,
+    final padding = _buildEdgeinsetsFromLevel(level);
+    return ColoredBox(
+      color: hasSelected ? hilightColor(context) : Colors.transparent,
+      child: UtLayoutCrevice.margin(
+        direction: UtDirection.vertical,
         child: ListTile(
           selected: item == selectedItem,
+          contentPadding: padding,
           leading: item.icon,
           selectedTileColor: hilightColor(context),
           focusColor: hilightColor(context),
@@ -80,13 +101,21 @@ mixin UtSideMixin on Widget {
     required UtSideItem item,
     required BuildContext context,
     required bool hasSelected,
+    required int level,
     List<Widget> children = const [],
   }) {
-    return UtLayoutCrevice.margin(
-      direction: UtDirection.horizontal,
-      child: ColoredBox(
-        color: hasSelected ? hilightColor(context) : Colors.transparent,
+    return ColoredBox(
+      color: hasSelected ? hilightColor(context) : Colors.transparent,
+      child: UtLayoutCrevice.margin(
+        direction: UtDirection.vertical,
         child: ExpansionTile(
+          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+          collapsedShape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.zero,
+          ),
+          collapsedBackgroundColor: backGroundColor(context),
+          tilePadding: _buildEdgeinsetsFromLevel(level),
+
           backgroundColor: backGroundColor(context),
           initiallyExpanded: hasSelected,
           textColor: frontColor(context),
@@ -103,11 +132,14 @@ mixin UtSideMixin on Widget {
     required UtSideItem item,
     required BuildContext context,
   }) {
-    final hasSelected = hasSelectedFind(item);
+    final addLevelList = flatToList(item, 1);
+    final hasSelected = hasSelectedFind(item, addLevelList);
+
     return _buildeBranchMenuItemRecursive(
       item: item,
       context: context,
       hasSelected: hasSelected,
+      list: addLevelList,
     );
   }
 
@@ -116,12 +148,15 @@ mixin UtSideMixin on Widget {
     required UtSideItem item,
     required BuildContext context,
     required bool hasSelected,
+    required List<({UtSideItem item, int level})> list,
   }) {
+    final level = list.firstWhere((value) => value.item == item).level;
     if (item.options == null || item.options!.isEmpty) {
       return buildListtile(
         item: item,
         context: context,
         hasSelected: item == selectedItem,
+        level: level,
         onTapBuilder: (item) {
           return () {
             if (onSelectItem != null) {
@@ -137,36 +172,40 @@ mixin UtSideMixin on Widget {
       item: item,
       context: context,
       hasSelected: hasSelected,
+      level: level,
       children: [
         for (var value in item.options!)
           _buildeBranchMenuItemRecursive(
             item: value,
             context: context,
             hasSelected: hasSelected,
+            list: list,
           ),
       ],
     );
   }
 
   ///選択を含んでいるか
-  bool hasSelectedFind(UtSideItem item) {
+  bool hasSelectedFind(
+    UtSideItem item,
+    List<({UtSideItem item, int level})> list,
+  ) {
     if (selectedItem == null) {
       return false;
     }
-    final list = flatToList(item);
-    return list.contains(selectedItem);
+    return list.map((value) => value.item).contains(selectedItem);
   }
 
   ///木構造の平坦化
-  List<UtSideItem> flatToList(UtSideItem item) {
-    var result = [item];
+  List<({UtSideItem item, int level})> flatToList(UtSideItem item, int level) {
+    var result = [(item: item, level: level)];
     if (item.options == null || item.options!.isEmpty) {
       return result;
     }
     for (var child in item.options!) {
-      final list = flatToList(child);
+      final list = flatToList(child, level + 1);
       if (list.isNotEmpty) {
-        list.addAll(list);
+        result.addAll(list);
       }
     }
     return result;

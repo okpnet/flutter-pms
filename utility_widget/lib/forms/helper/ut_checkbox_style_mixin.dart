@@ -1,4 +1,5 @@
-import 'package:utility_widget/styles/export/ut_widget_design.dart';
+// Project imports:
+import '../../styles/export/ut_widget_design.dart';
 
 mixin UtCheckboxStyleMixin {
   final double borderWidth = 2;

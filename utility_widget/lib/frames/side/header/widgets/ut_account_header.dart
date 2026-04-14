@@ -43,7 +43,10 @@ class UtAccountHeader extends StatelessWidget
     style: TextStyle(
       color: frontColor(context),
       //fontWeight: FontWeight.bold,
-      fontSize: UtFontScale.of(context: context, scale: accountFontSizeScale),
+      fontSize: UtTextHelper.fontScaleOf(
+        context: context,
+        scale: accountFontSizeScale,
+      ),
     ),
   );
 

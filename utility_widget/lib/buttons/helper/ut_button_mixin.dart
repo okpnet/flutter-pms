@@ -1,6 +1,7 @@
-import 'package:utility_widget/buttons/ut_button.dart';
-import 'package:utility_widget/styles/helper/ut_mixin_widget_helper.dart';
-import 'package:utility_widget/styles/export/ut_widget_design.dart';
+// Project imports:
+import '../../styles/export/ut_widget_design.dart';
+import '../../styles/helper/ut_mixin_widget_helper.dart';
+import '../ut_button.dart';
 
 mixin UtButtonMixin on Widget {
   final double elevation = 2;
