@@ -1,7 +1,7 @@
 // Project imports:
 
 // Project imports:
-import '../../frames/body/ut_body.dart';
+import '../constans/ut_body_constant.dart';
 import '../export/ut_widget_design.dart';
 
 class UtTextHelper {

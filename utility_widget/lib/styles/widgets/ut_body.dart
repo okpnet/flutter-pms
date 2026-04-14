@@ -1,4 +1,4 @@
-part of '../ut_body.dart';
+part of '../ut_style.dart';
 
 class UtBody extends StatelessWidget with UtEdgeinsetMixin {
   final Widget? title;

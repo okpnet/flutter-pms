@@ -1,6 +1,6 @@
 import 'package:utility_widget/buttons/ut_button.dart';
-import 'package:utility_widget/frames/body/ut_body.dart';
 import 'package:utility_widget/styles/export/ut_widget_design.dart';
+import 'package:utility_widget/styles/ut_style.dart';
 import 'package:utility_widget_example/buttons/buttons_view.dart';
 import 'package:utility_widget_example/fields/fields.dart';
 import 'package:utility_widget_example/loading_indicators/mini_indicator.dart';
