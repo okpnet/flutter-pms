@@ -16,6 +16,8 @@ class UtTextInput extends StatelessWidget with UtInputTextStyleMixin {
   final Widget? label;
   final UtColorStyle type;
   final String? hint;
+  final bool obscureText;
+  final String obscuringCharacter;
 
   const UtTextInput({
     super.key,
@@ -34,6 +36,8 @@ class UtTextInput extends StatelessWidget with UtInputTextStyleMixin {
     this.label,
     this.type = UtColorStyle.primary,
     this.hint,
+    this.obscureText = false,
+    this.obscuringCharacter = '•',
   });
 
   @override
@@ -66,6 +70,8 @@ class UtTextInput extends StatelessWidget with UtInputTextStyleMixin {
       enabled: enabled,
       onEditingComplete: onEditingComplete,
       onFieldSubmitted: onFieldSubmitted,
+      obscureText: obscureText,
+      obscuringCharacter: obscuringCharacter,
     );
   }
 
@@ -84,6 +90,8 @@ class UtTextInput extends StatelessWidget with UtInputTextStyleMixin {
     ValueChanged<String>? onFieldSubmitted,
     bool? enabled,
     Widget? label,
+    bool obscureText = false,
+    String obscuringCharacter = '•',
   }) => UtTextInput(
     key: key,
     enabled: enabled,
@@ -99,5 +107,40 @@ class UtTextInput extends StatelessWidget with UtInputTextStyleMixin {
     prefixIcon: prefixIcon,
     suffixIcon: suffixIcon,
     type: UtColorStyle.primary,
+    obscureText: obscureText,
+    obscuringCharacter: obscuringCharacter,
+  );
+
+  factory UtTextInput.primaryPassword({
+    Key? key,
+    String? initialValue,
+    bool expands = false,
+    int? maxLength,
+    Icon? suffixIcon,
+    Icon? prefixIcon,
+    TextInputType? keyboardType,
+    ValueChanged<String>? onChanged,
+    VoidCallback? onEditingComplete,
+    ValueChanged<String>? onFieldSubmitted,
+    bool? enabled,
+    Widget? label,
+    String obscuringCharacter = '•',
+  }) => UtTextInput(
+    key: key,
+    enabled: enabled,
+    initialValue: initialValue,
+    keyboardType: keyboardType,
+    label: label,
+    maxLength: maxLength,
+    maxLines: 1,
+    minLines: 1,
+    onChanged: onChanged,
+    onEditingComplete: onEditingComplete,
+    onFieldSubmitted: onFieldSubmitted,
+    prefixIcon: prefixIcon,
+    suffixIcon: suffixIcon,
+    type: UtColorStyle.primary,
+    obscureText: true,
+    obscuringCharacter: obscuringCharacter,
   );
 }

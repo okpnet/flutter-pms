@@ -1,3 +1,4 @@
+import 'package:utility_widget/buttons/ut_button.dart';
 import 'package:utility_widget/forms/ut_input_field.dart';
 import 'package:utility_widget/styles/constans/ut_grid_type.dart';
 import 'package:utility_widget/styles/export/ut_widget_design.dart';
@@ -23,43 +24,80 @@ class _Login extends State<Login> with AppBarMixin {
       appBar: buildAppbar(context),
       body: UtBody(
         title: subTitle('ログイン', context),
-        body: UtWrapGrid.grid(
-          alignment: WrapAlignment.center,
-          rowWidgetLength: 3,
-          children: [
-            UtGridItem(
-              itemLength: 1,
-              align: AlignmentGeometry.centerRight,
-              enableWidthType: UtGridEnableWidthType.onlyWide,
-              child: Text(
-                'test',
-                style: TextStyle(backgroundColor: Colors.blue),
-              ),
-            ),
-            UtGridItem(
-              itemLength: 1,
-              align: AlignmentGeometry.centerRight,
-              child: UtTextInput.primary(
-                initialValue: widget.name,
-                label: Text('ID'),
-                onChanged: (value) => setState(() {
-                  name = value;
-                }),
-                maxLength: 16,
-              ),
-            ),
-            UtGridItem(
-              itemLength: 1,
-              align: AlignmentGeometry.centerRight,
-              enableWidthType: UtGridEnableWidthType.onlyWide,
-              child: Text(
-                'test',
-                style: TextStyle(backgroundColor: Colors.blue),
-              ),
-            ),
-          ],
+        body: Column(children: [idWidget(), passWidget(), loginBtnWidget()]),
+      ),
+    );
+  }
+
+  Widget passWidget() {
+    return widgetFrame(
+      UtGridItem(
+        itemLength: 1,
+        align: AlignmentGeometry.centerRight,
+        child: UtTextInput.primaryPassword(
+          initialValue: widget.name,
+          label: Text('Pass'),
+          onChanged: (value) => setState(() {
+            name = value;
+          }),
+          maxLength: 16,
         ),
       ),
+    );
+  }
+
+  Widget idWidget() {
+    return widgetFrame(
+      UtGridItem(
+        itemLength: 1,
+        align: AlignmentGeometry.centerRight,
+        child: UtTextInput.primary(
+          initialValue: widget.name,
+          label: Text('ID'),
+          onChanged: (value) => setState(() {
+            name = value;
+          }),
+          maxLength: 16,
+        ),
+      ),
+    );
+  }
+
+  Widget loginBtnWidget() {
+    return widgetFrame(
+      UtGridItem(
+        itemLength: 1,
+        align: AlignmentGeometry.center,
+        mobileAlign: AlignmentGeometry.center,
+        child: SizedBox(
+          width: double.infinity,
+          child: UtButton.primaryWithIcon(
+            label: 'ログイン',
+            onPressed: () {},
+            icon: Icon(Icons.login),
+          ),
+        ),
+      ),
+    );
+  }
+
+  UtWrapGrid widgetFrame(UtGridItem contents) {
+    return UtWrapGrid.grid(
+      alignment: WrapAlignment.center,
+      rowWidgetLength: 3,
+      children: [
+        UtGridItem(
+          itemLength: 1,
+          enableWidthType: UtGridEnableWidthType.onlyWide,
+          child: SizedBox.shrink(),
+        ),
+        contents,
+        UtGridItem(
+          itemLength: 1,
+          enableWidthType: UtGridEnableWidthType.onlyWide,
+          child: SizedBox.shrink(),
+        ),
+      ],
     );
   }
 }

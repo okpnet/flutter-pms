@@ -19,12 +19,10 @@ class UtGridItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = UtLayoutHelper.isMobile(context);
     return SizedBox(
-      child: child, //Align(alignment: align, child: child),
+      width: double.infinity,
+      child: Align(alignment: isMobile ? mobileAlign : align, child: child),
     );
-  }
-
-  Widget buildMobile(BuildContext context) {
-    return Expanded(child: child);
   }
 }

@@ -5,12 +5,13 @@ class UtWrapGrid extends StatelessWidget {
   final int rowWidgetLength;
   final WrapAlignment alignment;
   final List<UtGridItem> children;
-
+  final double minWidth;
   const UtWrapGrid._({
     super.key,
     required this.rowWidgetLength,
     required this.children,
     this.alignment = WrapAlignment.center,
+    this.minWidth = 0,
   });
 
   factory UtWrapGrid.grid({
@@ -18,6 +19,7 @@ class UtWrapGrid extends StatelessWidget {
     int rowWidgetLength = 12,
     WrapAlignment alignment = WrapAlignment.center,
     required List<UtGridItem> children,
+    double minWidth = 0,
   }) {
     final sum = children.map((t) => t.itemLength).reduce((a, b) => a + b);
     if (sum > rowWidgetLength) {
@@ -44,20 +46,23 @@ class UtWrapGrid extends StatelessWidget {
   Widget wide(BuildContext context) {
     return LayoutBuilder(
       builder: (context, _constrains) {
-        final conttentsWidth = _constrains.widthConstraints().maxWidth;
-        final itemWidth = conttentsWidth / rowWidgetLength;
+        final space = UtStyleDefaultConstant.edgeInsetsDefaultValue;
+        final totalSpacing = (children.length - 1) * space;
+        final contentsWidth = _constrains.widthConstraints().maxWidth;
+        final itemWidth = (contentsWidth - totalSpacing) / rowWidgetLength;
+        final width = minWidth > itemWidth ? minWidth : itemWidth;
         // final isFullwidth = UtLayoutHelper.isFullwidthFromWidth(width);
         return Wrap(
           alignment: alignment,
           direction: Axis.horizontal,
-          spacing: UtStyleDefaultConstant.edgeInsetsDefaultValue,
-          runSpacing: UtStyleDefaultConstant.edgeInsetsDefaultValue,
+          spacing: space,
+          runSpacing: space,
           runAlignment: WrapAlignment.start,
           children: [
             for (var child in children.where(
               (t) => t.enableWidthType != UtGridEnableWidthType.onlyMobile,
             ))
-              SizedBox(width: itemWidth * child.itemLength, child: child),
+              SizedBox(width: width * child.itemLength, child: child),
           ],
         );
       },
