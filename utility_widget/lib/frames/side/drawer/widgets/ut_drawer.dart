@@ -16,16 +16,21 @@ class UtDrawer extends StatelessWidget with UtSideMixin, UtEdgeinsetMixin {
 
   @override
   Widget build(BuildContext context) {
+    final scrollController = ScrollController();
     return Drawer(
       backgroundColor: backGroundColor(context),
-      child: ListView(
-        children: [
-          ?header,
-          ...[
-            for (var item in items)
-              buildBranchMenuItem(item: item, context: context),
+      child: Scrollbar(
+        controller: scrollController,
+        child: ListView(
+          controller: scrollController,
+          children: [
+            ?header,
+            ...[
+              for (var item in items)
+                buildBranchMenuItem(item: item, context: context),
+            ],
           ],
-        ],
+        ),
       ),
     );
   }

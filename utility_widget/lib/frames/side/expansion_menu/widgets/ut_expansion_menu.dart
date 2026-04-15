@@ -27,21 +27,23 @@ class UtExpansionMenu extends StatelessWidget with UtSideMixin {
       child: ConstrainedBox(
         constraints: BoxConstraints(maxWidth: menuWidth(context)),
 
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          // children: [],
-          children: [
-            if (header != null)
-              UtLayoutCrevice.margin(
-                direction: UtDirection.vertical,
-                child: header!,
-              ),
-            // ?header,
-            ...[
-              for (var item in items)
-                buildBranchMenuItem(item: item, context: context),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            // children: [],
+            children: [
+              if (header != null)
+                UtLayoutCrevice.margin(
+                  direction: UtDirection.vertical,
+                  child: header!,
+                ),
+              // ?header,
+              ...[
+                for (var item in items)
+                  buildBranchMenuItem(item: item, context: context),
+              ],
             ],
-          ],
+          ),
         ),
       ),
     );

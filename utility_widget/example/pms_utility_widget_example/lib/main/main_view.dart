@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:utility_widget/buttons/ut_button.dart';
+import 'package:utility_widget/styles/helper/ut_text_helper.dart';
 import 'package:utility_widget/styles/ut_style.dart';
 import 'package:utility_widget_example/buttons/buttons_view.dart';
 import 'package:utility_widget_example/fields/fields.dart';
@@ -16,7 +17,7 @@ class MainView extends StatelessWidget {
     return SidemenuScafold(
       title: 'メインのタイトル',
       child: UtBody(
-        title: 'body',
+        title: Text('body', style: UtTextHelper.buildSubtitleStyle(context)),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
