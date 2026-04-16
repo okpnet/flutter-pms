@@ -1,38 +1,39 @@
 part of '../ut_style.dart';
 
-class UtWrapGrid extends StatelessWidget {
+class UtResponsiveRowWrap extends StatelessWidget {
   @RangeValues(1, 12)
-  final int rowWidgetLength;
+  final int maxCellCount;
   final WrapAlignment alignment;
-  final List<UtGridItem> children;
+  final List<UtResponsiveRowWrapItem> children;
   final double minWidth;
-  const UtWrapGrid._({
+  const UtResponsiveRowWrap._({
     super.key,
-    required this.rowWidgetLength,
+    required this.maxCellCount,
     required this.children,
-    this.alignment = WrapAlignment.center,
+    this.alignment = WrapAlignment.start,
     this.minWidth = 0,
   });
 
-  factory UtWrapGrid.grid({
+  factory UtResponsiveRowWrap.grid({
     Key? key,
-    int rowWidgetLength = 12,
-    WrapAlignment alignment = WrapAlignment.center,
-    required List<UtGridItem> children,
+    int maxCellCount = 12,
+    WrapAlignment alignment = WrapAlignment.start,
+    required List<UtResponsiveRowWrapItem> children,
     double minWidth = 0,
   }) {
-    final sum = children.map((t) => t.itemLength).reduce((a, b) => a + b);
-    if (sum > rowWidgetLength) {
+    final sum = children.sumByInt((t) => t.cellCount);
+    if (sum > maxCellCount) {
       throw RangeError.value(
         sum,
         '@child',
-        'the child itemlength summary is less than @rowWidgetLength.',
+        'the child itemlength summary is less than @maxCellCount.',
       );
     }
-    return UtWrapGrid._(
+    return UtResponsiveRowWrap._(
       key: key,
       alignment: alignment,
-      rowWidgetLength: rowWidgetLength,
+      maxCellCount: maxCellCount,
+      minWidth: minWidth,
       children: children,
     );
   }
@@ -45,13 +46,15 @@ class UtWrapGrid extends StatelessWidget {
 
   Widget wide(BuildContext context) {
     return LayoutBuilder(
-      builder: (context, _constrains) {
+      builder: (_, _constrains) {
         final space = UtStyleDefaultConstant.edgeInsetsDefaultValue;
-        final totalSpacing = (children.length - 1) * space;
+        final totalSpacing = maxCellCount * space;
         final contentsWidth = _constrains.widthConstraints().maxWidth;
-        final itemWidth = (contentsWidth - totalSpacing) / rowWidgetLength;
+        final itemWidth = (contentsWidth - totalSpacing) / maxCellCount;
         final width = minWidth > itemWidth ? minWidth : itemWidth;
-        // final isFullwidth = UtLayoutHelper.isFullwidthFromWidth(width);
+        final sum = children.sumByInt((t) => t.cellCount);
+        final shortage = maxCellCount - sum;
+
         return Wrap(
           alignment: alignment,
           direction: Axis.horizontal,
@@ -62,7 +65,10 @@ class UtWrapGrid extends StatelessWidget {
             for (var child in children.where(
               (t) => t.enableWidthType != UtGridEnableWidthType.onlyMobile,
             ))
-              SizedBox(width: width * child.itemLength, child: child),
+              SizedBox(width: width * child.cellCount, child: child),
+            if (shortage > 0)
+              for (int index = 0; shortage > index; index++)
+                SizedBox(width: width, child: SizedBox.shrink()),
           ],
         );
       },

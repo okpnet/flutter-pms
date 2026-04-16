@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:utility_widget/buttons/ut_button.dart';
 import 'package:utility_widget/forms/ut_input_field.dart';
 import 'package:utility_widget/styles/constans/ut_grid_type.dart';
@@ -16,7 +18,26 @@ class Login extends StatefulWidget {
 class _Login extends State<Login> with AppBarMixin {
   String? name;
   String? password;
+  Timer? timer;
+  bool isLoading = false;
+
   _Login();
+
+  @override
+  void initState() {
+    super.initState();
+
+    ///ダミー遅延処理用のタイマー
+    timer = Timer(const Duration(seconds: 5), () {
+      Navigator.of(context).pushAndRemoveUntil(newRoute, predicate);
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    timer?.cancel();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,80 +45,66 @@ class _Login extends State<Login> with AppBarMixin {
       appBar: buildAppbar(context),
       body: UtBody(
         title: subTitle('ログイン', context),
-        body: Column(children: [idWidget(), passWidget(), loginBtnWidget()]),
-      ),
-    );
-  }
-
-  Widget passWidget() {
-    return widgetFrame(
-      UtGridItem(
-        itemLength: 1,
-        align: AlignmentGeometry.centerRight,
-        child: UtTextInput.primaryPassword(
-          initialValue: widget.name,
-          label: Text('Pass'),
-          onChanged: (value) => setState(() {
-            name = value;
-          }),
-          maxLength: 16,
+        body: Column(
+          children: [
+            UtResponsiveRowWrap.grid(
+              maxCellCount: 3,
+              children: [
+                UtResponsiveRowWrapItem.offset(offsetLength: 1),
+                UtResponsiveRowWrapItem(
+                  cellCount: 1,
+                  align: AlignmentGeometry.centerRight,
+                  child: UtTextInput.primary(
+                    initialValue: widget.name,
+                    label: Text('ID'),
+                    onChanged: (value) => setState(() {
+                      name = value;
+                    }),
+                    maxLength: 16,
+                  ),
+                ),
+              ],
+            ),
+            UtResponsiveRowWrap.grid(
+              maxCellCount: 3,
+              children: [
+                UtResponsiveRowWrapItem.offset(offsetLength: 1),
+                UtResponsiveRowWrapItem(
+                  cellCount: 1,
+                  align: AlignmentGeometry.centerRight,
+                  child: UtTextInput.primaryPassword(
+                    initialValue: widget.name,
+                    label: Text('PASSWORD'),
+                    onChanged: (value) => setState(() {
+                      name = value;
+                    }),
+                    maxLength: 16,
+                  ),
+                ),
+              ],
+            ),
+            UtResponsiveRowWrap.grid(
+              maxCellCount: 3,
+              children: [
+                UtResponsiveRowWrapItem.offset(offsetLength: 1),
+                UtResponsiveRowWrapItem(
+                  cellCount: 1,
+                  align: AlignmentGeometry.center,
+                  mobileAlign: AlignmentGeometry.center,
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: UtButton.primaryWithIcon(
+                      label: 'ログイン',
+                      onPressed: () {},
+                      icon: Icon(Icons.login),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
-    );
-  }
-
-  Widget idWidget() {
-    return widgetFrame(
-      UtGridItem(
-        itemLength: 1,
-        align: AlignmentGeometry.centerRight,
-        child: UtTextInput.primary(
-          initialValue: widget.name,
-          label: Text('ID'),
-          onChanged: (value) => setState(() {
-            name = value;
-          }),
-          maxLength: 16,
-        ),
-      ),
-    );
-  }
-
-  Widget loginBtnWidget() {
-    return widgetFrame(
-      UtGridItem(
-        itemLength: 1,
-        align: AlignmentGeometry.center,
-        mobileAlign: AlignmentGeometry.center,
-        child: SizedBox(
-          width: double.infinity,
-          child: UtButton.primaryWithIcon(
-            label: 'ログイン',
-            onPressed: () {},
-            icon: Icon(Icons.login),
-          ),
-        ),
-      ),
-    );
-  }
-
-  UtWrapGrid widgetFrame(UtGridItem contents) {
-    return UtWrapGrid.grid(
-      alignment: WrapAlignment.center,
-      rowWidgetLength: 3,
-      children: [
-        UtGridItem(
-          itemLength: 1,
-          enableWidthType: UtGridEnableWidthType.onlyWide,
-          child: SizedBox.shrink(),
-        ),
-        contents,
-        UtGridItem(
-          itemLength: 1,
-          enableWidthType: UtGridEnableWidthType.onlyWide,
-          child: SizedBox.shrink(),
-        ),
-      ],
     );
   }
 }

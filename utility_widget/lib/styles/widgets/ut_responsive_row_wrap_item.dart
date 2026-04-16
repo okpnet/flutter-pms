@@ -1,19 +1,19 @@
 part of '../ut_style.dart';
 
-class UtGridItem extends StatelessWidget {
+class UtResponsiveRowWrapItem extends StatelessWidget {
   final AlignmentGeometry align;
   final AlignmentGeometry mobileAlign;
   @RangeValues(1, 12)
-  final int itemLength;
+  final int cellCount;
   final UtGridEnableWidthType enableWidthType;
   final Widget child;
 
-  const UtGridItem({
+  const UtResponsiveRowWrapItem({
     super.key,
     required this.child,
     this.align = AlignmentGeometry.center,
     this.mobileAlign = AlignmentGeometry.centerLeft,
-    this.itemLength = 1,
+    this.cellCount = 1,
     this.enableWidthType = UtGridEnableWidthType.enableAll,
   });
 
@@ -23,6 +23,19 @@ class UtGridItem extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: Align(alignment: isMobile ? mobileAlign : align, child: child),
+    );
+  }
+
+  factory UtResponsiveRowWrapItem.offset({
+    Key? key,
+    required int offsetLength,
+    UtGridEnableWidthType enableWidthType = UtGridEnableWidthType.onlyWide,
+  }) {
+    return UtResponsiveRowWrapItem(
+      key: key,
+      cellCount: offsetLength,
+      enableWidthType: enableWidthType,
+      child: SizedBox.shrink(),
     );
   }
 }
