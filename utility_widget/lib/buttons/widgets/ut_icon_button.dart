@@ -4,7 +4,7 @@ class UtIconButton extends StatelessWidget with UtButtonMixin {
   final Icon icon;
   final UtColorStyle type;
   final VoidCallback onPressed;
-  final UtButtonSize size;
+  final UtButtonIconSize size;
   final String? hint;
 
   UtIconButton({
@@ -25,6 +25,70 @@ class UtIconButton extends StatelessWidget with UtButtonMixin {
     };
     return UtLayoutCrevice.margin(
       child: hint != null ? UtTooltip(title: hint!, child: body) : body,
+    );
+  }
+
+  //プライマリアイコンボタンスタイルヘルパー
+  ButtonStyle primaryIcon(
+    BuildContext context, {
+    UtButtonIconSize size = UtButtonIconSize.small,
+  }) {
+    final background = bg(context);
+    final foreground = fg(context);
+
+    return ElevatedButton.styleFrom(
+      backgroundColor: background,
+      foregroundColor: foreground,
+      elevation: elevation,
+      padding: EdgeInsets.symmetric(
+        vertical: size.iconPadingSize,
+        horizontal: size.iconPadingSize,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: UtMixinWidgetHelper.defaultRadius(),
+      ),
+    );
+  }
+
+  //セカンダリアイコンボタンスタイルヘルパー
+  ButtonStyle secondaryIcon(
+    BuildContext context, {
+    UtButtonIconSize size = UtButtonIconSize.small,
+  }) {
+    final background = bg(context);
+    // final foreground = fg(context);
+
+    return OutlinedButton.styleFrom(
+      foregroundColor: background,
+      side: BorderSide(color: background),
+      elevation: elevation,
+      padding: EdgeInsets.symmetric(
+        vertical: size.iconPadingSize,
+        horizontal: size.iconPadingSize,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: UtMixinWidgetHelper.defaultRadius(),
+      ),
+    );
+  }
+
+  //ターシャリアイコンボタンスタイルヘルパー
+  ButtonStyle tertiaryIcon(
+    BuildContext context, {
+    UtButtonIconSize size = UtButtonIconSize.small,
+  }) {
+    final background = bg(context);
+    // final foreground = fg(context);
+
+    return TextButton.styleFrom(
+      foregroundColor: background,
+      padding: EdgeInsets.symmetric(
+        vertical: size.iconPadingSize,
+        horizontal: size.iconPadingSize,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: UtMixinWidgetHelper.defaultRadius(),
+      ),
     );
   }
 
@@ -59,7 +123,7 @@ class UtIconButton extends StatelessWidget with UtButtonMixin {
     Key? key,
     required Icon icon,
     required VoidCallback onPressed,
-    required UtButtonSize size,
+    required UtButtonIconSize size,
     Tooltip? tooltip,
   }) => UtIconButton(
     key: key,
@@ -73,7 +137,7 @@ class UtIconButton extends StatelessWidget with UtButtonMixin {
     Key? key,
     required Icon icon,
     required VoidCallback onPressed,
-    required UtButtonSize size,
+    required UtButtonIconSize size,
     Tooltip? tooltip,
   }) => UtIconButton(
     key: key,
@@ -87,7 +151,7 @@ class UtIconButton extends StatelessWidget with UtButtonMixin {
     Key? key,
     required Icon icon,
     required VoidCallback onPressed,
-    required UtButtonSize size,
+    required UtButtonIconSize size,
     Tooltip? tooltip,
   }) => UtIconButton(
     key: key,

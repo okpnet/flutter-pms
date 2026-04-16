@@ -28,9 +28,9 @@ class _Login extends State<Login> with AppBarMixin {
     super.initState();
 
     ///ダミー遅延処理用のタイマー
-    timer = Timer(const Duration(seconds: 5), () {
-      Navigator.of(context).pushAndRemoveUntil(newRoute, predicate);
-    });
+    // timer = Timer(const Duration(seconds: 5), () {
+    //   Navigator.of(context).pushAndRemoveUntil(newRoute, predicate);
+    // });
   }
 
   @override
@@ -44,6 +44,7 @@ class _Login extends State<Login> with AppBarMixin {
     return Scaffold(
       appBar: buildAppbar(context),
       body: UtBody(
+        titleAign: AlignmentGeometry.center,
         title: subTitle('ログイン', context),
         body: Column(
           children: [
@@ -91,14 +92,19 @@ class _Login extends State<Login> with AppBarMixin {
                   cellCount: 1,
                   align: AlignmentGeometry.center,
                   mobileAlign: AlignmentGeometry.center,
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: UtButton.primaryWithIcon(
-                      label: 'ログイン',
-                      onPressed: () {},
-                      icon: Icon(Icons.login),
-                    ),
+                  child: UtButton.primaryWithIcon(
+                    label: 'ログイン',
+                    onPressed: () {},
+                    icon: Icon(Icons.login),
                   ),
+                  // child: SizedBox(
+                  //   width: double.infinity,
+                  //   child: UtButton.primaryWithIcon(
+                  //     label: 'ログイン',
+                  //     onPressed: () {},
+                  //     icon: Icon(Icons.login),
+                  //   ),
+                  // ),
                 ),
               ],
             ),

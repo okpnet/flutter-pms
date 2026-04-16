@@ -4,11 +4,13 @@ class UtBody extends StatelessWidget with UtEdgeinsetMixin {
   final Widget? title;
   final Widget body;
   final UtDirection paddingDirection;
+  final AlignmentGeometry titleAign;
   UtBody({
     super.key,
     this.title,
     required this.body,
     this.paddingDirection = UtDirection.all,
+    this.titleAign = AlignmentGeometry.centerLeft,
   });
 
   @override
@@ -46,10 +48,7 @@ class UtBody extends StatelessWidget with UtEdgeinsetMixin {
                   : UtDirection.top,
               value: UtBodyConstant.minPaddingSize,
             ),
-            child: Align(
-              alignment: AlignmentGeometry.centerLeft,
-              child: title!,
-            ),
+            child: Align(alignment: titleAign, child: title!),
           ),
 
         Padding(

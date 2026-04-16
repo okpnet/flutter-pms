@@ -6,14 +6,16 @@ class UtButton extends StatelessWidget with UtButtonMixin {
   final UtColorStyle type;
   final VoidCallback onPressed;
   final String? hint;
+  final UtButtonHight hight;
 
-  UtButton({
+  UtButton._({
     super.key,
     this.icon,
     required this.label,
     required this.type,
     required this.onPressed,
     this.hint,
+    this.hight = UtButtonHight.mid,
   });
 
   @override
@@ -25,6 +27,52 @@ class UtButton extends StatelessWidget with UtButtonMixin {
     };
     return UtLayoutCrevice.margin(
       child: hint != null ? UtTooltip(title: hint!, child: body) : body,
+    );
+  }
+
+  ButtonStyle primary(BuildContext context) {
+    final background = bg(context);
+    final foreground = fg(context);
+    return ElevatedButton.styleFrom(
+      backgroundColor: background,
+      foregroundColor: foreground,
+      fixedSize: Size(double.infinity, hight.hight),
+      elevation: elevation,
+      padding: buttonPadding(),
+      shape: RoundedRectangleBorder(
+        borderRadius: UtMixinWidgetHelper.defaultRadius(),
+      ),
+    );
+  }
+
+  //セカンダリボタンスタイルヘルパー
+  ButtonStyle secondary(BuildContext context) {
+    final background = bg(context);
+    // final foreground = fg(context);
+
+    return OutlinedButton.styleFrom(
+      // foregroundColor: background,
+      side: BorderSide(color: background),
+      padding: EdgeInsets.symmetric(vertical: paddingV, horizontal: paddingH),
+      fixedSize: Size(double.infinity, hight.hight),
+      shape: RoundedRectangleBorder(
+        borderRadius: UtMixinWidgetHelper.defaultRadius(),
+      ),
+    );
+  }
+
+  //ターシャリ-ボタンスタイルヘルパー
+  ButtonStyle tertiary(BuildContext context) {
+    //final background = MixinWidgetHelper.bg(context);
+    // final foreground = fg(context);
+
+    return TextButton.styleFrom(
+      // foregroundColor: background,
+      padding: EdgeInsets.symmetric(vertical: paddingV, horizontal: paddingH),
+      fixedSize: Size(double.infinity, hight.hight),
+      shape: RoundedRectangleBorder(
+        borderRadius: UtMixinWidgetHelper.defaultRadius(),
+      ),
     );
   }
 
@@ -83,48 +131,61 @@ class UtButton extends StatelessWidget with UtButtonMixin {
     Key? key,
     required String label,
     required VoidCallback onPressed,
-    Tooltip? tooltip,
-  }) => UtButton(
+    String? hint,
+    UtButtonHight hight = UtButtonHight.mid,
+  }) => UtButton._(
     key: key,
     label: label,
     type: UtColorStyle.primary,
     onPressed: onPressed,
+    hight: hight,
+    hint: hint,
   );
 
   factory UtButton.secondary({
     Key? key,
     required String label,
     required VoidCallback onPressed,
-    Tooltip? tooltip,
-  }) => UtButton(
+    String? hint,
+    UtButtonHight hight = UtButtonHight.mid,
+  }) => UtButton._(
     key: key,
     label: label,
     type: UtColorStyle.secondary,
     onPressed: onPressed,
+    hight: hight,
+    hint: hint,
   );
+
   factory UtButton.tertiary({
     Key? key,
     required String label,
     required VoidCallback onPressed,
-    Tooltip? tooltip,
-  }) => UtButton(
+    String? hint,
+    UtButtonHight hight = UtButtonHight.mid,
+  }) => UtButton._(
     key: key,
     label: label,
     type: UtColorStyle.tertiary,
     onPressed: onPressed,
+    hight: hight,
+    hint: hint,
   );
   factory UtButton.primaryWithIcon({
     Key? key,
     required String label,
     required VoidCallback onPressed,
     required Icon icon,
-    Tooltip? tooltip,
-  }) => UtButton(
+    String? hint,
+    UtButtonHight hight = UtButtonHight.mid,
+  }) => UtButton._(
     key: key,
     label: label,
     icon: icon,
     type: UtColorStyle.primary,
     onPressed: onPressed,
+    hight: hight,
+    hint: hint,
   );
 
   factory UtButton.secondaryWithIcon({
@@ -132,25 +193,31 @@ class UtButton extends StatelessWidget with UtButtonMixin {
     required String label,
     required Icon icon,
     required VoidCallback onPressed,
-    Tooltip? tooltip,
-  }) => UtButton(
+    String? hint,
+    UtButtonHight hight = UtButtonHight.mid,
+  }) => UtButton._(
     key: key,
     label: label,
     icon: icon,
     type: UtColorStyle.secondary,
     onPressed: onPressed,
+    hight: hight,
+    hint: hint,
   );
   factory UtButton.tertiaryWithIcon({
     Key? key,
     required String label,
     required Icon icon,
     required VoidCallback onPressed,
-    Tooltip? tooltip,
-  }) => UtButton(
+    String? hint,
+    UtButtonHight hight = UtButtonHight.mid,
+  }) => UtButton._(
     key: key,
     label: label,
     icon: icon,
     type: UtColorStyle.tertiary,
     onPressed: onPressed,
+    hight: hight,
+    hint: hint,
   );
 }
