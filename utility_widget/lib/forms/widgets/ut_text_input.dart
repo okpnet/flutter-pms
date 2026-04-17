@@ -18,6 +18,7 @@ class UtTextInput extends StatelessWidget with UtInputTextStyleMixin {
   final String? hint;
   final bool obscureText;
   final String obscuringCharacter;
+  final UtInputWidthStyle widthStyle;
 
   const UtTextInput({
     super.key,
@@ -38,6 +39,7 @@ class UtTextInput extends StatelessWidget with UtInputTextStyleMixin {
     this.hint,
     this.obscureText = false,
     this.obscuringCharacter = '•',
+    this.widthStyle = UtInputWidthStyle.infinity,
   });
 
   @override
@@ -47,7 +49,12 @@ class UtTextInput extends StatelessWidget with UtInputTextStyleMixin {
       _ => throw Exception('Not impletement UtTextInput type $type'),
     };
     return UtLayoutCrevice.margin(
-      child: hint != null ? UtTooltip(title: hint!, child: body) : body,
+      child: hint != null
+          ? UtTooltip(
+              title: hint!,
+              child: SizedBox(width: widthStyle.value, child: body),
+            )
+          : SizedBox(width: widthStyle.value, child: body),
     );
   }
 
@@ -59,7 +66,8 @@ class UtTextInput extends StatelessWidget with UtInputTextStyleMixin {
         suffixIcon: suffixIcon,
         prefixIcon: prefixIcon,
         label: label,
-        contentPadding: createPadddingInsets(),
+        // contentPadding: buildPaddingInsets(sizeStyle),
+        isDense: true,
       ),
       keyboardType: keyboardType,
       maxLines: maxLines,
@@ -92,6 +100,7 @@ class UtTextInput extends StatelessWidget with UtInputTextStyleMixin {
     Widget? label,
     bool obscureText = false,
     String obscuringCharacter = '•',
+    UtInputWidthStyle widthStyle = UtInputWidthStyle.infinity,
   }) => UtTextInput(
     key: key,
     enabled: enabled,
@@ -109,6 +118,7 @@ class UtTextInput extends StatelessWidget with UtInputTextStyleMixin {
     type: UtColorStyle.primary,
     obscureText: obscureText,
     obscuringCharacter: obscuringCharacter,
+    widthStyle: widthStyle,
   );
 
   factory UtTextInput.primaryPassword({
@@ -125,6 +135,7 @@ class UtTextInput extends StatelessWidget with UtInputTextStyleMixin {
     bool? enabled,
     Widget? label,
     String obscuringCharacter = '•',
+    UtInputWidthStyle widthStyle = UtInputWidthStyle.infinity,
   }) => UtTextInput(
     key: key,
     enabled: enabled,
@@ -142,5 +153,6 @@ class UtTextInput extends StatelessWidget with UtInputTextStyleMixin {
     type: UtColorStyle.primary,
     obscureText: true,
     obscuringCharacter: obscuringCharacter,
+    widthStyle: widthStyle,
   );
 }

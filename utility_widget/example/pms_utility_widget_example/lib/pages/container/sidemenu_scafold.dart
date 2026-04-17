@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:utility_widget/frames/side/ut_sidemenu.dart';
+import 'package:utility_widget/frames/sidemenu/ut_sidemenu.dart';
+import 'package:utility_widget/frames/scafolds/ut_scafold.dart';
 import 'package:utility_widget/styles/export/ut_widget_design.dart';
 import 'package:utility_widget_example/app_design/logout.dart';
 
@@ -166,28 +167,14 @@ class SidemenuScafold extends StatefulWidget {
 class _SidemenuScafold extends State<SidemenuScafold> with AppBarMixin {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return UtFrameWork(
       appBar: buildAppbar(context),
-      drawer: UtSidemenuHelper.ofDrawer(
-        context: context,
-        selected: selectItem,
-        onSelect: (value) => setState(() {
-          selectItem = value;
-        }),
-        accountItem: buildAccountItem(context, widget.title),
-        sidemenuItems: buildSiedemenuItems(),
-      ),
-      // body: SizedBox.shrink(),
-      body: UtSidemenuHelper.ofExpansion(
-        context: context,
-        selected: selectItem,
-        onSelect: (value) => setState(() {
-          selectItem = value;
-        }),
-        accountItem: buildAccountItem(context, widget.title),
-        sidemenuItems: buildSiedemenuItems(),
-        body: widget.child,
-      ),
+      accountItem: buildAccountItem(context, widget.title),
+      onSelect: (value) => setState(() {
+        selectItem = value;
+      }),
+      sideMenuItems: buildSiedemenuItems(),
+      body: widget.child,
     );
   }
 }

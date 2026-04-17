@@ -1,9 +1,11 @@
 // Project imports:
+
 import '../../styles/export/ut_widget_design.dart';
 import '../../styles/helper/ut_mixin_widget_helper.dart';
 
 mixin UtInputTextStyleMixin on Widget {
-  static const paddingHeight = 10.0;
+  // static const paddingHeight = 10.0;
+  static const defaultInputFieldHight = 48;
 
   InputBorder primary() {
     return OutlineInputBorder(
@@ -11,7 +13,7 @@ mixin UtInputTextStyleMixin on Widget {
     );
   }
 
-  EdgeInsets createPadddingInsets() {
-    return EdgeInsets.symmetric(horizontal: paddingHeight);
-  }
+  // EdgeInsets createPadddingInsets() {
+  //   return EdgeInsets.symmetric(horizontal: 10);
+  // }
 }

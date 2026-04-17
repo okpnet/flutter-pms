@@ -1,4 +1,4 @@
-part of 'ut_indicators.dart';
+part of '../ut_indicators.dart';
 
 class UtMiniCenterIndicator extends StatelessWidget {
   final String? label;

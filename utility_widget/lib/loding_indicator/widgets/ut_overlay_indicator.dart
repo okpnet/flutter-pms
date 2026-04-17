@@ -1,4 +1,4 @@
-part of 'ut_indicators.dart';
+part of '../ut_indicators.dart';
 
 class UtOverlayIndicator extends StatelessWidget {
   final bool show;
@@ -16,7 +16,9 @@ class UtOverlayIndicator extends StatelessWidget {
           color: Colors.black26, // 半透明で操作不能を示す
         ),
         // 中央にインジケータ表示
-        const Center(child: CupertinoActivityIndicator(radius: 16)),
+        const Center(
+          child: CupertinoActivityIndicator(radius: UtIndicatorConstant.large),
+        ),
       ],
     );
   }

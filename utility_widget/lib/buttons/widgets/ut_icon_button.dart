@@ -4,7 +4,7 @@ class UtIconButton extends StatelessWidget with UtButtonMixin {
   final Icon icon;
   final UtColorStyle type;
   final VoidCallback onPressed;
-  final UtButtonIconSize size;
+  final UtIconButtonSizeStyle sizeStyle;
   final String? hint;
 
   UtIconButton({
@@ -12,7 +12,7 @@ class UtIconButton extends StatelessWidget with UtButtonMixin {
     required this.icon,
     required this.type,
     required this.onPressed,
-    required this.size,
+    required this.sizeStyle,
     this.hint,
   });
 
@@ -31,7 +31,7 @@ class UtIconButton extends StatelessWidget with UtButtonMixin {
   //プライマリアイコンボタンスタイルヘルパー
   ButtonStyle primaryIcon(
     BuildContext context, {
-    UtButtonIconSize size = UtButtonIconSize.small,
+    UtIconButtonSizeStyle sizeStyle = UtIconButtonSizeStyle.small,
   }) {
     final background = bg(context);
     final foreground = fg(context);
@@ -40,10 +40,7 @@ class UtIconButton extends StatelessWidget with UtButtonMixin {
       backgroundColor: background,
       foregroundColor: foreground,
       elevation: elevation,
-      padding: EdgeInsets.symmetric(
-        vertical: size.iconPadingSize,
-        horizontal: size.iconPadingSize,
-      ),
+      fixedSize: sizeStyle.size,
       shape: RoundedRectangleBorder(
         borderRadius: UtMixinWidgetHelper.defaultRadius(),
       ),
@@ -53,7 +50,7 @@ class UtIconButton extends StatelessWidget with UtButtonMixin {
   //セカンダリアイコンボタンスタイルヘルパー
   ButtonStyle secondaryIcon(
     BuildContext context, {
-    UtButtonIconSize size = UtButtonIconSize.small,
+    UtIconButtonSizeStyle sizeStyle = UtIconButtonSizeStyle.small,
   }) {
     final background = bg(context);
     // final foreground = fg(context);
@@ -62,10 +59,7 @@ class UtIconButton extends StatelessWidget with UtButtonMixin {
       foregroundColor: background,
       side: BorderSide(color: background),
       elevation: elevation,
-      padding: EdgeInsets.symmetric(
-        vertical: size.iconPadingSize,
-        horizontal: size.iconPadingSize,
-      ),
+      fixedSize: sizeStyle.size,
       shape: RoundedRectangleBorder(
         borderRadius: UtMixinWidgetHelper.defaultRadius(),
       ),
@@ -75,17 +69,14 @@ class UtIconButton extends StatelessWidget with UtButtonMixin {
   //ターシャリアイコンボタンスタイルヘルパー
   ButtonStyle tertiaryIcon(
     BuildContext context, {
-    UtButtonIconSize size = UtButtonIconSize.small,
+    UtIconButtonSizeStyle sizeStyle = UtIconButtonSizeStyle.small,
   }) {
     final background = bg(context);
     // final foreground = fg(context);
 
     return TextButton.styleFrom(
       foregroundColor: background,
-      padding: EdgeInsets.symmetric(
-        vertical: size.iconPadingSize,
-        horizontal: size.iconPadingSize,
-      ),
+      fixedSize: sizeStyle.size,
       shape: RoundedRectangleBorder(
         borderRadius: UtMixinWidgetHelper.defaultRadius(),
       ),
@@ -95,27 +86,27 @@ class UtIconButton extends StatelessWidget with UtButtonMixin {
   Widget _primary(BuildContext context) {
     return IconButton(
       icon: icon,
-      iconSize: size.iconSize,
+      iconSize: sizeStyle.iconSize,
       onPressed: onPressed,
-      style: primaryIcon(context, size: size),
+      style: primaryIcon(context, sizeStyle: sizeStyle),
     );
   }
 
   Widget _secondary(BuildContext context) {
     return IconButton(
       icon: icon,
-      iconSize: size.iconSize,
+      iconSize: sizeStyle.iconSize,
       onPressed: onPressed,
-      style: secondaryIcon(context, size: size),
+      style: secondaryIcon(context, sizeStyle: sizeStyle),
     );
   }
 
   Widget _tertiary(BuildContext context) {
     return IconButton(
       icon: icon,
-      iconSize: size.iconSize,
+      iconSize: sizeStyle.iconSize,
       onPressed: onPressed,
-      style: tertiaryIcon(context, size: size),
+      style: tertiaryIcon(context, sizeStyle: sizeStyle),
     );
   }
 
@@ -123,13 +114,13 @@ class UtIconButton extends StatelessWidget with UtButtonMixin {
     Key? key,
     required Icon icon,
     required VoidCallback onPressed,
-    required UtButtonIconSize size,
+    required UtIconButtonSizeStyle sizeStyle,
     Tooltip? tooltip,
   }) => UtIconButton(
     key: key,
     icon: icon,
     onPressed: onPressed,
-    size: size,
+    sizeStyle: sizeStyle,
     type: UtColorStyle.primary,
   );
 
@@ -137,13 +128,13 @@ class UtIconButton extends StatelessWidget with UtButtonMixin {
     Key? key,
     required Icon icon,
     required VoidCallback onPressed,
-    required UtButtonIconSize size,
+    required UtIconButtonSizeStyle sizeStyle,
     Tooltip? tooltip,
   }) => UtIconButton(
     key: key,
     icon: icon,
     onPressed: onPressed,
-    size: size,
+    sizeStyle: sizeStyle,
     type: UtColorStyle.secondary,
   );
 
@@ -151,13 +142,13 @@ class UtIconButton extends StatelessWidget with UtButtonMixin {
     Key? key,
     required Icon icon,
     required VoidCallback onPressed,
-    required UtButtonIconSize size,
+    required UtIconButtonSizeStyle sizeStyle,
     Tooltip? tooltip,
   }) => UtIconButton(
     key: key,
     icon: icon,
     onPressed: onPressed,
-    size: size,
+    sizeStyle: sizeStyle,
     type: UtColorStyle.tertiary,
   );
 }

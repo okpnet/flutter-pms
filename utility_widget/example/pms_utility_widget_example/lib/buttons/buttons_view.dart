@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:utility_widget/loding_indicator/ut_indicators.dart';
 import 'package:utility_widget/buttons/ut_button.dart';
 
 class ButtonsView extends StatelessWidget {
@@ -33,17 +32,17 @@ class ButtonsView extends StatelessWidget {
             UtIconButton.parimary(
               onPressed: navigatorToBack,
               icon: Icon(Icons.password),
-              size: UtButtonIconSize.small,
+              sizeStyle: UtIconButtonSizeStyle.small,
             ),
             UtIconButton.secondary(
               onPressed: navigatorToBack,
               icon: Icon(Icons.password),
-              size: UtButtonIconSize.mediam,
+              sizeStyle: UtIconButtonSizeStyle.mediam,
             ),
             UtIconButton.tertiary(
               onPressed: navigatorToBack,
               icon: Icon(Icons.password),
-              size: UtButtonIconSize.large,
+              sizeStyle: UtIconButtonSizeStyle.large,
             ),
           ],
         ),

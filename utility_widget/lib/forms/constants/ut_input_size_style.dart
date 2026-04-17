@@ -1,52 +1,44 @@
-import 'package:utility_widget/styles/export/ut_widget_design.dart';
+enum UtInputWidthStyle {
+  small(192),
+  mid(256),
+  large(320),
+  infinity(double.infinity);
 
-class UtInputSizeStyle {
-  final double smallWidth = 100;
-  final double midWidth = 100;
-  final double largeWidth = 100;
-
-  final double smallHight = 100;
-  final double midHight = 100;
-  final double largeHight = 100;
-
-  double get heightt => _getHight();
-
-  double get width => _getWidth();
-
-  @RangeValues(0x1, 0xF)
-  final int value;
-
-  UtInputSizeStyle(this.value);
-
-  static UtInputSizeStyle smallWxSmallH = UtInputSizeStyle(0x5);
-  static UtInputSizeStyle smallWxMidH = UtInputSizeStyle(0x6);
-  static UtInputSizeStyle smallWxLargeH = UtInputSizeStyle(0x7);
-
-  static UtInputSizeStyle midWxSmallH = UtInputSizeStyle(0x9);
-  static UtInputSizeStyle midWxMidH = UtInputSizeStyle(0xA);
-  static UtInputSizeStyle midWxLargeH = UtInputSizeStyle(0xB);
-
-  static UtInputSizeStyle largeWxSmallH = UtInputSizeStyle(0xD);
-  static UtInputSizeStyle largeWxMidH = UtInputSizeStyle(0xE);
-  static UtInputSizeStyle largeWxLargeH = UtInputSizeStyle(0xF);
-
-  double _getHight() {
-    final hightBit = value ^ 0xC;
-    return switch (hightBit) {
-      0x1 => smallHight,
-      0x2 => midHight,
-      0x3 => largeHight,
-      _ => throw Exception('out of range'),
-    };
-  }
-
-  double _getWidth() {
-    final widthBit = value ^ 0xC;
-    return switch (widthBit) {
-      0x1 => smallWidth,
-      0x2 => midWidth,
-      0x3 => largeWidth,
-      _ => throw Exception('out of range'),
-    };
-  }
+  final double value;
+  const UtInputWidthStyle(this.value);
 }
+
+// enum UtInputHeightStyle {
+//   small(44),
+//   mid(48),
+//   large(60);
+
+//   final double value;
+//   const UtInputHeightStyle(this.value);
+// }
+
+// enum UtInputSizeStyle {
+//   smallWxSmallH(UtInputWidthStyle.small, UtInputHeightStyle.small),
+//   smallWxMidH(UtInputWidthStyle.small, UtInputHeightStyle.mid),
+//   smallWxLargeH(UtInputWidthStyle.small, UtInputHeightStyle.large),
+
+//   midWxSmallH(UtInputWidthStyle.mid, UtInputHeightStyle.small),
+//   midWxMidH(UtInputWidthStyle.mid, UtInputHeightStyle.mid),
+//   midWxLargeH(UtInputWidthStyle.mid, UtInputHeightStyle.large),
+
+//   largeWxSmallH(UtInputWidthStyle.large, UtInputHeightStyle.small),
+//   largeWxMidH(UtInputWidthStyle.large, UtInputHeightStyle.mid),
+//   largeWxLargeH(UtInputWidthStyle.large, UtInputHeightStyle.large),
+
+//   infinityWxSmallH(UtInputWidthStyle.infinity, UtInputHeightStyle.small),
+//   infinityWxMidH(UtInputWidthStyle.infinity, UtInputHeightStyle.mid),
+//   infinityWxLargeH(UtInputWidthStyle.infinity, UtInputHeightStyle.large);
+
+//   final UtInputWidthStyle width;
+//   final UtInputHeightStyle height;
+
+//   const UtInputSizeStyle(this.width, this.height);
+
+//   double get widthValue => width.value;
+//   double get heightValue => height.value;
+// }

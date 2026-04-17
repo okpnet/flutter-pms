@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:utility_widget/buttons/ut_button.dart';
+import 'package:utility_widget/forms/constants/ut_input_size_style.dart';
 import 'package:utility_widget/forms/ut_input_field.dart';
-import 'package:utility_widget/styles/constans/ut_grid_type.dart';
+import 'package:utility_widget/frames/scafolds/ut_scafold.dart';
 import 'package:utility_widget/styles/export/ut_widget_design.dart';
 import 'package:utility_widget/styles/ut_style.dart';
 import 'package:utility_widget_example/pages/container/app_bar_mixin.dart';
+import 'package:utility_widget_example/pages/contants/dashboard.dart';
 
 class Login extends StatefulWidget {
   final String? name;
@@ -24,16 +26,6 @@ class _Login extends State<Login> with AppBarMixin {
   _Login();
 
   @override
-  void initState() {
-    super.initState();
-
-    ///ダミー遅延処理用のタイマー
-    // timer = Timer(const Duration(seconds: 5), () {
-    //   Navigator.of(context).pushAndRemoveUntil(newRoute, predicate);
-    // });
-  }
-
-  @override
   void dispose() {
     super.dispose();
     timer?.cancel();
@@ -41,8 +33,9 @@ class _Login extends State<Login> with AppBarMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return UtFrameWork(
       appBar: buildAppbar(context),
+      isOverlayIndicator: isLoading,
       body: UtBody(
         titleAign: AlignmentGeometry.center,
         title: subTitle('ログイン', context),
@@ -54,7 +47,8 @@ class _Login extends State<Login> with AppBarMixin {
                 UtResponsiveRowWrapItem.offset(offsetLength: 1),
                 UtResponsiveRowWrapItem(
                   cellCount: 1,
-                  align: AlignmentGeometry.centerRight,
+                  align: AlignmentGeometry.center,
+                  mobileAlign: AlignmentGeometry.center,
                   child: UtTextInput.primary(
                     initialValue: widget.name,
                     label: Text('ID'),
@@ -62,6 +56,7 @@ class _Login extends State<Login> with AppBarMixin {
                       name = value;
                     }),
                     maxLength: 16,
+                    widthStyle: UtInputWidthStyle.large,
                   ),
                 ),
               ],
@@ -72,7 +67,8 @@ class _Login extends State<Login> with AppBarMixin {
                 UtResponsiveRowWrapItem.offset(offsetLength: 1),
                 UtResponsiveRowWrapItem(
                   cellCount: 1,
-                  align: AlignmentGeometry.centerRight,
+                  align: AlignmentGeometry.center,
+                  mobileAlign: AlignmentGeometry.center,
                   child: UtTextInput.primaryPassword(
                     initialValue: widget.name,
                     label: Text('PASSWORD'),
@@ -80,6 +76,7 @@ class _Login extends State<Login> with AppBarMixin {
                       name = value;
                     }),
                     maxLength: 16,
+                    widthStyle: UtInputWidthStyle.large,
                   ),
                 ),
               ],
@@ -94,17 +91,24 @@ class _Login extends State<Login> with AppBarMixin {
                   mobileAlign: AlignmentGeometry.center,
                   child: UtButton.primaryWithIcon(
                     label: 'ログイン',
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        isLoading = true;
+                      });
+                      //ダミー遅延処理用のタイマー
+                      timer = Timer(const Duration(seconds: 5), () {
+                        setState(() {
+                          isLoading = false;
+                        });
+                        Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(builder: (context) => Dashboard()),
+                          (_) => false,
+                        );
+                      });
+                    },
                     icon: Icon(Icons.login),
+                    sizeStyle: UtButtonSizeStyle.largeWxMidH,
                   ),
-                  // child: SizedBox(
-                  //   width: double.infinity,
-                  //   child: UtButton.primaryWithIcon(
-                  //     label: 'ログイン',
-                  //     onPressed: () {},
-                  //     icon: Icon(Icons.login),
-                  //   ),
-                  // ),
                 ),
               ],
             ),

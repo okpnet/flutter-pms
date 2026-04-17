@@ -9,6 +9,7 @@ class UtDropdownInput<T> extends StatelessWidget with UtInputTextStyleMixin {
   final ValueChanged<T?>? onChanged;
   final UtColorStyle type;
   final String? hint;
+  final UtInputWidthStyle widthStyle;
 
   const UtDropdownInput({
     super.key,
@@ -20,6 +21,7 @@ class UtDropdownInput<T> extends StatelessWidget with UtInputTextStyleMixin {
     this.items = const [],
     this.type = UtColorStyle.primary,
     this.hint,
+    this.widthStyle = UtInputWidthStyle.infinity,
   });
 
   @override
@@ -29,7 +31,12 @@ class UtDropdownInput<T> extends StatelessWidget with UtInputTextStyleMixin {
       _ => throw Exception('Not implement UtDropdownInput type.'),
     };
     return UtLayoutCrevice.margin(
-      child: hint != null ? UtTooltip(title: hint!, child: body) : body,
+      child: hint != null
+          ? UtTooltip(
+              title: hint!,
+              child: SizedBox(width: widthStyle.value, child: body),
+            )
+          : SizedBox(width: widthStyle.value, child: body),
     );
   }
 
@@ -41,7 +48,7 @@ class UtDropdownInput<T> extends StatelessWidget with UtInputTextStyleMixin {
         suffixIcon: suffixIcon,
         prefixIcon: prefixIcon,
         label: label != null ? Text(label!) : null,
-        contentPadding: createPadddingInsets(),
+        // contentPadding: createPadddingInsets(),
       ),
       items: items,
       onChanged: onChanged,

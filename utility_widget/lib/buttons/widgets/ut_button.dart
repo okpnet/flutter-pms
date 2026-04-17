@@ -6,7 +6,7 @@ class UtButton extends StatelessWidget with UtButtonMixin {
   final UtColorStyle type;
   final VoidCallback onPressed;
   final String? hint;
-  final UtButtonHight hight;
+  final UtButtonSizeStyle sizeStyle;
 
   UtButton._({
     super.key,
@@ -15,7 +15,7 @@ class UtButton extends StatelessWidget with UtButtonMixin {
     required this.type,
     required this.onPressed,
     this.hint,
-    this.hight = UtButtonHight.mid,
+    this.sizeStyle = UtButtonSizeStyle.midWxMidH,
   });
 
   @override
@@ -36,7 +36,7 @@ class UtButton extends StatelessWidget with UtButtonMixin {
     return ElevatedButton.styleFrom(
       backgroundColor: background,
       foregroundColor: foreground,
-      fixedSize: Size(double.infinity, hight.hight),
+      fixedSize: sizeStyle.size,
       elevation: elevation,
       padding: buttonPadding(),
       shape: RoundedRectangleBorder(
@@ -54,7 +54,7 @@ class UtButton extends StatelessWidget with UtButtonMixin {
       // foregroundColor: background,
       side: BorderSide(color: background),
       padding: EdgeInsets.symmetric(vertical: paddingV, horizontal: paddingH),
-      fixedSize: Size(double.infinity, hight.hight),
+      fixedSize: sizeStyle.size,
       shape: RoundedRectangleBorder(
         borderRadius: UtMixinWidgetHelper.defaultRadius(),
       ),
@@ -69,7 +69,7 @@ class UtButton extends StatelessWidget with UtButtonMixin {
     return TextButton.styleFrom(
       // foregroundColor: background,
       padding: EdgeInsets.symmetric(vertical: paddingV, horizontal: paddingH),
-      fixedSize: Size(double.infinity, hight.hight),
+      fixedSize: sizeStyle.size,
       shape: RoundedRectangleBorder(
         borderRadius: UtMixinWidgetHelper.defaultRadius(),
       ),
@@ -132,13 +132,13 @@ class UtButton extends StatelessWidget with UtButtonMixin {
     required String label,
     required VoidCallback onPressed,
     String? hint,
-    UtButtonHight hight = UtButtonHight.mid,
+    UtButtonSizeStyle sizeStyle = UtButtonSizeStyle.midWxMidH,
   }) => UtButton._(
     key: key,
     label: label,
     type: UtColorStyle.primary,
     onPressed: onPressed,
-    hight: hight,
+    sizeStyle: sizeStyle,
     hint: hint,
   );
 
@@ -147,13 +147,13 @@ class UtButton extends StatelessWidget with UtButtonMixin {
     required String label,
     required VoidCallback onPressed,
     String? hint,
-    UtButtonHight hight = UtButtonHight.mid,
+    UtButtonSizeStyle sizeStyle = UtButtonSizeStyle.midWxMidH,
   }) => UtButton._(
     key: key,
     label: label,
     type: UtColorStyle.secondary,
     onPressed: onPressed,
-    hight: hight,
+    sizeStyle: sizeStyle,
     hint: hint,
   );
 
@@ -162,13 +162,13 @@ class UtButton extends StatelessWidget with UtButtonMixin {
     required String label,
     required VoidCallback onPressed,
     String? hint,
-    UtButtonHight hight = UtButtonHight.mid,
+    UtButtonSizeStyle sizeStyle = UtButtonSizeStyle.midWxMidH,
   }) => UtButton._(
     key: key,
     label: label,
     type: UtColorStyle.tertiary,
     onPressed: onPressed,
-    hight: hight,
+    sizeStyle: sizeStyle,
     hint: hint,
   );
   factory UtButton.primaryWithIcon({
@@ -177,14 +177,14 @@ class UtButton extends StatelessWidget with UtButtonMixin {
     required VoidCallback onPressed,
     required Icon icon,
     String? hint,
-    UtButtonHight hight = UtButtonHight.mid,
+    UtButtonSizeStyle sizeStyle = UtButtonSizeStyle.midWxMidH,
   }) => UtButton._(
     key: key,
     label: label,
     icon: icon,
     type: UtColorStyle.primary,
     onPressed: onPressed,
-    hight: hight,
+    sizeStyle: sizeStyle,
     hint: hint,
   );
 
@@ -194,14 +194,14 @@ class UtButton extends StatelessWidget with UtButtonMixin {
     required Icon icon,
     required VoidCallback onPressed,
     String? hint,
-    UtButtonHight hight = UtButtonHight.mid,
+    UtButtonSizeStyle sizeStyle = UtButtonSizeStyle.midWxMidH,
   }) => UtButton._(
     key: key,
     label: label,
     icon: icon,
     type: UtColorStyle.secondary,
     onPressed: onPressed,
-    hight: hight,
+    sizeStyle: sizeStyle,
     hint: hint,
   );
   factory UtButton.tertiaryWithIcon({
@@ -210,14 +210,14 @@ class UtButton extends StatelessWidget with UtButtonMixin {
     required Icon icon,
     required VoidCallback onPressed,
     String? hint,
-    UtButtonHight hight = UtButtonHight.mid,
+    UtButtonSizeStyle sizeStyle = UtButtonSizeStyle.midWxMidH,
   }) => UtButton._(
     key: key,
     label: label,
     icon: icon,
     type: UtColorStyle.tertiary,
     onPressed: onPressed,
-    hight: hight,
+    sizeStyle: sizeStyle,
     hint: hint,
   );
 }
