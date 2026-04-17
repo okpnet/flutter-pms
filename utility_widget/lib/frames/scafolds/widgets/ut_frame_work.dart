@@ -22,6 +22,7 @@ class UtFrameWork extends StatelessWidget {
   Widget build(BuildContext context) {
     UtSideItem? selectItem;
     return Stack(
+      alignment: AlignmentGeometry.topCenter,
       children: [
         Scaffold(
           appBar: appBar,

@@ -13,7 +13,7 @@ class Dashboard extends StatelessWidget with AppBarMixin {
   @override
   Widget build(BuildContext context) {
     return SidemenuScafold(
-      title: 'メインのタイトル',
+      isReturned: false,
       child: UtBody(
         title: subTitle('ダッシュボード', context),
         body: Center(
