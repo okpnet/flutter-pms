@@ -4,6 +4,7 @@ import 'package:utility_widget/buttons/ut_button.dart';
 import 'package:utility_widget/frames/scafolds/ut_scafold.dart';
 import 'package:utility_widget/styles/export/ut_widget_design.dart';
 import 'package:utility_widget/styles/ut_style.dart';
+import 'package:utility_widget/text/ut_text.dart';
 import 'package:utility_widget_example/pages/account/login.dart';
 
 import '../container/app_bar_mixin.dart';
@@ -32,7 +33,7 @@ class _Logout extends State<Logout> with AppBarMixin {
       isOverlayIndicator: isLoading,
       body: UtBody(
         titleAign: AlignmentGeometry.center,
-        title: subTitle('ログイン', context),
+        title: UtText.subTitle('ログイン'),
         body: Column(
           children: [
             SizedBox(height: 100, width: 100, child: Icon(Icons.check_rounded)),

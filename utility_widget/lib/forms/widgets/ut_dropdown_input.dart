@@ -7,7 +7,7 @@ class UtDropdownInput<T> extends StatelessWidget with UtInputTextStyleMixin {
   final String? label;
   final List<DropdownMenuItem<T>>? items;
   final ValueChanged<T?>? onChanged;
-  final UtColorStyle type;
+  final UtPriorityStyle type;
   final String? hint;
   final UtInputWidthStyle widthStyle;
 
@@ -19,7 +19,7 @@ class UtDropdownInput<T> extends StatelessWidget with UtInputTextStyleMixin {
     this.suffixIcon,
     this.label,
     this.items = const [],
-    this.type = UtColorStyle.primary,
+    this.type = UtPriorityStyle.primary,
     this.hint,
     this.widthStyle = UtInputWidthStyle.infinity,
   });
@@ -27,7 +27,7 @@ class UtDropdownInput<T> extends StatelessWidget with UtInputTextStyleMixin {
   @override
   Widget build(BuildContext context) {
     final body = switch (type) {
-      UtColorStyle.primary => _primary(),
+      UtPriorityStyle.primary => _primary(),
       _ => throw Exception('Not implement UtDropdownInput type.'),
     };
     return UtLayoutCrevice.margin(
@@ -72,6 +72,6 @@ class UtDropdownInput<T> extends StatelessWidget with UtInputTextStyleMixin {
     label: label,
     prefixIcon: prefixIcon,
     suffixIcon: suffixIcon,
-    type: UtColorStyle.primary,
+    type: UtPriorityStyle.primary,
   );
 }

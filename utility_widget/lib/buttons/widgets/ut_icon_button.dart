@@ -2,7 +2,7 @@ part of '../ut_button.dart';
 
 class UtIconButton extends StatelessWidget with UtButtonMixin {
   final Icon icon;
-  final UtColorStyle type;
+  final UtPriorityStyle type;
   final VoidCallback onPressed;
   final UtIconButtonSizeStyle sizeStyle;
   final String? hint;
@@ -19,9 +19,9 @@ class UtIconButton extends StatelessWidget with UtButtonMixin {
   @override
   Widget build(BuildContext context) {
     final body = switch (type) {
-      UtColorStyle.primary => _primary(context),
-      UtColorStyle.secondary => _secondary(context),
-      UtColorStyle.tertiary => _tertiary(context),
+      UtPriorityStyle.primary => _primary(context),
+      UtPriorityStyle.secondary => _secondary(context),
+      UtPriorityStyle.tertiary => _tertiary(context),
     };
     return UtLayoutCrevice.margin(
       child: hint != null ? UtTooltip(title: hint!, child: body) : body,
@@ -121,7 +121,7 @@ class UtIconButton extends StatelessWidget with UtButtonMixin {
     icon: icon,
     onPressed: onPressed,
     sizeStyle: sizeStyle,
-    type: UtColorStyle.primary,
+    type: UtPriorityStyle.primary,
   );
 
   factory UtIconButton.secondary({
@@ -135,7 +135,7 @@ class UtIconButton extends StatelessWidget with UtButtonMixin {
     icon: icon,
     onPressed: onPressed,
     sizeStyle: sizeStyle,
-    type: UtColorStyle.secondary,
+    type: UtPriorityStyle.secondary,
   );
 
   factory UtIconButton.tertiary({
@@ -149,6 +149,6 @@ class UtIconButton extends StatelessWidget with UtButtonMixin {
     icon: icon,
     onPressed: onPressed,
     sizeStyle: sizeStyle,
-    type: UtColorStyle.tertiary,
+    type: UtPriorityStyle.tertiary,
   );
 }

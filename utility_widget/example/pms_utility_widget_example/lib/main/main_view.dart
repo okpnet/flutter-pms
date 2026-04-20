@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:utility_widget/buttons/ut_button.dart';
+import 'package:utility_widget/styles/constans/ut_priority_style.dart';
 import 'package:utility_widget/styles/helper/ut_text_helper.dart';
 import 'package:utility_widget/styles/ut_style.dart';
+import 'package:utility_widget/text/ut_text.dart';
 import 'package:utility_widget_example/buttons/buttons_view.dart';
 import 'package:utility_widget_example/fields/fields.dart';
 import 'package:utility_widget_example/loading_indicators/mini_indicator.dart';
@@ -17,7 +19,7 @@ class MainView extends StatelessWidget {
     return SidemenuScafold(
       isReturned: false,
       child: UtBody(
-        title: Text('body', style: UtTextHelper.buildSubtitleStyle(context)),
+        title: UtText.subTitle('body'),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

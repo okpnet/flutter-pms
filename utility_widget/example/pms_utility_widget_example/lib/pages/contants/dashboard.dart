@@ -1,6 +1,7 @@
 import 'package:utility_widget/buttons/ut_button.dart';
 import 'package:utility_widget/styles/export/ut_widget_design.dart';
 import 'package:utility_widget/styles/ut_style.dart';
+import 'package:utility_widget/text/ut_text.dart';
 import 'package:utility_widget_example/buttons/buttons_view.dart';
 import 'package:utility_widget_example/fields/fields.dart';
 import 'package:utility_widget_example/loading_indicators/mini_indicator.dart';
@@ -15,7 +16,7 @@ class Dashboard extends StatelessWidget with AppBarMixin {
     return SidemenuScafold(
       isReturned: false,
       child: UtBody(
-        title: subTitle('ダッシュボード', context),
+        title: UtText.subTitle('ダッシュボード'),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

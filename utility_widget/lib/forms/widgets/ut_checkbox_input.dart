@@ -1,7 +1,7 @@
 part of '../ut_input_field.dart';
 
 class UtCheckboxInput extends StatelessWidget with UtCheckboxStyleMixin {
-  final UtColorStyle type;
+  final UtPriorityStyle type;
   final ValueChanged<bool?> onChanged;
   final bool? value;
   final String? label;
@@ -22,9 +22,9 @@ class UtCheckboxInput extends StatelessWidget with UtCheckboxStyleMixin {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         switch (type) {
-          UtColorStyle.primary => _primary(context),
-          UtColorStyle.secondary => _secondary(context),
-          UtColorStyle.tertiary => _tertiary(context),
+          UtPriorityStyle.primary => _primary(context),
+          UtPriorityStyle.secondary => _secondary(context),
+          UtPriorityStyle.tertiary => _tertiary(context),
         },
         if (label != null)
           UtLayoutCrevice.margin(
@@ -77,7 +77,7 @@ class UtCheckboxInput extends StatelessWidget with UtCheckboxStyleMixin {
   }) => UtCheckboxInput(
     key: key,
     onChanged: onChanged,
-    type: UtColorStyle.primary,
+    type: UtPriorityStyle.primary,
     label: label,
     value: value,
   );
@@ -89,7 +89,7 @@ class UtCheckboxInput extends StatelessWidget with UtCheckboxStyleMixin {
   }) => UtCheckboxInput(
     key: key,
     onChanged: onChanged,
-    type: UtColorStyle.secondary,
+    type: UtPriorityStyle.secondary,
     label: label,
     value: value,
   );
@@ -101,7 +101,7 @@ class UtCheckboxInput extends StatelessWidget with UtCheckboxStyleMixin {
   }) => UtCheckboxInput(
     key: key,
     onChanged: onChanged,
-    type: UtColorStyle.tertiary,
+    type: UtPriorityStyle.tertiary,
     label: label,
     value: value,
   );

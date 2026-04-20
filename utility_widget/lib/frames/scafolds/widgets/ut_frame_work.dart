@@ -21,24 +21,23 @@ class UtFrameWork extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     UtSideItem? selectItem;
+    final isNarrow = UtLayoutHelper.isMobile(context);
     return Stack(
       alignment: AlignmentGeometry.topCenter,
       children: [
         Scaffold(
           appBar: appBar,
-          drawer: sideMenuItems != null
+          drawer: isNarrow && sideMenuItems != null
               ? UtSidemenuHelper.ofDrawer(
-                  context: context,
                   selected: selectItem,
                   onSelect: onSelect,
                   accountItem: accountItem,
                   sidemenuItems: sideMenuItems!,
                 )
               : null,
-          body: sideMenuItems == null
+          body: isNarrow || sideMenuItems == null
               ? body
               : UtSidemenuHelper.ofExpansion(
-                  context: context,
                   selected: selectItem,
                   onSelect: onSelect,
                   accountItem: accountItem,

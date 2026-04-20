@@ -1,3 +1,4 @@
+import 'package:utility_widget/styles/constans/ut_priority_style.dart';
 import 'package:utility_widget/styles/export/ut_widget_design.dart';
 import 'package:utility_widget/styles/helper/ut_text_helper.dart';
 
@@ -11,7 +12,13 @@ mixin AppBarMixin {
     );
   }
 
-  Widget subTitle(String title, BuildContext context) {
-    return Text(title, style: UtTextHelper.buildSubtitleStyle(context));
-  }
+  // Widget subTitle(String title, BuildContext context) {
+  //   return Text(
+  //     title,
+  //     style: UtTextHelper.buildTitleStyle(
+  //       context: context,
+  //       priorityStyle: UtPriorityStyle.primary,
+  //     ),
+  //   );
+  // }
 }

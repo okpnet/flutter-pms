@@ -2,7 +2,7 @@ part of '../ut_input_field.dart';
 
 class UtRadioInput<T> extends StatelessWidget {
   final T? value;
-  final UtColorStyle type;
+  final UtPriorityStyle type;
   final String? title;
   final String? subTitle;
   final String? hint;
@@ -12,14 +12,14 @@ class UtRadioInput<T> extends StatelessWidget {
     this.value,
     this.title,
     this.subTitle,
-    this.type = UtColorStyle.primary,
+    this.type = UtPriorityStyle.primary,
     this.hint,
   });
 
   @override
   Widget build(BuildContext context) {
     final body = switch (type) {
-      UtColorStyle.primary => _primary(),
+      UtPriorityStyle.primary => _primary(),
       _ => throw Exception('Not implement UtRadioInput type.'),
     };
     return UtLayoutCrevice.margin(
@@ -46,7 +46,7 @@ class UtRadioInput<T> extends StatelessWidget {
     key: key,
     title: title,
     subTitle: subTitle,
-    type: UtColorStyle.primary,
+    type: UtPriorityStyle.primary,
     value: value,
   );
 }

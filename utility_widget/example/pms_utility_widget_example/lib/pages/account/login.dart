@@ -6,6 +6,7 @@ import 'package:utility_widget/forms/ut_input_field.dart';
 import 'package:utility_widget/frames/scafolds/ut_scafold.dart';
 import 'package:utility_widget/styles/export/ut_widget_design.dart';
 import 'package:utility_widget/styles/ut_style.dart';
+import 'package:utility_widget/text/ut_text.dart';
 import 'package:utility_widget_example/pages/container/app_bar_mixin.dart';
 import 'package:utility_widget_example/pages/contants/dashboard.dart';
 
@@ -38,7 +39,7 @@ class _Login extends State<Login> with AppBarMixin {
       isOverlayIndicator: isLoading,
       body: UtBody(
         titleAign: AlignmentGeometry.center,
-        title: subTitle('ログイン', context),
+        title: UtText.subTitle('ログイン'),
         body: Column(
           children: [
             UtResponsiveRowWrap.grid(
@@ -51,7 +52,7 @@ class _Login extends State<Login> with AppBarMixin {
                   mobileAlign: AlignmentGeometry.center,
                   child: UtTextInput.primary(
                     initialValue: widget.name,
-                    label: Text('ID'),
+                    label: 'ID',
                     onChanged: (value) => setState(() {
                       name = value;
                     }),
@@ -71,7 +72,7 @@ class _Login extends State<Login> with AppBarMixin {
                   mobileAlign: AlignmentGeometry.center,
                   child: UtTextInput.primaryPassword(
                     initialValue: widget.name,
-                    label: Text('PASSWORD'),
+                    label: 'PASSWORD',
                     onChanged: (value) => setState(() {
                       name = value;
                     }),
@@ -96,7 +97,7 @@ class _Login extends State<Login> with AppBarMixin {
                         isLoading = true;
                       });
                       //ダミー遅延処理用のタイマー
-                      timer = Timer(const Duration(seconds: 5), () {
+                      timer = Timer(const Duration(seconds: 2), () {
                         setState(() {
                           isLoading = false;
                         });

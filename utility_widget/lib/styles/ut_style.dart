@@ -1,5 +1,6 @@
 // Project imports:
 
+import 'package:utility_widget/styles/constans/ut_brightness_style.dart';
 import 'package:utility_widget/styles/constans/ut_style_default_constant.dart';
 
 import 'constans/ut_body_constant.dart';
@@ -16,3 +17,4 @@ part 'model/ut_responsive_size.dart';
 part 'widgets/ut_body.dart';
 part 'widgets/ut_responsive_row_wrap.dart';
 part 'widgets/ut_responsive_row_wrap_item.dart';
+part 'widgets/ut_divider.dart';

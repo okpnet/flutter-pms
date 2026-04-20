@@ -14,7 +14,7 @@ class Fields extends StatelessWidget {
               initialValue: 'インプットフィールド',
               maxLines: 1,
               maxLength: 16,
-              label: const Text('入力データ'),
+              label: '入力データ',
               hint: 'ヒント',
               suffixIcon: Icon(Icons.back_hand),
               prefixIcon: Icon(Icons.cable),

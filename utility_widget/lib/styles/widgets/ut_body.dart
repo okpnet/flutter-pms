@@ -24,6 +24,7 @@ class UtBody extends StatelessWidget with UtEdgeinsetMixin {
             ? UtBodyConstant.minPaddingSize
             : width * UtBodyConstant.widePaddingBothSideRate;
         return Container(
+          alignment: AlignmentGeometry.topCenter,
           margin: edgeInsetsBuilder(
             direction: UtDirection.horizontal,
             value: margin,

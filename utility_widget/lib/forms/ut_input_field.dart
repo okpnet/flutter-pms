@@ -1,5 +1,5 @@
 // Project imports:
-import '../styles/constans/ut_color_style.dart';
+import '../styles/constans/ut_priority_style.dart';
 import '../styles/export/ut_widget_design.dart';
 import '../styles/layout_model/ut_direction.dart';
 import '../styles/ut_style.dart';

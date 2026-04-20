@@ -3,7 +3,7 @@ part of '../ut_button.dart';
 class UtButton extends StatelessWidget with UtButtonMixin {
   final String label;
   final Icon? icon;
-  final UtColorStyle type;
+  final UtPriorityStyle type;
   final VoidCallback onPressed;
   final String? hint;
   final UtButtonSizeStyle sizeStyle;
@@ -21,15 +21,16 @@ class UtButton extends StatelessWidget with UtButtonMixin {
   @override
   Widget build(BuildContext context) {
     final body = switch (type) {
-      UtColorStyle.primary => _primary(context),
-      UtColorStyle.secondary => _secondary(context),
-      UtColorStyle.tertiary => _tertiary(context),
+      UtPriorityStyle.primary => _primary(context),
+      UtPriorityStyle.secondary => _secondary(context),
+      UtPriorityStyle.tertiary => _tertiary(context),
     };
     return UtLayoutCrevice.margin(
       child: hint != null ? UtTooltip(title: hint!, child: body) : body,
     );
   }
 
+  void buildDecoration() {}
   ButtonStyle primary(BuildContext context) {
     final background = bg(context);
     final foreground = fg(context);
@@ -136,7 +137,7 @@ class UtButton extends StatelessWidget with UtButtonMixin {
   }) => UtButton._(
     key: key,
     label: label,
-    type: UtColorStyle.primary,
+    type: UtPriorityStyle.primary,
     onPressed: onPressed,
     sizeStyle: sizeStyle,
     hint: hint,
@@ -151,7 +152,7 @@ class UtButton extends StatelessWidget with UtButtonMixin {
   }) => UtButton._(
     key: key,
     label: label,
-    type: UtColorStyle.secondary,
+    type: UtPriorityStyle.secondary,
     onPressed: onPressed,
     sizeStyle: sizeStyle,
     hint: hint,
@@ -166,7 +167,7 @@ class UtButton extends StatelessWidget with UtButtonMixin {
   }) => UtButton._(
     key: key,
     label: label,
-    type: UtColorStyle.tertiary,
+    type: UtPriorityStyle.tertiary,
     onPressed: onPressed,
     sizeStyle: sizeStyle,
     hint: hint,
@@ -182,7 +183,7 @@ class UtButton extends StatelessWidget with UtButtonMixin {
     key: key,
     label: label,
     icon: icon,
-    type: UtColorStyle.primary,
+    type: UtPriorityStyle.primary,
     onPressed: onPressed,
     sizeStyle: sizeStyle,
     hint: hint,
@@ -199,7 +200,7 @@ class UtButton extends StatelessWidget with UtButtonMixin {
     key: key,
     label: label,
     icon: icon,
-    type: UtColorStyle.secondary,
+    type: UtPriorityStyle.secondary,
     onPressed: onPressed,
     sizeStyle: sizeStyle,
     hint: hint,
@@ -215,7 +216,7 @@ class UtButton extends StatelessWidget with UtButtonMixin {
     key: key,
     label: label,
     icon: icon,
-    type: UtColorStyle.tertiary,
+    type: UtPriorityStyle.tertiary,
     onPressed: onPressed,
     sizeStyle: sizeStyle,
     hint: hint,

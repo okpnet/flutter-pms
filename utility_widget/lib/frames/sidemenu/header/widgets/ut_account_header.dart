@@ -35,20 +35,8 @@ class UtAccountHeader extends StatelessWidget
     );
   }
 
-  Text titleBuilder(BuildContext context) => Text(
-    accountItem.account,
-    maxLines: 1,
-    overflow: TextOverflow.ellipsis,
-    softWrap: true,
-    style: TextStyle(
-      color: frontColor(context),
-      //fontWeight: FontWeight.bold,
-      fontSize: UtTextHelper.fontScaleOf(
-        context: context,
-        scale: accountFontSizeScale,
-      ),
-    ),
-  );
+  Widget titleBuilder(BuildContext context) =>
+      UtText.sectionSubTitle(accountItem.account);
 
   Widget? trailingPopupMenuBuilder() {
     if (accountItem.options == null || accountItem.options!.isEmpty) {

@@ -1,6 +1,8 @@
+import 'package:utility_widget/styles/constans/ut_priority_style.dart';
 import 'package:utility_widget/styles/export/ut_widget_design.dart';
 import 'package:utility_widget/styles/helper/ut_text_helper.dart';
 import 'package:utility_widget/styles/ut_style.dart';
+import 'package:utility_widget/text/ut_text.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 
 class Settings extends StatelessWidget {
@@ -11,8 +13,11 @@ class Settings extends StatelessWidget {
     return SidemenuScafold(
       isReturned: false,
       child: UtBody(
-        title: Text('設定', style: UtTextHelper.buildSubtitleStyle(context)),
-        body: UtResponsiveRowWrap.grid(children: []),
+        title: UtText.scetionTitle('設定'),
+        body: UtResponsiveRowWrap.grid(maxCellCount: 3, children: [
+            
+          ],
+        ),
       ),
     );
   }

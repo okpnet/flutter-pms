@@ -13,12 +13,13 @@ class UtTextInput extends StatelessWidget with UtInputTextStyleMixin {
   final VoidCallback? onEditingComplete;
   final ValueChanged<String>? onFieldSubmitted;
   final bool? enabled;
-  final Widget? label;
-  final UtColorStyle type;
+  final String? label;
+  final UtPriorityStyle type;
   final String? hint;
   final bool obscureText;
   final String obscuringCharacter;
   final UtInputWidthStyle widthStyle;
+  final String? Function({Key? key, String? label, String? value})? validator;
 
   const UtTextInput({
     super.key,
@@ -35,17 +36,18 @@ class UtTextInput extends StatelessWidget with UtInputTextStyleMixin {
     this.onEditingComplete,
     this.onFieldSubmitted,
     this.label,
-    this.type = UtColorStyle.primary,
+    this.type = UtPriorityStyle.primary,
     this.hint,
     this.obscureText = false,
     this.obscuringCharacter = '•',
     this.widthStyle = UtInputWidthStyle.infinity,
+    this.validator,
   });
 
   @override
   Widget build(BuildContext context) {
     final body = switch (type) {
-      UtColorStyle.primary => _primary(),
+      UtPriorityStyle.primary => _primary(),
       _ => throw Exception('Not impletement UtTextInput type $type'),
     };
     return UtLayoutCrevice.margin(
@@ -65,7 +67,7 @@ class UtTextInput extends StatelessWidget with UtInputTextStyleMixin {
         border: primary(),
         suffixIcon: suffixIcon,
         prefixIcon: prefixIcon,
-        label: label,
+        label: label != null ? Text(label!) : null,
         // contentPadding: buildPaddingInsets(sizeStyle),
         isDense: true,
       ),
@@ -80,6 +82,9 @@ class UtTextInput extends StatelessWidget with UtInputTextStyleMixin {
       onFieldSubmitted: onFieldSubmitted,
       obscureText: obscureText,
       obscuringCharacter: obscuringCharacter,
+      validator: validator == null
+          ? null
+          : (value) => validator!(key: key, label: label, value: value),
     );
   }
 
@@ -97,10 +102,10 @@ class UtTextInput extends StatelessWidget with UtInputTextStyleMixin {
     VoidCallback? onEditingComplete,
     ValueChanged<String>? onFieldSubmitted,
     bool? enabled,
-    Widget? label,
-    bool obscureText = false,
-    String obscuringCharacter = '•',
+    String? label,
     UtInputWidthStyle widthStyle = UtInputWidthStyle.infinity,
+    bool requiered = false,
+    String? Function({Key? key, String? label, String? value})? validator,
   }) => UtTextInput(
     key: key,
     enabled: enabled,
@@ -114,11 +119,13 @@ class UtTextInput extends StatelessWidget with UtInputTextStyleMixin {
     onEditingComplete: onEditingComplete,
     onFieldSubmitted: onFieldSubmitted,
     prefixIcon: prefixIcon,
-    suffixIcon: suffixIcon,
-    type: UtColorStyle.primary,
-    obscureText: obscureText,
-    obscuringCharacter: obscuringCharacter,
+    suffixIcon: requiered
+        ? Icon(Icons.emergency, color: UtPriorityColorStyle.danger.getColor())
+        : suffixIcon,
+    type: UtPriorityStyle.primary,
+    obscureText: false,
     widthStyle: widthStyle,
+    validator: validator,
   );
 
   factory UtTextInput.primaryPassword({
@@ -133,9 +140,10 @@ class UtTextInput extends StatelessWidget with UtInputTextStyleMixin {
     VoidCallback? onEditingComplete,
     ValueChanged<String>? onFieldSubmitted,
     bool? enabled,
-    Widget? label,
+    String? label,
     String obscuringCharacter = '•',
     UtInputWidthStyle widthStyle = UtInputWidthStyle.infinity,
+    String? Function({Key? key, String? label, String? value})? validator,
   }) => UtTextInput(
     key: key,
     enabled: enabled,
@@ -150,9 +158,10 @@ class UtTextInput extends StatelessWidget with UtInputTextStyleMixin {
     onFieldSubmitted: onFieldSubmitted,
     prefixIcon: prefixIcon,
     suffixIcon: suffixIcon,
-    type: UtColorStyle.primary,
+    type: UtPriorityStyle.primary,
     obscureText: true,
     obscuringCharacter: obscuringCharacter,
     widthStyle: widthStyle,
+    validator: validator,
   );
 }
