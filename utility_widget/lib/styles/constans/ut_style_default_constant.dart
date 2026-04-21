@@ -6,8 +6,8 @@ class UtStyleDefaultConstant {
   ///左右のmarginを広げる基準幅
   static const double contentsWidthBoundary = 1536;
 
-  ///標準のコンテンツ余白
-  static const double edgeInsetsBoldValue = 10;
+  ///太め
+  static const double edgeInsetsThcikValue = 10;
 
   ///標準のコンテンツ余白
   static const double edgeInsetsDefaultValue = 5;
