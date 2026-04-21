@@ -9,10 +9,11 @@ enum UtBrightnessStyle {
   const UtBrightnessStyle(this.value);
   Color getColor(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+
     return switch (value) {
-      0 => scheme.surfaceContainerHigh,
-      1 => scheme.surfaceContainer,
-      2 => scheme.surfaceContainerLowest,
+      0 => scheme.primaryFixed,
+      1 => scheme.primaryFixedDim,
+      2 => scheme.primary,
       _ => throw Exception('out of range.'),
     };
   }

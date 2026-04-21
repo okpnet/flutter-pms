@@ -1,7 +1,7 @@
 part of '../ut_scafold.dart';
 
 class UtFrameWork extends StatelessWidget {
-  final PreferredSizeWidget? appBar;
+  final Widget? appBarTitle;
   final Widget? body;
   final List<UtSideItem>? sideMenuItems;
   final ValueChanged<UtSideItem>? onSelect;
@@ -10,7 +10,7 @@ class UtFrameWork extends StatelessWidget {
 
   const UtFrameWork({
     super.key,
-    this.appBar,
+    this.appBarTitle,
     this.body,
     this.sideMenuItems,
     this.accountItem,
@@ -22,11 +22,15 @@ class UtFrameWork extends StatelessWidget {
   Widget build(BuildContext context) {
     UtSideItem? selectItem;
     final isNarrow = UtLayoutHelper.isMobile(context);
+    final scheme = Theme.of(context).colorScheme;
     return Stack(
       alignment: AlignmentGeometry.topCenter,
       children: [
         Scaffold(
-          appBar: appBar,
+          appBar: AppBar(
+            title: appBarTitle,
+            backgroundColor: scheme.inversePrimary,
+          ), //appBar,
           drawer: isNarrow && sideMenuItems != null
               ? UtSidemenuHelper.ofDrawer(
                   selected: selectItem,

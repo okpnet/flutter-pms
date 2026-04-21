@@ -6,8 +6,7 @@ import 'package:utility_widget/styles/export/ut_widget_design.dart';
 import 'package:utility_widget/styles/ut_style.dart';
 import 'package:utility_widget/text/ut_text.dart';
 import 'package:utility_widget_example/pages/account/login.dart';
-
-import '../container/app_bar_mixin.dart';
+import 'package:utility_widget_example/pages/container/app_bar_mixin.dart';
 
 class Logout extends StatefulWidget {
   const Logout({super.key});
@@ -29,7 +28,7 @@ class _Logout extends State<Logout> with AppBarMixin {
   @override
   Widget build(BuildContext context) {
     return UtFrameWork(
-      appBar: buildAppbar(context),
+      appBarTitle: Text(title),
       isOverlayIndicator: isLoading,
       body: UtBody(
         titleAign: AlignmentGeometry.center,

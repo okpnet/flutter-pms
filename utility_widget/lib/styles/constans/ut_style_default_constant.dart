@@ -8,4 +8,7 @@ class UtStyleDefaultConstant {
 
   ///標準のコンテンツ余白
   static const double edgeInsetsDefaultValue = 5;
+
+  ///細め
+  static const double edgeInsetsThinValue = 2;
 }

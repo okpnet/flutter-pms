@@ -35,7 +35,7 @@ class _Login extends State<Login> with AppBarMixin {
   @override
   Widget build(BuildContext context) {
     return UtFrameWork(
-      appBar: buildAppbar(context),
+      appBarTitle: Text(title),
       isOverlayIndicator: isLoading,
       body: UtBody(
         titleAign: AlignmentGeometry.center,

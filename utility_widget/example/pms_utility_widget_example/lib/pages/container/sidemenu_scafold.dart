@@ -7,9 +7,7 @@ import 'package:utility_widget/styles/export/ut_widget_design.dart';
 import 'package:utility_widget_example/pages/account/announce.dart';
 import 'package:utility_widget_example/pages/account/logout.dart';
 import 'package:utility_widget_example/pages/account/settings.dart';
-
 import '../../constant/asset.dart';
-import 'app_bar_mixin.dart';
 
 part 'sidmenu_values.dart';
 
@@ -25,11 +23,12 @@ class SidemenuScafold extends StatefulWidget {
   State<StatefulWidget> createState() => _SidemenuScafold();
 }
 
-class _SidemenuScafold extends State<SidemenuScafold> with AppBarMixin {
+class _SidemenuScafold extends State<SidemenuScafold> {
+  final String title = 'アプリケーションタイトル';
   @override
   Widget build(BuildContext context) {
     return UtFrameWork(
-      appBar: buildAppbar(context),
+      appBarTitle: Text(title),
       accountItem: buildAccountItem(context),
       onSelect: (value) => setState(() {
         selectItem = value;

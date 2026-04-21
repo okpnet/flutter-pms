@@ -5,10 +5,9 @@ import 'package:utility_widget/text/ut_text.dart';
 import 'package:utility_widget_example/buttons/buttons_view.dart';
 import 'package:utility_widget_example/fields/fields.dart';
 import 'package:utility_widget_example/loading_indicators/mini_indicator.dart';
-import 'package:utility_widget_example/pages/container/app_bar_mixin.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 
-class Dashboard extends StatelessWidget with AppBarMixin {
+class Dashboard extends StatelessWidget {
   Dashboard({super.key});
 
   @override

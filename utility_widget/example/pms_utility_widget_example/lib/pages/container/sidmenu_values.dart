@@ -30,6 +30,9 @@ UtAccontItem buildAccountItem(BuildContext context) {
             icon: Icon(Icons.settings_outlined),
             onPress: () {
               selectItem = null;
+              Navigator.of(
+                context,
+              ).push(MaterialPageRoute(builder: (context) => Settings()));
             },
           ),
           UtSideItem(
