@@ -20,6 +20,8 @@ class UtDivider extends StatelessWidget {
       child: Column(
         crossAxisAlignment: prefixAlign,
         children: [
+          if (prefix != null)
+            SizedBox(height: UtStyleDefaultConstant.edgeInsetsBoldValue),
           ?prefix,
           Divider(
             color: brightness.getColor(context),

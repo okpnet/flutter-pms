@@ -7,6 +7,9 @@ class UtStyleDefaultConstant {
   static const double contentsWidthBoundary = 1536;
 
   ///標準のコンテンツ余白
+  static const double edgeInsetsBoldValue = 10;
+
+  ///標準のコンテンツ余白
   static const double edgeInsetsDefaultValue = 5;
 
   ///細め
