@@ -21,6 +21,7 @@ class Settings extends StatelessWidget {
               prefix: UtText.label('ユーザーの情報'),
               brightness: UtBrightnessStyle.dark,
             ),
+            UtResponsiveRowWrap.divider(),
             UtResponsiveRowWrap.grid(
               maxCellCount: 3,
               children: [
@@ -31,6 +32,7 @@ class Settings extends StatelessWidget {
                 ),
               ],
             ),
+            UtResponsiveRowWrap.divider(),
             UtResponsiveRowWrap.grid(
               maxCellCount: 3,
               children: [
@@ -41,6 +43,7 @@ class Settings extends StatelessWidget {
                 ),
               ],
             ),
+            UtResponsiveRowWrap.divider(),
             UtResponsiveRowWrap.grid(
               maxCellCount: 3,
               children: [
@@ -51,6 +54,40 @@ class Settings extends StatelessWidget {
                 ),
               ],
             ),
+            UtResponsiveRowWrap.divider(),
+            UtResponsiveRowWrap.grid(
+              maxCellCount: 3,
+              children: [
+                UtResponsiveRowWrapItem(
+                  cellCount: 1,
+                  align: AlignmentGeometry.centerLeft,
+                  child: UtTextInput.primary(label: '担当者コード'),
+                ),
+              ],
+            ),
+            UtResponsiveRowWrap.divider(),
+            UtResponsiveRowWrap.grid(
+              maxCellCount: 3,
+              children: [
+                UtResponsiveRowWrapItem(
+                  cellCount: 1,
+                  align: AlignmentGeometry.centerLeft,
+                  child: UtTextInput.primary(label: '携帯電話1'),
+                ),
+              ],
+            ),
+            UtResponsiveRowWrap.divider(),
+            UtResponsiveRowWrap.grid(
+              maxCellCount: 3,
+              children: [
+                UtResponsiveRowWrapItem(
+                  cellCount: 1,
+                  align: AlignmentGeometry.centerLeft,
+                  child: UtTextInput.primary(label: '携帯電話2'),
+                ),
+              ],
+            ),
+            UtResponsiveRowWrap.divider(),
             UtDivider(
               prefix: UtText.label('アプリケーションの設定'),
               brightness: UtBrightnessStyle.dark,

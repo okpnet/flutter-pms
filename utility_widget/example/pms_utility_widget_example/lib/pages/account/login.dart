@@ -62,6 +62,7 @@ class _Login extends State<Login> with AppBarMixin {
                 ),
               ],
             ),
+            UtResponsiveRowWrap.divider(),
             UtResponsiveRowWrap.grid(
               maxCellCount: 3,
               children: [
@@ -82,6 +83,7 @@ class _Login extends State<Login> with AppBarMixin {
                 ),
               ],
             ),
+            UtResponsiveRowWrap.divider(),
             UtResponsiveRowWrap.grid(
               maxCellCount: 3,
               children: [

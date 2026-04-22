@@ -39,27 +39,29 @@ class UtBody extends StatelessWidget with UtEdgeinsetMixin {
   ///タイトル
   ///body
   Widget _titleSet({required BuildContext context, required bool isMobile}) {
-    return Column(
-      children: [
-        if (title != null)
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          if (title != null)
+            Padding(
+              padding: edgeInsetsBuilder(
+                direction: isMobile
+                    ? UtDirection.all ^ UtDirection.bottom
+                    : UtDirection.top,
+                value: UtBodyConstant.minPaddingSize,
+              ),
+              child: Align(alignment: titleAign, child: title!),
+            ),
+
           Padding(
             padding: edgeInsetsBuilder(
-              direction: isMobile
-                  ? UtDirection.all ^ UtDirection.bottom
-                  : UtDirection.top,
+              direction: isMobile ? UtDirection.all : UtDirection.vertical,
               value: UtBodyConstant.minPaddingSize,
             ),
-            child: Align(alignment: titleAign, child: title!),
+            child: body,
           ),
-
-        Padding(
-          padding: edgeInsetsBuilder(
-            direction: isMobile ? UtDirection.all : UtDirection.vertical,
-            value: UtBodyConstant.minPaddingSize,
-          ),
-          child: body,
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

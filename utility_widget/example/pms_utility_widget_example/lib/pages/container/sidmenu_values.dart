@@ -56,11 +56,27 @@ List<UtSideItem> buildSiedemenuItems(BuildContext context) {
       sidemenuItems ??
       [
         UtSideItem(
-          label: 'Item 1',
-          icon: Icon(Icons.favorite),
-          onPress: () {
-            // Do something
-          },
+          label: '基本情報',
+          //icon: Icon(Icons.favorite),
+          onPress: () {},
+          options: [
+            UtSideItem(
+              label: '会社',
+              icon: Icon(Icons.arrow_right),
+              onPress: () {
+                if (Navigator.canPop(context)) {
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => Company()),
+                    (_) => false,
+                  );
+                } else {
+                  Navigator.of(
+                    context,
+                  ).push(MaterialPageRoute(builder: (context) => Company()));
+                }
+              },
+            ),
+          ],
         ),
         UtSideItem(
           label: 'Item 2',

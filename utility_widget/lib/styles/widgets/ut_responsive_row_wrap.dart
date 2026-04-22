@@ -6,12 +6,15 @@ class UtResponsiveRowWrap extends StatelessWidget {
   final WrapAlignment alignment;
   final List<UtResponsiveRowWrapItem> children;
   final double minWidth;
+  // final Axis direction;
+
   const UtResponsiveRowWrap._({
     super.key,
     required this.maxCellCount,
     required this.children,
     this.alignment = WrapAlignment.start,
     this.minWidth = 0,
+    // this.direction = .horizontal,
   });
 
   factory UtResponsiveRowWrap.grid({
@@ -20,6 +23,7 @@ class UtResponsiveRowWrap extends StatelessWidget {
     WrapAlignment alignment = WrapAlignment.start,
     required List<UtResponsiveRowWrapItem> children,
     double minWidth = 0,
+    // Axis direction = .horizontal,
   }) {
     final sum = children.sumByInt((t) => t.cellCount);
     if (sum > maxCellCount) {
@@ -34,30 +38,64 @@ class UtResponsiveRowWrap extends StatelessWidget {
       alignment: alignment,
       maxCellCount: maxCellCount,
       minWidth: minWidth,
+      // direction: direction,
       children: children,
+    );
+  }
+
+  factory UtResponsiveRowWrap.divider({
+    Key? key,
+    double dividerValue = UtStyleDefaultConstant.edgeInsetsThcikValue,
+    Axis direction = .horizontal,
+  }) {
+    return UtResponsiveRowWrap._(
+      key: key,
+      alignment: .center,
+      maxCellCount: 1,
+      minWidth: 0,
+      // direction: direction,
+      children: [
+        UtResponsiveRowWrapItem(
+          child: SizedBox(width: dividerValue, height: dividerValue),
+        ),
+      ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
     final isMobile = UtLayoutHelper.isMobile(context);
-    return isMobile ? mobile(context) : wide(context);
+    if (isMobile) {
+      return mobile(context);
+    }
+    return wide(context);
   }
 
   Widget wide(BuildContext context) {
     return LayoutBuilder(
       builder: (_, _constrains) {
         final space = UtStyleDefaultConstant.edgeInsetsDefaultValue;
-        final totalSpacing = maxCellCount * space;
-        final contentsWidth = _constrains.widthConstraints().maxWidth;
-        final itemWidth = (contentsWidth - totalSpacing) / maxCellCount;
-        final width = minWidth > itemWidth ? minWidth : itemWidth;
-        final sum = children.sumByInt((t) => t.cellCount);
-        final shortage = maxCellCount - sum;
+
+        // final contentsLength = direction == .horizontal
+        //     ? _constrains.widthConstraints().maxWidth
+        //     : _constrains.heightConstraints().maxHeight;
+        final contentsLength = _constrains.widthConstraints().maxWidth;
+
+        final itemLength = (contentsLength - space * 2) / maxCellCount;
+        final length = minWidth > itemLength ? minWidth : itemLength;
+        // 1. 1 行に入る最大個数 n
+        final n = ((contentsLength - (maxCellCount - 1) * space) / (length))
+            .floor();
+        // 2. 行の使用幅
+        final usedLength = n * length + space * (n - 1);
+        // 3. 余り幅（行ごとに同じ）
+        final remain = contentsLength - usedLength;
+        // 4. 最後の行の不足数
+        final shortage = (n - (children.sumByInt((t) => t.cellCount) % n)) % n;
 
         return Wrap(
           alignment: alignment,
-          direction: Axis.horizontal,
+          direction: Axis.horizontal, //direction,
           spacing: space,
           runSpacing: space,
           runAlignment: WrapAlignment.start,
@@ -65,10 +103,18 @@ class UtResponsiveRowWrap extends StatelessWidget {
             for (var child in children.where(
               (t) => t.enableWidthType != UtGridEnableWidthType.onlyMobile,
             ))
-              SizedBox(width: width * child.cellCount, child: child),
+              SizedBox(width: length * child.cellCount, child: child),
+            // direction == .horizontal
+            //     ? SizedBox(width: length * child.cellCount, child: child)
+            //     : SizedBox(height: length * child.cellCount, child: child),
             if (shortage > 0)
-              for (int index = 0; shortage > index; index++)
-                SizedBox(width: width, child: SizedBox.shrink()),
+              SizedBox(width: length * shortage, child: SizedBox.shrink()),
+            // direction == .horizontal
+            //     ? SizedBox(width: length * shortage, child: SizedBox.shrink())
+            //     : SizedBox(
+            //         height: length * shortage,
+            //         child: SizedBox.shrink(),
+            //       ),
           ],
         );
       },

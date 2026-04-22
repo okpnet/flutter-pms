@@ -48,14 +48,18 @@ mixin UtSideMixin on Widget {
 
   ///レベル深さで左側
   EdgeInsets _buildEdgeinsetsFromLevel(int level) {
-    final defaultValue = UtStyleDefaultConstant.edgeInsetsDefaultValue;
+    final horizontalValue = UtStyleDefaultConstant.edgeInsetsThcikValue;
+    final virticalValue = UtStyleDefaultConstant.edgeInsetsDefaultValue;
     return level == 1
-        ? EdgeInsets.all(defaultValue)
+        ? EdgeInsets.symmetric(
+            horizontal: horizontalValue,
+            vertical: virticalValue,
+          )
         : EdgeInsets.only(
             left: levelSpace * level,
-            bottom: defaultValue,
-            right: defaultValue,
-            top: defaultValue,
+            bottom: virticalValue,
+            right: horizontalValue,
+            top: virticalValue,
           );
   }
 
