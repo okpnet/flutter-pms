@@ -1,4 +1,6 @@
 // Project imports:
+import 'package:utility_widget/styles/constans/ut_space_style.dart';
+
 import '../../../styles/constans/ut_style_default_constant.dart';
 import '../../../styles/export/ut_widget_design.dart';
 import '../../../styles/layout_model/ut_direction.dart';
@@ -48,8 +50,8 @@ mixin UtSideMixin on Widget {
 
   ///レベル深さで左側
   EdgeInsets _buildEdgeinsetsFromLevel(int level) {
-    final horizontalValue = UtStyleDefaultConstant.edgeInsetsThcikValue;
-    final virticalValue = UtStyleDefaultConstant.edgeInsetsDefaultValue;
+    final horizontalValue = UtSpaceStyle.xl.value;
+    final virticalValue = UtSpaceStyle.md.value;
     return level == 1
         ? EdgeInsets.symmetric(
             horizontal: horizontalValue,

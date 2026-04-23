@@ -1,6 +1,8 @@
 part of '../ut_style.dart';
 
 class UtResponsiveRowWrap extends StatelessWidget {
+  //Inputの最小幅
+  static const double defaultMinLentgh = 240;
   @RangeValues(1, 12)
   final int maxCellCount;
   final WrapAlignment alignment;
@@ -13,7 +15,7 @@ class UtResponsiveRowWrap extends StatelessWidget {
     required this.maxCellCount,
     required this.children,
     this.alignment = WrapAlignment.start,
-    this.minWidth = 0,
+    this.minWidth = defaultMinLentgh,
     // this.direction = .horizontal,
   });
 
@@ -43,9 +45,9 @@ class UtResponsiveRowWrap extends StatelessWidget {
     );
   }
 
-  factory UtResponsiveRowWrap.divider({
+  factory UtResponsiveRowWrap.lineSpace({
     Key? key,
-    double dividerValue = UtStyleDefaultConstant.edgeInsetsThcikValue,
+    UtSpaceStyle space = .xl,
     Axis direction = .horizontal,
   }) {
     return UtResponsiveRowWrap._(
@@ -56,7 +58,7 @@ class UtResponsiveRowWrap extends StatelessWidget {
       // direction: direction,
       children: [
         UtResponsiveRowWrapItem(
-          child: SizedBox(width: dividerValue, height: dividerValue),
+          child: SizedBox(width: space.value, height: space.value),
         ),
       ],
     );
@@ -73,13 +75,10 @@ class UtResponsiveRowWrap extends StatelessWidget {
 
   Widget wide(BuildContext context) {
     return LayoutBuilder(
-      builder: (_, _constrains) {
-        final space = UtStyleDefaultConstant.edgeInsetsDefaultValue;
-
-        // final contentsLength = direction == .horizontal
-        //     ? _constrains.widthConstraints().maxWidth
-        //     : _constrains.heightConstraints().maxHeight;
-        final contentsLength = _constrains.widthConstraints().maxWidth;
+      builder: (_, constrains) {
+        final testHeight = constrains.constrainHeight();
+        final space = UtSpaceStyle.xl.value;
+        final contentsLength = constrains.widthConstraints().maxWidth;
 
         final itemLength = (contentsLength - space * 2) / maxCellCount;
         final length = minWidth > itemLength ? minWidth : itemLength;

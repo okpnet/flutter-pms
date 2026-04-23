@@ -21,7 +21,7 @@ class Settings extends StatelessWidget {
               prefix: UtText.label('ユーザーの情報'),
               brightness: UtBrightnessStyle.dark,
             ),
-            UtResponsiveRowWrap.divider(),
+            UtResponsiveRowWrap.lineSpace(),
             UtResponsiveRowWrap.grid(
               maxCellCount: 3,
               children: [
@@ -32,7 +32,7 @@ class Settings extends StatelessWidget {
                 ),
               ],
             ),
-            UtResponsiveRowWrap.divider(),
+            UtResponsiveRowWrap.lineSpace(),
             UtResponsiveRowWrap.grid(
               maxCellCount: 3,
               children: [
@@ -43,7 +43,7 @@ class Settings extends StatelessWidget {
                 ),
               ],
             ),
-            UtResponsiveRowWrap.divider(),
+            UtResponsiveRowWrap.lineSpace(),
             UtResponsiveRowWrap.grid(
               maxCellCount: 3,
               children: [
@@ -54,7 +54,7 @@ class Settings extends StatelessWidget {
                 ),
               ],
             ),
-            UtResponsiveRowWrap.divider(),
+            UtResponsiveRowWrap.lineSpace(),
             UtResponsiveRowWrap.grid(
               maxCellCount: 3,
               children: [
@@ -65,7 +65,7 @@ class Settings extends StatelessWidget {
                 ),
               ],
             ),
-            UtResponsiveRowWrap.divider(),
+            UtResponsiveRowWrap.lineSpace(),
             UtResponsiveRowWrap.grid(
               maxCellCount: 3,
               children: [
@@ -76,7 +76,7 @@ class Settings extends StatelessWidget {
                 ),
               ],
             ),
-            UtResponsiveRowWrap.divider(),
+            UtResponsiveRowWrap.lineSpace(),
             UtResponsiveRowWrap.grid(
               maxCellCount: 3,
               children: [
@@ -87,7 +87,7 @@ class Settings extends StatelessWidget {
                 ),
               ],
             ),
-            UtResponsiveRowWrap.divider(),
+            UtResponsiveRowWrap.lineSpace(),
             UtDivider(
               prefix: UtText.label('アプリケーションの設定'),
               brightness: UtBrightnessStyle.dark,

@@ -1,10 +1,11 @@
 // Project imports:
-import '../constans/ut_style_default_constant.dart';
+import 'package:utility_widget/styles/constans/ut_space_style.dart';
+
 import '../export/ut_widget_design.dart';
 import '../layout_model/ut_direction.dart';
 
 mixin UtEdgeinsetMixin {
-  final double _edgeInsetsValue = UtStyleDefaultConstant.edgeInsetsDefaultValue;
+  final double _edgeInsetsValue = UtSpaceStyle.md.value;
 
   double get defaultMargin => _edgeInsetsValue;
 

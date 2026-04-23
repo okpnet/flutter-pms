@@ -6,8 +6,8 @@ import 'package:utility_widget/text/ut_text.dart';
 import 'package:utility_widget_example/pages/container/responsive_label_divider.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 
-class Company extends StatelessWidget {
-  const Company({super.key});
+class CompanyEdit extends StatelessWidget {
+  const CompanyEdit({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class Company extends StatelessWidget {
                 ),
               ],
             ),
-            UtResponsiveRowWrap.divider(),
+            UtResponsiveRowWrap.lineSpace(),
             ResponsiveLabelDivider(label: '基本的な情報'),
             UtResponsiveRowWrap.grid(
               alignment: .start,
@@ -53,7 +53,7 @@ class Company extends StatelessWidget {
                 ),
               ],
             ),
-            UtResponsiveRowWrap.divider(),
+            UtResponsiveRowWrap.lineSpace(),
             UtResponsiveRowWrap.grid(
               alignment: .start,
               maxCellCount: 3,
@@ -72,7 +72,7 @@ class Company extends StatelessWidget {
                 ),
               ],
             ),
-            UtResponsiveRowWrap.divider(),
+            UtResponsiveRowWrap.lineSpace(),
             ResponsiveLabelDivider(label: '代表とホームページ'),
             UtResponsiveRowWrap.grid(
               alignment: .start,
@@ -86,7 +86,7 @@ class Company extends StatelessWidget {
                 ),
               ],
             ),
-            UtResponsiveRowWrap.divider(),
+            UtResponsiveRowWrap.lineSpace(),
             UtResponsiveRowWrap.grid(
               alignment: .start,
               maxCellCount: 3,
@@ -99,7 +99,7 @@ class Company extends StatelessWidget {
                 ),
               ],
             ),
-            UtResponsiveRowWrap.divider(),
+            UtResponsiveRowWrap.lineSpace(),
             ResponsiveLabelDivider(label: '住所と連絡先'),
             UtResponsiveRowWrap.grid(
               alignment: .start,
@@ -113,7 +113,7 @@ class Company extends StatelessWidget {
                 ),
               ],
             ),
-            UtResponsiveRowWrap.divider(),
+            UtResponsiveRowWrap.lineSpace(),
             UtResponsiveRowWrap.grid(
               alignment: .start,
               maxCellCount: 3,
@@ -126,7 +126,7 @@ class Company extends StatelessWidget {
                 ),
               ],
             ),
-            UtResponsiveRowWrap.divider(),
+            UtResponsiveRowWrap.lineSpace(),
             UtResponsiveRowWrap.grid(
               alignment: .start,
               maxCellCount: 3,
@@ -139,7 +139,7 @@ class Company extends StatelessWidget {
                 ),
               ],
             ),
-            UtResponsiveRowWrap.divider(),
+            UtResponsiveRowWrap.lineSpace(),
             UtResponsiveRowWrap.grid(
               alignment: .start,
               maxCellCount: 3,
@@ -152,7 +152,7 @@ class Company extends StatelessWidget {
                 ),
               ],
             ),
-            UtResponsiveRowWrap.divider(),
+            UtResponsiveRowWrap.lineSpace(),
             UtResponsiveRowWrap.grid(
               alignment: .start,
               maxCellCount: 3,
@@ -165,7 +165,7 @@ class Company extends StatelessWidget {
                 ),
               ],
             ),
-            UtResponsiveRowWrap.divider(),
+            UtResponsiveRowWrap.lineSpace(),
             UtResponsiveRowWrap.grid(
               alignment: .start,
               maxCellCount: 3,
@@ -184,7 +184,7 @@ class Company extends StatelessWidget {
                 ),
               ],
             ),
-            UtResponsiveRowWrap.divider(),
+            UtResponsiveRowWrap.lineSpace(),
             UtResponsiveRowWrap.grid(
               alignment: .start,
               maxCellCount: 1,

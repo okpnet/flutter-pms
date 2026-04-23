@@ -1,6 +1,8 @@
 // Project imports:
 
+import 'package:utility_widget/styles/constans/ut_border_style.dart';
 import 'package:utility_widget/styles/constans/ut_brightness_style.dart';
+import 'package:utility_widget/styles/constans/ut_space_style.dart';
 import 'package:utility_widget/styles/constans/ut_style_default_constant.dart';
 
 import 'constans/ut_body_constant.dart';
