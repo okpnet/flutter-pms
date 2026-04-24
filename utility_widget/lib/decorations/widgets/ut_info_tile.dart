@@ -73,7 +73,7 @@ class UtInfoTile extends StatelessWidget {
     );
   }
 
-  ///
+  ///パーセント表示
   factory UtInfoTile.percent({
     Key? key,
     required String label,
@@ -104,6 +104,36 @@ class UtInfoTile extends StatelessWidget {
                 ),
               ],
               UtLayoutPadding(direction: .all, child: UtText.text('%')),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  ///テキスト表示
+  factory UtInfoTile.text({
+    Key? key,
+    required String label,
+    required String text,
+    String? suffixText,
+    Widget? endLine,
+  }) {
+    return UtInfoTile(
+      label: label,
+      // key: key,
+      mainLine: UtLayoutPadding(
+        child: Center(
+          child: Row(
+            mainAxisAlignment: .center,
+            crossAxisAlignment: .end,
+            children: [
+              UtText.subTitle(text),
+              if (suffixText != null)
+                UtLayoutPadding(
+                  direction: .all,
+                  child: UtText.text(suffixText),
+                ),
             ],
           ),
         ),

@@ -1,9 +1,9 @@
 import 'package:utility_widget/buttons/ut_button.dart';
+import 'package:utility_widget/decorations/ut_decoration.dart';
 import 'package:utility_widget/forms/ut_input_field.dart';
 import 'package:utility_widget/styles/export/ut_widget_design.dart';
 import 'package:utility_widget/styles/ut_style.dart';
 import 'package:utility_widget/text/ut_text.dart';
-import 'package:utility_widget_example/pages/container/responsive_label_divider.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 
 class CompanyEdit extends StatelessWidget {
@@ -40,7 +40,7 @@ class CompanyEdit extends StatelessWidget {
               ],
             ),
             UtResponsiveRowWrap.lineSpace(),
-            ResponsiveLabelDivider(label: '基本的な情報'),
+            UtResponsiveLabelDivider(label: '基本的な情報'),
             UtResponsiveRowWrap.grid(
               alignment: .start,
               maxCellCount: 3,
@@ -73,7 +73,7 @@ class CompanyEdit extends StatelessWidget {
               ],
             ),
             UtResponsiveRowWrap.lineSpace(),
-            ResponsiveLabelDivider(label: '代表とホームページ'),
+            UtResponsiveLabelDivider(label: '代表とホームページ'),
             UtResponsiveRowWrap.grid(
               alignment: .start,
               maxCellCount: 3,
@@ -100,7 +100,7 @@ class CompanyEdit extends StatelessWidget {
               ],
             ),
             UtResponsiveRowWrap.lineSpace(),
-            ResponsiveLabelDivider(label: '住所と連絡先'),
+            UtResponsiveLabelDivider(label: '住所と連絡先'),
             UtResponsiveRowWrap.grid(
               alignment: .start,
               maxCellCount: 3,

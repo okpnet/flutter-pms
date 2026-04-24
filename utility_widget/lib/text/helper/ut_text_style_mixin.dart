@@ -1,3 +1,5 @@
+import 'package:utility_widget/text/constants/ut_text_size_style.dart';
+
 import '../../styles/export/ut_widget_design.dart';
 import '../constants/ut_text_priority_style.dart';
 
@@ -9,32 +11,30 @@ mixin UtTextStyleMixin {
   static const double defaultScale = 1.0;
   static const double xs = 0.6;
 
-  UtTextPriorityStyle get priority;
   UtTextColorStyle get color;
 
-  TextStyle? buildStyle(BuildContext context) {
+  TextStyle? buildStyle(BuildContext context, UtTextSizeStyle sizeStyle) {
     final theme = Theme.of(context).textTheme;
-    final base = theme.bodyMedium!.fontSize!;
-    return switch (priority) {
-      .title => theme.bodyMedium?.copyWith(
+    return switch (sizeStyle) {
+      .xl => theme.bodyMedium?.copyWith(
         color: color.getColor(context),
-        fontSize: base * xl,
+        fontSize: UtTextSizeStyle.xl.fontSizeOf(context),
       ),
-      .subtitle => theme.bodyMedium?.copyWith(
+      .lg => theme.bodyMedium?.copyWith(
         color: color.getColor(context),
-        fontSize: base * lg,
+        fontSize: UtTextSizeStyle.lg.fontSizeOf(context),
       ),
-      .sectionTitle => theme.titleLarge?.copyWith(
+      .md => theme.titleLarge?.copyWith(
         color: color.getColor(context),
-        fontSize: base * md,
+        fontSize: UtTextSizeStyle.md.fontSizeOf(context),
       ),
-      .sectionSubTitle => theme.bodyMedium?.copyWith(
+      .sm => theme.bodyMedium?.copyWith(
         color: color.getColor(context),
-        fontSize: base * sm,
+        fontSize: UtTextSizeStyle.sm.fontSizeOf(context),
       ),
-      .smallText => theme.bodySmall?.copyWith(
+      .xs => theme.bodySmall?.copyWith(
         color: color.getColor(context),
-        fontSize: base * xs,
+        fontSize: UtTextSizeStyle.xs.fontSizeOf(context),
       ),
       .label => theme.labelMedium?.copyWith(color: color.getColor(context)),
       _ => null,

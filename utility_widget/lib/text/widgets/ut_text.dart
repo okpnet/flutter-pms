@@ -6,10 +6,8 @@ class UtText extends StatelessWidget with UtTextStyleMixin {
   final int maxLine;
   final TextOverflow overflow;
   final UtTextColorStyle colorStyle;
-  final UtTextPriorityStyle priorityStyle;
+  final UtTextSizeStyle sizeStyle;
 
-  @override
-  UtTextPriorityStyle get priority => priorityStyle;
   @override
   UtTextColorStyle get color => colorStyle;
 
@@ -20,7 +18,7 @@ class UtText extends StatelessWidget with UtTextStyleMixin {
     this.maxLine = 1,
     this.overflow = TextOverflow.ellipsis,
     this.colorStyle = UtTextColorStyle.text,
-    this.priorityStyle = UtTextPriorityStyle.text,
+    this.sizeStyle = UtTextSizeStyle.none,
   });
 
   @override
@@ -30,42 +28,40 @@ class UtText extends StatelessWidget with UtTextStyleMixin {
       textAlign: align,
       overflow: overflow,
       maxLines: maxLine,
-      style: buildStyle(context),
+      style: buildStyle(context, sizeStyle),
     );
   }
 
   factory UtText.title(String text, {TextAlign align = TextAlign.left}) {
-    return UtText(text, colorStyle: .text, priorityStyle: .title);
+    return UtText(text, colorStyle: .text, sizeStyle: .xl);
   }
 
   factory UtText.subTitle(String text, {TextAlign align = TextAlign.left}) {
-    return UtText(text, colorStyle: .text, priorityStyle: .subtitle);
+    return UtText(text, colorStyle: .text, sizeStyle: .lg);
   }
+
   factory UtText.scetionTitle(String text, {TextAlign align = TextAlign.left}) {
-    return UtText(text, colorStyle: .text, priorityStyle: .sectionTitle);
+    return UtText(text, colorStyle: .text, sizeStyle: .md);
   }
-  factory UtText.text(
-    String text, {
-    TextAlign align = TextAlign.left,
-    bool small = false,
-  }) {
-    return UtText(
-      text,
-      priorityStyle: small
-          ? UtTextPriorityStyle.smallText
-          : UtTextPriorityStyle.text,
-    );
-  }
-  factory UtText.alert(String text, {TextAlign align = TextAlign.left}) {
-    return UtText(text, colorStyle: UtTextColorStyle.error);
-  }
-  factory UtText.label(String text, {TextAlign align = TextAlign.left}) {
-    return UtText(text, priorityStyle: .label);
-  }
+
   factory UtText.sectionSubTitle(
     String text, {
     TextAlign align = TextAlign.left,
   }) {
-    return UtText(text, priorityStyle: .sectionSubTitle);
+    return UtText(text, sizeStyle: .sm);
+  }
+  factory UtText.text(
+    String text, {
+    TextAlign align = TextAlign.left,
+    UtTextSizeStyle sizeStyle = .none,
+  }) {
+    return UtText(text, align: align, sizeStyle: sizeStyle);
+  }
+  factory UtText.label(String text, {TextAlign align = TextAlign.left}) {
+    return UtText(text, sizeStyle: .label);
+  }
+
+  factory UtText.alert(String text, {TextAlign align = TextAlign.left}) {
+    return UtText(text, colorStyle: UtTextColorStyle.error);
   }
 }

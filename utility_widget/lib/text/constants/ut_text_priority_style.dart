@@ -23,12 +23,12 @@ enum UtTextColorStyle {
   }
 }
 
-enum UtTextPriorityStyle {
-  smallText,
-  text,
-  title,
-  subtitle,
-  sectionTitle,
-  sectionSubTitle,
-  label,
-}
+// enum UtTextPriorityStyle {
+//   smallText,
+//   text,
+//   title,
+//   subtitle,
+//   sectionTitle,
+//   sectionSubTitle,
+//   label,
+// }

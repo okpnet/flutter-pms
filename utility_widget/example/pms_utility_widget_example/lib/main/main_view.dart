@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:utility_widget/buttons/ut_button.dart';
-import 'package:utility_widget/styles/constans/ut_priority_style.dart';
-import 'package:utility_widget/styles/helper/ut_text_helper.dart';
 import 'package:utility_widget/styles/ut_style.dart';
 import 'package:utility_widget/text/ut_text.dart';
 import 'package:utility_widget_example/buttons/buttons_view.dart';
