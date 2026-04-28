@@ -1,1 +1,1 @@
-enum UtGridEnableWidthType { onlyMobile, onlyWide, enableAll }
+// enum UtGridEnableWidthType { onlyMobile, onlyWide, enableAll }
