@@ -39,4 +39,18 @@ class UtResponsiveFlex {
       child: child,
     );
   }
+
+  UtResponsiveFlex copyWith({
+    UtMediaBreakpoint? hidePoint,
+    Widget? child,
+    UtGridFlexStyle? flex,
+    bool? cr,
+  }) {
+    return UtResponsiveFlex._(
+      hidePoint: hidePoint ?? this.hidePoint,
+      child: child ?? this.child,
+      flex: flex ?? this.flex,
+      cr: cr ?? this.cr,
+    );
+  }
 }

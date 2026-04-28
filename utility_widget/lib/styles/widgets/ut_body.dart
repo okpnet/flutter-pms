@@ -15,7 +15,7 @@ class UtBody extends StatelessWidget with UtEdgeinsetMixin {
 
   @override
   Widget build(BuildContext context) {
-    final isMobile = UtLayoutHelper.isMobile(context);
+    final isNarrow = UtLayoutHelper.isNarrow(context);
     return LayoutBuilder(
       builder: (context, _constrains) {
         final width = _constrains.widthConstraints().maxWidth;
@@ -29,7 +29,7 @@ class UtBody extends StatelessWidget with UtEdgeinsetMixin {
             direction: UtDirection.horizontal,
             value: margin,
           ),
-          child: _titleSet(context: context, isMobile: isMobile),
+          child: _titleSet(context: context, isNarrow: isNarrow),
         );
       },
     );
@@ -38,14 +38,14 @@ class UtBody extends StatelessWidget with UtEdgeinsetMixin {
   ///以下の組み合わせ上下に[UtBodyConstant.minPaddingSize]。規定幅より狭い場合は左右にもあわせて[UtBodyConstant.minPaddingSize]があるタイトルセット
   ///タイトル
   ///body
-  Widget _titleSet({required BuildContext context, required bool isMobile}) {
+  Widget _titleSet({required BuildContext context, required bool isNarrow}) {
     return SingleChildScrollView(
       child: Column(
         children: [
           if (title != null)
             Padding(
               padding: edgeInsetsBuilder(
-                direction: isMobile
+                direction: isNarrow
                     ? UtDirection.all ^ UtDirection.bottom
                     : UtDirection.top,
                 value: UtBodyConstant.minPaddingSize,
@@ -55,7 +55,7 @@ class UtBody extends StatelessWidget with UtEdgeinsetMixin {
 
           Padding(
             padding: edgeInsetsBuilder(
-              direction: isMobile ? UtDirection.all : UtDirection.vertical,
+              direction: isNarrow ? UtDirection.all : UtDirection.vertical,
               value: UtBodyConstant.minPaddingSize,
             ),
             child: body,

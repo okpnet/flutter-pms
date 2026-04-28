@@ -21,8 +21,10 @@ class UtFrameWork extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     UtSideItem? selectItem;
-    final isNarrow = UtLayoutHelper.isMobile(context);
+    // final isNarrow = UtLayoutHelper.isMobile(context);
     final scheme = Theme.of(context).colorScheme;
+    final breakpoint = UtLayoutHelper.getScreenBreakpointFrom(context);
+    final isNarrow = breakpoint.isVisibleAt(.smallTablet);
     return Stack(
       alignment: AlignmentGeometry.topCenter,
       children: [

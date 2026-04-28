@@ -1,38 +1,25 @@
 // Project imports:
-import '../constans/ut_style_default_constant.dart';
+import 'package:utility_widget/styles/constans/ut_media_breakpoint.dart';
+
 import '../export/ut_widget_design.dart';
-import '../ut_style.dart';
 
 class UtLayoutHelper {
-  // static const double get desktopStyleWidthBoundary => 600;
-  // static const double bodyBothsidePaddingPercentage = 0.05;
-  // static const double minBodyBottomPadding = 16;
+  static const UtMediaBreakpoint breakpoint = .smallTablet;
 
-  // static double bothSidePadding(BuildContext context) {
-  //   final bothsidePadding =
-  //       MediaQuery.of(context).size.width * bodyBothsidePaddingPercentage;
-  //   return bothsidePadding > minBodyBottomPadding
-  //       ? minBodyBottomPadding
-  //       : bothsidePadding;
-  // }
-  ///スマホ幅のときTrue
-  static bool isMobile(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    return UtStyleDefaultConstant.displayWidthBoundary >= width;
+  ///幅が狭いときTrue[breakpoint]
+  static bool isNarrow(BuildContext context) {
+    final bp = getScreenBreakpointFrom(context);
+    return bp.isVisibleAt(breakpoint);
   }
 
-  ///幅が広いときTrue[contentsWidthBoundary]
+  ///幅が広いときTrue[breakpoint]
   static bool isFullwidthFromWidth(double width) {
-    return width >= UtStyleDefaultConstant.contentsWidthBoundary;
+    final bp = UtMediaBreakpoint.of(width);
+    return !bp.isVisibleAt(breakpoint);
   }
 
-  ///contextの幅、高さ、スマホ幅か幅が広いかをまとめたモデル[UtResponsiveSize]を返す
-  static UtResponsiveSize getResponsiveSize(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return UtResponsiveSize.fromSize(
-      size: size,
-      fullWidth: UtStyleDefaultConstant.contentsWidthBoundary,
-      mobileWidth: UtStyleDefaultConstant.displayWidthBoundary,
-    );
+  static UtMediaBreakpoint getScreenBreakpointFrom(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    return UtMediaBreakpoint.of(width);
   }
 }

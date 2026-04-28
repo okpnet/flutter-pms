@@ -98,16 +98,20 @@ class UtResponsiveGrid extends StatelessWidget {
     }
 
     for (var item in values) {
-      final itemFlex = item.flex.flex > rowFlex
-          ? rowFlex
-          : item.flex.flex; //アイテムのFlex単体がrowFlexを超えるとき調整する
-      if (itemFlex + sum > rowFlex) {
+      final cloan = item.copyWith(
+        //アイテムのFlex単体がrowFlexを超えるとき調整する
+        flex: item.flex.flex > rowFlex
+            ? UtGridFlexStyle.of(rowFlex)
+            : item.flex,
+      );
+
+      if (cloan.flex.flex + sum > rowFlex) {
         flush();
         current = <UtResponsiveFlex>[];
         sum = 0;
       }
-      current.add(item);
-      sum += itemFlex;
+      current.add(cloan);
+      sum += cloan.flex.flex;
     }
     if (current.isNotEmpty) {
       flush();

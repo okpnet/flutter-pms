@@ -2,10 +2,9 @@
 import 'package:flutter/foundation.dart';
 
 // Project imports:
-import 'package:utility_widget/frames/sidemenu/expansion_menu/ut_expansion_menu.dart';
 import '../../styles/export/ut_widget_design.dart';
-import '../../styles/helper/ut_layout_helper.dart';
 import 'drawer/ut_drawer.dart';
+import 'expansion_menu/ut_expansion_menu.dart';
 import 'header/ut_header.dart';
 
 // Project imports:
