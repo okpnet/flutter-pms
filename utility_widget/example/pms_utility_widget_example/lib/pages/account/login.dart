@@ -5,6 +5,7 @@ import 'package:utility_widget/forms/constants/ut_input_size_style.dart';
 import 'package:utility_widget/forms/ut_input_field.dart';
 import 'package:utility_widget/frames/scafolds/ut_scafold.dart';
 import 'package:utility_widget/styles/export/ut_widget_design.dart';
+import 'package:utility_widget/styles/helper/ut_edgeinset_mixin.dart';
 import 'package:utility_widget/styles/ut_style.dart';
 import 'package:utility_widget/text/ut_text.dart';
 import 'package:utility_widget_example/pages/container/app_bar_mixin.dart';
@@ -18,7 +19,7 @@ class Login extends StatefulWidget {
   State<StatefulWidget> createState() => _Login();
 }
 
-class _Login extends State<Login> with AppBarMixin {
+class _Login extends State<Login> with AppBarMixin, UtEdgeinsetMixin {
   String? name;
   String? password;
   Timer? timer;
@@ -45,65 +46,56 @@ class _Login extends State<Login> with AppBarMixin {
             UtResponsiveGrid(
               children: [
                 UtResponsiveFlex.of(
-                  flex: 3,
-                  mobile: 4,
-                  child: UtTextInput.primary(
-                    initialValue: widget.name,
-                    label: 'ID',
-                    onChanged: (value) => setState(() {
-                      name = value;
-                    }),
-                    maxLength: 16,
-                    widthStyle: UtInputWidthStyle.large,
-                  ),
-                ),
-                UtResponsiveFlex.cr(),
-                UtResponsiveFlex.of(
-                  flex: 3,
-                  mobile: 4,
-                  child: UtTextInput.primaryPassword(
-                    initialValue: widget.name,
-                    label: 'PASSWORD',
-                    onChanged: (value) => setState(() {
-                      name = value;
-                    }),
-                    maxLength: 16,
-                    widthStyle: UtInputWidthStyle.large,
-                  ),
-                ),
-                UtResponsiveFlex.cr(),
-                UtResponsiveFlex.of(
-                  flex: 3,
-                  mobile: 4,
-                  child: Row(
+                  flex: 4,
+                  child: Column(
                     children: [
-                      Expanded(flex: 1, child: SizedBox.shrink()),
-                      Expanded(
-                        flex: 10,
-                        child: UtButton.primaryWithIcon(
-                          label: 'ログイン',
-                          onPressed: () {
-                            setState(() {
-                              isLoading = true;
-                            });
-                            //ダミー遅延処理用のタイマー
-                            timer = Timer(const Duration(seconds: 2), () {
-                              setState(() {
-                                isLoading = false;
-                              });
-                              Navigator.of(context).pushAndRemoveUntil(
-                                MaterialPageRoute(
-                                  builder: (context) => Dashboard(),
-                                ),
-                                (_) => false,
-                              );
-                            });
-                          },
-                          icon: Icon(Icons.login),
-                          sizeStyle: UtButtonSizeStyle.largeWxMidH,
-                        ),
+                      UtTextInput.primary(
+                        initialValue: widget.name,
+                        label: 'ID',
+                        onChanged: (value) => setState(() {
+                          name = value;
+                        }),
                       ),
-                      Expanded(flex: 1, child: SizedBox.shrink()),
+                      UtTextInput.primaryPassword(
+                        initialValue: widget.name,
+                        label: 'PASSWORD',
+                        onChanged: (value) => setState(() {
+                          name = value;
+                        }),
+                        maxLength: 16,
+                        widthStyle: UtInputWidthStyle.large,
+                      ),
+                      Row(
+                        children: [
+                          Expanded(flex: 1, child: SizedBox.shrink()),
+                          Expanded(
+                            flex: 10,
+                            child: UtButton.primaryWithIcon(
+                              label: 'ログイン',
+                              onPressed: () {
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                //ダミー遅延処理用のタイマー
+                                timer = Timer(const Duration(seconds: 2), () {
+                                  setState(() {
+                                    isLoading = false;
+                                  });
+                                  Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(
+                                      builder: (context) => Dashboard(),
+                                    ),
+                                    (_) => false,
+                                  );
+                                });
+                              },
+                              icon: Icon(Icons.login),
+                              sizeStyle: UtButtonSizeStyle.largeWxMidH,
+                            ),
+                          ),
+                          Expanded(flex: 1, child: SizedBox.shrink()),
+                        ],
+                      ),
                     ],
                   ),
                 ),
