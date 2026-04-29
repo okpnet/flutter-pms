@@ -11,7 +11,7 @@ class Announce extends StatelessWidget {
       isReturned: true,
       child: UtBody(
         title: UtText.scetionTitle('お知らせ'),
-        body: UtResponsiveRowWrap.grid(children: []),
+        body: UtText.scetionTitle('お知らせ'),
       ),
     );
   }

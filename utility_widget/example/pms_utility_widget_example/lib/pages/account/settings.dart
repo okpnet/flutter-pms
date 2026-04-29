@@ -21,73 +21,38 @@ class Settings extends StatelessWidget {
               prefix: UtText.label('ユーザーの情報'),
               brightness: UtBrightnessStyle.dark,
             ),
-            UtResponsiveRowWrap.lineSpace(),
-            UtResponsiveRowWrap.grid(
-              maxCellCount: 3,
+            UtResponsiveGrid(
               children: [
-                UtResponsiveRowWrapItem(
-                  cellCount: 1,
-                  align: AlignmentGeometry.centerLeft,
+                UtResponsiveFlex.of(
                   child: UtTextInput.primary(label: '名前', requiered: true),
+                  flex: 4,
                 ),
-              ],
-            ),
-            UtResponsiveRowWrap.lineSpace(),
-            UtResponsiveRowWrap.grid(
-              maxCellCount: 3,
-              children: [
-                UtResponsiveRowWrapItem(
-                  cellCount: 1,
-                  align: AlignmentGeometry.centerLeft,
+                UtResponsiveFlex.cr(),
+                UtResponsiveFlex.of(
+                  flex: 4,
                   child: UtTextInput.primary(label: 'カナ'),
                 ),
-              ],
-            ),
-            UtResponsiveRowWrap.lineSpace(),
-            UtResponsiveRowWrap.grid(
-              maxCellCount: 3,
-              children: [
-                UtResponsiveRowWrapItem(
-                  cellCount: 1,
-                  align: AlignmentGeometry.centerLeft,
+                UtResponsiveFlex.cr(),
+                UtResponsiveFlex.of(
+                  flex: 4,
                   child: UtTextInput.primary(label: 'メールアドレス'),
                 ),
-              ],
-            ),
-            UtResponsiveRowWrap.lineSpace(),
-            UtResponsiveRowWrap.grid(
-              maxCellCount: 3,
-              children: [
-                UtResponsiveRowWrapItem(
-                  cellCount: 1,
-                  align: AlignmentGeometry.centerLeft,
+                UtResponsiveFlex.cr(),
+                UtResponsiveFlex.of(
+                  flex: 4,
                   child: UtTextInput.primary(label: '担当者コード'),
                 ),
-              ],
-            ),
-            UtResponsiveRowWrap.lineSpace(),
-            UtResponsiveRowWrap.grid(
-              maxCellCount: 3,
-              children: [
-                UtResponsiveRowWrapItem(
-                  cellCount: 1,
-                  align: AlignmentGeometry.centerLeft,
+                UtResponsiveFlex.cr(),
+                UtResponsiveFlex.of(
+                  flex: 4,
                   child: UtTextInput.primary(label: '携帯電話1'),
                 ),
-              ],
-            ),
-            UtResponsiveRowWrap.lineSpace(),
-            UtResponsiveRowWrap.grid(
-              maxCellCount: 3,
-              children: [
-                UtResponsiveRowWrapItem(
-                  cellCount: 1,
-                  align: AlignmentGeometry.centerLeft,
+                UtResponsiveFlex.of(
+                  flex: 4,
                   child: UtTextInput.primary(label: '携帯電話2'),
                 ),
               ],
             ),
-            UtResponsiveRowWrap.lineSpace(),
             UtDivider(
               prefix: UtText.label('アプリケーションの設定'),
               brightness: UtBrightnessStyle.dark,

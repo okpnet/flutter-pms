@@ -3,37 +3,48 @@ part of '../ut_style.dart';
 class UtResponsiveFlex {
   final UtMediaBreakpoint? hidePoint;
   final Widget? child;
-  final UtGridFlexStyle flex;
+  final Map<UtMediaBreakpoint, int> flexs;
   final bool cr;
+
   const UtResponsiveFlex._({
-    required this.flex,
+    required this.flexs,
     this.hidePoint,
     this.child,
     this.cr = false,
   });
 
-  factory UtResponsiveFlex.empty({required UtGridFlexStyle flex}) {
-    return UtResponsiveFlex._(flex: flex, cr: false, hidePoint: null);
+  factory UtResponsiveFlex.empty({required Map<UtMediaBreakpoint, int> flexs}) {
+    return UtResponsiveFlex._(flexs: flexs, cr: false, hidePoint: null);
   }
 
   factory UtResponsiveFlex.offset({
-    required UtGridFlexStyle flex,
+    required Map<UtMediaBreakpoint, int> flexs,
     UtMediaBreakpoint? hidepoint,
   }) {
-    return UtResponsiveFlex._(flex: flex, cr: false, hidePoint: hidepoint);
+    return UtResponsiveFlex._(flexs: flexs, cr: false, hidePoint: hidepoint);
   }
 
   factory UtResponsiveFlex.cr({UtMediaBreakpoint? hidePoint}) {
-    return UtResponsiveFlex._(flex: .flex_1, cr: true, hidePoint: hidePoint);
+    return UtResponsiveFlex._(flexs: {}, cr: true, hidePoint: hidePoint);
   }
 
   factory UtResponsiveFlex.of({
     UtMediaBreakpoint? hidePoint,
+    required int flex,
+    int? smallPc,
+    int? tablet,
+    int? smallTablet,
+    int? mobile,
     required Widget child,
-    required UtGridFlexStyle flex,
   }) {
     return UtResponsiveFlex._(
-      flex: flex,
+      flexs: {
+        .pc: flex,
+        .smallPc: smallPc ?? flex,
+        .tablet: smallTablet ?? flex,
+        .smallTablet: smallTablet ?? flex,
+        .mobile: mobile ?? flex,
+      },
       cr: false,
       hidePoint: hidePoint ?? .mobile,
       child: child,
@@ -43,13 +54,13 @@ class UtResponsiveFlex {
   UtResponsiveFlex copyWith({
     UtMediaBreakpoint? hidePoint,
     Widget? child,
-    UtGridFlexStyle? flex,
+    Map<UtMediaBreakpoint, int>? flexs,
     bool? cr,
   }) {
     return UtResponsiveFlex._(
       hidePoint: hidePoint ?? this.hidePoint,
       child: child ?? this.child,
-      flex: flex ?? this.flex,
+      flexs: flexs ?? this.flexs,
       cr: cr ?? this.cr,
     );
   }

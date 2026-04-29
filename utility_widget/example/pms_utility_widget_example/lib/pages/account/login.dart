@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:utility_widget/buttons/ut_button.dart';
-import 'package:utility_widget/decorations/ut_decoration.dart';
 import 'package:utility_widget/forms/constants/ut_input_size_style.dart';
 import 'package:utility_widget/forms/ut_input_field.dart';
 import 'package:utility_widget/frames/scafolds/ut_scafold.dart';
@@ -43,15 +42,11 @@ class _Login extends State<Login> with AppBarMixin {
         title: UtText.subTitle('ログイン'),
         body: Column(
           children: [
-            UtResponsiveGrid(,children: children)
-            UtResponsiveRowWrap.grid(
-              maxCellCount: 3,
+            UtResponsiveGrid(
               children: [
-                UtResponsiveRowWrapItem.offset(offsetLength: 1),
-                UtResponsiveRowWrapItem(
-                  cellCount: 1,
-                  align: AlignmentGeometry.center,
-                  mobileAlign: AlignmentGeometry.center,
+                UtResponsiveFlex.of(
+                  flex: 3,
+                  mobile: 4,
                   child: UtTextInput.primary(
                     initialValue: widget.name,
                     label: 'ID',
@@ -62,17 +57,10 @@ class _Login extends State<Login> with AppBarMixin {
                     widthStyle: UtInputWidthStyle.large,
                   ),
                 ),
-              ],
-            ),
-            UtResponsiveRowWrap.lineSpace(),
-            UtResponsiveRowWrap.grid(
-              maxCellCount: 3,
-              children: [
-                UtResponsiveRowWrapItem.offset(offsetLength: 1),
-                UtResponsiveRowWrapItem(
-                  cellCount: 1,
-                  align: AlignmentGeometry.center,
-                  mobileAlign: AlignmentGeometry.center,
+                UtResponsiveFlex.cr(),
+                UtResponsiveFlex.of(
+                  flex: 3,
+                  mobile: 4,
                   child: UtTextInput.primaryPassword(
                     initialValue: widget.name,
                     label: 'PASSWORD',
@@ -83,36 +71,40 @@ class _Login extends State<Login> with AppBarMixin {
                     widthStyle: UtInputWidthStyle.large,
                   ),
                 ),
-              ],
-            ),
-            UtResponsiveRowWrap.lineSpace(),
-            UtResponsiveRowWrap.grid(
-              maxCellCount: 3,
-              children: [
-                UtResponsiveRowWrapItem.offset(offsetLength: 1),
-                UtResponsiveRowWrapItem(
-                  cellCount: 1,
-                  align: AlignmentGeometry.center,
-                  mobileAlign: AlignmentGeometry.center,
-                  child: UtButton.primaryWithIcon(
-                    label: 'ログイン',
-                    onPressed: () {
-                      setState(() {
-                        isLoading = true;
-                      });
-                      //ダミー遅延処理用のタイマー
-                      timer = Timer(const Duration(seconds: 2), () {
-                        setState(() {
-                          isLoading = false;
-                        });
-                        Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(builder: (context) => Dashboard()),
-                          (_) => false,
-                        );
-                      });
-                    },
-                    icon: Icon(Icons.login),
-                    sizeStyle: UtButtonSizeStyle.largeWxMidH,
+                UtResponsiveFlex.cr(),
+                UtResponsiveFlex.of(
+                  flex: 3,
+                  mobile: 4,
+                  child: Row(
+                    children: [
+                      Expanded(flex: 1, child: SizedBox.shrink()),
+                      Expanded(
+                        flex: 10,
+                        child: UtButton.primaryWithIcon(
+                          label: 'ログイン',
+                          onPressed: () {
+                            setState(() {
+                              isLoading = true;
+                            });
+                            //ダミー遅延処理用のタイマー
+                            timer = Timer(const Duration(seconds: 2), () {
+                              setState(() {
+                                isLoading = false;
+                              });
+                              Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                  builder: (context) => Dashboard(),
+                                ),
+                                (_) => false,
+                              );
+                            });
+                          },
+                          icon: Icon(Icons.login),
+                          sizeStyle: UtButtonSizeStyle.largeWxMidH,
+                        ),
+                      ),
+                      Expanded(flex: 1, child: SizedBox.shrink()),
+                    ],
                   ),
                 ),
               ],
