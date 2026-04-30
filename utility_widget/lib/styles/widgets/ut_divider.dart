@@ -18,7 +18,7 @@ class UtDivider extends StatelessWidget {
   Widget build(BuildContext context) {
     final thin = thickness.value;
 
-    return UtLayoutPadding(
+    return UtLayoutPadding.of(
       direction: UtDirection.vertical,
       child: Column(
         crossAxisAlignment: prefixAlign,

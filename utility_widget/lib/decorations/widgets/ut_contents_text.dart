@@ -35,7 +35,7 @@ class UtContentsText extends StatelessWidget with UtEdgeinsetMixin {
                   margin: EdgeInsets.only(
                     left: UtSpaceStyle.xl.value,
                     right: UtSpaceStyle.xl.value,
-                    top: UtSpaceStyle.lg.value,
+                    top: UtSpaceStyle.ls.value,
                   ),
                   child: UtText.sectionSubTitle(title),
                 )
@@ -43,7 +43,7 @@ class UtContentsText extends StatelessWidget with UtEdgeinsetMixin {
                   margin: EdgeInsets.only(
                     left: UtSpaceStyle.xl.value,
                     right: UtSpaceStyle.xl.value,
-                    top: UtSpaceStyle.lg.value,
+                    top: UtSpaceStyle.ls.value,
                   ),
                   child: Container(
                     alignment: titleAlign,

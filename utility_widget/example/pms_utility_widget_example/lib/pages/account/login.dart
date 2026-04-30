@@ -45,58 +45,68 @@ class _Login extends State<Login> with AppBarMixin, UtEdgeinsetMixin {
           children: [
             UtResponsiveGrid(
               children: [
+                UtResponsiveFlex.offset(
+                  flex: 4,
+                  tablet: 2,
+                  smallTablet: 1,
+                  mobile: 0,
+                ),
                 UtResponsiveFlex.of(
                   flex: 4,
-                  child: Column(
-                    children: [
-                      UtTextInput.primary(
-                        initialValue: widget.name,
-                        label: 'ID',
-                        onChanged: (value) => setState(() {
-                          name = value;
-                        }),
-                      ),
-                      UtTextInput.primaryPassword(
-                        initialValue: widget.name,
-                        label: 'PASSWORD',
-                        onChanged: (value) => setState(() {
-                          name = value;
-                        }),
-                        maxLength: 16,
-                        widthStyle: UtInputWidthStyle.large,
-                      ),
-                      Row(
-                        children: [
-                          Expanded(flex: 1, child: SizedBox.shrink()),
-                          Expanded(
-                            flex: 10,
-                            child: UtButton.primaryWithIcon(
-                              label: 'ログイン',
-                              onPressed: () {
-                                setState(() {
-                                  isLoading = true;
-                                });
-                                //ダミー遅延処理用のタイマー
-                                timer = Timer(const Duration(seconds: 2), () {
+                  child: Container(
+                    alignment: Alignment.center,
+                    margin: edgeInsetsBuilder(),
+                    child: Column(
+                      children: [
+                        UtTextInput.primary(
+                          initialValue: widget.name,
+                          label: 'ID',
+                          onChanged: (value) => setState(() {
+                            name = value;
+                          }),
+                        ),
+                        UtTextInput.primaryPassword(
+                          initialValue: widget.name,
+                          label: 'PASSWORD',
+                          onChanged: (value) => setState(() {
+                            name = value;
+                          }),
+                          maxLength: 16,
+                          //widthStyle: UtInputWidthStyle.large,
+                        ),
+                        Row(
+                          children: [
+                            Expanded(flex: 1, child: SizedBox.shrink()),
+                            Expanded(
+                              flex: 10,
+                              child: UtButton.primaryWithIcon(
+                                label: 'ログイン',
+                                onPressed: () {
                                   setState(() {
-                                    isLoading = false;
+                                    isLoading = true;
                                   });
-                                  Navigator.of(context).pushAndRemoveUntil(
-                                    MaterialPageRoute(
-                                      builder: (context) => Dashboard(),
-                                    ),
-                                    (_) => false,
-                                  );
-                                });
-                              },
-                              icon: Icon(Icons.login),
-                              sizeStyle: UtButtonSizeStyle.largeWxMidH,
+                                  //ダミー遅延処理用のタイマー
+                                  timer = Timer(const Duration(seconds: 2), () {
+                                    setState(() {
+                                      isLoading = false;
+                                    });
+                                    Navigator.of(context).pushAndRemoveUntil(
+                                      MaterialPageRoute(
+                                        builder: (context) => Dashboard(),
+                                      ),
+                                      (_) => false,
+                                    );
+                                  });
+                                },
+                                icon: Icon(Icons.login),
+                                sizeStyle: UtButtonSizeStyle.largeWxMidH,
+                              ),
                             ),
-                          ),
-                          Expanded(flex: 1, child: SizedBox.shrink()),
-                        ],
-                      ),
-                    ],
+                            Expanded(flex: 1, child: SizedBox.shrink()),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

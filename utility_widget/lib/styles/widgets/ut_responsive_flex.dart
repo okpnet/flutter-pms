@@ -29,7 +29,7 @@ class UtResponsiveFlex {
       flexs: {
         .pc: flex,
         .smallPc: smallPc ?? flex,
-        .tablet: smallTablet ?? flex,
+        .tablet: tablet ?? flex,
         .smallTablet: smallTablet ?? flex,
         .mobile: mobile ?? flex,
       },

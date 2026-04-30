@@ -24,7 +24,8 @@ class UtFrameWork extends StatelessWidget {
     // final isNarrow = UtLayoutHelper.isMobile(context);
     final scheme = Theme.of(context).colorScheme;
     final breakpoint = UtLayoutHelper.getScreenBreakpointFrom(context);
-    final isNarrow = breakpoint.isVisibleAt(.smallTablet);
+    final isNarrow = UtMediaBreakpoint.smallTablet.isVisibleAt(breakpoint);
+    // debugPrint('bp: ${breakpoint.toString()} is: $isNarrow');
     return Stack(
       alignment: AlignmentGeometry.topCenter,
       children: [

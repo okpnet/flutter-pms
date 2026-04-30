@@ -32,10 +32,14 @@ class _Logout extends State<Logout> with AppBarMixin {
       isOverlayIndicator: isLoading,
       body: UtBody(
         titleAign: AlignmentGeometry.center,
-        title: UtText.subTitle('ログイン'),
+        title: UtText.subTitle('ログアウト'),
         body: Column(
           children: [
-            SizedBox(height: 100, width: 100, child: Icon(Icons.check_rounded)),
+            SizedBox(
+              height: 100,
+              width: 100,
+              child: Icon(Icons.check_rounded, size: 100),
+            ),
             Text('ログアウトしました'),
             UtButton.secondaryWithIcon(
               label: 'トップページ',
