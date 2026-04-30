@@ -5,6 +5,7 @@ class UtDivider extends StatelessWidget {
   final Widget? prefix;
   final CrossAxisAlignment prefixAlign;
   final UtBorderStyle thickness;
+  final UtSpaceStyle? paddingStyle;
 
   const UtDivider({
     super.key,
@@ -12,14 +13,16 @@ class UtDivider extends StatelessWidget {
     this.prefix,
     this.prefixAlign = CrossAxisAlignment.start,
     this.thickness = .md,
+    this.paddingStyle,
   });
 
   @override
   Widget build(BuildContext context) {
     final thin = thickness.value;
 
-    return UtLayoutPadding.of(
+    return UtLayoutPadding(
       direction: UtDirection.vertical,
+      paddingStyle: paddingStyle,
       child: Column(
         crossAxisAlignment: prefixAlign,
         children: [

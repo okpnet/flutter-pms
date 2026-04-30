@@ -26,9 +26,9 @@ class Settings extends StatelessWidget with UtEdgeinsetMixin {
             UtResponsiveGrid(
               children: [
                 UtResponsiveFlex.of(
-                  child: UtLayoutPadding.of(
-                    direction: UtDirection.vertical,
-                    style: .xl,
+                  child: UtLayoutPadding(
+                    direction: UtDirection.top,
+                    paddingStyle: .xl,
                     child: UtTextInput.primary(label: '名前', requiered: true),
                   ),
                   flex: 4,
@@ -36,26 +36,46 @@ class Settings extends StatelessWidget with UtEdgeinsetMixin {
                 UtResponsiveFlex.cr(),
                 UtResponsiveFlex.of(
                   flex: 4,
-                  child: UtTextInput.primary(label: 'カナ'),
+                  child: UtLayoutPadding(
+                    direction: UtDirection.top,
+                    paddingStyle: .xl,
+                    child: UtTextInput.primary(label: 'カナ'),
+                  ),
                 ),
                 UtResponsiveFlex.cr(),
                 UtResponsiveFlex.of(
                   flex: 4,
-                  child: UtTextInput.primary(label: 'メールアドレス'),
+                  child: UtLayoutPadding(
+                    direction: UtDirection.top,
+                    paddingStyle: .xl,
+                    child: UtTextInput.primary(label: 'メールアドレス'),
+                  ),
                 ),
                 UtResponsiveFlex.cr(),
                 UtResponsiveFlex.of(
                   flex: 4,
-                  child: UtTextInput.primary(label: '担当者コード'),
+                  child: UtLayoutPadding(
+                    direction: UtDirection.top,
+                    paddingStyle: .xl,
+                    child: UtTextInput.primary(label: '担当者コード'),
+                  ),
                 ),
                 UtResponsiveFlex.cr(),
                 UtResponsiveFlex.of(
                   flex: 4,
-                  child: UtTextInput.primary(label: '携帯電話1'),
+                  child: UtLayoutPadding(
+                    direction: UtDirection.top,
+                    paddingStyle: .xl,
+                    child: UtTextInput.primary(label: '携帯電話1'),
+                  ),
                 ),
                 UtResponsiveFlex.of(
                   flex: 4,
-                  child: UtTextInput.primary(label: '携帯電話2'),
+                  child: UtLayoutPadding(
+                    direction: UtDirection.top,
+                    paddingStyle: .xl,
+                    child: UtTextInput.primary(label: '携帯電話2'),
+                  ),
                 ),
               ],
             ),

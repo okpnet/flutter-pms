@@ -23,7 +23,7 @@ class UtInfoTile extends StatelessWidget {
 
         return ConstrainedBox(
           constraints: BoxConstraints(maxWidth: maxWidth),
-          child: UtLayoutPadding.of(
+          child: UtLayoutPadding(
             child: Column(
               spacing: UtSpaceStyle.md.value,
               crossAxisAlignment: .stretch,
@@ -52,23 +52,20 @@ class UtInfoTile extends StatelessWidget {
     return UtInfoTile(
       label: label,
       // key: key,
-      mainLine: UtLayoutPadding.of(
+      mainLine: UtLayoutPadding(
         child: Center(
           child: Row(
             mainAxisAlignment: .center,
             crossAxisAlignment: .end,
             children: [
               UtText.subTitle(numerator),
-              UtLayoutPadding.of(
-                direction: .all,
-                child: UtText.scetionTitle('/'),
-              ),
-              UtLayoutPadding.of(
+              UtLayoutPadding(direction: .all, child: UtText.scetionTitle('/')),
+              UtLayoutPadding(
                 direction: .all,
                 child: UtText.scetionTitle(denominator),
               ),
               if (unit != null)
-                UtLayoutPadding.of(direction: .all, child: UtText.text(unit)),
+                UtLayoutPadding(direction: .all, child: UtText.text(unit)),
             ],
           ),
         ),
@@ -89,7 +86,7 @@ class UtInfoTile extends StatelessWidget {
     return UtInfoTile(
       label: label,
       // key: key,
-      mainLine: UtLayoutPadding.of(
+      mainLine: UtLayoutPadding(
         child: Center(
           child: Row(
             mainAxisAlignment: .center,
@@ -97,16 +94,16 @@ class UtInfoTile extends StatelessWidget {
             children: [
               UtText.subTitle(buffer.first),
               if (buffer.length >= 2) ...[
-                UtLayoutPadding.of(
+                UtLayoutPadding(
                   direction: UtDirection.bottom,
                   child: UtText.scetionTitle('.'),
                 ),
-                UtLayoutPadding.of(
+                UtLayoutPadding(
                   direction: .all,
                   child: UtText.scetionTitle(buffer.skip(1).join()),
                 ),
               ],
-              UtLayoutPadding.of(direction: .all, child: UtText.text('%')),
+              UtLayoutPadding(direction: .all, child: UtText.text('%')),
             ],
           ),
         ),
@@ -125,7 +122,7 @@ class UtInfoTile extends StatelessWidget {
     return UtInfoTile(
       label: label,
       // key: key,
-      mainLine: UtLayoutPadding.of(
+      mainLine: UtLayoutPadding(
         child: Center(
           child: Row(
             mainAxisAlignment: .center,
@@ -133,7 +130,7 @@ class UtInfoTile extends StatelessWidget {
             children: [
               UtText.subTitle(text),
               if (suffixText != null)
-                UtLayoutPadding.of(
+                UtLayoutPadding(
                   direction: .all,
                   child: UtText.text(suffixText),
                 ),
