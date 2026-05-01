@@ -5,8 +5,6 @@ SidemenuScafold,,ログアウト
 SidemenuScafold,,戻る
 Company,name,会社名
 Company,,基本的な情報
-Company,,代表とホームページ
-Company,,住所と連絡先
 Company,kana,カナ
 Company,nickname,略称
 Company,web_page,ホームページ

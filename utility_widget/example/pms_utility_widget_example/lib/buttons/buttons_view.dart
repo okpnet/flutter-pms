@@ -32,17 +32,17 @@ class ButtonsView extends StatelessWidget {
             UtIconButton.parimary(
               onPressed: navigatorToBack,
               icon: Icon(Icons.password),
-              sizeStyle: UtIconButtonSizeStyle.small,
+              sizeStyle: .sm,
             ),
             UtIconButton.secondary(
               onPressed: navigatorToBack,
               icon: Icon(Icons.password),
-              sizeStyle: UtIconButtonSizeStyle.mediam,
+              sizeStyle: .md,
             ),
             UtIconButton.tertiary(
               onPressed: navigatorToBack,
               icon: Icon(Icons.password),
-              sizeStyle: UtIconButtonSizeStyle.large,
+              sizeStyle: .ls,
             ),
           ],
         ),

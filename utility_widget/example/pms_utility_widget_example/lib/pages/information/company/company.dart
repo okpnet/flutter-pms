@@ -50,15 +50,9 @@ class Company extends StatelessWidget {
                     child: UtContentsText.of(label: '略称', title: 'XX'),
                   ),
                 ),
+                UtResponsiveFlex.cr(),
                 UtResponsiveFlex.of(
-                  flex: 12,
-                  child: UtDivider(
-                    prefix: UtText.label('代表とホームページ'),
-                    brightness: UtBrightnessStyle.dark,
-                  ),
-                ),
-                UtResponsiveFlex.of(
-                  flex: 3,
+                  flex: 2,
                   child: UtLayoutPadding(
                     direction: .top,
                     paddingStyle: .xl,
@@ -66,7 +60,7 @@ class Company extends StatelessWidget {
                   ),
                 ),
                 UtResponsiveFlex.of(
-                  flex: 3,
+                  flex: 10,
                   child: UtLayoutPadding(
                     direction: .top,
                     paddingStyle: .xl,
@@ -77,13 +71,6 @@ class Company extends StatelessWidget {
                   ),
                 ),
                 UtResponsiveFlex.of(
-                  flex: 12,
-                  child: UtDivider(
-                    prefix: UtText.label('住所と連絡先'),
-                    brightness: UtBrightnessStyle.dark,
-                  ),
-                ),
-                UtResponsiveFlex.of(
                   flex: 3,
                   child: UtLayoutPadding(
                     direction: .top,
@@ -91,8 +78,9 @@ class Company extends StatelessWidget {
                     child: UtContentsText.of(label: '国', title: 'Japan'),
                   ),
                 ),
+                UtResponsiveFlex.cr(),
                 UtResponsiveFlex.of(
-                  flex: 3,
+                  flex: 2,
                   child: UtLayoutPadding(
                     direction: .top,
                     paddingStyle: .xl,
@@ -101,6 +89,7 @@ class Company extends StatelessWidget {
                 ),
                 UtResponsiveFlex.of(
                   flex: 3,
+                  mobile: 2,
                   child: UtLayoutPadding(
                     direction: .top,
                     paddingStyle: .xl,
@@ -108,15 +97,16 @@ class Company extends StatelessWidget {
                   ),
                 ),
                 UtResponsiveFlex.of(
-                  flex: 3,
+                  flex: 6,
                   child: UtLayoutPadding(
                     direction: .top,
                     paddingStyle: .xl,
                     child: UtContentsText.of(label: '番地', title: '0丁目1-2-3-45'),
                   ),
                 ),
+                UtResponsiveFlex.cr(),
                 UtResponsiveFlex.of(
-                  flex: 3,
+                  flex: 6,
                   child: UtLayoutPadding(
                     direction: .top,
                     paddingStyle: .xl,
@@ -126,6 +116,7 @@ class Company extends StatelessWidget {
                     ),
                   ),
                 ),
+                UtResponsiveFlex.cr(),
                 UtResponsiveFlex.of(
                   flex: 3,
                   child: UtLayoutPadding(
@@ -157,6 +148,7 @@ class Company extends StatelessWidget {
                 ),
                 UtResponsiveFlex.of(
                   flex: 3,
+                  mobile: 2,
                   child: UtLayoutPadding(
                     direction: .top,
                     paddingStyle: .xl,
@@ -169,6 +161,7 @@ class Company extends StatelessWidget {
                 ),
                 UtResponsiveFlex.of(
                   flex: 3,
+                  mobile: 2,
                   child: UtLayoutPadding(
                     direction: .top,
                     paddingStyle: .xl,

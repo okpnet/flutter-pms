@@ -80,6 +80,7 @@ class _Login extends State<Login> with AppBarMixin, UtEdgeinsetMixin {
                             Expanded(
                               flex: 10,
                               child: UtButton.primaryWithIcon(
+                                expanded: true,
                                 label: 'ログイン',
                                 onPressed: () {
                                   setState(() {
@@ -99,7 +100,7 @@ class _Login extends State<Login> with AppBarMixin, UtEdgeinsetMixin {
                                   });
                                 },
                                 icon: Icon(Icons.login),
-                                sizeStyle: UtButtonSizeStyle.largeWxMidH,
+                                sizeStyle: .md,
                               ),
                             ),
                             Expanded(flex: 1, child: SizedBox.shrink()),
