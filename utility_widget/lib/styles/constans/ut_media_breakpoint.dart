@@ -11,7 +11,7 @@ enum UtMediaBreakpoint {
 
   bool matches(double width) => width <= this.width;
 
-  bool isVisibleAt(UtMediaBreakpoint hidePoint) => width >= hidePoint.width;
+  bool isVisibleAt(UtMediaBreakpoint hidePoint) => width > hidePoint.width;
 
   factory UtMediaBreakpoint.of(double width) {
     return UtMediaBreakpoint.values.firstWhere(

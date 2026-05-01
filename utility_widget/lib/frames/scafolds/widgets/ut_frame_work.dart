@@ -7,6 +7,7 @@ class UtFrameWork extends StatelessWidget {
   final ValueChanged<UtSideItem>? onSelect;
   final UtAccontItem? accountItem;
   final bool isOverlayIndicator;
+  final UtMediaBreakpoint collapsed;
 
   const UtFrameWork({
     super.key,
@@ -16,6 +17,7 @@ class UtFrameWork extends StatelessWidget {
     this.accountItem,
     this.onSelect,
     this.isOverlayIndicator = false,
+    this.collapsed = .smallPc,
   });
 
   @override
@@ -24,7 +26,7 @@ class UtFrameWork extends StatelessWidget {
     // final isNarrow = UtLayoutHelper.isMobile(context);
     final scheme = Theme.of(context).colorScheme;
     final breakpoint = UtLayoutHelper.getScreenBreakpointFrom(context);
-    final isNarrow = UtMediaBreakpoint.smallTablet.isVisibleAt(breakpoint);
+    final isNarrow = collapsed.isVisibleAt(breakpoint);
     // debugPrint('bp: ${breakpoint.toString()} is: $isNarrow');
     return Stack(
       alignment: AlignmentGeometry.topCenter,

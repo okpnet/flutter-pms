@@ -12,7 +12,7 @@ mixin UtTertiaryButtonMixin on Widget {
       sizeStyles.size,
     );
     return TextButton.styleFrom(
-      fixedSize: size,
+      minimumSize: size,
       shape: RoundedRectangleBorder(
         borderRadius: UtButtonConstant.defaultRadius,
       ),
@@ -24,7 +24,7 @@ mixin UtTertiaryButtonMixin on Widget {
     final size = Size(sizeStyles.size, sizeStyles.size);
     return TextButton.styleFrom(
       foregroundColor: background,
-      fixedSize: size,
+      minimumSize: size,
       shape: RoundedRectangleBorder(
         borderRadius: UtButtonConstant.defaultRadius,
       ),

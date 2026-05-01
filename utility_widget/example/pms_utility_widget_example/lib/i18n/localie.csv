@@ -19,6 +19,7 @@ Company,phone,電話番号
 Company,fax_number,FAX
 Company,remarks,備考
 Company,,保存する
+Company,,編集する
 Settings,,ユーザーの情報
 Settings,name,氏名
 Settings,kana,カナ

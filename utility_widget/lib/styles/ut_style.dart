@@ -1,7 +1,5 @@
 // Project imports:
 
-import 'dart:ffi';
-
 import 'package:utility_widget/styles/constans/ut_border_style.dart';
 import 'package:utility_widget/styles/constans/ut_brightness_style.dart';
 import 'package:utility_widget/styles/constans/ut_space_style.dart';

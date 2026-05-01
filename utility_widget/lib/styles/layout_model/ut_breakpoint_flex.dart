@@ -32,7 +32,7 @@ class UtBreakpointFlex {
       .tablet => tablet,
       .smallPc => smallPc,
       .pc => pc,
-      _ => 0,
+      // _ => 0,
     };
   }
 }

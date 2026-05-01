@@ -1,6 +1,5 @@
 import 'package:utility_widget/buttons/constants/ut_button_constant.dart';
 import 'package:utility_widget/buttons/constants/ut_button_size_style.dart';
-import 'package:utility_widget/buttons/ut_button.dart';
 
 import '../../styles/export/ut_widget_design.dart';
 import 'ut_button_color_helper.dart';
@@ -20,7 +19,7 @@ mixin UtPrimaryButtonMixin on Widget {
     return ElevatedButton.styleFrom(
       backgroundColor: background,
       foregroundColor: foreground,
-      fixedSize: size,
+      minimumSize: size,
       elevation: UtButtonConstant.elevation,
       shape: RoundedRectangleBorder(
         borderRadius: UtButtonConstant.defaultRadius,
@@ -44,7 +43,7 @@ mixin UtPrimaryButtonMixin on Widget {
       backgroundColor: background,
       foregroundColor: foreground,
       elevation: UtButtonConstant.elevation,
-      fixedSize: size,
+      minimumSize: size,
       shape: RoundedRectangleBorder(
         borderRadius: UtButtonConstant.defaultRadius,
       ),
@@ -59,7 +58,7 @@ mixin UtPrimaryButtonMixin on Widget {
       backgroundColor: background,
       foregroundColor: foreground,
       elevation: UtButtonConstant.elevation,
-      fixedSize: size,
+      minimumSize: size,
       shape: RoundedRectangleBorder(
         borderRadius: UtButtonConstant.defaultRadius,
       ),

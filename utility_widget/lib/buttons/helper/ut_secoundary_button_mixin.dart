@@ -16,7 +16,7 @@ mixin UtSecoundaryButtonMixin on Widget {
     return OutlinedButton.styleFrom(
       // foregroundColor: background,
       side: BorderSide(color: background),
-      fixedSize: size,
+      minimumSize: size,
       shape: RoundedRectangleBorder(
         borderRadius: UtButtonConstant.defaultRadius,
       ),
@@ -30,7 +30,7 @@ mixin UtSecoundaryButtonMixin on Widget {
       foregroundColor: background,
       side: BorderSide(color: background),
       elevation: UtButtonConstant.elevation,
-      fixedSize: size,
+      minimumSize: size,
       shape: RoundedRectangleBorder(
         borderRadius: UtButtonConstant.defaultRadius,
       ),

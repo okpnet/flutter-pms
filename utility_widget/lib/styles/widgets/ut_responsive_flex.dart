@@ -60,7 +60,7 @@ class UtResponsiveFlex {
         .mobile: mobile ?? flex,
       },
       cr: false,
-      hidePoint: hidePoint ?? .mobile,
+      hidePoint: hidePoint,
       child: child,
     );
   }

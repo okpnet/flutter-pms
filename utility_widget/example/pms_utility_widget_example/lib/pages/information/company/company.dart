@@ -1,3 +1,4 @@
+import 'package:utility_widget/buttons/ut_button.dart';
 import 'package:utility_widget/decorations/ut_decoration.dart';
 import 'package:utility_widget/styles/constans/ut_brightness_style.dart';
 import 'package:utility_widget/styles/constans/ut_space_style.dart';
@@ -5,6 +6,7 @@ import 'package:utility_widget/styles/export/ut_widget_design.dart';
 import 'package:utility_widget/styles/ut_style.dart';
 import 'package:utility_widget/text/ut_text.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
+import 'package:utility_widget_example/pages/information/company/company_edit.dart';
 
 class Company extends StatelessWidget {
   const Company({super.key});
@@ -25,6 +27,27 @@ class Company extends StatelessWidget {
             UtResponsiveGrid(
               spacing: UtSpaceStyle.sm.value,
               children: [
+                UtResponsiveFlex.of(
+                  flex: 12,
+                  hidePoint: .mobile,
+                  child: UtLayoutPadding(
+                    direction: .top,
+                    child: Align(
+                      alignment: .topRight,
+                      child: UtButton.primaryWithIcon(
+                        label: '編集する',
+                        onPressed: () => {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (builder) => CompanyEdit(),
+                            ),
+                          ),
+                        },
+                        icon: Icon(Icons.save_alt_outlined),
+                      ),
+                    ),
+                  ),
+                ),
                 UtResponsiveFlex.of(
                   flex: 3,
                   child: UtLayoutPadding(
@@ -169,6 +192,27 @@ class Company extends StatelessWidget {
                       label: '従業員',
                       text: '10000001',
                       suffixText: '人',
+                    ),
+                  ),
+                ),
+                UtResponsiveFlex.of(
+                  flex: 0,
+                  smallPc: 0,
+                  tablet: 0,
+                  smallTablet: 0,
+                  mobile: 4,
+                  child: UtLayoutPadding(
+                    direction: .top,
+                    child: UtButton.primaryWithIcon(
+                      label: '編集する',
+                      onPressed: () => {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (builder) => CompanyEdit(),
+                          ),
+                        ),
+                      },
+                      icon: Icon(Icons.save_alt_outlined),
                     ),
                   ),
                 ),
