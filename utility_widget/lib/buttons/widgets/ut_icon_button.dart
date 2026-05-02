@@ -1,7 +1,11 @@
 part of '../ut_button.dart';
 
 class UtIconButton extends StatelessWidget
-    with UtPrimaryButtonMixin, UtSecoundaryButtonMixin, UtTertiaryButtonMixin {
+    with
+        UtEdgeinsetMixin,
+        UtPrimaryButtonMixin,
+        UtSecoundaryButtonMixin,
+        UtTertiaryButtonMixin {
   final Icon icon;
   final UtPriorityStyle type;
   final VoidCallback onPressed;
@@ -24,33 +28,38 @@ class UtIconButton extends StatelessWidget
       UtPriorityStyle.secondary => _secondary(context),
       UtPriorityStyle.tertiary => _tertiary(context),
     };
-    return UtLayoutCrevice.margin(
-      child: hint != null ? UtTooltip(title: hint!, child: body) : body,
-    );
+
+    return hint != null ? UtTooltip(title: hint!, child: body) : body;
   }
 
   Widget _primary(BuildContext context) {
-    return IconButton(
+    return IconButton.filled(
       icon: icon,
-      iconSize: sizeStyle.size,
+      iconSize: sizeStyle.size / 2,
+      constraints: const BoxConstraints(),
+      padding: edgeInsetsBuilder(value: .sm),
       onPressed: onPressed,
       style: getPrimaryIconStyle(context),
     );
   }
 
   Widget _secondary(BuildContext context) {
-    return IconButton(
+    return IconButton.outlined(
       icon: icon,
       iconSize: sizeStyle.size,
+      constraints: const BoxConstraints(),
+      padding: edgeInsetsBuilder(value: .sm),
       onPressed: onPressed,
       style: getSecondaryIconStyle(context),
     );
   }
 
   Widget _tertiary(BuildContext context) {
-    return IconButton(
+    return IconButton.filledTonal(
       icon: icon,
       iconSize: sizeStyle.size,
+      constraints: const BoxConstraints(),
+      padding: edgeInsetsBuilder(value: .sm),
       onPressed: onPressed,
       style: getTertiaryIconStyle(context),
     );

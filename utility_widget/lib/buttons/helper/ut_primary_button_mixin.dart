@@ -1,24 +1,25 @@
 import 'package:utility_widget/buttons/constants/ut_button_constant.dart';
 import 'package:utility_widget/buttons/constants/ut_button_size_style.dart';
 
+import '../../styles/constans/ut_space_style.dart';
 import '../../styles/export/ut_widget_design.dart';
-import 'ut_button_color_helper.dart';
+import '../../extensions/ut_theme_data_extension.dart';
 
 mixin UtPrimaryButtonMixin on Widget {
   UtButtonSizeStyle get sizeStyles;
 
   ButtonStyle getPrimaryStyle(BuildContext context, bool expanded) {
-    final background = UtButtonColorHelper.bg(context);
-    final foreground = UtButtonColorHelper.fg(context);
-    final buttonTheme = Theme.of(context).buttonTheme;
+    final themeData = Theme.of(context);
+    final colors = themeData.getPrimaryColors();
+    final buttonTheme = themeData.buttonTheme;
     final size = Size(
       expanded ? double.infinity : buttonTheme.minWidth,
       sizeStyles.size,
     );
 
     return ElevatedButton.styleFrom(
-      backgroundColor: background,
-      foregroundColor: foreground,
+      backgroundColor: colors.primary,
+      foregroundColor: colors.onPrimary,
       minimumSize: size,
       elevation: UtButtonConstant.elevation,
       shape: RoundedRectangleBorder(
@@ -31,17 +32,17 @@ mixin UtPrimaryButtonMixin on Widget {
     BuildContext context, {
     bool expanded = false,
   }) {
-    final background = UtButtonColorHelper.bg(context);
-    final foreground = UtButtonColorHelper.fg(context);
-    final buttonTheme = Theme.of(context).buttonTheme;
+    final themeData = Theme.of(context);
+    final colors = themeData.getPrimaryColors();
+    final buttonTheme = themeData.buttonTheme;
     final size = Size(
       expanded ? double.infinity : buttonTheme.minWidth,
       sizeStyles.size,
     );
 
     return ElevatedButton.styleFrom(
-      backgroundColor: background,
-      foregroundColor: foreground,
+      backgroundColor: colors.primary,
+      foregroundColor: colors.onPrimary,
       elevation: UtButtonConstant.elevation,
       minimumSize: size,
       shape: RoundedRectangleBorder(
@@ -51,12 +52,16 @@ mixin UtPrimaryButtonMixin on Widget {
   }
 
   ButtonStyle getPrimaryIconStyle(BuildContext context) {
-    final background = UtButtonColorHelper.bg(context);
-    final foreground = UtButtonColorHelper.fg(context);
-    final size = Size(sizeStyles.size, sizeStyles.size);
+    // final themeData = Theme.of(context);
+    // final colors = themeData.getPrimaryColors();
+
+    final size = Size(
+      sizeStyles.size / 2 + UtSpaceStyle.sm.value,
+      sizeStyles.size / 2 + UtSpaceStyle.sm.value,
+    );
     return ElevatedButton.styleFrom(
-      backgroundColor: background,
-      foregroundColor: foreground,
+      // backgroundColor: colors.primary,
+      // foregroundColor: colors.onPrimary,
       elevation: UtButtonConstant.elevation,
       minimumSize: size,
       shape: RoundedRectangleBorder(

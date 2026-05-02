@@ -25,7 +25,7 @@ class UtBody extends StatelessWidget with UtEdgeinsetMixin {
             : width * UtBodyConstant.widePaddingBothSideRate;
         return Container(
           alignment: AlignmentGeometry.topCenter,
-          margin: edgeInsetsBuilder(
+          margin: edgeInsetsBuilderDouble(
             direction: UtDirection.horizontal,
             value: margin,
           ),
@@ -44,7 +44,7 @@ class UtBody extends StatelessWidget with UtEdgeinsetMixin {
         children: [
           if (title != null)
             Padding(
-              padding: edgeInsetsBuilder(
+              padding: edgeInsetsBuilderDouble(
                 direction: isNarrow
                     ? UtDirection.all ^ UtDirection.bottom
                     : UtDirection.top,
@@ -54,7 +54,7 @@ class UtBody extends StatelessWidget with UtEdgeinsetMixin {
             ),
 
           Padding(
-            padding: edgeInsetsBuilder(
+            padding: edgeInsetsBuilderDouble(
               direction: isNarrow ? UtDirection.all : UtDirection.vertical,
               value: UtBodyConstant.minPaddingSize,
             ),

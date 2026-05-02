@@ -1,12 +1,13 @@
+import '../../styles/constans/ut_space_style.dart';
 import '../../styles/export/ut_widget_design.dart';
 import '../constants/ut_button_constant.dart';
 import '../constants/ut_button_size_style.dart';
-import 'ut_button_color_helper.dart';
 
 mixin UtTertiaryButtonMixin on Widget {
   UtButtonSizeStyle get sizeStyles;
   ButtonStyle getTertiarStyle(BuildContext context, bool expanded) {
-    final buttonTheme = Theme.of(context).buttonTheme;
+    final themeData = Theme.of(context);
+    final buttonTheme = themeData.buttonTheme;
     final size = Size(
       expanded ? double.infinity : buttonTheme.minWidth,
       sizeStyles.size,
@@ -20,10 +21,14 @@ mixin UtTertiaryButtonMixin on Widget {
   }
 
   ButtonStyle getTertiaryIconStyle(BuildContext context) {
-    final background = UtButtonColorHelper.bg(context);
-    final size = Size(sizeStyles.size, sizeStyles.size);
+    // final themeData = Theme.of(context);
+    // final colors = themeData.getPrimaryColors();
+    final size = Size(
+      sizeStyles.size / 2 + UtSpaceStyle.sm.value,
+      sizeStyles.size / 2 + UtSpaceStyle.sm.value,
+    );
     return TextButton.styleFrom(
-      foregroundColor: background,
+      // foregroundColor: colors.primary,
       minimumSize: size,
       shape: RoundedRectangleBorder(
         borderRadius: UtButtonConstant.defaultRadius,

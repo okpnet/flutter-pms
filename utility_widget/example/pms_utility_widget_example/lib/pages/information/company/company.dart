@@ -177,6 +177,11 @@ class Company extends StatelessWidget {
                     paddingStyle: .xl,
                     child: UtInfoTile.text(
                       label: '事業所',
+                      labelSuffix: UtIconButton.parimary(
+                        icon: Icon(Icons.edit),
+                        onPressed: () {},
+                        sizeStyle: .sm,
+                      ),
                       text: '5',
                       suffixText: '拠点',
                     ),

@@ -5,6 +5,7 @@ class UtInfoTile extends StatelessWidget {
   final String label;
   final Widget mainLine;
   final Widget? endLine;
+  final Widget? labelSuffix;
 
   const UtInfoTile({
     super.key,
@@ -12,6 +13,7 @@ class UtInfoTile extends StatelessWidget {
     this.width = double.infinity,
     required this.mainLine,
     this.endLine,
+    this.labelSuffix,
   });
 
   @override
@@ -22,8 +24,18 @@ class UtInfoTile extends StatelessWidget {
           spacing: UtSpaceStyle.md.value,
           crossAxisAlignment: .stretch,
           children: [
-            UtText.label(label),
-            UtDivider(brightness: .dark, thickness: .xs),
+            Row(
+              // crossAxisAlignment: .stretch,
+              mainAxisAlignment: .start,
+              children: [
+                Expanded(
+                  flex: labelSuffix == null ? 1 : 3,
+                  child: UtText.label(label),
+                ),
+                ?labelSuffix,
+              ],
+            ),
+            UtDivider(brightness: .dark, thickness: .xs, paddingStyle: .xs),
             mainLine,
             ?endLine,
           ],
@@ -40,9 +52,11 @@ class UtInfoTile extends StatelessWidget {
     required String numerator,
     String? unit,
     Widget? endLine,
+    Widget? labelSuffix,
   }) {
     return UtInfoTile(
       label: label,
+      labelSuffix: labelSuffix,
       // key: key,
       mainLine: Center(
         child: Row(
@@ -70,11 +84,13 @@ class UtInfoTile extends StatelessWidget {
     required double value,
     required int degit,
     Widget? endLine,
+    Widget? labelSuffix,
   }) {
     final buffer = value.toStringAsFixed(degit).split('.');
 
     return UtInfoTile(
       label: label,
+      labelSuffix: labelSuffix,
       // key: key,
       mainLine: Center(
         child: Row(
@@ -106,9 +122,11 @@ class UtInfoTile extends StatelessWidget {
     required String text,
     String? suffixText,
     Widget? endLine,
+    Widget? labelSuffix,
   }) {
     return UtInfoTile(
       label: label,
+      labelSuffix: labelSuffix,
       // key: key,
       mainLine: Center(
         child: Row(

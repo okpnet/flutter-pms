@@ -11,7 +11,13 @@ mixin UtEdgeinsetMixin {
 
   double get defaultPadding => _edgeInsetsValue;
 
-  EdgeInsets edgeInsetsBuilder({UtDirection? direction, double? value}) {
+  EdgeInsets edgeInsetsBuilder({UtDirection? direction, UtSpaceStyle? value}) =>
+      _create(direction, value?.value);
+
+  EdgeInsets edgeInsetsBuilderDouble({UtDirection? direction, double? value}) =>
+      _create(direction, value);
+
+  EdgeInsets _create(UtDirection? direction, double? value) {
     final edgeValue = value ?? _edgeInsetsValue;
     if (direction == null) return EdgeInsets.all(edgeValue);
     return switch (direction.bit) {
