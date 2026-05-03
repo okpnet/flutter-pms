@@ -1,14 +1,11 @@
-import 'package:utility_widget/buttons/ut_button.dart';
-import 'package:utility_widget/styles/export/ut_widget_design.dart';
-import 'package:utility_widget/styles/ut_style.dart';
-import 'package:utility_widget/text/ut_text.dart';
+import 'package:utility_widget/utiritiy_widget.dart';
 import 'package:utility_widget_example/buttons/buttons_view.dart';
 import 'package:utility_widget_example/fields/fields.dart';
 import 'package:utility_widget_example/loading_indicators/mini_indicator.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 
 class Dashboard extends StatelessWidget {
-  Dashboard({super.key});
+  const Dashboard({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,4 @@
-import 'package:utility_widget/styles/export/ut_widget_design.dart';
+import 'package:utility_widget/core/ut_widget_design.dart';
 
 enum UtTextSizeStyle {
   label(double.nan),

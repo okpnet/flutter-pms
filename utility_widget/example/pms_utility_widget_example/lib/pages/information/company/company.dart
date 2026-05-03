@@ -1,8 +1,8 @@
 import 'package:utility_widget/buttons/ut_button.dart';
+import 'package:utility_widget/core/ut_widget_design.dart';
 import 'package:utility_widget/decorations/ut_decoration.dart';
 import 'package:utility_widget/styles/constans/ut_brightness_style.dart';
 import 'package:utility_widget/styles/constans/ut_space_style.dart';
-import 'package:utility_widget/styles/export/ut_widget_design.dart';
 import 'package:utility_widget/styles/ut_style.dart';
 import 'package:utility_widget/text/ut_text.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';

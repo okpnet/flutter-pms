@@ -1,4 +1,4 @@
-import '../../styles/export/ut_widget_design.dart';
+import '../../core/ut_widget_design.dart';
 
 class UtButtonConstant {
   static double elevation = 2;

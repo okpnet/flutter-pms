@@ -1,4 +1,4 @@
-import '../export/ut_widget_design.dart';
+import '../../core/ut_widget_design.dart';
 
 class UtColorConstannt {
   static Color danger = Colors.red.shade400;

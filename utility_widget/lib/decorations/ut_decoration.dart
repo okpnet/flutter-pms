@@ -1,4 +1,4 @@
-import '../../styles/export/ut_widget_design.dart';
+import '../core/ut_widget_design.dart';
 import '../styles/constans/ut_space_style.dart';
 import '../styles/helper/ut_edgeinset_mixin.dart';
 import '../styles/layout_model/ut_direction.dart';

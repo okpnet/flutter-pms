@@ -2,7 +2,7 @@
 import 'package:flutter/foundation.dart';
 
 // Project imports:
-import '../../styles/export/ut_widget_design.dart';
+import '../../core/ut_widget_design.dart';
 import 'drawer/ut_drawer.dart';
 import 'expansion_menu/ut_expansion_menu.dart';
 import 'header/ut_header.dart';

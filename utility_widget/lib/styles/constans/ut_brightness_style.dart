@@ -1,4 +1,4 @@
-import '../export/ut_widget_design.dart';
+import '../../core/ut_widget_design.dart';
 
 enum UtBrightnessStyle {
   light(0),

@@ -1,8 +1,4 @@
-import 'package:utility_widget/buttons/ut_button.dart';
-import 'package:utility_widget/forms/ut_input_field.dart';
-import 'package:utility_widget/styles/export/ut_widget_design.dart';
-import 'package:utility_widget/styles/ut_style.dart';
-import 'package:utility_widget/text/ut_text.dart';
+import 'package:utility_widget/utiritiy_widget.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 
 class CompanyEdit extends StatelessWidget {

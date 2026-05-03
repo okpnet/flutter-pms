@@ -1,6 +1,6 @@
 import '../../extensions/ut_theme_data_extension.dart';
 import '../../styles/constans/ut_space_style.dart';
-import '../../styles/export/ut_widget_design.dart';
+import '../../core/ut_widget_design.dart';
 import '../constants/ut_button_constant.dart';
 import '../constants/ut_button_size_style.dart';
 

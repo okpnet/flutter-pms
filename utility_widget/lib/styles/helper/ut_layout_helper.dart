@@ -1,7 +1,7 @@
 // Project imports:
 import 'package:utility_widget/styles/constans/ut_media_breakpoint.dart';
 
-import '../export/ut_widget_design.dart';
+import '../../core/ut_widget_design.dart';
 
 class UtLayoutHelper {
   static const UtMediaBreakpoint breakpoint = .smallTablet;
