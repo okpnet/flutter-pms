@@ -3,7 +3,6 @@ import 'dart:typed_data';
 
 import 'package:utility_widget/utiritiy_widget.dart';
 import 'package:utility_widget/frames/sidemenu/ut_sidemenu.dart';
-import 'package:utility_widget/frames/scafolds/ut_scafold.dart';
 import 'package:utility_widget_example/pages/account/announce.dart';
 import 'package:utility_widget_example/pages/account/logout.dart';
 import 'package:utility_widget_example/pages/account/settings.dart';

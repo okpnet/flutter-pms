@@ -28,3 +28,15 @@ Settings,code,担当者コード
 Settings,phone,携帯電話1
 Settings,private_phone,携帯電話2
 Settings,,アプリケーションの設定
+Office,code,事業所コード
+Office,name,事業所名
+Office,kana,カナ
+Office,nickname,略称
+Office,iso3166_3,国
+Office,zip_code,郵便番号
+Office,address1,県・市町村
+Office,address2,番地
+Office,bill,ビル、屋号など
+Office,phone,電話番号
+Office,fax_number,FAX
+Office,remarks,備考

@@ -5,12 +5,14 @@ class UtBody extends StatelessWidget with UtEdgeinsetMixin {
   final Widget body;
   final UtDirection paddingDirection;
   final AlignmentGeometry titleAign;
+  final bool isVirticalScroll;
   UtBody({
     super.key,
     this.title,
     required this.body,
     this.paddingDirection = UtDirection.all,
     this.titleAign = AlignmentGeometry.centerLeft,
+    this.isVirticalScroll = true,
   });
 
   @override
@@ -39,29 +41,28 @@ class UtBody extends StatelessWidget with UtEdgeinsetMixin {
   ///タイトル
   ///body
   Widget _titleSet({required BuildContext context, required bool isNarrow}) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          if (title != null)
-            Padding(
-              padding: edgeInsetsBuilderDouble(
-                direction: isNarrow
-                    ? UtDirection.all ^ UtDirection.bottom
-                    : UtDirection.top,
-                value: UtBodyConstant.minPaddingSize,
-              ),
-              child: Align(alignment: titleAign, child: title!),
-            ),
-
+    final content = Column(
+      children: [
+        if (title != null)
           Padding(
             padding: edgeInsetsBuilderDouble(
-              direction: isNarrow ? UtDirection.all : UtDirection.vertical,
+              direction: isNarrow
+                  ? UtDirection.all ^ UtDirection.bottom
+                  : UtDirection.top,
               value: UtBodyConstant.minPaddingSize,
             ),
-            child: body,
+            child: Align(alignment: titleAign, child: title!),
           ),
-        ],
-      ),
+
+        Padding(
+          padding: edgeInsetsBuilderDouble(
+            direction: isNarrow ? UtDirection.all : UtDirection.vertical,
+            value: UtBodyConstant.minPaddingSize,
+          ),
+          child: body,
+        ),
+      ],
     );
+    return isVirticalScroll ? SingleChildScrollView(child: content) : content;
   }
 }

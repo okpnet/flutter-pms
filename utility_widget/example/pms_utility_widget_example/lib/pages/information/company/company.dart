@@ -8,6 +8,8 @@ import 'package:utility_widget/text/ut_text.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 import 'package:utility_widget_example/pages/information/company/company_edit.dart';
 
+import 'office.dart';
+
 class Company extends StatelessWidget {
   const Company({super.key});
 
@@ -179,7 +181,11 @@ class Company extends StatelessWidget {
                       label: '事業所',
                       labelSuffix: UtIconButton.parimary(
                         icon: Icon(Icons.edit),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(builder: (builder) => Office()),
+                          );
+                        },
                         sizeStyle: .sm,
                       ),
                       text: '5',
