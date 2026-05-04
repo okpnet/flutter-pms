@@ -22,17 +22,12 @@ class OfficeState extends State<Office> {
     return SidemenuScafold(
       isReturned: true,
       child: UtBody(
-        isVirticalScroll: true,
+        isVirticalScroll: false,
         title: UtText.scetionTitle('事業所'),
-        body: LayoutBuilder(
-          builder: (context, constraints) {
-            final height = constraints.heightConstraints().minHeight;
-            return PlutoGrid(
-              columns: columns,
-              rows: [],
-              configuration: const PlutoGridConfiguration(),
-            );
-          },
+        body: PlutoGrid(
+          columns: columns,
+          rows: [],
+          configuration: const PlutoGridConfiguration(),
         ),
       ),
     );

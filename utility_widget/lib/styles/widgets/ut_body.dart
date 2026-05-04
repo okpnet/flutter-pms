@@ -31,7 +31,9 @@ class UtBody extends StatelessWidget with UtEdgeinsetMixin {
             direction: UtDirection.horizontal,
             value: margin,
           ),
-          child: _titleSet(context: context, isNarrow: isNarrow),
+          child: isVirticalScroll
+              ? _buildScrollBody(context, isNarrow)
+              : _buildUnScrollBody(context, isNarrow),
         );
       },
     );
@@ -40,11 +42,10 @@ class UtBody extends StatelessWidget with UtEdgeinsetMixin {
   ///以下の組み合わせ上下に[UtBodyConstant.minPaddingSize]。規定幅より狭い場合は左右にもあわせて[UtBodyConstant.minPaddingSize]があるタイトルセット
   ///タイトル
   ///body
-  Widget _titleSet({required BuildContext context, required bool isNarrow}) {
-    final content = Column(
-      children: [
-        if (title != null)
-          Padding(
+  Widget? _buildTitle(bool isNarrow) {
+    return title == null
+        ? null
+        : Padding(
             padding: edgeInsetsBuilderDouble(
               direction: isNarrow
                   ? UtDirection.all ^ UtDirection.bottom
@@ -52,17 +53,40 @@ class UtBody extends StatelessWidget with UtEdgeinsetMixin {
               value: UtBodyConstant.minPaddingSize,
             ),
             child: Align(alignment: titleAign, child: title!),
-          ),
+          );
+  }
 
-        Padding(
-          padding: edgeInsetsBuilderDouble(
-            direction: isNarrow ? UtDirection.all : UtDirection.vertical,
-            value: UtBodyConstant.minPaddingSize,
+  Widget _buildUnScrollBody(BuildContext context, bool isNarrow) {
+    return Column(
+      children: [
+        ?_buildTitle(isNarrow),
+        Expanded(
+          child: Padding(
+            padding: edgeInsetsBuilderDouble(
+              direction: isNarrow ? UtDirection.all : UtDirection.vertical,
+              value: UtBodyConstant.minPaddingSize,
+            ),
+            child: body,
           ),
-          child: body,
         ),
       ],
     );
-    return isVirticalScroll ? SingleChildScrollView(child: content) : content;
+  }
+
+  Widget _buildScrollBody(BuildContext context, bool isNarrow) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          ?_buildTitle(isNarrow),
+          Padding(
+            padding: edgeInsetsBuilderDouble(
+              direction: isNarrow ? UtDirection.all : UtDirection.vertical,
+              value: UtBodyConstant.minPaddingSize,
+            ),
+            child: body,
+          ),
+        ],
+      ),
+    );
   }
 }
