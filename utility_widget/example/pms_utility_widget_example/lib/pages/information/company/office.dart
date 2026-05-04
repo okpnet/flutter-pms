@@ -13,7 +13,12 @@ class OfficeState extends State<Office> {
     PlutoColumn(title: '事業所コード', field: 'code', type: PlutoColumnType.text()),
     PlutoColumn(title: '事業所名', field: 'name', type: PlutoColumnType.text()),
     PlutoColumn(title: 'カナ', field: 'kana', type: PlutoColumnType.text()),
-    PlutoColumn(title: '略称', field: 'nickname', type: PlutoColumnType.text()),
+    PlutoColumn(
+      hide: true,
+      title: '略称',
+      field: 'nickname',
+      type: PlutoColumnType.text(),
+    ),
   ];
 
   OfficeState();
@@ -27,7 +32,13 @@ class OfficeState extends State<Office> {
         body: PlutoGrid(
           columns: columns,
           rows: [],
-          configuration: const PlutoGridConfiguration(),
+          onRowSecondaryTap: (event) {},
+          configuration: const PlutoGridConfiguration(
+            columnSize: PlutoGridColumnSizeConfig(
+              autoSizeMode: PlutoAutoSizeMode.scale,
+            ),
+            localeText: PlutoGridLocaleText.japanese(),
+          ),
         ),
       ),
     );
