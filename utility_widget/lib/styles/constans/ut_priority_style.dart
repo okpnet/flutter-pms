@@ -1,5 +1,5 @@
+// Project imports:
 import 'package:utility_widget/styles/constans/ut_color_constannt.dart';
-
 import '../../core/ut_widget_design.dart';
 
 enum UtPriorityStyle { primary, secondary, tertiary }

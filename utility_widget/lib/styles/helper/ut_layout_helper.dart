@@ -1,6 +1,5 @@
 // Project imports:
 import 'package:utility_widget/styles/constans/ut_media_breakpoint.dart';
-
 import '../../core/ut_widget_design.dart';
 
 class UtLayoutHelper {

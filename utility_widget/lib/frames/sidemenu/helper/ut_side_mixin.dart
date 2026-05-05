@@ -1,6 +1,5 @@
 // Project imports:
 import 'package:utility_widget/styles/constans/ut_space_style.dart';
-
 import '../../../core/ut_widget_design.dart';
 import '../../../styles/layout_model/ut_direction.dart';
 import '../../../styles/ut_style.dart';

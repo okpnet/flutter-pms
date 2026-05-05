@@ -28,6 +28,8 @@ Settings,code,担当者コード
 Settings,phone,携帯電話1
 Settings,private_phone,携帯電話2
 Settings,,アプリケーションの設定
+Office,,事業所の変更
+Office,,事業所の追加
 Office,code,事業所コード
 Office,name,事業所名
 Office,kana,カナ
@@ -40,3 +42,53 @@ Office,bill,ビル、屋号など
 Office,phone,電話番号
 Office,fax_number,FAX
 Office,remarks,備考
+Office,update_at,更新日
+Office,update_user,更新者
+Office,id,ID
+Department,,組織の変更
+Department,,組織を追加
+Department,ocde,組織コード
+Department,name,組織名
+Department,kana,カナ
+Department,nickname,略称
+Department,iso3166_3,国
+Department,zip_code,郵便番号
+Department,address1,県・市町村
+Department,address2,番地
+Department,bill,ビル、屋号など
+Department,phone,電話番号
+Department,fax_number,FAX
+Department,remarks,備考
+
+namespace,key,en,ja
+PlutoGrid,unfreezeColumn,Unfreeze,列の固定を解除する
+PlutoGrid,freezeColumnToStart,Freeze to start,列を最初に固定する
+PlutoGrid,freezeColumnToEnd,Freeze to end,列を最後に固定する
+PlutoGrid,autoFitColumn,Auto fit,列幅の自動修正
+PlutoGrid,hideColumn,Hide column,列を非表示にする
+PlutoGrid,setColumns,Set columns,列の表示設定
+PlutoGrid,setFilter,Set filter,フィルタの作成
+PlutoGrid,resetFilter,Reset filterEndsWith,フィルタの削除
+PlutoGrid,setColumnsTitle,Column title,列のタイトル
+PlutoGrid,filterColumn,Column,列
+PlutoGrid,filterType,Type,種類
+PlutoGrid,filterValue,Value,値
+PlutoGrid,filterAllColumns,All columns,全列
+PlutoGrid,filterContains,Contains,含む
+PlutoGrid,filterEquals,Equals,等しい
+PlutoGrid,filterStartsWith,Starts with,指定の値で始まる
+PlutoGrid,filterEndsWith,Ends with,指定の値で終わる
+PlutoGrid,filterGreaterThan,Greater than,より大きい
+PlutoGrid,filterGreaterThanOrEqualTo,Greater than or equal to,以上
+PlutoGrid,filterLessThan,Less than,未満
+PlutoGrid,filterLessThanOrEqualTo,Less than or equal to,以下
+PlutoGrid,sunday,Su,日
+PlutoGrid,monday,Mo,月
+PlutoGrid,tuesday,Tu,火
+PlutoGrid,wednesday,We,水
+PlutoGrid,thursday,Th,木
+PlutoGrid,friday,Fr,金
+PlutoGrid,saturday,Sa,土
+PlutoGrid,hour,Hour,時間
+PlutoGrid,minute,Minute,分
+PlutoGrid,loadingText,Loading,にゃ〜
