@@ -4,7 +4,6 @@ import 'package:utility_widget/styles/ut_style.dart';
 import 'package:utility_widget/text/ut_text.dart';
 import 'package:utility_widget_example/buttons/buttons_view.dart';
 import 'package:utility_widget_example/fields/fields.dart';
-import 'package:utility_widget_example/loading_indicators/mini_indicator.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 
 class MainView extends StatelessWidget {
@@ -40,15 +39,15 @@ class MainView extends StatelessWidget {
                 label: 'テキストインプット',
                 icon: Icon(Icons.abc_rounded),
               ),
-              UtButton.primaryWithIcon(
-                label: 'ミニインジケータ表示',
-                icon: Icon(Icons.abc_rounded),
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => MiniIndicator()),
-                  );
-                },
-              ),
+              // UtButton.primaryWithIcon(
+              //   label: 'ミニインジケータ表示',
+              //   icon: Icon(Icons.abc_rounded),
+              //   onPressed: () {
+              //     Navigator.of(context).push(
+              //       MaterialPageRoute(builder: (context) => MiniIndicator()),
+              //     );
+              //   },
+              // ),
             ],
           ),
         ),

@@ -1,7 +1,6 @@
 import 'package:utility_widget/utiritiy_widget.dart';
 import 'package:utility_widget_example/buttons/buttons_view.dart';
 import 'package:utility_widget_example/fields/fields.dart';
-import 'package:utility_widget_example/loading_indicators/mini_indicator.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 
 class Dashboard extends StatelessWidget {
@@ -35,15 +34,15 @@ class Dashboard extends StatelessWidget {
                 label: 'テキストインプット',
                 icon: Icon(Icons.abc_rounded),
               ),
-              UtButton.primaryWithIcon(
-                label: 'ミニインジケータ表示',
-                icon: Icon(Icons.abc_rounded),
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => MiniIndicator()),
-                  );
-                },
-              ),
+              // UtButton.primaryWithIcon(
+              //   label: 'ミニインジケータ表示',
+              //   icon: Icon(Icons.abc_rounded),
+              //   onPressed: () {
+              //     Navigator.of(context).push(
+              //       MaterialPageRoute(builder: (context) => MiniIndicator()),
+              //     );
+              //   },
+              // ),
             ],
           ),
         ),

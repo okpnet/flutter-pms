@@ -11,127 +11,126 @@ class OfficeEdit extends StatelessWidget {
         title: UtText.scetionTitle('事業所の変更'),
         body: Column(
           mainAxisAlignment: .spaceEvenly,
-          children: [
-            UtResponsiveGrid(
-              children: [
-                UtResponsiveFlex.of(
-                  flex: 12,
-                  hidePoint: .mobile,
-                  child: UtLayoutPadding(
-                    direction: .top,
-                    child: Align(
-                      alignment: .topRight,
-                      child: UtButton.primaryWithIcon(
-                        label: '保存する',
-                        onPressed: () => {},
-                        icon: Icon(Icons.save_alt_outlined),
-                      ),
-                    ),
-                  ),
-                ),
-                UtResponsiveFlex.of(
-                  flex: 4,
-                  child: UtLayoutPadding(
-                    direction: .top,
-                    child: UtTextInput.primary(
-                      label: '事業所コード',
-                      requiered: true,
-                    ),
-                  ),
-                ),
-                UtResponsiveFlex.of(
-                  flex: 4,
-                  child: UtLayoutPadding(
-                    direction: .top,
-                    child: UtTextInput.primary(label: '事業所名', requiered: true),
-                  ),
-                ),
-                UtResponsiveFlex.cr(),
-                UtResponsiveFlex.of(
-                  flex: 4,
-                  child: UtLayoutPadding(
-                    direction: .top,
-                    child: UtTextInput.primary(label: 'カナ'),
-                  ),
-                ),
-                UtResponsiveFlex.of(
-                  flex: 4,
-                  child: UtLayoutPadding(
-                    direction: .top,
-                    child: UtTextInput.primary(label: '略称', requiered: true),
-                  ),
-                ),
-                UtResponsiveFlex.cr(),
-                UtResponsiveFlex.of(
-                  flex: 3,
-                  child: UtLayoutPadding(
-                    direction: .top,
-                    child: UtTextInput.primary(label: '国'),
-                  ),
-                ),
-                UtResponsiveFlex.cr(),
-                UtResponsiveFlex.of(
-                  flex: 3,
-                  child: UtLayoutPadding(
-                    direction: .top,
-                    child: UtTextInput.primary(label: '郵便番号'),
-                  ),
-                ),
-                UtResponsiveFlex.of(
-                  flex: 3,
-                  child: UtLayoutPadding(
-                    direction: .top,
-                    child: UtTextInput.primary(label: '県・市町村'),
-                  ),
-                ),
-                UtResponsiveFlex.of(
-                  flex: 8,
-                  child: UtLayoutPadding(
-                    direction: .top,
-                    child: UtTextInput.primary(label: '県・市町村'),
-                  ),
-                ),
-                UtResponsiveFlex.of(
-                  flex: 8,
-                  child: UtLayoutPadding(
-                    direction: .top,
-                    child: UtTextInput.primary(label: 'ビル、屋号など'),
-                  ),
-                ),
-                UtResponsiveFlex.of(
-                  flex: 4,
-                  child: UtLayoutPadding(
-                    direction: .top,
-                    child: UtTextInput.primary(label: '電話番号'),
-                  ),
-                ),
-                UtResponsiveFlex.of(
-                  flex: 4,
-                  child: UtLayoutPadding(
-                    direction: .top,
-                    child: UtTextInput.primary(label: 'FAX'),
-                  ),
-                ),
-                UtResponsiveFlex.of(
-                  flex: 0,
-                  smallPc: 0,
-                  tablet: 0,
-                  smallTablet: 0,
-                  mobile: 4,
-                  child: UtLayoutPadding(
-                    direction: .top,
-                    child: UtButton.primaryWithIcon(
-                      label: '保存する',
-                      onPressed: () => {},
-                      icon: Icon(Icons.save_alt_outlined),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
+          children: [forms(context)],
         ),
       ),
+    );
+  }
+
+  Widget forms(BuildContext context) {
+    return UtResponsiveGrid(
+      children: [
+        UtResponsiveFlex.of(
+          flex: 12,
+          hidePoint: .mobile,
+          child: UtLayoutPadding(
+            direction: .top,
+            child: Align(
+              alignment: .topRight,
+              child: UtButton.primaryWithIcon(
+                label: '保存する',
+                onPressed: () => {},
+                icon: Icon(Icons.save_alt_outlined),
+              ),
+            ),
+          ),
+        ),
+        UtResponsiveFlex.of(
+          flex: 4,
+          child: UtLayoutPadding(
+            direction: .top,
+            child: UtTextInput.primary(label: '事業所コード', requiered: true),
+          ),
+        ),
+        UtResponsiveFlex.of(
+          flex: 4,
+          child: UtLayoutPadding(
+            direction: .top,
+            child: UtTextInput.primary(label: '事業所名', requiered: true),
+          ),
+        ),
+        UtResponsiveFlex.cr(),
+        UtResponsiveFlex.of(
+          flex: 4,
+          child: UtLayoutPadding(
+            direction: .top,
+            child: UtTextInput.primary(label: 'カナ'),
+          ),
+        ),
+        UtResponsiveFlex.of(
+          flex: 4,
+          child: UtLayoutPadding(
+            direction: .top,
+            child: UtTextInput.primary(label: '略称', requiered: true),
+          ),
+        ),
+        UtResponsiveFlex.cr(),
+        UtResponsiveFlex.of(
+          flex: 3,
+          child: UtLayoutPadding(
+            direction: .top,
+            child: UtTextInput.primary(label: '国'),
+          ),
+        ),
+        UtResponsiveFlex.cr(),
+        UtResponsiveFlex.of(
+          flex: 3,
+          child: UtLayoutPadding(
+            direction: .top,
+            child: UtTextInput.primary(label: '郵便番号'),
+          ),
+        ),
+        UtResponsiveFlex.of(
+          flex: 3,
+          child: UtLayoutPadding(
+            direction: .top,
+            child: UtTextInput.primary(label: '県・市町村'),
+          ),
+        ),
+        UtResponsiveFlex.of(
+          flex: 8,
+          child: UtLayoutPadding(
+            direction: .top,
+            child: UtTextInput.primary(label: '県・市町村'),
+          ),
+        ),
+        UtResponsiveFlex.of(
+          flex: 8,
+          child: UtLayoutPadding(
+            direction: .top,
+            child: UtTextInput.primary(label: 'ビル、屋号など'),
+          ),
+        ),
+        UtResponsiveFlex.of(
+          flex: 4,
+          child: UtLayoutPadding(
+            direction: .top,
+            child: UtTextInput.primary(label: '電話番号'),
+          ),
+        ),
+        UtResponsiveFlex.of(
+          flex: 4,
+          child: UtLayoutPadding(
+            direction: .top,
+            child: UtTextInput.primary(label: 'FAX'),
+          ),
+        ),
+        UtResponsiveFlex.of(
+          flex: 0,
+          smallPc: 0,
+          tablet: 0,
+          smallTablet: 0,
+          mobile: 4,
+          child: UtLayoutPadding(
+            direction: .top,
+            child: UtButton.primaryWithIcon(
+              label: '保存する',
+              onPressed: () => {},
+              icon: Icon(Icons.save_alt_outlined),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
