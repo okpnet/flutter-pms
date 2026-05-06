@@ -19,6 +19,8 @@ class OfficeState extends State<Office> {
   // ページネーション設定
   final int pageSize = 20;
   int currentPage = 1;
+  int? numberOfRecords;
+  int? filteredNumeberOfRecord;
 
   OfficeState();
   @override
@@ -36,7 +38,11 @@ class OfficeState extends State<Office> {
           //   //初回のみ
           //   stateManagerProviders = event.stateManager;
           // },
-          createHeader: ,
+          createHeader: numberOfRecords == null
+              ? null
+              : (stateManager) {
+                  return Text('test');
+                },
           columns: OfficeColumn.columns,
           rows: [],
           onRowSecondaryTap: (event) {},

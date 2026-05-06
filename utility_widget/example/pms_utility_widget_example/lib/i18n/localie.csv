@@ -92,3 +92,5 @@ PlutoGrid,saturday,Sa,土
 PlutoGrid,hour,Hour,時間
 PlutoGrid,minute,Minute,分
 PlutoGrid,loadingText,Loading,にゃ〜
+PlutoGrid,numberOfRecord,,全$件
+PlutoGrid,numberOfFilterRecord,,全$件
