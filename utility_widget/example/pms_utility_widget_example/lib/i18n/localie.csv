@@ -59,6 +59,7 @@ Department,bill,ビル、屋号など
 Department,phone,電話番号
 Department,fax_number,FAX
 Department,remarks,備考
+Office,,お待ちください
 
 namespace,key,en,ja
 PlutoGrid,unfreezeColumn,Unfreeze,列の固定を解除する

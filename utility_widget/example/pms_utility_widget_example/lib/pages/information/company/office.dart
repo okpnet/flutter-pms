@@ -3,9 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:utility_widget/utiritiy_widget.dart';
 import 'package:utility_widget_example/constant/demo/asset_reader.dart';
 import 'package:utility_widget_example/constant/results/result.dart';
+import 'package:utility_widget_example/pages/container/pluto_grid_summary_hader.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 import 'package:pluto_grid/pluto_grid.dart';
-import 'package:utility_widget_example/pages/contants/my_pluto_grid_configs/grid_config_helper.dart';
+import 'package:utility_widget_example/constant/my_pluto_grid_configs/grid_config_helper.dart';
 import 'package:utility_widget_example/pages/information/company/constants/office_column.dart';
 
 class Office extends StatefulWidget {
@@ -15,7 +16,8 @@ class Office extends StatefulWidget {
 }
 
 class OfficeState extends State<Office> {
-  // late final PlutoGridStateManager stateManagerProviders;
+  late final PlutoGridStateManager stateManagerProviders;
+  final numberOfRecordsNotifier = ValueNotifier<SummaryData>(SummaryData());
   // ページネーション設定
   final int pageSize = 20;
   int currentPage = 1;
@@ -34,15 +36,19 @@ class OfficeState extends State<Office> {
           onChanged: (PlutoGridOnChangedEvent event) {
             print(event);
           },
-          // onLoaded: (event) async {
-          //   //初回のみ
-          //   stateManagerProviders = event.stateManager;
-          // },
-          createHeader: numberOfRecords == null
-              ? null
-              : (stateManager) {
-                  return Text('test');
-                },
+          onLoaded: (event) async {
+            //初回に一度だけ呼ばれる
+            stateManagerProviders = event.stateManager;
+          },
+          createHeader: (stateManager) {
+            //初回に一度だけ呼ばれる
+            return ValueListenableBuilder<SummaryData>(
+              valueListenable: numberOfRecordsNotifier,
+              builder: (context, value, widget) {
+                return PlutoGridSummaryHader(summaryData: value);
+              },
+            );
+          },
           columns: OfficeColumn.columns,
           rows: [],
           onRowSecondaryTap: (event) {},
@@ -73,6 +79,13 @@ class OfficeState extends State<Office> {
       ],
       _ => <PlutoRow>[],
     };
+
+    numberOfRecordsNotifier.value = SummaryData(
+      numberOfRecords: rowJson.length,
+      filteredNumberOfRecords: stateManagerProviders.hasFilter
+          ? request.filterRows.length
+          : null,
+    );
     // ページング処理
     //stateManagerProviders.setShowLoading(false);
     return PlutoLazyPaginationResponse(rows: rowJson, totalPage: 100);
