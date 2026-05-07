@@ -45,6 +45,7 @@ Office,remarks,備考
 Office,update_at,更新日
 Office,update_user,更新者
 Office,id,ID
+Department,,組織
 Department,,組織の変更
 Department,,組織を追加
 Department,ocde,組織コード
@@ -59,6 +60,7 @@ Department,bill,ビル、屋号など
 Department,phone,電話番号
 Department,fax_number,FAX
 Department,remarks,備考
+Department,child_number_of_records,備考
 Office,,お待ちください
 
 namespace,key,en,ja

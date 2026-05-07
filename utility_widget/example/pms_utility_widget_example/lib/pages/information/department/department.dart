@@ -2,6 +2,7 @@ import 'package:pluto_grid/pluto_grid.dart';
 import 'package:utility_widget/utiritiy_widget.dart';
 import 'package:utility_widget_example/pages/container/pluto_grid_summary_hader.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
+import 'package:utility_widget_example/pages/information/department/constants/department_column.dart';
 
 class Department extends StatefulWidget {
   const Department({super.key});
@@ -19,7 +20,7 @@ class _Department extends State<Department> {
       isReturned: true,
       child: UtBody(
         isVirticalScroll: false,
-        title: UtText.scetionTitle('事業所'),
+        title: UtText.scetionTitle('組織'),
         body: PlutoGrid(
           onChanged: (PlutoGridOnChangedEvent event) {
             print(event);
@@ -37,7 +38,7 @@ class _Department extends State<Department> {
               },
             );
           },
-          columns: OfficeColumn.columns,
+          columns: DepartmentColumn.columns,
           rows: [],
           onRowSecondaryTap: (event) {},
           configuration: GridConfigHelper.buil(),
