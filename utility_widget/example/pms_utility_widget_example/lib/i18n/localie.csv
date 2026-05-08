@@ -95,5 +95,7 @@ PlutoGrid,saturday,Sa,土
 PlutoGrid,hour,Hour,時間
 PlutoGrid,minute,Minute,分
 PlutoGrid,loadingText,Loading,にゃ〜
-PlutoGrid,numberOfRecord,,全$件
-PlutoGrid,numberOfFilterRecord,,全$件
+PlutoGridHeader,numberOfRecord,,全$件
+PlutoGridHeader,numberOfFilterRecord,条件適用 $件
+PlutoGridTree,numberOfFilterRecord,選択中の行が配下にあるため、折りたためません。
+PlutoGridTree,loadMore,さらに読み込む...

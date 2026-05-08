@@ -1,5 +1,6 @@
 import 'package:pluto_grid/pluto_grid.dart';
 import 'package:utility_widget/utiritiy_widget.dart';
+import 'package:utility_widget_example/helper/pluto_grid/pg_tree_data_loader.dart';
 
 mixin PgTreeMixin<T extends StatefulWidget> on State<T> {
   late PlutoGridStateManager stateManager;
@@ -9,7 +10,7 @@ mixin PgTreeMixin<T extends StatefulWidget> on State<T> {
   String get parentField;
 
   /// データローダー（DB/REST/ローカル）
-  late TreeDataLoader loader;
+  late PgTreeDataLoader loader;
 
   /// 現在表示中の行
   final List<PlutoRow> gridRows = [];
@@ -161,12 +162,4 @@ mixin PgTreeMixin<T extends StatefulWidget> on State<T> {
       current = parentRow;
     }
   }
-}
-
-abstract class TreeDataLoader {
-  /// parentId が null のときは root を返す
-  Future<List<Map<String, dynamic>>> loadChildrenOf(String? parentId);
-
-  /// 親変更（デモではメモリ上だけ）
-  void updateParent(String id, String newParentId);
 }
