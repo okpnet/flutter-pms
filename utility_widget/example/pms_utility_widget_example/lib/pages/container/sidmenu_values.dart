@@ -76,6 +76,22 @@ List<UtSideItem> buildSiedemenuItems(BuildContext context) {
                 }
               },
             ),
+            UtSideItem(
+              label: '組織',
+              icon: Icon(Icons.arrow_right),
+              onPress: () {
+                if (Navigator.canPop(context)) {
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => Department()),
+                    (_) => false,
+                  );
+                } else {
+                  Navigator.of(
+                    context,
+                  ).push(MaterialPageRoute(builder: (context) => Department()));
+                }
+              },
+            ),
           ],
         ),
         UtSideItem(

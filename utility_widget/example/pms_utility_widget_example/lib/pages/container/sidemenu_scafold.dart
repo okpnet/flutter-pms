@@ -7,6 +7,7 @@ import 'package:utility_widget_example/pages/account/announce.dart';
 import 'package:utility_widget_example/pages/account/logout.dart';
 import 'package:utility_widget_example/pages/account/settings.dart';
 import 'package:utility_widget_example/pages/information/company/company.dart';
+import 'package:utility_widget_example/pages/information/department/department.dart';
 import '../../constant/asset.dart';
 
 part 'sidmenu_values.dart';

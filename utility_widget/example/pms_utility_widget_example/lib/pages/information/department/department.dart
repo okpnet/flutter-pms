@@ -19,7 +19,6 @@ class Department extends StatefulWidget {
 }
 
 class _Department extends State<Department> with PgTreeMixin {
-  late final PlutoGridStateManager stateManagerProviders;
   final numberOfRecordsNotifier = ValueNotifier<SummaryData>(SummaryData());
 
   @override
@@ -35,7 +34,7 @@ class _Department extends State<Department> with PgTreeMixin {
   void initState() {
     super.initState();
     loader = DepartmentTreeDataLoader(); // デモ用
-    loadRoot();
+    //loadRoot();
   }
 
   @override
@@ -51,7 +50,8 @@ class _Department extends State<Department> with PgTreeMixin {
           },
           onLoaded: (event) async {
             //初回に一度だけ呼ばれる
-            stateManagerProviders = event.stateManager;
+            stateManager = event.stateManager;
+            await loadRoot();
           },
           createHeader: (stateManager) {
             //初回に一度だけ呼ばれる
@@ -80,7 +80,7 @@ final class DepartmentTreeDataLoader extends PgTreeDataLoader {
     return switch (await dataProvider.toJsonFromCsv()) {
       Ok<List<Map<String, dynamic>>> jsonList =>
         jsonList.value
-            .where((t) => (t['parent_id'] as String?) == parentId)
+            .where((t) => (t['parent_id'] as String?) == '1')
             .toList(),
       _ => <Map<String, dynamic>>[],
     };

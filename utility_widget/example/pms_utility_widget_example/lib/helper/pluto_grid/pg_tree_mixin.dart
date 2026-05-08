@@ -36,6 +36,7 @@ mixin PgTreeMixin<T extends StatefulWidget> on State<T> {
 
   /// 初期ロード（最上位）
   Future<void> loadRoot() async {
+    stateManager.setShowLoading(true);
     final roots = await loader.loadChildrenOf(null);
 
     final first10 = roots.take(10).toList();
@@ -44,6 +45,8 @@ mixin PgTreeMixin<T extends StatefulWidget> on State<T> {
     if (roots.length > 10) {
       gridRows.add(buildRow({'id': 'root-load-more'}, isLoadMore: true));
     }
+    stateManager.appendRows(rows);
+    stateManager.setShowLoading(false);
   }
 
   /// 展開
