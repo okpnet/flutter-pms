@@ -37,7 +37,7 @@ class _Department extends State<Department> {
               },
             );
           },
-          columns: OfficeColumn.columns,
+          columns: Dee.columns,
           rows: [],
           onRowSecondaryTap: (event) {},
           configuration: GridConfigHelper.buil(),
