@@ -1,13 +1,19 @@
 import 'package:pluto_grid/pluto_grid.dart';
 import 'package:utility_widget/utiritiy_widget.dart';
+import 'package:utility_widget_example/constant/results/result.dart';
+import 'package:utility_widget_example/constant/results/summary_data.dart';
+import 'package:utility_widget_example/helper/pluto_grid/pg_header_mixin.dart';
 import 'package:utility_widget_example/helper/pluto_grid/pg_tree_data_loader.dart';
 
-mixin PgTreeMixin<T extends StatefulWidget> on State<T> {
-  late PlutoGridStateManager stateManager;
+mixin PgTreeMixin<T extends StatefulWidget> on State<T>, PgHeaderMixin {
+  // ignore: non_constant_identifier_names
+  static String BEFORE_EXPANDED = 'child-expanded';
+
+  PlutoGridStateManager get stateManager;
 
   /// ページ側で定義する getter
-  String get idField;
-  String get parentField;
+  PlutoColumn get idField;
+  PlutoColumn get childNumberOfRecordsColumn;
 
   /// データローダー（DB/REST/ローカル）
   late PgTreeDataLoader loader;
@@ -21,101 +27,97 @@ mixin PgTreeMixin<T extends StatefulWidget> on State<T> {
   /// PlutoGrid の rows を返す
   List<PlutoRow> get rows => gridRows;
 
-  /// PlutoRow 生成（共通化）
-  PlutoRow buildRow(Map<String, dynamic> json, {bool isLoadMore = false}) {
-    return PlutoRow(
+  final Map<String?, LoadStattus> status = {};
+
+  PlutoRow buildPultoRow(Map<String, dynamic> json, PlutoRow? parentRow) {
+    final value = json[childNumberOfRecordsColumn.field] as String?;
+    final childCount = int.parse(value ?? "0");
+    // final childCount = json[childNumberOfRecordsColumn.field] as int;
+    // final firstCol = columns.firstWhere((t) => !t.hide);
+
+    final result = PlutoRow(
+      type: childCount > 0
+          ? .group(
+              children: FilteredList<PlutoRow>(
+                initialList: [
+                  PlutoRow(
+                    cells: {
+                      for (final col in columns)
+                        col.field: PlutoCell(
+                          value: col.field == idField.field
+                              ? BEFORE_EXPANDED
+                              : '',
+                        ),
+                    },
+                  ),
+                ],
+              ),
+            )
+          : .normal(),
       cells: {
-        for (final col in columns)
-          col.field: PlutoCell(
-            value: isLoadMore ? 'さらに読み込む...' : json[col.field],
-          ),
-        '_isLoadMore': PlutoCell(value: isLoadMore),
+        for (final col in columns) col.field: PlutoCell(value: json[col.field]),
       },
     );
+    result.setParent(parentRow);
+    return result;
   }
 
-  /// 初期ロード（最上位）
-  Future<void> loadRoot() async {
+  PlutoRow loadMorePlutoRow(PlutoRow? parentRow) {
+    final firstCol = columns.firstWhere((t) => !t.hide);
+    final result = PlutoRow(
+      cells: {
+        for (var col in columns)
+          col.field: PlutoCell(value: col == firstCol ? 'さらに読み込む' : ''),
+      },
+    );
+    result.setParent(parentRow);
+    return result;
+  }
+
+  ///読み込みと行の追加
+  Future<void> loadAddRow(PlutoRow? parentRow) async {
     stateManager.setShowLoading(true);
-    final roots = await loader.loadChildrenOf(null);
+    final take = 10;
+    final parentId = parentRow?.cells[idField.field]?.value as String?;
+    final state =
+        status[parentId] ?? LoadStattus(current: 0, numberOfRecords: 0);
+    final roots = switch (await loader.loadChildrenOf(
+      parentId: parentId,
+      take: take,
+      skip: state.current,
+    )) {
+      Ok<SummaryLoadData> okvalue => okvalue,
+      _ => throw Exception(),
+    };
 
-    final first10 = roots.take(10).toList();
-    gridRows.addAll(first10.map((e) => buildRow(e)));
+    final newState = LoadStattus(
+      current: state.current + take,
+      numberOfRecords: roots.value.filteredNumberOfRecords ?? 0,
+    );
 
-    if (roots.length > 10) {
-      gridRows.add(buildRow({'id': 'root-load-more'}, isLoadMore: true));
-    }
-    stateManager.appendRows(rows);
-    stateManager.setShowLoading(false);
-  }
+    status[parentId] = newState;
+    final addRowList = roots.value.loadData
+        .map((row) => buildPultoRow(row, parentRow))
+        .toList();
 
-  /// 展開
-  Future<void> expand(PlutoRow parentRow) async {
-    final parentId = parentRow.cells[idField]!.value;
+    if (parentRow == null) {
+      //トップノード
+      stateManager.appendRows(addRowList);
+      if (!newState.isLatest) {
+        stateManager.appendRows([loadMorePlutoRow(parentRow)]);
+      }
+    } else {
+      final indexOf = stateManager.refRows.indexOf(parentRow);
+      stateManager.insertRows(indexOf + 1, addRowList);
 
-    final children = await loader.loadChildrenOf(parentId);
-    final first10 = children.take(10).toList();
-
-    final parentIndex = stateManager.refRows.indexOf(parentRow);
-
-    final rowsToInsert = first10.map((e) => buildRow(e)).toList();
-    stateManager.insertRows(parentIndex + 1, rowsToInsert);
-
-    if (children.length > 10) {
-      stateManager.insertRows(parentIndex + 1 + rowsToInsert.length, [
-        buildRow({'id': '${parentId}-load-more'}, isLoadMore: true),
-      ]);
-    }
-  }
-
-  /// 折りたたみ（選択中の行が配下にいる場合は拒否）
-  void collapse(PlutoRow parentRow) {
-    final parentId = parentRow.cells[idField]!.value;
-
-    // 1. 選択中の行が親の配下なら折りたたみ禁止
-    final current = stateManager.currentRow;
-    if (current != null) {
-      final isDescendant = _isDescendantRow(
-        childRow: current,
-        ancestorId: parentId,
-      );
-      if (isDescendant) {
-        // 必要なら SnackBar などで通知してもよい
-        debugPrint('選択中の行が配下にあるため、折りたためません。');
-        return;
+      if (!newState.isLatest) {
+        stateManager.insertRows(indexOf + 1 + addRowList.length, [
+          loadMorePlutoRow(parentRow),
+        ]);
       }
     }
 
-    // 2. 実際の折りたたみ処理
-    final toRemove = stateManager.refRows.where((r) {
-      return r.cells[parentField]!.value == parentId &&
-          r.cells[idField]!.value != parentId;
-    }).toList();
-
-    stateManager.removeRows(toRemove);
-  }
-
-  /// LoadMore
-  Future<void> loadMore(PlutoRow loadMoreRow) async {
-    final parentId = loadMoreRow.cells[parentField]!.value;
-
-    final children = await loader.loadChildrenOf(parentId);
-
-    final alreadyLoaded =
-        stateManager.refRows
-            .where((r) => r.cells[parentField]!.value == parentId)
-            .length -
-        1;
-
-    final next = children.skip(alreadyLoaded).take(10).toList();
-    final rowsToInsert = next.map((e) => buildRow(e)).toList();
-
-    final index = stateManager.refRows.indexOf(loadMoreRow);
-    stateManager.insertRows(index, rowsToInsert);
-
-    if (alreadyLoaded + next.length >= children.length) {
-      stateManager.removeRows([loadMoreRow]);
-    }
+    stateManager.setShowLoading(false);
   }
 
   /// ドラッグ＆ドロップで親子関係変更
@@ -128,41 +130,44 @@ mixin PgTreeMixin<T extends StatefulWidget> on State<T> {
     final index = stateManager.refRows.indexOf(moved);
     if (index > 0) {
       final newParent = stateManager.refRows[index - 1];
-      final newParentId = newParent.cells[idField]!.value;
+      final newParentId = newParent.cells[idField.field]!.value;
 
       loader.updateParent(movedId, newParentId);
     }
   }
 
-  /// childRow が ancestorId の子孫かどうかを判定
-  bool _isDescendantRow({
-    required PlutoRow childRow,
-    required dynamic ancestorId,
-  }) {
-    var current = childRow;
+  Future<void> onExpanded(PlutoRow parentRow) async {}
+  // 展開
+  Future<void> onCollapse(PlutoRow parentRow) async {
+    final childExpandedRow = parentRow.type.isGroup
+        ? parentRow.type.group.children.first
+        : null;
+    final cellValue = childExpandedRow?.cells[idField.field]?.value.toString();
+    if (cellValue == BEFORE_EXPANDED) {
+      // parentRow.type.group.children.removeAt(0);
 
-    while (true) {
-      final currentId = current.cells[idField]!.value;
-      final currentParentId = current.cells[parentField]!.value;
-
-      // 自分自身が祖先なら true（理論上は起こらない想定ならここはスキップでもOK）
-      if (currentId == ancestorId) return true;
-
-      // 親が祖先なら true
-      if (currentParentId == ancestorId) return true;
-
-      // ルートに到達（parentId == id）したら終了
-      if (currentParentId == currentId) return false;
-
-      // さらに上の親を探す
-      final parentRow = stateManager.refRows.firstWhere(
-        (r) => r.cells[idField]!.value == currentParentId,
-        orElse: () => current, // 見つからなければループ終了
-      );
-      if (identical(parentRow, current)) {
-        return false;
+      await loadAddRow(parentRow);
+      try {
+        stateManager.removeRows([childExpandedRow!]);
+      } catch (e, st) {
+        debugPrint(st.toString());
       }
-      current = parentRow;
     }
+  }
+}
+
+final class LoadStattus {
+  final int numberOfRecords;
+  final int current;
+
+  bool get isLatest => current >= numberOfRecords;
+
+  LoadStattus({required this.current, required this.numberOfRecords});
+
+  LoadStattus copyWith({int? current, int? numberOfRecords}) {
+    return LoadStattus(
+      current: current ?? this.current,
+      numberOfRecords: numberOfRecords ?? this.numberOfRecords,
+    );
   }
 }

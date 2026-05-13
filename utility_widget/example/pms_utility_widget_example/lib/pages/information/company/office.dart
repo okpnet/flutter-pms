@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:utility_widget/utiritiy_widget.dart';
 import 'package:utility_widget_example/constant/demo/asset_reader.dart';
-import 'package:utility_widget_example/constant/results/result.dart';
-import 'package:utility_widget_example/pages/container/pluto_grid_summary_hader.dart';
+import 'package:utility_widget_example/helper/pluto_grid/pg_header_mixin.dart';
+import 'package:utility_widget_example/helper/pluto_grid/pg_pagenation_mixin.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 import 'package:utility_widget_example/constant/my_pluto_grid_configs/grid_config_helper.dart';
@@ -15,9 +15,15 @@ class Office extends StatefulWidget {
   State<StatefulWidget> createState() => OfficeState();
 }
 
-class OfficeState extends State<Office> {
+class OfficeState extends State<Office> with PgHeaderMixin, PgPagenationMixin {
   late final PlutoGridStateManager stateManagerProviders;
-  final numberOfRecordsNotifier = ValueNotifier<SummaryData>(SummaryData());
+
+  @override
+  PlutoGridStateManager get pgStateManager => stateManagerProviders;
+
+  @override
+  AssetReader get assetReader => OfficeAsset();
+
   // ページネーション設定
   final int pageSize = 20;
   int currentPage = 1;
@@ -40,15 +46,7 @@ class OfficeState extends State<Office> {
             //初回に一度だけ呼ばれる
             stateManagerProviders = event.stateManager;
           },
-          createHeader: (stateManager) {
-            //初回に一度だけ呼ばれる
-            return ValueListenableBuilder<SummaryData>(
-              valueListenable: numberOfRecordsNotifier,
-              builder: (context, value, widget) {
-                return PlutoGridSummaryHader(summaryData: value);
-              },
-            );
-          },
+          createHeader: (_) => buildHeader(),
           columns: OfficeColumn.columns,
           rows: [],
           onRowSecondaryTap: (event) {},
@@ -66,29 +64,6 @@ class OfficeState extends State<Office> {
         ),
       ),
     );
-  }
-
-  Future<PlutoLazyPaginationResponse> loadPage(
-    PlutoLazyPaginationRequest request,
-  ) async {
-    // stateManagerProviders.setShowLoading(true);
-    final dataProvider = OfficeAsset();
-    final rowJson = switch (await dataProvider.toJsonFromCsv()) {
-      Ok<List<Map<String, dynamic>>> jsonList => [
-        for (var row in jsonList.value) PlutoRow.fromJson(row),
-      ],
-      _ => <PlutoRow>[],
-    };
-
-    numberOfRecordsNotifier.value = SummaryData(
-      numberOfRecords: rowJson.length,
-      filteredNumberOfRecords: stateManagerProviders.hasFilter
-          ? request.filterRows.length
-          : null,
-    );
-    // ページング処理
-    //stateManagerProviders.setShowLoading(false);
-    return PlutoLazyPaginationResponse(rows: rowJson, totalPage: 100);
   }
 }
 

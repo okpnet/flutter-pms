@@ -1,6 +1,13 @@
+import 'package:utility_widget_example/constant/results/result.dart';
+import 'package:utility_widget_example/constant/results/summary_data.dart';
+
 abstract class PgTreeDataLoader {
   /// parentId が null のときは root を返す
-  Future<List<Map<String, dynamic>>> loadChildrenOf(String? parentId);
+  Future<Result<SummaryLoadData>> loadChildrenOf({
+    String? parentId,
+    required int take,
+    required int skip,
+  });
 
   /// 親変更（デモではメモリ上だけ）
   void updateParent(String id, String newParentId);

@@ -6,9 +6,10 @@ import 'package:utility_widget/utiritiy_widget.dart';
 import 'package:utility_widget_example/constant/demo/asset_reader.dart';
 import 'package:utility_widget_example/constant/my_pluto_grid_configs/grid_config_helper.dart';
 import 'package:utility_widget_example/constant/results/result.dart';
+import 'package:utility_widget_example/constant/results/summary_data.dart';
+import 'package:utility_widget_example/helper/pluto_grid/pg_header_mixin.dart';
 import 'package:utility_widget_example/helper/pluto_grid/pg_tree_data_loader.dart';
 import 'package:utility_widget_example/helper/pluto_grid/pg_tree_mixin.dart';
-import 'package:utility_widget_example/pages/container/pluto_grid_summary_hader.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 import 'package:utility_widget_example/pages/information/department/constants/department_column.dart';
 
@@ -18,22 +19,28 @@ class Department extends StatefulWidget {
   State<StatefulWidget> createState() => _Department();
 }
 
-class _Department extends State<Department> with PgTreeMixin {
-  final numberOfRecordsNotifier = ValueNotifier<SummaryData>(SummaryData());
+class _Department extends State<Department> with PgHeaderMixin, PgTreeMixin {
+  late final PlutoGridStateManager stateManagerProviders;
+  final List<PlutoColumn> columnList = DepartmentColumn.columns;
 
   @override
-  String get idField => 'id';
+  PlutoGridStateManager get stateManager => stateManagerProviders;
 
   @override
-  String get parentField => 'parentId';
+  PlutoColumn get idField => columnList.firstWhere((t) => t.field == 'id');
 
   @override
-  List<PlutoColumn> get columns => DepartmentColumn.columns;
+  PlutoColumn get childNumberOfRecordsColumn =>
+      columnList.firstWhere((t) => t.field == 'child_number_of_records');
+
+  @override
+  List<PlutoColumn> get columns => columnList;
 
   @override
   void initState() {
     super.initState();
     loader = DepartmentTreeDataLoader(); // デモ用
+
     //loadRoot();
   }
 
@@ -50,21 +57,30 @@ class _Department extends State<Department> with PgTreeMixin {
           },
           onLoaded: (event) async {
             //初回に一度だけ呼ばれる
-            stateManager = event.stateManager;
-            await loadRoot();
-          },
-          createHeader: (stateManager) {
-            //初回に一度だけ呼ばれる
-            return ValueListenableBuilder<SummaryData>(
-              valueListenable: numberOfRecordsNotifier,
-              builder: (context, value, widget) {
-                return PlutoGridSummaryHader(summaryData: value);
-              },
+            stateManagerProviders = event.stateManager;
+            stateManagerProviders.setRowGroup(
+              PlutoRowGroupTreeDelegate(
+                resolveColumnDepth: (column) =>
+                    stateManagerProviders.columnIndex(column),
+                showText: (cell) => true,
+                // enableCompactCount: false,
+                showCount: false, //子の数表示
+                showFirstExpandableIcon: true,
+
+                onToggled: ({required expanded, required row}) {
+                  if (expanded) {
+                    onCollapse(row);
+                  }
+                },
+              ),
+              notify: true,
             );
+            await loadAddRow(null);
           },
-          columns: DepartmentColumn.columns,
-          rows: [],
-          onRowsMoved: onRowsMoved,
+          createHeader: (stateManager) => buildHeader(),
+          columns: columnList,
+          rows: gridRows,
+          // onRowsMoved: onRowsMoved,
           onRowSecondaryTap: (event) {},
           configuration: GridConfigHelper.buil(),
         ),
@@ -75,15 +91,29 @@ class _Department extends State<Department> with PgTreeMixin {
 
 final class DepartmentTreeDataLoader extends PgTreeDataLoader {
   @override
-  Future<List<Map<String, dynamic>>> loadChildrenOf(String? parentId) async {
+  Future<Result<SummaryLoadData>> loadChildrenOf({
+    String? parentId,
+    required int take,
+    required int skip,
+  }) async {
     final dataProvider = DepaertmentAsset();
-    return switch (await dataProvider.toJsonFromCsv()) {
-      Ok<List<Map<String, dynamic>>> jsonList =>
-        jsonList.value
-            .where((t) => (t['parent_id'] as String?) == '1')
-            .toList(),
-      _ => <Map<String, dynamic>>[],
+    final csvResult = switch (await dataProvider.toJsonFromCsv()) {
+      Ok<List<Map<String, dynamic>>> jsonList => jsonList.value,
+      _ => throw Exception(),
     };
+
+    final result = SummaryLoadData(
+      numberOfRecords: csvResult.length,
+      filteredNumberOfRecords: csvResult
+          .where((t) => (t['parent_id'] as String?) == (parentId ?? '1'))
+          .length,
+      loadData: csvResult
+          .where((t) => (t['parent_id'] as String?) == (parentId ?? '1'))
+          .skip(skip)
+          .take(take)
+          .toList(),
+    );
+    return Ok(result);
   }
 
   @override

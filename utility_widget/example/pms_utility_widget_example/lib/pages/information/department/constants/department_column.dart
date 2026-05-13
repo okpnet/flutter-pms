@@ -9,17 +9,19 @@ final class DepartmentColumn {
       type: PlutoColumnType.text(),
     ),
     PlutoColumn(
+      hide: true,
       title: 'parent',
       field: 'parent_id',
       type: PlutoColumnType.text(),
     ),
+
+    PlutoColumn(title: '組織コード', field: 'code', type: PlutoColumnType.text()),
+    PlutoColumn(title: '組織名', field: 'name', type: PlutoColumnType.text()),
     PlutoColumn(
       title: '子',
       field: 'child_number_of_records',
       type: PlutoColumnType.text(),
     ),
-    PlutoColumn(title: '組織コード', field: 'code', type: PlutoColumnType.text()),
-    PlutoColumn(title: '組織名', field: 'name', type: PlutoColumnType.text()),
     PlutoColumn(title: 'カナ', field: 'kana', type: PlutoColumnType.text()),
     PlutoColumn(title: '略称', field: 'nickname', type: PlutoColumnType.text()),
     PlutoColumn(title: '更新日', field: 'update_at', type: PlutoColumnType.date()),

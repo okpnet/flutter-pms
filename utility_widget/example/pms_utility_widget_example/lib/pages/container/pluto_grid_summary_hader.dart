@@ -1,22 +1,5 @@
 import 'package:utility_widget/utiritiy_widget.dart';
-
-final class SummaryData {
-  final int? numberOfRecords;
-  final int? filteredNumberOfRecords;
-
-  bool get hasNumOfRec => numberOfRecords != null;
-
-  bool get hasFilterNumOfRec => filteredNumberOfRecords != null;
-
-  const SummaryData({this.numberOfRecords, this.filteredNumberOfRecords});
-  SummaryData copyWith({int? numberOfRecords, int? filteredNumberOfRecords}) {
-    return SummaryData(
-      numberOfRecords: numberOfRecords ?? this.numberOfRecords,
-      filteredNumberOfRecords:
-          filteredNumberOfRecords ?? this.filteredNumberOfRecords,
-    );
-  }
-}
+import 'package:utility_widget_example/constant/results/summary_data.dart';
 
 class PlutoGridSummaryHader extends StatelessWidget {
   final SummaryData summaryData;
