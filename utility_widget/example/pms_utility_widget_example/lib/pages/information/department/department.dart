@@ -55,9 +55,28 @@ class _Department extends State<Department> with PgHeaderMixin, PgTreeMixin {
           onChanged: (PlutoGridOnChangedEvent event) {
             print(event);
           },
+          onSelected: (event) async {
+            if (isLoadMoreRow(event.row)) {
+              //もっと読み込むが選択された
+              debugPrint('selected more');
+              await onLoadMore(event.row!);
+              return;
+            }
+          },
+          onRowDoubleTap: (event) async {
+            if (isLoadMoreRow(event.row)) {
+              //もっと読み込むが選択された
+              debugPrint('double tap more');
+              await onLoadMore(event.row);
+              return;
+            }
+          },
+          onRowsMoved: (event) => onRowsMoved(event),
           onLoaded: (event) async {
             //初回に一度だけ呼ばれる
             stateManagerProviders = event.stateManager;
+            //選択モードを行にする
+            stateManagerProviders.setSelectingMode(.row);
             stateManagerProviders.setRowGroup(
               PlutoRowGroupTreeDelegate(
                 resolveColumnDepth: (column) =>
@@ -79,7 +98,7 @@ class _Department extends State<Department> with PgHeaderMixin, PgTreeMixin {
           },
           createHeader: (stateManager) => buildHeader(),
           columns: columnList,
-          rows: gridRows,
+          rows: [],
           // onRowsMoved: onRowsMoved,
           onRowSecondaryTap: (event) {},
           configuration: GridConfigHelper.buil(),
@@ -102,16 +121,16 @@ final class DepartmentTreeDataLoader extends PgTreeDataLoader {
       _ => throw Exception(),
     };
 
+    bool isChild(Map<String, dynamic> row) => parentId == null
+        ? row['parent_id'] ==
+              row['id'] //トップフィールド条件
+        : num.parse(row['parent_id']) == num.parse(parentId) &&
+              row['parent_id'] != row['id']; //通常条件
+
     final result = SummaryLoadData(
       numberOfRecords: csvResult.length,
-      filteredNumberOfRecords: csvResult
-          .where((t) => (t['parent_id'] as String?) == (parentId ?? '1'))
-          .length,
-      loadData: csvResult
-          .where((t) => (t['parent_id'] as String?) == (parentId ?? '1'))
-          .skip(skip)
-          .take(take)
-          .toList(),
+      filteredNumberOfRecords: csvResult.where(isChild).length,
+      loadData: csvResult.where(isChild).skip(skip).take(take).toList(),
     );
     return Ok(result);
   }
