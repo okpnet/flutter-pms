@@ -71,37 +71,22 @@ class _Department extends State<Department> with PgHeaderMixin, PgTreeMixin {
               return;
             }
           },
-          onRowsMoved: (event) => onRowsMoved(event),
+          // onRowsMoved: (event) => onRowsMoved(event),
           onLoaded: (event) async {
+            //選択モードを行にする
+            event.stateManager.setSelectingMode(.row);
             //初回に一度だけ呼ばれる
             stateManagerProviders = event.stateManager;
-            //選択モードを行にする
             stateManagerProviders.setSelectingMode(.row);
-            stateManagerProviders.setRowGroup(
-              PlutoRowGroupTreeDelegate(
-                resolveColumnDepth: (column) =>
-                    stateManagerProviders.columnIndex(column),
-                showText: (cell) => true,
-                // enableCompactCount: false,
-                showCount: false, //子の数表示
-                showFirstExpandableIcon: true,
-
-                onToggled: ({required expanded, required row}) {
-                  if (expanded) {
-                    onCollapse(row);
-                  }
-                },
-              ),
-              notify: true,
-            );
+            initColumns();
             await loadAddRow(null);
           },
           createHeader: (stateManager) => buildHeader(),
           columns: columnList,
           rows: [],
-          // onRowsMoved: onRowsMoved,
+          onRowsMoved: onRowsMoved,
           onRowSecondaryTap: (event) {},
-          configuration: GridConfigHelper.buil(),
+          configuration: GridConfigHelper.treeTo(),
         ),
       ),
     );

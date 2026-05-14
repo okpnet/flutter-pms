@@ -50,7 +50,7 @@ class OfficeState extends State<Office> with PgHeaderMixin, PgPagenationMixin {
           columns: OfficeColumn.columns,
           rows: [],
           onRowSecondaryTap: (event) {},
-          configuration: GridConfigHelper.buil(),
+          configuration: GridConfigHelper.build(),
           createFooter: (stateManager) {
             return PlutoLazyPagination(
               initialPage: 1,

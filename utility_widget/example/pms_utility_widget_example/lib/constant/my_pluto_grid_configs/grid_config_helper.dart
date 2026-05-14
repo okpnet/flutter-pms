@@ -6,12 +6,22 @@ import 'package:utility_widget_example/constant/my_pluto_grid_configs/localize_h
 class GridConfigHelper {
   ///https://pub.dev/packages/slang#getting-started
   ///
-  static PlutoGridConfiguration buil() {
+  static PlutoGridConfiguration build() {
     return PlutoGridConfiguration(
       columnSize: PlutoGridColumnSizeConfig(
         autoSizeMode: PlutoAutoSizeMode.scale,
       ),
       localeText: LocalizeHelper.build(), //ローカライズをINJECTする
+    );
+  }
+
+  static PlutoGridConfiguration treeTo() {
+    return PlutoGridConfiguration(
+      columnSize: PlutoGridColumnSizeConfig(
+        autoSizeMode: PlutoAutoSizeMode.scale,
+      ),
+      localeText: LocalizeHelper.build(), //ローカライズをINJECTする
+      enableMoveDownAfterSelecting: true,
     );
   }
 }

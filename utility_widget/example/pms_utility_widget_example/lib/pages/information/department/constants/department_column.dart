@@ -7,6 +7,7 @@ final class DepartmentColumn {
       title: 'ID',
       field: 'id',
       type: PlutoColumnType.text(),
+      // enableRowDrag: true,
     ),
     PlutoColumn(
       hide: true,
