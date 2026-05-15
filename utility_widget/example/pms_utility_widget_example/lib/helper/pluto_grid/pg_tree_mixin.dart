@@ -155,12 +155,17 @@ mixin PgTreeMixin<T extends StatefulWidget> on State<T>, PgHeaderMixin {
 
   //子を展開
   FutureOr<void> expandedChidRowsExpand(PlutoRow row) async {
-    final collspaceList = _toFlat(
-      row,
-      (t) => t.type is PlutoRowTypeGroup && t.type.group.expanded,
-    ).toList();
-    for (var t in collspaceList) {
-      expandRow(t);
+    final children = <PlutoRow>[];
+    for (var childRow in row.type.group.children) {
+      children.addAll(
+        _toFlat(
+          childRow,
+          (t) => t.type is PlutoRowTypeGroup && t.type.group.expanded,
+        ).toList(),
+      );
+    }
+    for (var child in children) {
+      expandRow(child);
     }
   }
 
