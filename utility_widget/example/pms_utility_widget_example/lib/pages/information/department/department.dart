@@ -73,11 +73,10 @@ class _Department extends State<Department> with PgHeaderMixin, PgTreeMixin {
           },
           // onRowsMoved: (event) => onRowsMoved(event),
           onLoaded: (event) async {
-            //選択モードを行にする
-            event.stateManager.setSelectingMode(.row);
             //初回に一度だけ呼ばれる
             stateManagerProviders = event.stateManager;
-            stateManagerProviders.setSelectingMode(.row);
+            //選択モードを行にする
+            stateManagerProviders.setSelectingMode(.cell);
             initColumns();
             await loadAddRow(null);
           },

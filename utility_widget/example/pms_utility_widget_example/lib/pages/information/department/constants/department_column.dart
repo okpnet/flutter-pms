@@ -7,7 +7,6 @@ final class DepartmentColumn {
       title: 'ID',
       field: 'id',
       type: PlutoColumnType.text(),
-      // enableRowDrag: true,
     ),
     PlutoColumn(
       hide: true,
@@ -21,14 +20,9 @@ final class DepartmentColumn {
       field: 'code',
       type: PlutoColumnType.text(),
       checkReadOnly: (row, cell) => true,
-      // enableRowDrag: true,
-    ),
-    PlutoColumn(
-      title: '組織名',
-      field: 'name',
-      type: PlutoColumnType.text(),
       enableRowDrag: true,
     ),
+    PlutoColumn(title: '組織名', field: 'name', type: PlutoColumnType.text()),
     PlutoColumn(
       title: '子',
       field: 'child_number_of_records',

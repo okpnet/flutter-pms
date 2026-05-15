@@ -43,6 +43,18 @@ mixin PgTreeMixin<T extends StatefulWidget> on State<T>, PgHeaderMixin {
         title: column.title,
         field: column.field,
         type: column.type,
+        enableRowDrag: column.enableRowDrag,
+        enableRowChecked: column.enableRowChecked,
+        enableAutoEditing: column.enableAutoEditing,
+        enableColumnDrag: column.enableColumnDrag,
+        enableContextMenu: column.enableContextMenu,
+        enableDropToResize: column.enableDropToResize,
+        enableEditingMode: column.enableEditingMode,
+        enableFilterMenuItem: column.enableFilterMenuItem,
+        enableHideColumnMenuItem: column.enableHideColumnMenuItem,
+        enableSetColumnsMenuItem: column.enableSetColumnsMenuItem,
+        enableSorting: column.enableSorting,
+        applyFormatterInEditing: column.applyFormatterInEditing,
         renderer: renderer,
       ),
     ]);
@@ -53,33 +65,39 @@ mixin PgTreeMixin<T extends StatefulWidget> on State<T>, PgHeaderMixin {
   ///ツリー列の描画
   Widget renderer(PlutoColumnRendererContext context) {
     final row = context.row;
-    final hasChildren =
-        (int.tryParse(
-              row.cells[childNumberOfRecordsColumn.field]?.value ?? '0',
-            ) ??
-            0) >
-        0;
+    final hasChildren = row.type.group.expanded
+        ? row.type.group.children.isNotEmpty
+        : row.type.group.children.isNotEmpty
+        ? true
+        : (int.tryParse(
+                    row.cells[childNumberOfRecordsColumn.field]?.value ?? '0',
+                  ) ??
+                  0) >
+              0;
     final depth = row.parent == null ? 0 : row.parent!.depth + 1;
-    Widget rowNormal() {
+
+    Widget rowGroup(PlutoRowTypeGroup group) {
       //Rowが標準タイプのときのWidget
       final parentId = row.parent == null
           ? NULL_KEY
           : row.parent!.cells[idField.field]?.value.toString() ?? NULL_KEY;
-      if (row.key != ValueKey('$BEFORE_EXPANDED$parentId')) {
+
+      if (row.key == ValueKey('$BEFORE_EXPANDED$parentId')) {
+        return Row(
+          children: [
+            SizedBox(width: depth * DEPTH_INDENT), // インデント
+            TextButton(
+              onPressed: () async => onLoadMore(row),
+              child: Text('もっと読み込む'),
+            ),
+          ],
+        );
+      }
+
+      if (!hasChildren) {
         return Text(context.cell.value ?? '');
       }
-      return Row(
-        children: [
-          SizedBox(width: depth * DEPTH_INDENT), // インデント
-          TextButton(
-            onPressed: () async => onLoadMore(row),
-            child: Text('もっと読み込む'),
-          ),
-        ],
-      );
-    }
 
-    Widget rowGroup(PlutoRowTypeGroup group) {
       //行がグループだったときのWidget
       return Row(
         children: [
@@ -88,23 +106,16 @@ mixin PgTreeMixin<T extends StatefulWidget> on State<T>, PgHeaderMixin {
             group.expanded
                 ? IconButton(
                     onPressed: () {
-                      onExpanded(row);
+                      collapseRow(row);
                       group.setExpanded(!group.expanded);
                     },
                     icon: Icon(Icons.expand_more),
                   )
                 : IconButton(
                     onPressed: () {
-                      final collspaceList = _toFlat(
-                        row,
-                        (t) =>
-                            t.type is PlutoRowTypeGroup &&
-                            t.type.group.expanded,
-                      ).toList();
-
-                      onCollapse(row);
+                      expandRow(row);
                       group.setExpanded(!group.expanded);
-                      collspaceList.forEach((t) => onCollapse(t));
+                      expandedChidRowsExpand(row);
                     },
                     icon: Icon(Icons.chevron_right),
                   ),
@@ -114,11 +125,18 @@ mixin PgTreeMixin<T extends StatefulWidget> on State<T>, PgHeaderMixin {
       );
     }
 
-    return switch (row.type) {
-      PlutoRowTypeNormal normal => rowNormal(),
-      PlutoRowTypeGroup group => rowGroup(group),
-      _ => throw Exception('not implement row type'),
-    };
+    Widget gesture(Widget child) {
+      return GestureDetector(
+        onHorizontalDragEnd: (details) async {
+          if (details.primaryVelocity != null && details.primaryVelocity! < 0) {
+            await upLevel(row);
+          }
+        },
+        child: child,
+      );
+    }
+
+    return gesture(rowGroup(row.type.group));
   }
 
   //行の平坦化
@@ -128,17 +146,28 @@ mixin PgTreeMixin<T extends StatefulWidget> on State<T>, PgHeaderMixin {
       result.add(find);
     }
 
-    if (find.type case PlutoRowTypeNormal value) return result;
+    if (find.type is PlutoRowTypeNormal) return result;
     for (var child in find.type.group.children) {
       result.addAll(_toFlat(child, varidation));
     }
     return result;
   }
 
+  //子を展開
+  FutureOr<void> expandedChidRowsExpand(PlutoRow row) async {
+    final collspaceList = _toFlat(
+      row,
+      (t) => t.type is PlutoRowTypeGroup && t.type.group.expanded,
+    ).toList();
+    for (var t in collspaceList) {
+      expandRow(t);
+    }
+  }
+
   ///データから行生成
   PlutoRow buildPultoRow(Map<String, dynamic> json, PlutoRow? parentRow) {
     final value = json[childNumberOfRecordsColumn.field] as String?;
-    final id = json[idField.field] as String?;
+    // final id = json[idField.field] as String?;
     final childCount = int.parse(value ?? "0");
     //グループ時に展開マークを表示させるためのダミー行
     // final dummyRow = PlutoRow(
@@ -153,9 +182,7 @@ mixin PgTreeMixin<T extends StatefulWidget> on State<T>, PgHeaderMixin {
     // dummyRow.setParent(parentRow);
 
     final result = PlutoRow(
-      type: childCount > 0
-          ? .group(children: FilteredList<PlutoRow>(initialList: []))
-          : .normal(),
+      type: .group(children: FilteredList<PlutoRow>(initialList: [])),
       cells: {
         for (final col in columns) col.field: PlutoCell(value: json[col.field]),
       },
@@ -170,7 +197,7 @@ mixin PgTreeMixin<T extends StatefulWidget> on State<T>, PgHeaderMixin {
     final parentId = parentRow?.cells[idField.field]?.value ?? NULL_KEY;
     final result = PlutoRow(
       key: ValueKey('$BEFORE_EXPANDED$parentId'),
-      type: PlutoRowTypeNormal(),
+      type: PlutoRowType.group(children: FilteredList(), expanded: false),
       cells: {
         for (var col in columns)
           col.field: PlutoCell(value: col == firstCol ? 'さらに読み込む' : ''),
@@ -243,23 +270,54 @@ mixin PgTreeMixin<T extends StatefulWidget> on State<T>, PgHeaderMixin {
     stateManager.setShowLoading(false);
   }
 
+  //位置レベルアップ
+  FutureOr<void> upLevel(PlutoRow currentRow) async {
+    final collspaceList = _toFlat(
+      currentRow,
+      (t) => t.type is PlutoRowTypeGroup && t.type.group.expanded,
+    ).toList();
+    stateManager.removeRows([...collspaceList, currentRow]); //自分と展開中の子を削除
+    final newParent = currentRow.parent?.parent;
+    currentRow.setParent(newParent);
+    if (newParent != null) {
+      newParent.type.group.children.add(currentRow);
+      expandRow(currentRow);
+    } else {
+      //ルート
+      final insertIndex = stateManager.refRows.indexWhere(
+        (t) =>
+            t.parent == null && t.key == ValueKey('$BEFORE_EXPANDED$NULL_KEY'),
+      );
+      stateManager.insertRows(insertIndex, [currentRow]);
+    }
+  }
+
   /// ドラッグ＆ドロップで親子関係変更
-  void onRowsMoved(PlutoGridOnRowsMovedEvent event) {
+  void onRowsMoved(PlutoGridOnRowsMovedEvent event) async {
     // 移動された行（複数だが、ここでは先頭だけ扱う）
     final moved = event.rows.first;
     final movedId = moved.cells[idField.field]!.value;
-
-    // 直前の行を新しい親とみなす（デモ用ルール）
-    final index = event.idx;
-    if (index > 0) {
-      final newParent = stateManager.refRows[index - 1];
-      final newParentId = newParent.cells[idField.field]!.value;
-      moved.parent?.type.group.children.remove(moved);
-      moved.setParent(newParent);
-      moved.type.group.setExpanded(false);
-      stateManager.removeRows(_toFlat(moved, (t) => true));
-      loader.updateParent(movedId, newParentId);
-    }
+    final selected = await showMenu<String>(
+      context: context,
+      position: RelativeRect.fromLTRB(200, 200, 0, 0), // 適切な位置に調整
+      items: [
+        const PopupMenuItem(value: 'child', child: Text('子に追加')),
+        const PopupMenuItem(value: 'parent', child: Text('親にする')),
+        const PopupMenuItem(value: 'root', child: Text('ルートにする')),
+        const PopupMenuItem(value: 'cancel', child: Text('キャンセル')),
+      ],
+    );
+    // // 直前の行を新しい親とみなす（デモ用ルール）
+    // final index = event.idx;
+    // if (index > 0) {
+    //   final newParent = stateManager.refRows[index - 1];
+    //   final newParentId = newParent.cells[idField.field]!.value;
+    //   moved.parent?.type.group.children.remove(moved);
+    //   moved.setParent(newParent);
+    //   moved.type.group.setExpanded(false);
+    //   stateManager.removeRows(_toFlat(moved, (t) => true));
+    //   loader.updateParent(movedId, newParentId);
+    // }
   }
 
   //もっと読み込む行の判定
@@ -282,7 +340,7 @@ mixin PgTreeMixin<T extends StatefulWidget> on State<T>, PgHeaderMixin {
   }
 
   ///縮小
-  FutureOr<void> onExpanded(PlutoRow parentRow) async {
+  FutureOr<void> collapseRow(PlutoRow parentRow) async {
     if (parentRow.type is PlutoRowTypeNormal) return;
     final removeList = <PlutoRow>[];
 
@@ -295,7 +353,7 @@ mixin PgTreeMixin<T extends StatefulWidget> on State<T>, PgHeaderMixin {
   }
 
   // 展開
-  Future<void> onCollapse(PlutoRow row) async {
+  Future<void> expandRow(PlutoRow row) async {
     final statusKey = row.cells[idField.field]?.value.toString();
     //すでに子が読み込まれているかどうか
     if (!status.containsKey(statusKey)) {
