@@ -6,6 +6,8 @@ import 'package:utility_widget_example/constant/results/result.dart';
 import 'package:utility_widget_example/constant/results/summary_data.dart';
 import 'package:utility_widget_example/helper/pluto_grid/pg_header_mixin.dart';
 import 'package:utility_widget_example/helper/pluto_grid/pg_tree_data_loader.dart';
+import 'package:utility_widget_example/extensions/pluto_grid/pluto_column_extension.dart';
+import 'package:utility_widget_example/extensions/pluto_grid/pluto_row_extension.dart';
 
 mixin PgTreeMixin<T extends StatefulWidget> on State<T>, PgHeaderMixin {
   // ignore: non_constant_identifier_names
@@ -38,32 +40,13 @@ mixin PgTreeMixin<T extends StatefulWidget> on State<T>, PgHeaderMixin {
   void initColumns() {
     final column = stateManager.refColumns.firstWhere((t) => !t.hide);
     final index = stateManager.refColumns.indexOf(column);
-    stateManager.insertColumns(index, [
-      PlutoColumn(
-        title: column.title,
-        field: column.field,
-        type: column.type,
-        enableRowDrag: column.enableRowDrag,
-        enableRowChecked: column.enableRowChecked,
-        enableAutoEditing: column.enableAutoEditing,
-        enableColumnDrag: column.enableColumnDrag,
-        enableContextMenu: column.enableContextMenu,
-        enableDropToResize: column.enableDropToResize,
-        enableEditingMode: column.enableEditingMode,
-        enableFilterMenuItem: column.enableFilterMenuItem,
-        enableHideColumnMenuItem: column.enableHideColumnMenuItem,
-        enableSetColumnsMenuItem: column.enableSetColumnsMenuItem,
-        enableSorting: column.enableSorting,
-        applyFormatterInEditing: column.applyFormatterInEditing,
-        renderer: renderer,
-      ),
-    ]);
+    stateManager.insertColumns(index, [column.copyWith(renderer: _renderer)]);
 
     stateManager.removeColumns([column]);
   }
 
   ///ツリー列の描画
-  Widget renderer(PlutoColumnRendererContext context) {
+  Widget _renderer(PlutoColumnRendererContext context) {
     final row = context.row;
     final hasChildren = row.type.group.expanded
         ? row.type.group.children.isNotEmpty
@@ -86,17 +69,23 @@ mixin PgTreeMixin<T extends StatefulWidget> on State<T>, PgHeaderMixin {
         return Row(
           children: [
             SizedBox(width: depth * DEPTH_INDENT), // インデント
-            TextButton(
-              onPressed: () async => onLoadMore(row),
-              child: Text('もっと読み込む'),
+            Flexible(
+              child: TextButton(
+                onPressed: () async => onLoadMore(row),
+                child: Text('もっと読み込む', overflow: .ellipsis),
+              ),
             ),
           ],
         );
       }
 
-      if (!hasChildren) {
-        return Text(context.cell.value ?? '');
-      }
+      // if (!hasChildren) {
+      //   return Text(
+      //     context.cell.value ?? '',
+      //     overflow: .ellipsis,
+      //     textAlign: context.column.textAlign.value,
+      //   );
+      // }
 
       //行がグループだったときのWidget
       return Row(
@@ -118,9 +107,17 @@ mixin PgTreeMixin<T extends StatefulWidget> on State<T>, PgHeaderMixin {
                       expandedChidRowsExpand(row);
                     },
                     icon: Icon(Icons.chevron_right),
-                  ),
+                  )
+          else
+            const SizedBox(width: 40),
           const SizedBox(width: 4),
-          Text(context.cell.value ?? ''),
+          Flexible(
+            child: Text(
+              context.cell.value ?? '',
+              overflow: .ellipsis,
+              textAlign: context.column.textAlign.value,
+            ),
+          ),
         ],
       );
     }
@@ -154,26 +151,26 @@ mixin PgTreeMixin<T extends StatefulWidget> on State<T>, PgHeaderMixin {
   }
 
   //子を展開
-  FutureOr<void> expandedChidRowsExpand(PlutoRow row) async {
-    final children = <PlutoRow>[];
-    for (var childRow in row.type.group.children) {
-      children.addAll(
-        _toFlat(
-          childRow,
-          (t) => t.type is PlutoRowTypeGroup && t.type.group.expanded,
-        ).toList(),
-      );
-    }
-    for (var child in children) {
-      expandRow(child);
-    }
-  }
+  // FutureOr<void> expandedChidRowsExpand(PlutoRow row) async {
+  //   final children = <PlutoRow>[];
+  //   for (var childRow in row.children) {
+  //     children.addAll(
+  //       _toFlat(
+  //         childRow,
+  //         (t) => t.type is PlutoRowTypeGroup && t.type.group.expanded,
+  //       ).toList(),
+  //     );
+  //   }
+  //   for (var child in children) {
+  //     expandRow(child);
+  //   }
+  // }
 
   ///データから行生成
   PlutoRow buildPultoRow(Map<String, dynamic> json, PlutoRow? parentRow) {
-    final value = json[childNumberOfRecordsColumn.field] as String?;
+    // final value = json[childNumberOfRecordsColumn.field] as String?;
     // final id = json[idField.field] as String?;
-    final childCount = int.parse(value ?? "0");
+    // final childCount = int.parse(value ?? "0");
     //グループ時に展開マークを表示させるためのダミー行
     // final dummyRow = PlutoRow(
     //   key: ValueKey('$DUMMY_ROW$id'),
@@ -281,19 +278,43 @@ mixin PgTreeMixin<T extends StatefulWidget> on State<T>, PgHeaderMixin {
       currentRow,
       (t) => t.type is PlutoRowTypeGroup && t.type.group.expanded,
     ).toList();
-    stateManager.removeRows([...collspaceList, currentRow]); //自分と展開中の子を削除
+    stateManager.removeRows(collspaceList); //自分と展開中の子を削除
     final newParent = currentRow.parent?.parent;
+    final oldParent = currentRow.parent;
+
+    if (oldParent != null) {
+      //元親の子群から離脱
+      oldParent.type.group.children.remove(currentRow);
+    }
+
     currentRow.setParent(newParent);
+
     if (newParent != null) {
-      newParent.type.group.children.add(currentRow);
-      expandRow(currentRow);
+      collapseRow(newParent);
+
+      //いずれかの親の子群に入る
+      final childLoadMore = newParent.children.indexWhere(
+        (t) => isLoadMoreRow(t),
+      );
+      if (childLoadMore >= 0) {
+        newParent.children.insert(childLoadMore, currentRow);
+      } else {
+        newParent.children.add(currentRow);
+      }
+      expandRow(newParent);
+      expandedChidRowsExpand(newParent);
+      // expandRow(currentRow);
     } else {
       //ルート
-      final insertIndex = stateManager.refRows.indexWhere(
-        (t) =>
-            t.parent == null && t.key == ValueKey('$BEFORE_EXPANDED$NULL_KEY'),
+      final loadMoreIndex = stateManager.refRows.indexWhere(
+        //もっと読み込むの位置。無いときは-1
+        (t) => isLoadMoreRow(t),
       );
-      stateManager.insertRows(insertIndex, [currentRow]);
+      if (0 > loadMoreIndex) {
+        stateManager.appendRows([currentRow]);
+      } else {
+        stateManager.insertRows(loadMoreIndex, [currentRow]);
+      }
     }
   }
 
@@ -330,7 +351,7 @@ mixin PgTreeMixin<T extends StatefulWidget> on State<T>, PgHeaderMixin {
       row != null &&
       row.key ==
           ValueKey(
-            '$BEFORE_EXPANDED${row.parent?.cells[idField.field]?.value ?? 'root'}',
+            '$BEFORE_EXPANDED${row.parent?.cells[idField.field]?.value ?? NULL_KEY}',
           );
   //もっと読み込む
   Future<bool> onLoadMore(PlutoRow row) async {
@@ -346,19 +367,20 @@ mixin PgTreeMixin<T extends StatefulWidget> on State<T>, PgHeaderMixin {
 
   ///縮小
   FutureOr<void> collapseRow(PlutoRow parentRow) async {
-    if (parentRow.type is PlutoRowTypeNormal) return;
+    if (parentRow.type is PlutoRowTypeNormal || !parentRow.isExpanded) return;
     final removeList = <PlutoRow>[];
 
     for (var child in parentRow.type.group.children) {
       final addlist = _toFlat(child, (t) => true);
       if (addlist.isNotEmpty) removeList.addAll(addlist);
     }
-
+    parentRow.isExpanded = false;
     stateManager.removeRows(removeList);
   }
 
   // 展開
   Future<void> expandRow(PlutoRow row) async {
+    if (row.type is PlutoRowTypeNormal || row.isExpanded) return;
     final statusKey = row.cells[idField.field]?.value.toString();
     //すでに子が読み込まれているかどうか
     if (!status.containsKey(statusKey)) {
@@ -366,6 +388,10 @@ mixin PgTreeMixin<T extends StatefulWidget> on State<T>, PgHeaderMixin {
     } else {
       final insertIndex = stateManager.refRows.indexOf(row) + 1;
       stateManager.insertRows(insertIndex, row.type.group.children);
+    }
+    row.isExpanded = true;
+    for (var childRow in row.children.where((t) => t.isExpanded)) {
+      expandRow(childRow);
     }
   }
 }
