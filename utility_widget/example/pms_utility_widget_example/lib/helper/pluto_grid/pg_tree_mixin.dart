@@ -61,7 +61,6 @@ mixin PgTreeMixin<T extends StatefulWidget> on State<T>, PgHeaderMixin {
                   0) >
               0;
     final depth = row.parent == null ? 0 : row.parent!.depth + 1;
-
     Widget rowGroup(PlutoRowTypeGroup group) {
       //Rowが標準タイプのときのWidget
       final parentId = row.parent == null
@@ -319,6 +318,7 @@ mixin PgTreeMixin<T extends StatefulWidget> on State<T>, PgHeaderMixin {
   void onRowsMoved(PlutoGridOnRowsMovedEvent event) async {
     // 移動された行（複数だが、ここでは先頭だけ扱う）
     final moved = event.rows.first;
+    if (isLoadMoreRow(moved)) {}
     // // 直前の行を新しい親とみなす（デモ用ルール）
     final index = event.idx;
     if (index > 0) {

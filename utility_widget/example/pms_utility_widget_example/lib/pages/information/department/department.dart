@@ -55,28 +55,29 @@ class _Department extends State<Department> with PgHeaderMixin, PgTreeMixin {
           onChanged: (PlutoGridOnChangedEvent event) {
             print(event);
           },
-          onSelected: (event) async {
-            if (isLoadMoreRow(event.row)) {
-              //もっと読み込むが選択された
-              debugPrint('selected more');
-              await onLoadMore(event.row!);
-              return;
-            }
-          },
-          onRowDoubleTap: (event) async {
-            if (isLoadMoreRow(event.row)) {
-              //もっと読み込むが選択された
-              debugPrint('double tap more');
-              await onLoadMore(event.row);
-              return;
-            }
-          },
+          // onSelected: (event) async {
+          //   if (isLoadMoreRow(event.row)) {
+          //     //もっと読み込むが選択された
+          //     debugPrint('selected more');
+          //     await onLoadMore(event.row!);
+          //     return;
+          //   }
+          // },
+          // onRowDoubleTap: (event) async {
+          //   if (isLoadMoreRow(event.row)) {
+          //     //もっと読み込むが選択された
+          //     debugPrint('double tap more');
+          //     await onLoadMore(event.row);
+          //     return;
+          //   }
+          // },
           // onRowsMoved: (event) => onRowsMoved(event),
           onLoaded: (event) async {
             //初回に一度だけ呼ばれる
             stateManagerProviders = event.stateManager;
             //選択モードを行にする
             stateManagerProviders.setSelectingMode(.cell);
+
             initColumns();
             await loadAddRow(null);
           },
