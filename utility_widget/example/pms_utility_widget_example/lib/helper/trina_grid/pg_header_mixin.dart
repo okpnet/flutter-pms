@@ -1,6 +1,6 @@
 import 'package:utility_widget/utiritiy_widget.dart';
 import 'package:utility_widget_example/constant/results/summary_data.dart';
-import 'package:utility_widget_example/pages/container/pluto_grid_summary_hader.dart';
+import 'package:utility_widget_example/pages/container/trina_grid_summary_hader.dart';
 
 ///ヘッダー管理Mixin
 mixin PgHeaderMixin {

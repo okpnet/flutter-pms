@@ -1,31 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:pluto_grid/pluto_grid.dart';
+import 'package:trina_grid/trina_grid.dart';
 
-/// PlutoColumnの拡張メソッド
-extension PlutoColumnExtension on PlutoColumn {
-  /// 指定されたプロパティで新しいPlutoColumnを作成します
+/// TrinaColumnの拡張メソッド
+extension PlutoColumnExtension on TrinaColumn {
+  /// 指定されたプロパティで新しいTrinaColumnを作成します
   /// 指定されないプロパティは元の値を使用します
-  PlutoColumn copyWith({
+  TrinaColumn copyWith({
     String? title,
     String? field,
-    PlutoColumnType? type,
+    TrinaColumnType? type,
     bool? readOnly,
-    PlutoColumnCheckReadOnly? checkReadOnly,
+    TrinaColumnCheckReadOnly? checkReadOnly,
     double? width,
     double? minWidth,
     EdgeInsets? titlePadding,
     EdgeInsets? filterPadding,
     InlineSpan? titleSpan,
     EdgeInsets? cellPadding,
-    PlutoColumnTextAlign? textAlign,
-    PlutoColumnTextAlign? titleTextAlign,
-    PlutoColumnFrozen? frozen,
-    PlutoColumnSort? sort,
-    PlutoColumnValueFormatter? formatter,
+    TrinaColumnTextAlign? textAlign,
+    TrinaColumnTextAlign? titleTextAlign,
+    TrinaColumnFrozen? frozen,
+    TrinaColumnSort? sort,
+    TrinaColumnValueFormatter? formatter,
     bool? applyFormatterInEditing,
     Color? backgroundColor,
-    PlutoColumnRenderer? renderer,
-    PlutoColumnFooterRenderer? footerRenderer,
+    TrinaColumnRenderer? renderer,
+    TrinaColumnFooterRenderer? footerRenderer,
     bool? suppressedAutoSize,
     bool? enableColumnDrag,
     bool? enableRowDrag,
@@ -40,7 +40,7 @@ extension PlutoColumnExtension on PlutoColumn {
     bool? enableEditingMode,
     bool? hide,
   }) {
-    return PlutoColumn(
+    return TrinaColumn(
       title: title ?? this.title,
       field: field ?? this.field,
       type: type ?? this.type,

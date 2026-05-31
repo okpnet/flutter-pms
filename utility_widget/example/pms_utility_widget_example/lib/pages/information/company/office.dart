@@ -2,11 +2,11 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:utility_widget/utiritiy_widget.dart';
 import 'package:utility_widget_example/constant/demo/asset_reader.dart';
-import 'package:utility_widget_example/helper/pluto_grid/pg_header_mixin.dart';
-import 'package:utility_widget_example/helper/pluto_grid/pg_pagenation_mixin.dart';
+import 'package:utility_widget_example/helper/trina_grid/pg_header_mixin.dart';
+import 'package:utility_widget_example/helper/trina_grid/pg_pagenation_mixin.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
-import 'package:pluto_grid/pluto_grid.dart';
-import 'package:utility_widget_example/constant/my_pluto_grid_configs/grid_config_helper.dart';
+import 'package:trina_grid/trina_grid.dart';
+import 'package:utility_widget_example/constant/my_trina_grid_configs/grid_config_helper.dart';
 import 'package:utility_widget_example/pages/information/company/constants/office_column.dart';
 
 class Office extends StatefulWidget {
@@ -16,10 +16,10 @@ class Office extends StatefulWidget {
 }
 
 class OfficeState extends State<Office> with PgHeaderMixin, PgPagenationMixin {
-  late final PlutoGridStateManager stateManagerProviders;
+  late final TrinaGridStateManager stateManagerProviders;
 
   @override
-  PlutoGridStateManager get pgStateManager => stateManagerProviders;
+  TrinaGridStateManager get pgStateManager => stateManagerProviders;
 
   @override
   AssetReader get assetReader => OfficeAsset();
@@ -38,8 +38,8 @@ class OfficeState extends State<Office> with PgHeaderMixin, PgPagenationMixin {
       child: UtBody(
         isVirticalScroll: false,
         title: UtText.scetionTitle('事業所'),
-        body: PlutoGrid(
-          onChanged: (PlutoGridOnChangedEvent event) {
+        body: TrinaGrid(
+          onChanged: (TrinaGridOnChangedEvent event) {
             print(event);
           },
           onLoaded: (event) async {
@@ -52,7 +52,7 @@ class OfficeState extends State<Office> with PgHeaderMixin, PgPagenationMixin {
           onRowSecondaryTap: (event) {},
           configuration: GridConfigHelper.build(),
           createFooter: (stateManager) {
-            return PlutoLazyPagination(
+            return TrinaLazyPagination(
               initialPage: 1,
               fetchWithSorting: true,
               fetchWithFiltering: true,

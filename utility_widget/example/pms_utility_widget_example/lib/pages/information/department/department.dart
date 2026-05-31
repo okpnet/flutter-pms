@@ -1,17 +1,18 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:pluto_grid/pluto_grid.dart';
+import 'package:trina_grid/trina_grid.dart';
 import 'package:utility_widget/utiritiy_widget.dart';
 import 'package:utility_widget_example/constant/demo/asset_reader.dart';
-import 'package:utility_widget_example/constant/my_pluto_grid_configs/grid_config_helper.dart';
 import 'package:utility_widget_example/constant/results/result.dart';
 import 'package:utility_widget_example/constant/results/summary_data.dart';
-import 'package:utility_widget_example/helper/pluto_grid/pg_header_mixin.dart';
-import 'package:utility_widget_example/helper/pluto_grid/pg_tree_data_loader.dart';
-import 'package:utility_widget_example/helper/pluto_grid/pg_tree_mixin.dart';
+import 'package:utility_widget_example/helper/trina_grid/pg_header_mixin.dart';
+import 'package:utility_widget_example/helper/trina_grid/pg_tree_data_loader.dart';
+import 'package:utility_widget_example/helper/trina_grid/pg_tree_mixin.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 import 'package:utility_widget_example/pages/information/department/constants/department_column.dart';
+
+import '../../../constant/my_trina_grid_configs/grid_config_helper.dart';
 
 class Department extends StatefulWidget {
   const Department({super.key});
@@ -20,21 +21,21 @@ class Department extends StatefulWidget {
 }
 
 class _Department extends State<Department> with PgHeaderMixin, PgTreeMixin {
-  late final PlutoGridStateManager stateManagerProviders;
-  final List<PlutoColumn> columnList = DepartmentColumn.columns;
+  late final TrinaGridStateManager stateManagerProviders;
+  final List<TrinaColumn> columnList = DepartmentColumn.columns;
 
   @override
-  PlutoGridStateManager get stateManager => stateManagerProviders;
+  TrinaGridStateManager get stateManager => stateManagerProviders;
 
   @override
-  PlutoColumn get idField => columnList.firstWhere((t) => t.field == 'id');
+  TrinaColumn get idField => columnList.firstWhere((t) => t.field == 'id');
 
   @override
-  PlutoColumn get childNumberOfRecordsColumn =>
+  TrinaColumn get childNumberOfRecordsColumn =>
       columnList.firstWhere((t) => t.field == 'child_number_of_records');
 
   @override
-  List<PlutoColumn> get columns => columnList;
+  List<TrinaColumn> get columns => columnList;
 
   @override
   void initState() {
@@ -51,8 +52,8 @@ class _Department extends State<Department> with PgHeaderMixin, PgTreeMixin {
       child: UtBody(
         isVirticalScroll: false,
         title: UtText.scetionTitle('組織'),
-        body: PlutoGrid(
-          onChanged: (PlutoGridOnChangedEvent event) {
+        body: TrinaGrid(
+          onChanged: (TrinaGridOnChangedEvent event) {
             print(event);
           },
           // onSelected: (event) async {
