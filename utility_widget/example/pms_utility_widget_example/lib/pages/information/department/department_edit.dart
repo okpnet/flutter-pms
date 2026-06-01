@@ -10,9 +10,12 @@ class DepartmentEdit extends StatelessWidget {
       isReturned: false,
       child: UtBody(
         title: UtText.scetionTitle('組織の変更'),
-        body: Column(
+        body: Row(
           mainAxisAlignment: .spaceEvenly,
-          children: [forms(context)],
+          children: [
+            Flexible(flex: 1, child: UtText('ここにツリー')),
+            Flexible(flex: 2, child: forms(context)), //
+          ],
         ),
       ),
     );

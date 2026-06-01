@@ -45,6 +45,14 @@ class _Department extends State<Department> with PgHeaderMixin, PgTreeMixin {
     //loadRoot();
   }
 
+  void _onRowSelected(TrinaGridOnSelectedEvent event) {
+    final isSelect = stateManagerProviders.isSelectedRow(event.row!.key);
+    event.row!.setChecked(true);
+    debugPrint(
+      'selectedRowIdx=${event.rowIdx} isSelected=${isSelect} checked=${event.row?.checked}',
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SidemenuScafold(
@@ -53,32 +61,24 @@ class _Department extends State<Department> with PgHeaderMixin, PgTreeMixin {
         isVirticalScroll: false,
         title: UtText.scetionTitle('組織'),
         body: TrinaGrid(
+          mode: .select,
+          onSelected: _onRowSelected,
+          isTreeDragMode: true, //ツリーモード指定。ドラッグ中に行左端へホバーすると右に寄る。
           onChanged: (TrinaGridOnChangedEvent event) {
             print(event);
           },
-          // onSelected: (event) async {
-          //   if (isLoadMoreRow(event.row)) {
-          //     //もっと読み込むが選択された
-          //     debugPrint('selected more');
-          //     await onLoadMore(event.row!);
-          //     return;
-          //   }
-          // },
-          // onRowDoubleTap: (event) async {
-          //   if (isLoadMoreRow(event.row)) {
-          //     //もっと読み込むが選択された
-          //     debugPrint('double tap more');
-          //     await onLoadMore(event.row);
-          //     return;
-          //   }
-          // },
-          // onRowsMoved: (event) => onRowsMoved(event),
+          rowColorCallback: (ctx) {
+            if (stateManagerProviders.isSelectedRow(ctx.row.key)) {
+              return Colors.deepOrange.withOpacity(0.2);
+            }
+            return Colors.transparent;
+          },
           onLoaded: (event) async {
             //初回に一度だけ呼ばれる
             stateManagerProviders = event.stateManager;
-            //選択モードを行にする
-            stateManagerProviders.setSelectingMode(.cell);
-
+            for (var column in stateManager.columns) {
+              column.enableRowDrag = false;
+            }
             initColumns();
             await loadAddRow(null);
           },
@@ -87,7 +87,7 @@ class _Department extends State<Department> with PgHeaderMixin, PgTreeMixin {
           rows: [],
           onRowsMoved: onRowsMoved,
           onRowSecondaryTap: (event) {},
-          configuration: GridConfigHelper.treeTo(),
+          configuration: GridConfigHelper.treeTo(selectionMode: .row),
         ),
       ),
     );

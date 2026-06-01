@@ -183,6 +183,8 @@ mixin PgTreeMixin<T extends StatefulWidget> on State<T>, PgHeaderMixin {
     final result = TrinaRow(
       key: ValueKey('$BEFORE_EXPANDED$parentId'),
       type: TrinaRowType.group(children: FilteredList(), expanded: false),
+      enableDrag: false,
+      enableDrop: false,
       cells: {
         for (var col in columns)
           col.field: TrinaCell(value: col == firstCol ? 'さらに読み込む' : ''),
