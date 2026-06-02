@@ -11,6 +11,7 @@ import 'package:utility_widget_example/helper/trina_grid/pg_tree_data_loader.dar
 import 'package:utility_widget_example/helper/trina_grid/pg_tree_mixin.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 import 'package:utility_widget_example/pages/information/department/constants/department_column.dart';
+import 'package:utility_widget_example/pages/information/department/department_edit.dart';
 
 import '../../../constant/my_trina_grid_configs/grid_config_helper.dart';
 
@@ -45,12 +46,10 @@ class _Department extends State<Department> with PgHeaderMixin, PgTreeMixin {
     //loadRoot();
   }
 
-  void _onRowSelected(TrinaGridOnSelectedEvent event) {
-    final isSelect = stateManagerProviders.isSelectedRow(event.row!.key);
-    event.row!.setChecked(true);
-    debugPrint(
-      'selectedRowIdx=${event.rowIdx} isSelected=${isSelect} checked=${event.row?.checked}',
-    );
+  void _navigatorDetail(TrinaGridOnRowDoubleTapEvent e) {
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute(builder: (builder) => DepartmentEdit()));
   }
 
   @override
@@ -62,16 +61,9 @@ class _Department extends State<Department> with PgHeaderMixin, PgTreeMixin {
         title: UtText.scetionTitle('組織'),
         body: TrinaGrid(
           mode: .select,
-          onSelected: _onRowSelected,
           isTreeDragMode: true, //ツリーモード指定。ドラッグ中に行左端へホバーすると右に寄る。
           onChanged: (TrinaGridOnChangedEvent event) {
             print(event);
-          },
-          rowColorCallback: (ctx) {
-            if (stateManagerProviders.isSelectedRow(ctx.row.key)) {
-              return Colors.deepOrange.withOpacity(0.2);
-            }
-            return Colors.transparent;
           },
           onLoaded: (event) async {
             //初回に一度だけ呼ばれる
@@ -86,7 +78,7 @@ class _Department extends State<Department> with PgHeaderMixin, PgTreeMixin {
           columns: columnList,
           rows: [],
           onRowsMoved: onRowsMoved,
-          onRowSecondaryTap: (event) {},
+          onRowDoubleTap: _navigatorDetail,
           configuration: GridConfigHelper.treeTo(selectionMode: .row),
         ),
       ),

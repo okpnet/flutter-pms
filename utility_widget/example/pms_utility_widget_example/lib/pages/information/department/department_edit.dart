@@ -2,7 +2,7 @@ import 'package:utility_widget/utiritiy_widget.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 
 class DepartmentEdit extends StatelessWidget {
-  const DepartmentEdit({super.key});
+  const DepartmentEdit({super.key, required List<String> parentToCurrents});
 
   @override
   Widget build(BuildContext context) {
@@ -14,14 +14,19 @@ class DepartmentEdit extends StatelessWidget {
           mainAxisAlignment: .spaceEvenly,
           children: [
             Flexible(flex: 1, child: UtText('ここにツリー')),
-            Flexible(flex: 2, child: forms(context)), //
+            Flexible(flex: 2, child: _DepartmentForm()), //
           ],
         ),
       ),
     );
   }
+}
 
-  Widget forms(BuildContext context) {
+class _DepartmentForm extends StatelessWidget {
+  const _DepartmentForm({super.key});
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
     return UtResponsiveGrid(
       children: [
         UtResponsiveFlex.of(
