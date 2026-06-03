@@ -1,21 +1,30 @@
 import 'package:utility_widget/utiritiy_widget.dart';
+import 'package:utility_widget_example/manager/state/department_edit_state.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 
 class DepartmentEdit extends StatelessWidget {
-  const DepartmentEdit({super.key, required List<String> parentToCurrents});
+  final List<String> parentToCurrents;
+
+  const DepartmentEdit({super.key, required this.parentToCurrents});
 
   @override
   Widget build(BuildContext context) {
+    final state = DepartmentEditState();
+    state.loadInitial(ids);
+
     return SidemenuScafold(
       isReturned: false,
       child: UtBody(
         title: UtText.scetionTitle('組織の変更'),
-        body: Row(
-          mainAxisAlignment: .spaceEvenly,
-          children: [
-            Flexible(flex: 1, child: UtText('ここにツリー')),
-            Flexible(flex: 2, child: _DepartmentForm()), //
-          ],
+        body: DepartmentEditScope(
+          notifier: state,
+          child: Row(
+            mainAxisAlignment: .spaceEvenly,
+            children: [
+              Flexible(flex: 1, child: UtText('ここにツリー')),
+              Flexible(flex: 2, child: _DepartmentForm()), //
+            ],
+          ),
         ),
       ),
     );
