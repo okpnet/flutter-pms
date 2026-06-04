@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:utility_widget/utiritiy_widget.dart';
 import 'package:utility_widget_example/constant/demo/asset_reader.dart';
 import 'package:utility_widget_example/constant/demo/demo_summary_state.dart';
-import 'package:utility_widget_example/helper/trina_grid/pg_header_mixin.dart';
 import 'package:utility_widget_example/helper/trina_grid/pg_pagenation_mixin.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 import 'package:trina_grid/trina_grid.dart';
@@ -20,8 +19,7 @@ class Office extends StatefulWidget {
   State<StatefulWidget> createState() => OfficeState();
 }
 
-class OfficeState extends PmsWidgetState<Office> implements IHeaderOfTrinaGrid
-    with  PgPagenationMixin {
+class OfficeState extends PagenationOfTrinaGrid<Office> with PgPagenationMixin {
   late final TrinaGridStateManager stateManagerProviders;
   final DemoSummaryState _state = DemoSummaryState();
 
@@ -32,7 +30,7 @@ class OfficeState extends PmsWidgetState<Office> implements IHeaderOfTrinaGrid
   DemoSummaryState get summaryState => _state;
 
   @override
-  TrinaGridStateManager get pgStateManager => stateManagerProviders;
+  TrinaGridStateManager get stateManager => stateManagerProviders;
 
   @override
   AssetReader get assetReader => OfficeAsset();
@@ -61,7 +59,8 @@ class OfficeState extends PmsWidgetState<Office> implements IHeaderOfTrinaGrid
               //初回に一度だけ呼ばれる
               stateManagerProviders = event.stateManager;
             },
-            createHeader: (_) => TrinaGridSummaryHader(summaryData: _state.summaryData!),
+            createHeader: (_) =>
+                TrinaGridSummaryHader(summaryData: _state.summaryData!),
             columns: OfficeColumn.columns,
             rows: [],
             onRowSecondaryTap: (event) {},

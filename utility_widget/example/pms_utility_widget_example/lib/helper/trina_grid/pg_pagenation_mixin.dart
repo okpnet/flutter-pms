@@ -6,9 +6,17 @@ import 'package:utility_widget_example/constant/demo/asset_reader.dart';
 import 'package:utility_widget_example/constant/demo/demo_summary_state.dart';
 import 'package:utility_widget_example/constant/results/result.dart';
 import 'package:utility_widget_example/src/manager/model/summary_data.dart';
+import 'package:utility_widget_example/src/manager/provider/of_trina_grid_provider.dart';
 import 'package:utility_widget_example/src/ui/pms_widget_state.dart';
 
-mixin PgPagenationMixin<T extends StatefulWidget> on IHeade {
+abstract interface class IPagenationOfTrinaGrid
+    implements IGridStateManagerOfTrinaGrid, ISummaryOfTrinaGrid {}
+
+abstract class PagenationOfTrinaGrid<T extends StatefulWidget>
+    extends PmsWidgetState<T>
+    implements IPagenationOfTrinaGrid {}
+
+mixin PgPagenationMixin on PagenationOfTrinaGrid {
   AssetReader get assetReader;
 
   Future<TrinaLazyPaginationResponse> loadPage(
@@ -22,10 +30,10 @@ mixin PgPagenationMixin<T extends StatefulWidget> on IHeade {
       _ => <TrinaRow>[],
     };
 
-    if (state case DemoSummaryState demoSummaryState) {
+    if (summaryState case DemoSummaryState demoSummaryState) {
       final result = SummaryData(
         numberOfRecords: rowJson.length,
-        filteredNumberOfRecords: pgStateManager.hasFilter
+        filteredNumberOfRecords: stateManager.hasFilter
             ? request.filterRows.length
             : null,
       );
