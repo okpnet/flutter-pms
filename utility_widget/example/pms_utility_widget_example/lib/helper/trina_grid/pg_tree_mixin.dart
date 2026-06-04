@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:trina_grid/trina_grid.dart';
 import 'package:utility_widget/utiritiy_widget.dart';
 import 'package:utility_widget_example/constant/results/result.dart';
-import 'package:utility_widget_example/constant/results/summary_data.dart';
+import 'package:utility_widget_example/src/manager/model/summary_data.dart';
 import 'package:utility_widget_example/helper/trina_grid/pg_header_mixin.dart';
 import 'package:utility_widget_example/helper/trina_grid/pg_tree_data_loader.dart';
 import 'package:utility_widget_example/extensions/pluto_grid/trina_column_extension.dart';

@@ -1,5 +1,5 @@
 import 'package:utility_widget/utiritiy_widget.dart';
-import 'package:utility_widget_example/manager/state/department_edit_state.dart';
+import 'package:utility_widget_example/src/manager/state/department_edit_state.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 
 class DepartmentEdit extends StatelessWidget {

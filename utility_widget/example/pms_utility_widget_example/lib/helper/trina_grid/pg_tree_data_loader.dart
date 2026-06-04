@@ -1,5 +1,5 @@
 import 'package:utility_widget_example/constant/results/result.dart';
-import 'package:utility_widget_example/constant/results/summary_data.dart';
+import 'package:utility_widget_example/src/manager/model/summary_data.dart';
 
 abstract class PgTreeDataLoader {
   /// parentId が null のときは root を返す

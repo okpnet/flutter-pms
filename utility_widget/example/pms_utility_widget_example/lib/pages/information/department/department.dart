@@ -5,13 +5,14 @@ import 'package:trina_grid/trina_grid.dart';
 import 'package:utility_widget/utiritiy_widget.dart';
 import 'package:utility_widget_example/constant/demo/asset_reader.dart';
 import 'package:utility_widget_example/constant/results/result.dart';
-import 'package:utility_widget_example/constant/results/summary_data.dart';
+import 'package:utility_widget_example/src/manager/model/summary_data.dart';
 import 'package:utility_widget_example/helper/trina_grid/pg_header_mixin.dart';
 import 'package:utility_widget_example/helper/trina_grid/pg_tree_data_loader.dart';
 import 'package:utility_widget_example/helper/trina_grid/pg_tree_mixin.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 import 'package:utility_widget_example/pages/information/department/constants/department_column.dart';
 import 'package:utility_widget_example/pages/information/department/department_edit.dart';
+import 'package:utility_widget_example/src/manager/state/pms_state.dart';
 
 import '../../../constant/my_trina_grid_configs/grid_config_helper.dart';
 
@@ -59,7 +60,7 @@ class _Department extends State<Department> with PgHeaderMixin, PgTreeMixin {
       child: UtBody(
         isVirticalScroll: false,
         title: UtText.scetionTitle('組織'),
-        body: TrinaGrid(
+        body: PmsStateScope(notifier: _State,) TrinaGrid(
           mode: .select,
           isTreeDragMode: true, //ツリーモード指定。ドラッグ中に行左端へホバーすると右に寄る。
           onChanged: (TrinaGridOnChangedEvent event) {

@@ -1,12 +1,12 @@
 import 'package:utility_widget/utiritiy_widget.dart';
-import 'package:utility_widget_example/constant/results/summary_data.dart';
+import 'package:utility_widget_example/src/manager/model/summary_data.dart';
 
-class PlutoGridSummaryHader extends StatelessWidget {
+class TrinaGridSummaryHader extends StatelessWidget {
   final SummaryData summaryData;
   final Widget? leading;
   final Widget? ending;
 
-  const PlutoGridSummaryHader({
+  const TrinaGridSummaryHader({
     super.key,
     required this.summaryData,
     this.leading,

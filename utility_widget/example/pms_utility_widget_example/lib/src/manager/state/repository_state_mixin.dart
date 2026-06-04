@@ -7,3 +7,4 @@ abstract interface class IRepositoryState {
 mixin RepositoryStateMixin on IRepositoryState {
   Future<
 }
+
