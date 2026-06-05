@@ -2,8 +2,11 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:utility_widget/utiritiy_widget.dart';
 import 'package:utility_widget_example/constant/demo/asset_reader.dart';
-import 'package:utility_widget_example/constant/demo/demo_summary_state.dart';
-import 'package:utility_widget_example/helper/trina_grid/pg_pagenation_mixin.dart';
+import 'package:utility_widget_example/constant/demo/demo_pagenation_reader_service.dart';
+import 'package:utility_widget_example/src/manager/provider/grid_provider.dart';
+import 'package:utility_widget_example/src/manager/provider/provider_of_trina_grid.dart';
+import 'package:utility_widget_example/src/manager/service/pms_repository_service.dart';
+import 'package:utility_widget_example/src/manager/state/summary_state.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 import 'package:trina_grid/trina_grid.dart';
 import 'package:utility_widget_example/constant/my_trina_grid_configs/grid_config_helper.dart';
@@ -19,21 +22,14 @@ class Office extends StatefulWidget {
   State<StatefulWidget> createState() => OfficeState();
 }
 
-class OfficeState extends PagenationOfTrinaGrid<Office> with PgPagenationMixin {
-  late final TrinaGridStateManager stateManagerProviders;
-  final DemoSummaryState _state = DemoSummaryState();
+class OfficeState extends PmsWidgetState<Office> with PagenationOfTrinaGrid {
+  final SummaryState _state = SummaryState();
+  final DemoPagenaationReaderService _demoPagenaationReaderService =
+      DemoPagenaationReaderService(assetReader: OfficeAsset());
 
   @override
-  PmsState get state => _state;
-
-  @override
-  DemoSummaryState get summaryState => _state;
-
-  @override
-  TrinaGridStateManager get stateManager => stateManagerProviders;
-
-  @override
-  AssetReader get assetReader => OfficeAsset();
+  ReaderService<TrinaLazyPaginationRequest> get readerService =>
+      _demoPagenaationReaderService;
 
   // ページネーション設定
   final int pageSize = 20;
@@ -57,7 +53,7 @@ class OfficeState extends PagenationOfTrinaGrid<Office> with PgPagenationMixin {
             },
             onLoaded: (event) async {
               //初回に一度だけ呼ばれる
-              stateManagerProviders = event.stateManager;
+              setGridStatemnager(event.stateManager);
             },
             createHeader: (_) =>
                 TrinaGridSummaryHader(summaryData: _state.summaryData!),

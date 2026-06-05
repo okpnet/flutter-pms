@@ -1,6 +1,6 @@
 ///
 abstract class ReaderService<T> {
-  Future<List<Map<String, dynamic>>> read(T? consition);
+  Future<List<Map<String, dynamic>>> read(T? condition);
 }
 
 ///
