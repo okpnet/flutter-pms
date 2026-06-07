@@ -4,15 +4,16 @@ import 'package:flutter/services.dart';
 import 'package:trina_grid/trina_grid.dart';
 import 'package:utility_widget/utiritiy_widget.dart';
 import 'package:utility_widget_example/constant/demo/asset_reader.dart';
-import 'package:utility_widget_example/constant/results/result.dart';
-import 'package:utility_widget_example/src/manager/model/summary_data.dart';
-import 'package:utility_widget_example/helper/trina_grid/pg_header_mixin.dart';
-import 'package:utility_widget_example/helper/trina_grid/pg_tree_data_loader.dart';
-import 'package:utility_widget_example/helper/trina_grid/pg_tree_mixin.dart';
+import 'package:utility_widget_example/constant/demo/demo_trree_reder_service.dart';
+import 'package:utility_widget_example/pages/container/trina_grid_summary_hader.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 import 'package:utility_widget_example/pages/information/department/constants/department_column.dart';
 import 'package:utility_widget_example/pages/information/department/department_edit.dart';
+import 'package:utility_widget_example/src/manager/provider/grid_provider.dart';
+import 'package:utility_widget_example/src/manager/service/pms_repository_service.dart';
 import 'package:utility_widget_example/src/manager/state/pms_state.dart';
+import 'package:utility_widget_example/src/manager/state/summary_state.dart';
+import 'package:utility_widget_example/src/ui/pms_widget_state.dart';
 
 import '../../../constant/my_trina_grid_configs/grid_config_helper.dart';
 
@@ -22,12 +23,17 @@ class Department extends StatefulWidget {
   State<StatefulWidget> createState() => _Department();
 }
 
-class _Department extends State<Department> with PgHeaderMixin, PgTreeMixin {
-  late final TrinaGridStateManager stateManagerProviders;
+class _Department extends PmsWidgetState<Department> with TreeOfTrinaGrid {
+  final SummaryState _state = SummaryState();
   final List<TrinaColumn> columnList = DepartmentColumn.columns;
-
+  final DemoTrreeRederService _trreeRederService = DemoTrreeRederService(
+    assetReader: DepaertmentAsset(),
+    parentKey: 'parent_id',
+    idKey: 'id',
+  );
   @override
-  TrinaGridStateManager get stateManager => stateManagerProviders;
+  ReaderService<({String? parentId, int skip})> get readerService =>
+      _trreeRederService;
 
   @override
   TrinaColumn get idField => columnList.firstWhere((t) => t.field == 'id');
@@ -39,18 +45,15 @@ class _Department extends State<Department> with PgHeaderMixin, PgTreeMixin {
   @override
   List<TrinaColumn> get columns => columnList;
 
-  @override
-  void initState() {
-    super.initState();
-    loader = DepartmentTreeDataLoader(); // デモ用
-
-    //loadRoot();
-  }
-
-  void _navigatorDetail(TrinaGridOnRowDoubleTapEvent e) {
-    Navigator.of(
-      context,
-    ).push(MaterialPageRoute(builder: (builder) => DepartmentEdit()));
+  void _navigatorDetail(TrinaRow? row) {
+    if (row == null) {
+      return;
+    }
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (builder) => DepartmentEdit(row: row.toJson()),
+      ),
+    );
   }
 
   @override
@@ -60,63 +63,36 @@ class _Department extends State<Department> with PgHeaderMixin, PgTreeMixin {
       child: UtBody(
         isVirticalScroll: false,
         title: UtText.scetionTitle('組織'),
-        body: PmsStateScope(notifier: _State,) TrinaGrid(
-          mode: .select,
-          isTreeDragMode: true, //ツリーモード指定。ドラッグ中に行左端へホバーすると右に寄る。
-          onChanged: (TrinaGridOnChangedEvent event) {
-            print(event);
-          },
-          onLoaded: (event) async {
-            //初回に一度だけ呼ばれる
-            stateManagerProviders = event.stateManager;
-            for (var column in stateManager.columns) {
-              column.enableRowDrag = false;
-            }
-            initColumns();
-            await loadAddRow(null);
-          },
-          createHeader: (stateManager) => buildHeader(),
-          columns: columnList,
-          rows: [],
-          onRowsMoved: onRowsMoved,
-          onRowDoubleTap: _navigatorDetail,
-          configuration: GridConfigHelper.treeTo(selectionMode: .row),
+        body: PmsStateScope(
+          notifier: _state,
+          child: TrinaGrid(
+            mode: .select,
+            isTreeDragMode: true, //ツリーモード指定。ドラッグ中に行左端へホバーすると右に寄る。
+            onSelected: (event) => _navigatorDetail(event.row), //行選択
+            onRowDoubleTap: (event) => _navigatorDetail(event.row), //行選択
+            onChanged: (TrinaGridOnChangedEvent event) {
+              print(event);
+            },
+            onLoaded: (event) async {
+              //初回に一度だけ呼ばれる
+              stateManagerProviders = event.stateManager;
+              for (var column in stateManager.columns) {
+                column.enableRowDrag = false;
+              }
+              initColumns();
+              await loadAddRow(null);
+            },
+            createHeader: (_) =>
+                TrinaGridSummaryHader(summaryData: _state.summaryData!),
+            columns: columnList,
+            rows: [],
+            onRowsMoved: onRowsMoved,
+
+            configuration: GridConfigHelper.treeTo(selectionMode: .row),
+          ),
         ),
       ),
     );
-  }
-}
-
-final class DepartmentTreeDataLoader extends PgTreeDataLoader {
-  @override
-  Future<Result<SummaryLoadData>> loadChildrenOf({
-    String? parentId,
-    required int take,
-    required int skip,
-  }) async {
-    final dataProvider = DepaertmentAsset();
-    final csvResult = switch (await dataProvider.toJsonFromCsv()) {
-      Ok<List<Map<String, dynamic>>> jsonList => jsonList.value,
-      _ => throw Exception(),
-    };
-
-    bool isChild(Map<String, dynamic> row) => parentId == null
-        ? row['parent_id'] ==
-              row['id'] //トップフィールド条件
-        : num.parse(row['parent_id']) == num.parse(parentId) &&
-              row['parent_id'] != row['id']; //通常条件
-
-    final result = SummaryLoadData(
-      numberOfRecords: csvResult.length,
-      filteredNumberOfRecords: csvResult.where(isChild).length,
-      loadData: csvResult.where(isChild).skip(skip).take(take).toList(),
-    );
-    return Ok(result);
-  }
-
-  @override
-  void updateParent(String id, String newParentId) {
-    // TODO: implement updateParent
   }
 }
 

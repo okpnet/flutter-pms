@@ -4,7 +4,6 @@ import 'package:utility_widget/utiritiy_widget.dart';
 import 'package:utility_widget_example/constant/demo/asset_reader.dart';
 import 'package:utility_widget_example/constant/demo/demo_pagenation_reader_service.dart';
 import 'package:utility_widget_example/src/manager/provider/grid_provider.dart';
-import 'package:utility_widget_example/src/manager/provider/provider_of_trina_grid.dart';
 import 'package:utility_widget_example/src/manager/service/pms_repository_service.dart';
 import 'package:utility_widget_example/src/manager/state/summary_state.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';

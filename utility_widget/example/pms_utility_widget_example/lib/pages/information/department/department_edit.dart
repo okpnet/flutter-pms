@@ -1,28 +1,35 @@
 import 'package:utility_widget/utiritiy_widget.dart';
-import 'package:utility_widget_example/src/manager/state/department_edit_state.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
+import 'package:utility_widget_example/src/manager/state/pms_state.dart';
+import 'package:utility_widget_example/src/manager/state/tree_grid_edit_state.dart';
+import 'package:utility_widget_example/src/ui/pms_widget_state.dart';
 
-class DepartmentEdit extends StatelessWidget {
-  final List<String> parentToCurrents;
+class DepartmentEdit extends StatefulWidget {
+  final Map<String, dynamic> row;
+  const DepartmentEdit({super.key, required this.row});
 
-  const DepartmentEdit({super.key, required this.parentToCurrents});
+  @override
+  State<StatefulWidget> createState() => _DepartmentEdit();
+}
+
+class _DepartmentEdit extends PmsWidgetState<DepartmentEdit> {
+  final TreeGridEditState _state = TreeGridEditState();
+  @override
+  PmsState get state => _state;
 
   @override
   Widget build(BuildContext context) {
-    final state = DepartmentEditState();
-    state.loadInitial(ids);
-
     return SidemenuScafold(
       isReturned: false,
       child: UtBody(
         title: UtText.scetionTitle('組織の変更'),
-        body: DepartmentEditScope(
+        body: PmsStateScope(
           notifier: state,
           child: Row(
             mainAxisAlignment: .spaceEvenly,
             children: [
               Flexible(flex: 1, child: UtText('ここにツリー')),
-              Flexible(flex: 2, child: _DepartmentForm()), //
+              Flexible(flex: 2, child: _DepartmentForm(state: state)), //
             ],
           ),
         ),
@@ -32,7 +39,8 @@ class DepartmentEdit extends StatelessWidget {
 }
 
 class _DepartmentForm extends StatelessWidget {
-  const _DepartmentForm({super.key});
+  final PmsState state;
+  const _DepartmentForm({super.key, required this.state});
   @override
   Widget build(BuildContext context) {
     // TODO: implement build

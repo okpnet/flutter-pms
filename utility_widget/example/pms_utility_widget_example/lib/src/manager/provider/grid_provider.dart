@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:trina_grid/trina_grid.dart';
 import 'package:utility_widget/utiritiy_widget.dart';
+import 'package:utility_widget_example/constant/demo/demo_trree_reder_service.dart';
 import 'package:utility_widget_example/constant/results/result.dart';
+import 'package:utility_widget_example/extensions/pluto_grid/trina_column_extension.dart';
 import 'package:utility_widget_example/extensions/pluto_grid/trina_row_extension.dart';
 import 'package:utility_widget_example/src/manager/compare/comare.dart';
 import 'package:utility_widget_example/src/manager/model/summary_data.dart';
@@ -28,9 +30,7 @@ abstract class IGridStateManagerOfTrinaGrid {
 
 ///ツリー
 abstract class ITreeGridStateManagerOfTrinaGrid {
-  ReaderService<String> get readerService;
-
-  JsonMapComapre get parentCompare;
+  ReaderService<({String? parentId, int skip})> get readerService;
 }
 
 ///読み込みサービス付きインターフェイス

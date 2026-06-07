@@ -39,7 +39,7 @@ mixin PagenationOfTrinaGrid on IPmsWidgetState
           ? request.filterRows.length
           : null,
     );
-    summaryState.setValue(result);
+    summaryState.setSummaryValue(result);
 
     // ページング処理
     //stateManagerProviders.setShowLoading(false);

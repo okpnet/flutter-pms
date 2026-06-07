@@ -44,6 +44,102 @@ mixin TreeOfTrinaGrid on IPmsWidgetState
   ///ルート
   final List<TrinaRow> roots = [];
 
+  ///ツリー用の初期化
+  void initColumns() {
+    final column = stateManager.refColumns.firstWhere((t) => !t.hide);
+    final index = stateManager.refColumns.indexOf(column);
+    stateManager.insertColumns(index, [column.copyWith(renderer: _renderer)]);
+
+    stateManager.removeColumns([column]);
+  }
+
+  ///ツリー列の描画
+  Widget _renderer(TrinaColumnRendererContext context) {
+    final row = context.row;
+    final hasChildren = row.type.group.expanded
+        ? row.type.group.children.isNotEmpty
+        : row.type.group.children.isNotEmpty
+        ? true
+        : (int.tryParse(
+                    row.cells[childNumberOfRecordsColumn.field]?.value ?? '0',
+                  ) ??
+                  0) >
+              0;
+    final depth = row.parent == null ? 0 : row.parent!.depth + 1;
+    Widget rowGroup(TrinaRowTypeGroup group) {
+      //Rowが標準タイプのときのWidget
+      final parentId = row.parent == null
+          ? NULL_KEY
+          : row.parent!.cells[idField.field]?.value.toString() ?? NULL_KEY;
+
+      if (row.key == ValueKey('$BEFORE_EXPANDED$parentId')) {
+        return Row(
+          children: [
+            SizedBox(width: depth * DEPTH_INDENT), // インデント
+            Flexible(
+              child: TextButton(
+                onPressed: () async => onLoadMore(row),
+                child: Text('もっと読み込む', overflow: .ellipsis),
+              ),
+            ),
+          ],
+        );
+      }
+
+      // if (!hasChildren) {
+      //   return Text(
+      //     context.cell.value ?? '',
+      //     overflow: .ellipsis,
+      //     textAlign: context.column.textAlign.value,
+      //   );
+      // }
+
+      //行がグループだったときのWidget
+      return Row(
+        children: [
+          SizedBox(width: depth * DEPTH_INDENT), // インデント
+          if (hasChildren)
+            group.expanded
+                ? IconButton(
+                    onPressed: () {
+                      collapseRow(row);
+                    },
+                    icon: Icon(Icons.expand_more),
+                  )
+                : IconButton(
+                    onPressed: () {
+                      expandRow(row);
+                    },
+                    icon: Icon(Icons.chevron_right),
+                  )
+          else
+            const SizedBox(width: 40),
+          const SizedBox(width: 4),
+          Flexible(
+            child: Text(
+              context.cell.value ?? '',
+              overflow: .ellipsis,
+              textAlign: context.column.textAlign.value,
+            ),
+          ),
+        ],
+      );
+    }
+
+    Widget gesture(Widget child) {
+      return GestureDetector(
+        onHorizontalDragEnd: (details) async {
+          if (details.primaryVelocity != null && details.primaryVelocity! < 0) {
+            await parentToUp(row);
+          }
+        },
+        child: child,
+      );
+    }
+
+    return gesture(rowGroup(row.type.group));
+  }
+
   //行の平坦化
   List<TrinaRow> _toFlat(TrinaRow find, bool Function(TrinaRow) varidation) {
     final result = <TrinaRow>[];
@@ -66,42 +162,32 @@ mixin TreeOfTrinaGrid on IPmsWidgetState
     final state =
         status[parentId] ?? TreeLoadStattus(current: 0, numberOfRecords: 0);
 
-    final jsonRows = switch (await readerService.read("")) {
+    final ({String? parentId, int skip}) arg = (
+      parentId: parentId,
+      skip: state.current,
+    );
+
+    final jsonRows = switch (await readerService.read(arg)) {
       Ok<List<Map<String, dynamic>>> jsonList => jsonList.value,
       _ => <Map<String, dynamic>>[],
     };
 
-    final nodes = switch (await loadChildrenOf(
-      jsonRows,
-      parentId: parentId,
-      take: take,
-      skip: state.current,
-    )) {
-      Ok<SummaryLoadData> okvalue => okvalue,
-      _ => throw Exception(),
-    };
     //これはデータ取得からおこなうべき
     final result = SummaryLoadData(
       numberOfRecords: jsonRows.length,
-      filteredNumberOfRecords: jsonRows
-          .where((t) => parentCompare.of(parentRow.cells.map(convert), t))
-          .length,
-      loadData: jsonRows.where(isChild).skip(skip).take(take).toList(),
+      filteredNumberOfRecords: jsonRows.length,
+      loadData: jsonRows,
     );
 
-    final result = SummaryData(
-      numberOfRecords: nodes.value.numberOfRecords,
-      filteredNumberOfRecords: nodes.value.filteredNumberOfRecords,
-    );
-    summaryState.setValue(result);
+    summaryState.setSummaryValue(result);
 
     final newState = TreeLoadStattus(
       current: state.current + take,
-      numberOfRecords: nodes.value.filteredNumberOfRecords ?? 0,
+      numberOfRecords: state.numberOfRecords,
     );
 
     status[parentId] = newState;
-    final addRowList = nodes.value.loadData
+    final addRowList = jsonRows
         .map((row) => buildPultoRow(row, parentRow))
         .toList();
 

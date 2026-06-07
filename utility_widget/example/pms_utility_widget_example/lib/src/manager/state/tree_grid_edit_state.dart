@@ -1,13 +1,9 @@
 import 'package:utility_widget_example/src/manager/model/summary_data.dart';
 import 'package:utility_widget_example/src/manager/state/pms_state.dart';
+import 'package:utility_widget_example/src/manager/state/summary_state.dart';
 
-abstract class ISummaryState extends PmsState {
-  SummaryData? get summaryData;
-  void setSummaryValue(SummaryData value);
-}
-
-///データの合計情報の状態管理
-class SummaryState extends PmsState implements ISummaryState {
+class TreeGridEditState extends PmsStateValue<Map<String, dynamic>>
+    implements ISummaryState {
   SummaryData? _summaryData;
   @override
   SummaryData? get summaryData => _summaryData;
