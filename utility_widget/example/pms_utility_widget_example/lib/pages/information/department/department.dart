@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:trina_grid/trina_grid.dart';
@@ -24,11 +25,16 @@ class Department extends StatefulWidget {
 
 class _Department extends PmsWidgetState<Department> with TreeOfTrinaGrid {
   final List<TrinaColumn> columnList = DepartmentColumn.columns;
+  late final TrinaGridStateManager _stateManager;
   final DemoTrreeRederService _trreeRederService = DemoTrreeRederService(
     assetReader: DepaertmentAsset(),
     parentKey: 'parent_id',
     idKey: 'id',
   );
+
+  @override
+  TrinaGridStateManager get stateManager => _stateManager;
+
   @override
   ReaderService<({String? parentId, int skip})> get readerService =>
       _trreeRederService;
@@ -73,12 +79,13 @@ class _Department extends PmsWidgetState<Department> with TreeOfTrinaGrid {
             },
             onLoaded: (event) async {
               //初回に一度だけ呼ばれる
-              stateManagerProviders = event.stateManager;
+              _stateManager = event.stateManager;
               for (var column in stateManager.columns) {
                 column.enableRowDrag = false;
               }
               initColumns();
-              await loadAddRow(null);
+              final root = {'id': 1};
+              await loadAddRow(TrinaRow.fromJson(root));
             },
             createHeader: (manager) =>
                 TrinaGridSummaryHader(summaryState: summaryState),

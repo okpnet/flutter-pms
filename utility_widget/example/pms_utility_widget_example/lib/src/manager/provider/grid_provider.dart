@@ -2,16 +2,14 @@ import 'dart:async';
 
 import 'package:trina_grid/trina_grid.dart';
 import 'package:utility_widget/utiritiy_widget.dart';
-import 'package:utility_widget_example/constant/demo/demo_trree_reder_service.dart';
 import 'package:utility_widget_example/constant/results/result.dart';
 import 'package:utility_widget_example/extensions/pluto_grid/trina_column_extension.dart';
 import 'package:utility_widget_example/extensions/pluto_grid/trina_row_extension.dart';
-import 'package:utility_widget_example/src/manager/compare/comare.dart';
 import 'package:utility_widget_example/src/manager/model/summary_data.dart';
+import 'package:utility_widget_example/src/manager/service/grid_reader_service_arg.dart';
 import 'package:utility_widget_example/src/manager/service/pms_repository_service.dart';
 import 'package:utility_widget_example/src/manager/state/grid_state.dart';
 import 'package:utility_widget_example/src/manager/state/pms_state.dart';
-import 'package:utility_widget_example/src/manager/state/mixin/grid_summary_state.dart';
 import 'package:utility_widget_example/src/ui/pms_widget_state.dart';
 
 part 'pagenation_provider.dart';
@@ -24,14 +22,11 @@ abstract class IGridStateManagerOfTrinaGrid {
 
   ///
   TrinaGridStateManager get stateManager;
-
-  ///
-  void setGridStatemnager(TrinaGridStateManager trinaGridStateManager);
 }
 
 ///ツリー
 abstract class ITreeGridStateManagerOfTrinaGrid {
-  ReaderService<({String? parentId, int skip})> get readerService;
+  ReaderService<IGridReaderServiceArg> get readerService;
 }
 
 ///読み込みサービス付きインターフェイス
