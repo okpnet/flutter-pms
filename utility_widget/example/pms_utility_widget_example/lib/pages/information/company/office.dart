@@ -5,7 +5,7 @@ import 'package:utility_widget_example/constant/demo/asset_reader.dart';
 import 'package:utility_widget_example/constant/demo/demo_pagenation_reader_service.dart';
 import 'package:utility_widget_example/src/manager/provider/grid_provider.dart';
 import 'package:utility_widget_example/src/manager/service/pms_repository_service.dart';
-import 'package:utility_widget_example/src/manager/state/summary_state.dart';
+import 'package:utility_widget_example/src/manager/state/grid_state.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 import 'package:trina_grid/trina_grid.dart';
 import 'package:utility_widget_example/constant/my_trina_grid_configs/grid_config_helper.dart';
@@ -22,7 +22,7 @@ class Office extends StatefulWidget {
 }
 
 class OfficeState extends PmsWidgetState<Office> with PagenationOfTrinaGrid {
-  final SummaryState _state = SummaryState();
+  final GridState _state = GridState();
   final DemoPagenaationReaderService _demoPagenaationReaderService =
       DemoPagenaationReaderService(assetReader: OfficeAsset());
 
@@ -54,8 +54,7 @@ class OfficeState extends PmsWidgetState<Office> with PagenationOfTrinaGrid {
               //初回に一度だけ呼ばれる
               setGridStatemnager(event.stateManager);
             },
-            createHeader: (_) =>
-                TrinaGridSummaryHader(summaryData: _state.summaryData!),
+            createHeader: (_) => TrinaGridSummaryHader(summaryState: _state!),
             columns: OfficeColumn.columns,
             rows: [],
             onRowSecondaryTap: (event) {},

@@ -4,13 +4,13 @@ part of 'grid_provider.dart';
 mixin PagenationOfTrinaGrid on IPmsWidgetState
     implements IGridStateManagerOfTrinaGrid, IPagenationOfTrinaGrid {
   late final TrinaGridStateManager stateManagerProviders;
-  final SummaryState _state = SummaryState();
+  final GridState _state = GridState();
 
   @override
   PmsState get state => _state;
 
   @override
-  SummaryState get summaryState => _state;
+  GridState get summaryState => _state;
 
   @override
   TrinaGridStateManager get stateManager => stateManagerProviders;

@@ -14,13 +14,13 @@ const String NULL_KEY = 'root';
 mixin TreeOfTrinaGrid on IPmsWidgetState
     implements IGridStateManagerOfTrinaGrid, ITreeGridStateManagerOfTrinaGrid {
   late final TrinaGridStateManager stateManagerProviders;
-  final SummaryState _state = SummaryState();
+  final GridState _state = GridState();
 
   @override
   PmsState get state => _state;
 
   @override
-  SummaryState get summaryState => _state;
+  GridState get summaryState => _state;
 
   @override
   TrinaGridStateManager get stateManager => stateManagerProviders;
@@ -48,6 +48,7 @@ mixin TreeOfTrinaGrid on IPmsWidgetState
   void initColumns() {
     final column = stateManager.refColumns.firstWhere((t) => !t.hide);
     final index = stateManager.refColumns.indexOf(column);
+    // column.renderer = _renderer;
     stateManager.insertColumns(index, [column.copyWith(renderer: _renderer)]);
 
     stateManager.removeColumns([column]);

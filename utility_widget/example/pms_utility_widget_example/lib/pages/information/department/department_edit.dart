@@ -1,7 +1,13 @@
+import 'package:trina_grid/trina_grid.dart';
 import 'package:utility_widget/utiritiy_widget.dart';
+import 'package:utility_widget_example/constant/my_trina_grid_configs/grid_config_helper.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
+import 'package:utility_widget_example/pages/container/trina_grid_summary_hader.dart';
+import 'package:utility_widget_example/pages/information/department/constants/department_column.dart';
+import 'package:utility_widget_example/src/manager/provider/grid_provider.dart';
+import 'package:utility_widget_example/src/manager/service/pms_repository_service.dart';
+import 'package:utility_widget_example/src/manager/state/grid_map_value_state.dart';
 import 'package:utility_widget_example/src/manager/state/pms_state.dart';
-import 'package:utility_widget_example/src/manager/state/tree_grid_edit_state.dart';
 import 'package:utility_widget_example/src/ui/pms_widget_state.dart';
 
 class DepartmentEdit extends StatefulWidget {
@@ -13,7 +19,7 @@ class DepartmentEdit extends StatefulWidget {
 }
 
 class _DepartmentEdit extends PmsWidgetState<DepartmentEdit> {
-  final TreeGridEditState _state = TreeGridEditState();
+  final GridMapValueState _state = GridMapValueState();
   @override
   PmsState get state => _state;
 
@@ -29,7 +35,7 @@ class _DepartmentEdit extends PmsWidgetState<DepartmentEdit> {
             mainAxisAlignment: .spaceEvenly,
             children: [
               Flexible(flex: 1, child: UtText('ここにツリー')),
-              Flexible(flex: 2, child: _DepartmentForm(state: state)), //
+              Flexible(flex: 2, child: _DepartmentForm(state: _state)), //
             ],
           ),
         ),
@@ -38,12 +44,61 @@ class _DepartmentEdit extends PmsWidgetState<DepartmentEdit> {
   }
 }
 
+class _DepartmentTree extends StatefulWidget {
+  final GridMapValueState state;
+  const _DepartmentTree({super.key, required this.state});
+  @override
+  State<StatefulWidget> createState() => _DepartmentTreeState();
+}
+
+class _DepartmentTreeState extends PmsWidgetState<_DepartmentTree>
+    with TreeOfTrinaGrid {
+  final List<TrinaColumn> columnList = DepartmentColumn.columns;
+
+  @override
+  TrinaColumn get childNumberOfRecordsColumn =>
+      columnList.firstWhere((t) => t.field == 'child_number_of_records');
+
+  @override
+  TrinaColumn get idField => columnList.firstWhere((t) => t.field == 'id');
+
+  @override
+  ReaderService<({String? parentId, int skip})> get readerService =>
+      throw UnimplementedError();
+  @override
+  Widget build(BuildContext context) {
+    return UtLayoutPadding(
+      child: TrinaGrid(
+        mode: .select,
+        isTreeDragMode: true, //ツリーモード指定。ドラッグ中に行左端へホバーすると右に寄る。
+        onChanged: (TrinaGridOnChangedEvent event) {
+          print(event);
+        },
+        onLoaded: (event) async {
+          //初回に一度だけ呼ばれる
+          stateManagerProviders = event.stateManager;
+          for (var column in stateManager.columns) {
+            column.enableRowDrag = false;
+          }
+          initColumns();
+          await loadAddRow(null);
+        },
+        createHeader: (_) => TrinaGridSummaryHader(summaryState: widget.state!),
+        columns: columnList,
+        rows: [],
+        onRowsMoved: onRowsMoved,
+        configuration: GridConfigHelper.treeTo(selectionMode: .row),
+      ),
+    );
+  }
+}
+
 class _DepartmentForm extends StatelessWidget {
-  final PmsState state;
+  final GridMapValueState state;
+
   const _DepartmentForm({super.key, required this.state});
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return UtResponsiveGrid(
       children: [
         UtResponsiveFlex.of(

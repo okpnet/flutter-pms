@@ -12,7 +12,6 @@ import 'package:utility_widget_example/pages/information/department/department_e
 import 'package:utility_widget_example/src/manager/provider/grid_provider.dart';
 import 'package:utility_widget_example/src/manager/service/pms_repository_service.dart';
 import 'package:utility_widget_example/src/manager/state/pms_state.dart';
-import 'package:utility_widget_example/src/manager/state/summary_state.dart';
 import 'package:utility_widget_example/src/ui/pms_widget_state.dart';
 
 import '../../../constant/my_trina_grid_configs/grid_config_helper.dart';
@@ -24,7 +23,6 @@ class Department extends StatefulWidget {
 }
 
 class _Department extends PmsWidgetState<Department> with TreeOfTrinaGrid {
-  final SummaryState _state = SummaryState();
   final List<TrinaColumn> columnList = DepartmentColumn.columns;
   final DemoTrreeRederService _trreeRederService = DemoTrreeRederService(
     assetReader: DepaertmentAsset(),
@@ -64,7 +62,7 @@ class _Department extends PmsWidgetState<Department> with TreeOfTrinaGrid {
         isVirticalScroll: false,
         title: UtText.scetionTitle('組織'),
         body: PmsStateScope(
-          notifier: _state,
+          notifier: state,
           child: TrinaGrid(
             mode: .select,
             isTreeDragMode: true, //ツリーモード指定。ドラッグ中に行左端へホバーすると右に寄る。
@@ -82,8 +80,8 @@ class _Department extends PmsWidgetState<Department> with TreeOfTrinaGrid {
               initColumns();
               await loadAddRow(null);
             },
-            createHeader: (_) =>
-                TrinaGridSummaryHader(summaryData: _state.summaryData!),
+            createHeader: (manager) =>
+                TrinaGridSummaryHader(summaryState: summaryState),
             columns: columnList,
             rows: [],
             onRowsMoved: onRowsMoved,
