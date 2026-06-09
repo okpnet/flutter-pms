@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:trina_grid/trina_grid.dart';
@@ -9,6 +10,8 @@ import 'package:utility_widget_example/pages/container/trina_grid_summary_hader.
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 import 'package:utility_widget_example/pages/information/department/constants/department_column.dart';
 import 'package:utility_widget_example/pages/information/department/department_edit.dart';
+import 'package:utility_widget_example/src/condition_pipeline/condition/search_condition.dart';
+import 'package:utility_widget_example/src/condition_pipeline/converter/condition_converter.dart';
 import 'package:utility_widget_example/src/manager/provider/grid_provider.dart';
 import 'package:utility_widget_example/src/manager/service/pms_repository_service.dart';
 import 'package:utility_widget_example/src/manager/state/pms_state.dart';
@@ -26,12 +29,10 @@ class _Department extends PmsWidgetState<Department> with TreeOfTrinaGrid {
   final List<TrinaColumn> columnList = DepartmentColumn.columns;
   final DemoTrreeRederService _trreeRederService = DemoTrreeRederService(
     assetReader: DepaertmentAsset(),
-    parentKey: 'parent_id',
-    idKey: 'id',
+    converter: DemoDepartmentConverter(),
   );
   @override
-  ReaderService<({String? parentId, int skip})> get readerService =>
-      _trreeRederService;
+  ReaderService<RootCondition> get readerService => _trreeRederService;
 
   @override
   TrinaColumn get idField => columnList.firstWhere((t) => t.field == 'id');
@@ -65,6 +66,7 @@ class _Department extends PmsWidgetState<Department> with TreeOfTrinaGrid {
           notifier: state,
           child: TrinaGrid(
             mode: .select,
+
             isTreeDragMode: true, //ツリーモード指定。ドラッグ中に行左端へホバーすると右に寄る。
             onSelected: (event) => _navigatorDetail(event.row), //行選択
             onRowDoubleTap: (event) => _navigatorDetail(event.row), //行選択
@@ -111,5 +113,17 @@ final class DepaertmentAsset extends AssetReader {
   FutureOr<String> fromCsv() async {
     await Future.delayed(Duration(seconds: 2));
     return await rootBundle.loadString('demo_data/department.csv');
+  }
+}
+
+class DemoDepartmentConverter extends ConditionConverter {
+  @override
+  toVariables(SearchCondition condition) {
+    if (condition case FieldCondition cod) {
+      bool whereResult(Map<String, dynamic> row) =>
+          row['parent_id'] == row['id'] && row['parent_id'] == cod.value;
+      return whereResult;
+    }
+    AssertionError('condition argment shall FieldCondtion type.');
   }
 }

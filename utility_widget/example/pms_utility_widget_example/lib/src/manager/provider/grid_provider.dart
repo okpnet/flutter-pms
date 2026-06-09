@@ -6,6 +6,8 @@ import 'package:utility_widget_example/constant/demo/demo_trree_reder_service.da
 import 'package:utility_widget_example/constant/results/result.dart';
 import 'package:utility_widget_example/extensions/pluto_grid/trina_column_extension.dart';
 import 'package:utility_widget_example/extensions/pluto_grid/trina_row_extension.dart';
+import 'package:utility_widget_example/src/condition_pipeline/condition/field_operator.dart';
+import 'package:utility_widget_example/src/condition_pipeline/condition/search_condition.dart';
 import 'package:utility_widget_example/src/manager/compare/comare.dart';
 import 'package:utility_widget_example/src/manager/model/summary_data.dart';
 import 'package:utility_widget_example/src/manager/service/pms_repository_service.dart';
@@ -31,7 +33,7 @@ abstract class IGridStateManagerOfTrinaGrid {
 
 ///ツリー
 abstract class ITreeGridStateManagerOfTrinaGrid {
-  ReaderService<({String? parentId, int skip})> get readerService;
+  ReaderService<RootCondition> get readerService;
 }
 
 ///読み込みサービス付きインターフェイス
