@@ -9,6 +9,7 @@ import 'package:utility_widget_example/pages/container/trina_grid_summary_hader.
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 import 'package:utility_widget_example/pages/information/department/constants/department_column.dart';
 import 'package:utility_widget_example/pages/information/department/department_edit.dart';
+import 'package:utility_widget_example/src/condition_pipeline/condition/root_condition.dart';
 import 'package:utility_widget_example/src/condition_pipeline/condition/search_condition.dart';
 import 'package:utility_widget_example/src/condition_pipeline/converter/condition_converter.dart';
 import 'package:utility_widget_example/src/manager/provider/grid_provider.dart';

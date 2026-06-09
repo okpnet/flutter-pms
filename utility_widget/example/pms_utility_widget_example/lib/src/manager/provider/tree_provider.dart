@@ -145,16 +145,6 @@ mixin TreeOfTrinaGrid on IPmsWidgetState
     return result;
   }
 
-  ///検索条件
-  ConditionBranch createCondition(dynamic findValue) {
-    final condition = FieldCondition(
-      field: idField.field,
-      operator: EqualOperator(),
-      value: findValue,
-    );
-    return ConditionBranch(children: [condition]);
-  }
-
   ///読み込みと行の追加
   Future<void> loadAddRow(TrinaRow? parentRow) async {
     stateManager.setShowLoading(true);
@@ -164,8 +154,11 @@ mixin TreeOfTrinaGrid on IPmsWidgetState
         status[parentId] ?? TreeLoadStattus(current: 0, numberOfRecords: 0);
 
     final rootCondition = RootCondition(skip: state.current);
-    final condition = createCondition(parentId);
-    rootCondition.addChild(condition);
+    rootCondition.addBranch().addField(
+      field: idField.field,
+      operator: EqualOperator(),
+      value: parentId,
+    );
 
     final jsonRows = switch (await readerService.read(rootCondition)) {
       Ok<List<Map<String, dynamic>>> jsonList => jsonList.value,

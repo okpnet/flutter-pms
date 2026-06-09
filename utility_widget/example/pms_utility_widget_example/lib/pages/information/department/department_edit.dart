@@ -4,7 +4,7 @@ import 'package:utility_widget_example/constant/my_trina_grid_configs/grid_confi
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 import 'package:utility_widget_example/pages/container/trina_grid_summary_hader.dart';
 import 'package:utility_widget_example/pages/information/department/constants/department_column.dart';
-import 'package:utility_widget_example/src/condition_pipeline/condition/search_condition.dart';
+import 'package:utility_widget_example/src/condition_pipeline/condition/root_condition.dart';
 import 'package:utility_widget_example/src/manager/provider/grid_provider.dart';
 import 'package:utility_widget_example/src/manager/service/pms_repository_service.dart';
 import 'package:utility_widget_example/src/manager/state/grid_map_value_state.dart';
