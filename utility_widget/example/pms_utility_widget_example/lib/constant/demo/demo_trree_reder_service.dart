@@ -7,6 +7,8 @@ import 'package:utility_widget_example/src/manager/service/pms_repository_servic
 typedef ConditionCallback =
     bool Function(T) Function<T>(SearchCondition condition);
 
+typedef WhereCallBack = bool Function(Map<String, dynamic>);
+
 class DemoTrreeRederService extends ReaderService<RootCondition> {
   final int takeCount;
   final AssetReader assetReader;

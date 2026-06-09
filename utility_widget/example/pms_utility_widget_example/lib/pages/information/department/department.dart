@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:trina_grid/trina_grid.dart';
@@ -27,10 +26,15 @@ class Department extends StatefulWidget {
 
 class _Department extends PmsWidgetState<Department> with TreeOfTrinaGrid {
   final List<TrinaColumn> columnList = DepartmentColumn.columns;
+  late final TrinaGridStateManager _stateManager;
   final DemoTrreeRederService _trreeRederService = DemoTrreeRederService(
     assetReader: DepaertmentAsset(),
     converter: DemoDepartmentConverter(),
   );
+
+  @override
+  TrinaGridStateManager get stateManager => _stateManager;
+
   @override
   ReaderService<RootCondition> get readerService => _trreeRederService;
 
@@ -75,12 +79,13 @@ class _Department extends PmsWidgetState<Department> with TreeOfTrinaGrid {
             },
             onLoaded: (event) async {
               //初回に一度だけ呼ばれる
-              stateManagerProviders = event.stateManager;
+              _stateManager = event.stateManager;
               for (var column in stateManager.columns) {
                 column.enableRowDrag = false;
               }
               initColumns();
-              await loadAddRow(null);
+              final root = {'id': 1};
+              await loadAddRow(TrinaRow.fromJson(root));
             },
             createHeader: (manager) =>
                 TrinaGridSummaryHader(summaryState: summaryState),
@@ -116,14 +121,14 @@ final class DepaertmentAsset extends AssetReader {
   }
 }
 
-class DemoDepartmentConverter extends ConditionConverter {
+class DemoDepartmentConverter extends ConditionConverter<WhereCallBack> {
   @override
-  toVariables(SearchCondition condition) {
+  WhereCallBack toVariables(SearchCondition condition) {
     if (condition case FieldCondition cod) {
       bool whereResult(Map<String, dynamic> row) =>
           row['parent_id'] == row['id'] && row['parent_id'] == cod.value;
       return whereResult;
     }
-    AssertionError('condition argment shall FieldCondtion type.');
+    throw AssertionError('condition argment shall FieldCondtion type.');
   }
 }

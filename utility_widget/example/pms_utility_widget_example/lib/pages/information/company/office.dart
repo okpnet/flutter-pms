@@ -23,12 +23,23 @@ class Office extends StatefulWidget {
 
 class OfficeState extends PmsWidgetState<Office> with PagenationOfTrinaGrid {
   final GridState _state = GridState();
+  late final TrinaGridStateManager _stateManager;
+
   final DemoPagenaationReaderService _demoPagenaationReaderService =
       DemoPagenaationReaderService(assetReader: OfficeAsset());
 
   @override
   ReaderService<TrinaLazyPaginationRequest> get readerService =>
       _demoPagenaationReaderService;
+
+  @override
+  PmsState get state => _state;
+
+  @override
+  GridState get summaryState => _state;
+
+  @override
+  TrinaGridStateManager get stateManager => _stateManager;
 
   // ページネーション設定
   final int pageSize = 20;
@@ -52,7 +63,7 @@ class OfficeState extends PmsWidgetState<Office> with PagenationOfTrinaGrid {
             },
             onLoaded: (event) async {
               //初回に一度だけ呼ばれる
-              setGridStatemnager(event.stateManager);
+              _stateManager = stateManager;
             },
             createHeader: (_) => TrinaGridSummaryHader(summaryState: _state!),
             columns: OfficeColumn.columns,

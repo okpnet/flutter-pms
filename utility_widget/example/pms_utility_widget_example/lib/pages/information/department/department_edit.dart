@@ -55,6 +55,10 @@ class _DepartmentTree extends StatefulWidget {
 class _DepartmentTreeState extends PmsWidgetState<_DepartmentTree>
     with TreeOfTrinaGrid {
   final List<TrinaColumn> columnList = DepartmentColumn.columns;
+  late final TrinaGridStateManager _stateManager;
+
+  @override
+  TrinaGridStateManager get stateManager => _stateManager;
 
   @override
   TrinaColumn get childNumberOfRecordsColumn =>
@@ -76,14 +80,14 @@ class _DepartmentTreeState extends PmsWidgetState<_DepartmentTree>
         },
         onLoaded: (event) async {
           //初回に一度だけ呼ばれる
-          stateManagerProviders = event.stateManager;
+          _stateManager = event.stateManager;
           for (var column in stateManager.columns) {
             column.enableRowDrag = false;
           }
           initColumns();
           await loadAddRow(null);
         },
-        createHeader: (_) => TrinaGridSummaryHader(summaryState: widget.state!),
+        createHeader: (_) => TrinaGridSummaryHader(summaryState: widget.state),
         columns: columnList,
         rows: [],
         onRowsMoved: onRowsMoved,

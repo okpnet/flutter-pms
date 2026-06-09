@@ -13,7 +13,6 @@ const String NULL_KEY = 'root';
 
 mixin TreeOfTrinaGrid on IPmsWidgetState
     implements IGridStateManagerOfTrinaGrid, ITreeGridStateManagerOfTrinaGrid {
-  late final TrinaGridStateManager stateManagerProviders;
   final GridState _state = GridState();
 
   @override
@@ -21,15 +20,6 @@ mixin TreeOfTrinaGrid on IPmsWidgetState
 
   @override
   GridState get summaryState => _state;
-
-  @override
-  TrinaGridStateManager get stateManager => stateManagerProviders;
-
-  ///onLoaded: (event) async で呼び出しする。
-  @override
-  void setGridStatemnager(TrinaGridStateManager trinaGridStateManager) {
-    stateManagerProviders = trinaGridStateManager;
-  }
 
   /// ページ側で定義する getter
   TrinaColumn get idField;
@@ -182,7 +172,6 @@ mixin TreeOfTrinaGrid on IPmsWidgetState
       _ => <Map<String, dynamic>>[],
     };
 
-    //これはデータ取得からおこなうべき
     final result = SummaryLoadData(
       numberOfRecords: jsonRows.length,
       filteredNumberOfRecords: jsonRows.length,
