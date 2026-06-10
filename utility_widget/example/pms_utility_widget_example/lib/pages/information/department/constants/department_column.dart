@@ -6,13 +6,13 @@ final class DepartmentColumn {
       hide: true,
       title: 'ID',
       field: 'id',
-      type: TrinaColumnType.text(),
+      type: TrinaColumnType.number(),
     ),
     TrinaColumn(
       hide: true,
       title: 'parent',
       field: 'parent_id',
-      type: TrinaColumnType.text(),
+      type: TrinaColumnType.number(),
     ),
 
     TrinaColumn(

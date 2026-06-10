@@ -1,12 +1,17 @@
-import 'package:utility_widget_example/src/condition_pipeline/condition/root_condition.dart';
+import 'package:utility_widget_example/src/condition_pipeline/condition/condition_value.dart';
 
-import 'branch_condition.dart';
 import 'field_operator.dart';
+import 'root_condition.dart';
 
 /// 同じブランチや階層の条件を結合するときのルールを表します。
 /// - `and`: 子条件を全て満たす（論理積）
 /// - `or`: 子条件のいずれかを満たす（論理和）
 enum GruleRule { and, or }
+
+/// ソートするときのルールを表します。
+/// - `asc`: 順
+/// - `desc`: 逆順
+enum Order { asc, desc }
 
 /// 検索条件の基底クラス
 ///
@@ -25,52 +30,6 @@ abstract class SearchCondition {
   void setParent(SearchCondition? parent) {
     _parent = parent;
   }
-}
-
-/// 子要素を持つ親条件の抽象クラス
-///
-/// 子条件の追加や列挙、平坦化（フラット化）などのユーティリティを提供します。
-abstract class ParentCondition extends SearchCondition {
-  /// この親が保持する子条件のリストを返します（実装側で保持すること）。
-  List<SearchCondition> get children;
-
-  /// 子条件を追加します。同一インスタンスの重複登録は行いません。
-  /// 追加時に子の `parent` をこのインスタンスに設定します。
-  void addChild(SearchCondition child) {
-    if (children.contains(child)) return;
-    child.setParent(this);
-    children.add(child);
-  }
-
-  /// 複数の子条件を一括追加します。
-  void addChildren(List<SearchCondition> addchildren) {
-    for (var child in addchildren) {
-      addChild(child);
-    }
-  }
-
-  /// 新しいブランチ条件（`BranchCondition`）を生成してこの親に追加します。
-  /// `siblingsRule` によりブランチ内部の子同士の結合ルールを指定できます。
-  BranchCondition addBranch({GruleRule? siblingsRule}) {
-    final branch = BranchCondition(siblingsRule: siblingsRule);
-    addChild(branch);
-    return branch;
-  }
-
-  /// 新しいフィールド条件（`FieldCondition`）を生成してこの親に追加します。
-  FieldCondition addField({
-    required String field,
-    required IFieldOperator operator,
-    required dynamic value,
-  }) {
-    final condition = FieldCondition(
-      field: field,
-      operator: operator,
-      value: value,
-    );
-    addChild(condition);
-    return condition;
-  }
 
   /// ルートの `SearchCondition` を取得します。
   ///
@@ -86,31 +45,6 @@ abstract class ParentCondition extends SearchCondition {
     }
     return parent ?? this;
   }
-
-  /// 子ツリーを深さ優先で辿り、すべての子条件を平坦化したリストを返します。
-  /// フィールド条件（`FieldCondition`）のみを抽出してリスト化します。
-  List<SearchCondition> toFlatChildren() {
-    final list = <SearchCondition>[];
-    for (var item in children) {
-      list.addAll(_toFlatChildren(item));
-    }
-    return list;
-  }
-
-  /// 内部ヘルパー：指定した条件を再帰的に探索して `FieldCondition` を収集します。
-  List<SearchCondition> _toFlatChildren(SearchCondition condtion) {
-    final list = <SearchCondition>[];
-    if (condtion is FieldCondition) {
-      list.add(condtion);
-    }
-
-    if (condtion case ParentCondition parent) {
-      for (var item in parent.children) {
-        list.addAll(_toFlatChildren(item));
-      }
-    }
-    return list;
-  }
 }
 
 /// 単一のフィールドに対する検索条件を表すクラス
@@ -121,10 +55,10 @@ class FieldCondition extends SearchCondition {
   final String field;
 
   /// フィールドに適用する演算子（等価、不等、部分一致など）
-  final IFieldOperator operator;
+  final FieldOperator operator;
 
   /// 比較に用いる値
-  final dynamic value;
+  final ConditionValue value;
 
   /// コンストラクタ：親を指定することも可能です。
   FieldCondition({
@@ -133,4 +67,13 @@ class FieldCondition extends SearchCondition {
     required this.operator,
     required this.value,
   }) : super();
+}
+
+class SortCondition extends SearchCondition {
+  /// 対象フィールド名
+  final String field;
+
+  final Order order;
+
+  SortCondition({required this.field, Order? order}) : order = order ?? .asc;
 }

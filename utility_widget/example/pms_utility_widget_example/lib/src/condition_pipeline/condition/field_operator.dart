@@ -11,14 +11,14 @@ const String BETWEEN = 'between';
 const String NULL = 'null';
 
 ///オペレーター
-abstract class IFieldOperator {
+abstract class FieldOperator {
   String get typeName;
 }
 
-abstract class INumberFieldOperator extends IFieldOperator {}
+abstract class INumberFieldOperator extends FieldOperator {}
 
 ///数字、文字列、日付の共通式
-abstract class CommonFieldOperator extends IFieldOperator {
+abstract class CommonFieldOperator extends FieldOperator {
   bool get isNot;
 }
 
@@ -122,40 +122,4 @@ class BetweenOperator extends NumberCommonFieldOperator {
   bool isNot;
 
   BetweenOperator({this.isNot = false});
-}
-
-final class OperatorHelper {
-  static final List<IFieldOperator> _operatorList = [
-    EqualOperator(),
-    EqualOperator(isNot: true),
-    InOperator(),
-    InOperator(isNot: true),
-    LikeOperator(),
-    LikeOperator(isNot: true),
-    LessOperator(),
-    LessOperator(isThanEquals: true),
-    GreaterOperator(),
-    GreaterOperator(isThanEquals: true),
-    BetweenOperator(),
-    BetweenOperator(isNot: true),
-  ];
-
-  static List<IFieldOperator> operatorsFrom<T>(T value) {
-    return switch (value) {
-      String _ =>
-        OperatorHelper._operatorList
-            .where((t) => t is CommonFieldOperator || t is StringFieldOperator)
-            .toList(),
-      num _ =>
-        OperatorHelper._operatorList
-            .where((t) => t is CommonFieldOperator || t is INumberFieldOperator)
-            .toList(),
-      DateTime _ =>
-        OperatorHelper._operatorList
-            .where((t) => t is CommonFieldOperator || t is INumberFieldOperator)
-            .toList(),
-      _ =>
-        OperatorHelper._operatorList.whereType<CommonFieldOperator>().toList(),
-    };
-  }
 }

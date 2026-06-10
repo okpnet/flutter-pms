@@ -6,9 +6,15 @@ mixin PagenationOfTrinaGrid on IPmsWidgetState
   ///ページの読み込み
   Future<TrinaLazyPaginationResponse> loadPage(
     TrinaLazyPaginationRequest request,
+    int take,
   ) async {
+    final root = ToSortConditionHelper.fromTrinaLazyPaginationRequest(
+      request: request,
+      take: take,
+    );
+
     // stateManagerProviders.setShowLoading(true);
-    final rowJson = switch (await readerService.read(request)) {
+    final rowJson = switch (await readerService.read(root)) {
       Ok<List<Map<String, dynamic>>> jsonList => [
         for (var row in jsonList.value) TrinaRow.fromJson(row), //ここは変換プロバイダに変更
       ],

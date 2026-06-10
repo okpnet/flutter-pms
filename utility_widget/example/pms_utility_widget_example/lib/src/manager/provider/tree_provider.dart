@@ -12,7 +12,9 @@ const double DEPTH_INDENT = 16;
 const String NULL_KEY = 'root';
 
 mixin TreeOfTrinaGrid on IPmsWidgetState
-    implements IGridStateManagerOfTrinaGrid, ITreeGridStateManagerOfTrinaGrid {
+    implements
+        IGridStateManagerOfTrinaGrid,
+        ITreeGridStateManagerOfTrinaGrid<SummaryLoadData> {
   final GridState _state = GridState();
 
   @override
@@ -22,7 +24,8 @@ mixin TreeOfTrinaGrid on IPmsWidgetState
   GridState get summaryState => _state;
 
   /// ページ側で定義する getter
-  TrinaColumn get idField;
+  TrinaColumn get parentColumn;
+  TrinaColumn get idColumn;
   TrinaColumn get childNumberOfRecordsColumn;
 
   /// TrinaGrid の columns をページ側で渡す
@@ -61,7 +64,7 @@ mixin TreeOfTrinaGrid on IPmsWidgetState
       //Rowが標準タイプのときのWidget
       final parentId = row.parent == null
           ? NULL_KEY
-          : row.parent!.cells[idField.field]?.value.toString() ?? NULL_KEY;
+          : row.parent!.cells[idColumn.field]?.value.toString() ?? NULL_KEY;
 
       if (row.key == ValueKey('$BEFORE_EXPANDED$parentId')) {
         return Row(
@@ -149,37 +152,28 @@ mixin TreeOfTrinaGrid on IPmsWidgetState
   Future<void> loadAddRow(TrinaRow? parentRow) async {
     stateManager.setShowLoading(true);
     final take = 4;
-    final parentId = parentRow?.cells[idField.field]?.value ?? 1;
+    final parentId = parentRow?.cells[idColumn.field]?.value ?? "1";
     final state =
         status[parentId] ?? TreeLoadStattus(current: 0, numberOfRecords: 0);
 
     final rootCondition = RootCondition(skip: state.current);
     rootCondition.addBranch().addField(
-      field: idField.field,
+      field: parentColumn.field,
       operator: EqualOperator(),
-      value: parentId,
+      value: ConditionValueFactory.getFromValueType(parentId.toString()),
     );
 
-    final jsonRows = switch (await readerService.read(rootCondition)) {
-      Ok<List<Map<String, dynamic>>> jsonList => jsonList.value,
-      _ => <Map<String, dynamic>>[],
-    };
+    final summary = await readerService.read(rootCondition);
 
-    final result = SummaryLoadData(
-      numberOfRecords: jsonRows.length,
-      filteredNumberOfRecords: jsonRows.length,
-      loadData: jsonRows,
-    );
-
-    summaryState.setSummaryValue(result);
+    summaryState.setSummaryValue(summary);
 
     final newState = TreeLoadStattus(
       current: state.current + take,
       numberOfRecords: state.numberOfRecords,
     );
 
-    status[parentId] = newState;
-    final addRowList = jsonRows
+    status[parentId.toString()] = newState;
+    final addRowList = summary.loadData
         .map((row) => buildPultoRow(row, parentRow))
         .toList();
 
@@ -225,7 +219,7 @@ mixin TreeOfTrinaGrid on IPmsWidgetState
       row != null &&
       row.key ==
           ValueKey(
-            '$BEFORE_EXPANDED${row.parent?.cells[idField.field]?.value ?? NULL_KEY}',
+            '$BEFORE_EXPANDED${row.parent?.cells[idColumn.field]?.value ?? NULL_KEY}',
           );
   //もっと読み込む
   Future<bool> onLoadMore(TrinaRow row) async {
@@ -258,7 +252,7 @@ mixin TreeOfTrinaGrid on IPmsWidgetState
   ///さらに読み込む行を追加する
   TrinaRow buildLoadMoreTrinaRow(TrinaRow? parentRow) {
     final firstCol = columns.firstWhere((t) => !t.hide);
-    final parentId = parentRow?.cells[idField.field]?.value ?? NULL_KEY;
+    final parentId = parentRow?.cells[idColumn.field]?.value ?? NULL_KEY;
     final result = TrinaRow(
       key: ValueKey('$BEFORE_EXPANDED$parentId'),
       type: TrinaRowType.group(children: FilteredList(), expanded: false),
@@ -277,7 +271,7 @@ mixin TreeOfTrinaGrid on IPmsWidgetState
   // 展開
   Future<void> expandRow(TrinaRow row) async {
     if (row.type is TrinaRowTypeNormal || row.isExpanded) return;
-    final statusKey = row.cells[idField.field]?.value.toString();
+    final statusKey = row.cells[idColumn.field]?.value.toString();
     //すでに子が読み込まれているかどうか
     if (!status.containsKey(statusKey)) {
       await loadAddRow(row);

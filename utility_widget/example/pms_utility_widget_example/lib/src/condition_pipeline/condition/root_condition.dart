@@ -1,4 +1,5 @@
 import '../converter/condition_converter.dart';
+import 'parent_condtionn.dart';
 import 'search_condition.dart';
 
 /// ルート条件のインターフェース
@@ -19,7 +20,13 @@ abstract interface class IRootCondition {
 /// 検索条件ツリーのルートを表すクラス
 ///
 /// `ParentCondition` を継承して子条件を保持します。ルートは親を持たないため `parent` は常に `null` を返します。
-class RootCondition extends ParentCondition implements IRootCondition {
+class RootCondition extends SearchCondition
+    with ParentConditionMixin
+    implements IRootCondition, IParentCondition {
+  GruleRule _siblingsRule;
+  @override
+  GruleRule get siblingsRule => _siblingsRule;
+
   /// 内部で保持する子条件のリスト
   final List<SearchCondition> _children = [];
 
@@ -47,8 +54,18 @@ class RootCondition extends ParentCondition implements IRootCondition {
   ConditionConverter? get converter => _converter;
 
   /// コンストラクタ。`skip` と `take` はデフォルト値を持ち、`converter` は任意です。
-  RootCondition({ConditionConverter? converter, int? skip, int? take})
-    : skip = skip ?? 0,
-      take = take ?? 4,
-      _converter = converter;
+  RootCondition({
+    ConditionConverter? converter,
+    int? skip,
+    int? take,
+    GruleRule? siblingsRule,
+  }) : _siblingsRule = siblingsRule ?? .and,
+       skip = skip ?? 0,
+       take = take ?? 4,
+       _converter = converter;
+
+  @override
+  void setSiblingsRule(GruleRule siblingsRule) {
+    _siblingsRule = siblingsRule;
+  }
 }

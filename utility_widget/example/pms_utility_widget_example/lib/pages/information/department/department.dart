@@ -9,9 +9,9 @@ import 'package:utility_widget_example/pages/container/trina_grid_summary_hader.
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 import 'package:utility_widget_example/pages/information/department/constants/department_column.dart';
 import 'package:utility_widget_example/pages/information/department/department_edit.dart';
-import 'package:utility_widget_example/src/condition_pipeline/condition/root_condition.dart';
 import 'package:utility_widget_example/src/condition_pipeline/condition/search_condition.dart';
 import 'package:utility_widget_example/src/condition_pipeline/converter/condition_converter.dart';
+import 'package:utility_widget_example/src/manager/model/summary_data.dart';
 import 'package:utility_widget_example/src/manager/provider/grid_provider.dart';
 import 'package:utility_widget_example/src/manager/service/pms_repository_service.dart';
 import 'package:utility_widget_example/src/manager/state/pms_state.dart';
@@ -28,19 +28,23 @@ class Department extends StatefulWidget {
 class _Department extends PmsWidgetState<Department> with TreeOfTrinaGrid {
   final List<TrinaColumn> columnList = DepartmentColumn.columns;
   late final TrinaGridStateManager _stateManager;
-  final DemoTrreeRederService _trreeRederService = DemoTrreeRederService(
+  final DemoTreeRederService _trreeRederService = DemoTreeRederService(
     assetReader: DepaertmentAsset(),
     converter: DemoDepartmentConverter(),
   );
 
   @override
+  ReaderService<SummaryLoadData> get readerService => _trreeRederService;
+
+  @override
   TrinaGridStateManager get stateManager => _stateManager;
 
   @override
-  ReaderService<RootCondition> get readerService => _trreeRederService;
+  TrinaColumn get parentColumn =>
+      columnList.firstWhere((t) => t.field == 'parent_id');
 
   @override
-  TrinaColumn get idField => columnList.firstWhere((t) => t.field == 'id');
+  TrinaColumn get idColumn => columnList.firstWhere((t) => t.field == 'id');
 
   @override
   TrinaColumn get childNumberOfRecordsColumn =>
@@ -125,6 +129,7 @@ final class DepaertmentAsset extends AssetReader {
 class DemoDepartmentConverter extends ConditionConverter<WhereCallBack> {
   @override
   WhereCallBack toVariables(SearchCondition condition) {
+    final root = condition.getRoot();
     if (condition case FieldCondition cod) {
       bool whereResult(Map<String, dynamic> row) =>
           row['parent_id'] == row['id'] && row['parent_id'] == cod.value;

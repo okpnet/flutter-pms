@@ -1,6 +1,8 @@
+import 'package:utility_widget_example/src/condition_pipeline/condition/search_condition.dart';
+
 ///
-abstract class ReaderService<T> {
-  Future<List<Map<String, dynamic>>> read(T? condition);
+abstract class ReaderService<R> {
+  Future<R> read(SearchCondition condition);
 }
 
 ///

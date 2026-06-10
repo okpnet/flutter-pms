@@ -3,6 +3,8 @@ import 'package:utility_widget_example/constant/results/result.dart';
 import 'package:utility_widget_example/src/condition_pipeline/condition/root_condition.dart';
 import 'package:utility_widget_example/src/condition_pipeline/condition/search_condition.dart';
 import 'package:utility_widget_example/src/condition_pipeline/converter/condition_converter.dart';
+import 'package:utility_widget_example/src/condition_pipeline/converter/condition_vsitor.dart';
+import 'package:utility_widget_example/src/manager/model/summary_data.dart';
 import 'package:utility_widget_example/src/manager/service/pms_repository_service.dart';
 
 typedef ConditionCallback =
@@ -10,32 +12,39 @@ typedef ConditionCallback =
 
 typedef WhereCallBack = bool Function(Map<String, dynamic>);
 
-class DemoTrreeRederService extends ReaderService<RootCondition> {
-  final int takeCount;
+class DemoTreeRederService extends ReaderService<SummaryLoadData> {
   final AssetReader assetReader;
   final ConditionConverter converter;
 
-  DemoTrreeRederService({
-    required this.assetReader,
-
-    required this.converter,
-    this.takeCount = 4,
-  });
+  DemoTreeRederService({required this.assetReader, required this.converter});
 
   @override
-  Future<List<Map<String, dynamic>>> read(RootCondition? condition) async {
+  Future<SummaryLoadData> read(SearchCondition? condition) async {
     final rowJson = switch (await assetReader.toJsonFromCsv()) {
       Ok<List<Map<String, dynamic>>> jsonList => jsonList.value,
       _ => <Map<String, dynamic>>[],
     };
-
-    final conditions = condition!
+    if (condition is! RootCondition) {
+      throw AssertionError('condition shall RootCondition type');
+    }
+    final conditions = condition
         .toFlatChildren()
         .whereType<FieldCondition>()
         .firstOrNull;
+    final visitor = WherePredicateVisitor<Map<String, dynamic>>();
+    final predicate = visitor.visit(condition);
 
-    if (conditions == null) AssertionError('condition null');
-    bool Function(Map<String, dynamic>) func = converter.toVariables(condition);
-    return rowJson.where(func).skip(condition.skip).take(takeCount).toList();
+    final testRow = rowJson.first;
+    final result = rowJson.where(predicate).toList();
+    final summary = SummaryLoadData(
+      loadData: rowJson
+          .where(predicate)
+          .skip(condition.skip)
+          .take(condition.take)
+          .toList(),
+      filteredNumberOfRecords: rowJson.where(predicate).length,
+      numberOfRecords: rowJson.length,
+    );
+    return summary;
   }
 }

@@ -29,7 +29,7 @@ class OfficeState extends PmsWidgetState<Office> with PagenationOfTrinaGrid {
       DemoPagenaationReaderService(assetReader: OfficeAsset());
 
   @override
-  ReaderService<TrinaLazyPaginationRequest> get readerService =>
+  ReaderService<List<Map<String, dynamic>>> get readerService =>
       _demoPagenaationReaderService;
 
   @override
@@ -77,7 +77,7 @@ class OfficeState extends PmsWidgetState<Office> with PagenationOfTrinaGrid {
                 fetchWithFiltering: true,
                 pageSizeToMove: null,
                 stateManager: stateManager,
-                fetch: loadPage,
+                fetch: (e) => loadPage(e, 4),
               );
             },
           ),
