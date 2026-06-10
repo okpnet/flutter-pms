@@ -148,9 +148,22 @@ mixin TreeOfTrinaGrid on IPmsWidgetState
     return result;
   }
 
+  Future<void> initialAddRow(TrinaRow parentRow) async {
+    stateManager.setShowLoading(false);
+    final loadState = await _loadData(parentRow);
+    await _addRows(null, loadState);
+    stateManager.setShowLoading(false);
+  }
+
   ///読み込みと行の追加
   Future<void> loadAddRow(TrinaRow? parentRow) async {
     stateManager.setShowLoading(true);
+    final loadState = await _loadData(parentRow);
+    await _addRows(parentRow, loadState);
+    stateManager.setShowLoading(false);
+  }
+
+  Future<TreeLoadStattus> _loadData(TrinaRow? parentRow) async {
     final take = 4;
     final parentId = parentRow?.cells[idColumn.field]?.value ?? "1";
     final state =
@@ -169,49 +182,57 @@ mixin TreeOfTrinaGrid on IPmsWidgetState
 
     final newState = TreeLoadStattus(
       current: state.current + take,
-      numberOfRecords: state.numberOfRecords,
+      numberOfRecords: summary.filteredNumberOfRecords ?? 0,
     );
 
     status[parentId.toString()] = newState;
-    final addRowList = summary.loadData
-        .map((row) => buildPultoRow(row, parentRow))
-        .toList();
+    return newState;
+  }
 
-    if (parentRow == null) {
-      //トップノード
-      if (!newState.isLatest) {
-        final loadMoreRow = buildLoadMoreTrinaRow(parentRow);
-        addRowList.add(loadMoreRow);
-      }
-      roots.addAll(addRowList);
-      stateManager.appendRows(addRowList);
-    } else {
-      final loadMore = parentRow.children.indexWhere((t) => isLoadMoreRow(t));
-
-      if (loadMore >= 0) {
-        //すでにもっと読み込むがある場合
-        parentRow.children.insertAll(loadMore, addRowList);
-      } else {
-        parentRow.children.addAll(addRowList);
+  Future<void> _addRows(TrinaRow? parentRow, TreeLoadStattus newState) async {
+    if (summaryState.summaryData case SummaryLoadData summary) {
+      debugPrint(
+        'recordNum=${summary.numberOfRecords} filterNum=${summary.filteredNumberOfRecords} current=${newState.current} stateNum=${newState.numberOfRecords}',
+      );
+      final addRowList = summary.loadData
+          .map((row) => buildPultoRow(row, parentRow))
+          .toList();
+      if (parentRow == null) {
+        //トップノード
         if (!newState.isLatest) {
           final loadMoreRow = buildLoadMoreTrinaRow(parentRow);
-          parentRow.children.add(loadMoreRow);
           addRowList.add(loadMoreRow);
         }
+        roots.addAll(addRowList);
+        stateManager.appendRows(addRowList);
+      } else {
+        final loadMore = parentRow.children.indexWhere((t) => isLoadMoreRow(t));
+
+        if (loadMore >= 0) {
+          //すでにもっと読み込むがある場合
+          parentRow.children.insertAll(loadMore, addRowList);
+        } else {
+          parentRow.children.addAll(addRowList);
+          if (!newState.isLatest) {
+            final loadMoreRow = buildLoadMoreTrinaRow(parentRow);
+            parentRow.children.add(loadMoreRow);
+            addRowList.add(loadMoreRow);
+          }
+        }
+
+        final lastIndex = stateManager.refRows.lastIndexWhere(
+          (t) => t.parent == parentRow,
+        );
+
+        final insertIndex = 0 > lastIndex
+            ? stateManager.refRows.indexOf(parentRow) + 1
+            : lastIndex;
+
+        stateManager.insertRows(insertIndex, addRowList);
       }
 
-      final lastIndex = stateManager.refRows.lastIndexWhere(
-        (t) => t.parent == parentRow,
-      );
-
-      final insertIndex = 0 > lastIndex
-          ? stateManager.refRows.indexOf(parentRow) + 1
-          : lastIndex;
-
-      stateManager.insertRows(insertIndex, addRowList);
+      stateManager.setShowLoading(false);
     }
-
-    stateManager.setShowLoading(false);
   }
 
   //もっと読み込む行の判定

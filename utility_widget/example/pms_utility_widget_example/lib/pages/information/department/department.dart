@@ -82,6 +82,7 @@ class _Department extends PmsWidgetState<Department> with TreeOfTrinaGrid {
             onChanged: (TrinaGridOnChangedEvent event) {
               print(event);
             },
+
             onLoaded: (event) async {
               //初回に一度だけ呼ばれる
               _stateManager = event.stateManager;
@@ -90,7 +91,7 @@ class _Department extends PmsWidgetState<Department> with TreeOfTrinaGrid {
               }
               initColumns();
               final root = {'id': 1};
-              await loadAddRow(TrinaRow.fromJson(root));
+              await initialAddRow(TrinaRow.fromJson(root));
             },
             createHeader: (manager) =>
                 TrinaGridSummaryHader(summaryState: summaryState),
