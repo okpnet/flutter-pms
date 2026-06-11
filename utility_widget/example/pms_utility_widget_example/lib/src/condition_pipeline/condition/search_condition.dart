@@ -1,7 +1,6 @@
-import 'package:utility_widget_example/src/condition_pipeline/condition/condition_value.dart';
-
-import 'field_operator.dart';
-import 'root_condition.dart';
+import 'fields/condition_value.dart';
+import 'fields/field_operator.dart';
+import 'nodes/root_condition.dart';
 
 /// 同じブランチや階層の条件を結合するときのルールを表します。
 /// - `and`: 子条件を全て満たす（論理積）
@@ -47,33 +46,32 @@ abstract class SearchCondition {
   }
 }
 
-/// 単一のフィールドに対する検索条件を表すクラス
-///
-/// 例: `age > 30` のような条件を保持します。
-class FieldCondition extends SearchCondition {
+///フィールドの条件の根底インターフェイス
+abstract interface class IFieldCondition {
   /// 対象フィールド名
-  final String field;
+  String get field;
 
   /// フィールドに適用する演算子（等価、不等、部分一致など）
-  final FieldOperator operator;
-
-  /// 比較に用いる値
-  final ConditionValue value;
-
-  /// コンストラクタ：親を指定することも可能です。
-  FieldCondition({
-    super.parent,
-    required this.field,
-    required this.operator,
-    required this.value,
-  }) : super();
+  FieldOperator get operator;
 }
 
-class SortCondition extends SearchCondition {
+///任意の値と比較するインターフェイス
+abstract interface class IValueFieldCondition extends IFieldCondition {
+  /// 比較に用いる値
+  ConditionValue get value;
+}
+
+///フィールド同士を比較するインターフェイス
+abstract interface class IFieldReferenceCondition extends IFieldCondition {
   /// 対象フィールド名
-  final String field;
+  String get toField;
+}
 
-  final Order order;
+///ソートインターフェイス
+abstract interface class ISortCondition {
+  /// 対象フィールド名
+  String get field;
 
-  SortCondition({required this.field, Order? order}) : order = order ?? .asc;
+  ///ソート方向
+  Order get order;
 }

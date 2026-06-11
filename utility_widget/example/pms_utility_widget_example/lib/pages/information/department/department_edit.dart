@@ -6,7 +6,9 @@ import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 import 'package:utility_widget_example/pages/container/trina_grid_summary_hader.dart';
 import 'package:utility_widget_example/pages/information/department/constants/department_column.dart';
 import 'package:utility_widget_example/pages/information/department/department.dart';
-import 'package:utility_widget_example/src/condition_pipeline/condition/root_condition.dart';
+import 'package:utility_widget_example/src/condition_pipeline/condition/fields/condition_value.dart';
+import 'package:utility_widget_example/src/condition_pipeline/condition/fields/field_operator.dart';
+import 'package:utility_widget_example/src/condition_pipeline/condition/nodes/root_condition.dart';
 import 'package:utility_widget_example/src/manager/model/summary_data.dart';
 import 'package:utility_widget_example/src/manager/provider/grid_provider.dart';
 import 'package:utility_widget_example/src/manager/service/pms_repository_service.dart';
@@ -61,7 +63,6 @@ class _DepartmentTreeState extends PmsWidgetState<_DepartmentTree>
   late final TrinaGridStateManager _stateManager;
   final DemoTreeRederService _trreeRederService = DemoTreeRederService(
     assetReader: DepaertmentAsset(),
-    converter: DemoDepartmentConverter(),
   );
 
   @override
@@ -72,12 +73,37 @@ class _DepartmentTreeState extends PmsWidgetState<_DepartmentTree>
   @override
   TrinaColumn get childNumberOfRecordsColumn =>
       columnList.firstWhere((t) => t.field == 'child_number_of_records');
-  @override
-  TrinaColumn get parentColumn =>
-      columnList.firstWhere((t) => t.field == 'parent_id');
+
+  // @override
+  // TrinaColumn get parentColumn =>
+  //     columnList.firstWhere((t) => t.field == 'parent_id');
+
   @override
   TrinaColumn get idColumn => columnList.firstWhere((t) => t.field == 'id');
 
+  ///最初以降の展開時の条件式
+  @override
+  IConditionCallback toCondition = (TrinaRow row) {
+    final rootCondition = RootCondition();
+    rootCondition.addBranch().addValueField(
+      field: 'parent_id',
+      operator: EqualOperator(),
+      value: ConditionValueFactory.getFromValueType(row.cells['parent_id']),
+    );
+    return rootCondition;
+  };
+
+  ///読み込み最初の条件式。以降は[IConditionCallback]が呼ばれる
+  @override
+  InitConditionCallback toInitCondition = (TrinaRow? row) {
+    final rootCondition = RootCondition();
+    rootCondition.addBranch().addFieldReference(
+      field: 'parent_id',
+      operator: EqualOperator(),
+      toField: 'id',
+    );
+    return rootCondition;
+  };
   @override
   Widget build(BuildContext context) {
     return UtLayoutPadding(

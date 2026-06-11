@@ -1,8 +1,9 @@
 import 'package:trina_grid/trina_grid.dart';
 
-import '../condition/branch_condition.dart';
-import '../condition/field_operator.dart';
-import '../condition/root_condition.dart';
+import '../condition/fields/value_field_condition.dart';
+import '../condition/nodes/branch_condition.dart';
+import '../condition/fields/field_operator.dart';
+import '../condition/nodes/root_condition.dart';
 import '../condition/search_condition.dart';
 
 /// Trina から検索条件へ変換するためのマーカーインターフェース。
@@ -38,7 +39,7 @@ class ToSerarchConditionHelper {
       ),
       _ => NullOperator(isNot: true),
     };
-    return FieldCondition(
+    return ValueFieldCondition(
       parent: parent,
       field: filterRow.cells[FilterHelper.filterFieldColumn]!.value,
       operator: operator,
@@ -66,7 +67,7 @@ class ToSerarchConditionHelper {
     FieldOperator operator,
   ) {
     final branch = BranchCondition(siblingsRule: .and);
-    final condition = FieldCondition(
+    final condition = ValueFieldCondition(
       field: fieldId,
       operator: operator,
       value: row.cells[fieldId]?.value,

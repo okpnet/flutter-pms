@@ -1,8 +1,11 @@
-import 'package:utility_widget_example/src/condition_pipeline/condition/condition_value.dart';
+import 'package:utility_widget_example/src/condition_pipeline/condition/fields/condition_value.dart';
+import 'package:utility_widget_example/src/condition_pipeline/condition/fields/field_comparison_condition.dart';
+import 'package:utility_widget_example/src/condition_pipeline/condition/fields/value_field_condition.dart';
 
+import '../fields/sort_condition.dart';
 import 'branch_condition.dart';
-import 'field_operator.dart';
-import 'search_condition.dart';
+import '../fields/field_operator.dart';
+import '../search_condition.dart';
 
 abstract interface class IParentCondition {
   GruleRule get siblingsRule;
@@ -42,12 +45,12 @@ mixin ParentConditionMixin on SearchCondition {
   }
 
   /// 新しいフィールド条件（`FieldCondition`）を生成してこの親に追加します。
-  FieldCondition addField({
+  IValueFieldCondition addValueField({
     required String field,
     required FieldOperator operator,
     required ConditionValue value,
   }) {
-    final condition = FieldCondition(
+    final condition = ValueFieldCondition(
       field: field,
       operator: operator,
       value: value,
@@ -56,8 +59,23 @@ mixin ParentConditionMixin on SearchCondition {
     return condition;
   }
 
+  ///新しいフィールド条件（`FieldComparisonCondition`）を生成してこの親に追加します。
+  IFieldReferenceCondition addFieldReference({
+    required String field,
+    required String toField,
+    FieldOperator? operator,
+  }) {
+    final condition = FieldReferenceCondition(
+      field: field,
+      operator: operator ?? EqualOperator(),
+      toField: toField,
+    );
+    addChild(condition);
+    return condition;
+  }
+
   /// 新しいソート条件（`SortCondition`）を生成してこの親に追加します。
-  SortCondition addSort({required String field, Order? order}) {
+  ISortCondition addSort({required String field, Order? order}) {
     final sort = SortCondition(field: field, order: order);
     addChild(sort);
     return sort;
@@ -76,7 +94,7 @@ mixin ParentConditionMixin on SearchCondition {
   /// 内部ヘルパー：指定した条件を再帰的に探索して `FieldCondition` を収集します。
   List<SearchCondition> _toFlatChildren(SearchCondition condtion) {
     final list = <SearchCondition>[];
-    if (condtion is FieldCondition) {
+    if (condtion is IFieldCondition) {
       list.add(condtion);
     }
 

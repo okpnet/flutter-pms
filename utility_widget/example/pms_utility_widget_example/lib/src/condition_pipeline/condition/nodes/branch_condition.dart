@@ -1,5 +1,5 @@
 import 'parent_condtionn.dart';
-import 'search_condition.dart';
+import '../search_condition.dart';
 
 ///検索条件のブランチ、ルート
 class BranchCondition extends SearchCondition

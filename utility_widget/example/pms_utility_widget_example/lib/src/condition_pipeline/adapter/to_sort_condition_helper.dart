@@ -1,7 +1,8 @@
 import 'package:trina_grid/trina_grid.dart';
 import 'package:utility_widget_example/src/condition_pipeline/adapter/to_serarch_condition_helper.dart';
-import 'package:utility_widget_example/src/condition_pipeline/condition/root_condition.dart';
+import 'package:utility_widget_example/src/condition_pipeline/condition/nodes/root_condition.dart';
 
+import '../condition/fields/sort_condition.dart';
 import '../condition/search_condition.dart';
 
 class ToSortConditionHelper {

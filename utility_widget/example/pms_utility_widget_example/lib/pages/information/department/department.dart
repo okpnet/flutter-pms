@@ -9,8 +9,12 @@ import 'package:utility_widget_example/pages/container/trina_grid_summary_hader.
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 import 'package:utility_widget_example/pages/information/department/constants/department_column.dart';
 import 'package:utility_widget_example/pages/information/department/department_edit.dart';
+import 'package:utility_widget_example/src/condition_pipeline/condition/fields/condition_value.dart';
+import 'package:utility_widget_example/src/condition_pipeline/condition/fields/field_operator.dart';
+import 'package:utility_widget_example/src/condition_pipeline/condition/fields/value_field_condition.dart';
+import 'package:utility_widget_example/src/condition_pipeline/condition/nodes/root_condition.dart';
 import 'package:utility_widget_example/src/condition_pipeline/condition/search_condition.dart';
-import 'package:utility_widget_example/src/condition_pipeline/converter/condition_converter.dart';
+import 'package:utility_widget_example/src/condition_pipeline/converter/field_condition_converter.dart';
 import 'package:utility_widget_example/src/manager/model/summary_data.dart';
 import 'package:utility_widget_example/src/manager/provider/grid_provider.dart';
 import 'package:utility_widget_example/src/manager/service/pms_repository_service.dart';
@@ -30,7 +34,6 @@ class _Department extends PmsWidgetState<Department> with TreeOfTrinaGrid {
   late final TrinaGridStateManager _stateManager;
   final DemoTreeRederService _trreeRederService = DemoTreeRederService(
     assetReader: DepaertmentAsset(),
-    converter: DemoDepartmentConverter(),
   );
 
   @override
@@ -52,6 +55,30 @@ class _Department extends PmsWidgetState<Department> with TreeOfTrinaGrid {
 
   @override
   List<TrinaColumn> get columns => columnList;
+
+  ///最初以降の展開時の条件式
+  @override
+  IConditionCallback toCondition = (TrinaRow row) {
+    final rootCondition = RootCondition();
+    rootCondition.addBranch().addValueField(
+      field: 'parent_id',
+      operator: EqualOperator(),
+      value: ConditionValueFactory.getFromValueType(row.cells['parent_id']),
+    );
+    return rootCondition;
+  };
+
+  ///読み込み最初の条件式。以降は[IConditionCallback]が呼ばれる
+  @override
+  InitConditionCallback toInitCondition = (TrinaRow? row) {
+    final rootCondition = RootCondition();
+    rootCondition.addBranch().addFieldReference(
+      field: 'parent_id',
+      operator: EqualOperator(),
+      toField: 'id',
+    );
+    return rootCondition;
+  };
 
   void _navigatorDetail(TrinaRow? row) {
     if (row == null) {
@@ -124,18 +151,5 @@ final class DepaertmentAsset extends AssetReader {
   FutureOr<String> fromCsv() async {
     await Future.delayed(Duration(seconds: 2));
     return await rootBundle.loadString('demo_data/department.csv');
-  }
-}
-
-class DemoDepartmentConverter extends ConditionConverter<WhereCallBack> {
-  @override
-  WhereCallBack toVariables(SearchCondition condition) {
-    final root = condition.getRoot();
-    if (condition case FieldCondition cod) {
-      bool whereResult(Map<String, dynamic> row) =>
-          row['parent_id'] == row['id'] && row['parent_id'] == cod.value;
-      return whereResult;
-    }
-    throw AssertionError('condition argment shall FieldCondtion type.');
   }
 }

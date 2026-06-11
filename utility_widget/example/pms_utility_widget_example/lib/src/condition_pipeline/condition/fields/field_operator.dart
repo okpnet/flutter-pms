@@ -1,3 +1,7 @@
+import 'package:utility_widget_example/src/condition_pipeline/condition/fields/condition_value.dart';
+
+import '../../converter/condition_vsitor.dart';
+
 const String NOT = 'not ';
 const String THAN = ' than';
 const String EQ = 'eq';
@@ -13,6 +17,11 @@ const String NULL = 'null';
 ///オペレーター
 abstract class FieldOperator {
   String get typeName;
+  R accept<R>(
+    FieldOperatorVisitor<R> visitor,
+    dynamic left,
+    ConditionValue right,
+  );
 }
 
 abstract class INumberFieldOperator extends FieldOperator {}
@@ -42,6 +51,11 @@ class NullOperator extends CommonFieldOperator {
   bool isNot;
 
   NullOperator({this.isNot = false});
+
+  @override
+  R accept<R>(FieldOperatorVisitor<R> visitor, dynamic left, dynamic right) {
+    return visitor.visitNull(this, left, right);
+  }
 }
 
 ///=　!=
@@ -52,6 +66,10 @@ class EqualOperator extends CommonFieldOperator {
   bool isNot;
 
   EqualOperator({this.isNot = false});
+  @override
+  R accept<R>(FieldOperatorVisitor<R> visitor, dynamic left, dynamic right) {
+    return visitor.visitEqual(this, left, right);
+  }
 }
 
 ///in句、NotIn句
@@ -62,6 +80,10 @@ class InOperator extends CommonFieldOperator {
   bool isNot;
 
   InOperator({this.isNot = false});
+  @override
+  R accept<R>(FieldOperatorVisitor<R> visitor, dynamic left, dynamic right) {
+    return visitor.visitIn(this, left, right);
+  }
 }
 
 ///Like句、NotLike句
@@ -72,6 +94,10 @@ class LikeOperator extends StringFieldOperator {
   bool isNot;
 
   LikeOperator({this.isNot = false});
+  @override
+  R accept<R>(FieldOperatorVisitor<R> visitor, dynamic left, dynamic right) {
+    return visitor.visitLike(this, left, right);
+  }
 }
 
 ///で始まる句
@@ -82,6 +108,10 @@ class StartWithOperator extends StringFieldOperator {
   bool isNot;
 
   StartWithOperator({this.isNot = false});
+  @override
+  R accept<R>(FieldOperatorVisitor<R> visitor, dynamic left, dynamic right) {
+    return visitor.visitStartWith(this, left, right);
+  }
 }
 
 ///で終わる句
@@ -92,6 +122,10 @@ class EndWithOperator extends StringFieldOperator {
   bool isNot;
 
   EndWithOperator({this.isNot = false});
+  @override
+  R accept<R>(FieldOperatorVisitor<R> visitor, dynamic left, dynamic right) {
+    return visitor.visitEndWith(this, left, right);
+  }
 }
 
 ///未満句、以下句
@@ -102,6 +136,10 @@ class LessOperator extends NumberFieldOperator {
   bool isThanEquals;
 
   LessOperator({this.isThanEquals = false});
+  @override
+  R accept<R>(FieldOperatorVisitor<R> visitor, dynamic left, dynamic right) {
+    return visitor.visitLess(this, left, right);
+  }
 }
 
 ///超過句、以上句
@@ -112,6 +150,10 @@ class GreaterOperator extends NumberFieldOperator {
   bool isThanEquals;
 
   GreaterOperator({this.isThanEquals = false});
+  @override
+  R accept<R>(FieldOperatorVisitor<R> visitor, dynamic left, dynamic right) {
+    return visitor.visitGreater(this, left, right);
+  }
 }
 
 ///超過句、以上句
@@ -122,4 +164,8 @@ class BetweenOperator extends NumberCommonFieldOperator {
   bool isNot;
 
   BetweenOperator({this.isNot = false});
+  @override
+  R accept<R>(FieldOperatorVisitor<R> visitor, dynamic left, dynamic right) {
+    return visitor.visitBetween(this, left, right);
+  }
 }
