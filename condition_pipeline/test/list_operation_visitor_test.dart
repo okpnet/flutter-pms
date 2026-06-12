@@ -54,6 +54,7 @@ void main() {
             );
         final sqlfunc = sqlvisitor.build(root);
         final sql = sqlfunc(items.first);
+        print(sql);
 
         final visitor = GenericConditionVisitor<Map<String, dynamic>, bool>(
           converter: ListWhereConverter(
