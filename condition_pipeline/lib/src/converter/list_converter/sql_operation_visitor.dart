@@ -2,7 +2,7 @@ import '../../condition/fields/condition_value.dart';
 import '../../condition/fields/field_comparison_condition.dart';
 import '../../condition/fields/field_operator.dart';
 import '../../condition/fields/value_field_condition.dart';
-import '../condition_visitor.dart';
+import '../visitor/condition_visitor.dart';
 import '../field_condition_converter.dart';
 
 class SqlOperatorVisitor<T> implements FieldOperatorVisitor<String> {
@@ -33,8 +33,8 @@ class SqlOperatorVisitor<T> implements FieldOperatorVisitor<String> {
   @override
   String visitBetween(BetweenOperator op, left, right) {
     final between = (right.value as BetweenValue).value;
-    final start = between.start.value;
-    final end = between.end.value;
+    // final start = between.start.value;
+    // final end = between.end.value;
 
     return op.isNot
         ? "$left BETWEEN ${between.start} AND ${between.end}"
@@ -43,32 +43,35 @@ class SqlOperatorVisitor<T> implements FieldOperatorVisitor<String> {
 
   @override
   String visitEndWith(EndWithOperator op, left, right) {
-    // TODO: implement visitEndWith
-    throw UnimplementedError();
+    return op.isNot
+        ? "$left NOT LIKE '%${right.value}'"
+        : "$left LIKE '%${right.value}'";
   }
 
   @override
   String visitGreater(GreaterOperator op, left, right) {
-    // TODO: implement visitGreater
-    throw UnimplementedError();
+    return op.isThanEquals
+        ? "$left >= ${right.value}"
+        : "$left > ${right.value}";
   }
 
   @override
   String visitLess(LessOperator op, left, right) {
-    // TODO: implement visitLess
-    throw UnimplementedError();
+    return op.isThanEquals
+        ? "$left <= ${right.value}"
+        : "$left < ${right.value}";
   }
 
   @override
   String visitStartWith(StartWithOperator op, left, right) {
-    // TODO: implement visitStartWith
-    throw UnimplementedError();
+    return op.isNot
+        ? "$left NOT LIKE '${right.value}%'"
+        : "$left LIKE '${right.value}%'";
   }
 
   @override
   String visitNull(NullOperator op, left, right) {
-    // TODO: implement visitNull
-    throw UnimplementedError();
+    return op.isNot ? "$left <> NULL" : "$left = NULL";
   }
 
   // …他の Operator も同様に実装

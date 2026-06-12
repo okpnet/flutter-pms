@@ -2,7 +2,7 @@ import '../condition/fields/condition_value.dart';
 import '../condition/fields/field_comparison_condition.dart';
 import '../condition/fields/value_field_condition.dart';
 import '../condition/search_condition.dart';
-import 'condition_visitor.dart';
+import 'visitor/condition_visitor.dart';
 
 typedef ExtractCallBack<T> = dynamic Function(T left, IFieldCondition conditon);
 
