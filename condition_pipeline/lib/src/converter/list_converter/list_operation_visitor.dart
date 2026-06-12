@@ -2,7 +2,7 @@ import '../../condition/fields/condition_value.dart';
 import '../../condition/fields/field_comparison_condition.dart';
 import '../../condition/fields/field_operator.dart';
 import '../../condition/fields/value_field_condition.dart';
-import '../visitor/condition_visitor.dart';
+import '../condition_visitor.dart';
 import '../field_condition_converter.dart';
 
 class ListWhereOperatorVisitor<T> implements FieldOperatorVisitor<bool> {

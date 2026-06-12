@@ -1,5 +1,5 @@
-import '../../condition/condition.dart';
-import '../converter.dart';
+import '../condition/condition.dart';
+import 'converter.dart';
 
 abstract class FieldOperatorVisitor<R> {
   R visitEqual(EqualOperator op, dynamic left, ConditionValue right);
