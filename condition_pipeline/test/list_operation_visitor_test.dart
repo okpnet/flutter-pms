@@ -1,7 +1,4 @@
-import 'package:condition_pipeline/src/condition/condition.dart';
-import 'package:condition_pipeline/src/converter/converter.dart';
-import 'package:condition_pipeline/src/converter/list_converter/list_operation_visitor.dart';
-import 'package:condition_pipeline/src/converter/list_converter/sql_operation_visitor.dart';
+import 'package:condition_pipeline/condition_pipeline.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -21,22 +18,22 @@ void main() {
         final branch21 = branch2.addBranch(siblingsRule: .and);
         final branch22 = branch2.addBranch(siblingsRule: .or);
         branch21.addValueField(
-          field: 'age',
+          field: (t) => t['age'],
           operator: GreaterOperator(isThanEquals: true),
           value: ConditionValueFactory.number(21),
         );
         branch22.addValueField(
-          field: 'name',
+          field: (t) => t['name'],
           operator: LikeOperator(),
           value: ConditionValueFactory.string('e'),
         );
         branch.addValueField(
-          field: 'age',
+          field: (t) => t['age'],
           operator: LessOperator(),
           value: ConditionValueFactory.number(100),
         );
         branch.addValueField(
-          field: 'name',
+          field: (t) => t['name'],
           operator: EndWithOperator(),
           value: ConditionValueFactory.string('n'),
         );
@@ -55,6 +52,15 @@ void main() {
         final sqlfunc = sqlvisitor.build(root);
         final sql = sqlfunc(items.first);
         print(sql);
+
+        final sqlsortvisitor = GenericSortVisitor<Map<String, dynamic>, String>(
+          converter: FieldSortConverter(opVisitor: SqlSortOperationVisitor()),
+          group: (value) => '($value)',
+          combine: (left, right, rule) => '$left,$right',
+        );
+        final sqlsortfunc = sqlsortvisitor.build(root);
+        final sqlsort = sqlsortfunc(items.first);
+        print(sqlsort);
 
         final visitor = GenericConditionVisitor<Map<String, dynamic>, bool>(
           converter: ListWhereConverter(

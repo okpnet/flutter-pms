@@ -1,4 +1,4 @@
-import '../../converter/converter.dart';
+import '../../visitor/visit.dart';
 import '../condition.dart';
 
 const String NOT = 'not ';
@@ -12,13 +12,25 @@ const String LESS = 'less';
 const String GREATER = 'greater';
 const String BETWEEN = 'between';
 const String NULL = 'null';
+const String ASC = 'asc';
+const String DESC = 'desc';
 
 ///オペレーター
 abstract class FieldOperator {
   String get typeName;
-  R accept<R>(
-    FieldOperatorVisitor<R> visitor,
-    dynamic left,
+  R accept<T, R>(
+    FieldOperatorVisitor<T, R> visitor,
+    T left,
+    ConditionValue right,
+  );
+}
+
+abstract class SortOperator {
+  bool get isDesc;
+  String get typeName;
+  R accept<T, R>(
+    SortOperatorVisitor<T, R> visitor,
+    T left,
     ConditionValue right,
   );
 }
@@ -52,8 +64,15 @@ class NullOperator extends CommonFieldOperator {
   NullOperator({this.isNot = false});
 
   @override
-  R accept<R>(FieldOperatorVisitor<R> visitor, dynamic left, dynamic right) {
-    return visitor.visitNull(this, left, right);
+  R accept<T, R>(
+    FieldOperatorVisitor<T, R> visitor,
+    T left,
+    ConditionValue right,
+  ) {
+    if (right case NullValue nullValue) {
+      return visitor.visitNull(this, left, nullValue);
+    }
+    throw AssertionError('$right shall NullValue type.');
   }
 }
 
@@ -66,7 +85,11 @@ class EqualOperator extends CommonFieldOperator {
 
   EqualOperator({this.isNot = false});
   @override
-  R accept<R>(FieldOperatorVisitor<R> visitor, dynamic left, dynamic right) {
+  R accept<T, R>(
+    FieldOperatorVisitor<T, R> visitor,
+    T left,
+    ConditionValue right,
+  ) {
     return visitor.visitEqual(this, left, right);
   }
 }
@@ -80,7 +103,11 @@ class InOperator extends CommonFieldOperator {
 
   InOperator({this.isNot = false});
   @override
-  R accept<R>(FieldOperatorVisitor<R> visitor, dynamic left, dynamic right) {
+  R accept<T, R>(
+    FieldOperatorVisitor<T, R> visitor,
+    T left,
+    ConditionValue right,
+  ) {
     return visitor.visitIn(this, left, right);
   }
 }
@@ -94,8 +121,15 @@ class LikeOperator extends StringFieldOperator {
 
   LikeOperator({this.isNot = false});
   @override
-  R accept<R>(FieldOperatorVisitor<R> visitor, dynamic left, dynamic right) {
-    return visitor.visitLike(this, left, right);
+  R accept<T, R>(
+    FieldOperatorVisitor<T, R> visitor,
+    T left,
+    ConditionValue right,
+  ) {
+    if (right case StringleValue strValue) {
+      return visitor.visitLike(this, left, strValue);
+    }
+    throw AssertionError('$right shall StringleValue type.');
   }
 }
 
@@ -108,8 +142,15 @@ class StartWithOperator extends StringFieldOperator {
 
   StartWithOperator({this.isNot = false});
   @override
-  R accept<R>(FieldOperatorVisitor<R> visitor, dynamic left, dynamic right) {
-    return visitor.visitStartWith(this, left, right);
+  R accept<T, R>(
+    FieldOperatorVisitor<T, R> visitor,
+    T left,
+    ConditionValue right,
+  ) {
+    if (right case StringleValue strValue) {
+      return visitor.visitStartWith(this, left, strValue);
+    }
+    throw AssertionError('$right shall StringleValue type.');
   }
 }
 
@@ -122,7 +163,11 @@ class EndWithOperator extends StringFieldOperator {
 
   EndWithOperator({this.isNot = false});
   @override
-  R accept<R>(FieldOperatorVisitor<R> visitor, dynamic left, dynamic right) {
+  R accept<T, R>(
+    FieldOperatorVisitor<T, R> visitor,
+    T left,
+    ConditionValue right,
+  ) {
     return visitor.visitEndWith(this, left, right);
   }
 }
@@ -136,7 +181,11 @@ class LessOperator extends NumberFieldOperator {
 
   LessOperator({this.isThanEquals = false});
   @override
-  R accept<R>(FieldOperatorVisitor<R> visitor, dynamic left, dynamic right) {
+  R accept<T, R>(
+    FieldOperatorVisitor<T, R> visitor,
+    T left,
+    ConditionValue right,
+  ) {
     return visitor.visitLess(this, left, right);
   }
 }
@@ -150,7 +199,11 @@ class GreaterOperator extends NumberFieldOperator {
 
   GreaterOperator({this.isThanEquals = false});
   @override
-  R accept<R>(FieldOperatorVisitor<R> visitor, dynamic left, dynamic right) {
+  R accept<T, R>(
+    FieldOperatorVisitor<T, R> visitor,
+    T left,
+    ConditionValue right,
+  ) {
     return visitor.visitGreater(this, left, right);
   }
 }
@@ -164,7 +217,36 @@ class BetweenOperator extends NumberCommonFieldOperator {
 
   BetweenOperator({this.isNot = false});
   @override
-  R accept<R>(FieldOperatorVisitor<R> visitor, dynamic left, dynamic right) {
-    return visitor.visitBetween(this, left, right);
+  R accept<T, R>(
+    FieldOperatorVisitor<T, R> visitor,
+    T left,
+    ConditionValue right,
+  ) {
+    if (right case BetweenValue betweenValue) {
+      return visitor.visitBetween(this, left, betweenValue);
+    }
+    throw AssertionError('$right shall BetweenValue type.');
+  }
+}
+
+///ソート句
+class SortFieldOperator extends SortOperator {
+  @override
+  final bool isDesc;
+
+  @override
+  String get typeName => !isDesc ? ASC : DESC;
+
+  SortFieldOperator({this.isDesc = false});
+  @override
+  R accept<T, R>(
+    SortOperatorVisitor<T, R> visitor,
+    T left,
+    ConditionValue right,
+  ) {
+    if (right case ConditionValue<SortValueItem<T>> condition) {
+      return visitor.visitSort(this, left, condition);
+    }
+    throw AssertionError('$right shall ConditionValue<SortValueItem<T>> type.');
   }
 }

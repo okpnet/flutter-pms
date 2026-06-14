@@ -1,6 +1,4 @@
-import 'package:condition_pipeline/src/condition/condition.dart';
-import 'package:condition_pipeline/src/converter/converter.dart';
-import 'package:condition_pipeline/src/converter/list_converter/sql_operation_visitor.dart';
+import 'package:condition_pipeline/condition_pipeline.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -13,22 +11,22 @@ void main() {
         final branch21 = branch2.addBranch(siblingsRule: .and);
         final branch22 = branch2.addBranch(siblingsRule: .or);
         branch21.addValueField(
-          field: 'age',
+          field: (t) => 'age',
           operator: GreaterOperator(isThanEquals: true),
           value: ConditionValueFactory.number(21),
         );
         branch22.addValueField(
-          field: 'name',
+          field: (t) => 'name',
           operator: LikeOperator(),
           value: ConditionValueFactory.string('e'),
         );
         branch.addValueField(
-          field: 'age',
+          field: (t) => 'age',
           operator: LessOperator(),
           value: ConditionValueFactory.number(100),
         );
         branch.addValueField(
-          field: 'name',
+          field: (t) => 'name',
           operator: EndWithOperator(),
           value: ConditionValueFactory.string('n'),
         );

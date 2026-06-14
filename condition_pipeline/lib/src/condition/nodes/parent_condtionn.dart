@@ -11,7 +11,7 @@ abstract interface class IParentCondition {
 /// 子要素を持つ親条件の抽象クラス
 ///
 /// 子条件の追加や列挙、平坦化（フラット化）などのユーティリティを提供します。
-mixin ParentConditionMixin on SearchCondition {
+mixin ParentConditionMixin<T> on SearchCondition {
   List<SearchCondition> get children;
 
   /// 子条件を追加します。同一インスタンスの重複登録は行いません。
@@ -39,7 +39,7 @@ mixin ParentConditionMixin on SearchCondition {
 
   /// 新しいフィールド条件（`FieldCondition`）を生成してこの親に追加します。
   IValueFieldCondition addValueField({
-    required String field,
+    required FieldCallBack<T> field,
     required FieldOperator operator,
     required ConditionValue value,
   }) {
@@ -54,8 +54,8 @@ mixin ParentConditionMixin on SearchCondition {
 
   ///新しいフィールド条件（`FieldComparisonCondition`）を生成してこの親に追加します。
   IFieldReferenceCondition addFieldReference({
-    required String field,
-    required String toField,
+    required FieldCallBack<T> field,
+    required FieldCallBack<T> toField,
     FieldOperator? operator,
   }) {
     final condition = FieldReferenceCondition(
@@ -68,8 +68,8 @@ mixin ParentConditionMixin on SearchCondition {
   }
 
   /// 新しいソート条件（`SortCondition`）を生成してこの親に追加します。
-  ISortCondition addSort({required String field, Order? order}) {
-    final sort = SortCondition(field: field, order: order);
+  ISortCondition addSort({required FieldCallBack<T> field, bool? isDesc}) {
+    final sort = SortCondition(field: field, isDesc: isDesc);
     addChild(sort);
     return sort;
   }

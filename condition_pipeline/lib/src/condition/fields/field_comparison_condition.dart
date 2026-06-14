@@ -1,15 +1,16 @@
 import '../condition.dart';
 
-class FieldReferenceCondition extends SearchCondition
-    implements IFieldReferenceCondition {
+///右辺
+class FieldReferenceCondition<T> extends SearchCondition
+    implements IFieldReferenceCondition<T> {
   @override
-  final String field;
+  final FieldCallBack<T> field;
 
   @override
   final FieldOperator operator;
 
   @override
-  final String toField;
+  final FieldCallBack<T> toField;
   FieldReferenceCondition({
     required this.field,
     required FieldOperator operator,
@@ -23,14 +24,12 @@ class FieldReferenceCondition extends SearchCondition
              );
 }
 
-class FieldRightReferenceCondition extends SearchCondition
-    implements IFieldCondition {
+class FieldRightReferenceCondition<T> extends SearchCondition
+    implements IFieldCondition<T> {
   @override
-  // TODO: implement field
-  final String field;
+  final FieldCallBack<T> field;
 
   @override
-  // TODO: implement operator
   final FieldOperator operator;
 
   FieldRightReferenceCondition({required this.field, required this.operator});

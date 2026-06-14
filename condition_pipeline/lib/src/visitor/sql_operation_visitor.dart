@@ -1,11 +1,6 @@
-import '../../condition/fields/condition_value.dart';
-import '../../condition/fields/field_comparison_condition.dart';
-import '../../condition/fields/field_operator.dart';
-import '../../condition/fields/value_field_condition.dart';
-import '../condition_visitor.dart';
-import '../field_condition_converter.dart';
+import '../../condition_pipeline.dart';
 
-class SqlOperatorVisitor<T> implements FieldOperatorVisitor<String> {
+class SqlOperatorVisitor<T> implements FieldOperatorVisitor<T, String> {
   @override
   String visitEqual(EqualOperator op, left, right) {
     final quort = right.value is String ? "'" : '';
@@ -73,8 +68,19 @@ class SqlOperatorVisitor<T> implements FieldOperatorVisitor<String> {
   String visitNull(NullOperator op, left, right) {
     return op.isNot ? "$left <> NULL" : "$left = NULL";
   }
+}
 
-  // …他の Operator も同様に実装
+class SqlSortOperationVisitor<T> implements SortOperatorVisitor<T, String> {
+  @override
+  String visitSort(
+    SortOperator op,
+    left,
+    ConditionValue<SortValueItem<T>> right,
+  ) {
+    return op.isDesc
+        ? "${right.value!.field(left)} DESC"
+        : "${right.value!.field(left)} ASC";
+  }
 }
 
 class SqlConverter<T> extends FieldConditionConverter<T, String> {
@@ -86,18 +92,22 @@ class SqlConverter<T> extends FieldConditionConverter<T, String> {
     T left,
     ConditionValue<dynamic> rightValue,
   ) {
-    // TODO: implement evaluateValueField
     final leftValue = cond.field;
     return cond.operator.accept(opVisitor, leftValue, rightValue);
   }
 
   @override
-  String evaluateFieldReference(FieldReferenceCondition cond, T left, right) {
-    // TODO: implement evaluateFieldReference
+  String evaluateFieldReference(
+    FieldReferenceCondition<dynamic> cond,
+    T left,
+    FieldReferenceValue<T> rightValue,
+  ) {
     return cond.operator.accept(
       opVisitor,
       cond.field,
-      StringleValue(cond.toField),
+      FieldReferenceValue(
+        FieldReferenceItem(left: cond.field, right: cond.toField),
+      ),
     );
   }
 }

@@ -5,11 +5,6 @@ import 'condition.dart';
 /// - `or`: 子条件のいずれかを満たす（論理和）
 enum GruleRule { and, or }
 
-/// ソートするときのルールを表します。
-/// - `asc`: 順
-/// - `desc`: 逆順
-enum Order { asc, desc }
-
 /// 検索条件の基底クラス
 ///
 /// すべての条件は親を持つ可能性があり、親子関係を通じてツリー構造を構成します。
@@ -45,31 +40,32 @@ abstract class SearchCondition {
 }
 
 ///フィールドの条件の根底インターフェイス
-abstract interface class IFieldCondition {
+abstract interface class IFieldCondition<T> {
   /// 対象フィールド名
-  String get field;
+  FieldCallBack<T> get field;
 
   /// フィールドに適用する演算子（等価、不等、部分一致など）
   FieldOperator get operator;
 }
 
 ///任意の値と比較するインターフェイス
-abstract interface class IValueFieldCondition extends IFieldCondition {
+abstract interface class IValueFieldCondition<T> extends IFieldCondition<T> {
   /// 比較に用いる値
   ConditionValue get value;
 }
 
 ///フィールド同士を比較するインターフェイス
-abstract interface class IFieldReferenceCondition extends IFieldCondition {
+abstract interface class IFieldReferenceCondition<T>
+    extends IFieldCondition<T> {
   /// 対象フィールド名
-  String get toField;
+  FieldCallBack<T> get toField;
 }
 
 ///ソートインターフェイス
-abstract interface class ISortCondition {
+abstract interface class ISortCondition<T> {
   /// 対象フィールド名
-  String get field;
+  FieldCallBack<T> get field;
 
-  ///ソート方向
-  Order get order;
+  /// フィールドに適用する演算子（等価、不等、部分一致など）
+  SortOperator get operator;
 }

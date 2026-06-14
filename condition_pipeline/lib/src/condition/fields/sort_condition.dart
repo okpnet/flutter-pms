@@ -1,10 +1,14 @@
 import '../condition.dart';
 
-class SortCondition extends SearchCondition implements ISortCondition {
+class SortCondition<T> extends SearchCondition implements ISortCondition<T> {
   /// 対象フィールド名
-  final String field;
+  @override
+  final FieldCallBack<T> field;
 
-  final Order order;
+  /// フィールドに適用する演算子（等価、不等、部分一致など）
+  @override
+  final SortOperator operator;
 
-  SortCondition({required this.field, Order? order}) : order = order ?? .asc;
+  SortCondition({required this.field, bool? isDesc})
+    : operator = SortFieldOperator(isDesc: isDesc ?? false);
 }

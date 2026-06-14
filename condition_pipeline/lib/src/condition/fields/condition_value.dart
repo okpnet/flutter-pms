@@ -1,12 +1,36 @@
+import '../condition.dart';
+
 abstract interface class IConditionValue {
   dynamic get value;
 }
 
+///右辺。比較基準となる値。
 abstract class ConditionValue<T> implements IConditionValue {
   @override
   T? get value;
 }
 
+///右辺。ソート基準となる基準値。
+class SortValue<T> implements ConditionValue<SortValueItem<T>> {
+  @override
+  final SortValueItem<T> value;
+  SortValue(this.value);
+}
+
+///ソート基準フィールド
+final class SortValueItem<T> {
+  final FieldCallBack<T> field;
+  SortValueItem({required this.field});
+}
+
+///右辺。Null値比較用。
+class NullValue implements ConditionValue<dynamic> {
+  @override
+  final dynamic value;
+  NullValue() : value = null;
+}
+
+///右辺。文字列の基準値。
 class StringleValue implements ConditionValue<String> {
   @override
   final String value;
@@ -14,6 +38,7 @@ class StringleValue implements ConditionValue<String> {
   StringleValue(this.value);
 }
 
+///右辺。リストの基準値。ContainやLikeで使用。
 class ListValue<T> implements ConditionValue<List<T>> {
   @override
   final List<T> value;
@@ -21,6 +46,7 @@ class ListValue<T> implements ConditionValue<List<T>> {
   ListValue(this.value);
 }
 
+///右辺。数値の基準値
 class NumberValue implements ConditionValue<num> {
   @override
   final num value;
@@ -28,6 +54,7 @@ class NumberValue implements ConditionValue<num> {
   NumberValue(this.value);
 }
 
+///右辺。日付時間の基準値
 class DateValue implements ConditionValue<DateTime> {
   @override
   final DateTime value;
@@ -35,6 +62,7 @@ class DateValue implements ConditionValue<DateTime> {
   DateValue(this.value);
 }
 
+///右辺。Betweenの開始、終了の[ConditionValue]
 class BetweenValue<T> implements ConditionValue<BetweenItem<T>> {
   @override
   final BetweenItem<T> value;
@@ -48,6 +76,21 @@ final class BetweenItem<T> {
   BetweenItem({required this.start, required this.end});
 }
 
+///右辺。フィールドとフィールドを比較する
+class FieldReferenceValue<T> implements ConditionValue<FieldReferenceItem<T>> {
+  @override
+  final FieldReferenceItem<T>? value;
+
+  FieldReferenceValue(this.value);
+}
+
+final class FieldReferenceItem<T> {
+  final FieldCallBack<T> left;
+  final FieldCallBack<T> right;
+  FieldReferenceItem({required this.left, required this.right});
+}
+
+///[ConditionValue]を生成するファクトリ。
 final class ConditionValueFactory {
   static ConditionValue getFromValueType<T>(T value) {
     return switch (value) {
@@ -55,6 +98,7 @@ final class ConditionValueFactory {
       num n => number(n),
       DateTime d => date(d),
       List l => list(l),
+      null => nullValue(),
       _ => throw UnsupportedError('Unsupported type: ${value.runtimeType}'),
     };
   }
@@ -70,4 +114,11 @@ final class ConditionValueFactory {
           end: getFromValueType(end) as ConditionValue<T>,
         ),
       );
+  static ConditionValue<dynamic> nullValue() => NullValue();
+  static ConditionValue<FieldReferenceItem<T>> fieldToField<T>(
+    FieldCallBack<T> field,
+    FieldCallBack<T> toField,
+  ) => FieldReferenceValue<T>(
+    FieldReferenceItem<T>(left: toField, right: field),
+  );
 }

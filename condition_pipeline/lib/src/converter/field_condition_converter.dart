@@ -1,15 +1,12 @@
-import '../condition/fields/condition_value.dart';
-import '../condition/fields/field_comparison_condition.dart';
-import '../condition/fields/value_field_condition.dart';
-import '../condition/search_condition.dart';
-import 'condition_visitor.dart';
+import 'package:condition_pipeline/condition_pipeline.dart';
 
 typedef ExtractCallBack<T> = dynamic Function(T left, IFieldCondition conditon);
 
 abstract interface class IFieldConditionConverter {}
 
+///フィールドの条件を変換する
 class FieldConditionConverter<T, R> implements IFieldConditionConverter {
-  final FieldOperatorVisitor<R> opVisitor;
+  final FieldOperatorVisitor<T, R> opVisitor;
   final ExtractCallBack<T> extractValue;
 
   FieldConditionConverter({
@@ -17,6 +14,9 @@ class FieldConditionConverter<T, R> implements IFieldConditionConverter {
     required this.extractValue,
   });
 
+  ///[cond]条件と基準値
+  ///[left]比較
+  ///[rightValue]
   R evaluateValueField(
     ValueFieldCondition cond,
     T left,
@@ -26,15 +26,15 @@ class FieldConditionConverter<T, R> implements IFieldConditionConverter {
     return cond.operator.accept(opVisitor, leftValue, rightValue);
   }
 
+  ///フィールドとフィールドの比較条件に変換します
+  ///[cond]フィールド基準
+  ///[left]渡された値
+  ///[rightValue]フィールド条件の基準値
   R evaluateFieldReference(
     FieldReferenceCondition cond,
     T left,
-    dynamic right,
+    FieldReferenceValue<T> rightValue,
   ) {
-    return cond.operator.accept(opVisitor, left, right);
-  }
-
-  R evaluateSort(ISortCondition cond) {
-    throw UnsupportedError("Sort cannot be used in List.where");
+    return cond.operator.accept(opVisitor, left, rightValue);
   }
 }
