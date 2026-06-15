@@ -23,14 +23,3 @@ class FieldReferenceCondition<T> extends SearchCondition
                'Depending on the field has value, the operator must be either NumberFieldOperator or CommonFieldOperator.',
              );
 }
-
-class FieldRightReferenceCondition<T> extends SearchCondition
-    implements IFieldCondition<T> {
-  @override
-  final FieldCallBack<T> field;
-
-  @override
-  final FieldOperator operator;
-
-  FieldRightReferenceCondition({required this.field, required this.operator});
-}

@@ -2,7 +2,10 @@ import '../condition/condition.dart';
 import '../converter/converter.dart';
 import 'visit.dart';
 
-///フィルター条件ツリーを循環して条件ノードを取得して、[R]に変換する式に変換にします。
+/// フィルター条件ツリーを巡回し、条件ノードを評価して [R] 型に変換するビジター実装。
+/// - [converter]: 各フィールド条件を評価するための [FieldConditionConverter]。
+/// - [combine]: 子ノードを結合するための関数。引数は [left], [right], [GruleRule]。
+/// - [group]: グループ化（ネスト）された結果を加工するためのオプション関数。
 class GenericConditionVisitor<T, R> extends Visitor<T, R>
     with ConditionVisiterMixin<T, R> {
   @override
@@ -19,12 +22,19 @@ class GenericConditionVisitor<T, R> extends Visitor<T, R>
   });
 }
 
-///フィルター条件ノードを[R]に変換します。
+/// フィルター条件ノードを [R] に変換する振る舞いを提供するミックスイン。
+/// - [getVisitList]: ビジタが巡回対象とするノードをフィルタリングします。
+/// - [evaluate]: 指定した [condition] を評価し、[item] に基づいて [R] を返します。
 mixin ConditionVisiterMixin<T, R> on Visitor<T, R> {
   FieldConditionConverter<T, R> get converter;
+
   @override
   Iterable<SearchCondition> getVisitList(List<SearchCondition> list) =>
       list.where((t) => t is IFieldCondition || t is IParentCondition);
+
+  /// [evaluate]: 条件ノード [condition] を [item] を使って評価します。
+  /// - [ValueFieldCondition]: [converter.evaluateValueField] を呼び出して評価します。
+  /// - [FieldReferenceCondition]: [converter.evaluateFieldReference] を呼び出して評価します。
   @override
   R evaluate(SearchCondition condition, T item) {
     return switch (condition) {

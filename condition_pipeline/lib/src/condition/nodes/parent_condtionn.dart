@@ -1,43 +1,49 @@
 import '../condition.dart';
 
 abstract interface class IParentCondition {
+  /// [siblingsRule]: 子条件同士の結合ルールを返します（AND/OR 等）。
   GruleRule get siblingsRule;
 
-  /// この親が保持する子条件のリストを返します（実装側で保持すること）。
+  /// [children]: この親が保持する子条件のリストを返します（実装側で保持すること）。
   List<SearchCondition> get children;
+
+  /// [setSiblingsRule]: 子条件の結合ルールを設定します。
   void setSiblingsRule(GruleRule siblingsRule);
 }
 
-/// 子要素を持つ親条件の抽象クラス
-///
-/// 子条件の追加や列挙、平坦化（フラット化）などのユーティリティを提供します。
+/// 子要素を持つ親条件のミックスイン。
+/// ユーティリティとして [addChild], [addChildren], [addBranch], [addValueField],
+/// [addFieldReference], [addSort], [toFlatChildren] などを提供します。
 mixin ParentConditionMixin<T> on SearchCondition {
   List<SearchCondition> get children;
 
-  /// 子条件を追加します。同一インスタンスの重複登録は行いません。
-  /// 追加時に子の `parent` をこのインスタンスに設定します。
+  /// [addChild]: 子条件を追加します。同一インスタンスの重複登録は行いません。
+  /// 追加時に子の [setParent] をこのインスタンスに設定します。
   void addChild(SearchCondition child) {
     if (children.contains(child)) return;
     child.setParent(this);
     children.add(child);
   }
 
-  /// 複数の子条件を一括追加します。
+  /// [addChildren]: 複数の子条件を一括追加します。
   void addChildren(List<SearchCondition> addchildren) {
     for (var child in addchildren) {
       addChild(child);
     }
   }
 
-  /// 新しいブランチ条件（`BranchCondition`）を生成してこの親に追加します。
-  /// `siblingsRule` によりブランチ内部の子同士の結合ルールを指定できます。
+  /// [addBranch]: 新しいブランチ条件 ([BranchCondition]) を生成してこの親に追加します。
+  /// 引数 [siblingsRule] によりブランチ内部の子同士の結合ルールを指定できます。
   BranchCondition addBranch({GruleRule? siblingsRule}) {
     final branch = BranchCondition(siblingsRule: siblingsRule);
     addChild(branch);
     return branch;
   }
 
-  /// 新しいフィールド条件（`FieldCondition`）を生成してこの親に追加します。
+  /// [addValueField]: 新しい値比較のフィールド条件 ([ValueFieldCondition]) を生成してこの親に追加します。
+  /// - [field]: 対象フィールド。
+  /// - [operator]: 適用する演算子。
+  /// - [value]: 比較に用いる値。
   IValueFieldCondition addValueField({
     required FieldCallBack<T> field,
     required FieldOperator operator,
@@ -52,7 +58,10 @@ mixin ParentConditionMixin<T> on SearchCondition {
     return condition;
   }
 
-  ///新しいフィールド条件（`FieldComparisonCondition`）を生成してこの親に追加します。
+  /// [addFieldReference]: 新しいフィールド参照比較条件 ([FieldReferenceCondition]) を生成してこの親に追加します。
+  /// - [field]: 左辺フィールド。
+  /// - [toField]: 右辺フィールド。
+  /// - [operator]: 使用する演算子（省略時は [EqualOperator]）。
   IFieldReferenceCondition addFieldReference({
     required FieldCallBack<T> field,
     required FieldCallBack<T> toField,
@@ -67,15 +76,17 @@ mixin ParentConditionMixin<T> on SearchCondition {
     return condition;
   }
 
-  /// 新しいソート条件（`SortCondition`）を生成してこの親に追加します。
+  /// [addSort]: 新しいソート条件 ([SortCondition]) を生成してこの親に追加します。
+  /// - [field]: ソート対象フィールド。
+  /// - [isDesc]: 降順にする場合は true。
   ISortCondition addSort({required FieldCallBack<T> field, bool? isDesc}) {
     final sort = SortCondition(field: field, isDesc: isDesc);
     addChild(sort);
     return sort;
   }
 
-  /// 子ツリーを深さ優先で辿り、すべての子条件を平坦化したリストを返します。
-  /// フィールド条件（`FieldCondition`）のみを抽出してリスト化します。
+  /// [toFlatChildren]: 子ツリーを深さ優先で辿り、すべての子条件を平坦化したリストを返します。
+  /// この実装はフィールド条件（IFieldCondition）を抽出して返します。
   List<SearchCondition> toFlatChildren() {
     final list = <SearchCondition>[];
     for (var item in children) {
@@ -84,7 +95,7 @@ mixin ParentConditionMixin<T> on SearchCondition {
     return list;
   }
 
-  /// 内部ヘルパー：指定した条件を再帰的に探索して `FieldCondition` を収集します。
+  /// 内部ヘルパー: 指定した条件を再帰的に探索して IFieldCondition を収集します。
   List<SearchCondition> _toFlatChildren(SearchCondition condtion) {
     final list = <SearchCondition>[];
     if (condtion is IFieldCondition) {

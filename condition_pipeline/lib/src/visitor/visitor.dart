@@ -36,7 +36,7 @@ abstract class Visitor<T, R> {
   /// 条件式から「T → R」の関数を構築して返します
   R Function(T) build(SearchCondition condition) {
     return (T item) {
-      final result = visit(condition, item);
+      final result = visit(condition, item) as R;
 
       // ルートが空だった場合だけ例外
       if (result == null) {
@@ -48,7 +48,7 @@ abstract class Visitor<T, R> {
   }
 
   ///ツリーを循環します
-  R? visit(SearchCondition condition, T item) {
+  dynamic visit(SearchCondition condition, T item) {
     if (condition case IParentCondition parent) {
       final list = getVisitList(
         parent.children,
@@ -62,7 +62,7 @@ abstract class Visitor<T, R> {
         return null;
       }
       var result = children.reduce(
-        (left, right) => combine(left!, right!, parent.siblingsRule),
+        (left, right) => combine(left, right, parent.siblingsRule),
       );
       result = list.length > 1 && group != null ? group!(result!) : result;
       return result;

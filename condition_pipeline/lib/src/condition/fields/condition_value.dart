@@ -4,33 +4,33 @@ abstract interface class IConditionValue {
   dynamic get value;
 }
 
-///右辺。比較基準となる値。
+/// 右辺：比較に使う基準値。
 abstract class ConditionValue<T> implements IConditionValue {
   @override
   T? get value;
 }
 
-///右辺。ソート基準となる基準値。
+/// 右辺：ソートに使用する基準値。
 class SortValue<T> implements ConditionValue<SortValueItem<T>> {
   @override
   final SortValueItem<T> value;
   SortValue(this.value);
 }
 
-///ソート基準フィールド
+/// ソート対象のフィールドを表すアイテム。
 final class SortValueItem<T> {
   final FieldCallBack<T> field;
   SortValueItem({required this.field});
 }
 
-///右辺。Null値比較用。
+/// 右辺：null 値と比較するための値。
 class NullValue implements ConditionValue<dynamic> {
   @override
   final dynamic value;
   NullValue() : value = null;
 }
 
-///右辺。文字列の基準値。
+/// 右辺：文字列の基準値。
 class StringleValue implements ConditionValue<String> {
   @override
   final String value;
@@ -38,7 +38,7 @@ class StringleValue implements ConditionValue<String> {
   StringleValue(this.value);
 }
 
-///右辺。リストの基準値。ContainやLikeで使用。
+/// 右辺：リストの基準値。Contain や Like で使用。
 class ListValue<T> implements ConditionValue<List<T>> {
   @override
   final List<T> value;
@@ -46,7 +46,7 @@ class ListValue<T> implements ConditionValue<List<T>> {
   ListValue(this.value);
 }
 
-///右辺。数値の基準値
+/// 右辺：数値の基準値。
 class NumberValue implements ConditionValue<num> {
   @override
   final num value;
@@ -54,7 +54,7 @@ class NumberValue implements ConditionValue<num> {
   NumberValue(this.value);
 }
 
-///右辺。日付時間の基準値
+/// 右辺：日時の基準値。
 class DateValue implements ConditionValue<DateTime> {
   @override
   final DateTime value;
@@ -62,7 +62,7 @@ class DateValue implements ConditionValue<DateTime> {
   DateValue(this.value);
 }
 
-///右辺。Betweenの開始、終了の[ConditionValue]
+/// 右辺：Between の開始・終了を表す ConditionValue。
 class BetweenValue<T> implements ConditionValue<BetweenItem<T>> {
   @override
   final BetweenItem<T> value;
@@ -76,7 +76,7 @@ final class BetweenItem<T> {
   BetweenItem({required this.start, required this.end});
 }
 
-///右辺。フィールドとフィールドを比較する
+/// 右辺：フィールド同士を比較するための値。
 class FieldReferenceValue<T> implements ConditionValue<FieldReferenceItem<T>> {
   @override
   final FieldReferenceItem<T>? value;
@@ -90,7 +90,7 @@ final class FieldReferenceItem<T> {
   FieldReferenceItem({required this.left, required this.right});
 }
 
-///[ConditionValue]を生成するファクトリ。
+/// ConditionValue を生成するファクトリ。
 final class ConditionValueFactory {
   static ConditionValue getFromValueType<T>(T value) {
     return switch (value) {

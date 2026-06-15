@@ -1,16 +1,17 @@
 import '../condition/condition.dart';
 import '../visitor/visitor.dart';
 
-///フィールドの条件を変換する
+/// フィールドのソート条件を変換/評価するユーティリティクラス。
+/// - [opVisitor]: ソート演算子毎の処理を行う [SortOperatorVisitor]。
 class FieldSortConverter<T, R> {
   final SortOperatorVisitor<T, R> opVisitor;
 
   FieldSortConverter({required this.opVisitor});
 
-  ///ソート条件を変換します
-  ///[cond]フィールド基準
-  ///[left]渡された値
-  ///[rightValue]ソート条件の基準値
+  /// [evaluateSort]: ソート条件を評価します。
+  /// - [cond]: 評価対象の [ISortCondition]。
+  /// - [left]: 抽出元のオブジェクト（評価時に使われるコンテキスト）。
+  /// - [rightValue]: ソート条件の基準値を含む [SortValue]。
   R evaluateSort(ISortCondition cond, T left, SortValue<T> rightValue) {
     return cond.operator.accept(opVisitor, left, rightValue);
   }
