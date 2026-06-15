@@ -1,30 +1,13 @@
+import 'package:condition_pipeline/condition_pipeline.dart';
 import 'package:trina_grid/trina_grid.dart';
-
-import '../condition/fields/value_field_condition.dart';
-import '../condition/nodes/branch_condition.dart';
-import '../condition/fields/field_operator.dart';
-import '../condition/nodes/root_condition.dart';
-import '../condition/search_condition.dart';
 
 /// Trina から検索条件へ変換するためのマーカーインターフェース。
 /// 実装はこのインターフェースを使って `ToSerarchCondition` mixin を組み合わせます。
 abstract class IToSerarchCondition {}
 
-class ToSerarchConditionHelper {
-  /// Trina のフィルタ行から `SearchCondition` を生成するユーティリティ。
-  ///
-  /// - `filterRow`: Trina のフィルタ行（フィールド、演算子、値を含む）
-  /// - `parent`: 生成する条件の親条件（必要な場合）
-  ///
-  /// 戻り値は対応する `FieldCondition`（または `NullOperator` 等）です。
-  static SearchCondition toConditionFromFilterRow(
-    TrinaRow filterRow,
-    SearchCondition? parent,
-  ) {
-    // フィルタ行のセル値に応じて、対応する FieldOperator を選択する
-    final operator = switch (filterRow
-        .cells[FilterHelper.filterFieldType]!
-        .value) {
+class ToConditionHelper {
+  static FieldOperator toOperator(TrinaRow filterRow) {
+    return switch (filterRow.cells[FilterHelper.filterFieldType]!.value) {
       TrinaFilterTypeEquals _ => EqualOperator(),
       TrinaFilterTypeContains _ => InOperator(),
       TrinaFilterTypeIsEmpty _ => NullOperator(),
@@ -39,38 +22,68 @@ class ToSerarchConditionHelper {
       ),
       _ => NullOperator(isNot: true),
     };
-    return ValueFieldCondition(
-      parent: parent,
-      field: filterRow.cells[FilterHelper.filterFieldColumn]!.value,
+  }
+
+  /// Trina のフィルタ行から `SearchCondition` を生成するユーティリティ。
+  ///
+  /// - `filterRow`: Trina のフィルタ行（フィールド、演算子、値を含む）
+  /// - `parent`: 生成する条件の親条件（必要な場合）
+  ///
+  /// 戻り値は対応する `FieldCondition`（または `NullOperator` 等）です。
+  static SearchCondition toConditionFromFilterRow(TrinaRow filterRow) {
+    // フィルタ行のセル値に応じて、対応する FieldOperator を選択する
+    final operator = toOperator(filterRow);
+    final condition = toConditionFromDataRow(
+      row: filterRow,
+      fieldId: FilterHelper.filterFieldColumn,
       operator: operator,
-      value: filterRow.cells[FilterHelper.filterFieldValue]!.value,
     );
+    return condition;
   }
 
   /// 複数のフィルタ行から `RootCondition` を作成し、各条件を AND で結合して返す。
-  static SearchCondition toConditionsFromFilterRows(List<TrinaRow> filterRows) {
+  static RootCondition toConditionsFromFilterRows(List<TrinaRow> filterRows) {
+    final root = RootCondition();
     // ルート条件に AND ブランチを追加
-    final branch = RootCondition().addBranch(siblingsRule: .and);
-    final conditions = filterRows
-        .map((t) => toConditionFromFilterRow(t, branch))
-        .toList();
-    branch.addChildren(conditions);
-    return branch.getRoot();
+    final branch = root.addBranch(siblingsRule: .and);
+    if (filterRows.isNotEmpty) {
+      final conditions = filterRows
+          .map((t) => toConditionFromFilterRow(t))
+          .toList();
+      branch.addChildren(conditions);
+    }
+    return root;
   }
 
   ///
   /// データ行とフィールド情報から単一の `BranchCondition`（AND）を生成する。
   /// この関数は、行のセル値を条件の値として使用します。
-  static SearchCondition toConditionFromDataRow(
-    TrinaRow row,
-    String fieldId,
-    FieldOperator operator,
-  ) {
+  static SearchCondition toConditionFromDataRow({
+    required TrinaRow row,
+    required String fieldId,
+    required FieldOperator operator,
+  }) {
     final branch = BranchCondition(siblingsRule: .and);
     final condition = ValueFieldCondition(
-      field: fieldId,
+      field: (Map<String, dynamic> val) => val[fieldId],
       operator: operator,
-      value: row.cells[fieldId]?.value,
+      value: ConditionValueFactory.getFromValueType(row.cells[fieldId]!.value),
+    );
+    branch.addChild(condition);
+    return branch;
+  }
+
+  ///列同士の参照
+  static SearchCondition toFieldRefCondition({
+    required String fieldId,
+    required String toField,
+    required FieldOperator operator,
+  }) {
+    final branch = BranchCondition(siblingsRule: .and);
+    final condition = FieldReferenceCondition(
+      field: (Map<String, dynamic> val) => val[fieldId],
+      toField: (Map<String, dynamic> val) => val[toField],
+      operator: operator,
     );
     branch.addChild(condition);
     return branch;

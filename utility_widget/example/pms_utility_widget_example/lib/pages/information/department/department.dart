@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:condition_pipeline/condition_pipeline.dart';
 import 'package:flutter/services.dart';
 import 'package:trina_grid/trina_grid.dart';
 import 'package:utility_widget/utiritiy_widget.dart';
@@ -9,12 +10,7 @@ import 'package:utility_widget_example/pages/container/trina_grid_summary_hader.
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 import 'package:utility_widget_example/pages/information/department/constants/department_column.dart';
 import 'package:utility_widget_example/pages/information/department/department_edit.dart';
-import 'package:utility_widget_example/src/condition_pipeline/condition/fields/condition_value.dart';
-import 'package:utility_widget_example/src/condition_pipeline/condition/fields/field_operator.dart';
-import 'package:utility_widget_example/src/condition_pipeline/condition/fields/value_field_condition.dart';
-import 'package:utility_widget_example/src/condition_pipeline/condition/nodes/root_condition.dart';
-import 'package:utility_widget_example/src/condition_pipeline/condition/search_condition.dart';
-import 'package:utility_widget_example/src/condition_pipeline/converter/field_condition_converter.dart';
+import 'package:utility_widget_example/pages/information/department/department_mixin.dart';
 import 'package:utility_widget_example/src/manager/model/summary_data.dart';
 import 'package:utility_widget_example/src/manager/provider/grid_provider.dart';
 import 'package:utility_widget_example/src/manager/service/pms_repository_service.dart';
@@ -29,7 +25,9 @@ class Department extends StatefulWidget {
   State<StatefulWidget> createState() => _Department();
 }
 
-class _Department extends PmsWidgetState<Department> with TreeOfTrinaGrid {
+class _Department extends PmsWidgetState<Department>
+    with TreeOfTrinaGrid, DepartmentMixin
+    implements IDepartmentTreeLoad {
   final List<TrinaColumn> columnList = DepartmentColumn.columns;
   late final TrinaGridStateManager _stateManager;
   final DemoTreeRederService _trreeRederService = DemoTreeRederService(
@@ -43,10 +41,6 @@ class _Department extends PmsWidgetState<Department> with TreeOfTrinaGrid {
   TrinaGridStateManager get stateManager => _stateManager;
 
   @override
-  TrinaColumn get parentColumn =>
-      columnList.firstWhere((t) => t.field == 'parent_id');
-
-  @override
   TrinaColumn get idColumn => columnList.firstWhere((t) => t.field == 'id');
 
   @override
@@ -55,30 +49,6 @@ class _Department extends PmsWidgetState<Department> with TreeOfTrinaGrid {
 
   @override
   List<TrinaColumn> get columns => columnList;
-
-  ///最初以降の展開時の条件式
-  @override
-  IConditionCallback toCondition = (TrinaRow row) {
-    final rootCondition = RootCondition();
-    rootCondition.addBranch().addValueField(
-      field: 'parent_id',
-      operator: EqualOperator(),
-      value: ConditionValueFactory.getFromValueType(row.cells['parent_id']),
-    );
-    return rootCondition;
-  };
-
-  ///読み込み最初の条件式。以降は[IConditionCallback]が呼ばれる
-  @override
-  InitConditionCallback toInitCondition = (TrinaRow? row) {
-    final rootCondition = RootCondition();
-    rootCondition.addBranch().addFieldReference(
-      field: 'parent_id',
-      operator: EqualOperator(),
-      toField: 'id',
-    );
-    return rootCondition;
-  };
 
   void _navigatorDetail(TrinaRow? row) {
     if (row == null) {
@@ -102,7 +72,6 @@ class _Department extends PmsWidgetState<Department> with TreeOfTrinaGrid {
           notifier: state,
           child: TrinaGrid(
             mode: .select,
-
             isTreeDragMode: true, //ツリーモード指定。ドラッグ中に行左端へホバーすると右に寄る。
             onSelected: (event) => _navigatorDetail(event.row), //行選択
             onRowDoubleTap: (event) => _navigatorDetail(event.row), //行選択

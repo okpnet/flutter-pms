@@ -1,6 +1,6 @@
+import 'package:condition_pipeline/condition_pipeline.dart';
 import 'package:utility_widget_example/constant/demo/asset_reader.dart';
 import 'package:utility_widget_example/constant/results/result.dart';
-import 'package:utility_widget_example/src/condition_pipeline/condition/search_condition.dart';
 import 'package:utility_widget_example/src/manager/service/pms_repository_service.dart';
 
 class DemoPagenaationReaderService

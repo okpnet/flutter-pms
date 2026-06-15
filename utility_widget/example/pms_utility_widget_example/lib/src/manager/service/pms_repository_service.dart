@@ -1,4 +1,4 @@
-import 'package:utility_widget_example/src/condition_pipeline/condition/search_condition.dart';
+import 'package:condition_pipeline/condition_pipeline.dart';
 
 ///
 abstract class ReaderService<R> {

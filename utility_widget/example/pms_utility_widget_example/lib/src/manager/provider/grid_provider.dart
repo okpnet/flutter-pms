@@ -1,12 +1,12 @@
 import 'dart:async';
 
+import 'package:condition_pipeline/condition_pipeline.dart';
 import 'package:trina_grid/trina_grid.dart';
 import 'package:utility_widget/utiritiy_widget.dart';
 import 'package:utility_widget_example/constant/results/result.dart';
 import 'package:utility_widget_example/extensions/pluto_grid/trina_column_extension.dart';
 import 'package:utility_widget_example/extensions/pluto_grid/trina_row_extension.dart';
 import 'package:utility_widget_example/src/condition_pipeline/adapter/to_sort_condition_helper.dart';
-import 'package:utility_widget_example/src/condition_pipeline/condition/nodes/root_condition.dart';
 import 'package:utility_widget_example/src/manager/model/summary_data.dart';
 import 'package:utility_widget_example/src/manager/service/pms_repository_service.dart';
 import 'package:utility_widget_example/src/manager/state/grid_state.dart';
@@ -17,7 +17,8 @@ part 'pagenation_provider.dart';
 part 'tree_provider.dart';
 
 typedef InitConditionCallback = RootCondition Function(TrinaRow? row);
-typedef IConditionCallback = RootCondition Function(TrinaRow row);
+typedef IConditionCallback =
+    RootCondition Function(TrinaGridStateManager state, TrinaRow row);
 
 ///TrinaGridのstateManagerを保持するインターフェイス。PultoGridから以降した。
 abstract class IGridStateManagerOfTrinaGrid {

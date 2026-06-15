@@ -36,14 +36,15 @@ dependencies:
   cupertino_icons: ^1.0.8
   utility_widget:
     path: ../../
-  trina_grid: 
+  trina_grid:
     git:
       url: https://github.com/okpnet/trina_grid
       ref: main
+  condition_pipeline:
+    path: ../../../condition_pipeline
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

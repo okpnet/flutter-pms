@@ -1,9 +1,6 @@
+import 'package:condition_pipeline/condition_pipeline.dart';
 import 'package:utility_widget_example/constant/demo/asset_reader.dart';
 import 'package:utility_widget_example/constant/results/result.dart';
-import 'package:utility_widget_example/src/condition_pipeline/condition/nodes/root_condition.dart';
-import 'package:utility_widget_example/src/condition_pipeline/condition/search_condition.dart';
-import 'package:utility_widget_example/src/condition_pipeline/converter/condition_vsitor.dart';
-import 'package:utility_widget_example/src/condition_pipeline/converter/list_converter/list_operation_visitor.dart';
 import 'package:utility_widget_example/src/manager/model/summary_data.dart';
 import 'package:utility_widget_example/src/manager/service/pms_repository_service.dart';
 
@@ -32,8 +29,10 @@ class DemoTreeRederService extends ReaderService<SummaryLoadData> {
         extractValue: (left, conditon) => left[conditon.field],
         opVisitor: ListWhereOperatorVisitor(),
       ),
-      combine: (children, rule) {
-        return rule == .and ? children.every((p) => p) : children.any((p) => p);
+      combine: (left, right, rule) {
+        return rule == GruleRule.and
+            ? [left, right].every((p) => p)
+            : [left, right].any((p) => p);
       },
     );
     final predicate = visitor.build(condition);

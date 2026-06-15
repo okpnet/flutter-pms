@@ -174,9 +174,9 @@ mixin TreeOfTrinaGrid on IPmsWidgetState
     final stateKey = parentRow?.cells[idColumn.field]?.value.toString();
     final state =
         status[stateKey] ?? TreeLoadStattus(current: 0, numberOfRecords: 0);
-    final condition = toInitCondition(parentRow);
+    final condition = toCondition(stateManager, parentRow!);
     final loadState = await _loadData(condition, state);
-    status[parentRow?.cells[idColumn.field]?.value.toString()] = loadState;
+    status[parentRow.cells[idColumn.field]?.value.toString()] = loadState;
     await _addRows(parentRow, loadState);
     stateManager.setShowLoading(false);
   }
