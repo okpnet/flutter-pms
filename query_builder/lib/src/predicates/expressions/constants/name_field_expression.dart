@@ -17,7 +17,7 @@ class NameFieldExpression extends Expression implements INameFieldExpression {
   ///Visitorが巡回にきたときの処置。
   ///中でVisitorがこのインスタンスを使ってデリゲートを返す
   @override
-  ExpresionCallBack accept(IVisitor visitor) {
+  ExpressionCallBack accept(IVisitor visitor) {
     try {
       return visitor.nameFieldVisit(this);
     } catch (ex) {

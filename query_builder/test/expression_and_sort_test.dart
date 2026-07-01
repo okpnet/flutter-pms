@@ -34,20 +34,20 @@ final fieldAgeEx = FieldExpression<Map<String, dynamic>>(
 final nameFieleNamedEx = NameFieldExpression('name', name: 'nameFieleNamedEx');
 final nameFieldAgeEx = NameFieldExpression('age', name: 'nameFieldAgeEx');
 
-final eqAge20Ex = EquqleExpression(fieldAgeEx, age20ValEx, name: 'eqAge20Ex');
-final notEqAge20Ex = EquqleExpression(
+final eqAge20Ex = EqualExpression(fieldAgeEx, age20ValEx, name: 'eqAge20Ex');
+final notEqAge20Ex = EqualExpression(
   fieldAgeEx,
   age20ValEx,
   isNot: true,
   name: 'notEqAge20Ex',
 );
 
-final eqNameAge20Ex = EquqleExpression(
+final eqNameAge20Ex = EqualExpression(
   nameFieldAgeEx,
   age20ValEx,
   name: 'eqNameAge20Ex',
 );
-final notNameEqAge20Ex = EquqleExpression(
+final notNameEqAge20Ex = EqualExpression(
   nameFieldAgeEx,
   age20ValEx,
   isNot: true,
@@ -199,7 +199,7 @@ void main() {
         nameRyEx,
         name: 'endNameRy',
       );
-      final andEx = AndExpression(gtAge20Ex, endNameRy, name: 'andEx');
+      final andEx = AndExpression([gtAge20Ex, endNameRy], name: 'andEx');
       final func = listBuilder.build(andEx);
       final result = func(chery);
       print('${andEx.name}:$result');
@@ -212,7 +212,7 @@ void main() {
         nameEEx,
         name: 'startNameE',
       );
-      final orEx = OrExpression(startNameE, gtAge20Ex, name: 'orEx');
+      final orEx = OrExpression([startNameE, gtAge20Ex], name: 'orEx');
       final func = listBuilder.build(orEx);
       final result = func(chery);
       print('${orEx.name}:$result');
@@ -304,7 +304,7 @@ void main() {
         nameRyEx,
         name: 'endNameRy',
       );
-      final andEx = AndExpression(gtNameAge20Ex, endNameRy, name: 'andEx');
+      final andEx = AndExpression([gtNameAge20Ex, endNameRy], name: 'andEx');
       final func = sqlBuilder.build(andEx);
       final result = func(chery);
       print(result);
@@ -317,7 +317,7 @@ void main() {
         nameEEx,
         name: 'startNameE',
       );
-      final orEx = OrExpression(startNameE, gtNameAge20Ex, name: 'orEx');
+      final orEx = OrExpression([startNameE, gtNameAge20Ex], name: 'orEx');
       final func = sqlBuilder.build(orEx);
       final result = func(chery);
       print(result);
@@ -417,7 +417,7 @@ void main() {
         nameRyEx,
         name: 'endNameRy',
       );
-      final andEx = AndExpression(gtNameAge20Ex, endNameRy, name: 'andEx');
+      final andEx = AndExpression([gtNameAge20Ex, endNameRy], name: 'andEx');
       final func = graphqlBuilder.build(andEx);
       final result = func(chery).toJson();
       print(result);
@@ -435,7 +435,7 @@ void main() {
         nameEEx,
         name: 'startNameE',
       );
-      final orEx = OrExpression(startNameE, gtNameAge20Ex, name: 'orEx');
+      final orEx = OrExpression([startNameE, gtNameAge20Ex], name: 'orEx');
       final func = graphqlBuilder.build(orEx);
       final result = func(chery).toJson();
       print(result);

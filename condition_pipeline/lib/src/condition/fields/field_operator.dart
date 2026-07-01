@@ -25,9 +25,8 @@ const String DESC = 'desc'; // 降順（descending）を示す識別子
 /// - [accept]: ビジターパターンのために自身を渡し、訪問者が処理結果を返す。
 abstract class FieldOperator {
   String get typeName;
-  R accept<T, R>(
+  R accept<T, R extends Function>(
     FieldOperatorVisitor<T, R> visitor,
-    T left,
     ConditionValue right,
   );
 }
@@ -39,9 +38,8 @@ abstract class FieldOperator {
 abstract class SortOperator {
   bool get isDesc;
   String get typeName;
-  R accept<T, R>(
+  R accept<T, R extends Function>(
     SortOperatorVisitor<T, R> visitor,
-    T left,
     ConditionValue right,
   );
 }
@@ -82,13 +80,12 @@ class NullOperator extends CommonFieldOperator {
   NullOperator({this.isNot = false});
 
   @override
-  R accept<T, R>(
+  R accept<T, R extends Function>(
     FieldOperatorVisitor<T, R> visitor,
-    T left,
     ConditionValue right,
   ) {
     if (right case NullValue nullValue) {
-      return visitor.visitNull(this, left, nullValue);
+      return visitor.visitNull(this, nullValue);
     }
     throw AssertionError('$right shall NullValue type.');
   }
@@ -106,12 +103,11 @@ class EqualOperator extends CommonFieldOperator {
 
   EqualOperator({this.isNot = false});
   @override
-  R accept<T, R>(
+  R accept<T, R extends Function>(
     FieldOperatorVisitor<T, R> visitor,
-    T left,
     ConditionValue right,
   ) {
-    return visitor.visitEqual(this, left, right);
+    return visitor.visitEqual(this, right);
   }
 }
 
@@ -127,12 +123,11 @@ class InOperator extends CommonFieldOperator {
 
   InOperator({this.isNot = false});
   @override
-  R accept<T, R>(
+  R accept<T, R extends Function>(
     FieldOperatorVisitor<T, R> visitor,
-    T left,
     ConditionValue right,
   ) {
-    return visitor.visitIn(this, left, right);
+    return visitor.visitIn(this, right);
   }
 }
 
@@ -148,13 +143,12 @@ class LikeOperator extends StringFieldOperator {
 
   LikeOperator({this.isNot = false});
   @override
-  R accept<T, R>(
+  R accept<T, R extends Function>(
     FieldOperatorVisitor<T, R> visitor,
-    T left,
     ConditionValue right,
   ) {
     if (right case StringleValue strValue) {
-      return visitor.visitLike(this, left, strValue);
+      return visitor.visitLike(this, strValue);
     }
     throw AssertionError('$right shall StringleValue type.');
   }
@@ -172,13 +166,12 @@ class StartWithOperator extends StringFieldOperator {
 
   StartWithOperator({this.isNot = false});
   @override
-  R accept<T, R>(
+  R accept<T, R extends Function>(
     FieldOperatorVisitor<T, R> visitor,
-    T left,
     ConditionValue right,
   ) {
     if (right case StringleValue strValue) {
-      return visitor.visitStartWith(this, left, strValue);
+      return visitor.visitStartWith(this, strValue);
     }
     throw AssertionError('$right shall StringleValue type.');
   }
@@ -196,12 +189,11 @@ class EndWithOperator extends StringFieldOperator {
 
   EndWithOperator({this.isNot = false});
   @override
-  R accept<T, R>(
+  R accept<T, R extends Function>(
     FieldOperatorVisitor<T, R> visitor,
-    T left,
     ConditionValue right,
   ) {
-    return visitor.visitEndWith(this, left, right);
+    return visitor.visitEndWith(this, right);
   }
 }
 
@@ -217,12 +209,11 @@ class LessOperator extends NumberFieldOperator {
 
   LessOperator({this.isThanEquals = false});
   @override
-  R accept<T, R>(
+  R accept<T, R extends Function>(
     FieldOperatorVisitor<T, R> visitor,
-    T left,
     ConditionValue right,
   ) {
-    return visitor.visitLess(this, left, right);
+    return visitor.visitLess(this, right);
   }
 }
 
@@ -238,12 +229,11 @@ class GreaterOperator extends NumberFieldOperator {
 
   GreaterOperator({this.isThanEquals = false});
   @override
-  R accept<T, R>(
+  R accept<T, R extends Function>(
     FieldOperatorVisitor<T, R> visitor,
-    T left,
     ConditionValue right,
   ) {
-    return visitor.visitGreater(this, left, right);
+    return visitor.visitGreater(this, right);
   }
 }
 
@@ -259,13 +249,12 @@ class BetweenOperator extends NumberCommonFieldOperator {
 
   BetweenOperator({this.isNot = false});
   @override
-  R accept<T, R>(
+  R accept<T, R extends Function>(
     FieldOperatorVisitor<T, R> visitor,
-    T left,
     ConditionValue right,
   ) {
     if (right case BetweenValue betweenValue) {
-      return visitor.visitBetween(this, left, betweenValue);
+      return visitor.visitBetween(this, betweenValue);
     }
     throw AssertionError('$right shall BetweenValue type.');
   }
@@ -284,13 +273,12 @@ class SortFieldOperator extends SortOperator {
 
   SortFieldOperator({this.isDesc = false});
   @override
-  R accept<T, R>(
+  R accept<T, R extends Function>(
     SortOperatorVisitor<T, R> visitor,
-    T left,
     ConditionValue right,
   ) {
     if (right case ConditionValue<SortValueItem<T>> condition) {
-      return visitor.visitSort(this, left, condition);
+      return visitor.visitSort(this, condition);
     }
     throw AssertionError('$right shall ConditionValue<SortValueItem<T>> type.');
   }

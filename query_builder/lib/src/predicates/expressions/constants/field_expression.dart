@@ -18,7 +18,7 @@ class FieldExpression<T> extends Expression implements IFieldExpression<T> {
   ///Visitorが巡回にきたときの処置。
   ///中でVisitorがこのインスタンスを使ってデリゲートを返す
   @override
-  ExpresionCallBack accept(IVisitor visitor) {
+  ExpressionCallBack accept(IVisitor visitor) {
     try {
       return visitor.fieldVisit(this);
     } catch (ex) {

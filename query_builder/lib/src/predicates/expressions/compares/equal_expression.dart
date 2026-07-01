@@ -9,16 +9,16 @@ abstract interface class IEquqlExpression
 }
 
 ///左を基準に右を評価する式
-class EquqleExpression extends OperatorExpression implements IEquqlExpression {
+class EqualExpression extends OperatorExpression implements IEquqlExpression {
   ///True:否定
   @override
   final bool isNot;
 
-  EquqleExpression(super.left, super.right, {bool? isNot, super.name})
+  EqualExpression(super.left, super.right, {bool? isNot, super.name})
     : isNot = isNot ?? false;
 
   @override
-  ExpresionCallBack accept(IVisitor visitor) {
+  ExpressionCallBack accept(IVisitor visitor) {
     try {
       return visitor.equalVisit(this);
     } catch (ex) {

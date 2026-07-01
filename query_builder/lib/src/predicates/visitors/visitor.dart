@@ -4,37 +4,40 @@ import '../expressions/expressions.dart';
 ///Expressionの巡回する抽象化インターフェイス
 abstract interface class IVisitor<T> {
   ///(T)=>dynamic
-  ExpresionCallBack fieldVisit(FieldExpression<T> ex);
+  ExpressionCallBack fieldVisit(FieldExpression<T> ex);
 
   /// dynamic
-  ExpresionCallBack valueVisit(ValueExpression ex);
+  ExpressionCallBack valueVisit(ValueExpression ex);
 
   /// left = right | left != right
-  ExpresionCallBack equalVisit(EquqleExpression ex);
+  ExpressionCallBack equalVisit(EqualExpression ex);
 
   /// &  AND
-  ExpresionCallBack andVisit(AndExpression ex);
+  ExpressionCallBack andVisit(AndExpression ex);
 
   /// left > right | left>= light
-  ExpresionCallBack greaterVisit(GreaterExpression ex);
+  ExpressionCallBack greaterVisit(GreaterExpression ex);
 
   /// | or
-  ExpresionCallBack orVisit(OrExpression ex);
+  ExpressionCallBack orVisit(OrExpression ex);
 
   /// {!}left.contains(right) | left {NOT} LIKE %right%
-  ExpresionCallBack likeVisit(LikeExpression ex);
+  ExpressionCallBack likeVisit(LikeExpression ex);
+
+  /// {!}left==null | left IS {NOT} NULL
+  ExpressionCallBack nullVisit(NullExpression ex);
 
   /// {!}left.startwith(right) | left {NOT} LIKE 'right%'
-  ExpresionCallBack startWithVisit(StartWithExpression ex);
+  ExpressionCallBack startWithVisit(StartWithExpression ex);
 
   /// {!}left.startwith(right) | left {NOT} LIKE '%right'
-  ExpresionCallBack endWithVisit(EndWithExpression ex);
+  ExpressionCallBack endWithVisit(EndWithExpression ex);
 
   // {!}right.contains(right) | left {NOT} IN (right)
-  ExpresionCallBack inVisit(InExpression ex);
+  ExpressionCallBack inVisit(InExpression ex);
 
   // String
-  ExpresionCallBack nameFieldVisit(NameFieldExpression ex);
+  ExpressionCallBack nameFieldVisit(NameFieldExpression ex);
 }
 
 ///Expressionを巡回する抽象化クラス

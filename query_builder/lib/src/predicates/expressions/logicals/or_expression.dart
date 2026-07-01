@@ -4,14 +4,14 @@ import '../expressions.dart';
 
 ///左を基準に右を結合する式
 abstract interface class IOrExpression
-    implements IExpression, IOperatorExpression {}
+    implements IExpression, IListOperationExpreession {}
 
 ///左を基準に右を結合する式
-class OrExpression extends OperatorExpression implements IOrExpression {
-  OrExpression(super.left, super.right, {super.name});
+class OrExpression extends ListOperationExpreession implements IOrExpression {
+  OrExpression(super.expressions, {super.name});
 
   @override
-  ExpresionCallBack accept(IVisitor visitor) {
+  ExpressionCallBack accept(IVisitor visitor) {
     try {
       return visitor.orVisit(this);
     } catch (ex) {
@@ -22,10 +22,10 @@ class OrExpression extends OperatorExpression implements IOrExpression {
   @override
   DebugNode acceptDebug() {
     final debugPrint = 'OR [${name ?? "no_name"}]';
-    final resultNode = DebugNode(debugPrint, [
-      left.acceptDebug(),
-      right.acceptDebug(),
-    ]);
+    final resultNode = DebugNode(
+      debugPrint,
+      expressions.map((t) => t.acceptDebug()).toList(),
+    );
     return resultNode;
   }
 }

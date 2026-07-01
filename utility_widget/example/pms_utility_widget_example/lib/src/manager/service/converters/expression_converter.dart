@@ -6,26 +6,34 @@ class ListExpressionConverter {
     final operation = row.cells[FilterHelper.filterFieldType]!.value;
     final column = row.cells[FilterHelper.filterFieldColumn]!.value;
     final filterValue = row.cells[FilterHelper.filterFieldValue]!.value;
-
     final fieldEx = FieldExpression<Map<String, dynamic>>((t) => t[column]);
     final valueEx = ValueExpression(filterValue);
   }
 
   Expression toOperator(dynamic operation, Expression left, Expression right) {
-    return switch (operation) {
+    final result = switch (operation) {
       TrinaFilterTypeEquals _ => EqualExpression(left, right),
-      TrinaFilterTypeContains _ => InOperator(),
-      TrinaFilterTypeIsEmpty _ => NullOperator(),
-      TrinaFilterTypeIsNotEmpty _ => NullOperator(isNot: true),
-      TrinaFilterTypeStartsWith _ => StartWithOperator(),
-      TrinaFilterTypeEndsWith _ => EndWithOperator(),
-      TrinaFilterTypeLessThan _ => LessOperator(),
-      TrinaFilterTypeLessThanOrEqualTo _ => LessOperator(isThanEquals: true),
-      TrinaFilterTypeGreaterThan _ => GreaterOperator(),
-      TrinaFilterTypeGreaterThanOrEqualTo _ => GreaterOperator(
-        isThanEquals: true,
+      TrinaFilterTypeContains _ => LikeExpression(left, right),
+      TrinaFilterTypeIsEmpty _ => NullExpression(left),
+      TrinaFilterTypeIsNotEmpty _ => NullExpression(left, isNot: true),
+      TrinaFilterTypeStartsWith _ => StartWithExpression(left, right),
+      TrinaFilterTypeEndsWith _ => EndWithExpression(left, right),
+      TrinaFilterTypeLessThan _ => GreaterExpression(right, left),
+      TrinaFilterTypeLessThanOrEqualTo _ => GreaterExpression(
+        right,
+        left,
+        isEqulity: true,
       ),
-      _ => NullOperator(isNot: true),
+      TrinaFilterTypeGreaterThan _ => GreaterExpression(left, right),
+      TrinaFilterTypeGreaterThanOrEqualTo _ => GreaterExpression(
+        left,
+        right,
+        isEqulity: true,
+      ),
+      //   isThanEquals: true,
+      // ),
+      _ => throw AssertionError(),
     };
+    return result;
   }
 }

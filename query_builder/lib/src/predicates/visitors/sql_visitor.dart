@@ -9,15 +9,12 @@ class SqlVisitor<T> extends Visitor<T>
     with VisitorMixin
     implements ISqlVisitor<T> {
   @override
-  ExpresionCallBack andVisit(AndExpression ex) {
+  ExpressionCallBack andVisit(AndExpression ex) {
     return (dynamic t) {
       typeValidation(ex, t);
       try {
-        final l = ex.left.accept(this);
-        final r = ex.right.accept(this);
-        final lValue = l(t);
-        final rValue = r(t);
-        return "($lValue AND $rValue)";
+        final parts = ex.expressions.map((e) => e.accept(this)(t)).toList();
+        return parts.join(' AND ');
       } catch (exception, trace) {
         throw AssertionError(
           '${ex.name ?? ex.toString()} : ${exception.toString()}\n$trace',
@@ -27,7 +24,7 @@ class SqlVisitor<T> extends Visitor<T>
   }
 
   @override
-  ExpresionCallBack endWithVisit(EndWithExpression ex) {
+  ExpressionCallBack endWithVisit(EndWithExpression ex) {
     return (dynamic t) {
       typeValidation(ex, t);
       try {
@@ -45,7 +42,7 @@ class SqlVisitor<T> extends Visitor<T>
   }
 
   @override
-  ExpresionCallBack equalVisit(EquqleExpression ex) {
+  ExpressionCallBack equalVisit(EqualExpression ex) {
     return (dynamic t) {
       typeValidation(ex, t);
       try {
@@ -64,7 +61,7 @@ class SqlVisitor<T> extends Visitor<T>
   }
 
   @override
-  ExpresionCallBack fieldVisit(FieldExpression<T> ex) {
+  ExpressionCallBack fieldVisit(FieldExpression<T> ex) {
     return (dynamic t) {
       typeValidation(ex, t);
       try {
@@ -81,7 +78,7 @@ class SqlVisitor<T> extends Visitor<T>
   }
 
   @override
-  ExpresionCallBack greaterVisit(GreaterExpression ex) {
+  ExpressionCallBack greaterVisit(GreaterExpression ex) {
     return (dynamic t) {
       //typeValidation(ex, t);
       try {
@@ -100,7 +97,7 @@ class SqlVisitor<T> extends Visitor<T>
   }
 
   @override
-  ExpresionCallBack inVisit(InExpression ex) {
+  ExpressionCallBack inVisit(InExpression ex) {
     return (dynamic t) {
       typeValidation(ex, t);
       try {
@@ -119,7 +116,7 @@ class SqlVisitor<T> extends Visitor<T>
   }
 
   @override
-  ExpresionCallBack likeVisit(LikeExpression ex) {
+  ExpressionCallBack likeVisit(LikeExpression ex) {
     return (dynamic t) {
       typeValidation(ex, t);
       try {
@@ -137,15 +134,12 @@ class SqlVisitor<T> extends Visitor<T>
   }
 
   @override
-  ExpresionCallBack orVisit(OrExpression ex) {
+  ExpressionCallBack orVisit(OrExpression ex) {
     return (dynamic t) {
       typeValidation(ex, t);
       try {
-        final l = ex.left.accept(this);
-        final r = ex.right.accept(this);
-        final lValue = l(t);
-        final rValue = r(t);
-        return "($lValue OR $rValue)";
+        final parts = ex.expressions.map((e) => e.accept(this)(t)).toList();
+        return parts.join(' OR ');
       } catch (exception, trace) {
         throw AssertionError(
           '${ex.name ?? ex.toString()} : ${exception.toString()}\n$trace',
@@ -155,7 +149,7 @@ class SqlVisitor<T> extends Visitor<T>
   }
 
   @override
-  ExpresionCallBack startWithVisit(StartWithExpression ex) {
+  ExpressionCallBack startWithVisit(StartWithExpression ex) {
     return (dynamic t) {
       typeValidation(ex, t);
       try {
@@ -173,7 +167,7 @@ class SqlVisitor<T> extends Visitor<T>
   }
 
   @override
-  ExpresionCallBack valueVisit(ValueExpression ex) {
+  ExpressionCallBack valueVisit(ValueExpression ex) {
     return (dynamic t) {
       try {
         final value = ex.value;
@@ -187,7 +181,7 @@ class SqlVisitor<T> extends Visitor<T>
   }
 
   @override
-  ExpresionCallBack nameFieldVisit(NameFieldExpression ex) {
+  ExpressionCallBack nameFieldVisit(NameFieldExpression ex) {
     return (dynamic t) {
       //typeValidation(ex, t);
       try {
@@ -207,6 +201,22 @@ class SqlVisitor<T> extends Visitor<T>
       num number => number.toString(),
       List list => list.map((t) => changeType(t)).join(','),
       _ => "'$value'",
+    };
+  }
+
+  @override
+  ExpressionCallBack nullVisit(NullExpression ex) {
+    return (dynamic t) {
+      typeValidation(ex, t);
+      try {
+        final l = ex.left.accept(this);
+        final lValue = l(t);
+        return "$lValue ${ex.isNot ? 'IS NOT NULL' : 'IS NULL'}";
+      } catch (exception, trace) {
+        throw AssertionError(
+          '${ex.name ?? ex.toString()} : ${exception.toString()}\n$trace',
+        );
+      }
     };
   }
 }

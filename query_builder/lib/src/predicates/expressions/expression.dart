@@ -9,7 +9,7 @@ abstract interface class IExpression implements IExpressionDebug {
 
   ///Visitorが巡回にきたときの処置。
   ///中でVisitorがこのインスタンスを使ってデリゲートを返す
-  ExpresionCallBack accept(IVisitor visitor);
+  ExpressionCallBack accept(IVisitor visitor);
 }
 
 ///基本となるExpressionのひな形
@@ -24,7 +24,7 @@ abstract class Expression implements IExpression {
   ///Visitorが巡回にきたときの処置。
   ///中でVisitorがこのインスタンスを使ってデリゲートを返す
   @override
-  ExpresionCallBack accept(IVisitor visitor);
+  ExpressionCallBack accept(IVisitor visitor);
 
   ///デバッグ用のこのインスタンスの文字列を返す
   ///[visitor]訪問者

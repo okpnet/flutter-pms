@@ -19,7 +19,7 @@ class GreaterExpression extends OperatorExpression
     : isEqulity = isEqulity ?? false;
 
   @override
-  ExpresionCallBack accept(IVisitor visitor) {
+  ExpressionCallBack accept(IVisitor visitor) {
     try {
       return visitor.greaterVisit(this);
     } catch (ex) {

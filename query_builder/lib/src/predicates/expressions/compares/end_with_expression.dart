@@ -3,24 +3,25 @@ import '../../visitors/visitors.dart';
 import '../expressions.dart';
 
 ///左を基準に右を結合する式
-abstract interface class ILikeExpression
+abstract interface class IEndWithExpression
     implements IExpression, IOperatorExpression {
   bool get isNot;
 }
 
 ///左を基準に右を結合する式
-class LikeExpression extends OperatorExpression implements ILikeExpression {
+class EndWithExpression extends OperatorExpression
+    implements IEndWithExpression {
   ///否定
   @override
   final bool isNot;
 
-  LikeExpression(super.left, super.right, {super.name, bool? isNot})
+  EndWithExpression(super.left, super.right, {super.name, bool? isNot})
     : isNot = isNot ?? false;
 
   @override
-  ExpresionCallBack accept(IVisitor visitor) {
+  ExpressionCallBack accept(IVisitor visitor) {
     try {
-      return visitor.likeVisit(this);
+      return visitor.endWithVisit(this);
     } catch (ex) {
       throw acceptAssertion(ex as Error);
     }
@@ -28,7 +29,7 @@ class LikeExpression extends OperatorExpression implements ILikeExpression {
 
   @override
   DebugNode acceptDebug() {
-    final debugPrint = 'LIKE [${name ?? "no_name"}]';
+    final debugPrint = 'END_WITH [${name ?? "no_name"}]';
     final resultNode = DebugNode(debugPrint, [
       left.acceptDebug(),
       right.acceptDebug(),

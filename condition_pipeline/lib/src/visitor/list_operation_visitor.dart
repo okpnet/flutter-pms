@@ -2,10 +2,10 @@ import '../../condition_pipeline.dart';
 
 /// リスト内の要素を評価する [FieldOperatorVisitor] 実装。
 /// - 各 [visit*] メソッドは [left]（要素）と [right]（条件の基準値）を受け取り、真偽値を返します。
-class ListWhereOperatorVisitor<T> implements FieldOperatorVisitor<T, bool> {
+class ListWhereOperatorVisitor implements FieldOperatorVisitor<dynamic, bool> {
   @override
   bool visitEqual(EqualOperator op, left, right) {
-    return op.isNot ? left != right : left == right;
+    return op.isNot ? left != right.value : left == right.value;
   }
 
   @override
@@ -125,35 +125,29 @@ class ListSortOperatorVisitor<T, R> implements SortOperatorVisitor<T, R> {
 }
 
 /// リスト検索用の [FieldConditionConverter] 実装。
-class ListWhereConverter<T> extends FieldConditionConverter<T, bool> {
-  ListWhereConverter({required super.opVisitor, required super.extractValue});
+class ListWhereConverter<T, R extends Function>
+    extends FieldConditionConverter<T, R> {
+  ListWhereConverter({required super.opVisitor});
 
   /// [evaluateFieldReference]: フィールド同士の比較条件を評価します。
   /// - [cond]: 評価対象の [FieldReferenceCondition]。
   /// - [left]: 抽出元のオブジェクト。
   /// - [rightValue]: 右辺の値（フィールド参照）※この実装では未使用。
   @override
-  bool evaluateFieldReference(
-    FieldReferenceCondition cond,
-    T left,
-    rightValue,
-  ) {
-    final valueLeft = extractValue(left, cond);
+  R evaluateFieldReference(FieldReferenceCondition cond, rightValue) {
+    final l = cond.field(left);
+    final r = cond.toField(left);
+    return cond.operator.accept(opVisitor, ConditionValue());
+  }
 
-    final valueRight = extractValue(
-      left,
-      FieldReferenceCondition(
-        toField: cond.toField,
-        field: cond.field,
-        operator: cond.operator,
-      ),
-    );
-    final arg = ValueFieldCondition(
-      field: cond.field,
-      operator: cond.operator,
-      value: valueLeft,
-    );
-    return super.evaluateValueField(arg, valueLeft, valueRight);
+  @override
+  bool evaluateValueField(
+    ValueFieldCondition<dynamic> cond,
+    T left,
+    ConditionValue<dynamic> rightValue,
+  ) {
+    final l = cond.field(left);
+    return cond.operator.accept(opVisitor, l, rightValue);
   }
 }
 

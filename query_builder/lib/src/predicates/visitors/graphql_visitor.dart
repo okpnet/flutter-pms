@@ -9,17 +9,12 @@ class GraphqlVisitor<T> extends Visitor<T>
     with VisitorMixin
     implements IGraphqlVisitor<T> {
   @override
-  ExpresionCallBack andVisit(AndExpression ex) {
+  ExpressionCallBack andVisit(AndExpression ex) {
     return (dynamic t) {
       typeValidation(ex, t);
       try {
-        final l = ex.left.accept(this);
-        final r = ex.right.accept(this);
-        final lValue = l(t);
-        final rValue = r(t);
-        return {
-          '_and': [lValue, rValue],
-        };
+        final parts = ex.expressions.map((e) => e.accept(this)(t)).toList();
+        return {"_and": parts};
       } catch (exception, trace) {
         throw AssertionError(
           '${ex.name ?? ex.toString()} : ${exception.toString()}\n$trace',
@@ -29,7 +24,7 @@ class GraphqlVisitor<T> extends Visitor<T>
   }
 
   @override
-  ExpresionCallBack endWithVisit(EndWithExpression ex) {
+  ExpressionCallBack endWithVisit(EndWithExpression ex) {
     return (dynamic t) {
       typeValidation(ex, t);
       try {
@@ -49,7 +44,7 @@ class GraphqlVisitor<T> extends Visitor<T>
   }
 
   @override
-  ExpresionCallBack equalVisit(EquqleExpression ex) {
+  ExpressionCallBack equalVisit(EqualExpression ex) {
     return (dynamic t) {
       typeValidation(ex, t);
       try {
@@ -69,7 +64,7 @@ class GraphqlVisitor<T> extends Visitor<T>
   }
 
   @override
-  ExpresionCallBack fieldVisit(FieldExpression<T> ex) {
+  ExpressionCallBack fieldVisit(FieldExpression<T> ex) {
     return (dynamic t) {
       typeValidation(ex, t);
       try {
@@ -86,7 +81,7 @@ class GraphqlVisitor<T> extends Visitor<T>
   }
 
   @override
-  ExpresionCallBack greaterVisit(GreaterExpression ex) {
+  ExpressionCallBack greaterVisit(GreaterExpression ex) {
     return (dynamic t) {
       typeValidation(ex, t);
       try {
@@ -106,7 +101,7 @@ class GraphqlVisitor<T> extends Visitor<T>
   }
 
   @override
-  ExpresionCallBack inVisit(InExpression ex) {
+  ExpressionCallBack inVisit(InExpression ex) {
     return (dynamic t) {
       typeValidation(ex, t);
       try {
@@ -131,7 +126,7 @@ class GraphqlVisitor<T> extends Visitor<T>
   }
 
   @override
-  ExpresionCallBack likeVisit(LikeExpression ex) {
+  ExpressionCallBack likeVisit(LikeExpression ex) {
     return (dynamic t) {
       typeValidation(ex, t);
       try {
@@ -151,17 +146,12 @@ class GraphqlVisitor<T> extends Visitor<T>
   }
 
   @override
-  ExpresionCallBack orVisit(OrExpression ex) {
+  ExpressionCallBack orVisit(OrExpression ex) {
     return (dynamic t) {
       typeValidation(ex, t);
       try {
-        final l = ex.left.accept(this);
-        final r = ex.right.accept(this);
-        final lValue = l(t);
-        final rValue = r(t);
-        return {
-          '_or': [lValue, rValue],
-        };
+        final parts = ex.expressions.map((e) => e.accept(this)(t)).toList();
+        return {"_or": parts};
       } catch (exception, trace) {
         throw AssertionError(
           '${ex.name ?? ex.toString()} : ${exception.toString()}\n$trace',
@@ -171,7 +161,7 @@ class GraphqlVisitor<T> extends Visitor<T>
   }
 
   @override
-  ExpresionCallBack startWithVisit(StartWithExpression ex) {
+  ExpressionCallBack startWithVisit(StartWithExpression ex) {
     return (dynamic t) {
       typeValidation(ex, t);
       try {
@@ -191,7 +181,7 @@ class GraphqlVisitor<T> extends Visitor<T>
   }
 
   @override
-  ExpresionCallBack valueVisit(ValueExpression ex) {
+  ExpressionCallBack valueVisit(ValueExpression ex) {
     return (dynamic t) {
       try {
         final value = ex.value;
@@ -205,13 +195,37 @@ class GraphqlVisitor<T> extends Visitor<T>
   }
 
   @override
-  ExpresionCallBack nameFieldVisit(NameFieldExpression ex) {
+  ExpressionCallBack nameFieldVisit(NameFieldExpression ex) {
     return (dynamic t) {
       //typeValidation(ex, t);
       try {
         // ignore: unnecessary_cast
         final filed = ex.value;
         return filed;
+      } catch (exception, trace) {
+        throw AssertionError(
+          '${ex.name ?? ex.toString()} : ${exception.toString()}\n$trace',
+        );
+      }
+    };
+  }
+
+  @override
+  ExpressionCallBack nullVisit(NullExpression ex) {
+    return (dynamic t) {
+      typeValidation(ex, t);
+
+      try {
+        // 左辺はフィールド名を返す Expression
+        final l = ex.left.accept(this);
+        final lValue = l(t);
+
+        return <String, dynamic>{
+          lValue: {
+            "_is_null":
+                !ex.isNot, // isNot=false → IS NULL, isNot=true → IS NOT NULL
+          },
+        };
       } catch (exception, trace) {
         throw AssertionError(
           '${ex.name ?? ex.toString()} : ${exception.toString()}\n$trace',

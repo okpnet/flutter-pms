@@ -6,7 +6,7 @@ import 'visit.dart';
 /// - [converter]: 各フィールド条件を評価するための [FieldConditionConverter]。
 /// - [combine]: 子ノードを結合するための関数。引数は [left], [right], [GruleRule]。
 /// - [group]: グループ化（ネスト）された結果を加工するためのオプション関数。
-class GenericConditionVisitor<T, R> extends Visitor<T, R>
+class GenericConditionVisitor<T, R extends Function> extends Visitor<T, R>
     with ConditionVisiterMixin<T, R> {
   @override
   final FieldConditionConverter<T, R> converter;
@@ -25,7 +25,7 @@ class GenericConditionVisitor<T, R> extends Visitor<T, R>
 /// フィルター条件ノードを [R] に変換する振る舞いを提供するミックスイン。
 /// - [getVisitList]: ビジタが巡回対象とするノードをフィルタリングします。
 /// - [evaluate]: 指定した [condition] を評価し、[item] に基づいて [R] を返します。
-mixin ConditionVisiterMixin<T, R> on Visitor<T, R> {
+mixin ConditionVisiterMixin<T, R extends Function> on Visitor<T, R> {
   FieldConditionConverter<T, R> get converter;
 
   @override
@@ -36,16 +36,14 @@ mixin ConditionVisiterMixin<T, R> on Visitor<T, R> {
   /// - [ValueFieldCondition]: [converter.evaluateValueField] を呼び出して評価します。
   /// - [FieldReferenceCondition]: [converter.evaluateFieldReference] を呼び出して評価します。
   @override
-  R evaluate(SearchCondition condition, T item) {
+  R evaluate(SearchCondition condition) {
     return switch (condition) {
       ValueFieldCondition valueField => converter.evaluateValueField(
         valueField,
-        item,
         valueField.value,
       ),
       FieldReferenceCondition refField => converter.evaluateFieldReference(
         refField,
-        item,
         FieldReferenceValue(
           FieldReferenceItem(left: refField.field, right: refField.toField),
         ),

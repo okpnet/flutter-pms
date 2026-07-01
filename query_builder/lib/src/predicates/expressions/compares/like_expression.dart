@@ -3,24 +3,24 @@ import '../../visitors/visitors.dart';
 import '../expressions.dart';
 
 ///左を基準に右を結合する式
-abstract interface class IInExpression
+abstract interface class ILikeExpression
     implements IExpression, IOperatorExpression {
   bool get isNot;
 }
 
 ///左を基準に右を結合する式
-class InExpression extends OperatorExpression implements IInExpression {
+class LikeExpression extends OperatorExpression implements ILikeExpression {
   ///否定
   @override
   final bool isNot;
 
-  InExpression(super.left, super.right, {super.name, bool? isNot})
+  LikeExpression(super.left, super.right, {super.name, bool? isNot})
     : isNot = isNot ?? false;
 
   @override
-  ExpresionCallBack accept(IVisitor visitor) {
+  ExpressionCallBack accept(IVisitor visitor) {
     try {
-      return visitor.inVisit(this);
+      return visitor.likeVisit(this);
     } catch (ex) {
       throw acceptAssertion(ex as Error);
     }
@@ -28,7 +28,7 @@ class InExpression extends OperatorExpression implements IInExpression {
 
   @override
   DebugNode acceptDebug() {
-    final debugPrint = 'IN [${name ?? "no_name"}]';
+    final debugPrint = 'LIKE [${name ?? "no_name"}]';
     final resultNode = DebugNode(debugPrint, [
       left.acceptDebug(),
       right.acceptDebug(),
