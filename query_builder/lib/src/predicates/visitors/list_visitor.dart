@@ -13,6 +13,10 @@ class ListVisitor<T> extends Visitor<T>
   @override
   ExpressionCallBack andVisit(AndExpression ex) {
     return (dynamic t) {
+      if (ex.expressions.isEmpty) {
+        ///空であれば常にTrueを返す
+        return true;
+      }
       typeValidation(ex, t);
       try {
         for (final e in ex.expressions) {
@@ -20,6 +24,28 @@ class ListVisitor<T> extends Visitor<T>
           if (!cb(t)) return false;
         }
         return true;
+      } catch (exception, trace) {
+        throw AssertionError(
+          '${ex.name ?? ex.toString()} : ${exception.toString()}\n$trace',
+        );
+      }
+    };
+  }
+
+  @override
+  ExpressionCallBack orVisit(OrExpression ex) {
+    return (dynamic t) {
+      if (ex.expressions.isEmpty) {
+        ///空であれば常にFalseを返す
+        return false;
+      }
+      typeValidation(ex, t);
+      try {
+        for (final e in ex.expressions) {
+          final cb = e.accept(this);
+          if (cb(t)) return true;
+        }
+        return false;
       } catch (exception, trace) {
         throw AssertionError(
           '${ex.name ?? ex.toString()} : ${exception.toString()}\n$trace',
@@ -110,24 +136,6 @@ class ListVisitor<T> extends Visitor<T>
       try {
         final value = ex.value;
         return value;
-      } catch (exception, trace) {
-        throw AssertionError(
-          '${ex.name ?? ex.toString()} : ${exception.toString()}\n$trace',
-        );
-      }
-    };
-  }
-
-  @override
-  ExpressionCallBack orVisit(OrExpression ex) {
-    return (dynamic t) {
-      typeValidation(ex, t);
-      try {
-        for (final e in ex.expressions) {
-          final cb = e.accept(this);
-          if (cb(t)) return true;
-        }
-        return false;
       } catch (exception, trace) {
         throw AssertionError(
           '${ex.name ?? ex.toString()} : ${exception.toString()}\n$trace',

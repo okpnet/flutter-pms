@@ -11,10 +11,31 @@ class GraphqlVisitor<T> extends Visitor<T>
   @override
   ExpressionCallBack andVisit(AndExpression ex) {
     return (dynamic t) {
+      if (ex.expressions.isEmpty) {
+        return {};
+      }
       typeValidation(ex, t);
       try {
         final parts = ex.expressions.map((e) => e.accept(this)(t)).toList();
         return {"_and": parts};
+      } catch (exception, trace) {
+        throw AssertionError(
+          '${ex.name ?? ex.toString()} : ${exception.toString()}\n$trace',
+        );
+      }
+    };
+  }
+
+  @override
+  ExpressionCallBack orVisit(OrExpression ex) {
+    return (dynamic t) {
+      if (ex.expressions.isEmpty) {
+        return {};
+      }
+      typeValidation(ex, t);
+      try {
+        final parts = ex.expressions.map((e) => e.accept(this)(t)).toList();
+        return {"_or": parts};
       } catch (exception, trace) {
         throw AssertionError(
           '${ex.name ?? ex.toString()} : ${exception.toString()}\n$trace',
@@ -137,21 +158,6 @@ class GraphqlVisitor<T> extends Visitor<T>
         return {
           lValue: {ex.isNot ? '_nlike' : '_like': '%$rValue%'},
         };
-      } catch (exception, trace) {
-        throw AssertionError(
-          '${ex.name ?? ex.toString()} : ${exception.toString()}\n$trace',
-        );
-      }
-    };
-  }
-
-  @override
-  ExpressionCallBack orVisit(OrExpression ex) {
-    return (dynamic t) {
-      typeValidation(ex, t);
-      try {
-        final parts = ex.expressions.map((e) => e.accept(this)(t)).toList();
-        return {"_or": parts};
       } catch (exception, trace) {
         throw AssertionError(
           '${ex.name ?? ex.toString()} : ${exception.toString()}\n$trace',

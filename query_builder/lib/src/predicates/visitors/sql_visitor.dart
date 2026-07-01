@@ -11,10 +11,33 @@ class SqlVisitor<T> extends Visitor<T>
   @override
   ExpressionCallBack andVisit(AndExpression ex) {
     return (dynamic t) {
+      if (ex.expressions.isEmpty) {
+        return '';
+      }
       typeValidation(ex, t);
       try {
-        final parts = ex.expressions.map((e) => e.accept(this)(t)).toList();
-        return parts.join(' AND ');
+        final mergeEx = ex.expressions.map((e) => e.accept(this)(t)).toList();
+        final result = mergeEx.join(' AND ');
+        return '($result)';
+      } catch (exception, trace) {
+        throw AssertionError(
+          '${ex.name ?? ex.toString()} : ${exception.toString()}\n$trace',
+        );
+      }
+    };
+  }
+
+  @override
+  ExpressionCallBack orVisit(OrExpression ex) {
+    return (dynamic t) {
+      if (ex.expressions.isEmpty) {
+        return '';
+      }
+      typeValidation(ex, t);
+      try {
+        final mergeEx = ex.expressions.map((e) => e.accept(this)(t)).toList();
+        final result = mergeEx.join(' OR ');
+        return ('($result)');
       } catch (exception, trace) {
         throw AssertionError(
           '${ex.name ?? ex.toString()} : ${exception.toString()}\n$trace',
@@ -125,21 +148,6 @@ class SqlVisitor<T> extends Visitor<T>
         final lValue = l(t);
         final rValue = r(t);
         return "$lValue ${ex.isNot ? 'NOT LIKE' : 'LIKE'} '%$rValue%'";
-      } catch (exception, trace) {
-        throw AssertionError(
-          '${ex.name ?? ex.toString()} : ${exception.toString()}\n$trace',
-        );
-      }
-    };
-  }
-
-  @override
-  ExpressionCallBack orVisit(OrExpression ex) {
-    return (dynamic t) {
-      typeValidation(ex, t);
-      try {
-        final parts = ex.expressions.map((e) => e.accept(this)(t)).toList();
-        return parts.join(' OR ');
       } catch (exception, trace) {
         throw AssertionError(
           '${ex.name ?? ex.toString()} : ${exception.toString()}\n$trace',
