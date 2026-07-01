@@ -1,6 +1,6 @@
 import 'package:condition_pipeline/condition_pipeline.dart';
 import 'package:trina_grid/trina_grid.dart';
-import 'package:utility_widget_example/src/condition_pipeline/adapter/to_serarch_condition_helper.dart';
+import 'package:utility_widget_example/src/manager/service/helpers/to_serarch_condition_helper.dart';
 
 class ToSortConditionHelper {
   static SearchCondition fromTrinaLazyPaginationRequest({

@@ -1,4 +1,5 @@
 import 'package:condition_pipeline/condition_pipeline.dart';
+import 'package:query_builder/query_builder.dart';
 import 'package:trina_grid/trina_grid.dart';
 
 /// Trina から検索条件へ変換するためのマーカーインターフェース。
@@ -30,7 +31,7 @@ class ToConditionHelper {
   /// - `parent`: 生成する条件の親条件（必要な場合）
   ///
   /// 戻り値は対応する `FieldCondition`（または `NullOperator` 等）です。
-  static SearchCondition toConditionFromFilterRow(TrinaRow filterRow) {
+  static Expression toConditionFromFilterRow(TrinaRow filterRow) {
     // フィルタ行のセル値に応じて、対応する FieldOperator を選択する
     final operator = toOperator(filterRow);
     final condition = toConditionFromDataRow(
@@ -42,7 +43,7 @@ class ToConditionHelper {
   }
 
   /// 複数のフィルタ行から `RootCondition` を作成し、各条件を AND で結合して返す。
-  static RootCondition toConditionsFromFilterRows(List<TrinaRow> filterRows) {
+  static Expression toConditionsFromFilterRows(List<TrinaRow> filterRows) {
     final root = RootCondition();
     // ルート条件に AND ブランチを追加
     final branch = root.addBranch(siblingsRule: .and);
@@ -58,7 +59,7 @@ class ToConditionHelper {
   ///
   /// データ行とフィールド情報から単一の `BranchCondition`（AND）を生成する。
   /// この関数は、行のセル値を条件の値として使用します。
-  static SearchCondition toConditionFromDataRow({
+  static Expression toConditionFromDataRow({
     required TrinaRow row,
     required String fieldId,
     required FieldOperator operator,
