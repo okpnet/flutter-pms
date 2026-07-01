@@ -2,12 +2,23 @@ import 'package:query_builder/query_builder.dart';
 import 'package:trina_grid/trina_grid.dart';
 
 class ListExpressionConverter {
+  Expression build(List<TrinaRow> filterRows) {
+    for (var row in filterRows) {
+      //AndExpressionにtoExpressionの結果をまとめる
+      //ただし、左辺と右辺があるときだけ(filterrowsが2以上)
+      //余り1が発生したときは、まとめたAndExpressionを左辺に、余りを右辺にする
+      //問題は、評価する順番が先頭になるようにするため、リバースで順を変えなければいけないかどうか
+    }
+  }
+
   Expression toExpression(TrinaRow row) {
     final operation = row.cells[FilterHelper.filterFieldType]!.value;
     final column = row.cells[FilterHelper.filterFieldColumn]!.value;
     final filterValue = row.cells[FilterHelper.filterFieldValue]!.value;
     final fieldEx = FieldExpression<Map<String, dynamic>>((t) => t[column]);
     final valueEx = ValueExpression(filterValue);
+
+    return toOperator(operation, fieldEx, valueEx);
   }
 
   Expression toOperator(dynamic operation, Expression left, Expression right) {
