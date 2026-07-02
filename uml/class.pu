@@ -1,0 +1,102 @@
+@startuml classes
+
+' ===========================
+' UI Layer
+' ===========================
+class TrinaGridUI {
+}
+
+interface GridDataProvider {
+    +fetchData(): List<T>
+}
+
+class DefaultGridDataProvider<T> {
+    -adapter: FilterExpressionAdapter
+    -facade: QueryFacade<T>
+    +fetchData(): List<T>
+}
+
+TrinaGridUI --> GridDataProvider : uses
+GridDataProvider <|.. DefaultGridDataProvider
+
+
+' ===========================
+' Adapter Layer
+' ===========================
+class FilterExpressionAdapter {
+    +toExpression(filterRows): Expression
+}
+
+DefaultGridDataProvider --> FilterExpressionAdapter : uses
+
+
+' ===========================
+' Expression DSL (Composite)
+' ===========================
+abstract class Expression {
+}
+
+class AndExpression {
+    +items: List<Expression>
+}
+
+class OrExpression {
+    +items: List<Expression>
+}
+
+class FieldExpression {
+    +field: String
+}
+
+class ValueExpression {
+    +value: Object
+}
+
+Expression <|-- AndExpression
+Expression <|-- OrExpression
+Expression <|-- FieldExpression
+Expression <|-- ValueExpression
+
+
+' ===========================
+' Facade Layer
+' ===========================
+class QueryFacade<T> {
+    -repository: DataRepository<T>
+    +execute(expr: Expression): List<T>
+}
+
+DefaultGridDataProvider --> QueryFacade : uses
+
+
+' ===========================
+' Repository Layer (Bridge)
+' ===========================
+interface DataRepository<T> {
+    +find(expr: Expression): List<T>
+}
+
+class HasuraRepository<T> {
+    -datasource: BackendDataSource
+    +find(expr: Expression): List<T>
+}
+
+DataRepository <|.. HasuraRepository
+QueryFacade --> DataRepository : uses
+
+
+' ===========================
+' DataSource Layer
+' ===========================
+interface BackendDataSource {
+    +query(json: Json): Json
+}
+
+class GraphQLDataSource {
+    +query(json: Json): Json
+}
+
+BackendDataSource <|.. GraphQLDataSource
+HasuraRepository --> BackendDataSource : uses
+
+@enduml
