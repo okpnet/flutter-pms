@@ -42,6 +42,8 @@ dependencies:
       ref: main
   query_builder:
     path: ../../../query_builder
+  data_strategist:
+    path: ../../../data_strategist
 dev_dependencies:
   flutter_test:
     sdk: flutter

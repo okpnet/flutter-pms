@@ -32,10 +32,15 @@ class FilterExpressionAdapter
     int skip = 0,
   }) {
     final expressions = filterRows?.map((row) => _rowTransrater(row)).toList();
+    final sortEx = columns
+        ?.where((t) => !t.sort.isNone)
+        .map((t) => _columnTransrater(t))
+        .toList();
     return PridicateModel(
       take: take,
       skip: skip,
       pridicate: expressions == null ? null : AndExpression(expressions),
+      orders: sortEx == null ? null : SortListExpression(sortOrderList: sortEx),
     );
   }
 
@@ -48,9 +53,7 @@ class FilterExpressionAdapter
     final filterValue = row.cells[FilterHelper.filterFieldValue]!.value;
 
     ///レポジトリのタイプに応じて切り替える
-    final fieldEx = state.expressionVisitorType != .list
-        ? NameFieldExpression(column.field)
-        : FieldExpression<Map<String, dynamic>>((t) => t[column.field]);
+    final fieldEx = state.createFieldExpression(column);
 
     final valueEx = ValueExpression(filterValue);
 
@@ -87,5 +90,11 @@ class FilterExpressionAdapter
       _ => throw AssertionError(),
     };
     return result;
+  }
+
+  ///TrinaGridのColumnをSortExpressionに変換する
+  ISortDirectionExpression _columnTransrater(TrinaColumn column) {
+    final sortexpression = state.createSortFieldExpression(column);
+    return sortexpression as ISortDirectionExpression;
   }
 }

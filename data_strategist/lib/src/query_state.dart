@@ -1,6 +1,14 @@
 import 'package:data_strategist/src/data_repository.dart';
 import 'package:data_strategist/src/filter_expression_adapter.dart';
 import 'package:data_strategist/src/query_facade.dart';
+import 'package:query_builder/query_builder.dart';
+import 'package:trina_grid/trina_grid.dart';
+
+///Tを受け取ってdynamicを返す、FieldExpression、SortExpressionの式
+typedef FieldCallback<T> = dynamic Function(T);
+
+///列からフィールド式を返すコマンド
+typedef FieldCmdCallback<T> = FieldCallback<T> Function(TrinaColumn);
 
 ///ExpressionBuilderに適用するVisitorのタイプ
 enum ExpressionVisitorType { list, sql, graphQL }
@@ -23,10 +31,16 @@ abstract interface class IQueeyState {
 
   ///TrinaGridのフィルターから、条件式モデルを生成する
   FilterExpressionAdapter get adapter;
+
+  ///列から検索条件の左辺、FieldExpressionを生成する
+  Expression createFieldExpression(TrinaColumn column);
+
+  ///列からソート列を生成する
+  SortExpression createSortFieldExpression(TrinaColumn column);
 }
 
 ///クラスがQueeyStateを持っている
-class QueryState implements IQueeyState {
+class QueryState<T> implements IQueeyState {
   static const int defaultTakeCount = 4;
 
   final int take;
@@ -48,9 +62,22 @@ class QueryState implements IQueeyState {
   FilterExpressionAdapter get adapter =>
       FilterExpressionAdapter(state: this, take: take);
 
+  final FieldCmdCallback<T> cmd;
+
   QueryState({
     required this.take,
     required this.expressionVisitorType,
     required this.repository,
+    required this.cmd,
   });
+
+  ///列から検索条件の左辺、FieldExpressionを生成する
+  @override
+  Expression createFieldExpression(TrinaColumn column) =>
+      FieldExpression<T>(cmd(column));
+
+  @override
+  ///列からソート列を生成する
+  SortExpression createSortFieldExpression(TrinaColumn column) =>
+      SortFieldExpression<T>(cmd(column), isDesc: column.sort.isDescending);
 }
