@@ -1,10 +1,10 @@
 import 'dart:async';
+import 'package:data_strategist/lib.dart';
 import 'package:flutter/services.dart';
 import 'package:utility_widget/utiritiy_widget.dart';
 import 'package:utility_widget_example/constant/demo/asset_reader.dart';
-import 'package:utility_widget_example/constant/demo/demo_pagenation_reader_service.dart';
+import 'package:utility_widget_example/src/manager/model/summary_data.dart';
 import 'package:utility_widget_example/src/manager/provider/grid_provider.dart';
-import 'package:utility_widget_example/src/manager/service/pms_repository_service.dart';
 import 'package:utility_widget_example/src/manager/state/grid_state.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 import 'package:trina_grid/trina_grid.dart';
@@ -23,14 +23,22 @@ class Office extends StatefulWidget {
 
 class OfficeState extends PmsWidgetState<Office> with PagenationOfTrinaGrid {
   final GridState _state = GridState();
+
+  ///条件を絞り込むクエリマネージャ
+  final QueryState<Map<String, dynamic>, SummaryLoadData> _queryState =
+      QueryState<Map<String, dynamic>, SummaryLoadData>(
+        take: 4,
+        expressionVisitorType: .list,
+        repository: OfficeAsset(),
+        cmd: (column) =>
+            (t) => t[column.field],
+      );
+
   late final TrinaGridStateManager _stateManager;
 
-  final DemoPagenaationReaderService _demoPagenaationReaderService =
-      DemoPagenaationReaderService(assetReader: OfficeAsset());
-
   @override
-  ReaderService<List<Map<String, dynamic>>> get readerService =>
-      _demoPagenaationReaderService;
+  QueryState<Map<String, dynamic>, SummaryLoadData> get queryState =>
+      _queryState;
 
   @override
   PmsState get state => _state;
@@ -65,7 +73,7 @@ class OfficeState extends PmsWidgetState<Office> with PagenationOfTrinaGrid {
               //初回に一度だけ呼ばれる
               _stateManager = stateManager;
             },
-            createHeader: (_) => TrinaGridSummaryHader(summaryState: _state!),
+            createHeader: (_) => TrinaGridSummaryHader(summaryState: _state),
             columns: OfficeColumn.columns,
             rows: [],
             onRowSecondaryTap: (event) {},
@@ -77,7 +85,7 @@ class OfficeState extends PmsWidgetState<Office> with PagenationOfTrinaGrid {
                 fetchWithFiltering: true,
                 pageSizeToMove: null,
                 stateManager: stateManager,
-                fetch: (e) => loadPage(e, 4),
+                fetch: (e) => loadPage(e),
               );
             },
           ),

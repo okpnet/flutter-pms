@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:condition_pipeline/condition_pipeline.dart';
 import 'package:trina_grid/trina_grid.dart';
 import 'package:utility_widget/utiritiy_widget.dart';
 import 'package:utility_widget_example/constant/results/result.dart';
@@ -12,13 +10,13 @@ import 'package:utility_widget_example/src/manager/service/pms_repository_servic
 import 'package:utility_widget_example/src/manager/state/grid_state.dart';
 import 'package:utility_widget_example/src/manager/state/pms_state.dart';
 import 'package:utility_widget_example/src/ui/pms_widget_state.dart';
+import 'package:data_strategist/data_strategist.dart';
 
 part 'pagenation_provider.dart';
 part 'tree_provider.dart';
 
-typedef InitConditionCallback = RootCondition Function(TrinaRow? row);
-typedef IConditionCallback =
-    RootCondition Function(TrinaGridStateManager state, TrinaRow row);
+typedef JsonMap = Map<String, dynamic>;
+typedef PridicateCallback = IPridicateModel Function(TrinaRow row);
 
 ///TrinaGridのstateManagerを保持するインターフェイス。PultoGridから以降した。
 abstract class IGridStateManagerOfTrinaGrid {
@@ -30,19 +28,22 @@ abstract class IGridStateManagerOfTrinaGrid {
 }
 
 ///ツリー表現をするtrina_gridのプロバイダインターフェイス
-abstract class ITreeGridStateManagerOfTrinaGrid<T> {
+abstract class ITreeGridStateManagerOfTrinaGrid<T, R> {
   ///データ取得サービス
   ReaderService<T> get readerService;
 
-  ///読み込み最初の条件式。以降は[IConditionCallback]が呼ばれる
-  InitConditionCallback get toInitCondition;
+  ///読み込み最初の条件式。以降は[toCondition]が呼ばれる
+  IPridicateModel get toInitCondition;
 
   ///最初以降の展開時の条件式
-  IConditionCallback get toCondition;
+  PridicateCallback get toCondition;
+
+  ///データ取得のサービスの状態
+  QueryState<T, R> get queryState;
 }
 
 ///ペーzネーションをするtrina_gridのプロバイダインターフェイス
-abstract class IPagenationOfTrinaGrid<T> {
-  ///データ取得サービス
-  ReaderService<T> get readerService;
+abstract class IPagenationOfTrinaGrid<T, R> {
+  ///データ取得のサービスの状態
+  QueryState<T, R> get queryState;
 }

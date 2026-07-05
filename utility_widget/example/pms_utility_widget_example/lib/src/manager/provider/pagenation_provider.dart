@@ -1,25 +1,31 @@
 part of 'grid_provider.dart';
 
 ///ページネーション操作を追加する
-mixin PagenationOfTrinaGrid on IPmsWidgetState
-    implements IGridStateManagerOfTrinaGrid, IPagenationOfTrinaGrid {
+mixin PagenationOfTrinaGrid<T> on IPmsWidgetState
+    implements
+        IGridStateManagerOfTrinaGrid,
+        IPagenationOfTrinaGrid<T, SummaryLoadData<JsonMap>> {
   ///ページの読み込み
   Future<TrinaLazyPaginationResponse> loadPage(
     TrinaLazyPaginationRequest request,
-    int take,
   ) async {
     final root = ToSortConditionHelper.fromTrinaLazyPaginationRequest(
       request: request,
-      take: take,
+      take: queryState.take,
+    );
+    final rows = stateManager.filterRows;
+    final columns = stateManager.columns;
+    final skip = request.page * queryState.take;
+    final pridicateModel = queryState.adapter.build(
+      filterRows: rows,
+      columns: columns,
+      skip: skip,
     );
 
-    // stateManagerProviders.setShowLoading(true);
-    final rowJson = switch (await readerService.read(root)) {
-      Ok<List<Map<String, dynamic>>> jsonList => [
-        for (var row in jsonList.value) TrinaRow.fromJson(row), //ここは変換プロバイダに変更
-      ],
-      _ => <TrinaRow>[],
-    };
+    final resultSummary = await queryState.facade.execute(pridicateModel);
+    final rowJson = [
+      for (var row in resultSummary.loadData) TrinaRow.fromJson(row),
+    ];
 
     final result = SummaryData(
       numberOfRecords: rowJson.length,

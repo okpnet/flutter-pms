@@ -1,5 +1,10 @@
-import 'package:data_strategist/src/pridicate_model.dart';
+import 'package:query_builder/query_builder.dart';
 
-abstract interface class IDataRepository {
-  List<T> find<T>(PridicateModel model);
+abstract interface class IDataRepository<R> {
+  Future<R> find({
+    required int take,
+    int skip = 0,
+    Expression? pridicate,
+    SortExpression? order,
+  });
 }

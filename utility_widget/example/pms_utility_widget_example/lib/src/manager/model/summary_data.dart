@@ -16,8 +16,8 @@ class SummaryData {
   }
 }
 
-class SummaryLoadData extends SummaryData {
-  final List<Map<String, dynamic>> loadData;
+class SummaryLoadData<T> extends SummaryData {
+  final List<T> loadData;
 
   const SummaryLoadData({
     required this.loadData,
@@ -29,7 +29,7 @@ class SummaryLoadData extends SummaryData {
   SummaryLoadData copyWith({
     int? numberOfRecords,
     int? filteredNumberOfRecords,
-    List<Map<String, dynamic>>? loadData,
+    List<T>? loadData,
   }) {
     return SummaryLoadData(
       loadData: loadData ?? this.loadData,

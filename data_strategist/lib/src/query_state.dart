@@ -19,7 +19,7 @@ abstract interface class IQueryStateful {
 }
 
 ///レポジトリの状態管理
-abstract interface class IQueeyState {
+abstract interface class IQueryState {
   ///ExpressionBuilderに適用するVisitorのタイプ
   ExpressionVisitorType get expressionVisitorType;
 
@@ -32,6 +32,9 @@ abstract interface class IQueeyState {
   ///TrinaGridのフィルターから、条件式モデルを生成する
   FilterExpressionAdapter get adapter;
 
+  ///最大取得件数
+  int get take;
+
   ///列から検索条件の左辺、FieldExpressionを生成する
   Expression createFieldExpression(TrinaColumn column);
 
@@ -40,9 +43,11 @@ abstract interface class IQueeyState {
 }
 
 ///クラスがQueeyStateを持っている
-class QueryState<T> implements IQueeyState {
+///[T]Expressionの引数の型
+///[R]問い合わせの結果の型
+class QueryState<T, R> implements IQueryState {
   static const int defaultTakeCount = 4;
-
+  @override
   final int take;
 
   ///ExpressionBuilderに適用するVisitorのタイプ
@@ -51,11 +56,11 @@ class QueryState<T> implements IQueeyState {
 
   ///データ取得の問い合わせ窓口
   @override
-  QueryFacade get facade => QueryFacade(this);
+  QueryFacade<T, R> get facade => QueryFacade(this);
 
   ///レポジトリを生成
   @override
-  final IDataRepository repository;
+  final IDataRepository<R> repository;
 
   ///TrinaGridのフィルターから、条件式モデルを生成する
   @override

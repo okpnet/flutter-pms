@@ -1,9 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:data_strategist/data_strategist.dart';
+import 'package:query_builder/query_builder.dart';
 import 'package:utility_widget_example/constant/results/result.dart';
+import 'package:utility_widget_example/src/manager/model/summary_data.dart';
 
-abstract class AssetReader {
+///デモで使用する、QueryStateに渡すレポジトリのベースクラス
+abstract class AssetReader implements IDataRepository<SummaryLoadData> {
   List<String> get keys;
   FutureOr<String> fromCsv();
   FutureOr<Result<List<Map<String, dynamic>>>> toJsonFromCsv() async {
@@ -42,5 +46,35 @@ abstract class AssetReader {
     } catch (e, st) {
       return Failure(error: e as Error, stackTrace: st);
     }
+  }
+
+  @override
+  Future<SummaryLoadData> find({
+    required int take,
+    int skip = 0,
+    Expression? pridicate,
+    SortExpression? order,
+  }) async {
+    final rowJson = switch (await toJsonFromCsv()) {
+      Ok<List<Map<String, dynamic>>> jsonList => jsonList.value,
+      _ => <Map<String, dynamic>>[],
+    };
+    final numOfrows = rowJson.length;
+    final builder = ListExpressionBuilder<Map<String, dynamic>>();
+
+    final result = pridicate != null
+        ? rowJson.where(builder.build(pridicate)).toList()
+        : rowJson;
+
+    if (order != null) {
+      final sortBuilder = SortListExpressionBuilder<Map<String, dynamic>>();
+      final sorts = sortBuilder.build(order);
+      result.sort(sorts);
+    }
+    return SummaryLoadData(
+      loadData: result,
+      filteredNumberOfRecords: result.length,
+      numberOfRecords: numOfrows,
+    );
   }
 }

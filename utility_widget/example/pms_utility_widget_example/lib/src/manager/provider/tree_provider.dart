@@ -11,10 +11,10 @@ const double DEPTH_INDENT = 16;
 // ignore: non_constant_identifier_names
 const String NULL_KEY = 'root';
 
-mixin TreeOfTrinaGrid on IPmsWidgetState
+mixin TreeOfTrinaGrid<T> on IPmsWidgetState
     implements
         IGridStateManagerOfTrinaGrid,
-        ITreeGridStateManagerOfTrinaGrid<SummaryLoadData> {
+        ITreeGridStateManagerOfTrinaGrid<T, SummaryLoadData<JsonMap>> {
   final GridState _state = GridState();
 
   @override
@@ -23,13 +23,13 @@ mixin TreeOfTrinaGrid on IPmsWidgetState
   @override
   GridState get summaryState => _state;
 
-  ///読み込み最初の条件式。以降は[IConditionCallback]が呼ばれる
+  ///読み込み最初の条件式。以降は[toCondition]が呼ばれる
   @override
-  InitConditionCallback get toInitCondition;
+  IPridicateModel get toInitCondition;
 
   ///最初以降の展開時の条件式
   @override
-  IConditionCallback get toCondition;
+  PridicateCallback get toCondition;
 
   /// ページ側で定義する getter
   // TrinaColumn get parentColumn;
@@ -161,8 +161,7 @@ mixin TreeOfTrinaGrid on IPmsWidgetState
     final stateKey = parentRow?.cells[idColumn.field]?.value.toString();
     final state =
         status[stateKey] ?? TreeLoadStattus(current: 0, numberOfRecords: 0);
-    final condition = toInitCondition(parentRow);
-    final loadState = await _loadData(condition, state);
+    final loadState = await _loadData(toInitCondition, state);
     status[parentRow?.cells[idColumn.field]?.value.toString()] = loadState;
     await _addRows(null, loadState);
     stateManager.setShowLoading(false);
@@ -174,26 +173,24 @@ mixin TreeOfTrinaGrid on IPmsWidgetState
     final stateKey = parentRow?.cells[idColumn.field]?.value.toString();
     final state =
         status[stateKey] ?? TreeLoadStattus(current: 0, numberOfRecords: 0);
-    final condition = toCondition(stateManager, parentRow!);
+    final condition = toCondition(parentRow!);
     final loadState = await _loadData(condition, state);
     status[parentRow.cells[idColumn.field]?.value.toString()] = loadState;
     await _addRows(parentRow, loadState);
     stateManager.setShowLoading(false);
   }
 
+  ///queryStateからデータを読み込む
   Future<TreeLoadStattus> _loadData(
-    RootCondition condition,
+    IPridicateModel pridicate,
     TreeLoadStattus state,
   ) async {
-    condition.skip = state.current;
-
-    final summary = await readerService.read(condition);
-
-    summaryState.setSummaryValue(summary);
+    final summarydata = await queryState.facade.execute(pridicate);
+    summaryState.setSummaryValue(summarydata);
 
     final newState = TreeLoadStattus(
-      current: state.current + condition.take,
-      numberOfRecords: summary.filteredNumberOfRecords ?? 0,
+      current: state.current + queryState.take,
+      numberOfRecords: summarydata.filteredNumberOfRecords ?? 0,
     );
     return newState;
   }
