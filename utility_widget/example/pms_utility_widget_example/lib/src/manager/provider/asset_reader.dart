@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:data_strategist/lib.dart';
 import 'package:query_builder/query_builder.dart';
+import 'package:utility_widget/core/ut_widget_design.dart';
 import 'package:utility_widget_example/constant/results/result.dart';
 import 'package:utility_widget_example/src/manager/model/summary_data.dart';
 import 'package:utility_widget_example/src/manager/provider/grid_provider.dart';
@@ -63,6 +64,10 @@ abstract class AssetReader
     };
     final numOfrows = rowJson.length;
     final builder = ListExpressionBuilder<Map<String, dynamic>>();
+
+    if (pridicate != null) {
+      debugPrint('debug pridicate:${pridicate.buildDebug()}');
+    }
 
     final result = pridicate != null
         ? rowJson.where(builder.build(pridicate)).toList()

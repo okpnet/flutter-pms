@@ -33,7 +33,12 @@ mixin PagenationOfTrinaGrid<T> on IPmsWidgetState
     summaryState.setSummaryValue(result);
 
     // ページング処理
-    //stateManagerProviders.setShowLoading(false);
-    return TrinaLazyPaginationResponse(rows: rowJson, totalPage: 100);
+    return TrinaLazyPaginationResponse(
+      rows: rowJson,
+      totalRecords: resultSummary.filteredNumberOfRecords,
+      totalPage:
+          ((resultSummary.filteredNumberOfRecords ?? 0) / request.pageSize)
+              .ceil(),
+    );
   }
 }

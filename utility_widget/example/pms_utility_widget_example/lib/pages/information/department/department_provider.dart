@@ -29,7 +29,7 @@ mixin DepartmentProvider<T>
 
   ///読み込みの条件式
   @override
-  IPridicateModel toCondition(TrinaRow parentRow, TreeLoadStattus treeState) {
+  IPridicateModel toCondition(TrinaRow parentRow, TreeLoadStatus treeState) {
     final otherPridicate = stateManager.hasFilter
         ? queryState.adapter.build(
             Configuration.NUM_OF_RECORDS,

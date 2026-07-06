@@ -34,7 +34,7 @@ abstract interface class ITreeGridStateManagerOfTrinaGrid<T, R> {
   IPridicateModel get toInitCondition;
 
   ///最初以降の展開時の条件式
-  IPridicateModel toCondition(TrinaRow parentRow, TreeLoadStattus treeState);
+  IPridicateModel toCondition(TrinaRow parentRow, TreeLoadStatus treeState);
 
   ///データ取得のサービスの状態
   QueryState<T, R> get queryState;

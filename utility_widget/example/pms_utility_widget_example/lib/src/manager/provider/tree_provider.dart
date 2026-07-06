@@ -32,7 +32,7 @@ mixin TreeOfTrinaGrid<T> on IPmsWidgetState
   List<TrinaColumn> get columns => stateManager.columns;
 
   ///展開の状況保持
-  final Map<String?, TreeLoadStattus> status = {};
+  final Map<String?, TreeLoadStatus> status = {};
 
   ///ルート
   final List<TrinaRow> roots = [];
@@ -152,7 +152,7 @@ mixin TreeOfTrinaGrid<T> on IPmsWidgetState
     stateManager.setShowLoading(false);
     final stateKey = parentRow?.cells[idColumn.field]?.value.toString();
     final state =
-        status[stateKey] ?? TreeLoadStattus(current: 0, numberOfRecords: 0);
+        status[stateKey] ?? TreeLoadStatus(current: 0, numberOfRecords: 0);
     final loadState = await _loadData(toInitCondition, state);
     status[parentRow?.cells[idColumn.field]?.value.toString()] = loadState;
     await _addRows(null, loadState);
@@ -164,7 +164,7 @@ mixin TreeOfTrinaGrid<T> on IPmsWidgetState
     stateManager.setShowLoading(true);
     final stateKey = parentRow?.cells[idColumn.field]?.value.toString();
     final state =
-        status[stateKey] ?? TreeLoadStattus(current: 0, numberOfRecords: 0);
+        status[stateKey] ?? TreeLoadStatus(current: 0, numberOfRecords: 0);
     final condition = toCondition(parentRow!, state);
     final loadState = await _loadData(condition, state);
     status[parentRow.cells[idColumn.field]?.value.toString()] = loadState;
@@ -173,21 +173,21 @@ mixin TreeOfTrinaGrid<T> on IPmsWidgetState
   }
 
   ///queryStateからデータを読み込む
-  Future<TreeLoadStattus> _loadData(
+  Future<TreeLoadStatus> _loadData(
     IPridicateModel pridicate,
-    TreeLoadStattus state,
+    TreeLoadStatus state,
   ) async {
     final summarydata = await queryState.facade.execute(pridicate);
     summaryState.setSummaryValue(summarydata);
 
-    final newState = TreeLoadStattus(
+    final newState = TreeLoadStatus(
       current: state.current + Configuration.NUM_OF_RECORDS,
       numberOfRecords: summarydata.filteredNumberOfRecords ?? 0,
     );
     return newState;
   }
 
-  Future<void> _addRows(TrinaRow? parentRow, TreeLoadStattus newState) async {
+  Future<void> _addRows(TrinaRow? parentRow, TreeLoadStatus newState) async {
     if (summaryState.summaryData case SummaryLoadData summary) {
       debugPrint(
         'recordNum=${summary.numberOfRecords} filterNum=${summary.filteredNumberOfRecords} current=${newState.current} stateNum=${newState.numberOfRecords}',
@@ -387,16 +387,16 @@ mixin TreeOfTrinaGrid<T> on IPmsWidgetState
   }
 }
 
-final class TreeLoadStattus {
+final class TreeLoadStatus {
   final int numberOfRecords;
   final int current;
 
   bool get isLatest => current >= numberOfRecords;
 
-  TreeLoadStattus({required this.current, required this.numberOfRecords});
+  TreeLoadStatus({required this.current, required this.numberOfRecords});
 
-  TreeLoadStattus copyWith({int? current, int? numberOfRecords}) {
-    return TreeLoadStattus(
+  TreeLoadStatus copyWith({int? current, int? numberOfRecords}) {
+    return TreeLoadStatus(
       current: current ?? this.current,
       numberOfRecords: numberOfRecords ?? this.numberOfRecords,
     );

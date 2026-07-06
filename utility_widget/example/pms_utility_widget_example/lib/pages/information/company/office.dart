@@ -67,7 +67,7 @@ class OfficeState extends PmsWidgetState<Office>
             },
             onLoaded: (event) async {
               //初回に一度だけ呼ばれる
-              _stateManager = stateManager;
+              _stateManager = event.stateManager;
             },
             createHeader: (_) => TrinaGridSummaryHader(summaryState: _state),
             columns: OfficeColumn.columns,
