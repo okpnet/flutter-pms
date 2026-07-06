@@ -1,21 +1,15 @@
-import 'dart:async';
-
-import 'package:flutter/services.dart';
+import 'package:data_strategist/lib.dart';
+import 'package:query_builder/query_builder.dart';
 import 'package:trina_grid/trina_grid.dart';
 import 'package:utility_widget/utiritiy_widget.dart';
-import 'package:utility_widget_example/constant/demo/asset_reader.dart';
-import 'package:utility_widget_example/constant/demo/demo_trree_reder_service.dart';
+import 'package:utility_widget_example/constant/demo/configuration.dart';
+import 'package:utility_widget_example/pages/information/department/department_provider.dart';
 import 'package:utility_widget_example/pages/container/trina_grid_summary_hader.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 import 'package:utility_widget_example/pages/information/department/constants/department_column.dart';
 import 'package:utility_widget_example/pages/information/department/department_edit.dart';
-import 'package:utility_widget_example/pages/information/department/department_mixin.dart';
-import 'package:utility_widget_example/src/manager/model/summary_data.dart';
-import 'package:utility_widget_example/src/manager/provider/grid_provider.dart';
-import 'package:utility_widget_example/src/manager/service/pms_repository_service.dart';
-import 'package:utility_widget_example/src/manager/state/pms_state.dart';
 import 'package:utility_widget_example/src/ui/pms_widget_state.dart';
-
+import 'package:utility_widget_example/src/manager/manager.dart';
 import '../../../constant/my_trina_grid_configs/grid_config_helper.dart';
 
 class Department extends StatefulWidget {
@@ -25,17 +19,22 @@ class Department extends StatefulWidget {
 }
 
 class _Department extends PmsWidgetState<Department>
-    with TreeOfTrinaGrid, DepartmentMixin
-    implements IDepartmentTreeLoad {
+    with TreeOfTrinaGrid<JsonMap>, DepartmentProvider<JsonMap> {
   final List<TrinaColumn> columnList = DepartmentColumn.columns;
   late final TrinaGridStateManager _stateManager;
-  final DemoTreeRederService _trreeRederService = DemoTreeRederService(
-    assetReader: DepaertmentAsset(),
-  );
+
+  ///条件を絞り込むクエリマネージャ
+  final QueryState<JsonMap, SummaryLoadData<List<JsonMap>>> _queryState =
+      QueryState<JsonMap, SummaryLoadData<List<JsonMap>>>(
+        expressionVisitorType: .list,
+        repository: DepaertmentAsset(),
+        cmd: (column) =>
+            (t) => t[column.field],
+      );
 
   @override
-  ReaderService<SummaryLoadData> get readerService => _trreeRederService;
-
+  QueryState<JsonMap, SummaryLoadData<List<JsonMap>>> get queryState =>
+      _queryState;
   @override
   TrinaGridStateManager get stateManager => _stateManager;
 
@@ -48,6 +47,46 @@ class _Department extends PmsWidgetState<Department>
 
   @override
   List<TrinaColumn> get columns => columnList;
+
+  ///読み込み最初の条件式。以降は[PridicateCallback]が呼ばれる
+  @override
+  IPridicateModel get toInitCondition {
+    final pridicate = PridicateModel(
+      take: Configuration.NUM_OF_RECORDS,
+      skip: 0,
+      pridicate: AndExpression([
+        EqualExpression(
+          FieldExpression<JsonMap>((t) => t['parent_id']),
+          FieldExpression<JsonMap>((t) => t['id']),
+        ),
+      ]),
+    );
+    return pridicate;
+  }
+
+  ///読み込みの条件式
+  @override
+  IPridicateModel toCondition(TrinaRow parentRow, TreeLoadStattus treeState) {
+    final otherPridicate = stateManager.hasFilter
+        ? queryState.adapter.build(
+            Configuration.NUM_OF_RECORDS,
+            filterRows: stateManager.filterRows,
+          )
+        : null;
+
+    final pridicate = PridicateModel(
+      take: Configuration.NUM_OF_RECORDS,
+      skip: treeState.current + Configuration.NUM_OF_RECORDS,
+      pridicate: AndExpression([
+        EqualExpression(
+          FieldExpression<JsonMap>((t) => t['parent_id']),
+          ValueExpression(parentRow.cells['id']!.value),
+        ),
+        ?otherPridicate?.pridicate,
+      ]),
+    );
+    return pridicate;
+  }
 
   void _navigatorDetail(TrinaRow? row) {
     if (row == null) {
@@ -99,25 +138,5 @@ class _Department extends PmsWidgetState<Department>
         ),
       ),
     );
-  }
-}
-
-final class DepaertmentAsset extends AssetReader {
-  @override
-  List<String> get keys => [
-    'id',
-    'parent_id',
-    'child_number_of_records',
-    'code',
-    'name',
-    'kana',
-    'nickname',
-    'update_at',
-    'update_user',
-  ];
-  @override
-  FutureOr<String> fromCsv() async {
-    await Future.delayed(Duration(seconds: 2));
-    return await rootBundle.loadString('demo_data/department.csv');
   }
 }

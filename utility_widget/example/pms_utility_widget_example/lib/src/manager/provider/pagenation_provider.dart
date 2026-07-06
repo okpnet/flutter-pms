@@ -4,19 +4,16 @@ part of 'grid_provider.dart';
 mixin PagenationOfTrinaGrid<T> on IPmsWidgetState
     implements
         IGridStateManagerOfTrinaGrid,
-        IPagenationOfTrinaGrid<T, SummaryLoadData<JsonMap>> {
+        IPagenationOfTrinaGrid<T, SummaryLoadData<List<JsonMap>>> {
   ///ページの読み込み
   Future<TrinaLazyPaginationResponse> loadPage(
     TrinaLazyPaginationRequest request,
   ) async {
-    final root = ToSortConditionHelper.fromTrinaLazyPaginationRequest(
-      request: request,
-      take: queryState.take,
-    );
     final rows = stateManager.filterRows;
     final columns = stateManager.columns;
-    final skip = request.page * queryState.take;
+    final skip = request.page * Configuration.NUM_OF_RECORDS;
     final pridicateModel = queryState.adapter.build(
+      Configuration.NUM_OF_RECORDS,
       filterRows: rows,
       columns: columns,
       skip: skip,

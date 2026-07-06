@@ -1,13 +1,15 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:data_strategist/data_strategist.dart';
+import 'package:data_strategist/lib.dart';
 import 'package:query_builder/query_builder.dart';
 import 'package:utility_widget_example/constant/results/result.dart';
 import 'package:utility_widget_example/src/manager/model/summary_data.dart';
+import 'package:utility_widget_example/src/manager/provider/grid_provider.dart';
 
 ///デモで使用する、QueryStateに渡すレポジトリのベースクラス
-abstract class AssetReader implements IDataRepository<SummaryLoadData> {
+abstract class AssetReader
+    implements IDataRepository<SummaryLoadData<List<JsonMap>>> {
   List<String> get keys;
   FutureOr<String> fromCsv();
   FutureOr<Result<List<Map<String, dynamic>>>> toJsonFromCsv() async {
@@ -49,7 +51,7 @@ abstract class AssetReader implements IDataRepository<SummaryLoadData> {
   }
 
   @override
-  Future<SummaryLoadData> find({
+  Future<SummaryLoadData<List<JsonMap>>> find({
     required int take,
     int skip = 0,
     Expression? pridicate,

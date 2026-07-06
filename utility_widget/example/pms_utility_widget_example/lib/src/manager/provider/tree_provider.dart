@@ -14,7 +14,7 @@ const String NULL_KEY = 'root';
 mixin TreeOfTrinaGrid<T> on IPmsWidgetState
     implements
         IGridStateManagerOfTrinaGrid,
-        ITreeGridStateManagerOfTrinaGrid<T, SummaryLoadData<JsonMap>> {
+        ITreeGridStateManagerOfTrinaGrid<T, SummaryLoadData<List<JsonMap>>> {
   final GridState _state = GridState();
 
   @override
@@ -22,14 +22,6 @@ mixin TreeOfTrinaGrid<T> on IPmsWidgetState
 
   @override
   GridState get summaryState => _state;
-
-  ///読み込み最初の条件式。以降は[toCondition]が呼ばれる
-  @override
-  IPridicateModel get toInitCondition;
-
-  ///最初以降の展開時の条件式
-  @override
-  PridicateCallback get toCondition;
 
   /// ページ側で定義する getter
   // TrinaColumn get parentColumn;
@@ -173,7 +165,7 @@ mixin TreeOfTrinaGrid<T> on IPmsWidgetState
     final stateKey = parentRow?.cells[idColumn.field]?.value.toString();
     final state =
         status[stateKey] ?? TreeLoadStattus(current: 0, numberOfRecords: 0);
-    final condition = toCondition(parentRow!);
+    final condition = toCondition(parentRow!, state);
     final loadState = await _loadData(condition, state);
     status[parentRow.cells[idColumn.field]?.value.toString()] = loadState;
     await _addRows(parentRow, loadState);
@@ -189,7 +181,7 @@ mixin TreeOfTrinaGrid<T> on IPmsWidgetState
     summaryState.setSummaryValue(summarydata);
 
     final newState = TreeLoadStattus(
-      current: state.current + queryState.take,
+      current: state.current + Configuration.NUM_OF_RECORDS,
       numberOfRecords: summarydata.filteredNumberOfRecords ?? 0,
     );
     return newState;

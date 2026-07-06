@@ -13,11 +13,6 @@ typedef FieldCmdCallback<T> = FieldCallback<T> Function(TrinaColumn);
 ///ExpressionBuilderに適用するVisitorのタイプ
 enum ExpressionVisitorType { list, sql, graphQL }
 
-///クラスがQueeyStateを持っている
-abstract interface class IQueryStateful {
-  QueryState get state;
-}
-
 ///レポジトリの状態管理
 abstract interface class IQueryState {
   ///ExpressionBuilderに適用するVisitorのタイプ
@@ -32,9 +27,6 @@ abstract interface class IQueryState {
   ///TrinaGridのフィルターから、条件式モデルを生成する
   FilterExpressionAdapter get adapter;
 
-  ///最大取得件数
-  int get take;
-
   ///列から検索条件の左辺、FieldExpressionを生成する
   Expression createFieldExpression(TrinaColumn column);
 
@@ -42,13 +34,28 @@ abstract interface class IQueryState {
   SortExpression createSortFieldExpression(TrinaColumn column);
 }
 
+///引数の型を持つState
+abstract interface class IQueryStateArgment<T> {
+  FieldCmdCallback<T> get cmd;
+}
+
+///戻り値の型を持つState
+abstract interface class IQueryStateReturn<R> {
+  ///レポジトリを生成
+  IDataRepository<R> get repository;
+}
+
+///戻り値の型を持つStateの実装
+abstract interface class IQueryStateReturnStatefull<R> {
+  IQueryStateReturn get state;
+}
+
 ///クラスがQueeyStateを持っている
 ///[T]Expressionの引数の型
 ///[R]問い合わせの結果の型
-class QueryState<T, R> implements IQueryState {
+class QueryState<T, R>
+    implements IQueryState, IQueryStateArgment<T>, IQueryStateReturn<R> {
   static const int defaultTakeCount = 4;
-  @override
-  final int take;
 
   ///ExpressionBuilderに適用するVisitorのタイプ
   @override
@@ -56,7 +63,7 @@ class QueryState<T, R> implements IQueryState {
 
   ///データ取得の問い合わせ窓口
   @override
-  QueryFacade<T, R> get facade => QueryFacade(this);
+  QueryFacade<R> get facade => QueryFacade<R>(this);
 
   ///レポジトリを生成
   @override
@@ -64,13 +71,12 @@ class QueryState<T, R> implements IQueryState {
 
   ///TrinaGridのフィルターから、条件式モデルを生成する
   @override
-  FilterExpressionAdapter get adapter =>
-      FilterExpressionAdapter(state: this, take: take);
+  FilterExpressionAdapter get adapter => FilterExpressionAdapter(state: this);
 
+  @override
   final FieldCmdCallback<T> cmd;
 
   QueryState({
-    required this.take,
     required this.expressionVisitorType,
     required this.repository,
     required this.cmd,

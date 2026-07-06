@@ -2,17 +2,13 @@ import 'dart:async';
 import 'package:data_strategist/lib.dart';
 import 'package:flutter/services.dart';
 import 'package:utility_widget/utiritiy_widget.dart';
-import 'package:utility_widget_example/constant/demo/asset_reader.dart';
-import 'package:utility_widget_example/src/manager/model/summary_data.dart';
-import 'package:utility_widget_example/src/manager/provider/grid_provider.dart';
-import 'package:utility_widget_example/src/manager/state/grid_state.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 import 'package:trina_grid/trina_grid.dart';
 import 'package:utility_widget_example/constant/my_trina_grid_configs/grid_config_helper.dart';
 import 'package:utility_widget_example/pages/container/trina_grid_summary_hader.dart';
 import 'package:utility_widget_example/pages/information/company/constants/office_column.dart';
-import 'package:utility_widget_example/src/manager/state/pms_state.dart';
 import 'package:utility_widget_example/src/ui/pms_widget_state.dart';
+import 'package:utility_widget_example/src/manager/manager.dart';
 
 class Office extends StatefulWidget {
   const Office({super.key});
@@ -21,13 +17,13 @@ class Office extends StatefulWidget {
   State<StatefulWidget> createState() => OfficeState();
 }
 
-class OfficeState extends PmsWidgetState<Office> with PagenationOfTrinaGrid {
+class OfficeState extends PmsWidgetState<Office>
+    with PagenationOfTrinaGrid<JsonMap> {
   final GridState _state = GridState();
 
   ///条件を絞り込むクエリマネージャ
-  final QueryState<Map<String, dynamic>, SummaryLoadData> _queryState =
-      QueryState<Map<String, dynamic>, SummaryLoadData>(
-        take: 4,
+  final QueryState<JsonMap, SummaryLoadData<List<JsonMap>>> _queryState =
+      QueryState<JsonMap, SummaryLoadData<List<JsonMap>>>(
         expressionVisitorType: .list,
         repository: OfficeAsset(),
         cmd: (column) =>
@@ -37,7 +33,7 @@ class OfficeState extends PmsWidgetState<Office> with PagenationOfTrinaGrid {
   late final TrinaGridStateManager _stateManager;
 
   @override
-  QueryState<Map<String, dynamic>, SummaryLoadData> get queryState =>
+  QueryState<JsonMap, SummaryLoadData<List<JsonMap>>> get queryState =>
       _queryState;
 
   @override

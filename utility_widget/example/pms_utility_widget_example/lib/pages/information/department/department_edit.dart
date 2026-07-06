@@ -1,18 +1,13 @@
+import 'package:data_strategist/lib.dart';
 import 'package:trina_grid/trina_grid.dart';
 import 'package:utility_widget/utiritiy_widget.dart';
-import 'package:utility_widget_example/constant/demo/demo_trree_reder_service.dart';
 import 'package:utility_widget_example/constant/my_trina_grid_configs/grid_config_helper.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 import 'package:utility_widget_example/pages/container/trina_grid_summary_hader.dart';
 import 'package:utility_widget_example/pages/information/department/constants/department_column.dart';
-import 'package:utility_widget_example/pages/information/department/department.dart';
-import 'package:utility_widget_example/pages/information/department/department_mixin.dart';
-import 'package:utility_widget_example/src/manager/model/summary_data.dart';
-import 'package:utility_widget_example/src/manager/provider/grid_provider.dart';
-import 'package:utility_widget_example/src/manager/service/pms_repository_service.dart';
-import 'package:utility_widget_example/src/manager/state/grid_map_value_state.dart';
-import 'package:utility_widget_example/src/manager/state/pms_state.dart';
+import 'package:utility_widget_example/pages/information/department/department_provider.dart';
 import 'package:utility_widget_example/src/ui/pms_widget_state.dart';
+import 'package:utility_widget_example/src/manager/manager.dart';
 
 class DepartmentEdit extends StatefulWidget {
   final Map<String, dynamic> row;
@@ -50,22 +45,28 @@ class _DepartmentEdit extends PmsWidgetState<DepartmentEdit> {
 
 class _DepartmentTree extends StatefulWidget {
   final GridMapValueState state;
-  const _DepartmentTree({super.key, required this.state});
+  const _DepartmentTree({required this.state});
   @override
   State<StatefulWidget> createState() => DepartmentTreeState();
 }
 
 class DepartmentTreeState extends PmsWidgetState<_DepartmentTree>
-    with TreeOfTrinaGrid, DepartmentMixin
-    implements IDepartmentTreeLoad {
+    with TreeOfTrinaGrid<JsonMap>, DepartmentProvider<JsonMap> {
   final List<TrinaColumn> columnList = DepartmentColumn.columns;
   late final TrinaGridStateManager _stateManager;
-  final DemoTreeRederService _trreeRederService = DemoTreeRederService(
-    assetReader: DepaertmentAsset(),
-  );
+
+  ///条件を絞り込むクエリマネージャ
+  final QueryState<JsonMap, SummaryLoadData<List<JsonMap>>> _queryState =
+      QueryState<JsonMap, SummaryLoadData<List<JsonMap>>>(
+        expressionVisitorType: .list,
+        repository: DepaertmentAsset(),
+        cmd: (column) =>
+            (t) => t[column.field],
+      );
 
   @override
-  ReaderService<SummaryLoadData> get readerService => _trreeRederService;
+  QueryState<JsonMap, SummaryLoadData<List<JsonMap>>> get queryState =>
+      _queryState;
   @override
   TrinaGridStateManager get stateManager => _stateManager;
 
@@ -111,7 +112,7 @@ class DepartmentTreeState extends PmsWidgetState<_DepartmentTree>
 class _DepartmentForm extends StatelessWidget {
   final GridMapValueState state;
 
-  const _DepartmentForm({super.key, required this.state});
+  const _DepartmentForm({required this.state});
   @override
   Widget build(BuildContext context) {
     return UtResponsiveGrid(

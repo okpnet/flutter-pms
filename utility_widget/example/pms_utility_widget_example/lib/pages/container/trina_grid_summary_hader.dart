@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:utility_widget/utiritiy_widget.dart';
 import 'package:utility_widget_example/src/manager/state/mixin/grid_summary_state.dart';
 
@@ -29,7 +27,7 @@ class TrinaGridSummaryHader extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: .end,
                 children: [
-                  if (summaryData != null && summaryData!.hasFilterNumOfRec)
+                  if (summaryData != null && summaryData.hasFilterNumOfRec)
                     UtLayoutPadding(
                       direction: .all,
                       child: UtText.label(

@@ -5,9 +5,11 @@ import 'package:trina_grid/trina_grid.dart';
 
 ///TrinaGridのフィルターから、条件式モデルを生成する
 abstract interface class IFilterExpressionAdapter {
-  ///取得する最大行数
-  int get take;
-  IPridicateModel build({
+  ///状態
+  IQueryState get state;
+
+  IPridicateModel build(
+    int take, {
     List<TrinaRow> filterRows,
     List<TrinaColumn>? columns,
     int skip,
@@ -15,18 +17,15 @@ abstract interface class IFilterExpressionAdapter {
 }
 
 ///TrinaGridのフィルターから、条件式モデルを生成する
-class FilterExpressionAdapter
-    implements IFilterExpressionAdapter, IQueryStateful {
+class FilterExpressionAdapter implements IFilterExpressionAdapter {
   @override
-  final int take;
+  final IQueryState state;
+
+  FilterExpressionAdapter({required this.state});
 
   @override
-  final QueryState state;
-
-  FilterExpressionAdapter({required this.state, required this.take});
-
-  @override
-  IPridicateModel build({
+  IPridicateModel build(
+    int take, {
     List<TrinaRow<dynamic>>? filterRows,
     List<TrinaColumn>? columns,
     int skip = 0,

@@ -8,10 +8,10 @@ abstract interface class IQueryFacade<R> {
 }
 
 ///データ取得の問い合わせ窓口
-class QueryFacade<T, R> implements IQueryStateful, IQueryFacade<R> {
+class QueryFacade<R> implements IQueryFacade<R>, IQueryStateReturnStatefull<R> {
   ///レポジトリの状態
   @override
-  final QueryState<T, R> state;
+  final IQueryStateReturn<R> state;
 
   QueryFacade(this.state);
 

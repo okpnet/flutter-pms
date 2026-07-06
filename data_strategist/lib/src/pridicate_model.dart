@@ -27,4 +27,19 @@ class PridicateModel implements IPridicateModel {
     this.pridicate,
     this.orders,
   });
+
+  /// コピーを作成する
+  PridicateModel copyWith({
+    SortExpression? orders,
+    Expression? pridicate,
+    int? skip,
+    int? take,
+  }) {
+    return PridicateModel(
+      take: take ?? this.take,
+      skip: skip ?? this.skip,
+      pridicate: pridicate ?? this.pridicate,
+      orders: orders ?? this.orders,
+    );
+  }
 }
