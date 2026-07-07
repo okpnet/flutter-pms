@@ -60,8 +60,8 @@ class DepartmentTreeState extends PmsWidgetState<_DepartmentTree>
       QueryState<JsonMap, SummaryLoadData<List<JsonMap>>>(
         expressionVisitorType: .list,
         repository: DepaertmentAsset(),
-        cmd: (column) =>
-            (t) => t[column.field],
+        cmd: (field) =>
+            (t) => t[field],
       );
 
   @override

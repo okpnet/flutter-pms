@@ -17,7 +17,7 @@ part 'tree_provider.dart';
 typedef JsonMap = Map<String, dynamic>;
 
 ///Pridicateを取得するコールバック
-typedef PridicateCallback = IPridicateModel Function(TrinaRow row);
+typedef PridicateCallback = IPredicateModel Function(TrinaRow row);
 
 ///TrinaGridのstateManagerを保持するインターフェイス。PultoGridから以降した。
 abstract class IGridStateManagerOfTrinaGrid {
@@ -31,10 +31,10 @@ abstract class IGridStateManagerOfTrinaGrid {
 ///ツリー表現をするtrina_gridのプロバイダインターフェイス
 abstract interface class ITreeGridStateManagerOfTrinaGrid<T, R> {
   ///読み込み最初の条件式。以降は[toCondition]が呼ばれる
-  IPridicateModel get toInitCondition;
+  IPredicateModel get initiBuildPredicate;
 
   ///最初以降の展開時の条件式
-  IPridicateModel toCondition(TrinaRow parentRow, TreeLoadStatus treeState);
+  IPredicateModel buildPredicate(TrinaRow? parentRow, TreeLoadStatus treeState);
 
   ///データ取得のサービスの状態
   QueryState<T, R> get queryState;

@@ -26,8 +26,8 @@ class OfficeState extends PmsWidgetState<Office>
       QueryState<JsonMap, SummaryLoadData<List<JsonMap>>>(
         expressionVisitorType: .list,
         repository: OfficeAsset(),
-        cmd: (column) =>
-            (t) => t[column.field],
+        cmd: (field) =>
+            (t) => t[field],
       );
 
   late final TrinaGridStateManager _stateManager;

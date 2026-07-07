@@ -75,11 +75,12 @@ abstract class AssetReader
 
     if (order != null) {
       final sortBuilder = SortListExpressionBuilder<Map<String, dynamic>>();
+      debugPrint('order:${order.buildDebug()}');
       final sorts = sortBuilder.build(order);
       result.sort(sorts);
     }
     return SummaryLoadData(
-      loadData: result,
+      loadData: result.skip(skip).take(take).toList(),
       filteredNumberOfRecords: result.length,
       numberOfRecords: numOfrows,
     );

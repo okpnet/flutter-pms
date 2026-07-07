@@ -1,8 +1,6 @@
 import 'package:data_strategist/lib.dart';
-import 'package:query_builder/query_builder.dart';
 import 'package:trina_grid/trina_grid.dart';
 import 'package:utility_widget/utiritiy_widget.dart';
-import 'package:utility_widget_example/constant/demo/configuration.dart';
 import 'package:utility_widget_example/pages/information/department/department_provider.dart';
 import 'package:utility_widget_example/pages/container/trina_grid_summary_hader.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
@@ -28,8 +26,8 @@ class _Department extends PmsWidgetState<Department>
       QueryState<JsonMap, SummaryLoadData<List<JsonMap>>>(
         expressionVisitorType: .list,
         repository: DepaertmentAsset(),
-        cmd: (column) =>
-            (t) => t[column.field],
+        cmd: (field) =>
+            (t) => t[field],
       );
 
   @override
@@ -48,45 +46,45 @@ class _Department extends PmsWidgetState<Department>
   @override
   List<TrinaColumn> get columns => columnList;
 
-  ///読み込み最初の条件式。以降は[PridicateCallback]が呼ばれる
-  @override
-  IPridicateModel get toInitCondition {
-    final pridicate = PridicateModel(
-      take: Configuration.NUM_OF_RECORDS,
-      skip: 0,
-      pridicate: AndExpression([
-        EqualExpression(
-          FieldExpression<JsonMap>((t) => t['parent_id']),
-          FieldExpression<JsonMap>((t) => t['id']),
-        ),
-      ]),
-    );
-    return pridicate;
-  }
+  // ///読み込み最初の条件式。以降は[PridicateCallback]が呼ばれる
+  // @override
+  // IPridicateModel get toInitCondition {
+  //   final pridicate = PridicateModel(
+  //     take: Configuration.NUM_OF_RECORDS,
+  //     skip: 0,
+  //     pridicate: AndExpression([
+  //       EqualExpression(
+  //         FieldExpression<JsonMap>((t) => t['parent_id']),
+  //         FieldExpression<JsonMap>((t) => t['id']),
+  //       ),
+  //     ]),
+  //   );
+  //   return pridicate;
+  // }
 
-  ///読み込みの条件式
-  @override
-  IPridicateModel toCondition(TrinaRow parentRow, TreeLoadStatus treeState) {
-    final otherPridicate = stateManager.hasFilter
-        ? queryState.adapter.build(
-            Configuration.NUM_OF_RECORDS,
-            filterRows: stateManager.filterRows,
-          )
-        : null;
+  // ///読み込みの条件式
+  // @override
+  // IPridicateModel toCondition(TrinaRow? parentRow, TreeLoadStatus treeState) {
+  //   final otherPridicate = stateManager.hasFilter
+  //       ? queryState.adapter.build(
+  //           Configuration.NUM_OF_RECORDS,
+  //           filterRows: stateManager.filterRows,
+  //         )
+  //       : null;
 
-    final pridicate = PridicateModel(
-      take: Configuration.NUM_OF_RECORDS,
-      skip: treeState.current + Configuration.NUM_OF_RECORDS,
-      pridicate: AndExpression([
-        EqualExpression(
-          FieldExpression<JsonMap>((t) => t['parent_id']),
-          ValueExpression(parentRow.cells['id']!.value),
-        ),
-        ?otherPridicate?.pridicate,
-      ]),
-    );
-    return pridicate;
-  }
+  //   final pridicate = PridicateModel(
+  //     take: Configuration.NUM_OF_RECORDS,
+  //     skip: treeState.current + Configuration.NUM_OF_RECORDS,
+  //     pridicate: AndExpression([
+  //       EqualExpression(
+  //         FieldExpression<JsonMap>((t) => t['parent_id']),
+  //         ValueExpression(parentRow.cells['id']!.value),
+  //       ),
+  //       ?otherPridicate?.pridicate,
+  //     ]),
+  //   );
+  //   return pridicate;
+  // }
 
   void _navigatorDetail(TrinaRow? row) {
     if (row == null) {
@@ -124,8 +122,8 @@ class _Department extends PmsWidgetState<Department>
                 column.enableRowDrag = false;
               }
               initColumns();
-              final root = {'id': 1};
-              await initialAddRow(TrinaRow.fromJson(root));
+              // final root = {'id': 0};
+              await initialAddRow(null); //TrinaRow.fromJson(root));
             },
             createHeader: (manager) =>
                 TrinaGridSummaryHader(summaryState: summaryState),

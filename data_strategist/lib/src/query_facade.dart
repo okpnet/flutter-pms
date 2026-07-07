@@ -4,7 +4,7 @@ import 'package:data_strategist/src/query_state.dart';
 ///データ取得の問い合わせ窓口
 abstract interface class IQueryFacade<R> {
   ///レポジトリからデータ
-  Future<R> execute(PridicateModel model);
+  Future<R> execute(PredicateModel model);
 }
 
 ///データ取得の問い合わせ窓口
@@ -17,7 +17,7 @@ class QueryFacade<R> implements IQueryFacade<R>, IQueryStateReturnStatefull<R> {
 
   ///レポジトリからデータ
   @override
-  Future<R> execute(IPridicateModel model) async => await state.repository.find(
+  Future<R> execute(IPredicateModel model) async => await state.repository.find(
     take: model.take,
     skip: model.skip,
     pridicate: model.pridicate,

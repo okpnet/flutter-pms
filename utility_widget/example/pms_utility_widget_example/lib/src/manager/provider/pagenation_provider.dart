@@ -11,7 +11,7 @@ mixin PagenationOfTrinaGrid<T> on IPmsWidgetState
   ) async {
     final rows = stateManager.filterRows;
     final columns = stateManager.columns;
-    final skip = request.page * Configuration.NUM_OF_RECORDS;
+    final skip = (request.page - 1) * Configuration.NUM_OF_RECORDS;
     final pridicateModel = queryState.adapter.build(
       Configuration.NUM_OF_RECORDS,
       filterRows: rows,
@@ -24,12 +24,13 @@ mixin PagenationOfTrinaGrid<T> on IPmsWidgetState
       for (var row in resultSummary.loadData) TrinaRow.fromJson(row),
     ];
 
-    final result = SummaryData(
-      numberOfRecords: rowJson.length,
+    final result = resultSummary.copyWith(
+      //フィルタされていないときもフィルタレコード数が含まれるので、表示に「条件付き」が含まれないようにNullにする
       filteredNumberOfRecords: stateManager.hasFilter
-          ? request.filterRows.length
+          ? resultSummary.filteredNumberOfRecords
           : null,
     );
+
     summaryState.setSummaryValue(result);
 
     // ページング処理

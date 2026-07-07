@@ -11,25 +11,30 @@ mixin DepartmentProvider<T>
     implements
         IGridStateManagerOfTrinaGrid,
         ITreeGridStateManagerOfTrinaGrid<T, SummaryLoadData<List<JsonMap>>> {
+  ///最上位の検索条件
+  final parentFoundEx = EqualExpression(
+    FieldExpression<JsonMap>((t) => t['parent_id']),
+    FieldExpression<JsonMap>((t) => t['id']),
+  );
+
   ///読み込み最初の条件式。以降は[PridicateCallback]が呼ばれる
   @override
-  IPridicateModel get toInitCondition {
-    final pridicate = PridicateModel(
+  IPredicateModel get initiBuildPredicate {
+    final pridicate = PredicateModel(
       take: Configuration.NUM_OF_RECORDS,
       skip: 0,
-      pridicate: AndExpression([
-        EqualExpression(
-          FieldExpression<JsonMap>((t) => t['parent_id']),
-          FieldExpression<JsonMap>((t) => t['id']),
-        ),
-      ]),
+      pridicate: AndExpression([parentFoundEx]),
     );
     return pridicate;
   }
 
   ///読み込みの条件式
+  ///Nullのとき、トップノード
   @override
-  IPridicateModel toCondition(TrinaRow parentRow, TreeLoadStatus treeState) {
+  IPredicateModel buildPredicate(
+    TrinaRow? parentRow,
+    TreeLoadStatus treeState,
+  ) {
     final otherPridicate = stateManager.hasFilter
         ? queryState.adapter.build(
             Configuration.NUM_OF_RECORDS,
@@ -37,14 +42,16 @@ mixin DepartmentProvider<T>
           )
         : null;
 
-    final pridicate = PridicateModel(
+    final pridicate = PredicateModel(
       take: Configuration.NUM_OF_RECORDS,
       skip: treeState.current + Configuration.NUM_OF_RECORDS,
       pridicate: AndExpression([
-        EqualExpression(
-          FieldExpression<JsonMap>((t) => t['parent_id']),
-          ValueExpression(parentRow.cells['id']!.value),
-        ),
+        parentRow == null
+            ? parentFoundEx
+            : EqualExpression(
+                FieldExpression<JsonMap>((t) => t['parent_id']),
+                ValueExpression(parentRow.cells['id']!.value.toString()),
+              ),
         ?otherPridicate?.pridicate,
       ]),
     );

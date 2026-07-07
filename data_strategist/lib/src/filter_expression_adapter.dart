@@ -8,7 +8,7 @@ abstract interface class IFilterExpressionAdapter {
   ///状態
   IQueryState get state;
 
-  IPridicateModel build(
+  IPredicateModel build(
     int take, {
     List<TrinaRow> filterRows,
     List<TrinaColumn>? columns,
@@ -24,18 +24,20 @@ class FilterExpressionAdapter implements IFilterExpressionAdapter {
   FilterExpressionAdapter({required this.state});
 
   @override
-  IPridicateModel build(
+  IPredicateModel build(
     int take, {
     List<TrinaRow<dynamic>>? filterRows,
     List<TrinaColumn>? columns,
     int skip = 0,
   }) {
-    final expressions = filterRows?.map((row) => _rowTransrater(row)).toList();
-    final sortEx = columns
-        ?.where((t) => !t.sort.isNone)
-        .map((t) => _columnTransrater(t))
-        .toList();
-    return PridicateModel(
+    final expressions = filterRows != null && filterRows.isNotEmpty
+        ? filterRows.map((row) => _rowTransrater(row)).toList()
+        : null;
+    final sortColumns = columns?.where((t) => !t.sort.isNone);
+    final sortEx = sortColumns != null && sortColumns.isNotEmpty
+        ? sortColumns.map((t) => _columnTransrater(t)).toList()
+        : null;
+    return PredicateModel(
       take: take,
       skip: skip,
       pridicate: expressions == null ? null : AndExpression(expressions),
@@ -47,12 +49,11 @@ class FilterExpressionAdapter implements IFilterExpressionAdapter {
   Expression _rowTransrater(TrinaRow row) {
     final operation = row.cells[FilterHelper.filterFieldType]!.value;
 
-    final column =
-        row.cells[FilterHelper.filterFieldColumn]!.value as TrinaColumn;
+    final field = row.cells[FilterHelper.filterFieldColumn]!.value;
     final filterValue = row.cells[FilterHelper.filterFieldValue]!.value;
 
     ///レポジトリのタイプに応じて切り替える
-    final fieldEx = state.createFieldExpression(column);
+    final fieldEx = state.createFieldExpression(field);
 
     final valueEx = ValueExpression(filterValue);
 

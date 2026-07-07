@@ -8,7 +8,7 @@ import 'package:trina_grid/trina_grid.dart';
 typedef FieldCallback<T> = dynamic Function(T);
 
 ///列からフィールド式を返すコマンド
-typedef FieldCmdCallback<T> = FieldCallback<T> Function(TrinaColumn);
+typedef FieldCmdCallback<T> = FieldCallback<T> Function(String);
 
 ///ExpressionBuilderに適用するVisitorのタイプ
 enum ExpressionVisitorType { list, sql, graphQL }
@@ -28,7 +28,7 @@ abstract interface class IQueryState {
   FilterExpressionAdapter get adapter;
 
   ///列から検索条件の左辺、FieldExpressionを生成する
-  Expression createFieldExpression(TrinaColumn column);
+  Expression createFieldExpression(String field);
 
   ///列からソート列を生成する
   SortExpression createSortFieldExpression(TrinaColumn column);
@@ -84,11 +84,14 @@ class QueryState<T, R>
 
   ///列から検索条件の左辺、FieldExpressionを生成する
   @override
-  Expression createFieldExpression(TrinaColumn column) =>
-      FieldExpression<T>(cmd(column));
+  Expression createFieldExpression(String field) =>
+      FieldExpression<T>(cmd(field));
 
   @override
   ///列からソート列を生成する
   SortExpression createSortFieldExpression(TrinaColumn column) =>
-      SortFieldExpression<T>(cmd(column), isDesc: column.sort.isDescending);
+      SortFieldExpression<T>(
+        cmd(column.field),
+        isDesc: column.sort.isDescending,
+      );
 }
