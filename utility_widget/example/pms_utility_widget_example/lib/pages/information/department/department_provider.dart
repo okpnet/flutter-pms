@@ -52,6 +52,11 @@ mixin DepartmentProvider<T>
                 FieldExpression<JsonMap>((t) => t['parent_id']),
                 ValueExpression(parentRow.cells['id']!.value.toString()),
               ),
+        EqualExpression(
+          FieldExpression<JsonMap>((t) => t['parent_id']),
+          FieldExpression<JsonMap>((t) => t['id']),
+          isNot: true,
+        ),
         ?otherPridicate?.pridicate,
       ]),
     );

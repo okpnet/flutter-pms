@@ -28,7 +28,7 @@ class EqualExpression extends OperatorExpression implements IEquqlExpression {
 
   @override
   DebugNode acceptDebug() {
-    final debugPrint = '= [${name ?? "no_name"}]';
+    final debugPrint = '${isNot ? '<>' : '='} [${name ?? "no_name"}]';
     final resultNode = DebugNode(debugPrint, [
       left.acceptDebug(),
       right.acceptDebug(),
