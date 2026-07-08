@@ -70,10 +70,14 @@ class DepartmentTreeState extends PmsWidgetState<_DepartmentTree>
   @override
   TrinaGridStateManager get stateManager => _stateManager;
 
+  ///行が子をもっているか判定する
   @override
-  TrinaColumn get childNumberOfRecordsColumn =>
-      columnList.firstWhere((t) => t.field == 'child_number_of_records');
-
+  bool Function(TrinaRow) hasChildTheRow = (TrinaRow row) {
+    final result =
+        int.tryParse(row.cells['child_number_of_records']!.value.toString()) ==
+        0;
+    return result;
+  };
   // @override
   // TrinaColumn get parentColumn =>
   //     columnList.firstWhere((t) => t.field == 'parent_id');

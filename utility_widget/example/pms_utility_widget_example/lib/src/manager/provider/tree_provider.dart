@@ -26,7 +26,9 @@ mixin TreeOfTrinaGrid<T> on IPmsWidgetState
   /// ページ側で定義する getter
   // TrinaColumn get parentColumn;
   TrinaColumn get idColumn;
-  TrinaColumn get childNumberOfRecordsColumn;
+
+  ///行から子があるかを判定する
+  bool Function(TrinaRow) get hasChildTheRow;
 
   /// TrinaGrid の columns をページ側で渡す
   List<TrinaColumn> get columns => stateManager.columns;
@@ -36,6 +38,10 @@ mixin TreeOfTrinaGrid<T> on IPmsWidgetState
 
   ///ルート
   final List<TrinaRow> roots = [];
+
+  ///行状態管理のキーを取得
+  String _getStateKey(TrinaRow? row) =>
+      row?.cells[idColumn.field]?.value.toString() ?? NULL_KEY;
 
   ///ツリー用の初期化
   void initColumns() {
@@ -54,17 +60,11 @@ mixin TreeOfTrinaGrid<T> on IPmsWidgetState
         ? row.type.group.children.isNotEmpty
         : row.type.group.children.isNotEmpty
         ? true
-        : (int.tryParse(
-                    row.cells[childNumberOfRecordsColumn.field]?.value ?? '0',
-                  ) ??
-                  0) >
-              0;
+        : hasChildTheRow(row);
     final depth = row.parent == null ? 0 : row.parent!.depth + 1;
     Widget rowGroup(TrinaRowTypeGroup group) {
       //Rowが標準タイプのときのWidget
-      final parentId = row.parent == null
-          ? NULL_KEY
-          : row.parent!.cells[idColumn.field]?.value.toString() ?? NULL_KEY;
+      final parentId = _getStateKey(row.parent);
 
       if (row.key == ValueKey('$BEFORE_EXPANDED$parentId')) {
         return Row(
@@ -148,13 +148,14 @@ mixin TreeOfTrinaGrid<T> on IPmsWidgetState
     return result;
   }
 
+  ///画面生成の最初にのみ呼ばれる
   Future<void> initialAddRow(TrinaRow? parentRow) async {
     stateManager.setShowLoading(false);
-    final stateKey = parentRow?.cells[idColumn.field]?.value.toString();
+    final stateKey = _getStateKey(parentRow);
     final state =
         status[stateKey] ?? TreeLoadStatus(current: 0, numberOfRecords: 0);
     final loadState = await _loadData(initiBuildPredicate, state);
-    status[parentRow?.cells[idColumn.field]?.value.toString()] = loadState;
+    status[stateKey] = loadState;
     await _addRows(null, loadState);
     stateManager.setShowLoading(false);
   }
@@ -162,7 +163,7 @@ mixin TreeOfTrinaGrid<T> on IPmsWidgetState
   ///読み込みと行の追加
   Future<void> loadAddRow(TrinaRow? parentRow) async {
     stateManager.setShowLoading(true);
-    final stateKey = parentRow?.cells[idColumn.field]?.value.toString();
+    final stateKey = _getStateKey(parentRow);
 
     final state =
         status[stateKey] ?? TreeLoadStatus(current: 0, numberOfRecords: 0);
@@ -176,7 +177,7 @@ mixin TreeOfTrinaGrid<T> on IPmsWidgetState
     final pridicateUpdate = pridicate.copyWith(skip: skip);
 
     final loadState = await _loadData(pridicateUpdate, state);
-    status[parentRow?.cells[idColumn.field]?.value.toString()] = loadState;
+    status[stateKey] = loadState;
     await _addRows(parentRow, loadState);
     stateManager.setShowLoading(false);
   }
@@ -246,10 +247,7 @@ mixin TreeOfTrinaGrid<T> on IPmsWidgetState
   //もっと読み込む行の判定
   bool isLoadMoreRow(TrinaRow? row) =>
       row != null &&
-      row.key ==
-          ValueKey(
-            '$BEFORE_EXPANDED${row.parent?.cells[idColumn.field]?.value ?? NULL_KEY}',
-          );
+      row.key == ValueKey('$BEFORE_EXPANDED${_getStateKey(row.parent)}');
   //もっと読み込む
   Future<bool> onLoadMore(TrinaRow row) async {
     final parentRow = row.parent;
@@ -281,9 +279,9 @@ mixin TreeOfTrinaGrid<T> on IPmsWidgetState
   ///さらに読み込む行を追加する
   TrinaRow buildLoadMoreTrinaRow(TrinaRow? parentRow) {
     final firstCol = columns.firstWhere((t) => !t.hide);
-    final parentId = parentRow?.cells[idColumn.field]?.value ?? NULL_KEY;
+    final stateKey = _getStateKey(parentRow);
     final result = TrinaRow(
-      key: ValueKey('$BEFORE_EXPANDED$parentId'),
+      key: ValueKey('$BEFORE_EXPANDED$stateKey'),
       type: TrinaRowType.group(children: FilteredList(), expanded: false),
       enableDrag: false,
       enableDrop: false,
@@ -300,7 +298,7 @@ mixin TreeOfTrinaGrid<T> on IPmsWidgetState
   // 展開
   Future<void> expandRow(TrinaRow row) async {
     if (row.type is TrinaRowTypeNormal || row.isExpanded) return;
-    final statusKey = row.cells[idColumn.field]?.value.toString();
+    final statusKey = _getStateKey(row);
     //すでに子が読み込まれているかどうか
     if (!status.containsKey(statusKey)) {
       await loadAddRow(row);
@@ -337,6 +335,7 @@ mixin TreeOfTrinaGrid<T> on IPmsWidgetState
 
   ///親の付け替え
   Future<void> changeParent(TrinaRow currentRow, TrinaRow? parentRow) async {
+    //もっと読み込むは除外
     if (isLoadMoreRow(currentRow) || isLoadMoreRow(currentRow)) return;
 
     final collspaceList = _toFlat(
@@ -383,17 +382,37 @@ mixin TreeOfTrinaGrid<T> on IPmsWidgetState
   }
 
   /// ドラッグ＆ドロップで親子関係変更
-  void onRowsMoved(TrinaGridOnRowsMovedEvent event) async {
+  FutureOr<void> onRowsMoved(TrinaGridOnRowsMovedEvent event) async {
     // 移動された行（複数だが、ここでは先頭だけ扱う）
     final moved = event.rows.first;
     if (isLoadMoreRow(moved)) {}
     // // 直前の行を新しい親とみなす（デモ用ルール）
     final index = event.idx;
-    if (index > 0) {
-      final newParent =
-          stateManager.refRows[index + 1]; //ドロップされた行が+1、ドラッグした行が-1になる
-      await changeParent(moved, newParent);
+    // if (index > 0) {
+    //   final newParent =
+    //       stateManager.refRows[index + 1]; //ドロップされた行が+1、ドラッグした行が-1になる
+    //   await changeParent(moved, newParent);
+    // }
+    if (0 >= index) {
+      return;
     }
+    int insertIndex = index;
+    for (final row in event.rows) {
+      insertIndex += await _rowMoved(row, insertIndex);
+    }
+  }
+
+  ///戻り値は子を含む移動先のインデックス
+  Future<int> _rowMoved(TrinaRow row, int index) async {
+    // // 直前の行を新しい親とみなす（デモ用ルール）
+    final newParent =
+        stateManager.refRows[index + 1]; //ドロップされた行が+1、ドラッグした行が-1になる
+    await changeParent(row, newParent);
+    final lastRow = _toFlat(
+      row,
+      (t) => t.type is TrinaRowTypeGroup && t.type.group.expanded,
+    ).last;
+    return stateManager.rows.indexOf(lastRow);
   }
 }
 

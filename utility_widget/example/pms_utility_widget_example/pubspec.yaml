@@ -44,6 +44,8 @@ dependencies:
     path: ../../../query_builder
   data_strategist:
     path: ../../../data_strategist
+  undo_redo:
+    path: ../../../undo_redo
 dev_dependencies:
   flutter_test:
     sdk: flutter

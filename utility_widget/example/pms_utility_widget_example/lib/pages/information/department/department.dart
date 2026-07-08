@@ -30,18 +30,27 @@ class _Department extends PmsWidgetState<Department>
             (t) => t[field],
       );
 
+  ///検索条件状態管理
   @override
   QueryState<JsonMap, SummaryLoadData<List<JsonMap>>> get queryState =>
       _queryState;
+
+  ///TrinaGridの状態管理
   @override
   TrinaGridStateManager get stateManager => _stateManager;
 
+  ///行の状態を管理するキーを生成する
   @override
   TrinaColumn get idColumn => columnList.firstWhere((t) => t.field == 'id');
 
+  ///行が子をもっているか判定する
   @override
-  TrinaColumn get childNumberOfRecordsColumn =>
-      columnList.firstWhere((t) => t.field == 'child_number_of_records');
+  bool Function(TrinaRow) hasChildTheRow = (TrinaRow row) {
+    final result =
+        int.tryParse(row.cells['child_number_of_records']!.value.toString()) ==
+        0;
+    return result;
+  };
 
   @override
   List<TrinaColumn> get columns => columnList;
@@ -82,7 +91,6 @@ class _Department extends PmsWidgetState<Department>
                 column.enableRowDrag = false;
               }
               initColumns();
-              // final root = {'id': 0};
               await initialAddRow(null); //TrinaRow.fromJson(root));
             },
             createHeader: (manager) =>
