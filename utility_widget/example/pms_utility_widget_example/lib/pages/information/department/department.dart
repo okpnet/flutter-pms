@@ -6,12 +6,14 @@ import 'package:utility_widget_example/pages/container/trina_grid_summary_hader.
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 import 'package:utility_widget_example/pages/information/department/constants/department_column.dart';
 import 'package:utility_widget_example/pages/information/department/department_edit.dart';
+import 'package:utility_widget_example/src/manager/state/data_state.dart';
 import 'package:utility_widget_example/src/ui/pms_widget_state.dart';
 import 'package:utility_widget_example/src/manager/manager.dart';
 import '../../../constant/my_trina_grid_configs/grid_config_helper.dart';
 
 class Department extends StatefulWidget {
-  const Department({super.key});
+  final DataState dataProvider = DataState();
+  Department({super.key});
   @override
   State<StatefulWidget> createState() => _Department();
 }
@@ -64,6 +66,19 @@ class _Department extends PmsWidgetState<Department>
         builder: (builder) => DepartmentEdit(row: row.toJson()),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    widget.dataProvider.addListener(() {
+      final event = widget.dataProvider.events.last;
+      switch (event.type) {
+        case .accept:
+          break;
+      }
+      widget.dataProvider.events.clear();
+    });
   }
 
   @override
