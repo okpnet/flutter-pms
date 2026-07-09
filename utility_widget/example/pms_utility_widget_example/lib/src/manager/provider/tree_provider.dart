@@ -33,6 +33,9 @@ mixin TreeOfTrinaGrid<T> on IPmsWidgetState
   /// TrinaGrid の columns をページ側で渡す
   List<TrinaColumn> get columns => stateManager.columns;
 
+  @override
+  DataState<RowModel> get dataState;
+
   ///展開の状況保持
   final Map<String?, TreeLoadStatus> status = {};
 
@@ -407,7 +410,17 @@ mixin TreeOfTrinaGrid<T> on IPmsWidgetState
     // // 直前の行を新しい親とみなす（デモ用ルール）
     final newParent =
         stateManager.refRows[index + 1]; //ドロップされた行が+1、ドラッグした行が-1になる
+    final oldRow = RowDropModel.to(row);
     await changeParent(row, newParent);
+    dataState.push(
+      //
+      RowDropModel.to(row),
+      RowUndoCommand(
+        oldValue: oldRow,
+        newValue: RowDropModel.to(row),
+        execute: (t) => true,
+      ),
+    );
     final lastRow = _toFlat(
       row,
       (t) => t.type is TrinaRowTypeGroup && t.type.group.expanded,

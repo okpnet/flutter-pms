@@ -6,7 +6,6 @@ import 'package:utility_widget_example/pages/container/trina_grid_summary_hader.
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 import 'package:utility_widget_example/pages/information/department/constants/department_column.dart';
 import 'package:utility_widget_example/pages/information/department/department_edit.dart';
-import 'package:utility_widget_example/src/manager/state/databinding/data_state.dart';
 import 'package:utility_widget_example/src/ui/pms_widget_state.dart';
 import 'package:utility_widget_example/src/manager/manager.dart';
 import '../../../constant/my_trina_grid_configs/grid_config_helper.dart';
@@ -32,6 +31,9 @@ class _Department extends PmsWidgetState<Department>
             (t) => t[field],
       );
 
+  ///データ管理
+  final DataState<RowModel> _dataState = DataState<RowModel>();
+
   ///検索条件状態管理
   @override
   QueryState<JsonMap, SummaryLoadData<List<JsonMap>>> get queryState =>
@@ -56,6 +58,10 @@ class _Department extends PmsWidgetState<Department>
 
   @override
   List<TrinaColumn> get columns => columnList;
+
+  ///データ管理
+  @override
+  DataState<RowModel> get dataState => _dataState;
 
   void _navigatorDetail(TrinaRow? row) {
     if (row == null) {

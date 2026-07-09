@@ -1,7 +1,8 @@
 import 'package:undo_redo/lib.dart';
 import 'package:utility_widget/utiritiy_widget.dart';
 
-///
+///単一の[T]型を返すUndo/Redoを持つUndoStackを管理
+///acceptで
 class DataState<T> extends ChangeNotifier {
   ///変更を加えたリスト
   final List<T> accepts = [];
@@ -30,18 +31,23 @@ class DataState<T> extends ChangeNotifier {
     notifyListeners();
   }
 
+  ///変更があったインスタンスのリスト
+  List<T> accept() => accepts.where((t) => _stack.hasValue(t)).toList();
+
   ///全部クリアする
   void clearAll() {
     accepts.clear();
     _stack.clear();
   }
 
+  ///もどす
   void undo() {
     final undoValue = _stack.undo<T>();
     _events = DataEvent<T>(type: .undo, payload: undoValue!);
     notifyListeners();
   }
 
+  ///すすむ
   void redo() {
     final redoValue = _stack.redo<T>();
     _events = DataEvent<T>(type: .redo, payload: redoValue!);
