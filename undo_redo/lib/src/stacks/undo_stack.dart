@@ -1,6 +1,6 @@
 import 'package:undo_redo/src/commands/commands.dart';
 
-abstract class IStack {
+abstract class IUndoStack {
   ///戻すが可能なときTrue
   bool get isUndo;
 
@@ -14,27 +14,31 @@ abstract class IStack {
   bool redo();
 
   ///変更をスタックに戻すを追加
-  void addUndo(ICommand command);
-
-  ///変更を実行したあとに戻すに追加
-  void executeAdd(ICommand command);
+  void push(IUndoCommand command);
 
   ///履歴の消去
-  void clear(ICommand initialization);
+  void clear();
 }
 
 ///特定のオブジェクトを監視する
-class Stack implements IStack {
+class UndoStack implements IUndoStack {
   ///戻すスタックリスト。後ろほど新しい
-  final List<ICommand> _undo = [];
+  final List<IUndoCommand> _undo = [];
 
   ///進むスタックリスト。後ろほど新しい
-  final List<ICommand> _redo = [];
+  final List<IUndoCommand> _redo = [];
 
   ///現在の状態
-  ICommand _current;
+  IUndoCommand? _current;
 
-  Stack(ICommand initialization) : _current = initialization;
+  UndoStack();
+
+  ///初期値をもつUndoStack
+  factory UndoStack.to(IUndoCommand command) {
+    final result = UndoStack();
+    result.push(command);
+    return result;
+  }
 
   ///戻すが可能なときTrue
   @override
@@ -46,16 +50,12 @@ class Stack implements IStack {
 
   ///変更前にスタックに戻すを追加
   @override
-  void addUndo(ICommand command) {
-    _undo.add(_current);
+  void push(IUndoCommand command) {
+    command.redo();
+    if (_current != null) {
+      _undo.add(_current!);
+    }
     _current = command;
-  }
-
-  ///変更を実行したあとに戻すに追加
-  @override
-  void executeAdd(ICommand command) {
-    command.execute(command.oldValue);
-    addUndo(command);
   }
 
   ///もとに戻す
@@ -64,11 +64,12 @@ class Stack implements IStack {
     if (!isUndo) {
       return false;
     }
-    _redo.add(_current);
-    final cmd = _undo.last;
-    _current = cmd;
+    if (_current != null) {
+      _redo.add(_current!);
+    }
+    _current = _undo.last;
     _undo.removeLast();
-    _current.execute(cmd.oldValue);
+    _current!.undo();
     return true;
   }
 
@@ -78,18 +79,20 @@ class Stack implements IStack {
     if (!isRedo) {
       return false;
     }
-    _undo.add(_current);
-    final cmd = _redo.last;
-    _current = cmd;
+    if (_current != null) {
+      _undo.add(_current!);
+    }
+
+    _current = _redo.last;
     _redo.removeLast();
-    _current.execute(cmd.oldValue);
+    _current!.redo();
     return true;
   }
 
   ///履歴の消去
   @override
-  void clear(ICommand initialization) {
-    _current = initialization;
+  void clear() {
+    _current = null;
     _undo.clear();
     _redo.clear();
   }
