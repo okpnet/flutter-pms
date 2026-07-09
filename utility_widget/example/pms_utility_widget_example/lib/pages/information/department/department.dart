@@ -6,7 +6,7 @@ import 'package:utility_widget_example/pages/container/trina_grid_summary_hader.
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 import 'package:utility_widget_example/pages/information/department/constants/department_column.dart';
 import 'package:utility_widget_example/pages/information/department/department_edit.dart';
-import 'package:utility_widget_example/src/manager/state/data_state.dart';
+import 'package:utility_widget_example/src/manager/state/databinding/data_state.dart';
 import 'package:utility_widget_example/src/ui/pms_widget_state.dart';
 import 'package:utility_widget_example/src/manager/manager.dart';
 import '../../../constant/my_trina_grid_configs/grid_config_helper.dart';

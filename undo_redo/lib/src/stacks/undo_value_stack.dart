@@ -1,41 +1,41 @@
-import 'package:undo_redo/src/commands/commands.dart';
+import 'package:undo_redo/lib.dart';
 
-abstract class IUndoStack {
+///特定のオブジェクトを監視する
+abstract class IUndoValueStack {
   ///戻すが可能なときTrue
   bool get isUndo;
 
   ///進むが可能なときTrue
   bool get isRedo;
 
+  ///値を持っているか
+  bool hasValue(dynamic value);
+
   ///もとに戻す
-  bool undo();
+  T? undo<T>();
 
   ///すすむ
-  bool redo();
+  T? redo<T>();
 
   ///変更をスタックに戻すを追加
-  void push(IUndoCommand command);
+  void push<T>(T value, IUndoCommand command);
 
   ///履歴の消去
   void clear();
 }
 
-///オブジェクトを監視する
-class UndoStack implements IUndoStack {
+///特定のオブジェクトを監視する
+class UndoValueStack implements IUndoValueStack {
   ///戻すスタックリスト。後ろほど新しい
   final List<IUndoCommand> _undo = [];
 
   ///進むスタックリスト。後ろほど新しい
   final List<IUndoCommand> _redo = [];
 
-  UndoStack();
+  ///コマンドをキーにした、値
+  final Map<IUndoCommand, dynamic> _commandValueMap = {};
 
-  ///初期値をもつUndoStack
-  factory UndoStack.to(IUndoCommand command) {
-    final result = UndoStack();
-    result.push(command);
-    return result;
-  }
+  UndoValueStack();
 
   ///戻すが可能なときTrue
   @override
@@ -45,38 +45,43 @@ class UndoStack implements IUndoStack {
   @override
   bool get isRedo => _redo.isNotEmpty;
 
+  ///値を持っているか
+  @override
+  bool hasValue(dynamic value) => _commandValueMap.containsValue(value);
+
   ///変更前にスタックに戻すを追加
   @override
-  void push(IUndoCommand command) {
+  void push<T>(T value, IUndoCommand command) {
     command.redo();
+    _commandValueMap[command] = value;
     _undo.add(command);
   }
 
   ///もとに戻す
   @override
-  bool undo() {
+  T? undo<T>() {
     if (!isUndo) {
-      return false;
+      return null;
     }
     final cmd = _undo.last;
     _undo.removeLast();
     cmd.undo();
     _redo.add(cmd);
-    return true;
+    return _commandValueMap[cmd];
   }
 
   ///すすむ
   @override
-  bool redo() {
+  T? redo<T>() {
     if (!isRedo) {
-      return false;
+      return null;
     }
 
     final cmd = _redo.last;
     _redo.removeLast();
     cmd.redo();
     _undo.add(cmd);
-    return true;
+    return _commandValueMap[cmd];
   }
 
   ///履歴の消去
