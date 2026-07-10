@@ -6,6 +6,7 @@ import 'package:utility_widget_example/extensions/pluto_grid/trina_column_extens
 import 'package:utility_widget_example/extensions/pluto_grid/trina_row_extension.dart';
 import 'package:utility_widget_example/src/manager/manager.dart';
 import 'package:utility_widget_example/src/manager/model/summary_data.dart';
+import 'package:utility_widget_example/src/manager/state/args/grid_change_event_argment.dart';
 import 'package:utility_widget_example/src/manager/state/grid_state.dart';
 import 'package:utility_widget_example/src/manager/state/pms_state.dart';
 import 'package:utility_widget_example/src/ui/pms_widget_state.dart';
@@ -39,9 +40,6 @@ abstract class ITreeGridStateManagerOfTrinaGrid<T, R> {
 
   ///データ取得のサービスの状態
   QueryState<T, R> get queryState;
-
-  ///データ管理
-  DataState<RowModel> get dataState;
 }
 
 ///ページネーションをするtrina_gridのプロバイダインターフェイス
@@ -49,7 +47,4 @@ abstract class IPagenationOfTrinaGrid<T, R> {
   ///デー
   ///タ取得のサービスの状態
   QueryState<T, R> get queryState;
-
-  ///データ管理
-  DataState<RowModel> get dataState;
 }

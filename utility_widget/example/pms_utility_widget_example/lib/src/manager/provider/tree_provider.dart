@@ -15,13 +15,22 @@ mixin TreeOfTrinaGrid<T> on IPmsWidgetState
     implements
         IGridStateManagerOfTrinaGrid,
         ITreeGridStateManagerOfTrinaGrid<T, SummaryLoadData<List<JsonMap>>> {
-  final GridState _state = GridState();
+  @override
+  PmsState get state;
 
   @override
-  PmsState get state => _state;
+  GridState get summaryState;
 
+  ///TrinaGridの操作に関連するイベントストリーム
+  final _treeChanged = StreamController<GridChangeEventArgment>.broadcast();
+  Stream<GridChangeEventArgment> get onTreeChanged => _treeChanged.stream;
+
+  ///破棄
   @override
-  GridState get summaryState => _state;
+  void dispose() {
+    super.dispose();
+    _treeChanged.close();
+  }
 
   /// ページ側で定義する getter
   // TrinaColumn get parentColumn;
@@ -32,9 +41,6 @@ mixin TreeOfTrinaGrid<T> on IPmsWidgetState
 
   /// TrinaGrid の columns をページ側で渡す
   List<TrinaColumn> get columns => stateManager.columns;
-
-  @override
-  DataState<RowModel> get dataState;
 
   ///展開の状況保持
   final Map<String?, TreeLoadStatus> status = {};
@@ -410,17 +416,13 @@ mixin TreeOfTrinaGrid<T> on IPmsWidgetState
     // // 直前の行を新しい親とみなす（デモ用ルール）
     final newParent =
         stateManager.refRows[index + 1]; //ドロップされた行が+1、ドラッグした行が-1になる
-    final oldRow = RowDropModel.to(row);
+    final beofreRowModel = RowModel.to(row);
+    _treeChanged.add(BeforeRowDropEventArgment(beofreRowModel));
     await changeParent(row, newParent);
-    dataState.push(
-      //
-      RowDropModel.to(row),
-      RowUndoCommand(
-        oldValue: oldRow,
-        newValue: RowDropModel.to(row),
-        execute: (t) => true,
-      ),
+    _treeChanged.add(
+      AfterRowDropEventArgment(beofreRowModel, RowModel.to(row)),
     );
+
     final lastRow = _toFlat(
       row,
       (t) => t.type is TrinaRowTypeGroup && t.type.group.expanded,

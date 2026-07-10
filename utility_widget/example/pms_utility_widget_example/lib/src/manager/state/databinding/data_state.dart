@@ -1,6 +1,8 @@
 import 'package:undo_redo/lib.dart';
 import 'package:utility_widget/utiritiy_widget.dart';
 
+import '../args/data_state_change_argment.dart';
+
 ///単一の[T]型を返すUndo/Redoを持つUndoStackを管理
 ///acceptで
 class DataState<T> extends ChangeNotifier {
@@ -8,11 +10,11 @@ class DataState<T> extends ChangeNotifier {
   final List<T> accepts = [];
 
   /// UI が「何を戻すべきか」を知るためのイベント引数
-  DataEvent<T>? _events;
+  DataChangeArgment<T>? _events;
 
   final UndoValueStack _stack = UndoValueStack();
 
-  DataEvent<T>? get event => _events;
+  DataChangeArgment<T>? get event => _events;
 
   ///初期化
   ///acceptしていない現在の情報はクリアされる
@@ -27,7 +29,7 @@ class DataState<T> extends ChangeNotifier {
       accepts.add(value);
     }
     _stack.push(value, command);
-    _events = DataEvent<T>(type: .observe, payload: value);
+    _events = DataChangeArgment<T>(type: .observe, payload: value);
     notifyListeners();
   }
 
@@ -43,24 +45,14 @@ class DataState<T> extends ChangeNotifier {
   ///もどす
   void undo() {
     final undoValue = _stack.undo<T>();
-    _events = DataEvent<T>(type: .undo, payload: undoValue!);
+    _events = DataChangeArgment<T>(type: .undo, payload: undoValue!);
     notifyListeners();
   }
 
   ///すすむ
   void redo() {
     final redoValue = _stack.redo<T>();
-    _events = DataEvent<T>(type: .redo, payload: redoValue!);
+    _events = DataChangeArgment<T>(type: .redo, payload: redoValue!);
     notifyListeners();
   }
 }
-
-/// イベント引数
-class DataEvent<T> {
-  final DataEventType type;
-  final T payload;
-
-  DataEvent({required this.type, required this.payload});
-}
-
-enum DataEventType { undo, redo, observe }

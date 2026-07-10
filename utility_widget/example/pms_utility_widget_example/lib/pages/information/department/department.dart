@@ -6,19 +6,20 @@ import 'package:utility_widget_example/pages/container/trina_grid_summary_hader.
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 import 'package:utility_widget_example/pages/information/department/constants/department_column.dart';
 import 'package:utility_widget_example/pages/information/department/department_edit.dart';
+import 'package:utility_widget_example/src/manager/state/args/grid_change_event_argment.dart';
 import 'package:utility_widget_example/src/ui/pms_widget_state.dart';
 import 'package:utility_widget_example/src/manager/manager.dart';
 import '../../../constant/my_trina_grid_configs/grid_config_helper.dart';
 
 class Department extends StatefulWidget {
-  final DataState dataProvider = DataState();
-  Department({super.key});
+  const Department({super.key});
   @override
   State<StatefulWidget> createState() => _Department();
 }
 
 class _Department extends PmsWidgetState<Department>
     with TreeOfTrinaGrid<JsonMap>, DepartmentProvider<JsonMap> {
+  ///
   final List<TrinaColumn> columnList = DepartmentColumn.columns;
   late final TrinaGridStateManager _stateManager;
 
@@ -30,6 +31,13 @@ class _Department extends PmsWidgetState<Department>
         cmd: (field) =>
             (t) => t[field],
       );
+
+  ///変更通知
+  final GridState _state = GridState();
+  @override
+  PmsState get state => _state;
+  @override
+  GridState get summaryState => _state;
 
   ///データ管理
   final DataState<RowModel> _dataState = DataState<RowModel>();
@@ -60,7 +68,6 @@ class _Department extends PmsWidgetState<Department>
   List<TrinaColumn> get columns => columnList;
 
   ///データ管理
-  @override
   DataState<RowModel> get dataState => _dataState;
 
   void _navigatorDetail(TrinaRow? row) {
@@ -77,13 +84,22 @@ class _Department extends PmsWidgetState<Department>
   @override
   void initState() {
     super.initState();
-    widget.dataProvider.addListener(() {
-      final event = widget.dataProvider.events.last;
-      switch (event.type) {
-        case .accept:
+
+    ///[TreeOfTrinaGrid]のドロップを捕まえる
+    onTreeChanged.listen((e) {
+      switch (e) {
+        case AfterRowDropEventArgment after:
+          final aModel = after.rowModel;
+          dataState.push(
+            aModel,
+            RowUndoCommand(
+              oldValue: after.beforeRowModel,
+              newValue: after.rowModel,
+              execute: (t) => true,
+            ),
+          );
           break;
       }
-      widget.dataProvider.events.clear();
     });
   }
 

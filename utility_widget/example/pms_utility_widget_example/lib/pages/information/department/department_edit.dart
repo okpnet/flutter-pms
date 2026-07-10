@@ -52,7 +52,10 @@ class _DepartmentTree extends StatefulWidget {
 
 class DepartmentTreeState extends PmsWidgetState<_DepartmentTree>
     with TreeOfTrinaGrid<JsonMap>, DepartmentProvider<JsonMap> {
+  ///Gridの列
   final List<TrinaColumn> columnList = DepartmentColumn.columns;
+
+  ///Gridの状態管理
   late final TrinaGridStateManager _stateManager;
 
   ///条件を絞り込むクエリマネージャ
@@ -63,6 +66,13 @@ class DepartmentTreeState extends PmsWidgetState<_DepartmentTree>
         cmd: (field) =>
             (t) => t[field],
       );
+
+  ///変更通知
+  final GridState _state = GridState();
+  @override
+  PmsState get state => _state;
+  @override
+  GridState get summaryState => _state;
 
   @override
   QueryState<JsonMap, SummaryLoadData<List<JsonMap>>> get queryState =>

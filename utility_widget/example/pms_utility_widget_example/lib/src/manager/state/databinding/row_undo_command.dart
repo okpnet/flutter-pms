@@ -63,21 +63,3 @@ class RowModel {
     return RowModel(rowKey, parentKey, isExpanded, json);
   }
 }
-
-///コマンドで使用するドラッグ行モデル
-class RowDropModel extends RowModel {
-  RowDropModel(
-    super.rowKey,
-    super.parentRowKey,
-    super.expanded,
-    super.attributes,
-  );
-
-  factory RowDropModel.to(TrinaRow row) {
-    final rowKey = row.key;
-    final parentKey = row.parent?.key;
-    final isExpanded = row.isExpanded;
-    final json = row.toJson();
-    return RowDropModel(rowKey, parentKey, isExpanded, json);
-  }
-}
