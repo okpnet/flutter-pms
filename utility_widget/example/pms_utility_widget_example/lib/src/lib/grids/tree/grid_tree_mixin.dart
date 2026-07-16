@@ -23,7 +23,7 @@ const String NULL_KEY = 'root';
 ///TreeタイプのGridに使用できるMixin
 ///TはQueryの引数の型
 ///[R]はQueryの戻り値の型
-mixin TreeOfTrinaGrid<T> //,R>
+mixin GridTreeMixin<T> //,R>
     implements ITreeGridableMixin<T, SearchResultInfoDataModel<JsonMapList>> {
   /// ページ側で定義する getter
   // TrinaColumn get parentColumn;

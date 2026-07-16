@@ -1,14 +1,14 @@
 import 'package:utility_widget/utiritiy_widget.dart';
-import 'package:utility_widget_example/src/manager/state/mixin/grid_summary_state.dart';
+import 'package:utility_widget_example/src/lib/grids/grid/state/search_result_info_state.dart';
 
 class TrinaGridSummaryHader extends StatelessWidget {
-  final IGridSummaryState summaryState;
+  final SearchResultInfoState searchResultInfoState;
   final Widget? leading;
   final Widget? ending;
 
   const TrinaGridSummaryHader({
     super.key,
-    required this.summaryState,
+    required this.searchResultInfoState,
     this.leading,
     this.ending,
   });
@@ -16,9 +16,9 @@ class TrinaGridSummaryHader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      animation: summaryState,
+      animation: searchResultInfoState,
       builder: (context, _) {
-        final summaryData = summaryState.summaryData;
+        final searchResultInfo = searchResultInfoState.model;
         return Row(
           children: [
             ?leading,
@@ -27,17 +27,19 @@ class TrinaGridSummaryHader extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: .end,
                 children: [
-                  if (summaryData != null && summaryData.hasFilterNumOfRec)
+                  if (searchResultInfo.hasFilterNumOfRec)
                     UtLayoutPadding(
                       direction: .all,
                       child: UtText.label(
-                        '条件適用 ${summaryData.filteredNumberOfRecords!}件',
+                        '条件適用 ${searchResultInfo.filteredNumberOfRecords!}件',
                       ),
                     ),
                   UtLayoutPadding(
                     direction: .all,
-                    child: summaryData != null && summaryData.hasNumOfRec
-                        ? UtText.label('全 ${summaryData.numberOfRecords ?? 0}件')
+                    child: searchResultInfo.hasNumOfRec
+                        ? UtText.label(
+                            '全 ${searchResultInfo.numberOfRecords ?? 0}件',
+                          )
                         : UtText('お待ちください'),
                   ),
                 ],

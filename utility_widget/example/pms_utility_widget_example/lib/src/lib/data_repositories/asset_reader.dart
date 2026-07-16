@@ -3,14 +3,15 @@ import 'dart:convert';
 
 import 'package:data_strategist/lib.dart';
 import 'package:query_builder/query_builder.dart';
-import 'package:utility_widget/core/ut_widget_design.dart';
+import 'package:utility_widget/utiritiy_widget.dart';
 import 'package:utility_widget_example/constant/results/result.dart';
-import 'package:utility_widget_example/src/manager/model/summary_data.dart';
-import 'package:utility_widget_example/src/manager/provider/grid_provider.dart';
+import 'package:utility_widget_example/src/lib/grids/grid/grids.dart';
+
+import '../grids/grid/providers/gridable_mixin.dart';
 
 ///デモで使用する、QueryStateに渡すレポジトリのベースクラス
 abstract class AssetReader
-    implements IDataRepository<SummaryLoadData<List<JsonMap>>> {
+    implements IDataRepository<SearchResultInfoDataModel<List<JsonMap>>> {
   List<String> get keys;
   FutureOr<String> fromCsv();
   FutureOr<Result<List<Map<String, dynamic>>>> toJsonFromCsv() async {
@@ -52,7 +53,7 @@ abstract class AssetReader
   }
 
   @override
-  Future<SummaryLoadData<List<JsonMap>>> find({
+  Future<SearchResultInfoDataModel<List<JsonMap>>> find({
     required int take,
     int skip = 0,
     Expression? pridicate,
@@ -79,7 +80,7 @@ abstract class AssetReader
       final sorts = sortBuilder.build(order);
       result.sort(sorts);
     }
-    return SummaryLoadData(
+    return SearchResultInfoDataModel(
       loadData: result.skip(skip).take(take).toList(),
       filteredNumberOfRecords: result.length,
       numberOfRecords: numOfrows,

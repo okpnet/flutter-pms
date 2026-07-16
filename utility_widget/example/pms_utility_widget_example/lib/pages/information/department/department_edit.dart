@@ -6,6 +6,7 @@ import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 import 'package:utility_widget_example/pages/container/trina_grid_summary_hader.dart';
 import 'package:utility_widget_example/pages/information/department/constants/department_column.dart';
 import 'package:utility_widget_example/pages/information/department/department_provider.dart';
+import 'package:utility_widget_example/src/lib/grids/widgets/widgets.dart';
 import 'package:utility_widget_example/src/ui/pms_widget_state.dart';
 import 'package:utility_widget_example/src/manager/manager.dart';
 
@@ -17,7 +18,7 @@ class DepartmentEdit extends StatefulWidget {
   State<StatefulWidget> createState() => _DepartmentEdit();
 }
 
-class _DepartmentEdit extends PmsWidgetState<DepartmentEdit> {
+class _DepartmentEdit extends State<DepartmentEdit> {
   final GridMapValueState _state = GridMapValueState();
   @override
   PmsState get state => _state;
@@ -28,7 +29,7 @@ class _DepartmentEdit extends PmsWidgetState<DepartmentEdit> {
       isReturned: false,
       child: UtBody(
         title: UtText.scetionTitle('組織の変更'),
-        body: PmsStateScope(
+        body: GridScope(
           notifier: state,
           child: Row(
             mainAxisAlignment: .spaceEvenly,

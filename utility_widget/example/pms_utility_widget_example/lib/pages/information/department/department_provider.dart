@@ -4,13 +4,14 @@ import 'package:data_strategist/lib.dart';
 import 'package:flutter/services.dart';
 import 'package:query_builder/query_builder.dart';
 import 'package:trina_grid/trina_grid.dart';
-import 'package:utility_widget_example/constant/demo/configuration.dart';
-import 'package:utility_widget_example/src/manager/manager.dart';
+import 'package:utility_widget_example/src/lib/data_repositories/data_repositories.dart';
+import 'package:utility_widget_example/src/lib/grids/grid/grids.dart';
+import 'package:utility_widget_example/src/lib/grids/grid/providers/gridable_mixin.dart';
+import 'package:utility_widget_example/src/lib/grids/tree/tree_gridable_mixin.dart';
+import 'package:utility_widget_example/src/lib/grids/tree/tree_load_status.dart';
 
 mixin DepartmentProvider<T>
-    implements
-        IGridStateManagerOfTrinaGrid,
-        ITreeGridStateManagerOfTrinaGrid<T, SummaryLoadData<List<JsonMap>>> {
+    implements ITreeGridableMixin<T, SearchResultInfoDataModel<JsonMapList>> {
   ///最上位の検索条件
   final parentFoundEx = EqualExpression(
     FieldExpression<JsonMap>((t) => t['parent_id']),
@@ -21,7 +22,7 @@ mixin DepartmentProvider<T>
   @override
   IPredicateModel get initiBuildPredicate {
     final pridicate = PredicateModel(
-      take: Configuration.NUM_OF_RECORDS,
+      take: configState.config.fetchLimit,
       skip: 0,
       pridicate: AndExpression([parentFoundEx]),
     );
@@ -37,14 +38,14 @@ mixin DepartmentProvider<T>
   ) {
     final otherPridicate = stateManager.hasFilter
         ? queryState.adapter.build(
-            Configuration.NUM_OF_RECORDS,
+            configState.config.fetchLimit,
             filterRows: stateManager.filterRows,
           )
         : null;
 
     final pridicate = PredicateModel(
-      take: Configuration.NUM_OF_RECORDS,
-      skip: treeState.current + Configuration.NUM_OF_RECORDS,
+      take: configState.config.fetchLimit,
+      skip: treeState.current + configState.config.fetchLimit,
       pridicate: AndExpression([
         parentRow == null
             ? parentFoundEx
@@ -62,6 +63,8 @@ mixin DepartmentProvider<T>
     );
     return pridicate;
   }
+
+  void openEditDialog(TrinaRow edtiRow) {}
 }
 
 final class DepaertmentAsset extends AssetReader {

@@ -6,9 +6,13 @@ import 'package:utility_widget_example/pages/container/trina_grid_summary_hader.
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 import 'package:utility_widget_example/pages/information/department/constants/department_column.dart';
 import 'package:utility_widget_example/pages/information/department/department_edit.dart';
-import 'package:utility_widget_example/src/manager/state/args/grid_change_event_argment.dart';
-import 'package:utility_widget_example/src/ui/pms_widget_state.dart';
-import 'package:utility_widget_example/src/manager/manager.dart';
+import 'package:utility_widget_example/src/lib/configs/configs.dart';
+import 'package:utility_widget_example/src/lib/grids/grid/grids.dart';
+import 'package:utility_widget_example/src/lib/grids/grid/providers/gridable_mixin.dart';
+import 'package:utility_widget_example/src/lib/grids/presenters/row_model.dart';
+import 'package:utility_widget_example/src/lib/grids/tree/grid_tree_mixin.dart';
+import 'package:utility_widget_example/src/lib/grids/widgets/widgets.dart';
+import 'package:utility_widget_example/src/lib/undoredo/undo_redo_state.dart';
 import '../../../constant/my_trina_grid_configs/grid_config_helper.dart';
 
 class Department extends StatefulWidget {
@@ -17,39 +21,39 @@ class Department extends StatefulWidget {
   State<StatefulWidget> createState() => _Department();
 }
 
-class _Department extends PmsWidgetState<Department>
-    with TreeOfTrinaGrid<JsonMap>, DepartmentProvider<JsonMap> {
-  ///
-  final List<TrinaColumn> columnList = DepartmentColumn.columns;
+class _Department extends State<Department>
+    with GridTreeMixin<JsonMap>, DepartmentProvider<JsonMap> {
+  ///TrinaGridの状態管理
   late final TrinaGridStateManager _stateManager;
-
-  ///条件を絞り込むクエリマネージャ
-  final QueryState<JsonMap, SummaryLoadData<List<JsonMap>>> _queryState =
-      QueryState<JsonMap, SummaryLoadData<List<JsonMap>>>(
-        expressionVisitorType: .list,
-        repository: DepaertmentAsset(),
-        cmd: (field) =>
-            (t) => t[field],
-      );
-
-  ///変更通知
-  final GridState _state = GridState();
-  @override
-  PmsState get state => _state;
-  @override
-  GridState get summaryState => _state;
-
-  ///データ管理
-  final DataState<RowModel> _dataState = DataState<RowModel>();
-
-  ///検索条件状態管理
-  @override
-  QueryState<JsonMap, SummaryLoadData<List<JsonMap>>> get queryState =>
-      _queryState;
 
   ///TrinaGridの状態管理
   @override
   TrinaGridStateManager get stateManager => _stateManager;
+
+  ///条件を絞り込むクエリマネージャ
+  @override
+  final QueryState<JsonMap, SearchResultInfoDataModel<List<JsonMap>>>
+  queryState = QueryState<JsonMap, SearchResultInfoDataModel<List<JsonMap>>>(
+    expressionVisitorType: .list,
+    repository: DepaertmentAsset(),
+    cmd: (field) =>
+        (t) => t[field],
+  );
+
+  ///設定状態管理
+  @override
+  final ConfigState configState = ConfigState(ConfigModel());
+
+  ///検索結果状態管理
+  @override
+  final SearchResultInfoState searchResultInfoState = SearchResultInfoState();
+
+  ///
+  final List<TrinaColumn> columnList = DepartmentColumn.columns;
+
+  ///
+  @override
+  final UndoRedoState<RowModel> undoredoState = UndoRedoState<RowModel>();
 
   ///行の状態を管理するキーを生成する
   @override
@@ -67,9 +71,6 @@ class _Department extends PmsWidgetState<Department>
   @override
   List<TrinaColumn> get columns => columnList;
 
-  ///データ管理
-  DataState<RowModel> get dataState => _dataState;
-
   void _navigatorDetail(TrinaRow? row) {
     if (row == null) {
       return;
@@ -82,36 +83,14 @@ class _Department extends PmsWidgetState<Department>
   }
 
   @override
-  void initState() {
-    super.initState();
-
-    ///[TreeOfTrinaGrid]のドロップを捕まえる
-    onTreeChanged.listen((e) {
-      switch (e) {
-        case AfterRowDropEventArgment after:
-          final aModel = after.rowModel;
-          dataState.push(
-            aModel,
-            RowUndoCommand(
-              oldValue: after.beforeRowModel,
-              newValue: after.rowModel,
-              execute: (t) => true,
-            ),
-          );
-          break;
-      }
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return SidemenuScafold(
       isReturned: true,
       child: UtBody(
         isVirticalScroll: false,
         title: UtText.scetionTitle('組織'),
-        body: PmsStateScope(
-          notifier: state,
+        body: GridScope(
+          notifier: searchResultInfoState,
           child: TrinaGrid(
             mode: .select,
             isTreeDragMode: true, //ツリーモード指定。ドラッグ中に行左端へホバーすると右に寄る。
@@ -130,8 +109,9 @@ class _Department extends PmsWidgetState<Department>
               initColumns();
               await initialAddRow(null); //TrinaRow.fromJson(root));
             },
-            createHeader: (manager) =>
-                TrinaGridSummaryHader(summaryState: summaryState),
+            createHeader: (manager) => TrinaGridSummaryHader(
+              searchResultInfoState: searchResultInfoState,
+            ),
             columns: columnList,
             rows: [],
             onRowsMoved: onRowsMoved,

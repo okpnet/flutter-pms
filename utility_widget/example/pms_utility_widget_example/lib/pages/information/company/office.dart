@@ -7,11 +7,12 @@ import 'package:trina_grid/trina_grid.dart';
 import 'package:utility_widget_example/constant/my_trina_grid_configs/grid_config_helper.dart';
 import 'package:utility_widget_example/pages/container/trina_grid_summary_hader.dart';
 import 'package:utility_widget_example/pages/information/company/constants/office_column.dart';
-import 'package:utility_widget_example/src/lib/configs/config_state.dart';
-import 'package:utility_widget_example/src/lib/grids/grid/state/search_result_info_state.dart';
+import 'package:utility_widget_example/src/lib/configs/configs.dart';
+import 'package:utility_widget_example/src/lib/data_repositories/data_repositories.dart';
+import 'package:utility_widget_example/src/lib/grids/grid/providers/gridable_mixin.dart';
 import 'package:utility_widget_example/src/lib/grids/pagenation/grid_pagenation_mixin.dart';
-import 'package:utility_widget_example/src/ui/pms_widget_state.dart';
-import 'package:utility_widget_example/src/manager/manager.dart';
+import 'package:utility_widget_example/src/lib/grids/widgets/widgets.dart';
+import 'package:utility_widget_example/src/lib/grids/grid/grids.dart';
 
 class Office extends StatefulWidget {
   const Office({super.key});
@@ -20,42 +21,32 @@ class Office extends StatefulWidget {
   State<StatefulWidget> createState() => OfficeState();
 }
 
-class OfficeState extends PmsWidgetState<Office>
-    with GridPagenationMixin<JsonMap> {
-  final GridState _state = GridState();
+class OfficeState extends State<Office> with GridPagenationMixin<JsonMap> {
+  ///TrinaGridの状態管理
+  late final TrinaGridStateManager _stateManager;
+
+  ///TrinaGridの状態管理
+  @override
+  TrinaGridStateManager get stateManager => _stateManager;
 
   ///条件を絞り込むクエリマネージャ
-  final QueryState<JsonMap, SummaryLoadData<List<JsonMap>>> _queryState =
-      QueryState<JsonMap, SummaryLoadData<List<JsonMap>>>(
+  @override
+  QueryState<JsonMap, SearchResultInfoDataModel<List<JsonMap>>>
+  get queryState =>
+      QueryState<JsonMap, SearchResultInfoDataModel<List<JsonMap>>>(
         expressionVisitorType: .list,
         repository: OfficeAsset(),
         cmd: (field) =>
             (t) => t[field],
       );
 
-  late final TrinaGridStateManager _stateManager;
-
+  ///設定状態管理
   @override
-  QueryState<JsonMap, SummaryLoadData<List<JsonMap>>> get queryState =>
-      _queryState;
+  final ConfigState configState = ConfigState(ConfigModel());
 
+  ///検索結果状態管理
   @override
-  PmsState get state => _state;
-
-
-  @override
-  TrinaGridStateManager get stateManager => _stateManager;
-    @override
-  ConfigState get configState => ;
-
-  @override
-  SearchResultInfoState get searchResultInfoState ;
-
-  // ページネーション設定
-  final int pageSize = 20;
-  int currentPage = 1;
-  int? numberOfRecords;
-  int? filteredNumeberOfRecord;
+  final SearchResultInfoState searchResultInfoState = SearchResultInfoState();
 
   OfficeState();
   @override
@@ -65,8 +56,8 @@ class OfficeState extends PmsWidgetState<Office>
       child: UtBody(
         isVirticalScroll: false,
         title: UtText.scetionTitle('事業所'),
-        body: PmsStateScope(
-          notifier: _state,
+        body: GridScope(
+          notifier: searchResultInfoState,
           child: TrinaGrid(
             onChanged: (TrinaGridOnChangedEvent event) {
               print(event);
@@ -75,7 +66,9 @@ class OfficeState extends PmsWidgetState<Office>
               //初回に一度だけ呼ばれる
               _stateManager = event.stateManager;
             },
-            createHeader: (_) => TrinaGridSummaryHader(summaryState: _state),
+            createHeader: (_) => TrinaGridSummaryHader(
+              searchResultInfoState: searchResultInfoState,
+            ),
             columns: OfficeColumn.columns,
             rows: [],
             onRowSecondaryTap: (event) {},
@@ -95,8 +88,6 @@ class OfficeState extends PmsWidgetState<Office>
       ),
     );
   }
-
-
 }
 
 final class OfficeAsset extends AssetReader {
