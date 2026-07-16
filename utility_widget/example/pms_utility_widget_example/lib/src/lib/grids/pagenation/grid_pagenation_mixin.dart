@@ -3,7 +3,10 @@ import 'package:utility_widget_example/src/lib/grids/grid/grids.dart';
 
 import '../grid/providers/gridable_mixin.dart';
 
-mixin GridPagenationMixin<T, R>
+///LazyPageのGridView用のMixin
+///TはQueryの引数の型
+///[R]はQueryの戻り値の型
+mixin GridPagenationMixin<T> //, R>
     implements IGridableMixin<T, SearchResultInfoDataModel<JsonMapList>> {
   ///ページの読み込み
   Future<TrinaLazyPaginationResponse> loadPage(

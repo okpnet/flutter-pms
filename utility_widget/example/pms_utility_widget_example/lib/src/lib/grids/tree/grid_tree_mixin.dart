@@ -1,15 +1,18 @@
 // ignore: non_constant_identifier_names
 import 'dart:async';
 
+import 'package:data_strategist/lib.dart';
 import 'package:trina_grid/trina_grid.dart';
 import 'package:utility_widget/utiritiy_widget.dart';
-
+import 'package:utility_widget_example/src/lib/grids/presenters/presenters.dart';
+import '../extenssions/extensions.dart';
+import '../extenssions/trina_column_extenssion.dart';
 import '../grid/providers/gridable_mixin.dart';
 import '../grid/state/search_result_info_data_model.dart';
+import 'tree_gridable_mixin.dart';
+import 'tree_load_status.dart';
 
 const String BEFORE_EXPANDED = 'loadMore_';
-// ignore: non_constant_identifier_names
-const String DUMMY_ROW = 'dummy_';
 
 // ignore: non_constant_identifier_names, constant_identifier_names
 const double DEPTH_INDENT = 16;
@@ -17,19 +20,11 @@ const double DEPTH_INDENT = 16;
 // ignore: non_constant_identifier_names
 const String NULL_KEY = 'root';
 
-mixin TreeOfTrinaGrid<T>
-    implements IGridableMixin<T, SearchResultInfoDataModel<JsonMapList>> {
-  ///TrinaGridの操作に関連するイベントストリーム
-  final _treeChanged = StreamController<GridChangeEventArgment>.broadcast();
-  Stream<GridChangeEventArgment> get onTreeChanged => _treeChanged.stream;
-
-  ///破棄
-  @override
-  void dispose() {
-    super.dispose();
-    _treeChanged.close();
-  }
-
+///TreeタイプのGridに使用できるMixin
+///TはQueryの引数の型
+///[R]はQueryの戻り値の型
+mixin TreeOfTrinaGrid<T> //,R>
+    implements ITreeGridableMixin<T, SearchResultInfoDataModel<JsonMapList>> {
   /// ページ側で定義する getter
   // TrinaColumn get parentColumn;
   TrinaColumn get idColumn;
@@ -196,17 +191,18 @@ mixin TreeOfTrinaGrid<T>
   ) async {
     final summarydata = await queryState.facade.execute(pridicate);
 
-    summaryState.setSummaryValue(summarydata);
+    searchResultInfoState.set(summarydata);
 
     final newState = TreeLoadStatus(
-      current: state.current + Configuration.NUM_OF_RECORDS,
+      current: state.current + configState.config.fetchLimit,
       numberOfRecords: summarydata.filteredNumberOfRecords ?? 0,
     );
     return newState;
   }
 
   Future<void> _addRows(TrinaRow? parentRow, TreeLoadStatus newState) async {
-    if (summaryState.summaryData case SummaryLoadData<List<JsonMap>> summary) {
+    if (searchResultInfoState.model
+        case SearchResultInfoDataModel<JsonMapList> summary) {
       debugPrint(
         'recordNum=${summary.numberOfRecords} filterNum=${summary.filteredNumberOfRecords} current=${newState.current} stateNum=${newState.numberOfRecords}',
       );
@@ -415,36 +411,37 @@ mixin TreeOfTrinaGrid<T>
     final newParent =
         stateManager.refRows[index + 1]; //ドロップされた行が+1、ドラッグした行が-1になる
     final beofreRowModel = RowModel.to(row);
-    _treeChanged.add(BeforeRowDropEventArgment(beofreRowModel));
     await changeParent(row, newParent);
-    _treeChanged.add(
-      AfterRowDropEventArgment(beofreRowModel, RowModel.to(row)),
-    );
+    final afterRowModel = RowModel.to(row);
 
+    undoredoState.pushEdit(
+      afterRowModel,
+      //戻すに追加
+      RowUndoCommand(
+        oldValue: beofreRowModel,
+        newValue: afterRowModel,
+        execute: (t) {
+          final parentIndex = stateManager.refRows.indexWhere(
+            (x) => x.parent?.key == t.parentRowKey,
+          );
+          final currentIndex = stateManager.refRows.indexWhere(
+            (x) => x.key == t.rowKey,
+          );
+
+          if (0 > parentIndex ||
+              0 > currentIndex ||
+              currentIndex == parentIndex) {
+            return;
+          }
+          final currentRow = stateManager.refRows.elementAt(currentIndex);
+          _rowMoved(currentRow, parentIndex);
+        },
+      ),
+    );
     final lastRow = _toFlat(
       row,
       (t) => t.type is TrinaRowTypeGroup && t.type.group.expanded,
     ).last;
     return stateManager.rows.indexOf(lastRow);
-  }
-}
-
-///行の読み込みの状態管理
-final class TreeLoadStatus {
-  ///その行の子の総数
-  final int numberOfRecords;
-
-  ///現在の位置。ソートで順番が変わってしまう。
-  final int current;
-
-  bool get isLatest => current >= numberOfRecords;
-
-  TreeLoadStatus({required this.current, required this.numberOfRecords});
-
-  TreeLoadStatus copyWith({int? current, int? numberOfRecords}) {
-    return TreeLoadStatus(
-      current: current ?? this.current,
-      numberOfRecords: numberOfRecords ?? this.numberOfRecords,
-    );
   }
 }

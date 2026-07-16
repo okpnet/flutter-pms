@@ -7,6 +7,9 @@ import 'package:trina_grid/trina_grid.dart';
 import 'package:utility_widget_example/constant/my_trina_grid_configs/grid_config_helper.dart';
 import 'package:utility_widget_example/pages/container/trina_grid_summary_hader.dart';
 import 'package:utility_widget_example/pages/information/company/constants/office_column.dart';
+import 'package:utility_widget_example/src/lib/configs/config_state.dart';
+import 'package:utility_widget_example/src/lib/grids/grid/state/search_result_info_state.dart';
+import 'package:utility_widget_example/src/lib/grids/pagenation/grid_pagenation_mixin.dart';
 import 'package:utility_widget_example/src/ui/pms_widget_state.dart';
 import 'package:utility_widget_example/src/manager/manager.dart';
 
@@ -18,7 +21,7 @@ class Office extends StatefulWidget {
 }
 
 class OfficeState extends PmsWidgetState<Office>
-    with PagenationOfTrinaGrid<JsonMap> {
+    with GridPagenationMixin<JsonMap> {
   final GridState _state = GridState();
 
   ///条件を絞り込むクエリマネージャ
@@ -39,11 +42,14 @@ class OfficeState extends PmsWidgetState<Office>
   @override
   PmsState get state => _state;
 
-  @override
-  GridState get summaryState => _state;
 
   @override
   TrinaGridStateManager get stateManager => _stateManager;
+    @override
+  ConfigState get configState => ;
+
+  @override
+  SearchResultInfoState get searchResultInfoState ;
 
   // ページネーション設定
   final int pageSize = 20;
@@ -89,6 +95,8 @@ class OfficeState extends PmsWidgetState<Office>
       ),
     );
   }
+
+
 }
 
 final class OfficeAsset extends AssetReader {
