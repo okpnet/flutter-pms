@@ -14,7 +14,7 @@ abstract class IUndoStack {
   bool redo();
 
   ///変更をスタックに戻すを追加
-  void push(IUndoCommand command);
+  void push(IUndoCommand command, {bool isImmediately = true});
 
   ///履歴の消去
   void clear();
@@ -47,9 +47,12 @@ class UndoStack implements IUndoStack {
 
   ///変更前にスタックに戻すを追加
   @override
-  void push(IUndoCommand command) {
-    command.redo();
+  void push(IUndoCommand command, {bool isImmediately = true}) {
+    if (isImmediately) {
+      command.redo();
+    }
     _undo.add(command);
+    _redo.clear();
   }
 
   ///もとに戻す

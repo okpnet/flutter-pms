@@ -18,7 +18,7 @@ abstract class IUndoValueStack {
   T? redo<T>();
 
   ///変更をスタックに戻すを追加
-  void push<T>(T value, IUndoCommand command);
+  void push<T>(T value, IUndoCommand command, {bool isImmediately = true});
 
   ///履歴の消去
   void clear();
@@ -51,10 +51,13 @@ class UndoValueStack implements IUndoValueStack {
 
   ///変更前にスタックに戻すを追加
   @override
-  void push<T>(T value, IUndoCommand command) {
-    command.redo();
+  void push<T>(T value, IUndoCommand command, {bool isImmediately = true}) {
+    if (isImmediately) {
+      command.redo();
+    }
     _commandValueMap[command] = value;
     _undo.add(command);
+    _redo.clear();
   }
 
   ///もとに戻す

@@ -4,13 +4,14 @@ import 'search_result_info_model.dart';
 
 class SearchResultInfoState extends ChangeNotifier {
   // ignore: prefer_final_fields
-  SearchResultInfoModel _model;
+  ISearchResultInfoModel _model;
 
-  SearchResultInfoModel get model => _model;
+  ISearchResultInfoModel get model => _model;
 
   SearchResultInfoState() : _model = SearchResultInfoModel();
 
-  void set(SearchResultInfoModel model) {
+  void set(ISearchResultInfoModel model) {
+    _model = model;
     notifyListeners();
   }
 }

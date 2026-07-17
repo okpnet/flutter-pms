@@ -2,7 +2,7 @@ import 'package:data_strategist/lib.dart';
 import 'package:trina_grid/trina_grid.dart';
 import 'package:utility_widget/utiritiy_widget.dart';
 import 'package:utility_widget_example/pages/information/department/department_provider.dart';
-import 'package:utility_widget_example/pages/container/trina_grid_summary_hader.dart';
+import 'package:utility_widget_example/src/lib/grids/widgets/trina_grid_summary_hader.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 import 'package:utility_widget_example/pages/information/department/constants/department_column.dart';
 import 'package:utility_widget_example/pages/information/department/department_edit.dart';
