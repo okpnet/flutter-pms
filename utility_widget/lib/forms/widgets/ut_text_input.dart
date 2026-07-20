@@ -20,6 +20,9 @@ class UtTextInput extends StatelessWidget with UtInputTextStyleMixin {
   final String obscuringCharacter;
   final UtInputWidthStyle widthStyle;
   final String? Function({Key? key, String? label, String? value})? validator;
+  final TextEditingController? controller;
+  final FocusNode? focusNode;
+  final List<TextInputFormatter>? inputFormatters;
 
   const UtTextInput({
     super.key,
@@ -42,6 +45,9 @@ class UtTextInput extends StatelessWidget with UtInputTextStyleMixin {
     this.obscuringCharacter = '•',
     this.widthStyle = UtInputWidthStyle.infinity,
     this.validator,
+    this.controller,
+    this.focusNode,
+    this.inputFormatters,
   });
 
   @override
@@ -63,6 +69,7 @@ class UtTextInput extends StatelessWidget with UtInputTextStyleMixin {
   Widget _primary() {
     return TextFormField(
       key: key,
+      controller: controller,
       decoration: InputDecoration(
         border: primary(),
         suffixIcon: suffixIcon,
@@ -85,6 +92,8 @@ class UtTextInput extends StatelessWidget with UtInputTextStyleMixin {
       validator: validator == null
           ? null
           : (value) => validator!(key: key, label: label, value: value),
+      focusNode: focusNode,
+      inputFormatters: inputFormatters,
     );
   }
 
@@ -106,6 +115,9 @@ class UtTextInput extends StatelessWidget with UtInputTextStyleMixin {
     UtInputWidthStyle widthStyle = UtInputWidthStyle.infinity,
     bool requiered = false,
     String? Function({Key? key, String? label, String? value})? validator,
+    TextEditingController? controller,
+    FocusNode? focusNode,
+    List<TextInputFormatter>? inputFormatters,
   }) => UtTextInput(
     key: key,
     enabled: enabled,
@@ -126,6 +138,9 @@ class UtTextInput extends StatelessWidget with UtInputTextStyleMixin {
     obscureText: false,
     widthStyle: widthStyle,
     validator: validator,
+    controller: controller,
+    focusNode: focusNode,
+    inputFormatters: inputFormatters,
   );
 
   factory UtTextInput.primaryPassword({
@@ -144,6 +159,9 @@ class UtTextInput extends StatelessWidget with UtInputTextStyleMixin {
     String obscuringCharacter = '•',
     UtInputWidthStyle widthStyle = UtInputWidthStyle.infinity,
     String? Function({Key? key, String? label, String? value})? validator,
+    TextEditingController? controller,
+    FocusNode? focusNode,
+    List<TextInputFormatter>? inputFormatters,
   }) => UtTextInput(
     key: key,
     enabled: enabled,
@@ -163,5 +181,8 @@ class UtTextInput extends StatelessWidget with UtInputTextStyleMixin {
     obscuringCharacter: obscuringCharacter,
     widthStyle: widthStyle,
     validator: validator,
+    controller: controller,
+    focusNode: focusNode,
+    inputFormatters: inputFormatters,
   );
 }

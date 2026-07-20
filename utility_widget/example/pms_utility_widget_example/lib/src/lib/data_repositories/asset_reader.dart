@@ -7,14 +7,14 @@ import 'package:utility_widget/utiritiy_widget.dart';
 import 'package:utility_widget_example/constant/results/result.dart';
 import 'package:utility_widget_example/src/lib/grids/grid/grids.dart';
 
-import '../grids/grid/providers/gridable_mixin.dart';
+import '../constants/constant.dart';
 
 ///デモで使用する、QueryStateに渡すレポジトリのベースクラス
 abstract class AssetReader
     implements IDataRepository<SearchResultInfoDataModel<List<JsonMap>>> {
   List<String> get keys;
   FutureOr<String> fromCsv();
-  FutureOr<Result<List<Map<String, dynamic>>>> toJsonFromCsv() async {
+  FutureOr<Result<JsonMapList>> toJsonFromCsv() async {
     try {
       final buffer = await fromCsv();
       // UTF-8 のみ許可
@@ -28,7 +28,7 @@ abstract class AssetReader
       // 1 行目はヘッダとして無視（keys を使うため）
       final dataLines = lines.skip(1);
 
-      final result = <Map<String, dynamic>>[];
+      final result = <JsonMap>[];
       for (final line in dataLines) {
         final values = line.split(',');
 
@@ -60,11 +60,11 @@ abstract class AssetReader
     SortExpression? order,
   }) async {
     final rowJson = switch (await toJsonFromCsv()) {
-      Ok<List<Map<String, dynamic>>> jsonList => jsonList.value,
-      _ => <Map<String, dynamic>>[],
+      Ok<JsonMapList> jsonList => jsonList.value,
+      _ => <JsonMap>[],
     };
     final numOfrows = rowJson.length;
-    final builder = ListExpressionBuilder<Map<String, dynamic>>();
+    final builder = ListExpressionBuilder<JsonMap>();
 
     if (pridicate != null) {
       debugPrint('debug pridicate:${pridicate.buildDebug()}');
@@ -75,7 +75,7 @@ abstract class AssetReader
         : rowJson;
 
     if (order != null) {
-      final sortBuilder = SortListExpressionBuilder<Map<String, dynamic>>();
+      final sortBuilder = SortListExpressionBuilder<JsonMap>();
       debugPrint('order:${order.buildDebug()}');
       final sorts = sortBuilder.build(order);
       result.sort(sorts);

@@ -3,7 +3,7 @@ import 'package:trina_grid/trina_grid.dart';
 import 'package:utility_widget/utiritiy_widget.dart';
 import 'package:utility_widget_example/constant/my_trina_grid_configs/grid_config_helper.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
-import 'package:utility_widget_example/src/lib/grids/widgets/trina_grid_summary_hader.dart';
+import 'package:utility_widget_example/src/lib/grids/widgets/secondary/trina_grid_summary_hader.dart';
 import 'package:utility_widget_example/pages/information/department/constants/department_column.dart';
 import 'package:utility_widget_example/pages/information/department/department_provider.dart';
 import 'package:utility_widget_example/src/lib/grids/widgets/widgets.dart';

@@ -5,9 +5,9 @@ import 'package:data_strategist/lib.dart';
 import 'package:trina_grid/trina_grid.dart';
 import 'package:utility_widget/utiritiy_widget.dart';
 import 'package:utility_widget_example/src/lib/grids/presenters/presenters.dart';
+import '../../constants/constant.dart';
 import '../extenssions/extensions.dart';
 import '../extenssions/trina_column_extenssion.dart';
-import '../grid/providers/gridable_mixin.dart';
 import '../grid/state/search_result_info_data_model.dart';
 import 'tree_gridable_mixin.dart';
 import 'tree_load_status.dart';
@@ -268,7 +268,7 @@ mixin GridTreeMixin<T> //,R>
   }
 
   ///データから行生成
-  TrinaRow buildPultoRow(Map<String, dynamic> json, TrinaRow? parentRow) {
+  TrinaRow buildPultoRow(JsonMap json, TrinaRow? parentRow) {
     final result = TrinaRow(
       type: .group(children: FilteredList<TrinaRow>(initialList: [])),
       cells: {

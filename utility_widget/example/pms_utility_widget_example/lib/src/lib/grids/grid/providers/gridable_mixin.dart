@@ -4,9 +4,6 @@ import 'package:utility_widget_example/src/lib/configs/config_state.dart';
 
 import '../state/search_result_info_state.dart';
 
-typedef JsonMap = Map<String, dynamic>;
-typedef JsonMapList = List<Map<String, dynamic>>;
-
 ///Gridに使用できるMixinの基本情報
 ///TはQueryの引数の型
 ///[R]はQueryの戻り値の型

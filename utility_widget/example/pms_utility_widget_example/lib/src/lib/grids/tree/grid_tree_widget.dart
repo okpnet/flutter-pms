@@ -5,10 +5,10 @@ import 'package:trina_grid/trina_grid.dart';
 import 'package:utility_widget/utiritiy_widget.dart';
 
 import '../../configs/configs.dart';
+import '../../constants/constant.dart';
 import '../extenssions/extensions.dart';
 import '../extenssions/trina_column_extenssion.dart';
 import '../grid/grids.dart';
-import '../grid/providers/gridable_mixin.dart';
 import '../presenters/presenters.dart';
 import '../widgets/widgets.dart';
 import 'tree_load_status.dart';
@@ -19,16 +19,13 @@ class GridTreeWidget extends StatefulWidget {
   final List<TrinaColumn> columnList;
 
   ///行が子を持っているか評価する式
-  final bool Function(Map<String, dynamic>) hasChildTheRow;
+  final bool Function(JsonMap) hasChildTheRow;
 
   ///ルート/トップアイテムを取得する式
   final IPredicateModel Function() initiRootPredicate;
 
   ///フィルタを適用/子を取得する式
-  final IPredicateModel Function(
-    Map<String, dynamic>? parentRow,
-    TreeLoadStatus treeState,
-  )
+  final IPredicateModel Function(JsonMap? parentRow, TreeLoadStatus treeState)
   buildPredicate;
 
   ///条件を絞り込むクエリマネージャ
@@ -364,7 +361,7 @@ class _GridTreeWidget extends State<GridTreeWidget> {
   }
 
   ///データから行生成
-  TrinaRow buildPultoRow(Map<String, dynamic> json, TrinaRow? parentRow) {
+  TrinaRow buildPultoRow(JsonMap json, TrinaRow? parentRow) {
     final result = TrinaRow(
       type: .group(children: FilteredList<TrinaRow>(initialList: [])),
       cells: {

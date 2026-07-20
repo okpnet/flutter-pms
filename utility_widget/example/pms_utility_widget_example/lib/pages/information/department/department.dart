@@ -2,18 +2,17 @@ import 'package:data_strategist/lib.dart';
 import 'package:trina_grid/trina_grid.dart';
 import 'package:utility_widget/utiritiy_widget.dart';
 import 'package:utility_widget_example/pages/information/department/department_provider.dart';
-import 'package:utility_widget_example/src/lib/grids/widgets/trina_grid_summary_hader.dart';
 import 'package:utility_widget_example/pages/container/sidemenu_scafold.dart';
 import 'package:utility_widget_example/pages/information/department/constants/department_column.dart';
 import 'package:utility_widget_example/pages/information/department/department_edit.dart';
 import 'package:utility_widget_example/src/lib/configs/configs.dart';
 import 'package:utility_widget_example/src/lib/grids/grid/grids.dart';
-import 'package:utility_widget_example/src/lib/grids/grid/providers/gridable_mixin.dart';
 import 'package:utility_widget_example/src/lib/grids/presenters/row_model.dart';
 import 'package:utility_widget_example/src/lib/grids/tree/grid_tree_mixin.dart';
 import 'package:utility_widget_example/src/lib/grids/widgets/widgets.dart';
 import 'package:utility_widget_example/src/lib/undoredo/undo_redo_state.dart';
 import '../../../constant/my_trina_grid_configs/grid_config_helper.dart';
+import 'package:utility_widget_example/src/lib/constants/constant.dart';
 
 class Department extends StatefulWidget {
   const Department({super.key});

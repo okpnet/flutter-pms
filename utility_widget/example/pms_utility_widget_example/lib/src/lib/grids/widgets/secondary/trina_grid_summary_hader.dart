@@ -1,5 +1,5 @@
 import 'package:utility_widget/utiritiy_widget.dart';
-import '../grid/state/states.dart';
+import '../../grid/state/states.dart';
 
 class TrinaGridSummaryHader extends StatelessWidget {
   final SearchResultInfoState searchResultInfoState;

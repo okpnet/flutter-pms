@@ -1,5 +1,6 @@
 import 'package:trina_grid/trina_grid.dart';
 import 'package:utility_widget/utiritiy_widget.dart';
+import 'package:utility_widget_example/src/lib/constants/constant.dart';
 
 import '../../../../extensions/pluto_grid/trina_row_extension.dart';
 
@@ -8,7 +9,7 @@ class RowModel {
   final Key rowKey;
   final Key? parentRowKey;
   final bool expanded;
-  final Map<String, dynamic> attributes;
+  final JsonMap attributes;
 
   RowModel(this.rowKey, this.parentRowKey, this.expanded, this.attributes);
 
