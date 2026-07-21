@@ -11,7 +11,14 @@ class WrapFrame extends StatelessWidget {
   final int defaultMobileCells;
   final int defaultTabletCells;
   final int defaultPcCells;
-  // その他のWrapプロパティは省略（必要に応じて追加してください）
+  final Axis direction;
+  final WrapAlignment alignment;
+  final WrapAlignment runAlignment;
+  final WrapCrossAlignment crossAxisAlignment;
+  final TextDirection? textDirection;
+  final VerticalDirection verticalDirection;
+  final Clip clipBehavior;
+  final ResponsiveDeviceNotifier? responsiveDeviceNotifier;
 
   const WrapFrame({
     super.key,
@@ -21,6 +28,14 @@ class WrapFrame extends StatelessWidget {
     this.defaultMobileCells = 1,
     this.defaultTabletCells = 6,
     this.defaultPcCells = 12,
+    this.direction = Axis.horizontal,
+    this.alignment = WrapAlignment.start,
+    this.runAlignment = WrapAlignment.start,
+    this.crossAxisAlignment = WrapCrossAlignment.start,
+    this.textDirection,
+    this.verticalDirection = VerticalDirection.down,
+    this.clipBehavior = Clip.none,
+    this.responsiveDeviceNotifier,
   });
 
   @override
@@ -35,6 +50,12 @@ class WrapFrame extends StatelessWidget {
             : media == MediaBreakPoint.tablet
             ? defaultTabletCells
             : defaultMobileCells;
+
+        ///描画サイクル（フレーム）が完了した直後に、現在のmedia状態をScopeへ通知
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          ResponsiveScope.notifierOf(context)?.update(media);
+          responsiveDeviceNotifier?.update(media);
+        });
 
         // 5. 計算ロジッククラス（Behavior）を生成して処理を委譲
         final behavior = WrapFrameBehavior(
