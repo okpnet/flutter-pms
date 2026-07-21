@@ -7,20 +7,21 @@ class SpaceField extends ThemeExtension<SpaceField> {
   ///メニューのパディング
   final double menuFieldPd;
 
-  final double wrapGap;
+  ///Wrap,Row,Columnのギャップ
+  final double spacing;
 
   SpaceField({
     this.formFieldPd = 4.0,
     this.menuFieldPd = 8.0,
-    this.wrapGap = 4,
+    this.spacing = 4,
   });
 
   @override
   ThemeExtension<SpaceField> copyWith() {
     return SpaceField(
-      formFieldPd: this.formFieldPd,
+      formFieldPd: formFieldPd,
       menuFieldPd: menuFieldPd,
-      wrapGap: wrapGap,
+      spacing: spacing,
     );
   }
 
