@@ -37,4 +37,12 @@ extension ContextThemeExtenssion on BuildContext {
       foregroundColor: theme.colorScheme.onSurfaceVariant,
     ).merge(theme.iconButtonTheme.style);
   }
+
+  Widget spaceAll(Widget child) {
+    final theme = Theme.of(this).extension<SpaceField>();
+    return Padding(
+      padding: EdgeInsetsGeometry.all(theme!.spacing),
+      child: child,
+    );
+  }
 }
