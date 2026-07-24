@@ -1,4 +1,4 @@
-import '../constants/constant.dart';
+import 'constant.dart';
 
 abstract class AppIcon {
   static const double s = 16;

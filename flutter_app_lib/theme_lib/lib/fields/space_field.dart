@@ -10,6 +10,8 @@ class SpaceField extends ThemeExtension<SpaceField> {
   ///Wrap,Row,Columnのギャップ
   final double spacing;
 
+  EdgeInsets get all => EdgeInsets.all(spacing);
+
   SpaceField({
     this.formFieldPd = 4.0,
     this.menuFieldPd = 8.0,
