@@ -64,26 +64,46 @@ class _MyHomePageState extends State<MyHomePage> {
                 style: context.secondaryBtn,
               ),
             ),
-            TextButton(
-              onPressed: () => true,
-              child: Text('tertiaryBtn'),
-              style: context.tertiaryBtn,
+            context.spaceAll(
+              TextButton(
+                onPressed: () => true,
+                child: Text('tertiaryBtn'),
+                style: context.tertiaryBtn,
+              ),
             ),
-            IconButton(
-              onPressed: () => true,
-              icon: Icon(Icons.home),
+            context.spaceAll(
+              IconButton(
+                onPressed: () => true,
+                icon: Icon(Icons.home),
 
-              style: context.iconPrimaryBtn,
+                style: context.iconPrimaryBtn,
+              ),
             ),
-            IconButton(
-              onPressed: () => true,
-              icon: Icon(Icons.home_outlined),
-              style: context.iconSecondaryBtn,
+            context.spaceAll(
+              IconButton(
+                onPressed: () => true,
+                icon: Icon(Icons.home_outlined),
+                style: context.iconSecondaryBtn,
+              ),
             ),
-            IconButton(
-              onPressed: () => true,
-              icon: Icon(Icons.home_max_rounded),
-              style: context.iconTertiary,
+            context.spaceAll(
+              IconButton(
+                onPressed: () => true,
+                icon: Icon(Icons.home_max_rounded),
+                style: context.iconTertiary,
+              ),
+            ),
+            Row(
+              spacing: context.spacing,
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    decoration: context.primaryInputDecoration.copyWith(
+                      label: Text('label'),
+                    ),
+                  ),
+                ),
+              ],
             ),
             const Text('You have pushed the button this many times:'),
             Text(

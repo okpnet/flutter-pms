@@ -11,6 +11,12 @@ class SpaceField extends ThemeExtension<SpaceField> {
   final double spacing;
 
   EdgeInsets get all => EdgeInsets.all(spacing);
+  EdgeInsets get horizontal => EdgeInsets.symmetric(horizontal: spacing);
+  EdgeInsets get vertical => EdgeInsets.symmetric(vertical: spacing);
+  EdgeInsets get left => EdgeInsets.only(left: spacing);
+  EdgeInsets get top => EdgeInsets.only(top: spacing);
+  EdgeInsets get right => EdgeInsets.only(right: spacing);
+  EdgeInsets get bottom => EdgeInsets.only(bottom: spacing);
 
   SpaceField({
     this.formFieldPd = 4.0,

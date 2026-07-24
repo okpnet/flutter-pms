@@ -6,10 +6,39 @@ extension ContextThemeExtenssion on BuildContext {
   SpaceField? get space => Theme.of(this).extension<SpaceField>();
 
   ///テキストインプットのデコレーション
-  InputDecoration get primaryInputDecoration => InputDecoration(
-    isDense: true,
-    border: const OutlineInputBorder(borderRadius: AppRadius.edgeBorderRadius),
-  );
+  InputDecoration get primaryInputDecoration {
+    final theme = Theme.of(this);
+    final basedecoration = theme.inputDecorationTheme;
+    final decoration = InputDecoration(
+      isDense: true,
+      border: OutlineInputBorder(
+        borderRadius: AppRadius.edgeBorderRadius,
+        borderSide: BorderSide(
+          width: AppButton.borderWidth,
+          color: theme.colorScheme.onPrimary,
+        ),
+      ),
+      enabledBorder: basedecoration.enabledBorder!.copyWith(
+        borderSide: BorderSide(
+          color: theme.colorScheme.primary,
+          width: AppBorder.borderWidth,
+        ),
+      ),
+      focusedBorder: basedecoration.focusedBorder!.copyWith(
+        borderSide: BorderSide(
+          color: theme.colorScheme.onPrimaryFixed,
+          width: AppBorder.activeBorderWidth,
+        ),
+      ),
+      errorBorder: basedecoration.focusedBorder!.copyWith(
+        borderSide: BorderSide(
+          color: theme.colorScheme.onError,
+          width: AppBorder.borderWidth,
+        ),
+      ),
+    );
+    return decoration.applyDefaults(basedecoration);
+  }
 
   ///メインカラーのソリッドアイコンボタンスタイル
   ButtonStyle get iconPrimaryBtn {
