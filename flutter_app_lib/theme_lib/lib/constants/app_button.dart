@@ -1,12 +1,9 @@
 import 'package:theme_lib/constants/constant.dart';
 
-typedef PrimaryButton = ElevatedButton;
-typedef SecondaryButton = OutlinedButton;
-typedef TertiaryButton = TextButton;
-
+///ボタン標準値
 abstract class AppButton {
   static const double elevation = 2;
-  static const double borderWidth = 3;
+  static const double borderWidth = 0.8;
 
   static const double height = 46;
   static const double width = 128;

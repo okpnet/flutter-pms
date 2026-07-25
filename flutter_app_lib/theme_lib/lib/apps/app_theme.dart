@@ -5,47 +5,10 @@ import 'apps.dart';
 
 ThemeData appTheme = ThemeData(
   extensions: [SpaceField(), BorderField()],
+  filledButtonTheme: AppButtonTheme.filledButtonThemeData,
   inputDecorationTheme: AppInputDecoration.appThemeData,
-  elevatedButtonTheme: ElevatedButtonThemeData(
-    style: ElevatedButton.styleFrom(
-      elevation: AppButton.elevation,
-      minimumSize: AppButton.minimumSize,
-      shape: const RoundedRectangleBorder(
-        borderRadius: AppRadius.edgeBorderRadius,
-      ),
-    ),
-  ),
-  outlinedButtonTheme: OutlinedButtonThemeData(
-    style: OutlinedButton.styleFrom(
-      elevation: AppButton.elevation,
-      minimumSize: AppButton.minimumSize,
-      side: BorderSide(width: AppButton.borderWidth),
-      shape: const RoundedRectangleBorder(
-        borderRadius: AppRadius.edgeBorderRadius,
-      ),
-    ),
-  ),
-  textButtonTheme: TextButtonThemeData(
-    style: TextButton.styleFrom(
-      minimumSize: AppButton.minimumSize,
-      shape: const RoundedRectangleBorder(
-        borderRadius: AppRadius.edgeBorderRadius,
-      ),
-    ),
-  ),
-  iconButtonTheme: IconButtonThemeData(
-    style: IconButton.styleFrom(
-      minimumSize: AppIcon.mxm,
-      shape: const RoundedRectangleBorder(
-        borderRadius: AppRadius.edgeBorderRadius,
-      ),
-    ),
-  ),
-  checkboxTheme: CheckboxThemeData(
-    shape: const RoundedRectangleBorder(
-      borderRadius: AppRadius.edgeBorderRadius,
-    ),
-  ),
+  iconButtonTheme: AppButtonTheme.iconButtonThemeData,
+  checkboxTheme: AppCheckboxTheme.themeData,
   dropdownMenuTheme: DropdownMenuThemeData(
     ///inputDecorationThemeと共有
   ),

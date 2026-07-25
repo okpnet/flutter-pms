@@ -1,5 +1,6 @@
 import 'constant.dart';
 
+///アイコン標準値
 abstract class AppIcon {
   static const double s = 16;
   static const double m = 32;

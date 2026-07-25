@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:theme_lib/apps/apps.dart';
 import 'package:theme_lib/extenssions/extenssions.dart';
@@ -51,58 +50,118 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: .center,
           children: [
             context.spaceAll(
-              ElevatedButton(
+              FilledButton(
                 onPressed: () => true,
                 child: Text('primary'),
-                style: context.primaryBtn,
-              ),
+              ).toPrimary(context),
             ),
             context.spaceAll(
-              OutlinedButton(
+              FilledButton(
                 onPressed: () => true,
                 child: Text('secondary'),
-                style: context.secondaryBtn,
-              ),
+              ).toSecondary(context),
             ),
             context.spaceAll(
-              TextButton(
+              FilledButton(
                 onPressed: () => true,
                 child: Text('tertiaryBtn'),
-                style: context.tertiaryBtn,
-              ),
+              ).toTertiary(context),
             ),
             context.spaceAll(
               IconButton(
                 onPressed: () => true,
                 icon: Icon(Icons.home),
-
-                style: context.iconPrimaryBtn,
-              ),
+              ).toPrimary(context),
             ),
             context.spaceAll(
               IconButton(
                 onPressed: () => true,
                 icon: Icon(Icons.home_outlined),
-                style: context.iconSecondaryBtn,
-              ),
+              ).toSecondary(context),
             ),
             context.spaceAll(
               IconButton(
                 onPressed: () => true,
                 icon: Icon(Icons.home_max_rounded),
-                style: context.iconTertiary,
-              ),
+              ).toTertiary(context),
             ),
             Row(
               spacing: context.spacing,
               children: [
                 Expanded(
                   child: TextFormField(
-                    decoration: context.primaryInputDecoration.copyWith(
-                      label: Text('label'),
-                    ),
-                  ),
+                    decoration: InputDecoration(label: Text('label1')),
+                  ).toPrimary(context),
                 ),
+                Expanded(
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      label: Text('label2'),
+                      prefixIcon: Icon(Icons.sunny_snowing),
+                    ),
+                  ).toPrimary(context),
+                ),
+                Expanded(
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      label: Text('label3'),
+                      prefixIcon: Icon(Icons.search),
+                    ),
+                  ).toSearch(context),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Checkbox(
+                  value: true,
+                  onChanged: (_) => false,
+                ).toPrimary(context),
+                Checkbox(
+                  value: false,
+                  onChanged: (_) => false,
+                ).toPrimary(context),
+                Checkbox(
+                  value: true,
+                  onChanged: (_) => false,
+                ).toSecondary(context),
+                Checkbox(
+                  value: false,
+                  onChanged: (_) => false,
+                ).toSecondary(context),
+                Checkbox(
+                  value: true,
+                  onChanged: (_) => false,
+                ).toTertiary(context),
+                Checkbox(
+                  value: false,
+                  onChanged: (_) => false,
+                ).toTertiary(context),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: CheckboxListTile(
+                    controlAffinity: ListTileControlAffinity.leading,
+                    value: true,
+                    onChanged: (_) => true,
+                    title: Text('ChcekBoxTile1'),
+                  ).toPrimary(context),
+                ),
+                Expanded(
+                  child: CheckboxListTile(
+                    controlAffinity: ListTileControlAffinity.platform,
+                    value: true,
+                    onChanged: (_) => true,
+                    title: Text('ChcekBoxTile2'),
+                  ).toSecondary(context),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(child: DropdownMenu(dropdownMenuEntries: []).to),
               ],
             ),
             const Text('You have pushed the button this many times:'),
