@@ -6,17 +6,11 @@ class BorderField extends ThemeExtension<BorderField> {
   BorderField({this.radius = 3});
 
   @override
-  ThemeExtension<BorderField> copyWith() {
-    // TODO: implement copyWith
-    throw UnimplementedError();
-  }
+  ThemeExtension<BorderField> copyWith() => BorderField(radius: radius);
 
   @override
   ThemeExtension<BorderField> lerp(
     covariant ThemeExtension<BorderField>? other,
     double t,
-  ) {
-    // TODO: implement lerp
-    throw UnimplementedError();
-  }
+  ) => this;
 }

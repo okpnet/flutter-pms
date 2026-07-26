@@ -23,4 +23,7 @@ abstract class AppButtonTheme {
       ),
     ),
   );
+
+  static RadioThemeData get radioThemeData =>
+      RadioThemeData(side: BorderSide(width: AppBorder.borderWidth));
 }

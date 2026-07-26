@@ -11,5 +11,7 @@ ThemeData appTheme = ThemeData(
   checkboxTheme: AppCheckboxTheme.themeData,
   dropdownMenuTheme: DropdownMenuThemeData(
     ///inputDecorationThemeと共有
+    inputDecorationTheme: AppInputDecoration.appThemeData,
   ),
+  radioTheme: AppButtonTheme.radioThemeData,
 );

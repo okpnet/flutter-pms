@@ -161,7 +161,16 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Row(
               children: [
-                Expanded(child: DropdownMenu(dropdownMenuEntries: []).to),
+                Expanded(
+                  child: DropdownButtonFormField(
+                    decoration: InputDecoration(label: Text('drop')),
+                    items: [
+                      DropdownMenuItem<String>(value: '1', child: Text('1')),
+                      DropdownMenuItem<String>(value: '2', child: Text('2')),
+                    ],
+                    onChanged: (_) => '',
+                  ).toPrimary(context),
+                ),
               ],
             ),
             const Text('You have pushed the button this many times:'),
