@@ -5,7 +5,7 @@ import 'responsive_cell.dart';
 import 'responsive_grid_behavior.dart';
 
 class ResponsiveGrid extends StatelessWidget {
-  final List<WrapCell> children;
+  final List<ResponsiveCell> children;
   final double spacing;
   final double runSpacing;
   final int defaultMobileCells;

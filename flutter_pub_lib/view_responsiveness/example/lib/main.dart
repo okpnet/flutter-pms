@@ -60,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
               defaultPcCells: 12,
 
               children: [
-                WrapCell(
+                ResponsiveCell(
                   layout: CommonLayouts.quortfWidth,
                   child: Container(
                     width: double.infinity,
@@ -68,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Text("grid1"),
                   ),
                 ),
-                WrapCell(
+                ResponsiveCell(
                   layout: CommonLayouts.quortfWidth,
                   child: Container(
                     width: double.infinity,
@@ -76,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Text("grid1"),
                   ),
                 ),
-                WrapCell(
+                ResponsiveCell(
                   layout: CommonLayouts.quortfWidth.copyWith(
                     wrapCellAlignment: .centerLeft,
                   ),
@@ -86,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Text("grid1"),
                   ),
                 ),
-                WrapCell(
+                ResponsiveCell(
                   layout: CommonLayouts.quortfWidth.copyWith(
                     wrapCellAlignment: .centerLeft,
                     showOnPc: false,
@@ -99,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Text("grid1"),
                   ),
                 ),
-                WrapCell(
+                ResponsiveCell(
                   layout: CommonLayouts.quortfWidth,
                   child: Container(
                     width: double.infinity,
@@ -107,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Text("grid1"),
                   ),
                 ),
-                WrapCell(
+                ResponsiveCell(
                   layout: CommonLayouts.quortfWidth.copyWith(
                     showOnMobile: false,
                   ),

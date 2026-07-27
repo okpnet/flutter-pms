@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'responsive_cell_layout.dart';
 
-class WrapCell extends StatelessWidget {
+class ResponsiveCell extends StatelessWidget {
   final ResponsiveCellLayout layout; // 1. 引数をクラスに集約
   final Widget child;
 
-  const WrapCell({
+  const ResponsiveCell({
     super.key,
     this.layout = const ResponsiveCellLayout(), // デフォルトレイアウト
     required this.child,
