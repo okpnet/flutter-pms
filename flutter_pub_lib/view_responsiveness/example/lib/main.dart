@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            WrapFrame(
+            ResponsiveGrid(
               defaultMobileCells: 4,
               defaultTabletCells: 9,
               defaultPcCells: 12,

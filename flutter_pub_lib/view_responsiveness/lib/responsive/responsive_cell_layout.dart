@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'wrap_cell_alignment.dart';
+import 'responsive_cell_alignment.dart';
 
-class WrapCellLayout {
+class ResponsiveCellLayout {
   final int? mobileFlex;
   final int? tabletFlex;
   final int? pcFlex;
@@ -17,9 +17,9 @@ class WrapCellLayout {
   final bool showOnPc;
 
   // JSON保存できるように、Alignmentは文字列（または独自のEnum）で管理するのが安全です
-  final WrapCellAlignment wrapCellAlignment;
+  final ResponsiveCellAlignment wrapCellAlignment;
 
-  const WrapCellLayout({
+  const ResponsiveCellLayout({
     this.mobileFlex,
     this.tabletFlex,
     this.pcFlex,
@@ -36,7 +36,7 @@ class WrapCellLayout {
   AlignmentGeometry get alignment => wrapCellAlignment.alignment;
 
   // 4. 定番の copyWith
-  WrapCellLayout copyWith({
+  ResponsiveCellLayout copyWith({
     int? mobileFlex,
     int? tabletFlex,
     int? pcFlex,
@@ -46,9 +46,9 @@ class WrapCellLayout {
     bool? showOnMobile,
     bool? showOnTablet,
     bool? showOnPc,
-    WrapCellAlignment? wrapCellAlignment,
+    ResponsiveCellAlignment? wrapCellAlignment,
   }) {
-    return WrapCellLayout(
+    return ResponsiveCellLayout(
       mobileFlex: mobileFlex ?? this.mobileFlex,
       tabletFlex: tabletFlex ?? this.tabletFlex,
       pcFlex: pcFlex ?? this.pcFlex,
@@ -76,16 +76,18 @@ class WrapCellLayout {
     'wrapCellAlignment': wrapCellAlignment,
   };
 
-  factory WrapCellLayout.fromJson(Map<String, dynamic> json) => WrapCellLayout(
-    mobileFlex: json['mobileFlex'],
-    tabletFlex: json['tabletFlex'],
-    pcFlex: json['pcFlex'],
-    mobileOffset: json['mobileOffset'],
-    tabletOffset: json['tabletOffset'],
-    pcOffset: json['pcOffset'],
-    showOnMobile: json['showOnMobile'] ?? true,
-    showOnTablet: json['showOnTablet'] ?? true,
-    showOnPc: json['showOnPc'] ?? true,
-    wrapCellAlignment: json['wrapCellAlignment'] ?? WrapCellAlignment.center,
-  );
+  factory ResponsiveCellLayout.fromJson(Map<String, dynamic> json) =>
+      ResponsiveCellLayout(
+        mobileFlex: json['mobileFlex'],
+        tabletFlex: json['tabletFlex'],
+        pcFlex: json['pcFlex'],
+        mobileOffset: json['mobileOffset'],
+        tabletOffset: json['tabletOffset'],
+        pcOffset: json['pcOffset'],
+        showOnMobile: json['showOnMobile'] ?? true,
+        showOnTablet: json['showOnTablet'] ?? true,
+        showOnPc: json['showOnPc'] ?? true,
+        wrapCellAlignment:
+            json['wrapCellAlignment'] ?? ResponsiveCellAlignment.center,
+      );
 }

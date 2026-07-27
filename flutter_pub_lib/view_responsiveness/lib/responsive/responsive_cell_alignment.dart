@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum WrapCellAlignment {
+enum ResponsiveCellAlignment {
   centerLeft('centerLeft'),
   center('center'),
   centerRight('centerRight'),
@@ -23,9 +23,9 @@ enum WrapCellAlignment {
 
   final String valueString;
 
-  const WrapCellAlignment(this.valueString);
+  const ResponsiveCellAlignment(this.valueString);
 
-  static WrapCellAlignment from(String value) {
+  static ResponsiveCellAlignment from(String value) {
     return switch (value) {
       tl => .topLeft,
       tc => .topCenter,

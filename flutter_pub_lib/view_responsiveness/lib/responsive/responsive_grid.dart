@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../constants/constants.dart';
-import 'wrap_cell.dart';
-import 'wrap_frame_behavior.dart';
+import 'responsive_cell.dart';
+import 'responsive_grid_behavior.dart';
 
-class WrapFrame extends StatelessWidget {
+class ResponsiveGrid extends StatelessWidget {
   final List<WrapCell> children;
   final double spacing;
   final double runSpacing;
@@ -20,7 +20,7 @@ class WrapFrame extends StatelessWidget {
   final Clip clipBehavior;
   final ResponsiveDeviceNotifier? responsiveDeviceNotifier;
 
-  const WrapFrame({
+  const ResponsiveGrid({
     super.key,
     required this.children,
     this.spacing = 0.0,
@@ -58,7 +58,7 @@ class WrapFrame extends StatelessWidget {
         });
 
         // 5. 計算ロジッククラス（Behavior）を生成して処理を委譲
-        final behavior = WrapFrameBehavior(
+        final behavior = ResponsiveGridBehavior(
           totalWidth: widgetWidth,
           media: media,
           maxCells: maxCells,

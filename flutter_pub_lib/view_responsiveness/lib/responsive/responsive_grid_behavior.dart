@@ -1,13 +1,13 @@
 import '../constants/constants.dart'; // MediaBreakPoint がある想定
-import 'wrap_cell_layout.dart';
+import 'responsive_cell_layout.dart';
 
-class WrapFrameBehavior {
+class ResponsiveGridBehavior {
   final double totalWidth;
   final MediaBreakPoint media;
   final int maxCells;
   final double spacing;
 
-  WrapFrameBehavior({
+  ResponsiveGridBehavior({
     required this.totalWidth,
     required this.media,
     required this.maxCells,
@@ -21,14 +21,14 @@ class WrapFrameBehavior {
   }
 
   // セルを表示すべきかどうかの判定
-  bool shouldShow(WrapCellLayout layout) {
+  bool shouldShow(ResponsiveCellLayout layout) {
     if (media == MediaBreakPoint.pc) return layout.showOnPc;
     if (media == MediaBreakPoint.tablet) return layout.showOnTablet;
     return layout.showOnMobile;
   }
 
   // 現在のデバイスに応じた flex の取得
-  int getFlex(WrapCellLayout layout) {
+  int getFlex(ResponsiveCellLayout layout) {
     int flex = 1;
     if (media == MediaBreakPoint.pc) {
       flex = layout.pcFlex ?? 1;
@@ -41,7 +41,7 @@ class WrapFrameBehavior {
   }
 
   // 3. 現在のデバイスに応じた offset の取得
-  int getOffset(WrapCellLayout layout) {
+  int getOffset(ResponsiveCellLayout layout) {
     int offset = 0;
     if (media == MediaBreakPoint.pc) {
       offset = layout.pcOffset ?? 0;
