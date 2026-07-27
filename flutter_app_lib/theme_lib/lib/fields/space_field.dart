@@ -1,6 +1,17 @@
 import '../constants/constant.dart';
 
-class SpaceField extends ThemeExtension<SpaceField> {
+abstract class ISpaceField {
+  ///フォームのパディング
+  double get formFieldPd;
+
+  ///メニューのパディング
+  double get menuFieldPd;
+
+  ///Wrap,Row,Columnのギャップ
+  double get spacing;
+}
+
+class SpaceField extends ThemeExtension<SpaceField> implements ISpaceField {
   ///フォームのパディング
   final double formFieldPd;
 

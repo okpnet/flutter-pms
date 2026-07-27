@@ -57,12 +57,10 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: .center,
           children: [
-            context.spaceAll(
-              FilledButton(
-                onPressed: () => true,
-                child: Text('primary'),
-              ).toPrimary(context),
-            ),
+            FilledButton(
+              onPressed: () => true,
+              child: Text('primary'),
+            ).toPrimary(context).spaceAll(context),
             context.spaceAll(
               FilledButton(
                 onPressed: () => true,
