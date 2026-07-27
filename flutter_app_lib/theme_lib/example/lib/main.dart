@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: appTheme,
+      theme: AppTheme.customTheme,
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -31,12 +31,20 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-
+  double _slider = 0;
   void _incrementCounter() {
     setState(() {
       _counter++;
     });
   }
+
+  void _changeCounter(int value) {
+    setState(() {
+      _counter = value;
+    });
+  }
+
+  void _changeSlider(double value) => setState(() => _slider = value);
 
   @override
   Widget build(BuildContext context) {
@@ -172,6 +180,59 @@ class _MyHomePageState extends State<MyHomePage> {
                   ).toPrimary(context),
                 ),
               ],
+            ),
+            RadioGroup<int>(
+              groupValue: _counter,
+              onChanged: (x) => _changeCounter(x ?? 0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: RadioListTile(value: 3, title: Text('value3')),
+                  ),
+                  Expanded(
+                    child: RadioListTile(value: 2, title: Text('value2')),
+                  ),
+                  Expanded(
+                    child: RadioListTile(value: 1, title: Text('value1')),
+                  ),
+                  Expanded(
+                    child: RadioListTile(
+                      value: 0,
+                      title: Align(
+                        alignment: .centerLeft,
+                        child: Icon(Icons.gamepad),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: SwitchListTile(
+                    secondary: Icon(Icons.thumb_down_alt),
+                    value: true,
+                    onChanged: (_) => false,
+                    title: Text('switch1'),
+                  ),
+                ),
+                Expanded(
+                  child: SwitchListTile(
+                    value: false,
+                    onChanged: (_) => false,
+                    title: Text('switch2'),
+                  ),
+                ),
+              ],
+            ),
+            Text('slider 1'),
+            Slider(
+              value: _slider,
+              onChanged: (value) => _changeSlider(value),
+              max: 50,
+              label: '$_slider',
+              divisions: 10,
             ),
             const Text('You have pushed the button this many times:'),
             Text(
