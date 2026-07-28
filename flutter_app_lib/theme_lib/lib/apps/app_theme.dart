@@ -32,5 +32,6 @@ abstract class AppTheme {
     radioTheme: AppButtonTheme.radioThemeData,
     listTileTheme: AppListTileTheme.listTileThemeData,
     switchTheme: SwitchThemeData(),
+    expansionTileTheme: AppExpansionTheme.expansionTileTheme,
   );
 }

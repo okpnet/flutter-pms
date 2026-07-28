@@ -17,7 +17,12 @@ class _DrawerMenu extends State<DrawerMenu> {
     final scrollController = ScrollController();
     return Scrollbar(
       controller: scrollController,
-      child: ListView(children: [DrawerMenuHeader()]),
+      child: ListView(
+        children: [
+          DrawerMenuHeader(),
+          ExpansionTile(title: Text('会社情報'), children: []),
+        ],
+      ),
     );
   }
 }
