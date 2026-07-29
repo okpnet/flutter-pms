@@ -351,9 +351,13 @@ class Entity{
             Comment=entity.comment;
             for(var index in entity.attributes)Columns.add(new Column(entity.attributes[index]));
             for(var index in commonAttrs)Columns.add(new Column(commonAttrs[index]));
+//            println(Name+':'+entity.lName);
+            try{
             IsRelations=ext.toWhere(relations,function(e){return (e.entityPName1==Name && !new RegExp("^history_id").test(e.attributes1));});
             IsFkRelations=ext.toWhere(relations,function(e){return (e.entityPName2==Name);});// && !new RegExp("^history_id").test(e.attributes2));});
-            
+            }catch(ex){
+                println('erroe:'+ex);
+            }
             var pkColumns=ext.toWhere(Columns,function(e){return e.Attr.keyIdx>=0;});
 //PKからユニークインデックスが生成されるので不要
 //            if(ext.count(pkColumns) > 0){
@@ -361,7 +365,7 @@ class Entity{
 //                UniqueIndexs.add(new UniqueIndex(Name,pkColumnStr,UniqueIndexs.length+1));
 //                println(pkColumnStr);
 //            }
-            
+
             for(var index in entity.indexes){
                 //ERに追加しているインデックス
                 //0:指定されていない 1ユニークインデックス: 2:ユニーク制約
@@ -386,7 +390,7 @@ class Entity{
             IsView=true;
             ViewQury=entity.query;
         }
-
+//        println('donee');
     }
 	//テーブル全レコード削除
 	function GetDeleteQuery(schema){
@@ -801,10 +805,10 @@ class GeneratManager{
         var prg=new Progress("ER objects",10,ext.count(doc.objects));
         ext.enumrable(doc.objects,function(e,progress){
             prg.up();
-            if(e.objectType=="Entity"){
+            if(e.objectType=="Entity"|| e.objectType=="View"){
                 ents.add(e);
                 entsLen++;
-            }else if(e.objectType=="Relation" || e.objectType=="View"){
+            }else if(e.objectType=="Relation" /*|| e.objectType=="View"*/){
                 rels.add(e);
             }
         });

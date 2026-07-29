@@ -20,7 +20,14 @@ class _DrawerMenu extends State<DrawerMenu> {
       child: ListView(
         children: [
           DrawerMenuHeader(),
-          ExpansionTile(title: Text('会社情報'), children: []),
+          ListTile(leading: Text('会社情報')),
+          ExpansionTile(
+            title: Text('資源情報'),
+            children: [
+              ListTile(leading: Text('設備1')), //ここをDB上の分類で分けるため、設定を呼び出す必要がある
+              ListTile(leading: Text('設備2')),
+            ],
+          ),
         ],
       ),
     );

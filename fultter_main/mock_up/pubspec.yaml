@@ -43,7 +43,10 @@ dependencies:
     git:
       url: https://github.com/okpnet/flutter-pms.git
       path: flutter_app_lib/theme_lib
-
+  trina_grid:
+    git:
+      url: https://github.com/okpnet/trina_grid
+      ref: main
 dev_dependencies:
   flutter_test:
     sdk: flutter
