@@ -1,3 +1,4 @@
+import 'package:grid_lib/grid_lib.dart';
 import 'package:mock_up/constants/configuration/grid/grid.dart';
 import 'package:mock_up/imports.dart';
 import 'package:trina_grid/trina_grid.dart';
@@ -9,6 +10,7 @@ class ListOffice extends StatefulWidget {
 }
 
 class _ListOffice extends State<ListOffice> {
+  //with GridPagenationMixin<JsonMap>{
   List<TrinaColumn> _columns = [];
 
   ///グリッドの設定
@@ -16,6 +18,10 @@ class _ListOffice extends State<ListOffice> {
 
   ///TrinaGridの状態管理
   late final TrinaGridStateManager _stateManager;
+
+  ///検索結果状態管理
+  @override
+  final SearchResultInfoState searchResultInfoState = SearchResultInfoState();
 
   ///TrinaGridの状態管理
   @override

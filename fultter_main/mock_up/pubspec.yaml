@@ -36,13 +36,11 @@ dependencies:
   cupertino_icons: ^1.0.8
   import_sorter: ^4.6.0
   view_responsiveness:
-    git:
-      url: https://github.com/okpnet/flutter-pms.git
-      path: flutter_pub_lib/view_responsiveness
+    path: ../../flutter_pub_lib/view_responsiveness
   theme_lib:
-    git:
-      url: https://github.com/okpnet/flutter-pms.git
-      path: flutter_app_lib/theme_lib
+    path: ../../flutter_app_lib/theme_lib
+  grid_lib:
+    path: ../../flutter_app_lib/grid_lib
   trina_grid:
     git:
       url: https://github.com/okpnet/trina_grid
