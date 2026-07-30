@@ -1,3 +1,4 @@
+import 'package:mock_up/constants/configuration/grid/grid.dart';
 import 'package:mock_up/imports.dart';
 import 'package:trina_grid/trina_grid.dart';
 
@@ -9,6 +10,9 @@ class ListOffice extends StatefulWidget {
 
 class _ListOffice extends State<ListOffice> {
   List<TrinaColumn> _columns = [];
+
+  ///グリッドの設定
+  final GridConfiguration tringaGridConfig = GridConfiguration();
 
   ///TrinaGridの状態管理
   late final TrinaGridStateManager _stateManager;
@@ -59,7 +63,7 @@ class _ListOffice extends State<ListOffice> {
       columns: _columns,
       rows: [],
       onRowSecondaryTap: (event) {},
-      configuration: GridConfigHelper.build(),
+      configuration: tringaGridConfig.listConfig,
       // createFooter: (stateManager) {
       //   return TrinaLazyPagination(
       //     initialPage: 1,

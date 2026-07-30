@@ -15,11 +15,13 @@ dependencies:
       url: https://github.com/okpnet/trina_grid
       ref: main
   query_builder:
-    path: ../../../../../query_builder
-  data_strategist:
-    path: ../../../../../data_strategist
+    git:
+      url: https://github.com/okpnet/flutter-pms.git
+      path: flutter_pub_lib/query_builder
   undo_redo:
-    path: ../../../../../undo_redo
+    git:
+      url: https://github.com/okpnet/flutter-pms.git
+      path: flutter_pub_lib/undo_redo
 dev_dependencies:
   flutter_test:
     sdk: flutter
