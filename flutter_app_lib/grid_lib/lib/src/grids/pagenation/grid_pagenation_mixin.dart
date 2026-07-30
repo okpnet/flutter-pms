@@ -1,7 +1,7 @@
 import 'package:trina_grid/trina_grid.dart';
-import 'package:utility_widget_example/src/lib/grids/grid/grids.dart';
 
 import '../../constants/constant.dart';
+import '../grid/grids.dart';
 import '../grid/providers/gridable_mixin.dart';
 
 ///LazyPageのGridView用のMixin

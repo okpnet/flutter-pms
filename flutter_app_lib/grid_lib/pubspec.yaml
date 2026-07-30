@@ -2,6 +2,7 @@ name: grid_lib
 description: "A new Flutter package project."
 version: 0.0.1
 homepage:
+publish_to: none
 
 environment:
   sdk: ^3.12.2
@@ -15,13 +16,13 @@ dependencies:
       url: https://github.com/okpnet/trina_grid
       ref: main
   query_builder:
-    git:
-      url: https://github.com/okpnet/flutter-pms.git
-      path: flutter_pub_lib/query_builder
+    path: ../../flutter_pub_lib/query_builder
+  data_strategist:
+    path: ../../flutter_pub_lib/data_strategist
   undo_redo:
-    git:
-      url: https://github.com/okpnet/flutter-pms.git
-      path: flutter_pub_lib/undo_redo
+    path: ../../flutter_pub_lib/undo_redo
+  theme_lib:
+    path: ../../flutter_app_lib/theme_lib
 dev_dependencies:
   flutter_test:
     sdk: flutter

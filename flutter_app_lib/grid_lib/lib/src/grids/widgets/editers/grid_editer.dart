@@ -1,8 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:trina_grid/trina_grid.dart';
-import 'package:utility_widget/utiritiy_widget.dart';
-import 'package:utility_widget_example/src/lib/grids/widgets/widgets.dart';
 import '../../../constants/constant.dart';
 import '../../../undoredo/undo_redo.dart';
+import 'editers.dart';
 
 typedef KeyColumn = Map<String, TrinaColumn>;
 typedef GetWidget = Widget Function(BuildContext context, List<Widget> editors);

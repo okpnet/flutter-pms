@@ -1,5 +1,5 @@
+import 'package:flutter/material.dart';
 import 'package:trina_grid/trina_grid.dart';
-import 'package:utility_widget/utiritiy_widget.dart';
 
 ///TrinaColumnのTypeに応じたWidget生成する
 abstract interface class IEditerInvoker {

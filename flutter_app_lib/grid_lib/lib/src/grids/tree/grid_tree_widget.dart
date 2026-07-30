@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:data_strategist/lib.dart';
+import 'package:flutter/material.dart';
 import 'package:trina_grid/trina_grid.dart';
-import 'package:utility_widget/utiritiy_widget.dart';
 
 import '../../configs/configs.dart';
 import '../../constants/constant.dart';

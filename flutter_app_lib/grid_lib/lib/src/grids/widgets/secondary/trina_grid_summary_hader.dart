@@ -1,4 +1,6 @@
-import 'package:utility_widget/utiritiy_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:theme_lib/extenssions/build_context_space_field_theme.dart';
+
 import '../../grid/state/states.dart';
 
 class TrinaGridSummaryHader extends StatelessWidget {
@@ -28,20 +30,14 @@ class TrinaGridSummaryHader extends StatelessWidget {
                 mainAxisAlignment: .end,
                 children: [
                   if (searchResultInfo.hasFilterNumOfRec)
-                    UtLayoutPadding(
-                      direction: .all,
-                      child: UtText.label(
-                        '条件適用 ${searchResultInfo.filteredNumberOfRecords!}件',
-                      ),
-                    ),
-                  UtLayoutPadding(
-                    direction: .all,
-                    child: searchResultInfo.hasNumOfRec
-                        ? UtText.label(
-                            '全 ${searchResultInfo.numberOfRecords ?? 0}件',
-                          )
-                        : UtText('お待ちください'),
-                  ),
+                    Text(
+                      '条件適用 ${searchResultInfo.filteredNumberOfRecords!}件',
+                    ).spaceAll(context),
+                  searchResultInfo.hasNumOfRec
+                      ? Text(
+                          '全 ${searchResultInfo.numberOfRecords ?? 0}件',
+                        ).spaceAll(context)
+                      : Text('お待ちください'),
                 ],
               ),
             ),

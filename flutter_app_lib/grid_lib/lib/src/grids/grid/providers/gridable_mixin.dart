@@ -1,7 +1,7 @@
 import 'package:data_strategist/lib.dart';
 import 'package:trina_grid/trina_grid.dart';
-import 'package:utility_widget_example/src/lib/configs/config_state.dart';
 
+import '../../../configs/configs.dart';
 import '../state/search_result_info_state.dart';
 
 ///Gridに使用できるMixinの基本情報

@@ -1,4 +1,4 @@
-import 'package:utility_widget/utiritiy_widget.dart';
+import 'package:flutter/foundation.dart';
 
 import 'config_model.dart';
 
