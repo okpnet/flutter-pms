@@ -33,5 +33,6 @@ abstract class AppTheme {
     listTileTheme: AppListTileTheme.listTileThemeData,
     switchTheme: SwitchThemeData(),
     expansionTileTheme: AppExpansionTheme.expansionTileTheme,
+    dividerTheme: DividerThemeData(radius: BorderRadius.all()),
   );
 }

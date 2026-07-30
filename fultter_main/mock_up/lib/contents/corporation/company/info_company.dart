@@ -18,7 +18,17 @@ class _InfoCompany extends State<InfoCompany> {
       defaultMobileCells: CommonResponsive.mobileNumObFlex,
       spacing: context.spacing,
       children: [
-        ResponsiveCell(layout: CommonResponsive.flexLx, child: Text('',textScaler: ,)),
+        ResponsiveCell(
+          layout: CommonResponsive.flexLx,
+          child: Text(
+            '会社情報',
+            style: AppTheme.customTheme.textTheme.headlineLarge,
+          ),
+        ),
+        ResponsiveCell(
+          layout: CommonResponsive.flexL.copyWith(showOnMobile: false),
+          child: Divider(),
+        ),
       ],
     );
   }
