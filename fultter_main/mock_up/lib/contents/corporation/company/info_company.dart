@@ -2,6 +2,7 @@ import 'package:mock_up/contents/_shared/shared.dart';
 import 'package:view_responsiveness/responsiveness.dart';
 import 'package:theme_lib/theme_lib.dart';
 
+///会社の情報
 class InfoCompany extends StatefulWidget {
   const InfoCompany({super.key});
 

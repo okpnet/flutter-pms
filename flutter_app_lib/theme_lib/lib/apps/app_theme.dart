@@ -1,3 +1,4 @@
+import 'package:theme_lib/apps/app_divider_theme.dart';
 import 'package:theme_lib/constants/constant.dart';
 import 'package:theme_lib/fields/field_extenssions.dart';
 
@@ -33,6 +34,6 @@ abstract class AppTheme {
     listTileTheme: AppListTileTheme.listTileThemeData,
     switchTheme: SwitchThemeData(),
     expansionTileTheme: AppExpansionTheme.expansionTileTheme,
-    dividerTheme: DividerThemeData(radius: BorderRadius.all()),
+    dividerTheme: AppDividerTheme.dividerThemeData,
   );
 }
