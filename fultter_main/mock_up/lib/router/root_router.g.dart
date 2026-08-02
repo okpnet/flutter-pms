@@ -8,13 +8,23 @@ part of 'root_router.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+///GoRouterのメイン
+///[controller]は$appRoutesへのアクセスを提供するが、そのまま使用するとどのappRoutesを使用するかわからないため
+///別名アクセスをしてコントローラーにアクセスしてappRoutesを使用する
 
 @ProviderFor(rootRouter)
 final rootRouterProvider = RootRouterProvider._();
 
+///GoRouterのメイン
+///[controller]は$appRoutesへのアクセスを提供するが、そのまま使用するとどのappRoutesを使用するかわからないため
+///別名アクセスをしてコントローラーにアクセスしてappRoutesを使用する
+
 final class RootRouterProvider
     extends $FunctionalProvider<GoRouter, GoRouter, GoRouter>
     with $Provider<GoRouter> {
+  ///GoRouterのメイン
+  ///[controller]は$appRoutesへのアクセスを提供するが、そのまま使用するとどのappRoutesを使用するかわからないため
+  ///別名アクセスをしてコントローラーにアクセスしてappRoutesを使用する
   RootRouterProvider._()
     : super(
         from: null,
@@ -48,4 +58,4 @@ final class RootRouterProvider
   }
 }
 
-String _$rootRouterHash() => r'd19e9a921b63848490a223c6aea483ca6fc77de8';
+String _$rootRouterHash() => r'bfdcfe6beab4e645f1b8bc71cb63893a524c2ca1';

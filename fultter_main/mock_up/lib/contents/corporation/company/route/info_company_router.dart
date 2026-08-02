@@ -1,5 +1,5 @@
-import 'package:mock_up/contents/corporation/company/info_company.dart';
-import 'package:mock_up/imports.dart';
+import '../../../../imports.dart';
+import '../company.dart';
 
 part 'info_company_router.g.dart';
 

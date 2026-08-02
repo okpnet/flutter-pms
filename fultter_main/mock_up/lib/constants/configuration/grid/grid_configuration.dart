@@ -1,7 +1,11 @@
+// Dart imports:
 import 'dart:io';
 
-import 'package:mock_up/imports.dart';
+// Package imports:
 import 'package:trina_grid/trina_grid.dart';
+
+// Project imports:
+import 'package:mock_up/imports.dart';
 
 ///TrinaGridの設定を管理するクラス
 class GridConfiguration {

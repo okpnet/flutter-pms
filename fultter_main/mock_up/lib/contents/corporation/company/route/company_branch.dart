@@ -1,3 +1,4 @@
+// Project imports:
 import '../../../../imports.dart';
 
 class CompanyBranch extends StatefulShellBranchData {

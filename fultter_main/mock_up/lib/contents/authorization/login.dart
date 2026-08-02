@@ -1,4 +1,5 @@
-import 'package:mock_up/imports.dart';
+// Project imports:
+import '../../../imports.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});

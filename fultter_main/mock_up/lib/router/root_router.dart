@@ -1,7 +1,9 @@
+// Project imports:
+import '../contents/_controller/contents_control_router.dart' as controller;
 import '../contents/contents.dart';
 import '../imports.dart';
 import 'router.dart';
-import '../contents/_controller/contents_control_router.dart' as controller;
+
 part 'root_router.g.dart';
 
 ///GoRouterのメイン

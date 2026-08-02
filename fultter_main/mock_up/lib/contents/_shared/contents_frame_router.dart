@@ -1,5 +1,7 @@
-import 'package:mock_up/contents/_shared/contents_frame.dart';
-import 'package:mock_up/imports.dart';
+// Project imports:
+
+import '../../imports.dart';
+import 'shared.dart';
 
 class ContentsFrameRouter extends StatefulShellRouteData {
   const ContentsFrameRouter();

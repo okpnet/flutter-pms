@@ -1,5 +1,5 @@
-import 'package:mock_up/contents/authorization/autorization.dart';
-import 'package:mock_up/imports.dart';
+import '../../../imports.dart';
+import '../autorization.dart';
 
 part 'login_router.g.dart';
 

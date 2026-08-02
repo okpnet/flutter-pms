@@ -1,3 +1,4 @@
+// Package imports:
 import 'package:view_responsiveness/responsiveness.dart';
 
 abstract class CommonResponsive {

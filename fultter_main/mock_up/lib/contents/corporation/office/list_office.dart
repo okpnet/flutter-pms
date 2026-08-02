@@ -1,35 +1,25 @@
-import 'package:grid_lib/grid_lib.dart';
-import 'package:mock_up/constants/configuration/grid/grid.dart';
-import 'package:mock_up/imports.dart';
+// Package imports:
 import 'package:trina_grid/trina_grid.dart';
 
-class ListOffice extends StatefulWidget {
+// Project imports:
+import '../../../imports.dart';
+import '../../_shared/shared.dart';
+
+class ListOffice extends ConsumerStatefulWidget {
   const ListOffice({super.key});
   @override
-  State<StatefulWidget> createState() => _ListOffice();
+  ConsumerState<ConsumerStatefulWidget> createState() => _ListOffice();
 }
 
-class _ListOffice extends State<ListOffice> {
+class _ListOffice extends ConsumerState<ListOffice> {
   //with GridPagenationMixin<JsonMap>{
   List<TrinaColumn> _columns = [];
-
-  ///グリッドの設定
-  final GridConfiguration tringaGridConfig = GridConfiguration();
-
-  ///TrinaGridの状態管理
-  late final TrinaGridStateManager _stateManager;
-
-  ///検索結果状態管理
-  @override
-  final SearchResultInfoState searchResultInfoState = SearchResultInfoState();
-
-  ///TrinaGridの状態管理
-  @override
-  TrinaGridStateManager get stateManager => _stateManager;
 
   @override
   void initState() {
     super.initState();
+
+    ///ローカライズするので、一時的にInitで初期亜k
     _columns = <TrinaColumn>[
       TrinaColumn(
         hide: true,
@@ -56,30 +46,7 @@ class _ListOffice extends State<ListOffice> {
 
   @override
   Widget build(BuildContext context) {
-    return TrinaGrid(
-      onChanged: (TrinaGridOnChangedEvent event) {
-        print(event);
-      },
-      onLoaded: (event) async {
-        //初回に一度だけ呼ばれる
-        _stateManager = event.stateManager;
-      },
-      createHeader: (_) =>
-          TrinaGridSummaryHader(searchResultInfoState: searchResultInfoState),
-      columns: _columns,
-      rows: [],
-      onRowSecondaryTap: (event) {},
-      configuration: tringaGridConfig.listConfig,
-      // createFooter: (stateManager) {
-      //   return TrinaLazyPagination(
-      //     initialPage: 1,
-      //     fetchWithSorting: true,
-      //     fetchWithFiltering: true,
-      //     pageSizeToMove: null,
-      //     stateManager: stateManager,
-      //     fetch: (e) => ,
-      //   );
-      // },
-    );
+    ///ユーザーの権限でモードを変更
+    return GridList(columns: _columns, mode: .primaryUse);
   }
 }

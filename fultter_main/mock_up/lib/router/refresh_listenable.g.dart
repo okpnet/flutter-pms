@@ -8,9 +8,12 @@ part of 'refresh_listenable.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+///ページ切り替え、再描画で呼び出させるサブスクライバ
 
 @ProviderFor(refreshListenable)
 final refreshListenableProvider = RefreshListenableProvider._();
+
+///ページ切り替え、再描画で呼び出させるサブスクライバ
 
 final class RefreshListenableProvider
     extends
@@ -20,6 +23,7 @@ final class RefreshListenableProvider
           Raw<ValueNotifier<int>>
         >
     with $Provider<Raw<ValueNotifier<int>>> {
+  ///ページ切り替え、再描画で呼び出させるサブスクライバ
   RefreshListenableProvider._()
     : super(
         from: null,

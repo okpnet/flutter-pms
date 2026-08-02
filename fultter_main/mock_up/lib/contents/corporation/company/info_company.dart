@@ -1,6 +1,8 @@
-import 'package:mock_up/contents/_shared/shared.dart';
-import 'package:view_responsiveness/responsiveness.dart';
+// Package imports:
 import 'package:theme_lib/theme_lib.dart';
+import 'package:view_responsiveness/responsiveness.dart';
+
+import '../../_shared/shared.dart';
 
 ///会社の情報
 class InfoCompany extends StatefulWidget {

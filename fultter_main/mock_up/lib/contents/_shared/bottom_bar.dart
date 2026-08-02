@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:mock_up/imports.dart';
 
 class BottomBar extends StatelessWidget {

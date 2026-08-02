@@ -1,4 +1,4 @@
-import 'package:mock_up/imports.dart';
+import '../../../imports.dart';
 
 class EditCompany extends StatefulWidget {
   const EditCompany({super.key});
