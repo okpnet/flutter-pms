@@ -1,7 +1,6 @@
 import '../../imports.dart';
 
 import '../_errors/errors.dart';
-import '../_shared/shared.dart';
 import '../actual/actual.dart';
 import '../authorization/autorization.dart';
 import '../corporation/corporation.dart';
@@ -10,7 +9,8 @@ import '../items/items.dart';
 import '../purchasing/purchasing.dart';
 import '../sales/sales.dart';
 import '../shipping/shipping.dart';
-import 'contents_controller.dart';
+import '../settings/settings.dart';
+import 'controller.dart';
 
 part 'contents_control_router.g.dart';
 
@@ -139,6 +139,14 @@ final shellNavigatorKey = GlobalKey<NavigatorState>();
     TypedGoRoute<LogoutRouter>(
       path: LogoutConstant.path,
       name: LogoutConstant.name,
+    ),
+    TypedGoRoute<AppSettingRouter>(
+      path: AppSettingConstant.path,
+      name: AppSettingConstant.name,
+    ),
+    TypedGoRoute<UserSettingRouter>(
+      path: UserSettingConstant.path,
+      name: UserSettingConstant.name,
     ),
     TypedGoRoute<ContentsErrorRouter>(
       path: ContentsErrorConstant.path,

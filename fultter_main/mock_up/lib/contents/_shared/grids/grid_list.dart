@@ -3,8 +3,8 @@ import 'package:grid_lib/grid_lib.dart';
 import 'package:trina_grid/trina_grid.dart';
 
 // Project imports:
-import '../../constants/configuration/configration.dart';
-import '../../imports.dart';
+import '../../../constants/configuration/configration.dart';
+import '../../../imports.dart';
 import 'grid_mode.dart';
 
 class GridList extends ConsumerStatefulWidget {

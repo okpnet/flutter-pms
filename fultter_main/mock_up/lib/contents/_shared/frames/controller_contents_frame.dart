@@ -1,6 +1,6 @@
 // Project imports:
-import '../../imports.dart';
-import 'shared.dart';
+import '../../../imports.dart';
+import '../shared.dart';
 
 class ContentsFrame extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
@@ -11,14 +11,10 @@ class ContentsFrame extends StatelessWidget {
     return PopScope(
       canPop: false,
       child: Scaffold(
-        appBar: _createAppTopBar(),
+        appBar: AppBar(title: Text('title test')),
         body: navigationShell,
         bottomNavigationBar: BottomBar(navigationShell: navigationShell),
       ),
     );
-  }
-
-  AppBar _createAppTopBar() {
-    return AppBar(title: const Text('Test'));
   }
 }

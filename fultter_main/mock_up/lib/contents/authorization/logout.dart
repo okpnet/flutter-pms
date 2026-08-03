@@ -1,4 +1,6 @@
 // Project imports:
+import 'package:theme_lib/theme_lib.dart';
+
 import '../../../imports.dart';
 
 class Logout extends StatelessWidget {
@@ -6,7 +8,9 @@ class Logout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return Scaffold(
+      appBar: AppBar(title: const Text('Test')),
+      body: Row(children: [Text('Logout', style: context.textStyleMode())]),
+    );
   }
 }
