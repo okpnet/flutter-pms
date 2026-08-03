@@ -1,7 +1,7 @@
 import '../../imports.dart';
 import '../../router/refresh_listenable.dart';
 
-part 'startup_serveice.g.dart';
+part 'mock_core_serveice.g.dart';
 
 @Riverpod(keepAlive: true)
 Future<void> startupService(Ref ref) async {
