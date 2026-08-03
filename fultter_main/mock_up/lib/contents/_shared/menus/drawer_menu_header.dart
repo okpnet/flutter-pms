@@ -1,5 +1,4 @@
-// Package imports:
-import 'package:theme_lib/theme_lib.dart';
+import '../../../imports.dart';
 
 ///ドロワーメニューにユーザー情報を表示するヘッダ
 class DrawerMenuHeader extends StatelessWidget {

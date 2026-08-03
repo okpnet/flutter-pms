@@ -10,11 +10,7 @@ class ContentsFrame extends StatelessWidget {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      child: Scaffold(
-        appBar: AppBar(title: Text('title test')),
-        body: navigationShell,
-        bottomNavigationBar: BottomBar(navigationShell: navigationShell),
-      ),
+      child: ContensScaffold(body: navigationShell),
     );
   }
 }

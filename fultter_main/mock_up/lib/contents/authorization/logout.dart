@@ -1,16 +1,42 @@
-// Project imports:
-import 'package:theme_lib/theme_lib.dart';
+import 'dart:async';
 
 import '../../../imports.dart';
+import '../contents.dart';
 
-class Logout extends StatelessWidget {
+class Logout extends ConsumerWidget {
   const Logout({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Test')),
-      body: Row(children: [Text('Logout', style: context.textStyleMode())]),
+  Widget build(BuildContext context, WidgetRef regf) {
+    // build 完了後に一度だけ実行
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Timer(const Duration(seconds: 5), () {
+        Navigator.of(context).pushReplacementNamed('/login');
+      });
+    });
+    return ContensScaffold(
+      body: ResponsiveGrid(
+        children: [
+          ResponsiveCell(
+            layout: CommonResponsive.flexL.copyWith(wrapCellAlignment: .center),
+            child: Text(
+              'ログアウトしました',
+              style: context.textStyleMode(.headlineLarge),
+            ).spaceAll(context),
+          ),
+          ResponsiveCell(
+            layout: CommonResponsive.flexL.copyWith(wrapCellAlignment: .center),
+            child: Text('お疲れさまでした').spaceAll(context),
+          ),
+          ResponsiveCell(
+            layout: CommonResponsive.flexL.copyWith(wrapCellAlignment: .center),
+            child: ElevatedButton.icon(
+              onPressed: () => true,
+              label: Text('ログインへ戻る()'),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
