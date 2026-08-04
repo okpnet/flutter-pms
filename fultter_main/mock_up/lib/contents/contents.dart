@@ -9,3 +9,4 @@ export 'production/production.dart';
 export 'purchasing/purchasing.dart';
 export 'sales/sales.dart';
 export 'shipping/shipping.dart';
+export 'controls/controls.dart';

@@ -1,17 +1,130 @@
 // Project imports:
-import '../../../imports.dart';
 
-class Login extends StatefulWidget {
+import '../../../imports.dart';
+import '../../services/services.dart';
+import '../_shared/shared.dart';
+
+class Login extends ConsumerStatefulWidget {
   const Login({super.key});
 
   @override
-  State<StatefulWidget> createState() => _Login();
+  ConsumerState<ConsumerStatefulWidget> createState() => _Login();
 }
 
-class _Login extends State<Login> {
+class _Login extends ConsumerState<Login> {
+  final formKey = GlobalKey<FormState>();
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    Map<String, dynamic> authModel = {'id': null, 'pass': null};
+
+    return ContensScaffold(
+      body: Form(
+        key: formKey,
+        child: Stack(
+          children: [
+            OverlayIndicator(isShow: isLoading),
+            ResponsiveGrid(
+              children: [
+                ResponsiveCell(
+                  layout: CommonResponsive.flexL.copyWith(
+                    wrapCellAlignment: .center,
+                  ),
+                  child: Text(
+                    'ログイン',
+                    style: context.textStyleMode(.headlineLarge),
+                  ).spaceAll(context),
+                ),
+                ResponsiveCell(
+                  ///IDインプットライン開始
+                  layout: CommonResponsive.flexL.copyWith(
+                    pcFlex: 4,
+                    mobileFlex: 2,
+                    showOnMobile: false,
+                  ),
+                  child: SizedBox.shrink(),
+                ),
+                ResponsiveCell(
+                  layout: CommonResponsive.flexM.copyWith(
+                    tabletFlex: 4,
+                    mobileFlex: 4,
+                    wrapCellAlignment: .center,
+                  ),
+                  child: Row(
+                    spacing: SpaceField().spacing,
+                    crossAxisAlignment: .stretch,
+                    mainAxisAlignment: .center,
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          decoration: InputDecoration(label: Text('ユーザーID')),
+                          initialValue: authModel['id'],
+                          onSaved: (newValue) => authModel['id'] = newValue,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'ユーザーIDは必須です';
+                            }
+                            return null;
+                          },
+                        ).toPrimary(context).spaceAll(context),
+                      ),
+                      Expanded(
+                        child: TextFormField(
+                          decoration: InputDecoration(label: Text('パスワード')),
+                          initialValue: authModel['pass'],
+                          obscuringCharacter: '●',
+                          obscureText: true,
+                          onSaved: (newValue) => authModel['pass'] = newValue,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'パスワードは必須です';
+                            }
+                            return null;
+                          },
+                        ).toPrimary(context).spaceAll(context),
+                      ),
+                      Expanded(
+                        child: ElevatedButton.icon(
+                          label: Text('ログイン'),
+                          icon: Icon(Icons.login),
+                          onPressed: () async {
+                            if (formKey.currentState!.validate()) {
+                              try {
+                                formKey.currentState!.save();
+                                setState(() => isLoading = true);
+                                final result =
+                                    await ref //ここがFalseのとき、ログイン失敗なのでValidationをFalseにしたい
+                                        .read(
+                                          mockAutorizeServiceProvider.notifier,
+                                        )
+                                        .login();
+                              } catch (ex) {
+                                ref
+                                    .read(mockAutorizeServiceProvider.notifier)
+                                    .error(ex);
+                              } finally {
+                                setState(() => isLoading = false);
+                              }
+                            }
+                          },
+                        ).spaceAll(context),
+                      ),
+                    ],
+                  ),
+                ),
+                ResponsiveCell(
+                  layout: CommonResponsive.flexL.copyWith(
+                    pcFlex: 4,
+                    mobileFlex: 2,
+                    showOnMobile: false,
+                  ),
+                  child: SizedBox.shrink(),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
