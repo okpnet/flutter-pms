@@ -14,6 +14,7 @@ class Login extends ConsumerStatefulWidget {
 class _Login extends ConsumerState<Login> {
   final formKey = GlobalKey<FormState>();
   bool isLoading = false;
+  bool isCredentialInvalid = false;
   @override
   Widget build(BuildContext context) {
     Map<String, dynamic> authModel = {'id': null, 'pass': null};
@@ -32,9 +33,17 @@ class _Login extends ConsumerState<Login> {
                   ),
                   child: Text(
                     'ログイン',
-                    style: context.textStyleMode(.headlineLarge),
+                    style: context.textStyleMode(sizeMode: .headlineLarge),
                   ).spaceAll(context),
                 ),
+                if (isCredentialInvalid)
+                  ResponsiveCell(
+                    layout: CommonResponsive.flexLx,
+                    child: Text(
+                      'IDまたはパスワードが違います',
+                      style: context.textStyleMode(colorMode: .error),
+                    ),
+                  ),
                 ResponsiveCell(
                   ///IDインプットライン開始
                   layout: CommonResponsive.flexL.copyWith(
@@ -88,6 +97,7 @@ class _Login extends ConsumerState<Login> {
                           label: Text('ログイン'),
                           icon: Icon(Icons.login),
                           onPressed: () async {
+                            setState(() => isCredentialInvalid = false);
                             if (formKey.currentState!.validate()) {
                               try {
                                 formKey.currentState!.save();
@@ -98,6 +108,7 @@ class _Login extends ConsumerState<Login> {
                                           mockAutorizeServiceProvider.notifier,
                                         )
                                         .login();
+                                setState(() => isCredentialInvalid = result);
                               } catch (ex) {
                                 ref
                                     .read(mockAutorizeServiceProvider.notifier)
