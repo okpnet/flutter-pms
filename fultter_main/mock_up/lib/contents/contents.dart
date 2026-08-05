@@ -3,7 +3,7 @@ export 'actual/actual.dart';
 export 'authorization/autorization.dart';
 export 'corporation/corporation.dart';
 export 'equipments/equipments.dart';
-export '_errors/errors.dart';
+export '_notice/notice.dart';
 export 'items/items.dart';
 export 'production/production.dart';
 export 'purchasing/purchasing.dart';

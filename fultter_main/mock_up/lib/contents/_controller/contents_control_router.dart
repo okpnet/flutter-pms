@@ -1,6 +1,6 @@
 import '../../imports.dart';
 
-import '../_errors/errors.dart';
+import '../_notice/notice.dart';
 import '../actual/actual.dart';
 import '../authorization/autorization.dart';
 import '../corporation/corporation.dart';

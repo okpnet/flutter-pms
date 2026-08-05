@@ -50,4 +50,4 @@ final class MockCoreServiceProvider
   }
 }
 
-String _$mockCoreServiceHash() => r'4361b2f027932575af8b79e4eb1c0c138d8a6d1e';
+String _$mockCoreServiceHash() => r'e3f7cb6d523656e6ea95dc77acfa748909b53545';

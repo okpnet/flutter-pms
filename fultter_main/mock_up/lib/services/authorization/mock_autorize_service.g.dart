@@ -42,7 +42,7 @@ final class MockAutorizeServiceProvider
 }
 
 String _$mockAutorizeServiceHash() =>
-    r'e4856f44364b5a11c252d0273f1ccc8ca6119079';
+    r'22558344bf6406d21fbaf2b23bc92cc7dc4364c3';
 
 abstract class _$MockAutorizeService extends $Notifier<AuthStateType> {
   AuthStateType build();

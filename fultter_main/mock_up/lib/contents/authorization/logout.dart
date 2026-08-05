@@ -24,7 +24,8 @@ class Logout extends ConsumerWidget {
         Navigator.of(context).pushReplacementNamed('/login');
       });
     });
-    return ContensScaffold(
+    return Scaffold(
+      appBar: AppTitleBar(),
       body: ResponsiveGrid(
         children: [
           ResponsiveCell(

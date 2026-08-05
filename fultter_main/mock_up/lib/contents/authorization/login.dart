@@ -19,7 +19,8 @@ class _Login extends ConsumerState<Login> {
   Widget build(BuildContext context) {
     Map<String, dynamic> authModel = {'id': null, 'pass': null};
 
-    return ContensScaffold(
+    return Scaffold(
+      appBar: AppTitleBar(),
       body: Form(
         key: formKey,
         child: Stack(
