@@ -1,15 +1,38 @@
 import '../../imports.dart';
 
-import '../_notice/notice.dart';
-import '../actual/actual.dart';
-import '../authorization/autorization.dart';
-import '../corporation/corporation.dart';
-import '../equipments/equipments.dart';
-import '../items/items.dart';
-import '../purchasing/purchasing.dart';
-import '../sales/sales.dart';
-import '../shipping/shipping.dart';
-import '../settings/settings.dart';
+import '../_notice/route/contents_error_router.dart';
+import '../actual/route/actual_branch.dart';
+import '../actual/route/register_actual_production_router.dart';
+import '../actual/route/register_material_transfer_router.dart';
+import '../actual/route/register_purchase_recive_router.dart';
+import '../actual/route/register_shipping_router.dart';
+import '../actual/route/stock_state_router.dart';
+import '../authorization/route/login_router.dart';
+import '../authorization/route/logout_router.dart';
+import '../corporation/company/route/edit_company_router.dart';
+import '../corporation/company/route/info_company_router.dart';
+import '../corporation/departments/route/tree_department_router.dart';
+import '../corporation/office/route/edit_office_router.dart';
+import '../corporation/office/route/list_office_router.dart';
+import '../corporation/route/corporation_branch.dart';
+import '../corporation/staffs/route/lsit_staff_router.dart';
+import '../equipments/route/equipment_branch.dart';
+import '../equipments/route/list_category_equipment_router.dart';
+import '../equipments/route/list_equipment_router.dart';
+import '../items/route/item_branch.dart';
+import '../items/route/list_category_item_router.dart';
+import '../items/route/list_item_router.dart';
+import '../items/route/tree_item_router.dart';
+import '../purchasing/route/list_purchase_order_router.dart';
+import '../purchasing/route/list_supplier_router.dart';
+import '../purchasing/route/purchase_branch.dart';
+import '../sales/route/list_customer_router.dart';
+import '../sales/route/list_order_router.dart';
+import '../sales/route/sales_branch.dart';
+import '../settings/route/app_setting_router.dart';
+import '../settings/route/user_setting_router.dart';
+import '../shipping/route/lits_shipping_router.dart';
+import '../shipping/route/shipping_branch.dart';
 import 'controller.dart';
 
 part 'contents_control_router.g.dart';
@@ -39,6 +62,12 @@ final shellNavigatorKey = GlobalKey<NavigatorState>();
             TypedGoRoute<ListOfficeRouter>(
               path: ListOfficeConstant.path,
               name: ListOfficeConstant.name,
+              routes: [
+                TypedGoRoute<EditOfficeRouter>(
+                  path: EditOfficeConstant.path,
+                  name: EditOfficeConstant.name,
+                ),
+              ],
             ),
             TypedGoRoute<LsitStaffRouter>(
               path: ListStaffConstant.path,

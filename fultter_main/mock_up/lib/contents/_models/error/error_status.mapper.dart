@@ -8,8 +8,6 @@
 
 part of 'error_status.dart';
 
-
-
 class ErrorStatusMapper extends ClassMapperBase<ErrorStatus> {
   ErrorStatusMapper._();
 
@@ -44,11 +42,12 @@ class ErrorStatusMapper extends ClassMapperBase<ErrorStatus> {
     _$errorCode,
     opt: true,
   );
-  static String? _$message(ErrorStatus v) => v.message;
+  static String _$message(ErrorStatus v) => v.message;
   static const Field<ErrorStatus, String> _f$message = Field(
     'message',
     _$message,
     opt: true,
+    def: '',
   );
   static String? _$trace(ErrorStatus v) => v.trace;
   static const Field<ErrorStatus, String> _f$trace = Field(
@@ -159,14 +158,14 @@ class _ErrorStatusCopyWithImpl<$R, $Out>
     Object? className = $none,
     ErrorOrigin? erroOrigin,
     Object? errorCode = $none,
-    Object? message = $none,
+    String? message,
     Object? trace = $none,
   }) => $apply(
     FieldCopyWithData({
       if (className != $none) #className: className,
       if (erroOrigin != null) #erroOrigin: erroOrigin,
       if (errorCode != $none) #errorCode: errorCode,
-      if (message != $none) #message: message,
+      if (message != null) #message: message,
       if (trace != $none) #trace: trace,
     }),
   );

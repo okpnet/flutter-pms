@@ -1,8 +1,10 @@
 // Package imports:
+import 'package:grid_lib/grid_lib.dart';
 import 'package:trina_grid/trina_grid.dart';
 
 // Project imports:
 import '../../../imports.dart';
+import '../../../services/behavior/behavior.dart';
 import '../../_shared/shared.dart';
 
 class ListOffice extends ConsumerStatefulWidget {
@@ -14,7 +16,6 @@ class ListOffice extends ConsumerStatefulWidget {
 class _ListOffice extends ConsumerState<ListOffice> {
   //with GridPagenationMixin<JsonMap>{
   List<TrinaColumn> _columns = [];
-
   @override
   void initState() {
     super.initState();
@@ -46,7 +47,13 @@ class _ListOffice extends ConsumerState<ListOffice> {
 
   @override
   Widget build(BuildContext context) {
+    // 1. Notifierではなく「状態(state)」を直接watchする
+    final isDirty = ref.watch(gridIsDirtyProvider);
+
     ///ユーザーの権限でモードを変更
-    return GridList(columns: _columns, mode: .primaryUse);
+    return PopScope(
+      canPop: !isDirty,
+      child: GridList(columns: _columns, mode: .primaryUse),
+    );
   }
 }

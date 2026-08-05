@@ -42,6 +42,14 @@ RouteBase get $contentsControlRouter => ShellRouteData.$route(
               name: 'office',
               hasOverriddenOnExit: false,
               factory: $ListOfficeRouter._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: '/corporation/office/edit',
+                  name: 'office_edit',
+                  hasOverriddenOnExit: false,
+                  factory: $EditOfficeRouter._fromState,
+                ),
+              ],
             ),
             GoRouteData.$route(
               path: '/corporation/staff',
@@ -279,6 +287,27 @@ mixin $ListOfficeRouter on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/corporation/office');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $EditOfficeRouter on GoRouteData {
+  static EditOfficeRouter _fromState(GoRouterState state) =>
+      const EditOfficeRouter();
+
+  @override
+  String get location => GoRouteData.$location('/corporation/office/edit');
 
   @override
   void go(BuildContext context) => context.go(location);
