@@ -13,7 +13,7 @@ part of 'mock_autorize_service.dart';
 final mockAutorizeServiceProvider = MockAutorizeServiceProvider._();
 
 final class MockAutorizeServiceProvider
-    extends $NotifierProvider<MockAutorizeService, AuthStateType> {
+    extends $NotifierProvider<MockAutorizeService, MockAuthState> {
   MockAutorizeServiceProvider._()
     : super(
         from: null,
@@ -33,28 +33,28 @@ final class MockAutorizeServiceProvider
   MockAutorizeService create() => MockAutorizeService();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(AuthStateType value) {
+  Override overrideWithValue(MockAuthState value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<AuthStateType>(value),
+      providerOverride: $SyncValueProvider<MockAuthState>(value),
     );
   }
 }
 
 String _$mockAutorizeServiceHash() =>
-    r'22558344bf6406d21fbaf2b23bc92cc7dc4364c3';
+    r'1c734c992513eb2d5a509427eee1512a30765d9f';
 
-abstract class _$MockAutorizeService extends $Notifier<AuthStateType> {
-  AuthStateType build();
+abstract class _$MockAutorizeService extends $Notifier<MockAuthState> {
+  MockAuthState build();
   @$mustCallSuper
   @override
   WhenComplete runBuild() {
-    final ref = this.ref as $Ref<AuthStateType, AuthStateType>;
+    final ref = this.ref as $Ref<MockAuthState, MockAuthState>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<AuthStateType, AuthStateType>,
-              AuthStateType,
+              AnyNotifier<MockAuthState, MockAuthState>,
+              MockAuthState,
               Object?,
               Object?
             >;

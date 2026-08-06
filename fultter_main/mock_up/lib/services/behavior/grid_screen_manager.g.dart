@@ -8,12 +8,18 @@ part of 'grid_screen_manager.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+///編集に対するUndoRedoを提供する
+///移動がある編集ビューの子で使用しても可
 
 @ProviderFor(GridScreenManager)
 final gridScreenManagerProvider = GridScreenManagerProvider._();
 
+///編集に対するUndoRedoを提供する
+///移動がある編集ビューの子で使用しても可
 final class GridScreenManagerProvider
-    extends $NotifierProvider<GridScreenManager, UndoRedoState<JsonMap>> {
+    extends $NotifierProvider<GridScreenManager, UndoTartgetStack> {
+  ///編集に対するUndoRedoを提供する
+  ///移動がある編集ビューの子で使用しても可
   GridScreenManagerProvider._()
     : super(
         from: null,
@@ -33,28 +39,30 @@ final class GridScreenManagerProvider
   GridScreenManager create() => GridScreenManager();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(UndoRedoState<JsonMap> value) {
+  Override overrideWithValue(UndoTartgetStack value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<UndoRedoState<JsonMap>>(value),
+      providerOverride: $SyncValueProvider<UndoTartgetStack>(value),
     );
   }
 }
 
-String _$gridScreenManagerHash() => r'd07cc196b4b275769fc5c59577656e7ec0ef92fe';
+String _$gridScreenManagerHash() => r'65c3e7a32309f729f4c1e8dc1cf088227c4d6794';
 
-abstract class _$GridScreenManager extends $Notifier<UndoRedoState<JsonMap>> {
-  UndoRedoState<JsonMap> build();
+///編集に対するUndoRedoを提供する
+///移動がある編集ビューの子で使用しても可
+
+abstract class _$GridScreenManager extends $Notifier<UndoTartgetStack> {
+  UndoTartgetStack build();
   @$mustCallSuper
   @override
   WhenComplete runBuild() {
-    final ref =
-        this.ref as $Ref<UndoRedoState<JsonMap>, UndoRedoState<JsonMap>>;
+    final ref = this.ref as $Ref<UndoTartgetStack, UndoTartgetStack>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<UndoRedoState<JsonMap>, UndoRedoState<JsonMap>>,
-              UndoRedoState<JsonMap>,
+              AnyNotifier<UndoTartgetStack, UndoTartgetStack>,
+              UndoTartgetStack,
               Object?,
               Object?
             >;

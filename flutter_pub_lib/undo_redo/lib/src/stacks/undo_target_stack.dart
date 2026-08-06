@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import '../../lib.dart';
 
 typedef EqualableCallback = bool Function(dynamic, dynamic);

@@ -41,6 +41,8 @@ dependencies:
     path: ../../flutter_app_lib/theme_lib
   grid_lib:
     path: ../../flutter_app_lib/grid_lib
+  undo_redo:
+    path: ../../flutter_pub_lib/undo_redo
   trina_grid:
     git:
       url: https://github.com/okpnet/trina_grid

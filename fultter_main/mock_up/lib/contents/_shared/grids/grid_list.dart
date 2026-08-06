@@ -1,6 +1,7 @@
 // Package imports:
 import 'package:grid_lib/grid_lib.dart';
 import 'package:mock_up/contents/_shared/shared.dart';
+import 'package:mock_up/services/authorization/authorization.dart';
 import 'package:mock_up/services/router/router.dart';
 import 'package:trina_grid/trina_grid.dart';
 
@@ -14,7 +15,12 @@ class GridList extends ConsumerStatefulWidget {
   final GridMode mode;
   final GridToEditFunction? toEdit;
 
-  const GridList({super.key, required this.columns, required this.mode,this.toEdit});
+  const GridList({
+    super.key,
+    required this.columns,
+    required this.mode,
+    this.toEdit,
+  });
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _GridList();
@@ -40,10 +46,15 @@ class _GridList extends ConsumerState<GridList> {
 
   @override
   Widget build(BuildContext context) {
-    // Grid内部でもUndo/Redoの状態（最新のデータ状態など）をwatchして反映させたい場合
+    ///UndoRedoと、確定した行のコピーデータを扱う
     final undoRedoState = ref.watch(gridScreenManagerProvider);
+
+    ///データベースへ更新を反映させるためのマネージャ
     final manager = ref.read(gridScreenManagerProvider.notifier);
-    final router=ref.read(rootRouterProvider);
+
+    ///権限を取得する
+    final authorication = ref.read(mockAutorizeServiceProvider);
+
     return TrinaGrid(
       onChanged: (TrinaGridOnChangedEvent event) {
         print(event);
@@ -57,7 +68,14 @@ class _GridList extends ConsumerState<GridList> {
       columns: _columns,
       rows: [],
       onRowDoubleTap: (event) {
-        if(widget.mode==.primaryUse)
+        if (widget.toEdit == null) {
+          ///権限がないとき
+          return;
+        }
+
+        ///選択行を
+        final row = event.row.toJson();
+        _toEdit(row);
       },
       onRowSecondaryTap: (event) {},
       configuration: tringaGridConfig.listConfig,
@@ -72,5 +90,17 @@ class _GridList extends ConsumerState<GridList> {
       //   );
       // },
     );
+  }
+
+  ///編集へ遷移
+  void _toEdit(JsonMap rowMapData) {
+    ///編集画面遷移するとき
+    final router = ref.read(rootRouterProvider);
+
+    ///Uriに変換
+    final uri = widget.toEdit!(rowMapData);
+
+    ///編集サイトへ移動
+    router.go(uri.toString());
   }
 }

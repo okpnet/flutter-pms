@@ -8,12 +8,22 @@ part of 'grid_is_dirty.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+///編集が確定されているかを[GridScreenManager]をとおして監視
+///UndoRedoを行う編集できるビューが、編集確定していない際に移動をブロックするために使用する
+///編集ビュートップ(上位)でWachする
 
 @ProviderFor(gridIsDirty)
 final gridIsDirtyProvider = GridIsDirtyProvider._();
 
+///編集が確定されているかを[GridScreenManager]をとおして監視
+///UndoRedoを行う編集できるビューが、編集確定していない際に移動をブロックするために使用する
+///編集ビュートップ(上位)でWachする
+
 final class GridIsDirtyProvider extends $FunctionalProvider<bool, bool, bool>
     with $Provider<bool> {
+  ///編集が確定されているかを[GridScreenManager]をとおして監視
+  ///UndoRedoを行う編集できるビューが、編集確定していない際に移動をブロックするために使用する
+  ///編集ビュートップ(上位)でWachする
   GridIsDirtyProvider._()
     : super(
         from: null,
@@ -47,4 +57,4 @@ final class GridIsDirtyProvider extends $FunctionalProvider<bool, bool, bool>
   }
 }
 
-String _$gridIsDirtyHash() => r'5696e30ba0c2643e0ee43488e595abd923318fbc';
+String _$gridIsDirtyHash() => r'0bdb6d00ab5108e268c898af6266bb02654544e3';

@@ -10,11 +10,11 @@ class Logout extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.read(mockAutorizeServiceProvider);
-    final title = switch (state) {
+    final title = switch (state.authStateType) {
       .signedOut => 'ログアウトしました',
       _ => '有効期限タイムアウト',
     };
-    final msg = switch (state) {
+    final msg = switch (state.authStateType) {
       .signedOut => 'お疲れさまでした。',
       _ => '一定時間、操作されませんでした。',
     };
