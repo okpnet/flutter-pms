@@ -39,5 +39,37 @@ void main() {
     test('map test', () {});
   });
   test('provider', () {});
-  test('adds one to input values', () {});
+  test('adds one to input values', () {
+    final Map<String, dynamic> object = {'name': 'test1', 'id': 5};
+    final stack = UndoTartgetStack();
+    final changeId1 = 1;
+    final changeId2 = 2;
+    final changeId3 = 3;
+
+    stack.push(
+      object,
+      BehaviorCommand(
+        undoValueProvider: () => object['id'],
+        redoValueProvider: () => changeId1,
+        undoExecute: (t) => object['id'] = t,
+        redoExecute: (t) => object['id'] = t,
+      ),
+    );
+
+    stack.push(
+      object,
+      BehaviorCommand(
+        undoValueProvider: () => object['id'],
+        redoValueProvider: () => 2,
+        undoExecute: (t) => object['id'] = t,
+        redoExecute: (t) => object['id'] = t,
+      ),
+    );
+
+    final isDirty = stack.isDirty(object);
+    final hasDirty = stack.hasDirty;
+
+    stack.undo();
+    expect(object['id'], equals(1));
+  });
 }

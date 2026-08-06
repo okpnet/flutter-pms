@@ -1,3 +1,5 @@
+part 'behavior_command.dart';
+
 ///戻すデリゲート
 typedef ExecuteCallback<T> = void Function(T?);
 
