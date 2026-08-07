@@ -1,15 +1,14 @@
-import 'package:data_strategist/src/pridicate_model.dart';
-import 'package:data_strategist/src/query_state.dart';
-import 'package:query_builder/query_builder.dart';
-import 'package:trina_grid/trina_grid.dart';
+import '../../constants/constants.dart';
+import '../import.dart';
 
 ///TrinaGridのフィルターから、条件式モデルを生成する
-abstract interface class IFilterExpressionAdapter {
-  ///状態
-  IQueryState get state;
+abstract interface class IFilterExpressionAdapter<R> {
+  ///フィールドの取得
+  ///Listレポジトリでは必須
+  GridExtensionFieldExpression? get fieldExpression;
 
   IPredicateModel build(
-    int take, {
+    IQueryState<R> state, {
     List<TrinaRow> filterRows,
     List<TrinaColumn>? columns,
     int skip,
@@ -17,28 +16,36 @@ abstract interface class IFilterExpressionAdapter {
 }
 
 ///TrinaGridのフィルターから、条件式モデルを生成する
-class FilterExpressionAdapter implements IFilterExpressionAdapter {
+class FilterExpressionAdapter<R> implements IFilterExpressionAdapter<R> {
+  ///フィールドの取得
+  ///Listレポジトリでは必須
   @override
-  final IQueryState state;
+  final GridExtensionFieldExpression? fieldExpression;
 
-  FilterExpressionAdapter({required this.state});
+  FilterExpressionAdapter({this.fieldExpression});
 
   @override
   IPredicateModel build(
-    int take, {
+    IQueryState<R> state, {
     List<TrinaRow<dynamic>>? filterRows,
     List<TrinaColumn>? columns,
     int skip = 0,
   }) {
+    if (fieldExpression == null && state.expressionVisitorType == .list) {
+      throw AssertionError(
+        'The repository state is of the list type, but the FieldExpression property is null. If the repository is of the list type, this property should not be null.',
+      );
+    }
+
     final expressions = filterRows != null && filterRows.isNotEmpty
-        ? filterRows.map((row) => _rowTransrater(row)).toList()
+        ? filterRows.map((row) => _rowTransrater(state, row)).toList()
         : null;
     final sortColumns = columns?.where((t) => !t.sort.isNone);
     final sortEx = sortColumns != null && sortColumns.isNotEmpty
-        ? sortColumns.map((t) => _columnTransrater(t)).toList()
+        ? sortColumns.map((t) => _columnTransrater(state, t)).toList()
         : null;
     return PredicateModel(
-      take: take,
+      take: state.fetchLimit,
       skip: skip,
       pridicate: expressions == null ? null : AndExpression(expressions),
       orders: sortEx == null ? null : SortListExpression(sortOrderList: sortEx),
@@ -46,14 +53,19 @@ class FilterExpressionAdapter implements IFilterExpressionAdapter {
   }
 
   ///TrinaGridのフィルタのRowをExpressionに変換する
-  Expression _rowTransrater(TrinaRow row) {
+  Expression _rowTransrater(IQueryState<R> state, TrinaRow row) {
     final operation = row.cells[FilterHelper.filterFieldType]!.value;
 
     final field = row.cells[FilterHelper.filterFieldColumn]!.value;
     final filterValue = row.cells[FilterHelper.filterFieldValue]!.value;
 
     ///レポジトリのタイプに応じて切り替える
-    final fieldEx = state.createFieldExpression(field);
+
+    final fieldEx = state.expressionVisitorType == .list
+        ? FieldExpression(
+            (t) => fieldExpression!(t, field.toString()),
+          ) //とりあえずマップ
+        : NameFieldExpression(field.toString());
 
     final valueEx = ValueExpression(filterValue);
 
@@ -93,8 +105,19 @@ class FilterExpressionAdapter implements IFilterExpressionAdapter {
   }
 
   ///TrinaGridのColumnをSortExpressionに変換する
-  ISortDirectionExpression _columnTransrater(TrinaColumn column) {
-    final sortexpression = state.createSortFieldExpression(column);
+  ISortDirectionExpression _columnTransrater(
+    IQueryState<R> state,
+    TrinaColumn column,
+  ) {
+    final sortexpression = state.expressionVisitorType == .list
+        ? SortFieldExpression(
+            (t) => fieldExpression!(t, column.field),
+            isDesc: column.sort.isDescending,
+          )
+        : SortNameFieldExpression(
+            column.field,
+            isDesc: column.sort.isDescending,
+          );
     return sortexpression as ISortDirectionExpression;
   }
 }

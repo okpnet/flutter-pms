@@ -1,5 +1,6 @@
-import 'package:query_builder/query_builder.dart';
+import 'import.dart';
 
+///レポジトリへ問い合わせ
 abstract interface class IDataRepository<R> {
   Future<R> find({
     required int take,

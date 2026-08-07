@@ -23,6 +23,7 @@ dependencies:
     path: ../../flutter_pub_lib/undo_redo
   theme_lib:
     path: ../../flutter_app_lib/theme_lib
+  import_sorter: ^4.6.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

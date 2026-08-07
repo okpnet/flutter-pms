@@ -1,4 +1,4 @@
-import 'package:query_builder/query_builder.dart';
+import 'import.dart';
 
 ///プロバイダからアダプタへ条件を引き渡すモデル
 abstract interface class IPredicateModel {
@@ -14,6 +14,7 @@ abstract interface class IPredicateModel {
   });
 }
 
+///プロバイダからアダプタへ条件を引き渡すモデル
 class PredicateModel implements IPredicateModel {
   @override
   final SortExpression? orders;
