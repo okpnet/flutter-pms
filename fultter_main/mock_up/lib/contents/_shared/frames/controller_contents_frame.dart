@@ -15,7 +15,7 @@ class ContentsFrame extends ConsumerWidget {
       canPop: false,
       child: Scaffold(
         appBar: AppTitleBar(),
-        drawer: authState == .authenticated ? DrawerMenu() : null,
+        drawer: authState.authStateType == .authenticated ? DrawerMenu() : null,
         body: navigationShell,
       ),
     );
