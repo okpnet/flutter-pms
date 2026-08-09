@@ -39,10 +39,12 @@ dependencies:
     path: ../../flutter_pub_lib/view_responsiveness
   theme_lib:
     path: ../../flutter_app_lib/theme_lib
-  grid_lib:
-    path: ../../flutter_app_lib/grid_lib
+  grid_extensions:
+    path: ../../flutter_app_lib/grid_extensions
   undo_redo:
     path: ../../flutter_pub_lib/undo_redo
+  data_strategist:
+    path: ../../flutter_pub_lib/data_strategist
   trina_grid:
     git:
       url: https://github.com/okpnet/trina_grid

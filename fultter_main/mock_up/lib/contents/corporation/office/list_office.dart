@@ -1,5 +1,4 @@
 // Package imports:
-import 'package:grid_lib/grid_lib.dart';
 import 'package:trina_grid/trina_grid.dart';
 
 // Project imports:
@@ -19,6 +18,14 @@ class _ListOffice extends ConsumerState<ListOffice> {
   @override
   void initState() {
     super.initState();
+    final queryState = ref.watch(gridDataStrategyProvider.notifier);
+    //データレポジトリへのアクセスを提供
+    // queryState.create(state);
+
+    final expressionAdapter = ref.watch(gridFilterExpressionProvider.notifier);
+
+    ///TrinaGridからフィルタ生成
+    // expressionAdapter.init(expressionAdapter);
 
     ///ローカライズするので、一時的にInitで初期亜k
     _columns = <TrinaColumn>[
@@ -53,7 +60,7 @@ class _ListOffice extends ConsumerState<ListOffice> {
     ///ユーザーの権限でモードを変更
     return PopScope(
       canPop: !isDirty,
-      child: GridList(columns: _columns, mode: .primaryUse),
+      child: GridList<Map<String,dynamic>>(columns: _columns, mode: .primaryUse),
     );
   }
 }

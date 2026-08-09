@@ -1,4 +1,4 @@
-import '../../imports.dart';
+import '../../../imports.dart';
 import 'grid_screen_manager.dart';
 
 part 'grid_is_dirty.g.dart';

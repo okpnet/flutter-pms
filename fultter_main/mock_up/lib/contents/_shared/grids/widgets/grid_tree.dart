@@ -1,21 +1,20 @@
-// Package imports:
+// Project imports:
 import 'package:grid_lib/grid_lib.dart';
-import 'package:mock_up/contents/_shared/shared.dart';
-import 'package:mock_up/services/authorization/authorization.dart';
-import 'package:mock_up/services/router/router.dart';
 import 'package:trina_grid/trina_grid.dart';
 
-// Project imports:
 import '../../../constants/configuration/configration.dart';
 import '../../../imports.dart';
-import '../../../services/behavior/behavior.dart';
 
-class GridList extends ConsumerStatefulWidget {
+import '../../../services/router/router.dart';
+import '../../../services/services.dart';
+import '../../contents.dart';
+import '../models/grid_mode.dart';
+
+class GridTree extends ConsumerStatefulWidget {
   final List<TrinaColumn> columns;
   final GridMode mode;
   final GridToEditFunction? toEdit;
-
-  const GridList({
+  const GridTree({
     super.key,
     required this.columns,
     required this.mode,
@@ -23,10 +22,10 @@ class GridList extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _GridList();
+  ConsumerState<ConsumerStatefulWidget> createState() => _GridTree();
 }
 
-class _GridList extends ConsumerState<GridList> {
+class _GridTree extends ConsumerState<GridTree> {
   //with GridPagenationMixin<JsonMap>{
   List<TrinaColumn> get _columns => widget.columns;
 
@@ -43,7 +42,6 @@ class _GridList extends ConsumerState<GridList> {
   ///TrinaGridの状態管理
   @override
   TrinaGridStateManager get stateManager => _stateManager;
-
   @override
   Widget build(BuildContext context) {
     ///UndoRedoと、確定した行のコピーデータを扱う
@@ -56,17 +54,8 @@ class _GridList extends ConsumerState<GridList> {
     final authorication = ref.read(mockAutorizeServiceProvider);
 
     return TrinaGrid(
-      onChanged: (TrinaGridOnChangedEvent event) {
-        print(event);
-      },
-      onLoaded: (event) async {
-        //初回に一度だけ呼ばれる
-        _stateManager = event.stateManager;
-      },
-      createHeader: (_) =>
-          TrinaGridSummaryHader(searchResultInfoState: searchResultInfoState),
-      columns: _columns,
-      rows: [],
+      mode: .select,
+      isTreeDragMode: true, //ツリーモード指定。ドラッグ中に行左端へホバーすると右に寄る。
       onRowDoubleTap: (event) {
         if (widget.toEdit == null) {
           ///権限がないとき
@@ -77,18 +66,26 @@ class _GridList extends ConsumerState<GridList> {
         final row = event.row.toJson();
         _toEdit(row);
       },
-      onRowSecondaryTap: (event) {},
-      configuration: tringaGridConfig.listConfig,
-      // createFooter: (stateManager) {
-      //   return TrinaLazyPagination(
-      //     initialPage: 1,
-      //     fetchWithSorting: true,
-      //     fetchWithFiltering: true,
-      //     pageSizeToMove: null,
-      //     stateManager: stateManager,
-      //     fetch: (e) => ,
-      //   );
-      // },
+      onChanged: (TrinaGridOnChangedEvent event) {
+        print(event);
+      },
+
+      onLoaded: (event) async {
+        //初回に一度だけ呼ばれる
+        _stateManager = event.stateManager;
+        for (var column in stateManager.columns) {
+          column.enableRowDrag = false;
+        }
+        initColumns();
+        await initialAddRow(null); //TrinaRow.fromJson(root));
+      },
+
+      createHeader: (manager) =>
+          TrinaGridSummaryHader(searchResultInfoState: searchResultInfoState),
+      columns: _columns,
+      rows: [],
+      onRowsMoved: onRowsMoved,
+      configuration: tringaGridConfig.treeConfig,
     );
   }
 

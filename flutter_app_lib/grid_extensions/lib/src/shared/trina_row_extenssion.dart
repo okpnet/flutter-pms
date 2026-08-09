@@ -1,3 +1,5 @@
+import 'package:grid_extensions/src/src.dart';
+
 import '../import.dart';
 
 extension TrinaRowExtension on TrinaRow {
@@ -13,5 +15,13 @@ extension TrinaRowExtension on TrinaRow {
 
   set isExpanded(bool value) {
     type.group.setExpanded(value);
+  }
+
+  RowDiffValue toDiffValue(
+    TrinaGridStateManager manager, {
+    bool expanded = false,
+  }) {
+    final index = manager.refRows.indexWhere((t) => key == t.key);
+    return RowDiffValue(rowKey: key, index: index, expanded: expanded);
   }
 }
