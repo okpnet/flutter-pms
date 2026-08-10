@@ -19,10 +19,13 @@ class _ListOffice extends ConsumerState<ListOffice> {
   @override
   void initState() {
     super.initState();
-    final queryState = ref.watch(gridDataStrategyProvider.notifier);
-    //データレポジトリへのアクセスを提供
-    // queryState.create(state);
 
+    ///データレポジトリへのアクセスを提供
+    ///このWidgetのスコープでプロバイダを初期化
+    final queryStateProvider = ref.watch(gridDataStrategyProvider);
+
+    ///フィルタ条件へのアクセスを提供
+    ///このWidgetのスコープでプロバイダを初期化
     final expressionAdapter = ref.watch(gridFilterExpressionProvider.notifier);
 
     ///TrinaGridからフィルタ生成

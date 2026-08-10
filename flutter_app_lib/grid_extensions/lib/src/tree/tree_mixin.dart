@@ -150,10 +150,17 @@ mixin GridTreeMixin<R> implements IGridExtMixinShared<R>, TreeMixinExtension {
     final state =
         status[stateKey] ??
         TreeLoadStatus(data: [], current: 0, numberOfRecords: 0);
-    final loadState = await _loadData(
-      treePricateAdapter.initiBuildPredicate,
-      state,
+    final expressions = treeExpressionAdapter.initiBuildPredicate;
+
+    ///初めてのときは0にカーソルをセットする
+    final skip = 0;
+    final pridicate = PredicateModel(
+      skip: skip,
+      take: queryState.fetchLimit,
+      orders: expressions.sortExpression,
+      pridicate: expressions.expression,
     );
+    final loadState = await _loadData(pridicate, state);
     status[stateKey] = loadState;
     await _addRows(null, loadState);
     stateManager.setShowLoading(false);
@@ -170,11 +177,17 @@ mixin GridTreeMixin<R> implements IGridExtMixinShared<R>, TreeMixinExtension {
 
     ///このparentRowが初めて展開されたか（前に読み込みしていないか）
     final isFirst = status[stateKey] == null;
-    final pridicate = treePricateAdapter.buildPredicate(parentRow, state);
+
+    final expressions = treeExpressionAdapter.buildPredicate(parentRow);
 
     ///初めてのときは0にカーソルをセットする
     final skip = isFirst ? 0 : state.current;
-    final pridicateUpdate = pridicate.copyWith(skip: skip);
+    final pridicateUpdate = PredicateModel(
+      skip: skip,
+      take: queryState.fetchLimit,
+      orders: expressions.sortExpression,
+      pridicate: expressions.expression,
+    );
 
     final loadState = await _loadData(pridicateUpdate, state);
     status[stateKey] = loadState;

@@ -4,7 +4,7 @@ part 'setting_model.mapper.dart';
 
 @MappableClass()
 class SettingModel with SettingModelMappable {
-  final int maxResults;
+  final int fetchLimit;
 
-  SettingModel({this.maxResults = 100});
+  SettingModel({this.fetchLimit = 100});
 }

@@ -22,21 +22,21 @@ class SettingModelMapper extends ClassMapperBase<SettingModel> {
   @override
   final String id = 'SettingModel';
 
-  static int _$maxResults(SettingModel v) => v.maxResults;
-  static const Field<SettingModel, int> _f$maxResults = Field(
-    'maxResults',
-    _$maxResults,
+  static int _$fetchLimit(SettingModel v) => v.fetchLimit;
+  static const Field<SettingModel, int> _f$fetchLimit = Field(
+    'fetchLimit',
+    _$fetchLimit,
     opt: true,
     def: 100,
   );
 
   @override
   final MappableFields<SettingModel> fields = const {
-    #maxResults: _f$maxResults,
+    #fetchLimit: _f$fetchLimit,
   };
 
   static SettingModel _instantiate(DecodingData data) {
-    return SettingModel(maxResults: data.dec(_f$maxResults));
+    return SettingModel(fetchLimit: data.dec(_f$fetchLimit));
   }
 
   @override
@@ -101,7 +101,7 @@ extension SettingModelValueCopy<$R, $Out>
 
 abstract class SettingModelCopyWith<$R, $In extends SettingModel, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  $R call({int? maxResults});
+  $R call({int? fetchLimit});
   SettingModelCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -114,12 +114,12 @@ class _SettingModelCopyWithImpl<$R, $Out>
   late final ClassMapperBase<SettingModel> $mapper =
       SettingModelMapper.ensureInitialized();
   @override
-  $R call({int? maxResults}) => $apply(
-    FieldCopyWithData({if (maxResults != null) #maxResults: maxResults}),
+  $R call({int? fetchLimit}) => $apply(
+    FieldCopyWithData({if (fetchLimit != null) #fetchLimit: fetchLimit}),
   );
   @override
   SettingModel $make(CopyWithData data) =>
-      SettingModel(maxResults: data.get(#maxResults, or: $value.maxResults));
+      SettingModel(fetchLimit: data.get(#fetchLimit, or: $value.fetchLimit));
 
   @override
   SettingModelCopyWith<$R2, SettingModel, $Out2> $chain<$R2, $Out2>(

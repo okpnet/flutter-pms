@@ -14,7 +14,8 @@ class GridTree extends ConsumerStatefulWidget {
   final GridMode mode;
   final String? editPath;
   final bool Function(TrinaRow<dynamic>) hasChildTheRow;
-  final TreePricateAdapter treePricateAdapter;
+  final TreeExpressionAdapter<Map<String, dynamic>>
+  treeExpressionAdapter; //レポジトリの戻り値の型を指定
 
   GridTree({
     super.key,
@@ -22,7 +23,7 @@ class GridTree extends ConsumerStatefulWidget {
     required this.mode,
     this.editPath,
     required this.hasChildTheRow,
-    required this.treePricateAdapter,
+    required this.treeExpressionAdapter,
   });
 
   @override
@@ -34,7 +35,8 @@ class _GridTree<R> extends ConsumerState<GridTree> with GridTreeMixin<R> {
   ///UI個別の検索条件
   ///初期データ取得条件、
   @override
-  TreePricateAdapter get treePricateAdapter => widget.treePricateAdapter;
+  TreeExpressionAdapter<Map<String, dynamic>> get treeExpressionAdapter =>
+      widget.treeExpressionAdapter;
 
   ///ドラッグドロップイベントストリーム
   @override

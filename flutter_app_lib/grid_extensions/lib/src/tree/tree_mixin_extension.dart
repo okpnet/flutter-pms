@@ -8,7 +8,7 @@ import 'events/events.dart';
 ///[R]はQueryの戻り値の型
 abstract interface class TreeMixinExtension {
   ///条件式を提供する
-  TreePricateAdapter get treePricateAdapter;
+  TreeExpressionAdapter get treeExpressionAdapter;
 
   ///ツリーで発生するイベント
   StreamController<TreeEvent> get treeChangeStream;
