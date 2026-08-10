@@ -1,6 +1,6 @@
 name: grid_extensions
 description: "A new Flutter package project."
-version: 0.0.4
+version: 0.0.8
 homepage:
 
 environment:
@@ -18,6 +18,7 @@ dependencies:
     path: ../../flutter_pub_lib/query_builder
   data_strategist:
     path: ../../flutter_pub_lib/data_strategist
+  uuid: ^4.6.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

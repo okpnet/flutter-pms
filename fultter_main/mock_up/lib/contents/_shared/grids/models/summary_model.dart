@@ -1,5 +1,3 @@
-import 'package:trina_grid/trina_grid.dart';
-
 import '../../../../imports.dart';
 
 class SummaryModel implements IResultAdapter {
@@ -10,7 +8,7 @@ class SummaryModel implements IResultAdapter {
   final int numberOfRecord;
 
   @override
-  final List<TrinaRow<dynamic>> rows;
+  final List<Map<String, dynamic>> rows;
 
   SummaryModel({
     required this.numberOfRecord,

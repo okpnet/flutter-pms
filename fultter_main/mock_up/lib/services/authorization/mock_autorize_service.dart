@@ -1,4 +1,5 @@
 import 'package:mock_up/imports.dart';
+import 'package:mock_up/services/settings/settings.dart';
 
 import '../../contents/_models/authorization/mock_auth_state.dart';
 
@@ -14,6 +15,12 @@ class MockAutorizeService extends _$MockAutorizeService {
   Future<bool> login() async {
     final result = false;
     state = MockAuthState(authStateType: result ? .authenticated : .signedOut);
+    if (state.authStateType == .authenticated) {
+      final settingProvider = ref.watch(mockUserSettingProvider.notifier);
+
+      ///ここで設定読み込み
+      settingProvider.loadSetting('userIdなど');
+    }
     Future.delayed(Duration(seconds: 3));
     return result;
   }

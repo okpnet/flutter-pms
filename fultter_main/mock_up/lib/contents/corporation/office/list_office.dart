@@ -1,4 +1,5 @@
 // Package imports:
+import 'package:mock_up/contents/corporation/office/route/route.dart';
 import 'package:trina_grid/trina_grid.dart';
 
 // Project imports:
@@ -60,7 +61,11 @@ class _ListOffice extends ConsumerState<ListOffice> {
     ///ユーザーの権限でモードを変更
     return PopScope(
       canPop: !isDirty,
-      child: GridList<Map<String,dynamic>>(columns: _columns, mode: .primaryUse),
+      child: GridList(
+        columns: _columns,
+        mode: .primaryUse,
+        editPath: EditOfficeConstant.path,
+      ),
     );
   }
 }

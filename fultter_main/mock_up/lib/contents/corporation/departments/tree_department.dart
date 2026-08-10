@@ -1,4 +1,6 @@
 import 'package:mock_up/contents/_shared/grids/grids.dart';
+import 'package:mock_up/contents/contents.dart';
+import 'package:mock_up/contents/corporation/departments/edit_department.dart';
 import 'package:trina_grid/trina_grid.dart';
 
 import '../../../../imports.dart';
@@ -60,6 +62,56 @@ class _TreeDepartment extends ConsumerState<TreeDepartment> {
   @override
   Widget build(BuildContext context) {
     ///ユーザーの権限でモードを変更
-    return GridTree(columns: _columns, mode: .primaryUse);
+    return GridTree(
+      columns: _columns,
+      mode: .primaryUse,
+      hasChildTheRow: (row) =>
+          row.cells['child_number_of_records']?.value ?? 0 > 0,
+      editPath: EditDepartmentConstant.path,
+      treePricateAdapter: DepertmentPridicateAdapter(),
+    );
+  }
+}
+
+class DepertmentPridicateAdapter extends TreePricateAdapter {
+  @override
+  IPredicateModel buildPredicate(
+    TrinaRow<dynamic>? parentRow,
+    TreeLoadStatus treeState,
+  ) {
+    final pridicate = PredicateModel(
+      take: configState.config.fetchLimit,
+      skip: treeState.current + configState.config.fetchLimit,
+      pridicate: AndExpression([
+        parentRow == null
+            ? EqualExpression(
+                NameFieldExpression('parent_id'),
+                NameFieldExpression('id'),
+              )
+            : EqualExpression(
+                FieldExpression<Map<String, dynamic>>((t) => t['parent_id']),
+                ValueExpression(parentRow.cells['id']!.value.toString()),
+              ),
+        EqualExpression(
+          FieldExpression<Map<String, dynamic>>((t) => t['parent_id']),
+          FieldExpression<Map<String, dynamic>>((t) => t['id']),
+          isNot: true,
+        ),
+      ]),
+    );
+    return pridicate;
+  }
+
+  @override
+  IPredicateModel get initiBuildPredicate {
+    final pridicate = PredicateModel(
+      take: configState.config.fetchLimit,
+      skip: 0,
+      pridicate: EqualExpression(
+        NameFieldExpression('parent_id'),
+        NameFieldExpression('id'),
+      ),
+    );
+    return pridicate;
   }
 }

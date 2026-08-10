@@ -1,37 +1,23 @@
 // ignore: non_constant_identifier_names
 import 'dart:async';
 
+import 'package:grid_extensions/constants/key_constant.dart';
 import 'package:grid_extensions/src/tree/events/parent_change.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../constants/typedef.dart';
 import '../import.dart';
 import '../shared/shared.dart';
-import 'search_result_info_data_model.dart';
-import 'search_result_info_state.dart';
 import 'tree_load_status.dart';
 import 'tree_mixin_extension.dart';
-
-const String BEFORE_EXPANDED = 'loadMore_';
-
-// ignore: non_constant_identifier_names, constant_identifier_names
-const double DEPTH_INDENT = 16;
-
-// ignore: non_constant_identifier_names
-const String NULL_KEY = 'root';
 
 ///TreeタイプのGridに使用できるMixin
 ///TはQueryの引数の型
 ///[R]はQueryの戻り値の型
 mixin GridTreeMixin<R> implements IGridExtMixinShared<R>, TreeMixinExtension {
-  /// ページ側で定義する getter
-  // TrinaColumn get parentColumn;
-  TrinaColumn get idColumn;
-
+  ///*親クラスで実装
   ///行から子があるかを判定する
   bool Function(TrinaRow) get hasChildTheRow;
-
-  /// TrinaGrid の columns をページ側で渡す
-  List<TrinaColumn> get columns => stateManager.columns;
 
   ///展開の状況保持
   final Map<String?, TreeLoadStatus> status = {};
@@ -39,19 +25,25 @@ mixin GridTreeMixin<R> implements IGridExtMixinShared<R>, TreeMixinExtension {
   ///ルート
   final List<TrinaRow> roots = [];
 
-  ///読み込んだ情報の状態管理
-  final SearchResultInfoState searchResultInfoState = SearchResultInfoState();
-
   ///行状態管理のキーを取得
   String _getStateKey(TrinaRow? row) =>
-      row?.cells[idColumn.field]?.value.toString() ?? NULL_KEY;
+      row?.cells[KeyConstant.uniqKey]?.value.toString() ?? KeyConstant.nullKey;
 
   ///ツリー用の初期化
   void initColumns() {
-    final column = stateManager.refColumns.firstWhere((t) => !t.hide);
-    final index = stateManager.refColumns.indexOf(column);
+    final column = columns.firstWhere((t) => !t.hide);
+    final index = columns.indexOf(column);
     // column.renderer = _renderer;
-    stateManager.insertColumns(index, [column.copyWith(renderer: _renderer)]);
+    stateManager.insertColumns(index, [
+      column.copyWith(renderer: _renderer),
+      TrinaColumn(
+        //キー
+        title: KeyConstant.uniqKey,
+        field: KeyConstant.uniqKey,
+        type: TrinaColumnType.text(),
+        hide: true,
+      ),
+    ]);
 
     stateManager.removeColumns([column]);
   }
@@ -69,10 +61,10 @@ mixin GridTreeMixin<R> implements IGridExtMixinShared<R>, TreeMixinExtension {
       //Rowが標準タイプのときのWidget
       final parentId = _getStateKey(row.parent);
 
-      if (row.key == ValueKey('$BEFORE_EXPANDED$parentId')) {
+      if (row.key == ValueKey('${KeyConstant.loadMore}$parentId')) {
         return Row(
           children: [
-            SizedBox(width: depth * DEPTH_INDENT), // インデント
+            SizedBox(width: depth * KeyConstant.depthIndent), // インデント
             Flexible(
               child: TextButton(
                 onPressed: () async => onLoadMore(row),
@@ -94,7 +86,7 @@ mixin GridTreeMixin<R> implements IGridExtMixinShared<R>, TreeMixinExtension {
       //行がグループだったときのWidget
       return Row(
         children: [
-          SizedBox(width: depth * DEPTH_INDENT), // インデント
+          SizedBox(width: depth * KeyConstant.depthIndent), // インデント
           if (hasChildren)
             group.expanded
                 ? IconButton(
@@ -156,8 +148,12 @@ mixin GridTreeMixin<R> implements IGridExtMixinShared<R>, TreeMixinExtension {
     stateManager.setShowLoading(false);
     final stateKey = _getStateKey(parentRow);
     final state =
-        status[stateKey] ?? TreeLoadStatus(current: 0, numberOfRecords: 0);
-    final loadState = await _loadData(initiBuildPredicate, state);
+        status[stateKey] ??
+        TreeLoadStatus(data: [], current: 0, numberOfRecords: 0);
+    final loadState = await _loadData(
+      treePricateAdapter.initiBuildPredicate,
+      state,
+    );
     status[stateKey] = loadState;
     await _addRows(null, loadState);
     stateManager.setShowLoading(false);
@@ -169,11 +165,12 @@ mixin GridTreeMixin<R> implements IGridExtMixinShared<R>, TreeMixinExtension {
     final stateKey = _getStateKey(parentRow);
 
     final state =
-        status[stateKey] ?? TreeLoadStatus(current: 0, numberOfRecords: 0);
+        status[stateKey] ??
+        TreeLoadStatus(data: [], current: 0, numberOfRecords: 0);
 
     ///このparentRowが初めて展開されたか（前に読み込みしていないか）
     final isFirst = status[stateKey] == null;
-    final pridicate = buildPredicate(parentRow, state);
+    final pridicate = treePricateAdapter.buildPredicate(parentRow, state);
 
     ///初めてのときは0にカーソルをセットする
     final skip = isFirst ? 0 : state.current;
@@ -194,6 +191,7 @@ mixin GridTreeMixin<R> implements IGridExtMixinShared<R>, TreeMixinExtension {
     final summary = converter.convertTo(result);
 
     final newState = TreeLoadStatus(
+      data: summary.rows,
       current: state.current + queryState.fetchLimit,
       numberOfRecords: summary.filteredNumberOfRecords ?? 0,
     );
@@ -201,56 +199,50 @@ mixin GridTreeMixin<R> implements IGridExtMixinShared<R>, TreeMixinExtension {
   }
 
   Future<void> _addRows(TrinaRow? parentRow, TreeLoadStatus newState) async {
-    if (searchResultInfoState.model
-        case SearchResultInfoDataModel<GridExtensionMapList> summary) {
-      debugPrint(
-        'recordNum=${summary.numberOfRecords} filterNum=${summary.filteredNumberOfRecords} current=${newState.current} stateNum=${newState.numberOfRecords}',
-      );
-      final addRowList = summary.loadData
-          .map((row) => buildPultoRow(row, parentRow))
-          .toList();
-      if (parentRow == null) {
-        //トップノード
+    final addRowList = newState.data
+        .map((row) => buildTrinaRow(row, parentRow: parentRow))
+        .toList();
+    if (parentRow == null) {
+      //トップノード
+      if (!newState.isLatest) {
+        final loadMoreRow = buildLoadMoreTrinaRow(parentRow);
+        addRowList.add(loadMoreRow);
+      }
+      roots.addAll(addRowList);
+      stateManager.appendRows(addRowList);
+    } else {
+      final loadMore = parentRow.children.indexWhere((t) => isLoadMoreRow(t));
+
+      if (loadMore >= 0) {
+        //すでにもっと読み込むがある場合
+        parentRow.children.insertAll(loadMore, addRowList);
+      } else {
+        parentRow.children.addAll(addRowList);
         if (!newState.isLatest) {
           final loadMoreRow = buildLoadMoreTrinaRow(parentRow);
+          parentRow.children.add(loadMoreRow);
           addRowList.add(loadMoreRow);
         }
-        roots.addAll(addRowList);
-        stateManager.appendRows(addRowList);
-      } else {
-        final loadMore = parentRow.children.indexWhere((t) => isLoadMoreRow(t));
-
-        if (loadMore >= 0) {
-          //すでにもっと読み込むがある場合
-          parentRow.children.insertAll(loadMore, addRowList);
-        } else {
-          parentRow.children.addAll(addRowList);
-          if (!newState.isLatest) {
-            final loadMoreRow = buildLoadMoreTrinaRow(parentRow);
-            parentRow.children.add(loadMoreRow);
-            addRowList.add(loadMoreRow);
-          }
-        }
-
-        final lastIndex = stateManager.refRows.lastIndexWhere(
-          (t) => t.parent == parentRow,
-        );
-
-        final insertIndex = 0 > lastIndex
-            ? stateManager.refRows.indexOf(parentRow) + 1
-            : lastIndex;
-
-        stateManager.insertRows(insertIndex, addRowList);
       }
 
-      stateManager.setShowLoading(false);
+      final lastIndex = stateManager.refRows.lastIndexWhere(
+        (t) => t.parent == parentRow,
+      );
+
+      final insertIndex = 0 > lastIndex
+          ? stateManager.refRows.indexOf(parentRow) + 1
+          : lastIndex;
+
+      stateManager.insertRows(insertIndex, addRowList);
     }
+
+    stateManager.setShowLoading(false);
   }
 
   //もっと読み込む行の判定
   bool isLoadMoreRow(TrinaRow? row) =>
       row != null &&
-      row.key == ValueKey('$BEFORE_EXPANDED${_getStateKey(row.parent)}');
+      row.key == ValueKey('${KeyConstant.loadMore}${_getStateKey(row.parent)}');
   //もっと読み込む
   Future<bool> onLoadMore(TrinaRow row) async {
     final parentRow = row.parent;
@@ -268,12 +260,18 @@ mixin GridTreeMixin<R> implements IGridExtMixinShared<R>, TreeMixinExtension {
   }
 
   ///データから行生成
-  TrinaRow buildPultoRow(GridExtensionMap json, TrinaRow? parentRow) {
+  TrinaRow buildTrinaRow(GridExtensionMap json, {TrinaRow? parentRow}) {
     final result = TrinaRow(
       type: .group(children: FilteredList<TrinaRow>(initialList: [])),
       cells: {
-        for (final col in columns) col.field: TrinaCell(value: json[col.field]),
+        for (final col in columns)
+          col.field: TrinaCell(
+            value: col.field == KeyConstant.uniqKey
+                ? const Uuid().v4()
+                : json[col.field],
+          ),
       },
+      data: json,
     );
     result.setParent(parentRow);
     return result;
@@ -284,7 +282,7 @@ mixin GridTreeMixin<R> implements IGridExtMixinShared<R>, TreeMixinExtension {
     final firstCol = columns.firstWhere((t) => !t.hide);
     final stateKey = _getStateKey(parentRow);
     final result = TrinaRow(
-      key: ValueKey('$BEFORE_EXPANDED$stateKey'),
+      key: ValueKey('${KeyConstant.loadMore}$stateKey'),
       type: TrinaRowType.group(children: FilteredList(), expanded: false),
       enableDrag: false,
       enableDrop: false,
@@ -410,11 +408,11 @@ mixin GridTreeMixin<R> implements IGridExtMixinShared<R>, TreeMixinExtension {
     // // 直前の行を新しい親とみなす（デモ用ルール）
     final newParent =
         stateManager.refRows[index + 1]; //ドロップされた行が+1、ドラッグした行が-1になる
-
-    final beforeEvent = BeforeParentChangeEvent.to(row);
+    final currentIndex = stateManager.rows.indexOf(row);
+    final beforeEvent = BeforeParentChangeEvent.to(currentIndex, row);
     treeChangeStream.add(beforeEvent);
     await changeParent(row, newParent);
-    treeChangeStream.add(AfterParentChangeEvent.to(row, beforeEvent));
+    treeChangeStream.add(AfterParentChangeEvent.to(index, row, beforeEvent));
     final lastRow = _toFlat(
       row,
       (t) => t.type is TrinaRowTypeGroup && t.type.group.expanded,

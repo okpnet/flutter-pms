@@ -1,4 +1,4 @@
-import 'package:trina_grid/trina_grid.dart';
+import '../../constants/typedef.dart';
 
 ///レポジトリから取得したデータの結果
 abstract interface class IResultAdapter {
@@ -9,5 +9,5 @@ abstract interface class IResultAdapter {
   int? get filteredNumberOfRecords;
 
   ///取得して変換された行
-  List<TrinaRow> get rows;
+  List<GridExtensionMap> get rows;
 }

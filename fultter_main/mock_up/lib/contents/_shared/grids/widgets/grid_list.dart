@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:trina_grid/trina_grid.dart';
 import 'package:undo_redo/lib.dart';
 import '../../../../constants/configuration/configration.dart';
@@ -71,8 +69,8 @@ class _GridList<R> extends ConsumerState<GridList> with GridPagenationMixin<R> {
     );
   }
 
-  //with GridPagenationMixin<JsonMap>{
-  List<TrinaColumn> get _columns => widget.columns;
+  @override
+  List<TrinaColumn> get columns => widget.columns;
 
   ///グリッドの設定
   final GridConfiguration tringaGridConfig = GridConfiguration();
@@ -86,14 +84,8 @@ class _GridList<R> extends ConsumerState<GridList> with GridPagenationMixin<R> {
 
   @override
   Widget build(BuildContext context) {
-    ///UndoRedoと、確定した行のコピーデータを扱う
-    final undoRedoState = ref.watch(gridScreenManagerProvider);
-
     ///データベースへ更新を反映させるためのマネージャ
     final manager = ref.read(gridScreenManagerProvider.notifier);
-
-    ///権限を取得する
-    final authorication = ref.read(mockAutorizeServiceProvider);
 
     ///合計状態変更
     final summaryProvider = ref.watch(gridSummaryProvider.notifier);
@@ -106,15 +98,19 @@ class _GridList<R> extends ConsumerState<GridList> with GridPagenationMixin<R> {
         //初回に一度だけ呼ばれる
         summaryProvider.init();
         _stateManager = event.stateManager;
+        initColumns();
         if (!widget.isDragDrop) {
           ///ドラッグアンドドロップの禁止
           for (var t in _stateManager.columns) {
             t.enableRowDrag = false;
+            t.enableEditingMode = false;
+            t.enableFilterMenuItem = false;
+            t.enableSorting = false;
           }
         }
       },
-      createHeader: (_) => GrridSummaryHeader(),
-      columns: _columns,
+      createHeader: (_) => GridSummaryHeader(),
+      columns: columns,
       rows: [],
       onRowDoubleTap: (event) {
         if (widget.editPath == null) {
@@ -162,11 +158,14 @@ class _GridList<R> extends ConsumerState<GridList> with GridPagenationMixin<R> {
 
   ///ドロップしたときの処理
   Future<void> _drop(int newIdx, List<TrinaRow> rows) async {
+    ///UndoRedoと、確定した行のコピーデータを扱う
+    final undoRedoState = ref.watch(gridScreenManagerProvider);
+
     ///ドロップ前のインデクスを保存
     final beforeRowDiffValues = rows
         .map(
           (t) => RowDiffValue(
-            rowKey: t.key,
+            rowUniqId: t.cells[KeyConstant.uniqKey]!.value.toString(),
             index: stateManager.rows.indexOf(t),
             expanded: t.isExpanded,
           ),
@@ -178,48 +177,51 @@ class _GridList<R> extends ConsumerState<GridList> with GridPagenationMixin<R> {
     beforeRowDiffValues.asMap().forEach((idx, item) {
       final tRow = _stateManager.getRowByIdx(item.index);
       final afterRowDiffValue = RowDiffValue(
-        rowKey: tRow!.key,
+        rowUniqId: tRow!.cells[KeyConstant.uniqKey]!.value.toString(),
         index: newIdx + idx + 1,
         expanded: tRow.isExpanded,
       );
       rowDiffs.add(afterRowDiffValue);
     });
 
-
-
     ///ドロップ後の処理
     for (var item in rowDiffs) {
       final tRow = _stateManager.getRowByIdx(item.index);
       final map = tRow!.toJson();
+
       final newMap = widget.dropAction!(item.index, map);
       for (final col in widget.columns) {
         tRow.cells[col.field] = newMap[col.field];
       }
+
+      undoRedoState.push(
+        map,
+        BehaviorCommand<Map<String, dynamic>>(
+          undoValueProvider: () => map,
+          redoValueProvider: () => newMap,
+          undoExecute: (t) {
+            if (t != null) {
+              for (final col in widget.columns) {
+                map[col.field] = t[col.field];
+                tRow.cells[col.field] = map[col.field];
+              }
+            }
+          },
+          redoExecute: (t) {
+            if (t != null) {
+              for (final col in widget.columns) {
+                map[col.field] = t[col.field];
+                tRow.cells[col.field] = map[col.field];
+              }
+            }
+          },
+        ),
+      );
     }
 
-        ///UndoRedoと、確定した行のコピーデータを扱う
-    final undoRedoState = ref.watch(gridScreenManagerProvider);
-    undoRedoState.push({beforeRowDiffValues,rowDiffs}, BehaviorCommand(undoValueProvider: ()=>beforeRowDiffValues, redoValueProvider:()=> rowDiffs, undoExecute: undoExecute, redoExecute: redoExecute))
     // // --- 3. 実際のドロップ処理（初回実行） ---
     // // 最初にまとめて newIdx へ移動させます
     // stateManager.moveRowsByIndex(rows, newIdx);
     // stateManager.notifyListeners();
-  }
-
-  void applyUndo(List<RowDiffValue> diffs) {
-    for (var diff in diffs) {
-      final row = stateManager.rows.firstWhere((t)=>t.key==diff.rowKey);
-      final parentIdx= stateManager.rows.indexWhere((t)=>t.parent?.key==diff.parentKey);
-      if(parentIdx>=0){
-        ///親がある
-      }
-      if (row == null) continue;
-      row.parent=
-      row. = diff.before.parentKey;
-      row.isExpanded = diff.before.expanded;
-      row.expanded = diff.beforeExpanded;
-    }
-
-    stateManager.rebuildRows();
   }
 }

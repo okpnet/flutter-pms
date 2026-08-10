@@ -40,7 +40,9 @@ class FilterExpressionAdapter<R> implements IFilterExpressionAdapter<R> {
     final expressions = filterRows != null && filterRows.isNotEmpty
         ? filterRows.map((row) => _rowTransrater(state, row)).toList()
         : null;
-    final sortColumns = columns?.where((t) => !t.sort.isNone);
+    final sortColumns = columns?.where(
+      (t) => !t.sort.isNone && t.field != KeyConstant.uniqKey,
+    );
     final sortEx = sortColumns != null && sortColumns.isNotEmpty
         ? sortColumns.map((t) => _columnTransrater(state, t)).toList()
         : null;

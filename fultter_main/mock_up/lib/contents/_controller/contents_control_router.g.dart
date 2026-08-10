@@ -32,7 +32,7 @@ RouteBase get $contentsControlRouter => ShellRouteData.$route(
               ],
             ),
             GoRouteData.$route(
-              path: '/corporation/department',
+              path: '/corporation/department/tree',
               name: 'department',
               hasOverriddenOnExit: false,
               factory: $TreeDepartmentRouter._fromState,
@@ -265,7 +265,7 @@ mixin $TreeDepartmentRouter on GoRouteData {
       const TreeDepartmentRouter();
 
   @override
-  String get location => GoRouteData.$location('/corporation/department');
+  String get location => GoRouteData.$location('/corporation/department/tree');
 
   @override
   void go(BuildContext context) => context.go(location);

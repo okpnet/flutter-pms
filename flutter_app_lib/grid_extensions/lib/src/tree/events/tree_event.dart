@@ -1,9 +1,9 @@
 import '../../../constants/typedef.dart';
-import '../../import.dart';
 
-abstract class TreeEvent {
-  Key get rowKey;
-  Key? get parentRowKey;
+abstract class TreeEvent<T> {
+  int get idx;
+  T get rowData;
+  T? get parentRowData;
   bool get expanded;
   GridExtensionMap get attributes;
 }

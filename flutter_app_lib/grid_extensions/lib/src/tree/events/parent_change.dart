@@ -4,7 +4,7 @@ import '../../shared/shared.dart';
 import 'events.dart';
 
 ///ドロップ前のイベント
-class BeforeParentChangeEvent extends TreeEvent {
+class BeforeParentChangeEvent<T> extends TreeEvent<T> {
   @override
   final GridExtensionMap attributes;
 
@@ -12,34 +12,39 @@ class BeforeParentChangeEvent extends TreeEvent {
   final bool expanded;
 
   @override
-  final Key? parentRowKey;
+  final int idx;
 
   @override
-  final Key rowKey;
+  final T? parentRowData;
+
+  @override
+  final T rowData;
 
   BeforeParentChangeEvent({
     required this.expanded,
     required this.attributes,
-    this.parentRowKey,
-    required this.rowKey,
+    required this.idx,
+    required this.rowData,
+    this.parentRowData,
   });
 
-  factory BeforeParentChangeEvent.to(TrinaRow row) {
-    final rowKey = row.key;
-    final parentKey = row.parent?.key;
+  factory BeforeParentChangeEvent.to(int index, TrinaRow row) {
+    final rowData = row.data;
+    final parentData = row.parent?.data;
     final isExpanded = row.isExpanded;
     final json = row.toJson();
     return BeforeParentChangeEvent(
       attributes: json,
       expanded: isExpanded,
-      rowKey: rowKey,
-      parentRowKey: parentKey,
+      rowData: rowData,
+      parentRowData: parentData,
+      idx: index,
     );
   }
 }
 
 ///ドロップ完了後のイベント
-class AfterParentChangeEvent extends TreeEvent {
+class AfterParentChangeEvent<T> extends TreeEvent<T> {
   final BeforeParentChangeEvent beforeEvent;
   @override
   final GridExtensionMap attributes;
@@ -48,32 +53,38 @@ class AfterParentChangeEvent extends TreeEvent {
   final bool expanded;
 
   @override
-  final Key? parentRowKey;
+  final int idx;
 
   @override
-  final Key rowKey;
+  final T? parentRowData;
+
+  @override
+  final T rowData;
 
   AfterParentChangeEvent({
-    required this.beforeEvent,
     required this.expanded,
     required this.attributes,
-    this.parentRowKey,
-    required this.rowKey,
+    required this.idx,
+    required this.rowData,
+    this.parentRowData,
+    required this.beforeEvent,
   });
   factory AfterParentChangeEvent.to(
+    int index,
     TrinaRow row,
     BeforeParentChangeEvent beforeEvent,
   ) {
-    final rowKey = row.key;
-    final parentKey = row.parent?.key;
+    final rowData = row.data;
+    final parentData = row.parent?.data;
     final isExpanded = row.isExpanded;
     final json = row.toJson();
     return AfterParentChangeEvent(
-      beforeEvent: beforeEvent,
       attributes: json,
       expanded: isExpanded,
-      rowKey: rowKey,
-      parentRowKey: parentKey,
+      rowData: rowData,
+      parentRowData: parentData,
+      idx: index,
+      beforeEvent: beforeEvent,
     );
   }
 }

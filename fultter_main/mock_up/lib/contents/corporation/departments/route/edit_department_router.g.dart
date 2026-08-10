@@ -1,26 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'tree_department_router.dart';
+part of 'edit_department_router.dart';
 
 // **************************************************************************
 // GoRouterGenerator
 // **************************************************************************
 
-List<RouteBase> get $appRoutes => [$treeDepartmentRouter];
+List<RouteBase> get $appRoutes => [$editDepartmentRouter];
 
-RouteBase get $treeDepartmentRouter => GoRouteData.$route(
-  path: '/corporation/department/tree',
-  name: 'department',
+RouteBase get $editDepartmentRouter => GoRouteData.$route(
+  path: '/corporation/department/edit',
+  name: 'edit_department',
   hasOverriddenOnExit: false,
-  factory: $TreeDepartmentRouter._fromState,
+  factory: $EditDepartmentRouter._fromState,
 );
 
-mixin $TreeDepartmentRouter on GoRouteData {
-  static TreeDepartmentRouter _fromState(GoRouterState state) =>
-      const TreeDepartmentRouter();
+mixin $EditDepartmentRouter on GoRouteData {
+  static EditDepartmentRouter _fromState(GoRouterState state) =>
+      const EditDepartmentRouter();
 
   @override
-  String get location => GoRouteData.$location('/corporation/department/tree');
+  String get location => GoRouteData.$location('/corporation/department/edit');
 
   @override
   void go(BuildContext context) => context.go(location);

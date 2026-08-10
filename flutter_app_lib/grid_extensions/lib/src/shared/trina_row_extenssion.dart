@@ -1,3 +1,4 @@
+import 'package:grid_extensions/constants/constants.dart';
 import 'package:grid_extensions/src/src.dart';
 
 import '../import.dart';
@@ -21,7 +22,22 @@ extension TrinaRowExtension on TrinaRow {
     TrinaGridStateManager manager, {
     bool expanded = false,
   }) {
-    final index = manager.refRows.indexWhere((t) => key == t.key);
-    return RowDiffValue(rowKey: key, index: index, expanded: expanded);
+    final columns = manager.columns;
+    if (0 > columns.indexWhere((t) => t.field == KeyConstant.uniqKey)) {
+      throw AssertionError(
+        'TrinaGrid has not "${KeyConstant.uniqKey} column." ',
+      );
+    }
+    final index = manager.refRows.indexWhere(
+      (t) => cells[KeyConstant.uniqKey] == t.cells[KeyConstant.uniqKey],
+    );
+    final rowUniqUuiId = cells[KeyConstant.uniqKey];
+    final parentUniqUuId = parent?.cells[KeyConstant.uniqKey];
+    return RowDiffValue(
+      rowUniqId: rowUniqUuiId!.value.toString(),
+      parentUniqId: parentUniqUuId?.toString(),
+      index: index,
+      expanded: expanded,
+    );
   }
 }

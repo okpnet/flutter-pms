@@ -45,6 +45,8 @@ dependencies:
     path: ../../flutter_pub_lib/undo_redo
   data_strategist:
     path: ../../flutter_pub_lib/data_strategist
+  query_builder:
+    path: ../../flutter_pub_lib/query_builder
   trina_grid:
     git:
       url: https://github.com/okpnet/trina_grid

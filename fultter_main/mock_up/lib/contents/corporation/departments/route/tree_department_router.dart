@@ -6,7 +6,7 @@ part 'tree_department_router.g.dart';
 
 abstract class TreeDepartmentConstant {
   static const String name = 'department';
-  static const String path = '/corporation/department';
+  static const String path = '/corporation/department/tree';
 }
 
 @TypedGoRoute<TreeDepartmentRouter>(

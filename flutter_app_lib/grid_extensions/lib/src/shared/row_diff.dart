@@ -1,15 +1,13 @@
-import '../import.dart';
-
 class RowDiffValue {
-  final Key rowKey;
+  final String rowUniqId;
 
-  final Key? parentKey;
+  final String? parentUniqId;
   final int index;
   final bool expanded;
 
   RowDiffValue({
-    required this.rowKey,
-    this.parentKey,
+    required this.rowUniqId,
+    this.parentUniqId,
     required this.index,
     required this.expanded,
   });
@@ -17,8 +15,8 @@ class RowDiffValue {
   @override
   bool operator ==(Object other) {
     if (other case RowDiffValue value) {
-      return rowKey == value.rowKey &&
-          parentKey == value.parentKey &&
+      return rowUniqId == value.rowUniqId &&
+          parentUniqId == value.parentUniqId &&
           index == value.index &&
           expanded == value.expanded;
     }
@@ -27,7 +25,10 @@ class RowDiffValue {
 
   @override
   int get hashCode =>
-      rowKey.hashCode & parentKey.hashCode & index.hashCode & expanded.hashCode;
+      rowUniqId.hashCode &
+      parentUniqId.hashCode &
+      index.hashCode &
+      expanded.hashCode;
 }
 
 class RowDiff {

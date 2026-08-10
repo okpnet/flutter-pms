@@ -1,3 +1,5 @@
+import 'package:grid_extensions/constants/constants.dart';
+
 ///行の読み込みの状態管理
 final class TreeLoadStatus {
   ///その行の子の総数
@@ -8,10 +10,21 @@ final class TreeLoadStatus {
 
   bool get isLatest => current >= numberOfRecords;
 
-  TreeLoadStatus({required this.current, required this.numberOfRecords});
+  final List<GridExtensionMap> data;
 
-  TreeLoadStatus copyWith({int? current, int? numberOfRecords}) {
+  TreeLoadStatus({
+    required this.current,
+    required this.numberOfRecords,
+    required this.data,
+  });
+
+  TreeLoadStatus copyWith(
+    List<GridExtensionMap> data, {
+    int? current,
+    int? numberOfRecords,
+  }) {
     return TreeLoadStatus(
+      data: data,
       current: current ?? this.current,
       numberOfRecords: numberOfRecords ?? this.numberOfRecords,
     );
