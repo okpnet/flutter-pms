@@ -422,10 +422,49 @@ mixin GridTreeMixin<R> implements IGridExtMixinShared<R>, TreeMixinExtension {
     final newParent =
         stateManager.refRows[index + 1]; //ドロップされた行が+1、ドラッグした行が-1になる
     final currentIndex = stateManager.rows.indexOf(row);
-    final beforeEvent = BeforeParentChangeEvent.to(currentIndex, row);
+    final beforeParent = row.parent;
+    final beforeAttr = row.toJson();
+    final beforeData = row.data;
+    final expanded = row.isExpanded;
+    final beforeEvent = BeforeParentChangeEvent(
+      attributes: beforeAttr,
+      expanded: expanded,
+      idx: currentIndex,
+      rowData: beforeData,
+      parentRowData: beforeParent?.data,
+      behavior: () async {
+        for (var key in beforeAttr.keys) {
+          if (row.cells[key]!.value == beforeAttr[key]) {
+            continue;
+          }
+          stateManager.changeCellValue(row.cells[key]!, beforeAttr[key]);
+        }
+        await changeParent(row, beforeParent);
+      },
+    );
     treeChangeStream.add(beforeEvent);
     await changeParent(row, newParent);
-    treeChangeStream.add(AfterParentChangeEvent.to(index, row, beforeEvent));
+    final afterAttr = row.toJson();
+    final afterData = row.data;
+    treeChangeStream.add(
+      AfterParentChangeEvent(
+        attributes: afterAttr,
+        idx: index,
+        rowData: afterData,
+        beforeEvent: beforeEvent,
+        parentRowData: newParent.data,
+        expanded: expanded,
+        behavior: () async {
+          for (var key in afterAttr.keys) {
+            if (row.cells[key]!.value == afterAttr[key]) {
+              continue;
+            }
+            stateManager.changeCellValue(row.cells[key]!, afterAttr[key]);
+          }
+          await changeParent(row, newParent);
+        },
+      ),
+    );
     final lastRow = _toFlat(
       row,
       (t) => t.type is TrinaRowTypeGroup && t.type.group.expanded,

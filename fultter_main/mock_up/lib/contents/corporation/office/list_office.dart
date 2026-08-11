@@ -5,6 +5,7 @@ import 'package:trina_grid/trina_grid.dart';
 // Project imports:
 import '../../../imports.dart';
 import '../../../services/behavior/behavior.dart';
+import '../../_shared/grids/grid_scope_service/service.dart';
 import '../../_shared/shared.dart';
 
 class ListOffice extends ConsumerStatefulWidget {
@@ -22,11 +23,15 @@ class _ListOffice extends ConsumerState<ListOffice> {
 
     ///データレポジトリへのアクセスを提供
     ///このWidgetのスコープでプロバイダを初期化
-    final queryStateProvider = ref.watch(gridDataStrategyProvider);
+    final queryStateProvider = ref.watch(
+      repositoryFetchControllerProvider<MockResult>(),
+    );
 
     ///フィルタ条件へのアクセスを提供
     ///このWidgetのスコープでプロバイダを初期化
-    final expressionAdapter = ref.watch(gridFilterExpressionProvider.notifier);
+    final expressionAdapter = ref.watch(
+      gridFilterExpressionProvider<MockResult>(),
+    );
 
     ///TrinaGridからフィルタ生成
     // expressionAdapter.init(expressionAdapter);
@@ -58,8 +63,8 @@ class _ListOffice extends ConsumerState<ListOffice> {
 
   @override
   Widget build(BuildContext context) {
-    // 1. Notifierではなく「状態(state)」を直接watchする
-    final isDirty = ref.watch(gridIsDirtyProvider);
+    // Notifierではなく「状態(state)」を直接watchする
+    final isDirty = ref.watch(isSessionDirtyProvider);
 
     ///ユーザーの権限でモードを変更
     return PopScope(
@@ -68,6 +73,7 @@ class _ListOffice extends ConsumerState<ListOffice> {
         columns: _columns,
         mode: .primaryUse,
         editPath: EditOfficeConstant.path,
+        dropAction: null,
       ),
     );
   }

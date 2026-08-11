@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'grid_is_dirty.dart';
+part of 'is_session_dirty.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -8,35 +8,35 @@ part of 'grid_is_dirty.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-///編集が確定されているかを[GridScreenManager]をとおして監視
+///編集が確定されているかを[EditableSessionController]をとおして監視
 ///UndoRedoを行う編集できるビューが、編集確定していない際に移動をブロックするために使用する
 ///編集ビュートップ(上位)でWachする
 
-@ProviderFor(gridIsDirty)
-final gridIsDirtyProvider = GridIsDirtyProvider._();
+@ProviderFor(isSessionDirty)
+final isSessionDirtyProvider = IsSessionDirtyProvider._();
 
-///編集が確定されているかを[GridScreenManager]をとおして監視
+///編集が確定されているかを[EditableSessionController]をとおして監視
 ///UndoRedoを行う編集できるビューが、編集確定していない際に移動をブロックするために使用する
 ///編集ビュートップ(上位)でWachする
 
-final class GridIsDirtyProvider extends $FunctionalProvider<bool, bool, bool>
+final class IsSessionDirtyProvider extends $FunctionalProvider<bool, bool, bool>
     with $Provider<bool> {
-  ///編集が確定されているかを[GridScreenManager]をとおして監視
+  ///編集が確定されているかを[EditableSessionController]をとおして監視
   ///UndoRedoを行う編集できるビューが、編集確定していない際に移動をブロックするために使用する
   ///編集ビュートップ(上位)でWachする
-  GridIsDirtyProvider._()
+  IsSessionDirtyProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'gridIsDirtyProvider',
+        name: r'isSessionDirtyProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$gridIsDirtyHash();
+  String debugGetCreateSourceHash() => _$isSessionDirtyHash();
 
   @$internal
   @override
@@ -45,7 +45,7 @@ final class GridIsDirtyProvider extends $FunctionalProvider<bool, bool, bool>
 
   @override
   bool create(Ref ref) {
-    return gridIsDirty(ref);
+    return isSessionDirty(ref);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -57,4 +57,4 @@ final class GridIsDirtyProvider extends $FunctionalProvider<bool, bool, bool>
   }
 }
 
-String _$gridIsDirtyHash() => r'0bdb6d00ab5108e268c898af6266bb02654544e3';
+String _$isSessionDirtyHash() => r'c6c5200c09b25fc37becbb61772f7f9e43e73bde';

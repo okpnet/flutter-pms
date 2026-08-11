@@ -27,6 +27,7 @@ class Logout extends ConsumerWidget {
     return Scaffold(
       appBar: AppTitleBar(),
       body: ResponsiveGrid(
+        spacing: context.spacing,
         children: [
           ResponsiveCell(
             layout: CommonResponsive.flexL.copyWith(wrapCellAlignment: .center),

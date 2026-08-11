@@ -4,12 +4,12 @@ import 'package:mock_up/services/authorization/mock_autorize_service.dart';
 import '../../../imports.dart';
 import '../shared.dart';
 
-class ContentsFrame extends ConsumerWidget {
-  final StatefulNavigationShell navigationShell;
+class UnControllContentsFrame extends ConsumerWidget {
+  final Widget body;
   final FloatingActionButton? floatingActionButton;
-  const ContentsFrame({
+  const UnControllContentsFrame({
     super.key,
-    required this.navigationShell,
+    required this.body,
     this.floatingActionButton,
   });
 
@@ -21,7 +21,7 @@ class ContentsFrame extends ConsumerWidget {
       child: Scaffold(
         appBar: AppTitleBar(),
         drawer: authState.authStateType == .authenticated ? DrawerMenu() : null,
-        body: navigationShell,
+        body: body,
         floatingActionButton: floatingActionButton,
       ),
     );

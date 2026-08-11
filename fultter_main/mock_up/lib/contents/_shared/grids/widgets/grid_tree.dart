@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:mock_up/contents/_shared/grids/grid_scope_service/grid_drag_drop_controller.dart';
+import 'package:mock_up/contents/_shared/grids/grid_scope_service/grid_drag_drop_event.dart';
 import 'package:trina_grid/trina_grid.dart';
 
 import '../../../../constants/configuration/grid/grid_configuration.dart';
@@ -8,16 +10,23 @@ import '../../../../services/services.dart';
 import '../../../contents.dart';
 import '../grid_scope_service/service.dart';
 
-class GridTree extends ConsumerStatefulWidget {
-  final StreamController<TreeEvent> treeChangeStream = StreamController();
+class GridTree<R> extends ConsumerStatefulWidget {
+  ///グリッドの列
   final List<TrinaColumn> columns;
-  final GridMode mode;
-  final String? editPath;
-  final bool Function(TrinaRow<dynamic>) hasChildTheRow;
-  final TreeExpressionAdapter<Map<String, dynamic>>
-  treeExpressionAdapter; //レポジトリの戻り値の型を指定
 
-  GridTree({
+  ///閲覧、選択、編集の選択
+  final GridMode mode;
+
+  ///編集へ移行するときの編集UIパス
+  final String? editPath;
+
+  ///その行が子を持っているか
+  final bool Function(TrinaRow<dynamic>) hasChildTheRow;
+
+  ///Treeの条件式生成するUIとレポジトリのアダプタ
+  final TreeExpressionAdapter treeExpressionAdapter; //レポジトリの戻り値の型を指定
+
+  const GridTree({
     super.key,
     required this.columns,
     required this.mode,
@@ -27,21 +36,25 @@ class GridTree extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _GridTree<Map<String, dynamic>>();
+  ConsumerState<ConsumerStatefulWidget> createState() => _GridTree<R>();
 }
 
 class _GridTree<R> extends ConsumerState<GridTree> with GridTreeMixin<R> {
+  ///ドラッグドロップが有効
+  bool get isEnableDragDrop => treeChangeStream.hasListener;
+
   ///UI個別の検索条件
   ///初期データ取得条件、
   @override
-  TreeExpressionAdapter<Map<String, dynamic>> get treeExpressionAdapter =>
+  TreeExpressionAdapter get treeExpressionAdapter =>
       widget.treeExpressionAdapter;
 
   ///ドラッグドロップイベントストリーム
   @override
-  StreamController<TreeEvent> get treeChangeStream => widget.treeChangeStream;
+  StreamController<TreeEvent> get treeChangeStream =>
+      ref.watch(gridDragDropControllerProvider);
 
+  ///レポジトリからの結果を、Mapへ変換する
   @override
   IResultAdapterConverter<R> get converter {
     final converter = ref.watch(resultConvertProvider);
@@ -53,32 +66,17 @@ class _GridTree<R> extends ConsumerState<GridTree> with GridTreeMixin<R> {
     );
   }
 
+  ///TrinaGridのフィルターを変換する
+  ///親でWatchする
   @override
-  IFilterExpressionAdapter<R> get filterAdapter {
-    final expressionAdapter = ref.read(gridFilterExpressionProvider);
-    if (expressionAdapter case IFilterExpressionAdapter<R> adapter) {
-      return adapter;
-    }
-    throw AssertionError(
-      'the parent widget init called,but IFilterExpressionAdapter<R> cast fail to ${R.runtimeType.toString()}',
-    );
-  }
+  IFilterExpressionAdapter<R> get filterAdapter =>
+      ref.read(gridFilterExpressionProvider<R>());
 
+  ///レポジトリへのアクセスを提供
+  ///親でWatchする
   @override
-  QueryState<R> get queryState {
-    final queryState = ref.read(gridDataStrategyProvider);
-    if (queryState == null) {
-      throw AssertionError(
-        'the parent widget not call "init<R>(QueryState<R> state)" method.',
-      );
-    }
-    if (queryState case QueryState<R> state) {
-      return state;
-    }
-    throw AssertionError(
-      'the parent widget init called,but QueryState<R> cast fail to ${R.runtimeType.toString()}',
-    );
-  }
+  QueryState<R> get queryState =>
+      ref.read(repositoryFetchControllerProvider<R>());
 
   @override
   List<TrinaColumn> get columns => widget.columns;
@@ -98,11 +96,11 @@ class _GridTree<R> extends ConsumerState<GridTree> with GridTreeMixin<R> {
 
   @override
   Widget build(BuildContext context) {
-    ///UndoRedoと、確定した行のコピーデータを扱う
-    final undoRedoState = ref.watch(gridScreenManagerProvider);
-
-    ///データベースへ更新を反映させるためのマネージャ
-    final manager = ref.read(gridScreenManagerProvider.notifier);
+    ///コミットするデータ、UndoRedoの管理
+    ///親でwatchする
+    final sessionController = ref.read(
+      editableSessionControllerProvider.notifier,
+    );
 
     ///権限を取得する
     final authorication = ref.read(mockAutorizeServiceProvider);
@@ -137,7 +135,7 @@ class _GridTree<R> extends ConsumerState<GridTree> with GridTreeMixin<R> {
       createHeader: (_) => GridSummaryHeader(),
       columns: columns,
       rows: [],
-      onRowsMoved: onRowsMoved,
+      onRowsMoved: isEnableDragDrop ? onRowsMoved : null,
       configuration: tringaGridConfig.treeConfig,
     );
   }

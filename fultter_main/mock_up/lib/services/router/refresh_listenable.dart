@@ -26,7 +26,7 @@ Raw<ValueNotifier<int>> refreshListenable(Ref ref) {
 
   notifier.addListener(() {
     ref.notifyListeners();
-    log('⭐️⭐️⭐️ notifier value ${notifier.value} ⭐️⭐️⭐️');
+    log('notifier value ${notifier.value} ');
   });
   return notifier;
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'grid_screen_manager.dart';
+part of 'editable_session_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -11,32 +11,32 @@ part of 'grid_screen_manager.dart';
 ///編集に対するUndoRedoを提供する
 ///移動がある編集ビューの子で使用しても可
 
-@ProviderFor(GridScreenManager)
-final gridScreenManagerProvider = GridScreenManagerProvider._();
+@ProviderFor(EditableSessionController)
+final editableSessionControllerProvider = EditableSessionControllerProvider._();
 
 ///編集に対するUndoRedoを提供する
 ///移動がある編集ビューの子で使用しても可
-final class GridScreenManagerProvider
-    extends $NotifierProvider<GridScreenManager, UndoTartgetStack> {
+final class EditableSessionControllerProvider
+    extends $NotifierProvider<EditableSessionController, UndoTartgetStack> {
   ///編集に対するUndoRedoを提供する
   ///移動がある編集ビューの子で使用しても可
-  GridScreenManagerProvider._()
+  EditableSessionControllerProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'gridScreenManagerProvider',
+        name: r'editableSessionControllerProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$gridScreenManagerHash();
+  String debugGetCreateSourceHash() => _$editableSessionControllerHash();
 
   @$internal
   @override
-  GridScreenManager create() => GridScreenManager();
+  EditableSessionController create() => EditableSessionController();
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(UndoTartgetStack value) {
@@ -47,12 +47,13 @@ final class GridScreenManagerProvider
   }
 }
 
-String _$gridScreenManagerHash() => r'65c3e7a32309f729f4c1e8dc1cf088227c4d6794';
+String _$editableSessionControllerHash() =>
+    r'f3653619d7408cb228b9327d694f86c47f857104';
 
 ///編集に対するUndoRedoを提供する
 ///移動がある編集ビューの子で使用しても可
 
-abstract class _$GridScreenManager extends $Notifier<UndoTartgetStack> {
+abstract class _$EditableSessionController extends $Notifier<UndoTartgetStack> {
   UndoTartgetStack build();
   @$mustCallSuper
   @override

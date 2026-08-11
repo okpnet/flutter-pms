@@ -9,5 +9,5 @@ abstract interface class IResultAdapter {
   int? get filteredNumberOfRecords;
 
   ///取得して変換された行
-  List<GridExtensionMap> get rows;
+  GridExtensionMapList get rows;
 }

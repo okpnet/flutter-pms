@@ -1,14 +1,15 @@
 import '../import.dart';
 
-///Treeに応じた条件式モデルを生成する
-abstract class TreeExpressionAdapter<R> {
-  ///読み込み最初の条件式。以降は[toCondition]が呼ばれる
+///Treeの条件式生成するUIとレポジトリのアダプタ
+abstract class TreeExpressionAdapter {
+  ///最初に読み込むの条件式とソート式
   Expressions get initiBuildPredicate;
 
-  ///最初以降の展開時の条件式
+  ///最初以降の読み込むの条件式とソート式
   Expressions buildPredicate(TrinaRow? parentRow);
 }
 
+///検索条件とソート条件のセットモデル
 class Expressions {
   final Expression? expression;
   final SortExpression? sortExpression;

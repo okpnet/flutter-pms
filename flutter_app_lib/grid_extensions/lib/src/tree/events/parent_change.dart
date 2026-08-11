@@ -1,10 +1,8 @@
 import '../../../constants/typedef.dart';
-import '../../import.dart';
-import '../../shared/shared.dart';
 import 'events.dart';
 
 ///ドロップ前のイベント
-class BeforeParentChangeEvent<T> extends TreeEvent<T> {
+class BeforeParentChangeEvent extends TreeEvent<dynamic> {
   @override
   final GridExtensionMap attributes;
 
@@ -15,10 +13,12 @@ class BeforeParentChangeEvent<T> extends TreeEvent<T> {
   final int idx;
 
   @override
-  final T? parentRowData;
+  final dynamic parentRowData;
 
   @override
-  final T rowData;
+  final dynamic rowData;
+
+  final Function() behavior;
 
   BeforeParentChangeEvent({
     required this.expanded,
@@ -26,25 +26,12 @@ class BeforeParentChangeEvent<T> extends TreeEvent<T> {
     required this.idx,
     required this.rowData,
     this.parentRowData,
+    required this.behavior,
   });
-
-  factory BeforeParentChangeEvent.to(int index, TrinaRow row) {
-    final rowData = row.data;
-    final parentData = row.parent?.data;
-    final isExpanded = row.isExpanded;
-    final json = row.toJson();
-    return BeforeParentChangeEvent(
-      attributes: json,
-      expanded: isExpanded,
-      rowData: rowData,
-      parentRowData: parentData,
-      idx: index,
-    );
-  }
 }
 
 ///ドロップ完了後のイベント
-class AfterParentChangeEvent<T> extends TreeEvent<T> {
+class AfterParentChangeEvent extends TreeEvent<dynamic> {
   final BeforeParentChangeEvent beforeEvent;
   @override
   final GridExtensionMap attributes;
@@ -56,10 +43,12 @@ class AfterParentChangeEvent<T> extends TreeEvent<T> {
   final int idx;
 
   @override
-  final T? parentRowData;
+  final dynamic parentRowData;
 
   @override
-  final T rowData;
+  final dynamic rowData;
+
+  final Function() behavior;
 
   AfterParentChangeEvent({
     required this.expanded,
@@ -68,23 +57,6 @@ class AfterParentChangeEvent<T> extends TreeEvent<T> {
     required this.rowData,
     this.parentRowData,
     required this.beforeEvent,
+    required this.behavior,
   });
-  factory AfterParentChangeEvent.to(
-    int index,
-    TrinaRow row,
-    BeforeParentChangeEvent beforeEvent,
-  ) {
-    final rowData = row.data;
-    final parentData = row.parent?.data;
-    final isExpanded = row.isExpanded;
-    final json = row.toJson();
-    return AfterParentChangeEvent(
-      attributes: json,
-      expanded: isExpanded,
-      rowData: rowData,
-      parentRowData: parentData,
-      idx: index,
-      beforeEvent: beforeEvent,
-    );
-  }
 }

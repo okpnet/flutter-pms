@@ -1,6 +1,6 @@
 import '../../imports.dart';
 
-class MockRepository<R> implements IDataRepository {
+class MockRepository<R> implements IDataRepository<R> {
   @override
   Future<R> find({
     required int take,

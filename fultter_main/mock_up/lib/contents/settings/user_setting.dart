@@ -1,6 +1,5 @@
-import 'package:mock_up/services/settings/mock_user_setting.dart';
-
 import '../../imports.dart';
+import '../../services/settings/settings.dart';
 import '../_shared/shared.dart';
 
 class UserSetting extends ConsumerStatefulWidget {
@@ -14,16 +13,43 @@ class _UserSetting extends ConsumerState<UserSetting> {
   @override
   Widget build(BuildContext context) {
     final setting = ref.watch(mockUserSettingProvider);
-    return Scaffold(
-      appBar: AppTitleBar(),
+    return UnControllContentsFrame(
       floatingActionButton: FloatingActionButton(
         onPressed: () async => await settingChanged(),
       ),
       body: Form(
         child: ResponsiveGrid(
+          spacing: context.spacing,
           children: [
-            ResponsiveCell(child: Text('設定').spaceAll(context)),
-            ResponsiveCell(child: child),
+            ResponsiveCell(
+              layout: CommonResponsive.flexLx,
+              child: Text(
+                '設定',
+                textAlign: .left,
+                style: context.textStyleMode(sizeMode: .headlineLarge),
+              ).spaceAll(context),
+            ),
+            ResponsiveCell(
+              layout: CommonResponsive.flexM,
+              child: SizedBox.shrink(),
+            ),
+            ResponsiveCell(
+              layout: CommonResponsive.flexS.copyWith(showOnMobile: false),
+              child: ResponsiveGrid(
+                children: [
+                  ResponsiveCell(
+                    layout: CommonResponsive.flexM,
+                    child: Text('最大取得レコード数'),
+                  ),
+                  ResponsiveCell(
+                    layout: CommonResponsive.flexM,
+                    child: TextFormField(
+                      initialValue: setting.fetchLimit.toString(),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),

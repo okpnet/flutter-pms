@@ -1,8 +1,11 @@
+import 'package:mock_up/contents/_shared/grids/grid_scope_service/grid_drag_drop_event.dart';
 import 'package:mock_up/contents/contents.dart';
 import 'package:trina_grid/trina_grid.dart';
+import 'package:undo_redo/lib.dart';
 
 import '../../../../imports.dart';
 import '../../../services/behavior/behavior.dart';
+import '../../_shared/grids/grid_scope_service/service.dart';
 
 class TreeDepartment extends ConsumerStatefulWidget {
   const TreeDepartment({super.key});
@@ -19,11 +22,15 @@ class _TreeDepartment extends ConsumerState<TreeDepartment> {
 
     ///データレポジトリへのアクセスを提供
     ///このWidgetのスコープでプロバイダを初期化
-    final queryStateProvider = ref.watch(gridDataStrategyProvider);
+    final queryStateProvider = ref.watch(
+      repositoryFetchControllerProvider<MockResult>(),
+    );
 
     ///フィルタ条件へのアクセスを提供
     ///このWidgetのスコープでプロバイダを初期化
-    final expressionAdapter = ref.watch(gridFilterExpressionProvider.notifier);
+    final expressionAdapter = ref.watch(
+      gridFilterExpressionProvider<MockResult>(),
+    );
 
     _columns = <TrinaColumn>[
       TrinaColumn(
@@ -69,8 +76,13 @@ class _TreeDepartment extends ConsumerState<TreeDepartment> {
 
   @override
   Widget build(BuildContext context) {
-    // 1. Notifierではなく「状態(state)」を直接watchする
-    final isDirty = ref.watch(gridIsDirtyProvider);
+    // Notifierではなく「状態(state)」を直接watchする
+    ///editableSessionControllerProviderのインスタンス化も同時
+    final isDirty = ref.watch(isSessionDirtyProvider);
+
+    ///ドロップイベントのリッスン
+    final dropListenable = ref.read(gridDragDropListenableProvider);
+    dropListenable.listen((e) => onDrop(e));
 
     ///ユーザーの権限でモードを変更
     return GridTree(
@@ -82,10 +94,38 @@ class _TreeDepartment extends ConsumerState<TreeDepartment> {
       treeExpressionAdapter: DepertmentPridicateAdapter(),
     );
   }
+
+  ///ドロップイベントストリームをリッスンした結果
+  void onDrop(TreeEvent e) {
+    // if (TreeEvent case BeforeParentChangeEvent before) {
+    // } else
+    if (TreeEvent case AfterParentChangeEvent after) {
+      ///親を入れ替える
+      if (after.rowData case Map<String, dynamic> currentmap) {
+        if (after.parentRowData case Map<String, dynamic> parentMap) {
+          currentmap['parent_id'] = parentMap['id'];
+        }
+      }
+
+      ///監視オブジェクト
+      final value = after.rowData;
+
+      ///UndRedoスタックを
+      final undoredo = ref.read(editableSessionControllerProvider);
+
+      ///戻す、進むコマンドを追加
+      final cmd = BehaviorCommand(
+        undoValueProvider: () => after.beforeEvent.attributes['parent_id'],
+        redoValueProvider: () => after.attributes['parent_id'],
+        undoExecute: (t) => after.beforeEvent.behavior(),
+        redoExecute: (t) => after.behavior(),
+      );
+      undoredo.push(value, cmd, isImmediately: false);
+    }
+  }
 }
 
-class DepertmentPridicateAdapter
-    extends TreeExpressionAdapter<Map<String, dynamic>> {
+class DepertmentPridicateAdapter extends TreeExpressionAdapter {
   DepertmentPridicateAdapter();
   @override
   Expressions buildPredicate(TrinaRow? parentRow) {

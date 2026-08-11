@@ -1,1 +1,1 @@
-export 'grid/grid.dart';
+export 'strategy/strategy.dart';

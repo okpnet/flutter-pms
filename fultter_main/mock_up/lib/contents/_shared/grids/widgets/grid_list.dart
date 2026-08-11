@@ -31,6 +31,7 @@ class GridList extends ConsumerStatefulWidget {
 }
 
 class _GridList<R> extends ConsumerState<GridList> with GridPagenationMixin<R> {
+  ///レポジトリからの結果を、Mapへ変換する
   @override
   IResultAdapterConverter<R> get converter {
     final converter = ref.watch(resultConvertProvider);
@@ -42,32 +43,17 @@ class _GridList<R> extends ConsumerState<GridList> with GridPagenationMixin<R> {
     );
   }
 
+  ///TrinaGridのフィルターを変換する
+  ///親でWatchする
   @override
-  IFilterExpressionAdapter<R> get filterAdapter {
-    final expressionAdapter = ref.read(gridFilterExpressionProvider);
-    if (expressionAdapter case IFilterExpressionAdapter<R> adapter) {
-      return adapter;
-    }
-    throw AssertionError(
-      'the parent widget init called,but IFilterExpressionAdapter<R> cast fail to ${R.runtimeType.toString()}',
-    );
-  }
+  IFilterExpressionAdapter<R> get filterAdapter =>
+      ref.read(gridFilterExpressionProvider<R>());
 
+  ///レポジトリへのアクセスを提供
+  ///親でWatchする
   @override
-  QueryState<R> get queryState {
-    final queryState = ref.read(gridDataStrategyProvider);
-    if (queryState == null) {
-      throw AssertionError(
-        'the parent widget not call "init<R>(QueryState<R> state)" method.',
-      );
-    }
-    if (queryState case QueryState<R> state) {
-      return state;
-    }
-    throw AssertionError(
-      'the parent widget init called,but QueryState<R> cast fail to ${R.runtimeType.toString()}',
-    );
-  }
+  QueryState<R> get queryState =>
+      ref.read(repositoryFetchControllerProvider<R>());
 
   @override
   List<TrinaColumn> get columns => widget.columns;
@@ -84,8 +70,11 @@ class _GridList<R> extends ConsumerState<GridList> with GridPagenationMixin<R> {
 
   @override
   Widget build(BuildContext context) {
-    ///データベースへ更新を反映させるためのマネージャ
-    final manager = ref.read(gridScreenManagerProvider.notifier);
+    ///コミットするデータ、UndoRedoの管理
+    ///親でwatchする
+    final sessionController = ref.read(
+      editableSessionControllerProvider.notifier,
+    );
 
     ///合計状態変更
     final summaryProvider = ref.watch(gridSummaryProvider.notifier);
@@ -159,7 +148,7 @@ class _GridList<R> extends ConsumerState<GridList> with GridPagenationMixin<R> {
   ///ドロップしたときの処理
   Future<void> _drop(int newIdx, List<TrinaRow> rows) async {
     ///UndoRedoと、確定した行のコピーデータを扱う
-    final undoRedoState = ref.watch(gridScreenManagerProvider);
+    final undoRedoState = ref.read(editableSessionControllerProvider);
 
     ///ドロップ前のインデクスを保存
     final beforeRowDiffValues = rows
