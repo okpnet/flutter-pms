@@ -1,7 +1,5 @@
 // Package imports:
 import 'package:mock_up/imports.dart';
-import 'package:theme_lib/theme_lib.dart';
-import 'package:view_responsiveness/responsiveness.dart';
 
 import '../../_shared/shared.dart';
 
@@ -34,7 +32,7 @@ class _InfoCompany extends State<InfoCompany> {
         ///社名
         ResponsiveCell(
           layout: CommonResponsive.flexLx.copyWith(showOnMobile: false),
-          child: Divider(),::
+          child: Divider(),
         ),
         ResponsiveCell(
           layout: CommonResponsive.flexS.copyWith(mobileFlex: 12),

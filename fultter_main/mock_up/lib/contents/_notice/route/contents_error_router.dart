@@ -1,5 +1,5 @@
 // Project imports:
-import 'package:mock_up/contents/_models/error/error_status.dart';
+import 'package:mock_up/contents/_models/error/specific_error.dart';
 import 'package:mock_up/contents/_notice/notice.dart';
 import 'package:mock_up/imports.dart';
 
@@ -18,10 +18,7 @@ class ContentsErrorRouter extends GoRouteData with $ContentsErrorRouter {
   const ContentsErrorRouter();
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    final status = ErrorStatusMapper.fromMap(state.uri.queryParameters);
-    if (status.erroOrigin == .unknown) {
-      throw AssertionError('error status result unknow.');
-    }
+    final status = SpecificErrorMapper.fromMap(state.uri.queryParameters);
     return ContentError(errorStattus: status);
   }
 }

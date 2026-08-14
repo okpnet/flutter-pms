@@ -19,14 +19,16 @@ class _Login extends ConsumerState<Login> {
   Widget build(BuildContext context) {
     Map<String, dynamic> authModel = {'id': null, 'pass': null};
 
-    return Scaffold(
-      appBar: AppTitleBar(),
-      body: Form(
-        key: formKey,
-        child: Stack(
-          children: [
-            OverlayIndicator(isShow: isLoading),
-            ResponsiveGrid(
+    return Stack(
+      children: [
+        Scaffold(
+          appBar: AppTitleBar(),
+          body: Form(
+            key: formKey,
+            child: ResponsiveGrid(
+              defaultPcCells: 3,
+              defaultTabletCells: 3,
+              defaultMobileCells: 1,
               spacing: context.spacing,
               children: [
                 ResponsiveCell(
@@ -36,39 +38,49 @@ class _Login extends ConsumerState<Login> {
                   child: Text(
                     'ログイン',
                     style: context.textStyleMode(sizeMode: .headlineLarge),
+                    textAlign: .center,
                   ).spaceAll(context),
                 ),
-                if (isCredentialInvalid)
-                  ResponsiveCell(
-                    layout: CommonResponsive.flexLx,
-                    child: Text(
-                      'IDまたはパスワードが違います',
-                      style: context.textStyleMode(colorMode: .error),
-                    ),
-                  ),
+                ResponsiveCell(
+                  layout: CommonResponsive.flexLx,
+                  child: isCredentialInvalid
+                      ? Text(
+                          'IDまたはパスワードが違います',
+                          textAlign: .left,
+                          style: context.textStyleMode(colorMode: .error),
+                        )
+                      : Text(' '),
+                ),
                 ResponsiveCell(
                   ///IDインプットライン開始
-                  layout: CommonResponsive.flexL.copyWith(
-                    pcFlex: 4,
-                    mobileFlex: 2,
+                  layout: CommonResponsive.flexSm.copyWith(
+                    pcFlex: 1,
+                    tabletFlex: 1,
                     showOnMobile: false,
                   ),
                   child: SizedBox.shrink(),
                 ),
                 ResponsiveCell(
-                  layout: CommonResponsive.flexM.copyWith(
-                    tabletFlex: 4,
-                    mobileFlex: 4,
-                    wrapCellAlignment: .center,
-                  ),
-                  child: Row(
+                  layout: CommonResponsive.allOne,
+                  child: ResponsiveGrid(
+                    defaultPcCells: 3,
+                    defaultTabletCells: 4,
+                    defaultMobileCells: 1,
                     spacing: SpaceField().spacing,
-                    crossAxisAlignment: .stretch,
-                    mainAxisAlignment: .center,
                     children: [
-                      Expanded(
+                      ResponsiveCell(
+                        layout: CommonResponsive.allOne.copyWith(
+                          showOnMobile: false,
+                        ),
+                        child: SizedBox.shrink(),
+                      ),
+                      ResponsiveCell(
+                        layout: CommonResponsive.allOne.copyWith(tabletFlex: 2),
                         child: TextFormField(
-                          decoration: InputDecoration(label: Text('ユーザーID')),
+                          decoration: InputDecoration(
+                            label: Text('ユーザーID'),
+                            helperText: ' ',
+                          ),
                           initialValue: authModel['id'],
                           onSaved: (newValue) => authModel['id'] = newValue,
                           validator: (value) {
@@ -79,9 +91,25 @@ class _Login extends ConsumerState<Login> {
                           },
                         ).toPrimary(context).spaceAll(context),
                       ),
-                      Expanded(
+                      ResponsiveCell(
+                        layout: CommonResponsive.allOne.copyWith(
+                          showOnMobile: false,
+                        ),
+                        child: SizedBox.shrink(),
+                      ),
+                      ResponsiveCell(
+                        layout: CommonResponsive.allOne.copyWith(
+                          showOnMobile: false,
+                        ),
+                        child: SizedBox.shrink(),
+                      ),
+                      ResponsiveCell(
+                        layout: CommonResponsive.allOne.copyWith(tabletFlex: 2),
                         child: TextFormField(
-                          decoration: InputDecoration(label: Text('パスワード')),
+                          decoration: InputDecoration(
+                            label: Text('パスワード'),
+                            helperText: ' ',
+                          ),
                           initialValue: authModel['pass'],
                           obscuringCharacter: '●',
                           obscureText: true,
@@ -94,50 +122,65 @@ class _Login extends ConsumerState<Login> {
                           },
                         ).toPrimary(context).spaceAll(context),
                       ),
-                      Expanded(
-                        child: ElevatedButton.icon(
-                          label: Text('ログイン'),
-                          icon: Icon(Icons.login),
-                          onPressed: () async {
-                            setState(() => isCredentialInvalid = false);
-                            if (formKey.currentState!.validate()) {
-                              try {
-                                formKey.currentState!.save();
-                                setState(() => isLoading = true);
-                                final result =
-                                    await ref //ここがFalseのとき、ログイン失敗なのでValidationをFalseにしたい
-                                        .read(
-                                          mockAutorizeServiceProvider.notifier,
-                                        )
-                                        .login();
-                                setState(() => isCredentialInvalid = result);
-                              } catch (ex) {
-                                ref
-                                    .read(mockAutorizeServiceProvider.notifier)
-                                    .error(ex);
-                              } finally {
-                                setState(() => isLoading = false);
+                      ResponsiveCell(
+                        layout: CommonResponsive.allOne.copyWith(
+                          showOnMobile: false,
+                        ),
+                        child: SizedBox.shrink(),
+                      ),
+                      ResponsiveCell(
+                        layout: CommonResponsive.allOne.copyWith(
+                          showOnMobile: false,
+                        ),
+                        child: SizedBox.shrink(),
+                      ),
+                      ResponsiveCell(
+                        layout: CommonResponsive.allOne.copyWith(tabletFlex: 2),
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: FilledButton.icon(
+                            label: Text('ログイン'),
+                            icon: Icon(Icons.login),
+                            onPressed: () async {
+                              debugPrint(
+                                'id=${authModel['id']} pass=${authModel['pass']}',
+                              );
+                              setState(() => isCredentialInvalid = false);
+                              if (formKey.currentState!.validate()) {
+                                try {
+                                  setState(() => isLoading = true);
+                                  formKey.currentState!.save();
+                                  final result =
+                                      await ref //ここがFalseのとき、ログイン失敗なのでValidationをFalseにしたい
+                                          .read(
+                                            mockAutorizeServiceProvider
+                                                .notifier,
+                                          )
+                                          .login();
+                                  setState(() => isCredentialInvalid = result);
+                                } catch (ex) {
+                                  ref
+                                      .read(
+                                        mockAutorizeServiceProvider.notifier,
+                                      )
+                                      .error(ex);
+                                } finally {
+                                  setState(() => isLoading = false);
+                                }
                               }
-                            }
-                          },
-                        ).spaceAll(context),
+                            },
+                          ).toPrimary(context).spaceAll(context),
+                        ),
                       ),
                     ],
                   ),
                 ),
-                ResponsiveCell(
-                  layout: CommonResponsive.flexL.copyWith(
-                    pcFlex: 4,
-                    mobileFlex: 2,
-                    showOnMobile: false,
-                  ),
-                  child: SizedBox.shrink(),
-                ),
               ],
             ),
-          ],
+          ),
         ),
-      ),
+        OverlayIndicator(isShow: isLoading, label: Text('test')),
+      ],
     );
   }
 }

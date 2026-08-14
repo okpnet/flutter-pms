@@ -1,8 +1,11 @@
+import 'package:mock_up/contents/_models/error/error.dart';
 import 'package:mock_up/contents/_notice/route/notice_extenssion.dart';
 import 'package:mock_up/contents/_notice/route/router.dart';
 import 'package:mock_up/contents/contents.dart';
 import 'package:mock_up/services/core/core.dart';
+import 'package:mock_up/services/core/core_service/app_standard_time.dart';
 
+import '../../../contents/_models/authorization/auth_state_type.dart';
 import '../../../imports.dart';
 import '../../authorization/authorization.dart';
 import '../../router/router.dart';
@@ -14,6 +17,10 @@ part 'mock_core_serveice.g.dart';
 ///終了時に明示的には記するサービスを追加する。
 @Riverpod(keepAlive: true)
 Future<void> mockCoreService(Ref ref) async {
+  debugPrint('init start');
+
+  ///時間操作のインスタンス化
+  final timeState = ref.watch(appStandardTimeProvider);
   final reflesh = ref.watch(refreshListenableProvider);
   reflesh.addListener(() {
     //ページの変更通知
@@ -30,31 +37,100 @@ Future<void> mockCoreService(Ref ref) async {
     router.toNotice(MaintenanceConstant.path, next);
   });
 
-  ///認証状態
-  ref.listen(mockAutorizeServiceProvider, (prev, next) {
-    final router = ref.read(rootRouterProvider);
+  timeState.when(
+    data: (state) {
+      ///問題なければ認証状態でページを切り替える機能登録
+      final router = ref.read(rootRouterProvider);
+      ref.listen(mockAutorizeServiceProvider, (prev, next) {
+        ///エラーで移動
+        void goError(Map<String, dynamic> argment) => router.go(
+          Uri(
+            path: ContentsErrorConstant.path,
+            queryParameters: argment,
+          ).toString(),
+        );
 
-    switch (next) {
-      case AuthStateType.expired:
+        ///時間取得で例外が発生している
+        if (state.hasException) {
+          goError(state.exception!.toMap());
+          return;
+        }
+
+        ///標準時間がセットされていない
+        if (!state.isEnable) {
+          final error = AppError(.standardTimeRelated).toMap();
+          goError(error);
+          return;
+        }
+
+        ///途中で時間を不正操作した
+        if (!state.timeState!.getNow().isSameTimeWithTolerance(
+          DateTime.now().toUtc(),
+        )) {
+          final error = ManipulationError(.timeManipulation).toMap();
+          goError(error);
+          return;
+        }
+
+        ///標準
+        next.authStateType.go(router);
+      });
+    },
+    error: (ex, tr) {
+      ///エラーページへ移動
+      final router = ref.read(rootRouterProvider);
+      final error = SystemError(.initialize, exception: ex);
+      final uri = Uri(
+        path: ContentsErrorConstant.path,
+        queryParameters: error.toMap(),
+      );
+      router.go(uri.toString());
+    },
+    loading: () => true,
+  );
+
+  ref.onDispose(() {
+    reflesh.dispose();
+    maintenance.dispose();
+  });
+  debugPrint('end init');
+}
+
+extension AutoTypeEx on AuthStateType {
+  void go(GoRouter router) {
+    switch (this) {
+      case .expired:
         router.push(LoginConstant.path);
         break;
-      case AuthStateType.fail:
-        router.go(ContentsErrorConstant.path);
+      case .fail:
+        final error = ServerError(.authorize, .timeout);
+        final uri = Uri(
+          path: ContentsErrorConstant.path,
+          queryParameters: error.toMap(),
+        );
+        router.go(uri.toString());
         break;
-      case AuthStateType.authenticated:
+      case .authenticated:
         if (router.canPop()) {
           router.pop();
         } else {
           router.go(DashboardConstant.path);
         }
         break;
-      case AuthStateType.signedOut:
+      case .signedOut:
         router.go(LoginConstant.path);
         break;
     }
-  });
-  ref.onDispose(() {
-    reflesh.dispose();
-    maintenance.dispose();
-  });
+  }
+}
+
+extension DataTimeExtenssion on DateTime {
+  /// 60秒以内なら「同じ時刻」とみなす比較
+  bool isSameTimeWithTolerance(
+    DateTime a, {
+    Duration tolerance = const Duration(seconds: 60),
+  }) {
+    final diff = difference(a).inSeconds.abs();
+    return diff <= tolerance.inSeconds;
+  }
 }

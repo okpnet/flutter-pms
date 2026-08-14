@@ -3,7 +3,7 @@ import '../_models/error/error.dart';
 import '../_shared/shared.dart';
 
 class ContentError extends ConsumerWidget {
-  final ErrorStatus? errorStattus;
+  final SpecificError? errorStattus;
   const ContentError({super.key, this.errorStattus});
 
   @override

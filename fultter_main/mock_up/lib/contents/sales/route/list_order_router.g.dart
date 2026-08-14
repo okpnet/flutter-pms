@@ -9,8 +9,8 @@ part of 'list_order_router.dart';
 List<RouteBase> get $appRoutes => [$listOrderRouter];
 
 RouteBase get $listOrderRouter => GoRouteData.$route(
-  path: '/sales/customer',
-  name: 'customer',
+  path: '/sales/order',
+  name: 'order',
   hasOverriddenOnExit: false,
   factory: $ListOrderRouter._fromState,
 );
@@ -20,7 +20,7 @@ mixin $ListOrderRouter on GoRouteData {
       const ListOrderRouter();
 
   @override
-  String get location => GoRouteData.$location('/sales/customer');
+  String get location => GoRouteData.$location('/sales/order');
 
   @override
   void go(BuildContext context) => context.go(location);

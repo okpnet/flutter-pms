@@ -61,11 +61,15 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () => true,
               child: Text('primary'),
             ).toPrimary(context).spaceAll(context),
-            context.spaceAll(
-              FilledButton(
-                onPressed: () => true,
-                child: Text('secondary'),
-              ).toSecondary(context),
+            SizedBox(
+              width: double.infinity,
+              child: context.spaceAll(
+                FilledButton(
+                  onPressed: () => true,
+                  child: Text('secondary'),
+                  // style: context.btnPrimary.allowParentSize(),
+                ).toSecondary(context),
+              ),
             ),
             context.spaceAll(
               FilledButton(

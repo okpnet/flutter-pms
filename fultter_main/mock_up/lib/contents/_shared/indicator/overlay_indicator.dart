@@ -16,13 +16,16 @@ class OverlayIndicator extends StatelessWidget {
       children: [
         const ModalBarrier(
           dismissible: false,
-          color: Colors.black26, // 半透明で操作不能を示す
+          color: Colors.black12, // 半透明で操作不能を示す
         ),
         // 中央にインジケータ表示
         Center(
-          child: Row(
+          child: Column(
             mainAxisAlignment: .center,
-            children: [const CupertinoActivityIndicator(radius: 16), ?label],
+            children: [
+              const CupertinoActivityIndicator(radius: 16),
+              label ?? SizedBox.shrink(),
+            ],
           ),
         ),
       ],

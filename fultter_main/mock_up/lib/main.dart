@@ -19,27 +19,40 @@ class AppMain extends ConsumerStatefulWidget {
 class _AppMain extends ConsumerState {
   bool isInitialized = false;
 
-  @override
-  void initState() {
-    super.initState();
-    _initialize();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _initialize();
+  // }
 
-  Future<void> _initialize() async {
-    // テスト用の遅延
-    await Future.delayed(const Duration(seconds: 5));
+  // Future<void> _initialize() async {
+  //   // テスト用の遅延
+  //   await Future.delayed(const Duration(seconds: 5));
 
-    // アプリ全体の初期化処理（Provider）
-    await ref.read(mockCoreServiceProvider.future);
+  //   // アプリ全体の初期化処理（Provider）
+  //   await ref.watch(mockCoreServiceProvider.future);
 
-    // 初期化完了
-    setState(() => isInitialized = true);
-  }
+  //   // 初期化完了
+  //   setState(() => isInitialized = true);
+  // }
 
   @override
   Widget build(BuildContext context) {
-    return isInitialized
-        ? MaterialApp.router(routerConfig: ref.read(rootRouterProvider))
-        : const StartSplashScreen();
+    debugPrint('main_widget');
+    final init = ref.watch(appInitializeProvider);
+    return init.when(
+      data: (_) => MaterialApp.router(
+        routerConfig: ref.read(rootRouterProvider),
+        theme: AppTheme.customTheme,
+      ),
+      error: (e, st) => Text('初期化失敗: $e'), //エラーページへ遷移
+      loading: () => const StartSplashScreen(),
+    );
   }
 }
+
+final appInitializeProvider = FutureProvider<void>((ref) async {
+  await ref.read(mockCoreServiceProvider.future);
+  await Future.delayed(const Duration(seconds: 5)); //削除
+  debugPrint('end init provider');
+});

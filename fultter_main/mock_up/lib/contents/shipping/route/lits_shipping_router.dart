@@ -3,8 +3,8 @@ import '../shipping.dart';
 part 'lits_shipping_router.g.dart';
 
 abstract class LitsShippingConstant {
-  static const String name = 'supplier';
-  static const String path = '/purchasing/supplier';
+  static const String name = 'shipping';
+  static const String path = '/shipping/order';
 }
 
 @TypedGoRoute<LitsShippingRouter>(

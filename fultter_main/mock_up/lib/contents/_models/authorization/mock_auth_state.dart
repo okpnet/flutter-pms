@@ -1,4 +1,4 @@
-enum AuthStateType { authenticated, expired, signedOut, fail }
+import 'auth_state_type.dart';
 
 enum Permission { view, edit }
 

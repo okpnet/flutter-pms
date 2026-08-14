@@ -59,3 +59,12 @@ extension FilledButtonPatternX on FilledButton {
     child: this,
   );
 }
+
+extension ButtonStyleX on ButtonStyle {
+  ///サイズをゼロにしてフィットさせる
+  ButtonStyle allowParentSize() {
+    // Material の最小サイズ制約を解除
+    final minsizezero = FilledButton.styleFrom(minimumSize: Size.zero);
+    return copyWith().merge(minsizezero);
+  }
+}

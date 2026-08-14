@@ -55,6 +55,7 @@ dependencies:
   flutter_riverpod: #^2.6.1
   riverpod_annotation: #^2.6.1
   dart_mappable: ^4.8.0
+  ntp: ^2.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

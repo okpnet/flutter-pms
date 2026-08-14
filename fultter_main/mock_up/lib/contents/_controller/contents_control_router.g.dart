@@ -156,8 +156,8 @@ RouteBase get $contentsControlRouter => ShellRouteData.$route(
               factory: $ListCustomerRouter._fromState,
             ),
             GoRouteData.$route(
-              path: '/sales/customer',
-              name: 'customer',
+              path: '/sales/order',
+              name: 'order',
               hasOverriddenOnExit: false,
               factory: $ListOrderRouter._fromState,
             ),
@@ -166,8 +166,8 @@ RouteBase get $contentsControlRouter => ShellRouteData.$route(
         StatefulShellBranchData.$branch(
           routes: [
             GoRouteData.$route(
-              path: '/purchasing/supplier',
-              name: 'supplier',
+              path: '/shipping/order',
+              name: 'shipping',
               hasOverriddenOnExit: false,
               factory: $LitsShippingRouter._fromState,
             ),
@@ -622,7 +622,7 @@ mixin $ListOrderRouter on GoRouteData {
       const ListOrderRouter();
 
   @override
-  String get location => GoRouteData.$location('/sales/customer');
+  String get location => GoRouteData.$location('/sales/order');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -643,7 +643,7 @@ mixin $LitsShippingRouter on GoRouteData {
       const LitsShippingRouter();
 
   @override
-  String get location => GoRouteData.$location('/purchasing/supplier');
+  String get location => GoRouteData.$location('/shipping/order');
 
   @override
   void go(BuildContext context) => context.go(location);

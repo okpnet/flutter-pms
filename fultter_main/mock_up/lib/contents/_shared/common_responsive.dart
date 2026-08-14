@@ -20,4 +20,6 @@ abstract class CommonResponsive {
 
   static ResponsiveCellLayout get flexS =>
       ResponsiveCellLayout(pcFlex: 3, tabletFlex: 2, mobileFlex: 1);
+  static ResponsiveCellLayout get allOne =>
+      ResponsiveCellLayout(pcFlex: 1, tabletFlex: 1, mobileFlex: 1);
 }

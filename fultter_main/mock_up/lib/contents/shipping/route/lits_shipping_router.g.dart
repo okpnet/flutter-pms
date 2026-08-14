@@ -9,8 +9,8 @@ part of 'lits_shipping_router.dart';
 List<RouteBase> get $appRoutes => [$litsShippingRouter];
 
 RouteBase get $litsShippingRouter => GoRouteData.$route(
-  path: '/purchasing/supplier',
-  name: 'supplier',
+  path: '/shipping/order',
+  name: 'shipping',
   hasOverriddenOnExit: false,
   factory: $LitsShippingRouter._fromState,
 );
@@ -20,7 +20,7 @@ mixin $LitsShippingRouter on GoRouteData {
       const LitsShippingRouter();
 
   @override
-  String get location => GoRouteData.$location('/purchasing/supplier');
+  String get location => GoRouteData.$location('/shipping/order');
 
   @override
   void go(BuildContext context) => context.go(location);
