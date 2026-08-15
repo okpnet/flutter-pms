@@ -11,10 +11,7 @@ part 'app_standard_time.g.dart';
 @Riverpod(keepAlive: true)
 class AppStandardTime extends _$AppStandardTime {
   @override
-  Future<AppTimeState> build() async {
-    final stateValue = await _inquire();
-    return stateValue;
-  }
+  AppTimeState build() => AppTimeState();
 
   Future<void> reinquire() async {
     state = await AsyncValue.guard(() async {

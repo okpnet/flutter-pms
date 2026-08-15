@@ -20,12 +20,15 @@ Future<void> mockCoreService(Ref ref) async {
   debugPrint('init start');
 
   ///時間操作のインスタンス化
-  final timeState = ref.watch(appStandardTimeProvider);
+  await ref.watch(appStandardTimeProvider.notifier).reinquire();
   final reflesh = ref.watch(refreshListenableProvider);
   reflesh.addListener(() {
     //ページの変更通知
     //ここにページ切り替えを入れてはいけない
   });
+
+  ///問題なければ認証状態でページを切り替える機能登録
+  final _ = ref.read(rootRouterProvider);
 
   ///メンテナンス中
   final maintenance = ref.watch(mockMaintenanceProviderProvider.notifier);
@@ -36,7 +39,7 @@ Future<void> mockCoreService(Ref ref) async {
     final router = ref.read(rootRouterProvider);
     router.toNotice(MaintenanceConstant.path, next);
   });
-
+  final timeState = ref.read(appStandardTimeProvider);
   timeState.when(
     data: (state) {
       ///問題なければ認証状態でページを切り替える機能登録

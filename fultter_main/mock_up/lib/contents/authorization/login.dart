@@ -142,14 +142,14 @@ class _Login extends ConsumerState<Login> {
                             label: Text('ログイン'),
                             icon: Icon(Icons.login),
                             onPressed: () async {
-                              debugPrint(
-                                'id=${authModel['id']} pass=${authModel['pass']}',
-                              );
                               setState(() => isCredentialInvalid = false);
                               if (formKey.currentState!.validate()) {
                                 try {
                                   setState(() => isLoading = true);
                                   formKey.currentState!.save();
+                                  debugPrint(
+                                    'id=${authModel['id']} pass=${authModel['pass']}',
+                                  );
                                   final result =
                                       await ref //ここがFalseのとき、ログイン失敗なのでValidationをFalseにしたい
                                           .read(
