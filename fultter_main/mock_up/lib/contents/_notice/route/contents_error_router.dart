@@ -1,4 +1,5 @@
 // Project imports:
+import 'package:mock_up/contents/_models/error/app_error.dart';
 import 'package:mock_up/contents/_models/error/specific_error.dart';
 import 'package:mock_up/contents/_notice/notice.dart';
 import 'package:mock_up/imports.dart';
@@ -18,7 +19,12 @@ class ContentsErrorRouter extends GoRouteData with $ContentsErrorRouter {
   const ContentsErrorRouter();
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    final status = SpecificErrorMapper.fromMap(state.uri.queryParameters);
-    return ContentError(errorStattus: status);
+    try {
+      final status = SpecificErrorMapper.fromMap(state.uri.queryParameters);
+      return ContentError(errorStattus: status);
+    } catch (ex, tr) {
+      final exceptionInError = AppError(.inRouterClassScope, exception: ex);
+      return ContentError(errorStattus: exceptionInError);
+    }
   }
 }

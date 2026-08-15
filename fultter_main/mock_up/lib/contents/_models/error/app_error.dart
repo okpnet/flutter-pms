@@ -27,7 +27,8 @@ class AppError with AppErrorMappable implements SpecificError {
 
 @MappableEnum()
 enum AppErrorCode {
-  standardTimeRelated(1); //初期化中
+  standardTimeRelated(1),
+  inRouterClassScope(2); //初期化中
 
   final int value;
   const AppErrorCode(this.value);

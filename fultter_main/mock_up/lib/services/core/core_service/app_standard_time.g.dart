@@ -13,7 +13,7 @@ part of 'app_standard_time.dart';
 final appStandardTimeProvider = AppStandardTimeProvider._();
 
 final class AppStandardTimeProvider
-    extends $AsyncNotifierProvider<AppStandardTime, AppTimeState> {
+    extends $NotifierProvider<AppStandardTime, AppTimeState> {
   AppStandardTimeProvider._()
     : super(
         from: null,
@@ -31,21 +31,29 @@ final class AppStandardTimeProvider
   @$internal
   @override
   AppStandardTime create() => AppStandardTime();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(AppTimeState value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<AppTimeState>(value),
+    );
+  }
 }
 
-String _$appStandardTimeHash() => r'15957d191613b30696fdf580c013a7d862b88dfd';
+String _$appStandardTimeHash() => r'77fcb4ad65dce1f0de299160f075e9eaa9595134';
 
-abstract class _$AppStandardTime extends $AsyncNotifier<AppTimeState> {
-  FutureOr<AppTimeState> build();
+abstract class _$AppStandardTime extends $Notifier<AppTimeState> {
+  AppTimeState build();
   @$mustCallSuper
   @override
   WhenComplete runBuild() {
-    final ref = this.ref as $Ref<AsyncValue<AppTimeState>, AppTimeState>;
+    final ref = this.ref as $Ref<AppTimeState, AppTimeState>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<AsyncValue<AppTimeState>, AppTimeState>,
-              AsyncValue<AppTimeState>,
+              AnyNotifier<AppTimeState, AppTimeState>,
+              AppTimeState,
               Object?,
               Object?
             >;

@@ -29,6 +29,8 @@ class AppErrorCodeMapper extends EnumMapper<AppErrorCode> {
     switch (value) {
       case r'standardTimeRelated':
         return AppErrorCode.standardTimeRelated;
+      case r'inRouterClassScope':
+        return AppErrorCode.inRouterClassScope;
       default:
         throw MapperException.unknownEnumValue(value);
     }
@@ -39,6 +41,8 @@ class AppErrorCodeMapper extends EnumMapper<AppErrorCode> {
     switch (self) {
       case AppErrorCode.standardTimeRelated:
         return r'standardTimeRelated';
+      case AppErrorCode.inRouterClassScope:
+        return r'inRouterClassScope';
     }
   }
 }

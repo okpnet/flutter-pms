@@ -14,9 +14,7 @@ class AppStandardTime extends _$AppStandardTime {
   AppTimeState build() => AppTimeState();
 
   Future<void> reinquire() async {
-    state = await AsyncValue.guard(() async {
-      return await _inquire();
-    });
+    state = await _inquire();
   }
 
   Future<AppTimeState> _inquire() async {

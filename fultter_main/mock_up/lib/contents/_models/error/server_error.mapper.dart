@@ -58,6 +58,52 @@ extension ServerTypeCodeMapperExtension on ServerTypeCode {
   }
 }
 
+class ServerErrorCodeMapper extends EnumMapper<ServerErrorCode> {
+  ServerErrorCodeMapper._();
+
+  static ServerErrorCodeMapper? _instance;
+  static ServerErrorCodeMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = ServerErrorCodeMapper._());
+    }
+    return _instance!;
+  }
+
+  static ServerErrorCode fromValue(dynamic value) {
+    ensureInitialized();
+    return MapperContainer.globals.fromValue(value);
+  }
+
+  @override
+  ServerErrorCode decode(dynamic value) {
+    switch (value) {
+      case r'notFound':
+        return ServerErrorCode.notFound;
+      case r'timeout':
+        return ServerErrorCode.timeout;
+      default:
+        throw MapperException.unknownEnumValue(value);
+    }
+  }
+
+  @override
+  dynamic encode(ServerErrorCode self) {
+    switch (self) {
+      case ServerErrorCode.notFound:
+        return r'notFound';
+      case ServerErrorCode.timeout:
+        return r'timeout';
+    }
+  }
+}
+
+extension ServerErrorCodeMapperExtension on ServerErrorCode {
+  String toValue() {
+    ServerErrorCodeMapper.ensureInitialized();
+    return MapperContainer.globals.toValue<ServerErrorCode>(this) as String;
+  }
+}
+
 class ServerErrorMapper extends ClassMapperBase<ServerError> {
   ServerErrorMapper._();
 
@@ -67,6 +113,7 @@ class ServerErrorMapper extends ClassMapperBase<ServerError> {
       MapperContainer.globals.use(_instance = ServerErrorMapper._());
       SpecificErrorMapper.ensureInitialized();
       ServerTypeCodeMapper.ensureInitialized();
+      ServerErrorCodeMapper.ensureInitialized();
     }
     return _instance!;
   }
