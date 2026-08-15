@@ -156,14 +156,14 @@ class _Login extends ConsumerState<Login> {
                                             mockAutorizeServiceProvider
                                                 .notifier,
                                           )
-                                          .login();
+                                          .login(); //ここでStateが変わってページが移動したあとに呼ばれる。存在しないインスタンスの移行のメソッドを実行するために例外が発生
                                   setState(() => isCredentialInvalid = result);
                                 } catch (ex) {
-                                  ref
-                                      .read(
-                                        mockAutorizeServiceProvider.notifier,
-                                      )
-                                      .error(ex);
+                                  // ref
+                                  //     .read(
+                                  //       mockAutorizeServiceProvider.notifier,
+                                  //     )
+                                  //     .error(ex);
                                 } finally {
                                   setState(() => isLoading = false);
                                 }

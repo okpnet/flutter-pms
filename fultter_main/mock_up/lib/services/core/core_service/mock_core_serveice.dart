@@ -39,58 +39,45 @@ Future<void> mockCoreService(Ref ref) async {
     final router = ref.read(rootRouterProvider);
     router.toNotice(MaintenanceConstant.path, next);
   });
+
   final timeState = ref.read(appStandardTimeProvider);
-  timeState.when(
-    data: (state) {
-      ///問題なければ認証状態でページを切り替える機能登録
-      final router = ref.read(rootRouterProvider);
-      ref.listen(mockAutorizeServiceProvider, (prev, next) {
-        ///エラーで移動
-        void goError(Map<String, dynamic> argment) => router.go(
-          Uri(
-            path: ContentsErrorConstant.path,
-            queryParameters: argment,
-          ).toString(),
-        );
 
-        ///時間取得で例外が発生している
-        if (state.hasException) {
-          goError(state.exception!.toMap());
-          return;
-        }
-
-        ///標準時間がセットされていない
-        if (!state.isEnable) {
-          final error = AppError(.standardTimeRelated).toMap();
-          goError(error);
-          return;
-        }
-
-        ///途中で時間を不正操作した
-        if (!state.timeState!.getNow().isSameTimeWithTolerance(
-          DateTime.now().toUtc(),
-        )) {
-          final error = ManipulationError(.timeManipulation).toMap();
-          goError(error);
-          return;
-        }
-
-        ///標準
-        next.authStateType.go(router);
-      });
-    },
-    error: (ex, tr) {
-      ///エラーページへ移動
-      final router = ref.read(rootRouterProvider);
-      final error = SystemError(.initialize, exception: ex);
-      final uri = Uri(
+  ///問題なければ認証状態でページを切り替える機能登録
+  final router = ref.read(rootRouterProvider);
+  ref.listen(mockAutorizeServiceProvider, (prev, next) {
+    ///エラーで移動
+    void goError(Map<String, dynamic> argment) => router.go(
+      Uri(
         path: ContentsErrorConstant.path,
-        queryParameters: error.toMap(),
-      );
-      router.go(uri.toString());
-    },
-    loading: () => true,
-  );
+        queryParameters: argment,
+      ).toString(),
+    );
+
+    ///時間取得で例外が発生している
+    if (timeState.hasException) {
+      goError(timeState.exception!.toMap());
+      return;
+    }
+
+    ///標準時間がセットされていない
+    if (!timeState.isEnable) {
+      final error = AppError(.standardTimeRelated).toMap();
+      goError(error);
+      return;
+    }
+
+    ///途中で時間を不正操作した
+    if (!timeState.timeState!.getNow().isSameTimeWithTolerance(
+      DateTime.now().toUtc(),
+    )) {
+      final error = ManipulationError(.timeManipulation).toMap();
+      goError(error);
+      return;
+    }
+
+    ///標準
+    next.authStateType.go(router);
+  });
 
   ref.onDispose(() {
     reflesh.dispose();
