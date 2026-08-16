@@ -11,25 +11,47 @@ class ContentError extends ConsumerWidget {
     return Scaffold(
       appBar: AppTitleBar(),
       body: ResponsiveGrid(
+        defaultPcCells: 3,
+        defaultTabletCells: 3,
+        defaultMobileCells: 1,
         alignment: .center,
         children: [
           ResponsiveCell(
             layout: CommonResponsive.flexLx,
-            child: Text('エラーが発生しました', textAlign: .center).spaceAll(context),
+            child: Text(
+              'エラーが発生しました',
+              textAlign: .center,
+              style: context.textStyleMode(
+                sizeMode: .headlineLarge,
+                colorMode: .error,
+              ),
+            ).spaceAll(context),
           ),
           ResponsiveCell(
             //メッセージ開始
-            layout: CommonResponsive.flexS.copyWith(showOnMobile: false),
+            layout: CommonResponsive.allOne.copyWith(showOnMobile: false),
             child: SizedBox.shrink(),
           ),
           ResponsiveCell(
-            layout: CommonResponsive.flexM.copyWith(mobileFlex: 4),
+            layout: CommonResponsive.allOne.copyWith(mobileFlex: 1),
             child: Card(
               child: Text(
-                '${errorStattus?.message}と、そのまま表示するのもいかがなものか。',
+                'エラーコード : ${errorStattus?.code}',
                 softWrap: true,
+                style: context.textStyleMode(sizeMode: .headlineMedium),
               ),
             ).spaceAll(context),
+          ),
+          ResponsiveCell(
+            layout: CommonResponsive.allOne.copyWith(showOnMobile: false),
+            child: SizedBox.shrink(),
+          ),
+          ResponsiveCell(
+            layout: CommonResponsive.allOne,
+            child: Text(
+              'メッセージ : ${errorStattus?.message}',
+              style: context.textStyleMode(colorMode: .secondary),
+            ),
           ),
         ],
       ),

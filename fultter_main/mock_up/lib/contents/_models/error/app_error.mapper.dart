@@ -31,6 +31,8 @@ class AppErrorCodeMapper extends EnumMapper<AppErrorCode> {
         return AppErrorCode.standardTimeRelated;
       case r'inRouterClassScope':
         return AppErrorCode.inRouterClassScope;
+      case r'routeNotFoundOrBUildRouterException':
+        return AppErrorCode.routeNotFoundOrBUildRouterException;
       default:
         throw MapperException.unknownEnumValue(value);
     }
@@ -43,6 +45,8 @@ class AppErrorCodeMapper extends EnumMapper<AppErrorCode> {
         return r'standardTimeRelated';
       case AppErrorCode.inRouterClassScope:
         return r'inRouterClassScope';
+      case AppErrorCode.routeNotFoundOrBUildRouterException:
+        return r'routeNotFoundOrBUildRouterException';
     }
   }
 }

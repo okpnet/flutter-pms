@@ -205,6 +205,12 @@ RouteBase get $contentsControlRouter => ShellRouteData.$route(
       hasOverriddenOnExit: false,
       factory: $ContentsErrorRouter._fromState,
     ),
+    GoRouteData.$route(
+      path: '/dashboard',
+      name: 'dashboard',
+      hasOverriddenOnExit: false,
+      factory: $DashboardRouter._fromState,
+    ),
   ],
 );
 
@@ -747,6 +753,27 @@ mixin $ContentsErrorRouter on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/error');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $DashboardRouter on GoRouteData {
+  static DashboardRouter _fromState(GoRouterState state) =>
+      const DashboardRouter();
+
+  @override
+  String get location => GoRouteData.$location('/dashboard');
 
   @override
   void go(BuildContext context) => context.go(location);

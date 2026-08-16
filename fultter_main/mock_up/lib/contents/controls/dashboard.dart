@@ -9,7 +9,6 @@ class Dashboard extends ConsumerStatefulWidget {
 class _Dashboard extends ConsumerState<Dashboard> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return Text('dashbord');
   }
 }

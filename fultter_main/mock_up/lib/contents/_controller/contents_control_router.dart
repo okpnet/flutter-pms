@@ -1,3 +1,5 @@
+import 'package:mock_up/contents/contents.dart';
+
 import '../../imports.dart';
 
 import '../_notice/route/contents_error_router.dart';
@@ -180,6 +182,10 @@ final shellNavigatorKey = GlobalKey<NavigatorState>();
     TypedGoRoute<ContentsErrorRouter>(
       path: ContentsErrorConstant.path,
       name: ContentsErrorConstant.name,
+    ),
+    TypedGoRoute<DashboardRouter>(
+      path: DashboardConstant.path,
+      name: DashboardConstant.name,
     ),
   ],
 )
