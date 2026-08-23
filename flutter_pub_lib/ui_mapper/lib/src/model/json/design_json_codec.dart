@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import '../design_document.dart';
+import 'schema_version.dart';
 
 class DesignJsonCodec {
   const DesignJsonCodec();
-  int currentSchemaVersion
 
   String encode(DesignDocument document) => jsonEncode(document.toJson());
 
