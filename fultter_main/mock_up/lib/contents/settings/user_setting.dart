@@ -13,7 +13,7 @@ class _UserSetting extends ConsumerState<UserSetting> {
   @override
   Widget build(BuildContext context) {
     final setting = ref.watch(mockUserSettingProvider);
-    return UnControllContentsFrame(
+    return UnControlContentsFrame(
       floatingActionButton: FloatingActionButton(
         onPressed: () async => await settingChanged(),
       ),

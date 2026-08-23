@@ -4,3 +4,4 @@ export 'bars/bars.dart';
 export 'grids/grids.dart';
 export 'menus/menus.dart';
 export 'indicator/indicator.dart';
+export 'text/text.dart';

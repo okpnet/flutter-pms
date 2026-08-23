@@ -4,10 +4,10 @@ import 'package:mock_up/services/authorization/mock_autorize_service.dart';
 import '../../../imports.dart';
 import '../shared.dart';
 
-class UnControllContentsFrame extends ConsumerWidget {
+class UnControlContentsFrame extends ConsumerWidget {
   final Widget body;
   final FloatingActionButton? floatingActionButton;
-  const UnControllContentsFrame({
+  const UnControlContentsFrame({
     super.key,
     required this.body,
     this.floatingActionButton,

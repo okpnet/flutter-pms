@@ -171,6 +171,10 @@ final shellNavigatorKey = GlobalKey<NavigatorState>();
       path: LogoutConstant.path,
       name: LogoutConstant.name,
     ),
+    TypedGoRoute<DashboardRouter>(
+      path: DashboardConstant.path,
+      name: DashboardConstant.name,
+    ),
     TypedGoRoute<AppSettingRouter>(
       path: AppSettingConstant.path,
       name: AppSettingConstant.name,

@@ -8,9 +8,7 @@ class ResponsiveGrid extends StatelessWidget {
   final List<ResponsiveCell> children;
   final double spacing;
   final double runSpacing;
-  final int defaultMobileCells;
-  final int defaultTabletCells;
-  final int defaultPcCells;
+  final ResponsiveGridConfig config;
   final Axis direction;
   final WrapAlignment alignment;
   final WrapAlignment runAlignment;
@@ -25,9 +23,7 @@ class ResponsiveGrid extends StatelessWidget {
     required this.children,
     this.spacing = 0.0,
     this.runSpacing = 0.0,
-    this.defaultMobileCells = 1,
-    this.defaultTabletCells = 6,
-    this.defaultPcCells = 12,
+    ResponsiveGridConfig? config,
     this.direction = Axis.horizontal,
     this.alignment = WrapAlignment.start,
     this.runAlignment = WrapAlignment.start,
@@ -36,7 +32,7 @@ class ResponsiveGrid extends StatelessWidget {
     this.verticalDirection = VerticalDirection.down,
     this.clipBehavior = Clip.none,
     this.responsiveDeviceNotifier,
-  });
+  }) : config = config ?? const ResponsiveGridConfig();
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +42,10 @@ class ResponsiveGrid extends StatelessWidget {
         final media = MediaBreakPoint.of(widgetWidth);
 
         final maxCells = media == MediaBreakPoint.pc
-            ? defaultPcCells
+            ? config.defaultPcCells
             : media == MediaBreakPoint.tablet
-            ? defaultTabletCells
-            : defaultMobileCells;
+            ? config.defaultTabletCells
+            : config.defaultMobileCells;
 
         ///描画サイクル（フレーム）が完了した直後に、現在のmedia状態をScopeへ通知
         WidgetsBinding.instance.addPostFrameCallback((_) {
