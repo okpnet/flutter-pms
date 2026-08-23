@@ -19,7 +19,7 @@ class ContentError extends ConsumerWidget {
           ResponsiveCell(
             layout: CommonResponsive.flexLx,
             child: Text(
-              'エラーが発生しました',
+              'アプリケーションに問題が発生しました',
               textAlign: .center,
               style: context.textStyleMode(
                 sizeMode: .headlineLarge,
@@ -36,9 +36,9 @@ class ContentError extends ConsumerWidget {
             layout: CommonResponsive.allOne.copyWith(mobileFlex: 1),
             child: Card(
               child: Text(
-                'エラーコード : ${errorStattus?.code}',
+                '${errorStattus?.code}',
+                textAlign: .center,
                 softWrap: true,
-                style: context.textStyleMode(sizeMode: .headlineMedium),
               ),
             ).spaceAll(context),
           ),
