@@ -1,3 +1,5 @@
+import 'package:mock_up/contents/contents.dart';
+
 import '../../imports.dart';
 
 import '../_notice/route/contents_error_router.dart';
@@ -168,6 +170,10 @@ final shellNavigatorKey = GlobalKey<NavigatorState>();
     TypedGoRoute<LogoutRouter>(
       path: LogoutConstant.path,
       name: LogoutConstant.name,
+    ),
+    TypedGoRoute<DashboardRouter>(
+      path: DashboardConstant.path,
+      name: DashboardConstant.name,
     ),
     TypedGoRoute<AppSettingRouter>(
       path: AppSettingConstant.path,

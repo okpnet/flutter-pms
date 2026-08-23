@@ -5,10 +5,10 @@ import 'package:mock_up/services/core/core_service/core_service.dart';
 import '../../../imports.dart';
 import '../shared.dart';
 
-class ContentsFrame extends ConsumerWidget {
+class ControllerContentsFrame extends ConsumerWidget {
   final StatefulNavigationShell navigationShell;
   final FloatingActionButton? floatingActionButton;
-  const ContentsFrame({
+  const ControllerContentsFrame({
     super.key,
     required this.navigationShell,
     this.floatingActionButton,

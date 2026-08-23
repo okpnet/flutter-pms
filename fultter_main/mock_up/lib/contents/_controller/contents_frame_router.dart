@@ -11,6 +11,6 @@ class ContentsFrameRouter extends StatefulShellRouteData {
     GoRouterState state,
     StatefulNavigationShell navigationShell,
   ) {
-    return ContentsFrame(navigationShell: navigationShell);
+    return ControllerContentsFrame(navigationShell: navigationShell);
   }
 }

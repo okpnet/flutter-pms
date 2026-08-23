@@ -1,6 +1,7 @@
 import 'package:example/common_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:view_responsiveness/responsive/responsive.dart';
+import 'package:view_responsiveness/responsiveness.dart';
 
 void main() {
   runApp(const MyApp());
@@ -55,10 +56,11 @@ class _MyHomePageState extends State<MyHomePage> {
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             ResponsiveGrid(
-              defaultMobileCells: 4,
-              defaultTabletCells: 9,
-              defaultPcCells: 12,
-
+              config: ResponsiveGridConfig(
+                defaultPcCells: 12,
+                defaultTabletCells: 9,
+                defaultMobileCells: 3,
+              ),
               children: [
                 ResponsiveCell(
                   layout: CommonLayouts.quortfWidth,

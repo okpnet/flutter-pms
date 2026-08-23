@@ -188,6 +188,12 @@ RouteBase get $contentsControlRouter => ShellRouteData.$route(
       factory: $LogoutRouter._fromState,
     ),
     GoRouteData.$route(
+      path: '/dashboard',
+      name: 'dashboard',
+      hasOverriddenOnExit: false,
+      factory: $DashboardRouter._fromState,
+    ),
+    GoRouteData.$route(
       path: '/setting/app',
       name: 'app_setting',
       hasOverriddenOnExit: false,
@@ -684,6 +690,27 @@ mixin $LogoutRouter on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/logout');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $DashboardRouter on GoRouteData {
+  static DashboardRouter _fromState(GoRouterState state) =>
+      const DashboardRouter();
+
+  @override
+  String get location => GoRouteData.$location('/dashboard');
 
   @override
   void go(BuildContext context) => context.go(location);

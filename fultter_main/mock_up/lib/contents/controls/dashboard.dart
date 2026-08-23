@@ -1,4 +1,5 @@
 import '../../imports.dart';
+import '../contents.dart';
 
 class Dashboard extends ConsumerStatefulWidget {
   const Dashboard({super.key});
@@ -9,7 +10,18 @@ class Dashboard extends ConsumerStatefulWidget {
 class _Dashboard extends ConsumerState<Dashboard> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return UnControlContentsFrame(
+      body: ResponsiveGrid(
+        defaultPcCells: 12,
+        defaultTabletCells: 8,
+        defaultMobileCells: 4,
+        children: [
+          ResponsiveCell(
+            layout: CommonResponsive.flexLx,
+            child: ContentsTitle('Dashbord'),
+          ),
+        ],
+      ),
+    );
   }
 }

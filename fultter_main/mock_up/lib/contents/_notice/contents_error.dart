@@ -15,6 +15,13 @@ class ContentError extends ConsumerWidget {
         children: [
           ResponsiveCell(
             layout: CommonResponsive.flexLx,
+            child: Icon(
+              Icons.sentiment_very_dissatisfied_outlined,
+              size: 64,
+            ).spaceAll(context),
+          ),
+          ResponsiveCell(
+            layout: CommonResponsive.flexLx,
             child: Text('エラーが発生しました', textAlign: .center).spaceAll(context),
           ),
           ResponsiveCell(
