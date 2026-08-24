@@ -12,9 +12,7 @@ class _Dashboard extends ConsumerState<Dashboard> {
   Widget build(BuildContext context) {
     return UnControlContentsFrame(
       body: ResponsiveGrid(
-        defaultPcCells: 12,
-        defaultTabletCells: 8,
-        defaultMobileCells: 4,
+        config: ResponsiveGridConfig.standard(),
         children: [
           ResponsiveCell(
             layout: CommonResponsive.flexLx,

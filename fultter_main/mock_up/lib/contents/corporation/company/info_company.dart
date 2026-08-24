@@ -15,9 +15,7 @@ class _InfoCompany extends State<InfoCompany> {
   @override
   Widget build(BuildContext context) {
     return ResponsiveGrid(
-      defaultPcCells: CommonResponsive.pcNumOfFlex,
-      defaultTabletCells: CommonResponsive.tabletNumOfFlext,
-      defaultMobileCells: CommonResponsive.mobileNumObFlex,
+      config: ResponsiveGridConfig.standard(),
       spacing: context.spacing,
       children: [
         ///Title

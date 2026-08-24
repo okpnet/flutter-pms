@@ -26,9 +26,7 @@ class _Login extends ConsumerState<Login> {
           body: Form(
             key: formKey,
             child: ResponsiveGrid(
-              defaultPcCells: 3,
-              defaultTabletCells: 3,
-              defaultMobileCells: 1,
+              config: CommonResponsive.intoThirds,
               spacing: context.spacing,
               children: [
                 ResponsiveCell(
@@ -63,9 +61,7 @@ class _Login extends ConsumerState<Login> {
                 ResponsiveCell(
                   layout: CommonResponsive.allOne,
                   child: ResponsiveGrid(
-                    defaultPcCells: 3,
-                    defaultTabletCells: 4,
-                    defaultMobileCells: 1,
+                    config: CommonResponsive.intoThirds,
                     spacing: SpaceField().spacing,
                     children: [
                       ResponsiveCell(

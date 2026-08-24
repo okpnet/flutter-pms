@@ -2,10 +2,6 @@
 import 'package:view_responsiveness/responsiveness.dart';
 
 abstract class CommonResponsive {
-  static int get pcNumOfFlex => 12;
-  static int get tabletNumOfFlext => 8;
-  static int get mobileNumObFlex => 4;
-
   static ResponsiveCellLayout get flexLx =>
       ResponsiveCellLayout(pcFlex: 12, tabletFlex: 8, mobileFlex: 4);
 
@@ -22,4 +18,10 @@ abstract class CommonResponsive {
       ResponsiveCellLayout(pcFlex: 3, tabletFlex: 2, mobileFlex: 1);
   static ResponsiveCellLayout get allOne =>
       ResponsiveCellLayout(pcFlex: 1, tabletFlex: 1, mobileFlex: 1);
+
+  static ResponsiveGridConfig get intoThirds => ResponsiveGridConfig(
+    defaultPcCells: 3,
+    defaultTabletCells: 3,
+    defaultMobileCells: 1,
+  );
 }
