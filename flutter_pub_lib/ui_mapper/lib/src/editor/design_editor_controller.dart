@@ -21,6 +21,10 @@ class DesignEditorController extends ChangeNotifier {
   Breakpoint editingBreakpoint = Breakpoint.compact;
   String? selectedNodeId;
 
+  int _idCounter = 0;
+  String _generateId() =>
+      'node_${DateTime.now().microsecondsSinceEpoch}_${_idCounter++}';
+
   DesignEditorController({
     required DesignDocument initialDocument,
     required this.previewGridConfig,
@@ -93,5 +97,85 @@ class DesignEditorController extends ChangeNotifier {
     _undoStack.add(_codec.encode(_document));
     _document = _codec.decode(_redoStack.removeLast());
     notifyListeners();
+  }
+
+  /// ノードを削除する。
+  void removeNode(DesignNode node) {
+    mutateTree((rootNodes) {
+      detachNodeById(rootNodes, node.id);
+    });
+  }
+
+  /// ノードを新規追加する。stylesを渡せば、ダイアログで編集した内容を
+  /// 1回のUndo履歴でまとめて反映できる（addNode→replaceNodeStylesの2手にしない）。
+  DesignNode addNode({
+    DesignNode? parent,
+    String? name,
+    Map<Breakpoint, NodeBreakpointStyle>? styles,
+  }) {
+    final newNode = DesignNode(
+      id: _generateId(),
+      name: name,
+      styles:
+          styles ??
+          const {
+            Breakpoint.compact: NodeBreakpointStyle(visible: true, width: 1),
+          },
+    );
+    mutateTree((rootNodes) {
+      final targetChildren = parent == null
+          ? rootNodes
+          : findNodeById(rootNodes, parent.id)?.children;
+      targetChildren?.add(newNode);
+    });
+    return newNode;
+  }
+
+  /// nameだけ差し替える。
+  /// name は DesignNode の final フィールドなので、styles/children同様の
+  /// 「中身を直接書き換える」方式が使えず、ノード自体を同じ位置で
+  /// 置き換える必要がある（下記 replaceNodeInPlace を使用）。
+  void renameNode(DesignNode node, String? name) {
+    mutateTree((rootNodes) {
+      replaceNodeInPlace(
+        rootNodes,
+        node.id,
+        (old) => DesignNode(
+          id: old.id,
+          name: name,
+          children: old.children,
+          styles: old.styles,
+        ),
+      );
+    });
+  }
+
+  /// 3区分ぶんのstylesを丸ごと差し替える（ダイアログの「保存」1回＝Undo1件にするため）。
+  void replaceNodeStyles(
+    DesignNode node,
+    Map<Breakpoint, NodeBreakpointStyle> styles,
+  ) {
+    mutateTree((rootNodes) {
+      final target = findNodeById(rootNodes, node.id);
+      target?.styles
+        ?..clear()
+        ..addAll(styles);
+    });
+  }
+
+  /// 同じ親の中で並べ替える（子リストのUI操作用）。
+  void reorderChild({
+    DesignNode? parent,
+    required int oldIndex,
+    required int newIndex,
+  }) {
+    mutateTree((rootNodes) {
+      final children = parent == null
+          ? rootNodes
+          : findNodeById(rootNodes, parent.id)?.children;
+      if (children == null) return;
+      final item = children.removeAt(oldIndex);
+      children.insert(newIndex.clamp(0, children.length), item);
+    });
   }
 }

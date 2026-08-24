@@ -6,6 +6,8 @@ class DesignNode {
   final String? name;
   final List<DesignNode> children;
 
+  bool get isLeaf => children.isEmpty;
+
   /// 未指定の区分は手前の区分を継承する（compactは基準値のため必須）。
   final Map<Breakpoint, NodeBreakpointStyle> styles;
 

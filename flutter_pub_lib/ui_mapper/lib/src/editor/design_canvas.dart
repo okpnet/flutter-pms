@@ -8,18 +8,13 @@ import 'cell_resize_controller.dart';
 import 'design_editor_controller.dart';
 import 'widget_name_catalog.dart';
 
-/// アプリがそのまま埋め込む公開Widget。
+/// アプリがそのまま埋め込む公開Widget。@
 /// 見た目（色・枠線・文字スタイル）は独自定義せず、
 /// Theme.of(context) を通じてアプリのThemeをそのまま使用する。
+// design_canvas.dart
 class DesignCanvas extends StatelessWidget {
   final DesignEditorController controller;
-  final WidgetNameCatalog nameCatalog;
-
-  const DesignCanvas({
-    super.key,
-    required this.controller,
-    required this.nameCatalog,
-  });
+  const DesignCanvas({super.key, required this.controller}); // nameCatalog削除
 
   @override
   Widget build(BuildContext context) {
@@ -34,16 +29,11 @@ class DesignCanvas extends StatelessWidget {
           controller.document.rootNodes,
           controller.editingBreakpoint,
         );
-
         return Column(
           children: rows
               .map(
-                (row) => _CanvasRow(
-                  nodes: row,
-                  controller: controller,
-                  nameCatalog: nameCatalog,
-                ),
-              )
+                (row) => _CanvasRow(nodes: row, controller: controller),
+              ) // nameCatalog削除
               .toList(),
         );
       },
@@ -54,19 +44,16 @@ class DesignCanvas extends StatelessWidget {
 class _CanvasCell extends StatelessWidget {
   final DesignNode node;
   final DesignEditorController controller;
-  final WidgetNameCatalog nameCatalog;
 
-  const _CanvasCell({
-    required this.node,
-    required this.controller,
-    required this.nameCatalog,
-  });
+  const _CanvasCell({required this.node, required this.controller});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context); // 要件2: 独自テーマを持たない
     final isSelected = controller.selectedNodeId == node.id;
-    final entry = node.name != null ? nameCatalog.findByName(node.name!) : null;
+    final entry = node.name != null
+        ? controller.nameCatalog.findByName(node.name!)
+        : null;
 
     return GestureDetector(
       onTap: () => controller.select(node),
@@ -94,13 +81,8 @@ class _CanvasCell extends StatelessWidget {
 class _CanvasRow extends StatelessWidget {
   final List<DesignNode> nodes;
   final DesignEditorController controller;
-  final WidgetNameCatalog nameCatalog;
 
-  const _CanvasRow({
-    required this.nodes,
-    required this.controller,
-    required this.nameCatalog,
-  });
+  const _CanvasRow({required this.nodes, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -129,28 +111,16 @@ class _CanvasRow extends StatelessWidget {
                       opacity: 0.7,
                       child: SizedBox(
                         width: 120,
-                        child: _CanvasCell(
-                          node: node,
-                          controller: controller,
-                          nameCatalog: nameCatalog,
-                        ),
+                        child: _CanvasCell(node: node, controller: controller),
                       ),
                     ),
                     childWhenDragging: Opacity(
                       opacity: 0.3,
-                      child: _CanvasCell(
-                        node: node,
-                        controller: controller,
-                        nameCatalog: nameCatalog,
-                      ),
+                      child: _CanvasCell(node: node, controller: controller),
                     ),
                     child: Stack(
                       children: [
-                        _CanvasCell(
-                          node: node,
-                          controller: controller,
-                          nameCatalog: nameCatalog,
-                        ),
+                        _CanvasCell(node: node, controller: controller),
                         // 右端リサイズハンドル
                         Positioned(
                           right: 0,

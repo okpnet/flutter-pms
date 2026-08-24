@@ -22,3 +22,19 @@ DesignNode? detachNodeById(List<DesignNode> roots, String id) {
   }
   return null;
 }
+
+/// idが一致するノードを、同じ位置で transform の結果に差し替える。
+bool replaceNodeInPlace(
+  List<DesignNode> roots,
+  String id,
+  DesignNode Function(DesignNode old) transform,
+) {
+  for (var i = 0; i < roots.length; i++) {
+    if (roots[i].id == id) {
+      roots[i] = transform(roots[i]);
+      return true;
+    }
+    if (replaceNodeInPlace(roots[i].children, id, transform)) return true;
+  }
+  return false;
+}
