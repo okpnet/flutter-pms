@@ -50,9 +50,9 @@ class _ListStaff extends ConsumerState<ListStaff> {
         title: '性別',
         field: 'sex',
         type: TrinaColumnType.select<Map<String, String>>([
-          {'m': '男性'},
-          {'f': '女性'},
-          {'f': 'その他'},
+          {'male': '男性'},
+          {'female': '女性'},
+          {'other': 'その他'},
         ]),
       ),
       TrinaColumn(title: '部署', field: 'section', type: TrinaColumnType.text()),
