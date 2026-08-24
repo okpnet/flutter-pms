@@ -11,15 +11,22 @@ class CellDragController {
     required DesignNode? targetParent,
     required int targetIndex,
   }) {
+    final targetDepth = targetParent == null
+        ? 1
+        : nodeDepth(editor.document.rootNodes, targetParent.id) + 1;
+    final movingHeight = subtreeHeight(node);
+
+    if (targetDepth + movingHeight - 1 > editor.maxNestingDepth) {
+      throw NestingLimitExceededException(editor.maxNestingDepth);
+    }
+
     editor.mutateTree((rootNodes) {
       final removed = detachNodeById(rootNodes, node.id);
       if (removed == null) return;
-
       final targetChildren = targetParent == null
           ? rootNodes
           : findNodeById(rootNodes, targetParent.id)?.children;
       if (targetChildren == null) return;
-
       targetChildren.insert(
         targetIndex.clamp(0, targetChildren.length),
         removed,

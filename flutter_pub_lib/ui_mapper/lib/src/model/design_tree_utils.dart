@@ -38,3 +38,20 @@ bool replaceNodeInPlace(
   }
   return false;
 }
+
+/// nodeIdの木構造上の深さを返す。rootNodes直下は1。未挿入なら0。
+int nodeDepth(List<DesignNode> roots, String nodeId, [int depth = 1]) {
+  for (final n in roots) {
+    if (n.id == nodeId) return depth;
+    final found = nodeDepth(n.children, nodeId, depth + 1);
+    if (found != 0) return found;
+  }
+  return 0;
+}
+
+/// nodeを1段目としたときの、配下を含めた最大深さ（葉のみなら1）。
+/// 移動操作で「今から積み込もうとしている部分木の高さ」を知るために使う。
+int subtreeHeight(DesignNode node) {
+  if (node.children.isEmpty) return 1;
+  return 1 + node.children.map(subtreeHeight).reduce((a, b) => a > b ? a : b);
+}

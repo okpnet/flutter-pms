@@ -25,10 +25,13 @@ class DesignEditorController extends ChangeNotifier {
   String _generateId() =>
       'node_${DateTime.now().microsecondsSinceEpoch}_${_idCounter++}';
 
+  /// 許容する最大ネスト段数（root直下=1段目として数える）。
+  final int maxNestingDepth;
   DesignEditorController({
     required DesignDocument initialDocument,
     required this.previewGridConfig,
     required this.nameCatalog,
+    this.maxNestingDepth = 3,
   }) : _document = initialDocument;
 
   DesignDocument get document => _document;
@@ -106,13 +109,21 @@ class DesignEditorController extends ChangeNotifier {
     });
   }
 
-  /// ノードを新規追加する。stylesを渡せば、ダイアログで編集した内容を
-  /// 1回のUndo履歴でまとめて反映できる（addNode→replaceNodeStylesの2手にしない）。
+  /// 新規ノードを追加する。深さ超過時は [NestingLimitExceededException] を投げ、
+  /// ツリーは変更しない（Undo履歴も積まない）。
   DesignNode addNode({
     DesignNode? parent,
     String? name,
     Map<Breakpoint, NodeBreakpointStyle>? styles,
   }) {
+    final parentDepth = parent == null
+        ? 0
+        : nodeDepth(_document.rootNodes, parent.id);
+    final newDepth = parentDepth + 1;
+    if (newDepth > maxNestingDepth) {
+      throw NestingLimitExceededException(maxNestingDepth);
+    }
+
     final newNode = DesignNode(
       id: _generateId(),
       name: name,
@@ -178,4 +189,12 @@ class DesignEditorController extends ChangeNotifier {
       children.insert(newIndex.clamp(0, children.length), item);
     });
   }
+}
+
+class NestingLimitExceededException implements Exception {
+  final int maxDepth;
+  const NestingLimitExceededException(this.maxDepth);
+
+  @override
+  String toString() => '最大ネスト段数（$maxDepth）を超えるため実行できません。';
 }

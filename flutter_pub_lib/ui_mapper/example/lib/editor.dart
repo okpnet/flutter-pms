@@ -82,7 +82,12 @@ class _Editor extends State<Editor> {
               ElevatedButton.icon(
                 label: Text('追加'),
                 icon: Icon(Icons.post_add_sharp),
-                onPressed: _onAddPressed,
+                onPressed: () => NodeEditDialog.show(
+                  context,
+                  controller: controller,
+                  node: null,
+                  parent: null,
+                ),
               ),
             ],
           ),

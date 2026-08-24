@@ -7,6 +7,7 @@ export 'src/editor/cell_drag_controller.dart';
 export 'src/editor/cell_resize_controller.dart';
 export 'src/editor/node_property_panel.dart';
 export 'src/editor/widget_name_catalog.dart';
+export 'src/editor/dialogs/node_edit_dialog.dart';
 
 // design_tree_utils.dart は editor内部の実装詳細（findNodeById等）のため、
 // 意図的に export しない（アプリからは呼ばせない）。
