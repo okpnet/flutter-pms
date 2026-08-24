@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../editor.dart';
 import '../../../model.dart';
+import '../../model/design_tree_utils.dart';
 import '../widgets/node_style_editor.dart';
 
 enum _NodeKind { widget, container, spacer }
@@ -58,6 +59,14 @@ class _NodeEditDialogState extends State<NodeEditDialog> {
     };
   }
 
+  /// controller.document の最新状態からノードを引き直す。
+  /// 新規作成中（まだツリーに存在しない）はwidget.nodeをそのまま使う。
+  DesignNode? _currentNode(DesignEditorController controller) {
+    if (widget.node == null) return null;
+    return findNodeById(controller.document.rootNodes, widget.node!.id) ??
+        widget.node;
+  }
+
   void _onSave() {
     final resolvedStyles = <Breakpoint, NodeBreakpointStyle>{
       for (final e in _draftStyles.entries)
@@ -65,86 +74,138 @@ class _NodeEditDialogState extends State<NodeEditDialog> {
     };
     final controller = widget.controller;
 
-    if (widget.node == null) {
-      controller.addNode(
-        parent: widget.parent,
-        name: _kind == _NodeKind.widget ? _draftName : null,
-        styles: resolvedStyles,
-      );
-    } else {
-      controller.renameNode(
-        widget.node!,
-        _kind == _NodeKind.widget ? _draftName : null,
-      );
-      controller.replaceNodeStyles(widget.node!, resolvedStyles);
+    try {
+      if (widget.node == null) {
+        controller.addNode(
+          parent: widget.parent,
+          name: _kind == _NodeKind.widget ? _draftName : null,
+          styles: resolvedStyles,
+        );
+      } else {
+        controller.renameNode(
+          widget.node!,
+          _kind == _NodeKind.widget ? _draftName : null,
+        );
+        controller.replaceNodeStyles(widget.node!, resolvedStyles);
+      }
+      Navigator.of(context).pop();
+    } on NestingLimitExceededException catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(e.toString())));
     }
-    Navigator.of(context).pop();
+  }
+
+  Future<void> _onAddChild(DesignNode currentNode) async {
+    await NodeEditDialog.show(
+      context,
+      controller: widget.controller,
+      node: null,
+      parent: currentNode,
+    );
+    // setState不要: widget.controllerのnotifyListeners()により
+    // 外側のAnimatedBuilderが自動的に再構築する
   }
 
   @override
   Widget build(BuildContext context) {
-    final node = widget.node;
-    return AlertDialog(
-      title: Text(node == null ? 'ノードを追加' : 'ノードを編集'),
-      content: SizedBox(
-        width: 400,
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SegmentedButton<_NodeKind>(
-                segments: const [
-                  ButtonSegment(value: _NodeKind.widget, label: Text('Widget')),
-                  ButtonSegment(
-                    value: _NodeKind.container,
-                    label: Text('コンテナ（行）'),
+    return AnimatedBuilder(
+      animation: widget.controller,
+      builder: (context, _) {
+        final node = _currentNode(widget.controller);
+        final atMaxDepth =
+            node != null &&
+            nodeDepth(widget.controller.document.rootNodes, node.id) >=
+                widget.controller.maxNestingDepth;
+
+        return AlertDialog(
+          title: Text(widget.node == null ? 'ノードを追加' : 'ノードを編集'),
+          content: SizedBox(
+            width: 400,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SegmentedButton<_NodeKind>(
+                    segments: const [
+                      ButtonSegment(
+                        value: _NodeKind.widget,
+                        label: Text('Widget'),
+                      ),
+                      ButtonSegment(
+                        value: _NodeKind.container,
+                        label: Text('コンテナ（行）'),
+                      ),
+                      ButtonSegment(
+                        value: _NodeKind.spacer,
+                        label: Text('空きセル'),
+                      ),
+                    ],
+                    selected: {_kind},
+                    onSelectionChanged: (s) => setState(() => _kind = s.first),
                   ),
-                  ButtonSegment(value: _NodeKind.spacer, label: Text('空きセル')),
-                ],
-                selected: {_kind},
-                onSelectionChanged: (s) => setState(() => _kind = s.first),
-              ),
-              if (_kind == _NodeKind.widget)
-                DropdownButtonFormField<String>(
-                  initialValue: _draftName,
-                  decoration: const InputDecoration(labelText: '名前（カタログから選択）'),
-                  items: widget.controller.nameCatalog.entries
-                      .map(
-                        (e) => DropdownMenuItem(
-                          value: e.name,
-                          child: Text(e.label),
+                  if (_kind == _NodeKind.widget)
+                    DropdownButtonFormField<String>(
+                      initialValue: _draftName,
+                      decoration: const InputDecoration(
+                        labelText: '名前（カタログから選択）',
+                      ),
+                      items: widget.controller.nameCatalog.entries
+                          .map(
+                            (e) => DropdownMenuItem(
+                              value: e.name,
+                              child: Text(e.label),
+                            ),
+                          )
+                          .toList(),
+                      onChanged: (v) => setState(() => _draftName = v),
+                    ),
+                  const Divider(),
+                  NodeStyleEditor(
+                    draftStyles: _draftStyles,
+                    gridConfig: widget.controller.previewGridConfig,
+                    onChanged: (bp, style) =>
+                        setState(() => _draftStyles[bp] = style),
+                  ),
+                  if (_kind == _NodeKind.container && node != null) ...[
+                    const Divider(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('子要素（${node.children.length}件）'),
+                        TextButton.icon(
+                          icon: const Icon(Icons.add),
+                          label: const Text('子を追加'),
+                          onPressed: () => _onAddChild(node),
                         ),
-                      )
-                      .toList(),
-                  onChanged: (v) => setState(() => _draftName = v),
-                ),
-              const Divider(),
-              // 3区分ぶんのvisible/widthをタブ等で編集する部分
-              NodeStyleEditor(
-                draftStyles: _draftStyles,
-                gridConfig: widget.controller.previewGridConfig,
-                onChanged: (bp, style) =>
-                    setState(() => _draftStyles[bp] = style),
+                        if (atMaxDepth)
+                          const Padding(
+                            padding: EdgeInsets.only(top: 4),
+                            child: Text(
+                              '最大ネスト段数に達しています',
+                              style: TextStyle(fontSize: 12),
+                            ),
+                          ),
+                      ],
+                    ),
+                    _ChildrenReorderList(
+                      controller: widget.controller,
+                      parent: node,
+                    ),
+                  ],
+                ],
               ),
-              if (_kind == _NodeKind.container && node != null) ...[
-                const Divider(),
-                Text('子要素（${node.children.length}件）'),
-                _ChildrenReorderList(
-                  controller: widget.controller,
-                  parent: node,
-                ),
-              ],
-            ],
+            ),
           ),
-        ),
-      ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: const Text('キャンセル'),
-        ),
-        FilledButton(onPressed: _onSave, child: const Text('保存')),
-      ],
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('キャンセル'),
+            ),
+            FilledButton(onPressed: _onSave, child: const Text('保存')),
+          ],
+        );
+      },
     );
   }
 }
@@ -168,9 +229,22 @@ class _ChildrenReorderList extends StatelessWidget {
           ListTile(
             key: ValueKey(child.id),
             title: Text(child.name ?? '(空きセル)'),
-            trailing: IconButton(
-              icon: const Icon(Icons.delete_outline),
-              onPressed: () => controller.removeNode(child),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.edit_outlined),
+                  onPressed: () => NodeEditDialog.show(
+                    context,
+                    controller: controller,
+                    node: child,
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.delete_outline),
+                  onPressed: () => controller.removeNode(child),
+                ),
+              ],
             ),
           ),
       ],
