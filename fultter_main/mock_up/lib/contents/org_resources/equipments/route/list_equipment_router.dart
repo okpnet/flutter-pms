@@ -5,7 +5,7 @@ part 'list_equipment_router.g.dart';
 
 abstract class ListEquipmentConstant {
   static const String name = 'equipment';
-  static const String path = '/equipments/equipment';
+  static const String path = '/orgresources/equipment';
 }
 
 @TypedGoRoute<ListEquipmentRouter>(

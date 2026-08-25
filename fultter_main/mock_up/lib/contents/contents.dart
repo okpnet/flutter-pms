@@ -2,7 +2,7 @@ export '_shared/shared.dart';
 export 'actual/actual.dart';
 export 'authorization/autorization.dart';
 export 'corporation/corporation.dart';
-export 'equipments/equipments.dart';
+export 'org_resources/equipments/equipments.dart';
 export '_notice/notice.dart';
 export 'items/items.dart';
 export 'production/production.dart';

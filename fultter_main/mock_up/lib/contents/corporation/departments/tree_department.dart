@@ -35,14 +35,20 @@ class _TreeDepartment extends ConsumerState<TreeDepartment> {
     _columns = <TrinaColumn>[
       TrinaColumn(
         hide: true,
-        title: 'ID',
-        field: 'id',
+        title: 'info_department_id',
+        field: 'info_department_id',
         type: TrinaColumnType.number(),
       ),
       TrinaColumn(
         hide: true,
-        title: 'parent',
-        field: 'parent_id',
+        title: 'info_department_tree.info_department_id',
+        field: 'info_department_tree.info_department_id',
+        type: TrinaColumnType.number(),
+      ),
+      TrinaColumn(
+        hide: true,
+        title: 'info_department_tree.parent_info_department_id',
+        field: 'info_department_tree.parent_info_department_id',
         type: TrinaColumnType.number(),
       ),
 
@@ -61,6 +67,7 @@ class _TreeDepartment extends ConsumerState<TreeDepartment> {
       ),
       TrinaColumn(title: 'カナ', field: 'kana', type: TrinaColumnType.text()),
       TrinaColumn(title: '略称', field: 'nickname', type: TrinaColumnType.text()),
+      TrinaColumn(title: '備考', field: 'remarks', type: TrinaColumnType.text()),
       TrinaColumn(
         title: '更新日',
         field: 'update_at',
@@ -103,7 +110,8 @@ class _TreeDepartment extends ConsumerState<TreeDepartment> {
       ///親を入れ替える
       if (after.rowData case Map<String, dynamic> currentmap) {
         if (after.parentRowData case Map<String, dynamic> parentMap) {
-          currentmap['parent_id'] = parentMap['id'];
+          currentmap['info_department_tree.parent_info_department_id'] =
+              parentMap['info_department_tree.info_department_id'];
         }
       }
 
@@ -115,8 +123,11 @@ class _TreeDepartment extends ConsumerState<TreeDepartment> {
 
       ///戻す、進むコマンドを追加
       final cmd = BehaviorCommand(
-        undoValueProvider: () => after.beforeEvent.attributes['parent_id'],
-        redoValueProvider: () => after.attributes['parent_id'],
+        undoValueProvider: () => after
+            .beforeEvent
+            .attributes['info_department_tree.parent_info_department_id'],
+        redoValueProvider: () =>
+            after.attributes['info_department_tree.parent_info_department_id'],
         undoExecute: (t) => after.beforeEvent.behavior(),
         redoExecute: (t) => after.behavior(),
       );
@@ -132,16 +143,29 @@ class DepertmentPridicateAdapter extends TreeExpressionAdapter {
     final expression = AndExpression([
       parentRow == null
           ? EqualExpression(
-              NameFieldExpression('parent_id'),
-              NameFieldExpression('id'),
+              NameFieldExpression(
+                'info_department_tree.parent_info_department_id',
+              ),
+              NameFieldExpression('info_department_tree.info_department_id'),
             )
           : EqualExpression(
-              FieldExpression<Map<String, dynamic>>((t) => t['parent_id']),
-              ValueExpression(parentRow.cells['id']!.value.toString()),
+              FieldExpression<Map<String, dynamic>>(
+                (t) => t['info_department_tree.parent_info_department_id'],
+              ),
+              ValueExpression(
+                parentRow
+                    .cells['info_department_tree.info_department_id']!
+                    .value
+                    .toString(),
+              ),
             ),
       EqualExpression(
-        FieldExpression<Map<String, dynamic>>((t) => t['parent_id']),
-        FieldExpression<Map<String, dynamic>>((t) => t['id']),
+        FieldExpression<Map<String, dynamic>>(
+          (t) => t['info_department_tree.parent_info_department_id'],
+        ),
+        FieldExpression<Map<String, dynamic>>(
+          (t) => t['info_department_tree.info_department_id'],
+        ),
         isNot: true,
       ),
     ]);
@@ -152,8 +176,8 @@ class DepertmentPridicateAdapter extends TreeExpressionAdapter {
   @override
   Expressions get initiBuildPredicate {
     final expression = EqualExpression(
-      NameFieldExpression('parent_id'),
-      NameFieldExpression('id'),
+      NameFieldExpression('info_department_tree.parent_info_department_id'),
+      NameFieldExpression('info_department_tree.info_department_id'),
     );
     return Expressions(expression: expression);
   }

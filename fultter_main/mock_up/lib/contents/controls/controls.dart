@@ -1,2 +1,2 @@
 export 'dashboard.dart';
-export 'route/route.dart';
+export 'route/_route.dart';

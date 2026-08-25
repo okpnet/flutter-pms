@@ -49,14 +49,31 @@ class _ListStaff extends ConsumerState<ListStaff> {
       TrinaColumn(
         title: '性別',
         field: 'sex',
-        type: TrinaColumnType.select<Map<String, String>>([
-          {'male': '男性'},
-          {'female': '女性'},
-          {'other': 'その他'},
-        ]),
+        type: TrinaColumnType.select<MapEntry<String, String>>(
+          [
+            MapEntry('male', '男性'),
+            MapEntry('female', '女性'),
+            MapEntry('other', 'その他'),
+          ],
+          itemToString: (item) => item.value,
+          itemToValue: (item) => item.key,
+        ),
       ),
-      TrinaColumn(title: '部署', field: 'section', type: TrinaColumnType.text()),
-      TrinaColumn(title: '電話', field: 'phone', type: TrinaColumnType.text()),
+      TrinaColumn(
+        title: '部署',
+        field: 'section',
+        type: TrinaColumnType.selectWithSearch<MapEntry<String, dynamic>>(
+          [], //DBから読み込むので空
+          itemToString: (item) => item.value,
+          itemToValue: (item) => item.key,
+        ),
+      ),
+      TrinaColumn(
+        title: '電話',
+        field: 'phone',
+        type: TrinaColumnType.text(),
+      ), //内線のケースもあるので、正規表現をしない
+      TrinaColumn(title: '備考', field: 'remarks', type: TrinaColumnType.text()),
       TrinaColumn(
         title: '更新日',
         field: 'update_at',
@@ -78,11 +95,23 @@ class _ListStaff extends ConsumerState<ListStaff> {
     ///ユーザーの権限でモードを変更
     return PopScope(
       canPop: !isDirty,
-      child: GridList(
-        columns: _columns,
-        mode: .primaryUse,
-        editPath: EditOfficeConstant.path,
-        dropAction: null,
+      child: ResponsiveGrid(
+        config: ResponsiveGridConfig.standard(),
+        children: [
+          ResponsiveCell(
+            layout: CommonResponsive.flexLx,
+            child: ContentsTitle('スタッフ'),
+          ),
+          ResponsiveCell(
+            layout: CommonResponsive.flexLx,
+            child: GridList(
+              columns: _columns,
+              mode: .primaryUse,
+              editPath: EditOfficeConstant.path,
+              dropAction: null,
+            ),
+          ),
+        ],
       ),
     );
   }

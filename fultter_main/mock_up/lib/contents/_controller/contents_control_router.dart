@@ -1,4 +1,6 @@
 import 'package:mock_up/contents/contents.dart';
+import 'package:mock_up/contents/org_resources/locations/route/edit_location_router.dart';
+import 'package:mock_up/contents/org_resources/route/org_resource_branch.dart';
 
 import '../../imports.dart';
 
@@ -18,13 +20,13 @@ import '../corporation/office/route/edit_office_router.dart';
 import '../corporation/office/route/list_office_router.dart';
 import '../corporation/route/corporation_branch.dart';
 import '../corporation/staffs/route/lsit_staff_router.dart';
-import '../equipments/route/equipment_branch.dart';
-import '../equipments/route/list_category_equipment_router.dart';
-import '../equipments/route/list_equipment_router.dart';
+import '../org_resources/equipments/route/list_category_equipment_router.dart';
+import '../org_resources/equipments/route/list_equipment_router.dart';
 import '../items/route/item_branch.dart';
 import '../items/route/list_category_item_router.dart';
 import '../items/route/list_item_router.dart';
 import '../items/route/tree_item_router.dart';
+import '../org_resources/locations/route/tree_location_router.dart';
 import '../purchasing/route/list_purchase_order_router.dart';
 import '../purchasing/route/list_supplier_router.dart';
 import '../purchasing/route/purchase_branch.dart';
@@ -117,7 +119,7 @@ final shellNavigatorKey = GlobalKey<NavigatorState>();
             ),
           ],
         ),
-        TypedStatefulShellBranch<EquipmentBranch>(
+        TypedStatefulShellBranch<OrgResourceBranch>(
           routes: [
             TypedGoRoute<ListEquipmentRouter>(
               path: ListEquipmentConstant.path,
@@ -126,6 +128,16 @@ final shellNavigatorKey = GlobalKey<NavigatorState>();
             TypedGoRoute<ListCategoryEquipmentRouter>(
               path: ListCategoryEquipmentConstant.path,
               name: ListCategoryEquipmentConstant.name,
+            ),
+            TypedGoRoute<TreeLocationRouter>(
+              path: TreeLocationConstant.path,
+              name: TreeLocationConstant.name,
+              routes: [
+                TypedGoRoute<EditLocationRouter>(
+                  path: EditLocationConstant.path,
+                  name: EditLocationConstant.name,
+                ),
+              ],
             ),
           ],
         ),

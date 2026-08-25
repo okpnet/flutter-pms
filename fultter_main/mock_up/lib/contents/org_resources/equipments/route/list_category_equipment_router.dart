@@ -6,7 +6,7 @@ part 'list_category_equipment_router.g.dart';
 
 abstract class ListCategoryEquipmentConstant {
   static const String name = 'category_of_equipment';
-  static const String path = '/equipments/category';
+  static const String path = '/orgresources/category';
 }
 
 @TypedGoRoute<ListCategoryEquipmentRouter>(
@@ -18,7 +18,6 @@ class ListCategoryEquipmentRouter extends GoRouteData
   const ListCategoryEquipmentRouter();
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    // TODO: implement build
     return ListCategoryEquipment();
   }
 }

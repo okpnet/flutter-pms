@@ -129,8 +129,8 @@ Comment=
 TableInnerOption=
 TableOption=
 Page=インフォメーション
-Left=4200
-Top=3000
+Left=4150
+Top=2950
 Field="組織情報id","info_department_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="会社id","info_company_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="事業所id","info_office_id","*@UUID",,,"","",$FFFFFFFF,""
@@ -148,7 +148,7 @@ Tag=1.Information
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20241219111224
-Position="インフォメーション",4200,3000
+Position="インフォメーション",4150,2950
 ZOrder=10
 
 [Entity]
@@ -365,8 +365,6 @@ Top=300
 Field="利害関係者id","mstr_stakeholder_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="区分","stakeholder_class","*@SMALLINT","NOT NULL",,"0","0:顧客1:供給者2:顧客+供給者",$FFFFFFFF,""
 Field="利害関係者コード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
-Field="提供id","info_provide_id","*@UUID",,,"","",$FFFFFFFF,""
-Field="提供履歴id","provide_history_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="管理コード","control_code","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="名前","name","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="かな","kana","*@VARCHAR255",,,"","",$FFFFFFFF,""
@@ -378,7 +376,7 @@ EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20231005093321
+ModifiedDateTime=20260825165641
 Position="マスタ資源",3850,300
 ZOrder=45
 
@@ -566,8 +564,8 @@ Comment=
 TableInnerOption=
 TableOption=
 Page=マスタ資源
-Left=5350
-Top=1950
+Left=5250
+Top=1850
 Field="品目id","mstr_item_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="システム区分","system_class","@INT","NOT NULL",,"\q0000000000000000\q","1000000000000000:全て\n0000000000000001:製品\n0000000000000010:サービス\n0000000000000100:資材\n0000000000001000:副資材\n0000000000010000:消耗品\n0000000000100000:資産\n0000000001000000:保守・修理\n\n",$FFFFFFFF,""
 Field="品目コード","code","*@VARCHAR255","NOT NULL",,"","品番",$FFFFFFFF,""
@@ -583,15 +581,13 @@ Field="単位id","info_unit_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="刻み","increment","*@QTY","NOT NULL",,"0","",$FFFFFFFF,""
 Field="ロット","lot","*@BOOL","NOT NULL",,"\qf\q","",$FFFFFFFF,""
 Field="最少在庫数量","stock_quantity","*@QTY","NOT NULL",,"0","",$FFFFFFFF,""
-Field="提供履歴id","provide_history_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
-Field="提供id","info_provide_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20240903080403
-Position="マスタ資源",5350,1950
+ModifiedDateTime=20260825165421
+Position="マスタ資源",5250,1850
 ZOrder=65
 
 [Entity]
@@ -1444,7 +1440,7 @@ Fields1=info_office_id
 Fields2=info_office_id
 Cardinarity1=
 Cardinarity2=
-Position="インフォメーション",0,6699,8279,4412,R,R,""
+Position="インフォメーション",0,6699,8279,4410,R,R,""
 Dependence=0
 Caption=
 PName=
@@ -3843,7 +3839,7 @@ EffectMode=None
 Tag=1.Information
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20231004114545
+ModifiedDateTime=20260825141657
 Position="インフォメーション",2500,4150
 ZOrder=499
 
@@ -4201,7 +4197,7 @@ TermPos2=R
 ZOrder=542
 
 [Entity]
-PName=info_provide
+PName=info_provision
 LName=提供情報
 Comment=
 TableInnerOption=
@@ -4209,7 +4205,7 @@ TableOption=
 Page=インフォメーション
 Left=350
 Top=2450
-Field="提供id","info_provide_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
+Field="提供id","info_provision_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="会社id","info_company_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="提供コード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="提供名","name","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
@@ -4218,12 +4214,12 @@ Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20240222104929
+ModifiedDateTime=20260825161829
 Position="インフォメーション",350,2450
 ZOrder=543
 
 [Entity]
-PName=mstr_stakeholder_provide
+PName=mstr_stakeholder_provision
 LName=利害関係者提供マスタ
 Comment=
 TableInnerOption=
@@ -4231,21 +4227,21 @@ TableOption=
 Page=マスタ資源
 Left=1650
 Top=1600
-Field="利害関係者提供id","mstr_stakeholder_provide_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
+Field="利害関係者提供id","mstr_stakeholder_provision_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="利害関係者id","mstr_stakeholder_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
-Field="提供id","info_provide_id","*@UUID",,,"","",$FFFFFFFF,""
+Field="提供id","info_provision_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20231004153434
+ModifiedDateTime=20260825164539
 Position="マスタ資源",1650,1600
 ZOrder=547
 
 [Relation]
 Entity1=mstr_stakeholder
-Entity2=mstr_stakeholder_provide
+Entity2=mstr_stakeholder_provision
 RelationType1=1
 RelationType2=3
 Fields1=mstr_stakeholder_id
@@ -4266,22 +4262,22 @@ TermPos2=R
 ZOrder=548
 
 [Relation]
-Entity1=info_provide
-Entity2=mstr_stakeholder_provide
+Entity1=info_provision
+Entity2=mstr_stakeholder_provision
 RelationType1=1
 RelationType2=3
-Fields1=info_provide_id
-Fields2=info_provide_id
+Fields1=info_provision_id
+Fields2=info_provision_id
 Cardinarity1=
 Cardinarity2=
-Position="インフォメーション",0,500,9500,1162,R,R,""
+Position="インフォメーション",0,0,9500,1162,R,R,""
 Position="マスタ資源",0,929,9071,4873,R,R,""
 Dependence=0
 Caption=
 PName=
 ModifiedDateTime=20230814200532
 LineMode=0
-Bar1=50
+Bar1=0
 Bar2=950
 Bar3=116
 TermPos1=R
@@ -4983,12 +4979,12 @@ Fields2=info_company_id
 Cardinarity1=
 Cardinarity2=
 Position="インフォメーション",0,8132,5061,2331,R,R,""
-Dependence=1
+Dependence=0
 Caption=
 PName=
 FkOnDeleteOption=on delete cascade
 FkOnUpdateOption=on update cascade
-ModifiedDateTime=20241221084605
+ModifiedDateTime=20260825155456
 LineMode=0
 Bar1=813
 Bar2=506
@@ -5316,7 +5312,7 @@ TermPos2=R
 ZOrder=627
 
 [Entity]
-PName=history_info_provide
+PName=history_info_provision
 LName=提供情報履歴
 Comment=
 TableInnerOption=
@@ -5325,7 +5321,7 @@ Page=インフォメーション
 Left=1700
 Top=2600
 Field="履歴id","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
-Field="提供id","info_provide_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
+Field="提供id","info_provision_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="会社id","info_company_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="提供コード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="提供名","name","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
@@ -5334,17 +5330,17 @@ Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20240222104957
+ModifiedDateTime=20260825161852
 Position="インフォメーション",1700,2600
 ZOrder=628
 
 [Relation]
-Entity1=info_provide
-Entity2=history_info_provide
+Entity1=info_provision
+Entity2=history_info_provision
 RelationType1=2
 RelationType2=3
-Fields1=info_provide_id
-Fields2=info_provide_id
+Fields1=info_provision_id
+Fields2=info_provision_id
 Cardinarity1=
 Cardinarity2=
 Position="インフォメーション",0,5041,4959,5322,R,R,""
@@ -5998,8 +5994,6 @@ Field="履歴id","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFF
 Field="利害関係者id","mstr_stakeholder_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="区分","stakeholder_class","*@SMALLINT","NOT NULL",,"0","0:顧客1:供給者2:顧客+供給者",$FFFFFFFF,""
 Field="利害関係者コード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
-Field="提供id","info_provide_id","*@UUID",,,"","",$FFFFFFFF,""
-Field="提供履歴id","provide_history_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="管理コード","control_code","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="名前","name","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="かな","kana","*@VARCHAR255",,,"","",$FFFFFFFF,""
@@ -6011,7 +6005,7 @@ EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20231005093333
+ModifiedDateTime=20260825165843
 Position="マスタ資源",300,250
 ZOrder=663
 
@@ -6040,7 +6034,7 @@ TermPos2=R
 ZOrder=664
 
 [Entity]
-PName=history_mstr_stakeholder_provide
+PName=history_mstr_stakeholder_provision
 LName=利害関係者提供マスタ履歴
 Comment=
 TableInnerOption=
@@ -6049,25 +6043,25 @@ Page=マスタ資源
 Left=1750
 Top=2300
 Field="履歴id","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
-Field="利害関係者提供id","mstr_stakeholder_provide_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
+Field="利害関係者提供id","mstr_stakeholder_provision_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="利害関係者id","mstr_stakeholder_id","*@UUID","NOT NULL",2,"","",$FFFFFFFF,""
-Field="提供id","info_provide_id","*@UUID",,,"","",$FFFFFFFF,""
+Field="提供id","info_provision_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20231004153438
+ModifiedDateTime=20260825164605
 Position="マスタ資源",1750,2300
 ZOrder=665
 
 [Relation]
-Entity1=mstr_stakeholder_provide
-Entity2=history_mstr_stakeholder_provide
+Entity1=mstr_stakeholder_provision
+Entity2=history_mstr_stakeholder_provision
 RelationType1=2
 RelationType2=3
-Fields1=mstr_stakeholder_provide_id,mstr_stakeholder_id
-Fields2=mstr_stakeholder_provide_id,mstr_stakeholder_id
+Fields1=mstr_stakeholder_provision_id,mstr_stakeholder_id
+Fields2=mstr_stakeholder_provision_id,mstr_stakeholder_id
 Cardinarity1=
 Cardinarity2=
 Position="マスタ資源",0,3754,6246,4087,R,R,""
@@ -6227,29 +6221,6 @@ Bar3=88
 TermPos1=R
 TermPos2=R
 ZOrder=679
-
-[Relation]
-Entity1=history_info_provide
-Entity2=mstr_stakeholder
-RelationType1=1
-RelationType2=3
-Fields1=history_id,info_provide_id
-Fields2=provide_history_id,info_provide_id
-Cardinarity1=
-Cardinarity2=
-Position="インフォメーション",0,2562,7438,2370,R,R,""
-Position="マスタ資源",0,2546,7454,4045,R,R,""
-Dependence=0
-Caption=
-PName=
-ModifiedDateTime=20231004173330
-LineMode=0
-Bar1=256
-Bar2=744
-Bar3=237
-TermPos1=R
-TermPos2=R
-ZOrder=681
 
 [Entity]
 PName=history_mstr_equipment_tag
@@ -6473,14 +6444,12 @@ Field="単位id","info_unit_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="刻み","increment","*@QTY","NOT NULL",,"0","",$FFFFFFFF,""
 Field="ロット","lot","*@BOOL","NOT NULL",,"\qf\q","",$FFFFFFFF,""
 Field="最少在庫数量","stock_quantity","*@QTY","NOT NULL",,"0","",$FFFFFFFF,""
-Field="提供履歴id","provide_history_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
-Field="提供id","info_provide_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20231004200539
+ModifiedDateTime=20260825165458
 Position="マスタ資源",5300,300
 ZOrder=692
 
@@ -6846,51 +6815,6 @@ Bar3=432
 TermPos1=R
 TermPos2=R
 ZOrder=719
-
-[Relation]
-Entity1=history_info_provide
-Entity2=mstr_item
-RelationType1=1
-RelationType2=3
-Fields1=history_id,info_provide_id
-Fields2=provide_history_id,info_provide_id
-Cardinarity1=
-Cardinarity2=
-Position="インフォメーション",0,5381,4619,4852,R,R,""
-Position="マスタ資源",0,5381,4619,6766,R,R,""
-Dependence=0
-Caption=
-PName=
-LineMode=0
-Bar1=538
-Bar2=462
-Bar3=485
-TermPos1=R
-TermPos2=R
-ZOrder=720
-
-[Relation]
-Entity1=history_info_provide
-Entity2=history_mstr_item
-RelationType1=2
-RelationType2=3
-Fields1=history_id,info_provide_id
-Fields2=provide_history_id,info_provide_id
-Cardinarity1=
-Cardinarity2=
-Position="インフォメーション",0,4312,5688,4852,R,R,""
-Position="マスタ資源",0,4397,5603,4794,R,R,""
-Dependence=0
-Caption=
-PName=
-ModifiedDateTime=20230926171111
-LineMode=0
-Bar1=431
-Bar2=569
-Bar3=485
-TermPos1=R
-TermPos2=R
-ZOrder=721
 
 [Relation]
 Entity1=history_mstr_location
@@ -8103,7 +8027,7 @@ ZOrder=-178
 
 [Relation]
 Entity1=history_info_staff
-Entity2=history_mstr_stakeholder_provide
+Entity2=history_mstr_stakeholder_provision
 RelationType1=1
 RelationType2=3
 Fields1=history_id,info_staff_id
@@ -8408,7 +8332,7 @@ ZOrder=-194
 
 [Relation]
 Entity1=history_info_staff
-Entity2=history_info_provide
+Entity2=history_info_provision
 RelationType1=1
 RelationType2=3
 Fields1=history_id,info_staff_id
@@ -8782,7 +8706,7 @@ ZOrder=-212
 
 [Relation]
 Entity1=history_info_staff
-Entity2=mstr_stakeholder_provide
+Entity2=mstr_stakeholder_provision
 RelationType1=1
 RelationType2=3
 Fields1=history_id,info_staff_id
@@ -8804,7 +8728,7 @@ ZOrder=-213
 
 [Relation]
 Entity1=history_info_staff
-Entity2=info_provide
+Entity2=info_provision
 RelationType1=1
 RelationType2=3
 Fields1=history_id,info_staff_id
@@ -10824,7 +10748,7 @@ TermPos2=R
 ZOrder=763
 
 [Entity]
-PName=info_provide_localize
+PName=info_provision_localize
 LName=提供情報ローカライズ
 Comment=
 TableInnerOption=
@@ -10832,8 +10756,8 @@ TableOption=
 Page=インフォメーション
 Left=200
 Top=3350
-Field="提供ローカライズid","info_provide_localize_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
-Field="提供id","info_provide_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
+Field="提供ローカライズid","info_provision_localize_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
+Field="提供id","info_provision_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="言語コード","ISO639","*@VARCHAR2","NOT NULL",,"\qja\q","",$FFFFFFFF,""
 Field="名前","name","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="略称","nickname","*@VARCHAR255",,,"","",$FFFFFFFF,""
@@ -10842,17 +10766,17 @@ Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20231004114513
+ModifiedDateTime=20260825161919
 Position="インフォメーション",200,3350
 ZOrder=764
 
 [Relation]
-Entity1=info_provide
-Entity2=info_provide_localize
+Entity1=info_provision
+Entity2=info_provision_localize
 RelationType1=2
 RelationType2=3
-Fields1=info_provide_id
-Fields2=info_provide_id
+Fields1=info_provision_id
+Fields2=info_provision_id
 Cardinarity1=
 Cardinarity2=
 Position="インフォメーション",0,1029,4306,968,R,R,""
@@ -10868,7 +10792,7 @@ TermPos2=R
 ZOrder=765
 
 [Entity]
-PName=history_info_provide_localize
+PName=history_info_provision_localize
 LName=提供情報ローカライズ履歴
 Comment=
 TableInnerOption=
@@ -10877,8 +10801,8 @@ Page=インフォメーション
 Left=1550
 Top=3450
 Field="履歴id","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
-Field="提供ローカライズid","info_provide_localize_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
-Field="提供id","info_provide_id","*@UUID","NOT NULL",2,"","",$FFFFFFFF,""
+Field="提供ローカライズid","info_provision_localize_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
+Field="提供id","info_provision_id","*@UUID","NOT NULL",2,"","",$FFFFFFFF,""
 Field="言語コード","ISO639","*@VARCHAR2","NOT NULL",,"","",$FFFFFFFF,""
 Field="名前","name","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="略称","nickname","*@VARCHAR255",,,"","",$FFFFFFFF,""
@@ -10887,17 +10811,17 @@ Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20231004114521
+ModifiedDateTime=20260825161940
 Position="インフォメーション",1550,3450
 ZOrder=766
 
 [Relation]
-Entity1=info_provide_localize
-Entity2=history_info_provide_localize
+Entity1=info_provision_localize
+Entity2=history_info_provision_localize
 RelationType1=2
 RelationType2=3
-Fields1=info_provide_localize_id,info_provide_id
-Fields2=info_provide_localize_id,info_provide_id
+Fields1=info_provision_localize_id,info_provision_id
+Fields2=info_provision_localize_id,info_provision_id
 Cardinarity1=
 Cardinarity2=
 Position="インフォメーション",0,6218,3782,6360,R,R,""
@@ -10914,7 +10838,7 @@ ZOrder=767
 
 [Relation]
 Entity1=history_info_staff
-Entity2=history_info_provide_localize
+Entity2=history_info_provision_localize
 RelationType1=1
 RelationType2=3
 Fields1=history_id,info_staff_id
@@ -10936,7 +10860,7 @@ ZOrder=-312
 
 [Relation]
 Entity1=history_info_staff
-Entity2=info_provide_localize
+Entity2=info_provision_localize
 RelationType1=1
 RelationType2=3
 Fields1=history_id,info_staff_id
@@ -10958,7 +10882,7 @@ ZOrder=-313
 
 [Relation]
 Entity1=info_company
-Entity2=info_provide
+Entity2=info_provision
 RelationType1=1
 RelationType2=3
 Fields1=info_company_id
@@ -11533,7 +11457,7 @@ TermPos2=R
 ZOrder=810
 
 [Entity]
-PName=mstr_equipment_provide
+PName=mstr_equipment_provision
 LName=設備提供マスタ
 Comment=
 TableInnerOption=
@@ -11541,8 +11465,8 @@ TableOption=
 Page=マスタ設備
 Left=2800
 Top=3300
-Field="設備提供ID","mstr_equipment_provide_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
-Field="提供id","info_provide_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="設備提供ID","mstr_equipment_provision_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
+Field="提供id","info_provision_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="設備id","mstr_equipment_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="適用開始","start_at","*@DATETIME","NOT NULL",,"now()","",$FFFFFFFF,""
 Field="適用終了","stop_at","*@DATETIME",,,"","",$FFFFFFFF,""
@@ -11550,26 +11474,26 @@ Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20240620143347
+ModifiedDateTime=20260825164449
 Position="マスタ設備",2800,3300
 ZOrder=811
 
 [Relation]
-Entity1=info_provide
-Entity2=mstr_equipment_provide
+Entity1=info_provision
+Entity2=mstr_equipment_provision
 RelationType1=1
 RelationType2=3
-Fields1=info_provide_id
-Fields2=info_provide_id
+Fields1=info_provision_id
+Fields2=info_provision_id
 Cardinarity1=
 Cardinarity2=
-Position="インフォメーション",0,500,9500,968,R,R,""
+Position="インフォメーション",0,8580,9500,968,R,R,""
 Position="マスタ設備",0,6232,3768,3140,R,R,""
 Dependence=0
 Caption=
 PName=
 LineMode=0
-Bar1=50
+Bar1=858
 Bar2=950
 Bar3=97
 TermPos1=R
@@ -11578,7 +11502,7 @@ ZOrder=812
 
 [Relation]
 Entity1=mstr_equipment
-Entity2=mstr_equipment_provide
+Entity2=mstr_equipment_provision
 RelationType1=1
 RelationType2=3
 Fields1=mstr_equipment_id
@@ -11598,7 +11522,7 @@ TermPos2=R
 ZOrder=813
 
 [Entity]
-PName=history_mstr_equipment_provide
+PName=history_mstr_equipment_provision
 LName=設備提供マスタ履歴
 Comment=
 TableInnerOption=
@@ -11607,8 +11531,8 @@ Page=マスタ設備
 Left=2750
 Top=4250
 Field="履歴id","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
-Field="設備提供ID","mstr_equipment_provide_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
-Field="提供id","info_provide_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="設備提供ID","mstr_equipment_provision_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
+Field="提供id","info_provision_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="設備id","mstr_equipment_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="適用開始","start_at","*@DATETIME","NOT NULL",,"now()","",$FFFFFFFF,""
 Field="適用終了","stop_at","*@DATETIME",,,"","",$FFFFFFFF,""
@@ -11616,17 +11540,17 @@ Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20240620143355
+ModifiedDateTime=20260825164501
 Position="マスタ設備",2750,4250
 ZOrder=814
 
 [Relation]
-Entity1=mstr_equipment_provide
-Entity2=history_mstr_equipment_provide
+Entity1=mstr_equipment_provision
+Entity2=history_mstr_equipment_provision
 RelationType1=2
 RelationType2=3
-Fields1=mstr_equipment_provide_id
-Fields2=mstr_equipment_provide_id
+Fields1=mstr_equipment_provision_id
+Fields2=mstr_equipment_provision_id
 Cardinarity1=
 Cardinarity2=
 Position="マスタ設備",0,5000,5000,4997,R,R,""
@@ -11643,7 +11567,7 @@ TermPos2=R
 ZOrder=815
 
 [Entity]
-PName=history_mstr_item_provide
+PName=history_mstr_item_provision
 LName=品目提供マスタ履歴
 Comment=
 TableInnerOption=
@@ -11652,8 +11576,8 @@ Page=マスタ資源
 Left=6800
 Top=200
 Field="履歴id","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
-Field="設備提供ID","mstr_item_provide_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
-Field="提供id","info_provide_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="設備提供ID","mstr_item_provision_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
+Field="提供id","info_provision_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="設備id","mstr_item_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="適用開始","start_at","*@DATETIME","NOT NULL",,"now()","",$FFFFFFFF,""
 Field="適用終了","stop_at","*@DATETIME",,,"","",$FFFFFFFF,""
@@ -11661,12 +11585,12 @@ Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20240620142818
+ModifiedDateTime=20260825164711
 Position="マスタ資源",6800,200
 ZOrder=816
 
 [Entity]
-PName=mstr_item_provide
+PName=mstr_item_provision
 LName=品目提供マスタ
 Comment=
 TableInnerOption=
@@ -11674,8 +11598,8 @@ TableOption=
 Page=マスタ資源
 Left=6600
 Top=1150
-Field="品目提供ID","mstr_item_provide_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
-Field="提供id","info_provide_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="品目提供ID","mstr_item_provision_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
+Field="提供id","info_provision_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="品目id","mstr_item_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="適用開始","start_at","*@DATETIME","NOT NULL",,"now()","",$FFFFFFFF,""
 Field="適用終了","stop_at","*@DATETIME",,,"","",$FFFFFFFF,""
@@ -11683,17 +11607,17 @@ Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20240620142525
+ModifiedDateTime=20260825164655
 Position="マスタ資源",6600,1150
 ZOrder=817
 
 [Relation]
-Entity1=mstr_item_provide
-Entity2=history_mstr_item_provide
+Entity1=mstr_item_provision
+Entity2=history_mstr_item_provision
 RelationType1=1
 RelationType2=3
-Fields1=mstr_item_provide_id
-Fields2=mstr_item_provide_id
+Fields1=mstr_item_provision_id
+Fields2=mstr_item_provision_id
 Cardinarity1=
 Cardinarity2=
 Position="マスタ資源",0,3083,6917,4006,R,R,""
@@ -11711,7 +11635,7 @@ ZOrder=818
 
 [Relation]
 Entity1=mstr_item
-Entity2=mstr_item_provide
+Entity2=mstr_item_provision
 RelationType1=2
 RelationType2=3
 Fields1=mstr_item_id
@@ -11732,22 +11656,22 @@ TermPos2=R
 ZOrder=819
 
 [Relation]
-Entity1=info_provide
-Entity2=mstr_item_provide
+Entity1=info_provision
+Entity2=mstr_item_provision
 RelationType1=2
 RelationType2=4
-Fields1=info_provide_id
-Fields2=info_provide_id
+Fields1=info_provision_id
+Fields2=info_provision_id
 Cardinarity1=
 Cardinarity2=
-Position="インフォメーション",0,500,9500,968,R,R,""
+Position="インフォメーション",0,10000,9500,968,R,R,""
 Position="マスタ資源",0,4980,5020,4679,R,R,""
 Dependence=0
 Caption=
 PName=
 ModifiedDateTime=20240627153109
 LineMode=0
-Bar1=50
+Bar1=1000
 Bar2=950
 Bar3=97
 TermPos1=R
@@ -12550,7 +12474,7 @@ Index==2,info_department_id,parent_info_department_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20250103155043
+ModifiedDateTime=20260825143150
 Position="インフォメーション",6950,2800
 ZOrder=862
 
@@ -12701,7 +12625,7 @@ Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20240913080411
+ModifiedDateTime=20260825142655
 Position="マスタ資源",2050,3850
 ZOrder=869
 
@@ -12942,7 +12866,7 @@ ZOrder=880
 
 [Relation]
 Entity1=history_info_staff
-Entity2=mstr_item_provide
+Entity2=mstr_item_provision
 RelationType1=1
 RelationType2=3
 Fields1=history_id,info_staff_id
@@ -13103,7 +13027,7 @@ ZOrder=-411
 
 [Relation]
 Entity1=history_info_staff
-Entity2=history_mstr_item_provide
+Entity2=history_mstr_item_provision
 RelationType1=1
 RelationType2=3
 Fields1=history_id,info_staff_id
@@ -13915,7 +13839,7 @@ ZOrder=-436
 
 [Relation]
 Entity1=history_info_staff
-Entity2=history_mstr_equipment_provide
+Entity2=history_mstr_equipment_provision
 RelationType1=1
 RelationType2=3
 Fields1=history_id,info_staff_id
@@ -13938,7 +13862,7 @@ ZOrder=-442
 
 [Relation]
 Entity1=history_info_staff
-Entity2=mstr_equipment_provide
+Entity2=mstr_equipment_provision
 RelationType1=1
 RelationType2=3
 Fields1=history_id,info_staff_id
@@ -14755,9 +14679,9 @@ Caption=auto create.
 PName=
 ModifiedDateTime=20260729105009
 LineMode=0
-Bar1=690
-Bar2=310
-Bar3=288
+Bar1=948
+Bar2=52
+Bar3=50
 TermPos1=R
 TermPos2=R
 ZOrder=-489
@@ -14778,8 +14702,8 @@ Caption=auto create.
 PName=
 ModifiedDateTime=20260729104956
 LineMode=0
-Bar1=525
-Bar2=475
+Bar1=722
+Bar2=278
 Bar3=50
 TermPos1=R
 TermPos2=R
@@ -14800,8 +14724,8 @@ Dependence=0
 Caption=auto create.
 PName=
 LineMode=0
-Bar1=255
-Bar2=745
+Bar1=370
+Bar2=630
 Bar3=50
 TermPos1=R
 TermPos2=R

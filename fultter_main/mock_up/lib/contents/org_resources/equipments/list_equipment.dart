@@ -2,15 +2,16 @@ import 'package:trina_grid/trina_grid.dart';
 
 import '../../../imports.dart';
 import '../../../services/behavior/behavior.dart';
-import '../_shared/grids/grid_scope_service/service.dart';
+import '../../_shared/grids/grid_scope_service/service.dart';
+import '../../contents.dart';
 
-class ListSupplier extends ConsumerStatefulWidget {
-  const ListSupplier({super.key});
+class ListEquipment extends ConsumerStatefulWidget {
+  const ListEquipment({super.key});
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _ListSupplier();
+  ConsumerState<ConsumerStatefulWidget> createState() => _ListEquipment();
 }
 
-class _ListSupplier extends ConsumerState<ListSupplier> {
+class _ListEquipment extends ConsumerState<ListEquipment> {
   List<TrinaColumn> _columns = [];
 
   @override
@@ -113,7 +114,23 @@ class _ListSupplier extends ConsumerState<ListSupplier> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return ResponsiveGrid(
+      config: ResponsiveGridConfig.standard(),
+      children: [
+        ResponsiveCell(
+          layout: CommonResponsive.flexLx,
+          child: ContentsTitle('設備'),
+        ),
+        ResponsiveCell(
+          layout: CommonResponsive.flexLx,
+          child: GridList(
+            columns: _columns,
+            mode: .primaryUse,
+            editPath: EditOfficeConstant.path,
+            dropAction: null,
+          ),
+        ),
+      ],
+    );
   }
 }

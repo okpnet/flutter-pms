@@ -1,5 +1,5 @@
 // Project imports:
-import '../../../imports.dart';
+import '../../../../imports.dart';
 
 class EditEquipment extends StatefulWidget {
   const EditEquipment({super.key});
