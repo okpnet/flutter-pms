@@ -13,7 +13,15 @@ import 'dialogs/node_edit_dialog.dart';
 // design_canvas.dart
 class DesignCanvas extends StatelessWidget {
   final DesignEditorController controller;
-  const DesignCanvas({super.key, required this.controller});
+
+  /// 空セル・未設定Widget時でも編集/削除アイコンが収まる最小の高さ。
+  final double minCellExtent;
+
+  const DesignCanvas({
+    super.key,
+    required this.controller,
+    this.minCellExtent = 48,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +43,7 @@ class DesignCanvas extends StatelessWidget {
                   nodes: row,
                   controller: controller,
                   parent: null,
+                  minCellExtent: minCellExtent,
                 ),
               )
               .toList(),
@@ -47,7 +56,12 @@ class DesignCanvas extends StatelessWidget {
 class _CanvasCell extends StatelessWidget {
   final DesignNode node;
   final DesignEditorController controller;
-  const _CanvasCell({required this.node, required this.controller});
+  final double minCellExtent;
+  const _CanvasCell({
+    required this.node,
+    required this.controller,
+    required this.minCellExtent,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -58,18 +72,28 @@ class _CanvasCell extends StatelessWidget {
       onTap: () => controller.select(node),
       child: Stack(
         children: [
-          Container(
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: isSelected
-                    ? theme.colorScheme.primary
-                    : theme.dividerColor,
-                width: isSelected ? 2 : 1,
+          // 枠線の実体に直接ConstrainedBoxをかける（Stackの外側ではない）
+          ConstrainedBox(
+            constraints: BoxConstraints(minHeight: minCellExtent),
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: isSelected
+                      ? theme.colorScheme.primary
+                      : theme.dividerColor,
+                  width: isSelected ? 2 : 1,
+                ),
+                borderRadius: BorderRadius.circular(theme.useMaterial3 ? 8 : 4),
               ),
-              borderRadius: BorderRadius.circular(theme.useMaterial3 ? 8 : 4),
+              child: _NodeContent(
+                node: node,
+                controller: controller,
+                minCellExtent: minCellExtent,
+              ),
             ),
-            child: _NodeContent(node: node, controller: controller),
           ),
+
+          // 編集アイコン
           Positioned(
             left: 2,
             top: 2,
@@ -85,6 +109,8 @@ class _CanvasCell extends StatelessWidget {
               ),
             ),
           ),
+
+          // 削除アイコン
           Positioned(
             right: 14,
             top: 2,
@@ -96,7 +122,8 @@ class _CanvasCell extends StatelessWidget {
               onPressed: () => controller.removeNode(node),
             ),
           ),
-          // 右端リサイズハンドル（コンテナでも自身の幅は変更できる）
+
+          // 右端リサイズハンドル
           Positioned(
             right: 0,
             top: 0,
@@ -120,12 +147,18 @@ class _CanvasCell extends StatelessWidget {
 class _NodeContent extends StatelessWidget {
   final DesignNode node;
   final DesignEditorController controller;
-  const _NodeContent({required this.node, required this.controller});
+  final double minCellExtent;
+
+  const _NodeContent({
+    required this.node,
+    required this.controller,
+    required this.minCellExtent,
+  });
 
   @override
   Widget build(BuildContext context) {
     // 1. Widget（name指定あり）
-    if (node.name != null) {
+    if (node.nodeType == .widget) {
       final entry = controller.nameCatalog.findByName(node.name!);
       if (entry?.previewBuilder != null)
         return entry!.previewBuilder!(context, node);
@@ -139,8 +172,8 @@ class _NodeContent extends StatelessWidget {
     }
 
     // 2. 空きセル（name無し・子無し）
-    if (node.isLeaf) {
-      return const SizedBox.shrink();
+    if (node.nodeType == .spacer) {
+      return const SizedBox.shrink(); // 高さの下限はConstrainedBox(_CanvasCell側)が保証する
     }
 
     // 3. コンテナ（name無し・子あり）→ 再帰的にネスト描画
@@ -153,14 +186,20 @@ class _NodeContent extends StatelessWidget {
     ).layoutRows(node.children, controller.editingBreakpoint);
     return Padding(
       padding: const EdgeInsets.all(4),
-      child: Column(
-        children: rows
-            .map(
-              (row) =>
-                  _CanvasRow(nodes: row, controller: controller, parent: node),
+      child: rows.isNotEmpty
+          ? Column(
+              children: rows
+                  .map(
+                    (row) => _CanvasRow(
+                      nodes: row,
+                      controller: controller,
+                      parent: node,
+                      minCellExtent: minCellExtent, // ここが漏れていた
+                    ),
+                  )
+                  .toList(),
             )
-            .toList(),
-      ),
+          : Center(child: Text('空')),
     );
   }
 }
@@ -168,16 +207,14 @@ class _NodeContent extends StatelessWidget {
 class _CanvasRow extends StatelessWidget {
   final List<DesignNode> nodes;
   final DesignEditorController controller;
-
-  /// このrowに含まれるnodesの所属元。nullならrootNodes直下。
-  /// 以前は兄弟リストの参照から逆引きしていたが、再帰描画時に
-  /// 明示的に渡す方式に変更し、逆引きロジックを撤去した。
   final DesignNode? parent;
+  final double minCellExtent;
 
   const _CanvasRow({
     required this.nodes,
     required this.controller,
     required this.parent,
+    required this.minCellExtent,
   });
 
   @override
@@ -212,14 +249,26 @@ class _CanvasRow extends StatelessWidget {
                       opacity: 0.7,
                       child: SizedBox(
                         width: 120,
-                        child: _CanvasCell(node: node, controller: controller),
+                        child: _CanvasCell(
+                          node: node,
+                          controller: controller,
+                          minCellExtent: minCellExtent,
+                        ),
                       ),
                     ),
                     childWhenDragging: Opacity(
                       opacity: 0.3,
-                      child: _CanvasCell(node: node, controller: controller),
+                      child: _CanvasCell(
+                        node: node,
+                        controller: controller,
+                        minCellExtent: minCellExtent,
+                      ),
                     ),
-                    child: _CanvasCell(node: node, controller: controller),
+                    child: _CanvasCell(
+                      node: node,
+                      controller: controller,
+                      minCellExtent: minCellExtent,
+                    ),
                   );
                 },
               ),

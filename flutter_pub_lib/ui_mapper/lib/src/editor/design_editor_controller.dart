@@ -111,7 +111,8 @@ class DesignEditorController extends ChangeNotifier {
 
   /// 新規ノードを追加する。深さ超過時は [NestingLimitExceededException] を投げ、
   /// ツリーは変更しない（Undo履歴も積まない）。
-  DesignNode addNode({
+  DesignNode addNode(
+    NodeKind type, {
     DesignNode? parent,
     String? name,
     Map<Breakpoint, NodeBreakpointStyle>? styles,
@@ -119,19 +120,22 @@ class DesignEditorController extends ChangeNotifier {
     final parentDepth = parent == null
         ? 0
         : nodeDepth(_document.rootNodes, parent.id);
-    final newDepth = parentDepth + 1;
-    if (newDepth > maxNestingDepth) {
+    if (parentDepth + 1 > maxNestingDepth) {
       throw NestingLimitExceededException(maxNestingDepth);
     }
+
+    // compactが渡されていなければデフォルト値で補う。
+    // 渡された値がある場合はそちらを優先する（mapの後勝ちを利用）。
+    final effectiveStyles = <Breakpoint, NodeBreakpointStyle>{
+      Breakpoint.compact: const NodeBreakpointStyle(width: 1),
+      ...?styles,
+    };
 
     final newNode = DesignNode(
       id: _generateId(),
       name: name,
-      styles:
-          styles ??
-          const {
-            Breakpoint.compact: NodeBreakpointStyle(visible: true, width: 1),
-          },
+      styles: effectiveStyles,
+      nodeType: type,
     );
     mutateTree((rootNodes) {
       final targetChildren = parent == null
@@ -156,6 +160,7 @@ class DesignEditorController extends ChangeNotifier {
           name: name,
           children: old.children,
           styles: old.styles,
+          nodeType: old.nodeType,
         ),
       );
     });
@@ -166,11 +171,16 @@ class DesignEditorController extends ChangeNotifier {
     DesignNode node,
     Map<Breakpoint, NodeBreakpointStyle> styles,
   ) {
+    // 既存ノードのcompactをフォールバックにし、万一styles側に無くても消えないようにする
+    final effectiveStyles = <Breakpoint, NodeBreakpointStyle>{
+      Breakpoint.compact: node.resolveStyle(Breakpoint.compact),
+      ...styles,
+    };
     mutateTree((rootNodes) {
       final target = findNodeById(rootNodes, node.id);
       target?.styles
         ?..clear()
-        ..addAll(styles);
+        ..addAll(effectiveStyles);
     });
   }
 

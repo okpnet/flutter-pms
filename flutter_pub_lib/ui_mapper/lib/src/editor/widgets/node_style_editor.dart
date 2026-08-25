@@ -16,16 +16,23 @@ class NodeStyleEditor extends StatelessWidget {
     required this.onChanged,
   });
 
+  /// bpより手前(compact側)を遡り、最初に見つかった明示値を返す。
+  /// DesignNode.resolveStyle と同じ考え方のチェーン解決に統一する。
+  NodeBreakpointStyle _effectiveStyle(Breakpoint bp) {
+    for (var i = bp.index; i >= 0; i--) {
+      final candidate = draftStyles[Breakpoint.values[i]];
+      if (candidate != null) return candidate;
+    }
+    return const NodeBreakpointStyle(width: 1); // compactが未設定の場合の保険
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: Breakpoint.values.map((bp) {
-        final isInherited = draftStyles[bp] == null && bp != Breakpoint.compact;
-        final effective =
-            draftStyles[bp] ??
-            (bp == Breakpoint.compact
-                ? const NodeBreakpointStyle(width: 1)
-                : draftStyles[Breakpoint.values[bp.index - 1]]);
+        final isInherited = bp != Breakpoint.compact && draftStyles[bp] == null;
+        final effective = _effectiveStyle(bp);
+
         return ListTile(
           title: Text(bp.name),
           subtitle: isInherited ? const Text('前の区分を継承中') : null,
@@ -37,23 +44,22 @@ class NodeStyleEditor extends StatelessWidget {
                   value: !isInherited,
                   onChanged: (overridden) => onChanged(
                     bp,
-                    overridden ? effective : null, // オフ＝継承に戻す
+                    overridden ? effective : null, // オン=現在の実効値を明示値化、オフ=継承に戻す
                   ),
                 ),
               SizedBox(
                 width: 60,
                 child: TextFormField(
+                  key: ValueKey('${bp.name}_${effective.width}_$isInherited'),
                   enabled: bp == Breakpoint.compact || !isInherited,
-                  initialValue: '${effective?.width ?? 1}',
+                  initialValue: '${effective.width}',
                   keyboardType: TextInputType.number,
-                  onChanged: (v) {
-                    final width = int.tryParse(v) ?? 1;
-                    onChanged(
-                      bp,
-                      (effective ?? const NodeBreakpointStyle(width: 1))
-                          .copyWith(width: width),
-                    );
-                  },
+                  onChanged: (v) => onChanged(
+                    bp,
+                    effective.copyWith(
+                      width: int.tryParse(v) ?? effective.width,
+                    ),
+                  ),
                 ),
               ),
             ],

@@ -5,8 +5,6 @@ import '../../../model.dart';
 import '../../model/design_tree_utils.dart';
 import '../widgets/node_style_editor.dart';
 
-enum _NodeKind { widget, container, spacer }
-
 class NodeEditDialog extends StatefulWidget {
   final DesignEditorController controller;
   final DesignNode? node; // nullなら新規作成
@@ -37,9 +35,10 @@ class NodeEditDialog extends StatefulWidget {
 }
 
 class _NodeEditDialogState extends State<NodeEditDialog> {
-  late _NodeKind _kind;
+  late NodeKind _kind;
   String? _draftName;
   late Map<Breakpoint, NodeBreakpointStyle?> _draftStyles; // nullは「継承」を表す一時状態
+  bool get _canSave => _kind != NodeKind.widget || _draftName != null;
 
   @override
   void initState() {
@@ -47,16 +46,18 @@ class _NodeEditDialogState extends State<NodeEditDialog> {
     final node = widget.node;
     _draftName = node?.name;
     _kind = node == null
-        ? _NodeKind.widget
+        ? NodeKind.widget
         : node.name != null
-        ? _NodeKind.widget
+        ? NodeKind.widget
         : node.isLeaf
-        ? _NodeKind.spacer
-        : _NodeKind.container;
-    _draftStyles = {
-      for (final bp in Breakpoint.values)
-        bp: node?.styles[bp], // 明示値のみコピー、継承はnullのまま
-    };
+        ? NodeKind.spacer
+        : NodeKind.container;
+    _draftStyles = {for (final bp in Breakpoint.values) bp: node?.styles[bp]};
+    // 新規作成時、compactは必須のため最初から明示値を入れておく。
+    _draftStyles[Breakpoint.compact] ??= const NodeBreakpointStyle(width: 1);
+    _draftName ??= widget.controller.nameCatalog.entries.isNotEmpty
+        ? widget.controller.nameCatalog.entries.first.name
+        : null;
   }
 
   /// controller.document の最新状態からノードを引き直す。
@@ -77,14 +78,15 @@ class _NodeEditDialogState extends State<NodeEditDialog> {
     try {
       if (widget.node == null) {
         controller.addNode(
+          _kind,
           parent: widget.parent,
-          name: _kind == _NodeKind.widget ? _draftName : null,
+          name: _kind == NodeKind.widget ? _draftName : null,
           styles: resolvedStyles,
         );
       } else {
         controller.renameNode(
           widget.node!,
-          _kind == _NodeKind.widget ? _draftName : null,
+          _kind == NodeKind.widget ? _draftName : null,
         );
         controller.replaceNodeStyles(widget.node!, resolvedStyles);
       }
@@ -126,25 +128,25 @@ class _NodeEditDialogState extends State<NodeEditDialog> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  SegmentedButton<_NodeKind>(
+                  SegmentedButton<NodeKind>(
                     segments: const [
                       ButtonSegment(
-                        value: _NodeKind.widget,
+                        value: NodeKind.widget,
                         label: Text('Widget'),
                       ),
                       ButtonSegment(
-                        value: _NodeKind.container,
+                        value: NodeKind.container,
                         label: Text('コンテナ（行）'),
                       ),
                       ButtonSegment(
-                        value: _NodeKind.spacer,
+                        value: NodeKind.spacer,
                         label: Text('空きセル'),
                       ),
                     ],
                     selected: {_kind},
                     onSelectionChanged: (s) => setState(() => _kind = s.first),
                   ),
-                  if (_kind == _NodeKind.widget)
+                  if (_kind == NodeKind.widget)
                     DropdownButtonFormField<String>(
                       initialValue: _draftName,
                       decoration: const InputDecoration(
@@ -167,7 +169,7 @@ class _NodeEditDialogState extends State<NodeEditDialog> {
                     onChanged: (bp, style) =>
                         setState(() => _draftStyles[bp] = style),
                   ),
-                  if (_kind == _NodeKind.container && node != null) ...[
+                  if (_kind == NodeKind.container && node != null) ...[
                     const Divider(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -202,7 +204,18 @@ class _NodeEditDialogState extends State<NodeEditDialog> {
               onPressed: () => Navigator.of(context).pop(),
               child: const Text('キャンセル'),
             ),
-            FilledButton(onPressed: _onSave, child: const Text('保存')),
+            FilledButton(
+              onPressed: _canSave ? _onSave : null,
+              child: const Text('保存'),
+            ),
+            if (_kind == NodeKind.widget && _draftName == null)
+              const Padding(
+                padding: EdgeInsets.only(top: 4),
+                child: Text(
+                  '名前を選択してください',
+                  style: TextStyle(fontSize: 12, color: Colors.red),
+                ),
+              ),
           ],
         );
       },
