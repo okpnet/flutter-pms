@@ -55,3 +55,12 @@ int subtreeHeight(DesignNode node) {
   if (node.children.isEmpty) return 1;
   return 1 + node.children.map(subtreeHeight).reduce((a, b) => a > b ? a : b);
 }
+
+/// candidateAncestor自身、またはその子孫のどこかにnodeIdを持つノードが存在するか。
+bool containsDescendant(DesignNode candidateAncestor, String nodeId) {
+  for (final child in candidateAncestor.children) {
+    if (child.id == nodeId) return true;
+    if (containsDescendant(child, nodeId)) return true;
+  }
+  return false;
+}

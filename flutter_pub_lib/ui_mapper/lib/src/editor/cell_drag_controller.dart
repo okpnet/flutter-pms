@@ -1,6 +1,6 @@
+import '../../editor.dart';
 import '../model/design_node.dart';
 import '../model/design_tree_utils.dart';
-import 'design_editor_controller.dart';
 
 class CellDragController {
   final DesignEditorController editor;
@@ -11,11 +11,16 @@ class CellDragController {
     required DesignNode? targetParent,
     required int targetIndex,
   }) {
+    if (targetParent != null &&
+        (targetParent.id == node.id ||
+            containsDescendant(node, targetParent.id))) {
+      throw const CircularNestingException();
+    }
+
     final targetDepth = targetParent == null
         ? 1
         : nodeDepth(editor.document.rootNodes, targetParent.id) + 1;
     final movingHeight = subtreeHeight(node);
-
     if (targetDepth + movingHeight - 1 > editor.maxNestingDepth) {
       throw NestingLimitExceededException(editor.maxNestingDepth);
     }

@@ -1,7 +1,15 @@
 import 'breakpoint.dart';
 import 'node_breakpoint_style.dart';
 
-enum NodeKind { widget, container, spacer }
+enum NodeKind {
+  widget,
+  container,
+  spacer;
+
+  static NodeKind fromJson(String value) =>
+      NodeKind.values.firstWhere((k) => k.name == value);
+  String toJson() => name;
+}
 
 class DesignNode {
   final String id;
@@ -18,14 +26,32 @@ class DesignNode {
     required this.id,
     required this.nodeType,
     this.name,
-    this.children = const [],
+    List<DesignNode>? children, // paramは受け取るだけ。fieldへは下でコピーする
 
     required this.styles,
-  }) {
+  }) : children = List.of(children ?? const []) {
+    // 必ず可変なリストへコピーする
     if (!styles.containsKey(Breakpoint.compact)) {
       throw ArgumentError(
         'DesignNode(id: $id): styles に Breakpoint.compact が必要です。'
         'compactは全ノードで必須です。',
+      );
+    }
+    if (nodeType == NodeKind.widget && name == null) {
+      throw ArgumentError(
+        'DesignNode(id: $id): nodeType=widget には name が必須です。',
+      );
+    }
+    if (nodeType != NodeKind.widget && name != null) {
+      throw ArgumentError(
+        'DesignNode(id: $id): nodeType=$nodeType では name を指定できません。',
+      );
+    }
+    // ここでの `children` は上のコンストラクタパラメータ（ローカル変数扱い）を指すため、
+    // フィールドを見るには this.children を使う必要がある
+    if (nodeType == NodeKind.spacer && this.children.isNotEmpty) {
+      throw ArgumentError(
+        'DesignNode(id: $id): nodeType=spacer は children を持てません。',
       );
     }
   }

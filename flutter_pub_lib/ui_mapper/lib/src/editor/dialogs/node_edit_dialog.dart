@@ -40,6 +40,8 @@ class _NodeEditDialogState extends State<NodeEditDialog> {
   late Map<Breakpoint, NodeBreakpointStyle?> _draftStyles; // nullは「継承」を表す一時状態
   bool get _canSave => _kind != NodeKind.widget || _draftName != null;
 
+  /// 既存ノード編集時はtrue。種別（nodeType）は作成後固定のため変更不可にする。
+  bool get _isEditingExisting => widget.node != null;
   @override
   void initState() {
     super.initState();
@@ -115,11 +117,6 @@ class _NodeEditDialogState extends State<NodeEditDialog> {
       animation: widget.controller,
       builder: (context, _) {
         final node = _currentNode(widget.controller);
-        final atMaxDepth =
-            node != null &&
-            nodeDepth(widget.controller.document.rootNodes, node.id) >=
-                widget.controller.maxNestingDepth;
-
         return AlertDialog(
           title: Text(widget.node == null ? 'ノードを追加' : 'ノードを編集'),
           content: SizedBox(
@@ -144,8 +141,19 @@ class _NodeEditDialogState extends State<NodeEditDialog> {
                       ),
                     ],
                     selected: {_kind},
-                    onSelectionChanged: (s) => setState(() => _kind = s.first),
+                    // 既存ノード編集時はnullを渡してタップ自体を無効化する
+                    onSelectionChanged: _isEditingExisting
+                        ? null
+                        : (s) => setState(() => _kind = s.first),
                   ),
+                  if (_isEditingExisting)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: Text(
+                        '種別は作成後に変更できません',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ),
                   if (_kind == NodeKind.widget)
                     DropdownButtonFormField<String>(
                       initialValue: _draftName,
@@ -169,7 +177,10 @@ class _NodeEditDialogState extends State<NodeEditDialog> {
                     onChanged: (bp, style) =>
                         setState(() => _draftStyles[bp] = style),
                   ),
-                  if (_kind == NodeKind.container && node != null) ...[
+                  // Widget種別でもchildren保持を許可しているため、
+                  // 「コンテナ」限定ではなく isLeaf==false or container/widget 両方で
+                  // 子リストを出す形に変更（nodeType==spacerの時だけ非表示）
+                  if (_kind != NodeKind.spacer && node != null) ...[
                     const Divider(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -180,14 +191,6 @@ class _NodeEditDialogState extends State<NodeEditDialog> {
                           label: const Text('子を追加'),
                           onPressed: () => _onAddChild(node),
                         ),
-                        if (atMaxDepth)
-                          const Padding(
-                            padding: EdgeInsets.only(top: 4),
-                            child: Text(
-                              '最大ネスト段数に達しています',
-                              style: TextStyle(fontSize: 12),
-                            ),
-                          ),
                       ],
                     ),
                     _ChildrenReorderList(
@@ -204,18 +207,7 @@ class _NodeEditDialogState extends State<NodeEditDialog> {
               onPressed: () => Navigator.of(context).pop(),
               child: const Text('キャンセル'),
             ),
-            FilledButton(
-              onPressed: _canSave ? _onSave : null,
-              child: const Text('保存'),
-            ),
-            if (_kind == NodeKind.widget && _draftName == null)
-              const Padding(
-                padding: EdgeInsets.only(top: 4),
-                child: Text(
-                  '名前を選択してください',
-                  style: TextStyle(fontSize: 12, color: Colors.red),
-                ),
-              ),
+            FilledButton(onPressed: _onSave, child: const Text('保存')),
           ],
         );
       },

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../model/design_node.dart';
+import '../model/design_tree_utils.dart';
 import 'canvas_row_layout.dart';
 import 'cell_drag_controller.dart';
 import 'cell_resize_controller.dart';
@@ -176,7 +177,6 @@ class _NodeContent extends StatelessWidget {
       return const SizedBox.shrink(); // 高さの下限はConstrainedBox(_CanvasCell側)が保証する
     }
 
-    // 3. コンテナ（name無し・子あり）→ 再帰的にネスト描画
     final columnCount = controller
         .previewGridConfig
         .specs[controller.editingBreakpoint]!
@@ -184,22 +184,50 @@ class _NodeContent extends StatelessWidget {
     final rows = CanvasRowLayout(
       columnCount: columnCount,
     ).layoutRows(node.children, controller.editingBreakpoint);
+
+    final content = rows.isNotEmpty
+        ? Column(
+            children: rows
+                .map(
+                  (row) => _CanvasRow(
+                    nodes: row,
+                    controller: controller,
+                    parent: node,
+                    minCellExtent: minCellExtent,
+                  ),
+                )
+                .toList(),
+          )
+        : Center(
+            child: Text('空', style: Theme.of(context).textTheme.bodySmall),
+          );
+
+    // このコンテナ自身を「子として受け入れる」DragTarget。末尾に追加する。
     return Padding(
       padding: const EdgeInsets.all(4),
-      child: rows.isNotEmpty
-          ? Column(
-              children: rows
-                  .map(
-                    (row) => _CanvasRow(
-                      nodes: row,
-                      controller: controller,
-                      parent: node,
-                      minCellExtent: minCellExtent, // ここが漏れていた
-                    ),
-                  )
-                  .toList(),
-            )
-          : Center(child: Text('空')),
+      child: DragTarget<DesignNode>(
+        onWillAcceptWithDetails: (details) =>
+            details.data.id != node.id &&
+            !containsDescendant(details.data, node.id),
+        onAcceptWithDetails: (details) {
+          try {
+            CellDragController(controller).moveNode(
+              node: details.data,
+              targetParent: node,
+              targetIndex: node.children.length,
+            );
+          } on NestingLimitExceededException catch (e) {
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text(e.toString())));
+          } on CircularNestingException catch (e) {
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text(e.toString())));
+          }
+        },
+        builder: (context, candidateData, rejectedData) => content,
+      ),
     );
   }
 }
@@ -289,4 +317,10 @@ class _CanvasRow extends StatelessWidget {
       ),
     );
   }
+}
+
+class CircularNestingException implements Exception {
+  const CircularNestingException();
+  @override
+  String toString() => '自分自身、またはその子孫の中には移動できません。';
 }
