@@ -21,10 +21,7 @@ class _InfoCompany extends State<InfoCompany> {
         ///Title
         ResponsiveCell(
           layout: CommonResponsive.flexLx,
-          child: Text(
-            '会社情報',
-            style: context.textStyleMode(sizeMode: .headlineLarge),
-          ),
+          child: ContentsTitle('会社情報'),
         ),
 
         ///社名

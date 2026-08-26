@@ -39,16 +39,46 @@ class _ListStaff extends ConsumerState<ListStaff> {
     _columns = <TrinaColumn>[
       TrinaColumn(
         hide: true,
-        title: 'ID',
-        field: 'id',
+        title: 'id',
+        field: 'info_staff.info_staff_id',
         type: TrinaColumnType.text(),
       ),
-      TrinaColumn(title: '担当者コード', field: 'code', type: TrinaColumnType.text()),
-      TrinaColumn(title: '氏名', field: 'name', type: TrinaColumnType.text()),
-      TrinaColumn(title: 'カナ', field: 'kana', type: TrinaColumnType.text()),
+      TrinaColumn(
+        title: '削除フラグ',
+        field: 'info_staff.remove',
+        hide: true,
+        type: TrinaColumnType.boolean(trueText: 't', falseText: 'f'),
+      ),
+      TrinaColumn(
+        title: '担当者コード',
+        field: 'info_staff.code',
+        type: TrinaColumnType.text(),
+      ),
+      TrinaColumn(
+        title: 'shared_appellations',
+        field: 'info_staff.shared_appellations_id',
+        hide: true,
+        type: TrinaColumnType.text(),
+      ),
+      TrinaColumn(
+        title: '名前',
+        field: 'shared_appellations.name',
+        type: TrinaColumnType.text(),
+      ),
+
+      TrinaColumn(
+        title: 'かな',
+        field: 'shared_appellations.pronunciation',
+        type: TrinaColumnType.text(),
+      ),
+      TrinaColumn(
+        title: '略称',
+        field: 'shared_appellations.nickname',
+        type: TrinaColumnType.text(),
+      ),
       TrinaColumn(
         title: '性別',
-        field: 'sex',
+        field: 'info_staff.sex',
         type: TrinaColumnType.select<MapEntry<String, String>>(
           [
             MapEntry('male', '男性'),
@@ -70,18 +100,22 @@ class _ListStaff extends ConsumerState<ListStaff> {
       ),
       TrinaColumn(
         title: '電話',
-        field: 'phone',
+        field: 'info_staff.phone',
         type: TrinaColumnType.text(),
       ), //内線のケースもあるので、正規表現をしない
-      TrinaColumn(title: '備考', field: 'remarks', type: TrinaColumnType.text()),
+      TrinaColumn(
+        title: '備考',
+        field: 'info_staff.remarks',
+        type: TrinaColumnType.text(),
+      ),
       TrinaColumn(
         title: '更新日',
-        field: 'update_at',
+        field: 'info_staff.update_at',
         type: TrinaColumnType.date(),
       ),
       TrinaColumn(
         title: '更新者',
-        field: 'update_user',
+        field: 'info_staff.update_user',
         type: TrinaColumnType.text(),
       ),
     ];

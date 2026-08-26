@@ -39,35 +39,50 @@ class _ListCategoryEquipment extends ConsumerState<ListCategoryEquipment> {
     _columns = <TrinaColumn>[
       TrinaColumn(
         hide: true,
-        title: 'ID',
-        field: 'id',
+        title: 'id',
+        field: 'mstr_equipment_category.mstr_equipment_category_id',
         type: TrinaColumnType.text(),
+      ),
+
+      TrinaColumn(
+        title: '削除フラグ',
+        field: 'mstr_equipment_category.remove',
+        hide: true,
+        type: TrinaColumnType.boolean(trueText: 't', falseText: 'f'),
       ),
       TrinaColumn(
         title: '設備分類コード',
-        field: 'code',
+        field: 'mstr_equipment_category.code',
         type: TrinaColumnType.text(),
       ),
-      TrinaColumn(title: '分類名', field: 'name', type: TrinaColumnType.text()),
+      TrinaColumn(
+        title: '分類名',
+        field: 'mstr_equipment_category.name',
+        type: TrinaColumnType.text(),
+      ),
       TrinaColumn(
         title: '適用開始',
-        field: 'start_at',
+        field: 'mstr_equipment_category.start_at',
         type: TrinaColumnType.date(),
       ),
       TrinaColumn(
         title: '適用終了',
-        field: 'stop_at',
+        field: 'mstr_equipment_category.stop_at',
         type: TrinaColumnType.date(),
       ),
-      TrinaColumn(title: '備考', field: 'remarks', type: TrinaColumnType.text()),
+      TrinaColumn(
+        title: '備考',
+        field: 'mstr_equipment_category.remarks',
+        type: TrinaColumnType.text(),
+      ),
       TrinaColumn(
         title: '更新日',
-        field: 'update_at',
+        field: 'mstr_equipment_category.update_at',
         type: TrinaColumnType.date(),
       ),
       TrinaColumn(
         title: '更新者',
-        field: 'update_user',
+        field: 'mstr_equipment_category.update_user',
         type: TrinaColumnType.text(),
       ),
     ];

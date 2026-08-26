@@ -40,14 +40,44 @@ class _ListOffice extends ConsumerState<ListOffice> {
     _columns = <TrinaColumn>[
       TrinaColumn(
         hide: true,
-        title: 'info_office_id',
-        field: 'info_office_id',
+        title: 'id',
+        field: 'info_office.info_office_id',
         type: TrinaColumnType.text(),
       ),
-      TrinaColumn(title: '事業所コード', field: 'code', type: TrinaColumnType.text()),
-      TrinaColumn(title: '事業所名', field: 'name', type: TrinaColumnType.text()),
-      TrinaColumn(title: 'カナ', field: 'kana', type: TrinaColumnType.text()),
-      TrinaColumn(title: '略称', field: 'nickname', type: TrinaColumnType.text()),
+
+      TrinaColumn(
+        title: '削除フラグ',
+        field: 'info_office.remove',
+        hide: true,
+        type: TrinaColumnType.boolean(trueText: 't', falseText: 'f'),
+      ),
+      TrinaColumn(
+        title: '事業所コード',
+        field: 'info_office.code',
+        type: TrinaColumnType.text(),
+      ),
+      TrinaColumn(
+        title: 'shared_appellations',
+        field: 'info_office.shared_appellations.id',
+        hide: true,
+        type: TrinaColumnType.text(),
+      ),
+      TrinaColumn(
+        title: '名称',
+        field: 'shared_appellations.name',
+        type: TrinaColumnType.text(),
+      ),
+
+      TrinaColumn(
+        title: 'かな',
+        field: 'shared_appellations.pronunciation',
+        type: TrinaColumnType.text(),
+      ),
+      TrinaColumn(
+        title: '略称',
+        field: 'shared_appellations.nickname',
+        type: TrinaColumnType.text(),
+      ),
       TrinaColumn(
         title: '国',
         field: 'info_address.iso3166_3',
@@ -87,15 +117,19 @@ class _ListOffice extends ConsumerState<ListOffice> {
         field: 'info_address.fax_number',
         type: TrinaColumnType.text(),
       ),
-      TrinaColumn(title: '備考', field: 'remarks', type: TrinaColumnType.text()),
+      TrinaColumn(
+        title: '備考',
+        field: 'info_office.remarks',
+        type: TrinaColumnType.text(),
+      ),
       TrinaColumn(
         title: '更新日',
-        field: 'update_at',
+        field: 'info_office.update_at',
         type: TrinaColumnType.date(),
       ),
       TrinaColumn(
         title: '更新者',
-        field: 'update_user',
+        field: 'info_office.update_user',
         type: TrinaColumnType.text(),
       ),
     ];

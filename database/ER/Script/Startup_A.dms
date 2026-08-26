@@ -493,7 +493,7 @@ class Entity{
     }
     //トリガー
     function Init(entities,relations){
-        var reg=new RegExp("^(info_|mstr_)");
+        var reg=new RegExp("^(info_|mstr_|shared_)");
         var latestReg=new RegExp("^history_"+Name);
         if(!reg.test(Name))return;
         var latest=ext.toFirst(entities,function(e){return latestReg.test(e.Name);});

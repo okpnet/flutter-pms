@@ -35,47 +35,76 @@ class _TreeDepartment extends ConsumerState<TreeDepartment> {
     _columns = <TrinaColumn>[
       TrinaColumn(
         hide: true,
-        title: 'info_department_id',
-        field: 'info_department_id',
+        title: 'id',
+        field: 'info_department.info_department_id',
         type: TrinaColumnType.number(),
       ),
+
       TrinaColumn(
         hide: true,
-        title: 'info_department_tree.info_department_id',
+        title: 'current_id',
         field: 'info_department_tree.info_department_id',
         type: TrinaColumnType.number(),
       ),
       TrinaColumn(
         hide: true,
-        title: 'info_department_tree.parent_info_department_id',
+        title: 'parent_id',
         field: 'info_department_tree.parent_info_department_id',
         type: TrinaColumnType.number(),
       ),
-
-      TrinaColumn(
-        title: '組織コード',
-        field: 'code',
-        type: TrinaColumnType.text(),
-        checkReadOnly: (row, cell) => true,
-        enableRowDrag: true,
-      ),
-      TrinaColumn(title: '組織名', field: 'name', type: TrinaColumnType.text()),
       TrinaColumn(
         title: '子',
         field: 'child_number_of_records',
         type: TrinaColumnType.text(),
       ),
-      TrinaColumn(title: 'カナ', field: 'kana', type: TrinaColumnType.text()),
-      TrinaColumn(title: '略称', field: 'nickname', type: TrinaColumnType.text()),
-      TrinaColumn(title: '備考', field: 'remarks', type: TrinaColumnType.text()),
+      TrinaColumn(
+        title: '削除フラグ',
+        field: 'info_department.remove',
+        hide: true,
+        type: TrinaColumnType.boolean(trueText: 't', falseText: 'f'),
+      ),
+      TrinaColumn(
+        title: '組織コード',
+        field: 'info_department.info_department.code',
+        type: TrinaColumnType.text(),
+        checkReadOnly: (row, cell) => true,
+        enableRowDrag: true,
+      ),
+      TrinaColumn(
+        title: 'shared_appellations',
+        field: 'info_department.shared_appellations.id',
+        hide: true,
+        type: TrinaColumnType.text(),
+      ),
+      TrinaColumn(
+        title: '名称',
+        field: 'shared_appellations.name',
+        type: TrinaColumnType.text(),
+      ),
+
+      TrinaColumn(
+        title: 'かな',
+        field: 'shared_appellations.pronunciation',
+        type: TrinaColumnType.text(),
+      ),
+      TrinaColumn(
+        title: '略称',
+        field: 'shared_appellations.nickname',
+        type: TrinaColumnType.text(),
+      ),
+      TrinaColumn(
+        title: '備考',
+        field: 'info_department.remarks',
+        type: TrinaColumnType.text(),
+      ),
       TrinaColumn(
         title: '更新日',
-        field: 'update_at',
+        field: 'info_department.update_at',
         type: TrinaColumnType.date(),
       ),
       TrinaColumn(
         title: '更新者',
-        field: 'update_user',
+        field: 'info_department.update_user',
         type: TrinaColumnType.text(),
       ),
     ];

@@ -41,19 +41,19 @@ class _TreeLocation extends ConsumerState<TreeLocation> {
     _columns = <TrinaColumn>[
       TrinaColumn(
         hide: true,
-        title: 'mstr_location_id',
-        field: 'mstr_location_id',
+        title: 'id',
+        field: 'mstr_location.mstr_location_id',
         type: TrinaColumnType.text(),
       ),
       TrinaColumn(
         hide: true,
-        title: 'mstr_location_tree.mstr_location_id',
+        title: 'current_id',
         field: 'mstr_location_tree.mstr_location_id',
         type: TrinaColumnType.text(),
       ),
       TrinaColumn(
         hide: true,
-        title: 'mstr_location_tree.parent_mstr_location_id',
+        title: 'parent_id',
         field: 'mstr_location_tree.parent_mstr_location_id',
         type: TrinaColumnType.text(),
       ),
@@ -62,13 +62,41 @@ class _TreeLocation extends ConsumerState<TreeLocation> {
         field: 'child_number_of_records',
         type: TrinaColumnType.text(),
       ),
-      TrinaColumn(title: '場所コード', field: 'code', type: TrinaColumnType.text()),
-      TrinaColumn(title: '場所名', field: 'name', type: TrinaColumnType.text()),
-      TrinaColumn(title: 'カナ', field: 'kana', type: TrinaColumnType.text()),
-      TrinaColumn(title: '略称', field: 'nickname', type: TrinaColumnType.text()),
+      TrinaColumn(
+        title: '削除フラグ',
+        field: 'mstr_location.remove',
+        hide: true,
+        type: TrinaColumnType.boolean(trueText: 't', falseText: 'f'),
+      ),
+      TrinaColumn(
+        title: '場所コード',
+        field: 'mstr_location.code',
+        type: TrinaColumnType.text(),
+      ),
+      TrinaColumn(
+        title: 'shared_appellations',
+        field: 'info_department.shared_appellations.id',
+        hide: true,
+        type: TrinaColumnType.text(),
+      ),
+      TrinaColumn(
+        title: '名称',
+        field: 'shared_appellations.name',
+        type: TrinaColumnType.text(),
+      ),
+      TrinaColumn(
+        title: 'かな',
+        field: 'shared_appellations.pronunciation',
+        type: TrinaColumnType.text(),
+      ),
+      TrinaColumn(
+        title: '略称',
+        field: 'shared_appellations.nickname',
+        type: TrinaColumnType.text(),
+      ),
       TrinaColumn(
         title: '使用可能',
-        field: 'available',
+        field: 'mstr_location.available',
         type: TrinaColumnType.boolean(),
       ),
       TrinaColumn(
@@ -110,15 +138,19 @@ class _TreeLocation extends ConsumerState<TreeLocation> {
         field: 'info_address.fax_number',
         type: TrinaColumnType.text(),
       ),
-      TrinaColumn(title: '備考', field: 'remarks', type: TrinaColumnType.text()),
+      TrinaColumn(
+        title: '備考',
+        field: 'mstr_location.remarks',
+        type: TrinaColumnType.text(),
+      ),
       TrinaColumn(
         title: '更新日',
-        field: 'update_at',
+        field: 'mstr_location.update_at',
         type: TrinaColumnType.date(),
       ),
       TrinaColumn(
         title: '更新者',
-        field: 'update_user',
+        field: 'mstr_location.update_user',
         type: TrinaColumnType.text(),
       ),
     ];

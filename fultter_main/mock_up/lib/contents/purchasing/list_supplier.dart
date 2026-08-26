@@ -3,6 +3,7 @@ import 'package:trina_grid/trina_grid.dart';
 import '../../../imports.dart';
 import '../../../services/behavior/behavior.dart';
 import '../_shared/grids/grid_scope_service/service.dart';
+import '../contents.dart';
 
 class ListSupplier extends ConsumerStatefulWidget {
   const ListSupplier({super.key});
@@ -37,66 +38,87 @@ class _ListSupplier extends ConsumerState<ListSupplier> {
     _columns = <TrinaColumn>[
       TrinaColumn(
         hide: true,
-        title: 'ID',
-        field: 'id',
+        title: 'id',
+        field: 'mstr_stakeholder.mstr_stakeholder_id',
         type: TrinaColumnType.text(),
       ),
-      TrinaColumn(title: '設備コード', field: 'code', type: TrinaColumnType.text()),
       TrinaColumn(
-        title: '設備分類コード',
-        field: 'mstr_equipment_category.code',
-        type: TrinaColumnType.text(),
-      ), //設備区分にリンク
+        title: '削除フラグ',
+        field: 'mstr_stakeholder.remove',
+        hide: true,
+        type: TrinaColumnType.boolean(trueText: 't', falseText: 'f'),
+      ),
       TrinaColumn(
-        title: '分類名',
-        field: 'mstr_equipment_category.name',
+        title: '供給者コード',
+        field: 'mstr_stakeholder.code',
         type: TrinaColumnType.text(),
-      ), //設備区分にリンク
-      TrinaColumn(
-        title: '設備名',
-        field: 'mstr_item.name',
-        type: TrinaColumnType.text(),
-      ), //品目にリンク
-      TrinaColumn(
-        title: 'カナ',
-        field: 'mstr_item.kana',
-        type: TrinaColumnType.text(),
-      ), //品目にリンク
-      TrinaColumn(
-        title: '略称',
-        field: 'nickname',
-        type: TrinaColumnType.text(),
-      ), //品目にリンク
-      TrinaColumn(
-        title: '表示コード',
-        field: 'label_code',
-        type: TrinaColumnType.text(),
-      ), //品目と共用
+      ),
       TrinaColumn(
         title: '管理コード',
-        field: 'control_code',
+        field: 'mstr_stakeholder.control_code',
         type: TrinaColumnType.text(),
-      ), //品目と共用
+      ),
       TrinaColumn(
-        title: 'エリア',
-        field: 'mstr_location.name',
+        title: 'shared_appellations',
+        field: 'info_office.shared_appellations.id',
+        hide: true,
         type: TrinaColumnType.text(),
-      ), //場所と共用
+      ),
       TrinaColumn(
-        title: 'エリアコード',
-        field: 'mstr_location.code',
+        title: '名称',
+        field: 'shared_appellations.name',
         type: TrinaColumnType.text(),
-      ), //場所と共用
+      ),
+
       TrinaColumn(
-        title: '適用開始',
-        field: 'start_at',
-        type: TrinaColumnType.date(),
-      ), //提供マスタ
+        title: 'かな',
+        field: 'shared_appellations.pronunciation',
+        type: TrinaColumnType.text(),
+      ),
       TrinaColumn(
-        title: '適用終了',
-        field: 'stop_at',
-        type: TrinaColumnType.date(),
-      ), //提供マスタ
+        title: '略称',
+        field: 'shared_appellations.nickname',
+        type: TrinaColumnType.text(),
+      ),
+      TrinaColumn(
+        title: '国',
+        field: 'info_address.iso3166_3',
+        type: TrinaColumnType.selectWithSearch<MapEntry<String, String>>(
+          [],
+          itemToString: (item) => item.value,
+          itemToValue: (item) => item.key,
+        ),
+      ),
+      TrinaColumn(
+        title: '郵便番号',
+        field: 'info_address.zip_code',
+        type: TrinaColumnType.text(),
+      ),
+      TrinaColumn(
+        title: '住所1',
+        field: 'info_address.address1',
+        type: TrinaColumnType.text(),
+      ),
+      TrinaColumn(
+        title: '住所2',
+        field: 'info_address.address2',
+        type: TrinaColumnType.text(),
+      ),
+      TrinaColumn(
+        title: '建物',
+        field: 'info_address.bill',
+        type: TrinaColumnType.text(),
+      ),
+      TrinaColumn(
+        title: '電話番号',
+        field: 'info_address.phone',
+        type: TrinaColumnType.text(),
+      ),
+      TrinaColumn(
+        title: 'FAX',
+        field: 'info_address.fax_number',
+        type: TrinaColumnType.text(),
+      ),
       TrinaColumn(title: '備考', field: 'remarks', type: TrinaColumnType.text()),
       TrinaColumn(
         title: '更新日',
@@ -113,7 +135,30 @@ class _ListSupplier extends ConsumerState<ListSupplier> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    // Notifierではなく「状態(state)」を直接watchする
+    final isDirty = ref.watch(isSessionDirtyProvider);
+
+    ///ユーザーの権限でモードを変更
+    return PopScope(
+      canPop: !isDirty,
+      child: ResponsiveGrid(
+        config: ResponsiveGridConfig.standard(),
+        children: [
+          ResponsiveCell(
+            layout: CommonResponsive.flexLx,
+            child: ContentsTitle('供給者'),
+          ),
+          ResponsiveCell(
+            layout: CommonResponsive.flexLx,
+            child: GridList(
+              columns: _columns,
+              mode: .primaryUse,
+              editPath: EditOfficeConstant.path,
+              dropAction: null,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -38,11 +38,26 @@ class _ListEquipment extends ConsumerState<ListEquipment> {
     _columns = <TrinaColumn>[
       TrinaColumn(
         hide: true,
-        title: 'ID',
-        field: 'id',
+        title: 'id',
+        field: 'mstr_equipment.mstr_equipment_id',
         type: TrinaColumnType.text(),
       ),
-      TrinaColumn(title: '設備コード', field: 'code', type: TrinaColumnType.text()),
+      TrinaColumn(
+        title: '削除フラグ',
+        field: 'mstr_equipment.remove',
+        hide: true,
+        type: TrinaColumnType.boolean(trueText: 't', falseText: 'f'),
+      ),
+      TrinaColumn(
+        title: '設備コード',
+        field: 'mstr_equipment.code',
+        type: TrinaColumnType.text(),
+      ),
+      TrinaColumn(
+        title: '設備分類id',
+        field: 'mstr_equipment.mstr_equipment_category_id',
+        type: TrinaColumnType.text(),
+      ), //設備区
       TrinaColumn(
         title: '設備分類コード',
         field: 'mstr_equipment_category.code',
@@ -50,32 +65,38 @@ class _ListEquipment extends ConsumerState<ListEquipment> {
       ), //設備区分にリンク
       TrinaColumn(
         title: '分類名',
-        field: 'mstr_equipment_category.name',
+        field: 'mstr_equipment.mstr_equipment_category.name',
         type: TrinaColumnType.text(),
       ), //設備区分にリンク
       TrinaColumn(
-        title: '設備名',
-        field: 'mstr_item.name',
+        title: 'shared_appellations',
+        field: 'mstr_item.shared_appellations.id',
+        hide: true,
         type: TrinaColumnType.text(),
-      ), //品目にリンク
+      ),
       TrinaColumn(
-        title: 'カナ',
-        field: 'mstr_item.kana',
+        title: '名称',
+        field: 'mstr_item.shared_appellations.name',
         type: TrinaColumnType.text(),
-      ), //品目にリンク
+      ),
+      TrinaColumn(
+        title: 'かな',
+        field: 'mstr_item.shared_appellations.pronunciation',
+        type: TrinaColumnType.text(),
+      ),
       TrinaColumn(
         title: '略称',
-        field: 'nickname',
+        field: 'mstr_item.shared_appellations.nickname',
         type: TrinaColumnType.text(),
-      ), //品目にリンク
+      ),
       TrinaColumn(
         title: '表示コード',
-        field: 'label_code',
+        field: 'mstr_equipment.label_code',
         type: TrinaColumnType.text(),
       ), //品目と共用
       TrinaColumn(
         title: '管理コード',
-        field: 'control_code',
+        field: 'mstr_equipment.control_code',
         type: TrinaColumnType.text(),
       ), //品目と共用
       TrinaColumn(
@@ -90,23 +111,27 @@ class _ListEquipment extends ConsumerState<ListEquipment> {
       ), //場所と共用
       TrinaColumn(
         title: '適用開始',
-        field: 'start_at',
+        field: 'mstr_equipment.start_at',
         type: TrinaColumnType.date(),
       ), //提供マスタ
       TrinaColumn(
         title: '適用終了',
-        field: 'stop_at',
+        field: 'mstr_equipment.stop_at',
         type: TrinaColumnType.date(),
       ), //提供マスタ
-      TrinaColumn(title: '備考', field: 'remarks', type: TrinaColumnType.text()),
+      TrinaColumn(
+        title: '備考',
+        field: 'mstr_equipment.remarks',
+        type: TrinaColumnType.text(),
+      ),
       TrinaColumn(
         title: '更新日',
-        field: 'update_at',
+        field: 'mstr_equipment.update_at',
         type: TrinaColumnType.date(),
       ),
       TrinaColumn(
         title: '更新者',
-        field: 'update_user',
+        field: 'mstr_equipment.update_user',
         type: TrinaColumnType.text(),
       ),
     ];
