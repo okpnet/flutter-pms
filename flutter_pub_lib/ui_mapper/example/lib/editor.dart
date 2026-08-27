@@ -72,6 +72,25 @@ class _Editor extends State<Editor> {
                   parent: null,
                 ),
               ),
+              ElevatedButton.icon(
+                onPressed: () async {
+                  final json = controller.document.toJson().toString();
+                  final result = await showDialog<String>(
+                    context: context,
+                    builder: (_context) => AlertDialog(
+                      content: Text(json, softWrap: true),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(json),
+                          child: Text('OK'),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                label: Text('JSON'),
+                icon: Icon(Icons.save),
+              ),
             ],
           ),
           DesignCanvas(controller: controller), //コントローラーでもカタログを要求するので冗長

@@ -2,13 +2,16 @@ import 'breakpoint.dart';
 import 'node_breakpoint_style.dart';
 
 enum NodeKind {
-  widget,
-  container,
-  spacer;
+  widget('w'),
+  container('c'),
+  spacer('s');
 
+  final String value;
+
+  const NodeKind(this.value);
   static NodeKind fromJson(String value) =>
-      NodeKind.values.firstWhere((k) => k.name == value);
-  String toJson() => name;
+      NodeKind.values.firstWhere((k) => k.value == value);
+  String toJson() => value;
 }
 
 class DesignNode {
@@ -88,7 +91,7 @@ class DesignNode {
           .map((c) => DesignNode.fromJson(c as Map<String, dynamic>))
           .toList(),
       styles: styles,
-      nodeType: json['type'] as NodeKind,
+      nodeType: NodeKind.fromJson(json['type'] as String),
     );
   }
 
@@ -98,6 +101,6 @@ class DesignNode {
     'children': children.map((c) => c.toJson()).toList(),
     // 継承元と同一の場合でも、明示的に定義されたキーのみ出力する
     'styles': styles.map((k, v) => MapEntry(k.toJson(), v.toJson())),
-    'type': nodeType.toString(),
+    'type': nodeType.toJson(),
   };
 }
