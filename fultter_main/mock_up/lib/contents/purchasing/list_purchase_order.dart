@@ -85,10 +85,31 @@ class _ListPurchaseOrder extends ConsumerState<ListPurchaseOrder> {
         type: TrinaColumnType.date(),
       ),
       TrinaColumn(
-        title: 'ステータス',
-        field: 'status',
+        title: '計画ID',
+        field: 'trans_purchase_detail.trans_resorce_plan_id',
         type: TrinaColumnType.date(),
-      ), //進捗。受入済数/発注詳細件数
+      ),
+      TrinaColumn(
+        title: '品目番号',
+        field: 'mstr_item.code',
+        type: TrinaColumnType.text(),
+      ),
+      TrinaColumn(
+        title: '品目名',
+        field: 'mstr_item.shared_appellations.name',
+        type: TrinaColumnType.text(),
+      ),
+      TrinaColumn(
+        title: '数量',
+        field: 'trans_purchase_detail.quantity',
+        type: TrinaColumnType.number(),
+      ),
+      TrinaColumn(
+        title: '受入済',
+        field: 'trans_purchase_rec.quantity',
+        type: TrinaColumnType.number(),
+      ),
+      TrinaColumn(title: '納期', field: 'status', type: TrinaColumnType.date()),
       TrinaColumn(title: '備考', field: 'remarks', type: TrinaColumnType.text()),
       TrinaColumn(
         title: '更新日',

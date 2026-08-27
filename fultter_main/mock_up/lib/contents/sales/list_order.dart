@@ -49,7 +49,7 @@ class _ListOrder extends ConsumerState<ListOrder> {
         type: TrinaColumnType.boolean(trueText: 't', falseText: 'f'),
       ),
       TrinaColumn(
-        title: '供給者コード',
+        title: '顧客コード',
         field: 'mstr_stakeholder.code',
         type: TrinaColumnType.text(),
       ),
@@ -60,7 +60,7 @@ class _ListOrder extends ConsumerState<ListOrder> {
         type: TrinaColumnType.text(),
       ),
       TrinaColumn(
-        title: '供給者名',
+        title: '顧客名',
         field: 'shared_appellations.name',
         type: TrinaColumnType.text(),
       ),
@@ -84,11 +84,22 @@ class _ListOrder extends ConsumerState<ListOrder> {
         field: 'trans_purchase.deadline',
         type: TrinaColumnType.date(),
       ),
+      TrinaColumn(title: '受注日', field: 'status', type: TrinaColumnType.date()),
+      TrinaColumn(title: '納期', field: 'status', type: TrinaColumnType.date()),
+      TrinaColumn(title: '完了予定', field: 'status', type: TrinaColumnType.date()),
+      TrinaColumn(title: '出荷予定', field: 'status', type: TrinaColumnType.date()),
       TrinaColumn(
-        title: 'ステータス',
-        field: 'status',
-        type: TrinaColumnType.date(),
-      ), //進捗。受入済数/発注詳細件数
+        title: '品目番号',
+        field: 'mstr_item.code',
+        type: TrinaColumnType.text(),
+      ),
+      TrinaColumn(
+        title: '品目名',
+        field: 'mstr_item.shared_appellations.name',
+        type: TrinaColumnType.text(),
+      ),
+      TrinaColumn(title: '数量', field: 'status', type: TrinaColumnType.number()),
+      TrinaColumn(title: '個別納期', field: 'status', type: TrinaColumnType.date()),
       TrinaColumn(title: '備考', field: 'remarks', type: TrinaColumnType.text()),
       TrinaColumn(
         title: '更新日',
