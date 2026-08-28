@@ -1,7 +1,7 @@
 // Project imports:
 
 import '../../../imports.dart';
-import '../actual.dart';
+import '../_actual.dart';
 
 part 'register_actual_production_router.g.dart';
 

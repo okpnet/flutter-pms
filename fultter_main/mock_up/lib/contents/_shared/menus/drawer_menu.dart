@@ -1,7 +1,7 @@
 // Package imports:
 import 'package:theme_lib/constants/constant.dart';
 
-import 'menus.dart';
+import '_menus.dart';
 
 // Project imports:
 

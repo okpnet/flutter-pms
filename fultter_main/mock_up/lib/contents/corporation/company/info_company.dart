@@ -1,7 +1,7 @@
 // Package imports:
 import 'package:mock_up/imports.dart';
 
-import '../../_shared/shared.dart';
+import '../../_shared/_shared.dart';
 
 ///会社の情報
 class InfoCompany extends StatefulWidget {

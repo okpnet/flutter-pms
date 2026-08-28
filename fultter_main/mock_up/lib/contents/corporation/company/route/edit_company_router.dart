@@ -1,6 +1,6 @@
 // Project imports:
 import '../../../../imports.dart';
-import '../company.dart';
+import '../_company.dart';
 
 part 'edit_company_router.g.dart';
 

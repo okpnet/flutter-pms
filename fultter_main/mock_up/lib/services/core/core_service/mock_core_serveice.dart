@@ -1,6 +1,6 @@
 import 'package:mock_up/contents/_models/error/error.dart';
 import 'package:mock_up/contents/_notice/route/notice_extenssion.dart';
-import 'package:mock_up/contents/_notice/route/router.dart';
+import 'package:mock_up/contents/_notice/route/_route.dart';
 import 'package:mock_up/contents/contents.dart';
 import 'package:mock_up/services/core/core.dart';
 import 'package:mock_up/services/core/core_service/app_standard_time.dart';

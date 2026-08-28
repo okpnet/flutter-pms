@@ -1,7 +1,7 @@
-import 'package:mock_up/contents/_models/models.dart';
-
-import '../../../imports.dart';
-import '../notice.dart';
+import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mock_up/contents/_models/maintenance/maintenance_status.dart';
+import 'package:mock_up/contents/_notice/maintenance.dart';
 
 part 'maintenance_router.g.dart';
 

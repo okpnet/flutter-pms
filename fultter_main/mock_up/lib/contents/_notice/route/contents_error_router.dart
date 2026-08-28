@@ -1,7 +1,7 @@
 // Project imports:
 import 'package:mock_up/contents/_models/error/app_error.dart';
 import 'package:mock_up/contents/_models/error/specific_error.dart';
-import 'package:mock_up/contents/_notice/notice.dart';
+import 'package:mock_up/contents/_notice/_notice.dart';
 import 'package:mock_up/imports.dart';
 
 part 'contents_error_router.g.dart';

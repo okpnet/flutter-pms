@@ -96,22 +96,60 @@ RouteBase get $contentsControlRouter => ShellRouteData.$route(
         StatefulShellBranchData.$branch(
           routes: [
             GoRouteData.$route(
-              path: '/items/category',
-              name: 'category_of_item',
+              path: '/deliverables/item/size/kind/list',
+              name: 'list_of_item_size_kind',
               hasOverriddenOnExit: false,
-              factory: $ListCategoryItemRouter._fromState,
+              factory: $ListItemSizeKindRouter._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: '/deliverables/item/size/kind/edit',
+                  name: 'item_size_kind_edit',
+                  hasOverriddenOnExit: false,
+                  factory: $EditItemSizeKindRouter._fromState,
+                ),
+              ],
             ),
             GoRouteData.$route(
-              path: '/items/list',
+              path: '/deliverables/item/kind/list',
+              name: 'kind_of_item',
+              hasOverriddenOnExit: false,
+              factory: $ListItemKindRouter._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: '/deliverables/item/kind/edit',
+                  name: 'item_kind_edit',
+                  hasOverriddenOnExit: false,
+                  factory: $EditItemKindRouter._fromState,
+                ),
+              ],
+            ),
+            GoRouteData.$route(
+              path: '/deliverables/item/list',
               name: 'list_of_item',
               hasOverriddenOnExit: false,
               factory: $ListItemRouter._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: '/deliverables/item/edit',
+                  name: 'item_edit',
+                  hasOverriddenOnExit: false,
+                  factory: $EditItemRouter._fromState,
+                ),
+              ],
             ),
             GoRouteData.$route(
-              path: '/items/tree',
+              path: '/deliverables/item/tree',
               name: 'tree_of_item',
               hasOverriddenOnExit: false,
               factory: $TreeItemRouter._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: '/deliverables/item/edit',
+                  name: 'item_edit',
+                  hasOverriddenOnExit: false,
+                  factory: $EditItemRouter._fromState,
+                ),
+              ],
             ),
           ],
         ),
@@ -127,7 +165,7 @@ RouteBase get $contentsControlRouter => ShellRouteData.$route(
               path: '/orgresources/category',
               name: 'category_of_equipment',
               hasOverriddenOnExit: false,
-              factory: $ListCategoryEquipmentRouter._fromState,
+              factory: $ListEquipmentKindRouter._fromState,
             ),
             GoRouteData.$route(
               path: '/orgresources/location',
@@ -475,12 +513,77 @@ mixin $StockStateRouter on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin $ListCategoryItemRouter on GoRouteData {
-  static ListCategoryItemRouter _fromState(GoRouterState state) =>
-      const ListCategoryItemRouter();
+mixin $ListItemSizeKindRouter on GoRouteData {
+  static ListItemSizeKindRouter _fromState(GoRouterState state) =>
+      const ListItemSizeKindRouter();
 
   @override
-  String get location => GoRouteData.$location('/items/category');
+  String get location =>
+      GoRouteData.$location('/deliverables/item/size/kind/list');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $EditItemSizeKindRouter on GoRouteData {
+  static EditItemSizeKindRouter _fromState(GoRouterState state) =>
+      const EditItemSizeKindRouter();
+
+  @override
+  String get location =>
+      GoRouteData.$location('/deliverables/item/size/kind/edit');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $ListItemKindRouter on GoRouteData {
+  static ListItemKindRouter _fromState(GoRouterState state) =>
+      const ListItemKindRouter();
+
+  @override
+  String get location => GoRouteData.$location('/deliverables/item/kind/list');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $EditItemKindRouter on GoRouteData {
+  static EditItemKindRouter _fromState(GoRouterState state) =>
+      const EditItemKindRouter();
+
+  @override
+  String get location => GoRouteData.$location('/deliverables/item/kind/edit');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -501,7 +604,28 @@ mixin $ListItemRouter on GoRouteData {
       const ListItemRouter();
 
   @override
-  String get location => GoRouteData.$location('/items/list');
+  String get location => GoRouteData.$location('/deliverables/item/list');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $EditItemRouter on GoRouteData {
+  static EditItemRouter _fromState(GoRouterState state) =>
+      const EditItemRouter();
+
+  @override
+  String get location => GoRouteData.$location('/deliverables/item/edit');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -522,7 +646,7 @@ mixin $TreeItemRouter on GoRouteData {
       const TreeItemRouter();
 
   @override
-  String get location => GoRouteData.$location('/items/tree');
+  String get location => GoRouteData.$location('/deliverables/item/tree');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -559,9 +683,9 @@ mixin $ListEquipmentRouter on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin $ListCategoryEquipmentRouter on GoRouteData {
-  static ListCategoryEquipmentRouter _fromState(GoRouterState state) =>
-      const ListCategoryEquipmentRouter();
+mixin $ListEquipmentKindRouter on GoRouteData {
+  static ListEquipmentKindRouter _fromState(GoRouterState state) =>
+      const ListEquipmentKindRouter();
 
   @override
   String get location => GoRouteData.$location('/orgresources/category');

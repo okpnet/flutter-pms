@@ -1,6 +1,6 @@
 import '../../imports.dart';
 import '../../services/settings/settings.dart';
-import '../_shared/shared.dart';
+import '../_shared/_shared.dart';
 
 class UserSetting extends ConsumerStatefulWidget {
   const UserSetting({super.key});

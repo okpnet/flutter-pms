@@ -1,7 +1,7 @@
 // Project imports:
 
 import '../../imports.dart';
-import '../_shared/shared.dart';
+import '../_shared/_shared.dart';
 
 class ContentsFrameRouter extends StatefulShellRouteData {
   const ContentsFrameRouter();

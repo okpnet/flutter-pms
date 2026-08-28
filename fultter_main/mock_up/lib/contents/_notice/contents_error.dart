@@ -1,6 +1,6 @@
 import '../../imports.dart';
 import '../_models/error/error.dart';
-import '../_shared/shared.dart';
+import '../_shared/_shared.dart';
 
 class ContentError extends ConsumerWidget {
   final SpecificError? errorStattus;

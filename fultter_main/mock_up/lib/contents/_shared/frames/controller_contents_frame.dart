@@ -3,7 +3,7 @@ import 'package:mock_up/services/authorization/mock_autorize_service.dart';
 import 'package:mock_up/services/core/core_service/core_service.dart';
 
 import '../../../imports.dart';
-import '../shared.dart';
+import '../_shared.dart';
 
 class ControllerContentsFrame extends ConsumerWidget {
   final StatefulNavigationShell navigationShell;

@@ -9,7 +9,7 @@ part of 'list_equipment_router.dart';
 List<RouteBase> get $appRoutes => [$listEquipmentRouter];
 
 RouteBase get $listEquipmentRouter => GoRouteData.$route(
-  path: '/equipments/equipment',
+  path: '/orgresources/equipment',
   name: 'equipment',
   hasOverriddenOnExit: false,
   factory: $ListEquipmentRouter._fromState,
@@ -20,7 +20,7 @@ mixin $ListEquipmentRouter on GoRouteData {
       const ListEquipmentRouter();
 
   @override
-  String get location => GoRouteData.$location('/equipments/equipment');
+  String get location => GoRouteData.$location('/orgresources/equipment');
 
   @override
   void go(BuildContext context) => context.go(location);

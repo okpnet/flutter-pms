@@ -2,7 +2,7 @@
 
 import '../../../imports.dart';
 import '../../services/services.dart';
-import '../_shared/shared.dart';
+import '../_shared/_shared.dart';
 
 class Login extends ConsumerStatefulWidget {
   const Login({super.key});

@@ -9,7 +9,7 @@ part of 'tree_location_router.dart';
 List<RouteBase> get $appRoutes => [$treeLocationRouter];
 
 RouteBase get $treeLocationRouter => GoRouteData.$route(
-  path: '/equipments/location',
+  path: '/orgresources/location',
   name: 'location',
   hasOverriddenOnExit: false,
   factory: $TreeLocationRouter._fromState,
@@ -20,7 +20,7 @@ mixin $TreeLocationRouter on GoRouteData {
       const TreeLocationRouter();
 
   @override
-  String get location => GoRouteData.$location('/equipments/location');
+  String get location => GoRouteData.$location('/orgresources/location');
 
   @override
   void go(BuildContext context) => context.go(location);

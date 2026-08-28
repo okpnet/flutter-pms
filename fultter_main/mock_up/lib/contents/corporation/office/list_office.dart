@@ -6,7 +6,7 @@ import 'package:trina_grid/trina_grid.dart';
 import '../../../imports.dart';
 import '../../../services/behavior/behavior.dart';
 import '../../_shared/grids/grid_scope_service/service.dart';
-import '../../_shared/shared.dart';
+import '../../_shared/_shared.dart';
 
 class ListOffice extends ConsumerStatefulWidget {
   const ListOffice({super.key});

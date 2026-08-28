@@ -1,5 +1,5 @@
 import 'package:mock_up/contents/_models/models.dart';
-import 'package:mock_up/contents/_shared/shared.dart';
+import 'package:mock_up/contents/_shared/_shared.dart';
 
 import '../../imports.dart';
 

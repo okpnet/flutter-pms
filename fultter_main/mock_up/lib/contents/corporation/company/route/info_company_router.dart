@@ -1,5 +1,5 @@
 import '../../../../imports.dart';
-import '../company.dart';
+import '../_company.dart';
 
 part 'info_company_router.g.dart';
 

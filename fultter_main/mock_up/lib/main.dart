@@ -1,7 +1,7 @@
 // Project imports:
 import 'package:mock_up/services/services.dart';
 
-import 'contents/_splash/splash.dart';
+import 'contents/_splash/_splash.dart';
 import 'imports.dart';
 
 void main() {

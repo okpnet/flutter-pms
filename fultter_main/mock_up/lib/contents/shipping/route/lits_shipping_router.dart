@@ -1,5 +1,5 @@
 import '../../../imports.dart';
-import '../shipping.dart';
+import '../_shipping.dart';
 part 'lits_shipping_router.g.dart';
 
 abstract class LitsShippingConstant {

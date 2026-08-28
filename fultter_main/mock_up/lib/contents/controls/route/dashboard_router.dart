@@ -1,5 +1,5 @@
 import '../../../imports.dart';
-import '../controls.dart';
+import '../_controls.dart';
 
 part 'dashboard_router.g.dart';
 

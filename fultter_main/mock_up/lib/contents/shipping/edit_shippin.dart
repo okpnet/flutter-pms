@@ -1,4 +1,5 @@
 import '../../imports.dart';
+import '../contents.dart';
 
 class EditShippin extends ConsumerStatefulWidget {
   const EditShippin({super.key});
@@ -9,7 +10,14 @@ class EditShippin extends ConsumerStatefulWidget {
 class _EditShippin extends ConsumerState<EditShippin> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return ResponsiveGrid(
+      config: ResponsiveGridConfig.standard(),
+      children: [
+        ResponsiveCell(
+          layout: CommonResponsive.flexLx,
+          child: ContentsTitle('出荷編集'),
+        ),
+      ],
+    );
   }
 }

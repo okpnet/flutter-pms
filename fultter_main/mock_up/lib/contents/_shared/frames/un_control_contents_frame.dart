@@ -2,7 +2,7 @@
 import 'package:mock_up/services/authorization/mock_autorize_service.dart';
 
 import '../../../imports.dart';
-import '../shared.dart';
+import '../_shared.dart';
 
 class UnControlContentsFrame extends ConsumerWidget {
   final Widget body;

@@ -1,43 +1,13 @@
+import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mock_up/contents/_controller/contents_controller.dart';
+import 'package:mock_up/contents/_controller/contents_frame_router.dart';
 import 'package:mock_up/contents/contents.dart';
 import 'package:mock_up/contents/org_resources/locations/route/edit_location_router.dart';
+import 'package:mock_up/contents/org_resources/locations/route/tree_location_router.dart';
 import 'package:mock_up/contents/org_resources/route/org_resource_branch.dart';
-
-import '../../imports.dart';
-
-import '../_notice/route/contents_error_router.dart';
-import '../actual/route/actual_branch.dart';
-import '../actual/route/register_actual_production_router.dart';
-import '../actual/route/register_material_transfer_router.dart';
-import '../actual/route/register_purchase_recive_router.dart';
-import '../actual/route/register_shipping_router.dart';
-import '../actual/route/stock_state_router.dart';
-import '../authorization/route/login_router.dart';
-import '../authorization/route/logout_router.dart';
-import '../corporation/company/route/edit_company_router.dart';
-import '../corporation/company/route/info_company_router.dart';
-import '../corporation/departments/route/tree_department_router.dart';
-import '../corporation/office/route/edit_office_router.dart';
-import '../corporation/office/route/list_office_router.dart';
-import '../corporation/route/corporation_branch.dart';
-import '../corporation/staffs/route/lsit_staff_router.dart';
-import '../org_resources/equipments/route/list_category_equipment_router.dart';
-import '../org_resources/equipments/route/list_equipment_router.dart';
-import '../items/route/item_branch.dart';
-import '../items/route/list_category_item_router.dart';
-import '../items/route/list_item_router.dart';
-import '../items/route/tree_item_router.dart';
-import '../org_resources/locations/route/tree_location_router.dart';
-import '../purchasing/route/list_purchase_order_router.dart';
-import '../purchasing/route/list_supplier_router.dart';
-import '../purchasing/route/purchase_branch.dart';
-import '../sales/route/list_customer_router.dart';
-import '../sales/route/list_order_router.dart';
-import '../sales/route/sales_branch.dart';
-import '../settings/route/app_setting_router.dart';
-import '../settings/route/user_setting_router.dart';
-import '../shipping/route/lits_shipping_router.dart';
-import '../shipping/route/shipping_branch.dart';
-import 'controller.dart';
+import 'package:mock_up/contents/settings/route/app_setting_router.dart';
+import 'package:mock_up/contents/settings/route/user_setting_router.dart';
 
 part 'contents_control_router.g.dart';
 
@@ -105,17 +75,45 @@ final shellNavigatorKey = GlobalKey<NavigatorState>();
         ),
         TypedStatefulShellBranch<ItemBranch>(
           routes: [
-            TypedGoRoute<ListCategoryItemRouter>(
-              path: ListCategoryItemRouterConstant.path,
-              name: ListCategoryItemRouterConstant.name,
+            TypedGoRoute<ListItemSizeKindRouter>(
+              path: ListItemSizeKindRouterConstant.path,
+              name: ListItemSizeKindRouterConstant.name,
+              routes: [
+                TypedGoRoute<EditItemSizeKindRouter>(
+                  path: EditItemSizeKindRouterConstant.path,
+                  name: EditItemSizeKindRouterConstant.name,
+                ),
+              ],
+            ),
+            TypedGoRoute<ListItemKindRouter>(
+              path: ListItemKindRouterConstant.path,
+              name: ListItemKindRouterConstant.name,
+              routes: [
+                TypedGoRoute<EditItemKindRouter>(
+                  path: EditItemKindRouterConstant.path,
+                  name: EditItemKindRouterConstant.name,
+                ),
+              ],
             ),
             TypedGoRoute<ListItemRouter>(
               path: ListItemRouterConstant.path,
               name: ListItemRouterConstant.name,
+              routes: [
+                TypedGoRoute<EditItemRouter>(
+                  path: EditItemRouterConstant.path,
+                  name: EditItemRouterConstant.name,
+                ),
+              ],
             ),
             TypedGoRoute<TreeItemRouter>(
               path: TreeItemRouterConstant.path,
               name: TreeItemRouterConstant.name,
+              routes: [
+                TypedGoRoute<EditItemRouter>(
+                  path: EditItemRouterConstant.path,
+                  name: EditItemRouterConstant.name,
+                ),
+              ],
             ),
           ],
         ),
@@ -125,9 +123,9 @@ final shellNavigatorKey = GlobalKey<NavigatorState>();
               path: ListEquipmentConstant.path,
               name: ListEquipmentConstant.name,
             ),
-            TypedGoRoute<ListCategoryEquipmentRouter>(
-              path: ListCategoryEquipmentConstant.path,
-              name: ListCategoryEquipmentConstant.name,
+            TypedGoRoute<ListEquipmentKindRouter>(
+              path: ListEquipmentKindConstant.path,
+              name: ListEquipmentKindConstant.name,
             ),
             TypedGoRoute<TreeLocationRouter>(
               path: TreeLocationConstant.path,
