@@ -1,0 +1,15 @@
+services:
+  postgraphile:
+    image: graphile/postgraphile:4
+    container_name: postgraphile_server
+    restart: always
+    ports:
+      - "5000:5000"
+    command:
+      - "--connection"
+      - "postgres://${DB_APP_UID}:${DB_APP_PWD}@${DB_IP}:${DB_PORT}/${DB_APP_NAME}"
+      - "--schema"
+      - "${DB_SCHEMA}"
+      - "--watch"
+      - "--export-schema-graphql"
+      - "/schema.graphql"

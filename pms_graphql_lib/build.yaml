@@ -1,14 +1,13 @@
 targets:
   $default:
     sources:
-      - test_hasura/**
+      - test_postgraphile/**
     builders:
       graphql_codegen:
         options:
           schemaPath: 
-            - "test_hasura/graphql/schema.graphql" #Typeやらの
-            - "test_hasura/graphql/sort.graphql"
-          assetsPath: test_hasura/**/*.graphql
+            - "test_postgraphile/graphql/schema.graphql" #Typeやらの
+          assetsPath: test_postgraphile/**/*.graphql
           outputDirectory: "generated" #生成されたクラスの保管DIR
           clients: #ここが無いとOptionsが生成されない
             - graphql_flutter
