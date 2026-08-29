@@ -1,6 +1,6 @@
 // Project imports:
 import 'package:mock_up/services/authorization/mock_autorize_service.dart';
-import 'package:mock_up/services/core/core_service/core_service.dart';
+import 'package:mock_up/services/core/core_service/_core_service.dart';
 
 import '../../../imports.dart';
 import '../_shared.dart';
