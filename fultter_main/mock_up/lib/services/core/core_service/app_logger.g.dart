@@ -13,8 +13,15 @@ part of 'app_logger.dart';
 final loggerServiceProvider = LoggerServiceProvider._();
 
 final class LoggerServiceProvider
-    extends $FunctionalProvider<AsyncValue<Logger>, Logger, FutureOr<Logger>>
-    with $FutureModifier<Logger>, $FutureProvider<Logger> {
+    extends
+        $FunctionalProvider<
+          AsyncValue<DefaultLoggerProvider>,
+          DefaultLoggerProvider,
+          FutureOr<DefaultLoggerProvider>
+        >
+    with
+        $FutureModifier<DefaultLoggerProvider>,
+        $FutureProvider<DefaultLoggerProvider> {
   LoggerServiceProvider._()
     : super(
         from: null,
@@ -31,13 +38,14 @@ final class LoggerServiceProvider
 
   @$internal
   @override
-  $FutureProviderElement<Logger> $createElement($ProviderPointer pointer) =>
-      $FutureProviderElement(pointer);
+  $FutureProviderElement<DefaultLoggerProvider> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
 
   @override
-  FutureOr<Logger> create(Ref ref) {
+  FutureOr<DefaultLoggerProvider> create(Ref ref) {
     return loggerService(ref);
   }
 }
 
-String _$loggerServiceHash() => r'7c2f3e30531de076974ed85c35c2b5bbf9993bda';
+String _$loggerServiceHash() => r'09c0b014153f0e48c3de09f82ea4df2cef660fe6';
