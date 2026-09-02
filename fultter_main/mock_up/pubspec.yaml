@@ -49,7 +49,8 @@ dependencies:
     path: ../../flutter_pub_lib/data_strategist
   query_builder:
     path: ../../flutter_pub_lib/query_builder
-
+  logger_lib:
+    path: ../../flutter_pub_lib/logger_lib
   trina_grid:
     git:
       url: https://github.com/okpnet/trina_grid

@@ -1,0 +1,10 @@
+# Test runner configuration for `flutter test` / `dart test`.
+#
+# The "network" tag marks tests that hit a real, publicly hosted GraphQL API
+# (see test/providers/client_provider_public_api_test.dart) and therefore
+# require outbound internet access. Exclude them in offline environments with:
+#   flutter test --exclude-tags network
+tags:
+  network:
+    description: >-
+      Requires outbound internet access (hits a real public GraphQL API).

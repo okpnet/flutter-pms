@@ -1,0 +1,13 @@
+targets:
+  $default:
+    sources:
+      -  postgraphile/**
+    builders:
+      graphql_codegen:
+        options:
+          schemaPath: 
+            - "postgraphile/schema.graphql" #Typeやらの
+          assetsPath: postgraphile/**/*.graphql
+          outputDirectory: "../lib/postgraphile" #生成されたクラスの保管DIR(先頭の/でプロジェクトルート基準の絶対パス扱いにする)
+          clients: #ここが無いとOptionsが生成されない
+            - graphql_flutter

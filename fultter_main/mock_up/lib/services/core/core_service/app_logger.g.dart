@@ -15,13 +15,11 @@ final loggerServiceProvider = LoggerServiceProvider._();
 final class LoggerServiceProvider
     extends
         $FunctionalProvider<
-          AsyncValue<DefaultLoggerProvider>,
-          DefaultLoggerProvider,
-          FutureOr<DefaultLoggerProvider>
+          AsyncValue<ILoggerProvider>,
+          ILoggerProvider,
+          FutureOr<ILoggerProvider>
         >
-    with
-        $FutureModifier<DefaultLoggerProvider>,
-        $FutureProvider<DefaultLoggerProvider> {
+    with $FutureModifier<ILoggerProvider>, $FutureProvider<ILoggerProvider> {
   LoggerServiceProvider._()
     : super(
         from: null,
@@ -38,14 +36,14 @@ final class LoggerServiceProvider
 
   @$internal
   @override
-  $FutureProviderElement<DefaultLoggerProvider> $createElement(
+  $FutureProviderElement<ILoggerProvider> $createElement(
     $ProviderPointer pointer,
   ) => $FutureProviderElement(pointer);
 
   @override
-  FutureOr<DefaultLoggerProvider> create(Ref ref) {
+  FutureOr<ILoggerProvider> create(Ref ref) {
     return loggerService(ref);
   }
 }
 
-String _$loggerServiceHash() => r'09c0b014153f0e48c3de09f82ea4df2cef660fe6';
+String _$loggerServiceHash() => r'1b8939cfb01d7700eb55aec2e45e416caa277862';
