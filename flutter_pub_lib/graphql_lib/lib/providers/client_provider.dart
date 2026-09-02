@@ -13,28 +13,45 @@ import '../extends/_extends.dart';
 import '../graphql_converters/collection/_collection.dart';
 import '../results/_result.dart';
 
+/// ミューテーションがinsert・updateいずれの種別かを表す。
 enum MutationType { insert, update }
 
-// This class provides a GraphQL client with a specified endpoint and timeout duration.
-// It initializes the client with default policies for queries and mutations, ensuring that all operations fetch data from the network and handle errors appropriately.
-// The `query` method allows you to execute GraphQL queries with a timeout mechanism, throwing a custom exception if the operation exceeds the specified duration.
+/// `graphql`/`graphql_flutter` の [GraphQLClient] をラップし、呼び出しごとの
+/// タイムアウト処理、ログ出力、[GraphqlProverResult] への正規化、Hasura向けの
+/// ミューテーションバッチ実行をまとめて提供するクラス。
 final class GraphQLClientProvider {
+  /// クエリ・ミューテーションおよびエラーのログ出力先。未指定の場合はログ出力を行わない。
   final ILoggerProvider? logger;
+
+  /// 接続先のGraphQLエンドポイントURL。
   final String url;
+
+  /// 全リクエストに付与するHTTPヘッダー。
   final Map<String, String> headers;
-  final bool isHasura;
+
+  /// Hasura、Postgrapileなどの実行パス(同一ドキュメントのミューテーションをバッチ化する)を
+  /// 使用するかどうかに影響する。
+  final bool isBatchMutation;
+
+  /// `save()` でモデルをミューテーションへ変換する際に使用するコンバーターの登録先。
+  /// 未指定の場合、`save()` を呼び出すと例外がスローされる。
   final GraphQLConverterCollection? converterCollection;
 
+  /// クエリ・ミューテーション1回あたりのタイムアウト時間。
   late final Duration timeLimit;
+
+  /// 実際の通信を担う [GraphQLClient] 本体。
   late final GraphQLClient client;
 
+  /// [GraphQLClientProvider] を生成する。[graphQLClient] を指定しない場合は
+  /// [url]・[headers]・[timeLimit] を元に内部で [GraphQLClient] を初期化する。
   GraphQLClientProvider(
     this.url, {
     this.headers = const {},
     this.converterCollection,
     int? timeLimit,
     this.logger,
-    this.isHasura = false,
+    this.isBatchMutation = false,
     GraphQLClient? graphQLClient,
   }) {
     this.timeLimit = timeLimit != null
@@ -43,7 +60,8 @@ final class GraphQLClientProvider {
     client = graphQLClient ?? _initialize();
   }
 
-  // GraphQLのクエリやミューテーションがタイムアウトした場合にスローされる例外を作成する関数
+  /// [operationType] を含むメッセージを持つ [GraphqlTimeoutException] を生成する。
+  /// クエリ・ミューテーションの実行時間が [timeLimit] を超えた場合に呼び出す。
   GraphqlTimeoutException _createTimeoutException(String operationType) {
     return GraphqlTimeoutException(
       message:
@@ -51,7 +69,9 @@ final class GraphQLClientProvider {
     );
   }
 
-  //mutationを実行する関数。引数は、MutationOptionsと、MutationOptionsのDocumentをキーにしてグループ化したもの。グループ化したものは、同じDocumentを持つオプションをinsertとupdateで分けて実行するために使用する。
+  /// [options] で指定された単一のミューテーションを実行する。[key] はログ出力・
+  /// タイムアウト時のメッセージに使用する識別用文字列。実行時間が [timeLimit] を
+  /// 超えた場合は [GraphqlTimeoutException] をスローする。
   Future<GraphqlProverResult<Map<String, dynamic>>> _mutation(
     String key,
     MutationOptions options,
@@ -68,12 +88,14 @@ final class GraphQLClientProvider {
     return _createResult(result);
   }
 
-  //複数のMutationOptionsを受け取り、hasuraかどうかで実行方法を分ける
+  /// [values] に含まれる複数のミューテーションを実行する。[isBatchMutation] の値に応じて
+  /// [_executeHasura] または [_executeNotHasura] へ処理を振り分ける。実行中に例外が
+  /// 発生した場合はログへ記録したうえで再スローする。
   Future<List<GraphqlProverResult<Map<String, dynamic>>>> _execute(
     List<(MutationType, MutationOptions)> values,
   ) async {
     try {
-      return isHasura
+      return isBatchMutation
           ? await _executeHasura(values)
           : await _executeNotHasura(values);
     } catch (ex, stackTrace) {
@@ -86,7 +108,8 @@ final class GraphQLClientProvider {
     }
   }
 
-  //not hasuraの場合は、MutationOptionsのDocumentをキーにしてグループ化せずに、順番に実行する
+  /// 非Hasura向けの実行パス。[values] の各ミューテーションをドキュメント単位で
+  /// グループ化せず、それぞれ独立して並列実行する。
   Future<List<GraphqlProverResult<Map<String, dynamic>>>> _executeNotHasura(
     List<(MutationType, MutationOptions)> values,
   ) async {
@@ -102,7 +125,9 @@ final class GraphQLClientProvider {
     );
   }
 
-  //hasuraの場合は、MutationOptionsのDocumentをキーにしてグループ化し、同じDocumentを持つオプションをinsertとupdateで分けて実行する
+  /// Hasura向けの実行パス。[values] を [MutationOptions.document] 単位でグループ化し、
+  /// 同一ドキュメントを持つinsertはすべて1つの `objects` ミューテーションへマージし、
+  /// updateはモデルごとに個別実行する。
   Future<List<GraphqlProverResult<Map<String, dynamic>>>> _executeHasura(
     List<(MutationType, MutationOptions)> values,
   ) async {
@@ -164,7 +189,8 @@ final class GraphQLClientProvider {
     return await Future.wait(asyncFunc);
   }
 
-  //クエリを実行する関数。引数は、QueryOptions。クエリがタイムアウトした場合は、GraphqlTimeoutExceptionをスローする。
+  /// [options] を指定してGraphQLクエリを実行する。読み取り処理を行いたい場合に
+  /// 呼び出す。実行時間が [timeLimit] を超えた場合は [GraphqlTimeoutException] をスローする。
   Future<GraphqlProverResult<Map<dynamic, dynamic>>> query(
     QueryOptions options,
   ) async {
@@ -185,6 +211,10 @@ final class GraphQLClientProvider {
     }
   }
 
+  /// [resultValue] を [GraphqlProverResult] へ正規化する。内部で発生した例外の型
+  /// (`ServerException`・`SocketException`・`TimeoutException`・`FormatException` など)を
+  /// パターンマッチし、対応する [GraphqlProviderException] のサブタイプへ変換する。
+  /// 未対応の例外型を受け取った場合は [Exception] をスローする。
   GraphqlProverResult<Map<String, dynamic>> _createResult(
     QueryResult resultValue,
   ) {
@@ -238,7 +268,12 @@ final class GraphQLClientProvider {
     );
   }
 
-  //モデルのリストを受け取り、モデルの型に対応するコンバーターが存在するか確認する。存在しない場合は例外をスローする。モデルの型に対応するコンバーターを取得する。モデルが新規かどうかで、insertオプションかupdateオプションを作成する。作成したオプションと、モデルが新規かどうかをタプルにして返す。最後に、作成したオプションのリストを_execute関数に渡して実行する。
+  /// [models] をGraphQLミューテーションとして保存する。読み書きを伴う操作全般に
+  /// 呼び出す。[converterCollection] が未設定の場合、または [models] に含まれる
+  /// いずれかのモデルの型に対応するコンバーターが登録されていない場合は
+  /// [ArgumentError] をスローする。
+  /// 警告: 保存前に [removeDuplicates] で重複するモデルを取り除くため、[models] の
+  /// 内容によっては一部のモデルが実際の保存対象から除外される。
   Future<List<GraphqlProverResult<Map<String, dynamic>>>> save(
     List<IEditModel> models,
   ) async {
@@ -282,7 +317,9 @@ final class GraphQLClientProvider {
     return await _execute(values);
   }
 
-  //GraphQLClientを初期化する関数。HttpLinkを作成し、GraphQLClientを作成する。デフォルトのポリシーは、クエリとミューテーションの両方で、ネットワークからデータを取得し、すべてのエラーを処理するように設定されている。
+  /// [url]・[headers]・[timeLimit] を元に [GraphQLClient] を初期化する。
+  /// クエリ・ミューテーションともにネットワークからのみデータを取得し、
+  /// すべてのエラーを保持するポリシーで生成する。
   GraphQLClient _initialize() {
     final httpLink = HttpLink(url, defaultHeaders: headers);
     final result = GraphQLClient(

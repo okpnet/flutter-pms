@@ -42,11 +42,14 @@ void main() {
     expect(GraphqlTimeoutException(message: 'timeout'), isA<Exception>());
   });
 
-  test('GraphQLConverterCollection is exported and starts empty when given no items', () {
-    final collection = GraphQLConverterCollection([]);
+  test(
+    'GraphQLConverterCollection is exported and starts empty when given no items',
+    () {
+      final collection = GraphQLConverterCollection([]);
 
-    expect(collection.hasConverterFromInstance(_SmokeModel()), isFalse);
-  });
+      expect(collection.hasConverterFromInstance(_SmokeModel()), isFalse);
+    },
+  );
 
   test('removeDuplicates is exported', () {
     final result = removeDuplicates([1, 1, 2]);
@@ -58,6 +61,6 @@ void main() {
     final provider = GraphQLClientProvider('https://example.invalid/graphql');
 
     expect(provider.url, 'https://example.invalid/graphql');
-    expect(provider.isHasura, isFalse);
+    expect(provider.isBatchMutation, isFalse);
   });
 }

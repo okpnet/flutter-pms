@@ -65,9 +65,8 @@ class _FakeConverter implements IGraphQLConverter<_FakeModel> {
   );
 }
 
-GraphQLConverterCollection _converterCollection() => GraphQLConverterCollection([
-  CollectionItem<_FakeModel>(_FakeConverter()),
-]);
+GraphQLConverterCollection _converterCollection() =>
+    GraphQLConverterCollection([CollectionItem<_FakeModel>(_FakeConverter())]);
 
 /// A [Link] that records every [Request] it receives and answers with either
 /// a fixed [Response] or one produced by [onRequest].
@@ -110,15 +109,20 @@ class _RecordingLogger implements ILoggerProvider {
   @override
   int get level => 0;
   @override
-  void debug(String message, {Object? ex, StackTrace? trace}) => debugs.add(message);
+  void debug(String message, {Object? ex, StackTrace? trace}) =>
+      debugs.add(message);
   @override
-  void info(String message, {Object? ex, StackTrace? trace}) => infos.add(message);
+  void info(String message, {Object? ex, StackTrace? trace}) =>
+      infos.add(message);
   @override
-  void warn(String message, {Object? ex, StackTrace? trace}) => warns.add(message);
+  void warn(String message, {Object? ex, StackTrace? trace}) =>
+      warns.add(message);
   @override
-  void error(String message, {Object? ex, StackTrace? trace}) => errors.add(message);
+  void error(String message, {Object? ex, StackTrace? trace}) =>
+      errors.add(message);
   @override
-  void fatal(String message, {Object? ex, StackTrace? trace}) => fatals.add(message);
+  void fatal(String message, {Object? ex, StackTrace? trace}) =>
+      fatals.add(message);
 }
 
 GraphQLClientProvider _buildProvider({
@@ -144,7 +148,7 @@ GraphQLClientProvider _buildProvider({
   return GraphQLClientProvider(
     'offline://test',
     graphQLClient: client,
-    isHasura: isHasura,
+    isBatchMutation: isHasura,
     timeLimit: timeLimit,
     logger: logger,
     converterCollection: converterCollection,
@@ -170,139 +174,175 @@ void main() {
       expect((result as Ok<Map<dynamic, dynamic>>).value['countries'], []);
     });
 
-    test('returns Err(DeveloperError) for a graphql error with no linkException', () async {
-      final link = _RecordingLink(
-        onRequest: (_) => const Response(
-          errors: [GraphQLError(message: 'Cannot query field "bogus"')],
-          response: {},
-        ),
-      );
-      final provider = _buildProvider(link: link);
+    test(
+      'returns Err(DeveloperError) for a graphql error with no linkException',
+      () async {
+        final link = _RecordingLink(
+          onRequest: (_) => const Response(
+            errors: [GraphQLError(message: 'Cannot query field "bogus"')],
+            response: {},
+          ),
+        );
+        final provider = _buildProvider(link: link);
 
-      final result = await provider.query(
-        QueryOptions(document: gql('{ bogus }')),
-      );
+        final result = await provider.query(
+          QueryOptions(document: gql('{ bogus }')),
+        );
 
-      expect(result, isA<Err<Map<dynamic, dynamic>>>());
-      final err = result as Err<Map<dynamic, dynamic>>;
-      expect(err.error, isA<DeveloperError>());
-      expect(err.graphqlErrors, contains('Cannot query field'));
-    });
+        expect(result, isA<Err<Map<dynamic, dynamic>>>());
+        final err = result as Err<Map<dynamic, dynamic>>;
+        expect(err.error, isA<DeveloperError>());
+        expect(err.graphqlErrors, contains('Cannot query field'));
+      },
+    );
 
-    test('returns Err(NetworkError) when the link fails with a SocketException', () async {
-      final link = Link.function(
-        (request, [forward]) => Stream.error(const SocketException('Failed host lookup')),
-      );
-      final provider = _buildProvider(link: link);
+    test(
+      'returns Err(NetworkError) when the link fails with a SocketException',
+      () async {
+        final link = Link.function(
+          (request, [forward]) =>
+              Stream.error(const SocketException('Failed host lookup')),
+        );
+        final provider = _buildProvider(link: link);
 
-      final result = await provider.query(
-        QueryOptions(document: gql('{ countries { code } }')),
-      );
+        final result = await provider.query(
+          QueryOptions(document: gql('{ countries { code } }')),
+        );
 
-      expect(result, isA<Err<Map<dynamic, dynamic>>>());
-      expect((result as Err<Map<dynamic, dynamic>>).error, isA<NetworkError>());
-    });
+        expect(result, isA<Err<Map<dynamic, dynamic>>>());
+        expect(
+          (result as Err<Map<dynamic, dynamic>>).error,
+          isA<NetworkError>(),
+        );
+      },
+    );
 
-    test('rethrows when the failure type has no GraphqlProviderException mapping', () async {
-      final link = Link.function((request, [forward]) => Stream.error(StateError('boom')));
-      final provider = _buildProvider(link: link);
+    test(
+      'rethrows when the failure type has no GraphqlProviderException mapping',
+      () async {
+        final link = Link.function(
+          (request, [forward]) => Stream.error(StateError('boom')),
+        );
+        final provider = _buildProvider(link: link);
 
-      await expectLater(
-        provider.query(QueryOptions(document: gql('{ countries { code } }'))),
-        throwsA(isA<Exception>()),
-      );
-    });
+        await expectLater(
+          provider.query(QueryOptions(document: gql('{ countries { code } }'))),
+          throwsA(isA<Exception>()),
+        );
+      },
+    );
 
-    test('throws GraphqlTimeoutException when the call exceeds timeLimit', () async {
-      final link = _DelayedLink(const Duration(milliseconds: 300));
-      final provider = _buildProvider(link: link, timeLimit: 0);
+    test(
+      'throws GraphqlTimeoutException when the call exceeds timeLimit',
+      () async {
+        final link = _DelayedLink(const Duration(milliseconds: 300));
+        final provider = _buildProvider(link: link, timeLimit: 0);
 
-      await expectLater(
-        provider.query(QueryOptions(document: gql('{ countries { code } }'))),
-        throwsA(isA<GraphqlTimeoutException>()),
-      );
-    });
+        await expectLater(
+          provider.query(QueryOptions(document: gql('{ countries { code } }'))),
+          throwsA(isA<GraphqlTimeoutException>()),
+        );
+      },
+    );
   });
 
   group('GraphQLClientProvider.save (offline)', () {
-    test('throws ArgumentError when no converter collection is configured', () async {
-      final provider = _buildProvider(link: _RecordingLink());
+    test(
+      'throws ArgumentError when no converter collection is configured',
+      () async {
+        final provider = _buildProvider(link: _RecordingLink());
 
-      await expectLater(provider.save([const _FakeModel(1)]), throwsArgumentError);
-    });
+        await expectLater(
+          provider.save([const _FakeModel(1)]),
+          throwsArgumentError,
+        );
+      },
+    );
 
-    test('throws ArgumentError when a model has no registered converter', () async {
-      final provider = _buildProvider(
-        link: _RecordingLink(),
-        converterCollection: _converterCollection(),
-      );
+    test(
+      'throws ArgumentError when a model has no registered converter',
+      () async {
+        final provider = _buildProvider(
+          link: _RecordingLink(),
+          converterCollection: _converterCollection(),
+        );
 
-      await expectLater(provider.save([_UnregisteredModel()]), throwsArgumentError);
-    });
+        await expectLater(
+          provider.save([_UnregisteredModel()]),
+          throwsArgumentError,
+        );
+      },
+    );
 
-    test('executes each mutation independently when isHasura is false', () async {
-      final link = _RecordingLink();
-      final provider = _buildProvider(
-        link: link,
-        converterCollection: _converterCollection(),
-      );
+    test(
+      'executes each mutation independently when isHasura is false',
+      () async {
+        final link = _RecordingLink();
+        final provider = _buildProvider(
+          link: link,
+          converterCollection: _converterCollection(),
+        );
 
-      final results = await provider.save(const [
-        _FakeModel(1),
-        _FakeModel(2),
-        _FakeModel(3, newRecord: false),
-      ]);
+        final results = await provider.save(const [
+          _FakeModel(1),
+          _FakeModel(2),
+          _FakeModel(3, newRecord: false),
+        ]);
 
-      expect(results, hasLength(3));
-      expect(results, everyElement(isA<Ok<Map<String, dynamic>>>()));
-      // Non-hasura mode never batches: 3 models in, 3 requests out.
-      expect(link.requests, hasLength(3));
+        expect(results, hasLength(3));
+        expect(results, everyElement(isA<Ok<Map<String, dynamic>>>()));
+        // Non-hasura mode never batches: 3 models in, 3 requests out.
+        expect(link.requests, hasLength(3));
 
-      final insertVariableLists = link.requests
-          .where((r) => identical(r.operation.document, _insertDocument))
-          .map((r) => r.variables['objects'])
-          .toList();
-      expect(insertVariableLists, [
-        [
+        final insertVariableLists = link.requests
+            .where((r) => identical(r.operation.document, _insertDocument))
+            .map((r) => r.variables['objects'])
+            .toList();
+        expect(insertVariableLists, [
+          [
+            {'id': 1},
+          ],
+          [
+            {'id': 2},
+          ],
+        ]);
+      },
+    );
+
+    test(
+      'batches same-document inserts into a single mutation in hasura mode',
+      () async {
+        final link = _RecordingLink();
+        final provider = _buildProvider(
+          link: link,
+          converterCollection: _converterCollection(),
+          isHasura: true,
+        );
+
+        final results = await provider.save(const [
+          _FakeModel(1),
+          _FakeModel(2),
+          _FakeModel(3, newRecord: false),
+        ]);
+
+        // 1 batched insert mutation + 1 update mutation.
+        expect(results, hasLength(2));
+        expect(link.requests, hasLength(2));
+
+        final insertRequest = link.requests.firstWhere(
+          (r) => identical(r.operation.document, _insertDocument),
+        );
+        expect(insertRequest.variables['objects'], [
           {'id': 1},
-        ],
-        [
           {'id': 2},
-        ],
-      ]);
-    });
+        ]);
 
-    test('batches same-document inserts into a single mutation in hasura mode', () async {
-      final link = _RecordingLink();
-      final provider = _buildProvider(
-        link: link,
-        converterCollection: _converterCollection(),
-        isHasura: true,
-      );
-
-      final results = await provider.save(const [
-        _FakeModel(1),
-        _FakeModel(2),
-        _FakeModel(3, newRecord: false),
-      ]);
-
-      // 1 batched insert mutation + 1 update mutation.
-      expect(results, hasLength(2));
-      expect(link.requests, hasLength(2));
-
-      final insertRequest = link.requests.firstWhere(
-        (r) => identical(r.operation.document, _insertDocument),
-      );
-      expect(insertRequest.variables['objects'], [
-        {'id': 1},
-        {'id': 2},
-      ]);
-
-      final updateRequest = link.requests.firstWhere(
-        (r) => identical(r.operation.document, _updateDocument),
-      );
-      expect(updateRequest.variables, {'id': 3});
-    });
+        final updateRequest = link.requests.firstWhere(
+          (r) => identical(r.operation.document, _updateDocument),
+        );
+        expect(updateRequest.variables, {'id': 3});
+      },
+    );
 
     test('removes duplicate models (keeping the last) and logs it', () async {
       final link = _RecordingLink();
