@@ -1,5 +1,5 @@
 import '../../../imports.dart';
-import '../settings.dart';
+import '../_settings.dart';
 
 part 'user_setting_router.g.dart';
 

@@ -14,6 +14,6 @@ class ContentsTitle extends StatelessWidget {
         colorMode: .defaultMode,
         sizeMode: .headlineLarge,
       ),
-    );
+    ).spaceAll(context);
   }
 }
