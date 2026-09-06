@@ -1,6 +1,8 @@
 services:
   postgraphile:
-    image: graphile/postgraphile:4
+    #image: graphile/postgraphile:4
+    build:
+      context: .
     container_name: postgraphile_server
     restart: always
     ports:
@@ -13,3 +15,5 @@ services:
       - "--watch"
       - "--export-schema-graphql"
       - "/schema.graphql"
+      - "--append-plugins"
+      - "postgraphile-plugin-nested-mutations,postgraphile-plugin-connection-filter"

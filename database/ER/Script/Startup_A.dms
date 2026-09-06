@@ -363,8 +363,9 @@ class Entity{
 //            if(ext.count(pkColumns) > 0){
 //                var pkColumnStr=ext.join(ext.toSelect(pkColumns,function(e){return e.Attr.pName;}),",");
 //                UniqueIndexs.add(new UniqueIndex(Name,pkColumnStr,UniqueIndexs.length+1));
-//                println(pkColumnStr);
+//                //println(pkColumnStr);
 //            }
+
 
             for(var index in entity.indexes){
                 //ERに追加しているインデックス
@@ -452,20 +453,36 @@ class Entity{
         if(relationReg.test(Name)){
             return result;
         }
+
+        //2026/09/05まで稼働していた
+//        for(var index in IsFkRelations){
+//            var rel=IsFkRelations[index];
+//
+//            var fkentity=ext.toFirst(entities,function(e){return (e.Name==rel.entityPName1);});
+//            if(fkentity==null)continue;
+//            var fk=ext.toFirst(fkentity.UniqueIndexs,function(e){return (e.Attr==rel.attributes1);});
+//            if(fk == null){
+//                println(rel.attributes1);
+//                continue;
+//            }
+//            
+//			var fkUpdate=""; 
+//			var fkDelete="";
+//            result+="alter table "+schema+"."+Name+" add constraint " + Name + "_FK" + (index+1) +" foreign key ("+rel.attributes2+") references " +schema+"."+ fk.Name + " (" + fk.Attr + ")" + fkDelete + fkUpdate +" DEFERRABLE INITIALLY DEFERRED;" +CR;
+//        }
         for(var index in IsFkRelations){
             var rel=IsFkRelations[index];
-            //if(new RegExp("^history_id").test(rel.attributes2))continue;
+
             var fkentity=ext.toFirst(entities,function(e){return (e.Name==rel.entityPName1);});
             if(fkentity==null)continue;
-            var fk=ext.toFirst(fkentity.UniqueIndexs,function(e){return (e.Attr==rel.attributes1);});
-            if(fk == null)continue;
             
-			var fkUpdate=""; 
-			var fkDelete="";
-            result+="alter table "+schema+"."+Name+" add constraint " + Name + "_FK" + (index+1) +" foreign key ("+rel.attributes2+") references " +schema+"."+ fk.Name + " (" + fk.Attr + ")" + fkDelete + fkUpdate +" DEFERRABLE INITIALLY DEFERRED;" +CR;
+            var fkUpdate=""; 
+            var fkDelete="";
+            result+="alter table "+schema+"."+Name+" add constraint " + Name + "_FK" + (index+1) +" foreign key ("+rel.attributes2+") references " +schema+"."+ rel.entityPName1 + " (" + rel.attributes1 + ")" + fkDelete + fkUpdate +" DEFERRABLE INITIALLY DEFERRED;" +CR;
         }
+
         
-        result+="alter table "+schema+"."+Name+" add constraint " + Name + "_updater_FK foreign key (update_user_history_id,update_user_id) references " + schema + ".history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;"+CR;
+//        result+="alter table "+schema+"."+Name+" add constraint " + Name + "_updater_FK foreign key (update_user_history_id,update_user_id) references " + schema + ".history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;"+CR;
         return result;
     }
     //テーブル生成クエリ
