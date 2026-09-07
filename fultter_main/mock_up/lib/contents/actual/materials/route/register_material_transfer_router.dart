@@ -7,7 +7,7 @@ part 'register_material_transfer_router.g.dart';
 
 abstract class RegisterMaterialTransferConstant {
   static const String name = 'actual_material_transfer';
-  static const String path = '/actual/material_transfer';
+  static const String path = '/actual/material_transfer/register';
 }
 
 @TypedGoRoute<RegisterMaterialTransferRouter>(

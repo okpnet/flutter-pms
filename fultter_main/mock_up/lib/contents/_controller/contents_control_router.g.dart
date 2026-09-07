@@ -60,10 +60,18 @@ RouteBase get $contentsControlRouter => ShellRouteData.$route(
               ],
             ),
             GoRouteData.$route(
-              path: '/corporation/staff',
+              path: '/corporation/staffs/list',
               name: 'staff',
               hasOverriddenOnExit: false,
               factory: $LsitStaffRouter._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: '/corporation/staffs/edit',
+                  name: 'staff_edit',
+                  hasOverriddenOnExit: false,
+                  factory: $EditStaffRouter._fromState,
+                ),
+              ],
             ),
           ],
         ),
@@ -174,12 +182,28 @@ RouteBase get $contentsControlRouter => ShellRouteData.$route(
               name: 'equipment',
               hasOverriddenOnExit: false,
               factory: $ListEquipmentRouter._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: '/orgresources/equipment/kind/edit',
+                  name: 'kind_of_equipment',
+                  hasOverriddenOnExit: false,
+                  factory: $EditEquipmentRouter._fromState,
+                ),
+              ],
             ),
             GoRouteData.$route(
               path: '/orgresources/category',
               name: 'category_of_equipment',
               hasOverriddenOnExit: false,
               factory: $ListEquipmentKindRouter._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: '/orgresources/equipment/kind/edit',
+                  name: 'kind_of_equipment',
+                  hasOverriddenOnExit: false,
+                  factory: $EditEquipmentKindRouter._fromState,
+                ),
+              ],
             ),
             GoRouteData.$route(
               path: '/orgresources/location',
@@ -204,28 +228,60 @@ RouteBase get $contentsControlRouter => ShellRouteData.$route(
               name: 'supplier',
               hasOverriddenOnExit: false,
               factory: $ListSupplierRouter._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: '/purchasing/order',
+                  name: 'purchase_order',
+                  hasOverriddenOnExit: false,
+                  factory: $EditSupplierRouter._fromState,
+                ),
+              ],
             ),
             GoRouteData.$route(
-              path: '/purchasing/order',
+              path: '/purchasing/orders/list',
               name: 'purchase_order',
               hasOverriddenOnExit: false,
               factory: $ListPurchaseOrderRouter._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: '/purchasing/orders/edit',
+                  name: 'purchase_order_edt',
+                  hasOverriddenOnExit: false,
+                  factory: $EditPurchaseOrderRouter._fromState,
+                ),
+              ],
             ),
           ],
         ),
         StatefulShellBranchData.$branch(
           routes: [
             GoRouteData.$route(
-              path: '/sales/customer',
+              path: '/sales/customers/list',
               name: 'customer',
               hasOverriddenOnExit: false,
               factory: $ListCustomerRouter._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: '/sales/customers/edit',
+                  name: 'customer',
+                  hasOverriddenOnExit: false,
+                  factory: $EditCustomerRouter._fromState,
+                ),
+              ],
             ),
             GoRouteData.$route(
-              path: '/sales/order',
+              path: '/sales/orders/list',
               name: 'order',
               hasOverriddenOnExit: false,
               factory: $ListOrderRouter._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: '/sales/orders/edit',
+                  name: 'order_edit',
+                  hasOverriddenOnExit: false,
+                  factory: $EditOrderRouter._fromState,
+                ),
+              ],
             ),
           ],
         ),
@@ -421,7 +477,27 @@ mixin $LsitStaffRouter on GoRouteData {
       const LsitStaffRouter();
 
   @override
-  String get location => GoRouteData.$location('/corporation/staff');
+  String get location => GoRouteData.$location('/corporation/staffs/list');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $EditStaffRouter on GoRouteData {
+  static EditStaffRouter _fromState(GoRouterState state) => EditStaffRouter();
+
+  @override
+  String get location => GoRouteData.$location('/corporation/staffs/edit');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -733,12 +809,56 @@ mixin $ListEquipmentRouter on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
+mixin $EditEquipmentRouter on GoRouteData {
+  static EditEquipmentRouter _fromState(GoRouterState state) =>
+      const EditEquipmentRouter();
+
+  @override
+  String get location =>
+      GoRouteData.$location('/orgresources/equipment/kind/edit');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
 mixin $ListEquipmentKindRouter on GoRouteData {
   static ListEquipmentKindRouter _fromState(GoRouterState state) =>
       const ListEquipmentKindRouter();
 
   @override
   String get location => GoRouteData.$location('/orgresources/category');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $EditEquipmentKindRouter on GoRouteData {
+  static EditEquipmentKindRouter _fromState(GoRouterState state) =>
+      const EditEquipmentKindRouter();
+
+  @override
+  String get location =>
+      GoRouteData.$location('/orgresources/equipment/kind/edit');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -817,12 +937,54 @@ mixin $ListSupplierRouter on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
+mixin $EditSupplierRouter on GoRouteData {
+  static EditSupplierRouter _fromState(GoRouterState state) =>
+      EditSupplierRouter();
+
+  @override
+  String get location => GoRouteData.$location('/purchasing/order');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
 mixin $ListPurchaseOrderRouter on GoRouteData {
   static ListPurchaseOrderRouter _fromState(GoRouterState state) =>
       const ListPurchaseOrderRouter();
 
   @override
-  String get location => GoRouteData.$location('/purchasing/order');
+  String get location => GoRouteData.$location('/purchasing/orders/list');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $EditPurchaseOrderRouter on GoRouteData {
+  static EditPurchaseOrderRouter _fromState(GoRouterState state) =>
+      EditPurchaseOrderRouter();
+
+  @override
+  String get location => GoRouteData.$location('/purchasing/orders/edit');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -843,7 +1005,28 @@ mixin $ListCustomerRouter on GoRouteData {
       const ListCustomerRouter();
 
   @override
-  String get location => GoRouteData.$location('/sales/customer');
+  String get location => GoRouteData.$location('/sales/customers/list');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $EditCustomerRouter on GoRouteData {
+  static EditCustomerRouter _fromState(GoRouterState state) =>
+      EditCustomerRouter();
+
+  @override
+  String get location => GoRouteData.$location('/sales/customers/edit');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -864,7 +1047,27 @@ mixin $ListOrderRouter on GoRouteData {
       const ListOrderRouter();
 
   @override
-  String get location => GoRouteData.$location('/sales/order');
+  String get location => GoRouteData.$location('/sales/orders/list');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $EditOrderRouter on GoRouteData {
+  static EditOrderRouter _fromState(GoRouterState state) => EditOrderRouter();
+
+  @override
+  String get location => GoRouteData.$location('/sales/orders/edit');
 
   @override
   void go(BuildContext context) => context.go(location);

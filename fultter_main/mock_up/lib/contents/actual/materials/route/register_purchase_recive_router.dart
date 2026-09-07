@@ -7,7 +7,7 @@ part 'register_purchase_recive_router.g.dart';
 
 abstract class RegisterPurchaseReciveConstant {
   static const String name = 'actual_purchase_recive';
-  static const String path = '/actual/purchase_recive';
+  static const String path = '/actual/purchase_recive/register';
 }
 
 @TypedGoRoute<RegisterPurchaseReciveRouter>(
