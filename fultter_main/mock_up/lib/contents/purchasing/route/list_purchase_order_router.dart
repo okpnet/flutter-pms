@@ -4,7 +4,7 @@ part 'list_purchase_order_router.g.dart';
 
 abstract class ListPurchaseOrderConstant {
   static const String name = 'purchase_order';
-  static const String path = '/purchasing/order';
+  static const String path = '/purchasing/orders/list';
 }
 
 @TypedGoRoute<ListPurchaseOrderRouter>(

@@ -1,6 +1,6 @@
 import 'package:mock_up/contents/contents.dart';
 
-import '../../imports.dart';
+import '../../../imports.dart';
 
 class RegisterPurchaseRecive extends ConsumerStatefulWidget {
   const RegisterPurchaseRecive({super.key});

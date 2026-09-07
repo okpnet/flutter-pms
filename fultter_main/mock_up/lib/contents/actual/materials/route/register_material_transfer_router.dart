@@ -1,7 +1,7 @@
 // Project imports:
 
-import '../../../imports.dart';
-import '../_actual.dart';
+import '../../../../imports.dart';
+import '../register_material_transfer.dart';
 
 part 'register_material_transfer_router.g.dart';
 

@@ -1,7 +1,7 @@
 // Project imports:
 
-import '../../../imports.dart';
-import '../_actual.dart';
+import '../../../../imports.dart';
+import '../stock_state.dart';
 
 part 'stock_state_router.g.dart';
 

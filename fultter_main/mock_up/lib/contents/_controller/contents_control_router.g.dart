@@ -36,6 +36,14 @@ RouteBase get $contentsControlRouter => ShellRouteData.$route(
               name: 'department',
               hasOverriddenOnExit: false,
               factory: $TreeDepartmentRouter._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: '/corporation/department/edit',
+                  name: 'edit_department',
+                  hasOverriddenOnExit: false,
+                  factory: $EditDepartmentRouter._fromState,
+                ),
+              ],
             ),
             GoRouteData.$route(
               path: '/corporation/office',
@@ -62,10 +70,16 @@ RouteBase get $contentsControlRouter => ShellRouteData.$route(
         StatefulShellBranchData.$branch(
           routes: [
             GoRouteData.$route(
-              path: '/actual/product',
-              name: 'actual_product',
+              path: '/actual/production/register',
+              name: 'production_register',
               hasOverriddenOnExit: false,
               factory: $RegisterActualProductionRouter._fromState,
+            ),
+            GoRouteData.$route(
+              path: '/actual/production/records',
+              name: 'production_records',
+              hasOverriddenOnExit: false,
+              factory: $RecordsProductionAchievementRouter._fromState,
             ),
             GoRouteData.$route(
               path: '/actual/material_transfer',
@@ -263,12 +277,6 @@ RouteBase get $contentsControlRouter => ShellRouteData.$route(
       hasOverriddenOnExit: false,
       factory: $ContentsErrorRouter._fromState,
     ),
-    GoRouteData.$route(
-      path: '/dashboard',
-      name: 'dashboard',
-      hasOverriddenOnExit: false,
-      factory: $DashboardRouter._fromState,
-    ),
   ],
 );
 
@@ -330,6 +338,27 @@ mixin $TreeDepartmentRouter on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/corporation/department/tree');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $EditDepartmentRouter on GoRouteData {
+  static EditDepartmentRouter _fromState(GoRouterState state) =>
+      const EditDepartmentRouter();
+
+  @override
+  String get location => GoRouteData.$location('/corporation/department/edit');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -413,7 +442,28 @@ mixin $RegisterActualProductionRouter on GoRouteData {
       const RegisterActualProductionRouter();
 
   @override
-  String get location => GoRouteData.$location('/actual/product');
+  String get location => GoRouteData.$location('/actual/production/register');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $RecordsProductionAchievementRouter on GoRouteData {
+  static RecordsProductionAchievementRouter _fromState(GoRouterState state) =>
+      RecordsProductionAchievementRouter();
+
+  @override
+  String get location => GoRouteData.$location('/actual/production/records');
 
   @override
   void go(BuildContext context) => context.go(location);

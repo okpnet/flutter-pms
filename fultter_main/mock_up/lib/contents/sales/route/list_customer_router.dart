@@ -5,7 +5,7 @@ part 'list_customer_router.g.dart';
 
 abstract class ListCustomerConstant {
   static const String name = 'customer';
-  static const String path = '/sales/customer';
+  static const String path = '/sales/customers/list';
 }
 
 @TypedGoRoute<ListCustomerRouter>(

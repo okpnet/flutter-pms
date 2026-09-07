@@ -5,7 +5,7 @@ part 'list_order_router.g.dart';
 
 abstract class ListOrderConstant {
   static const String name = 'order';
-  static const String path = '/sales/order';
+  static const String path = '/sales/orders/list';
 }
 
 @TypedGoRoute<ListOrderRouter>(

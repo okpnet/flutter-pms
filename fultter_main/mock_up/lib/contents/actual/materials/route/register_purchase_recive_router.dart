@@ -1,7 +1,7 @@
 // Project imports:
 
-import '../../../imports.dart';
-import '../_actual.dart';
+import '../../../../imports.dart';
+import '../register_purchase_recive.dart';
 
 part 'register_purchase_recive_router.g.dart';
 

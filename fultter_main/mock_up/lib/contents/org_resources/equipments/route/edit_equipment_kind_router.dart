@@ -4,14 +4,14 @@ import 'package:mock_up/contents/org_resources/equipments/edit_equipment_kind.da
 
 part 'edit_equipment_kind_router.g.dart';
 
-abstract class EditEquipmentKindRouterConstant {
+abstract class EditEquipmentKindConstant {
   static const String name = 'kind_of_equipment';
   static const String path = '/orgresources/equipment/kind/edit';
 }
 
 @TypedGoRoute<EditEquipmentKindRouter>(
-  path: EditEquipmentKindRouterConstant.path,
-  name: EditEquipmentKindRouterConstant.name,
+  path: EditEquipmentKindConstant.path,
+  name: EditEquipmentKindConstant.name,
 )
 class EditEquipmentKindRouter extends GoRouteData
     with $EditEquipmentKindRouter {

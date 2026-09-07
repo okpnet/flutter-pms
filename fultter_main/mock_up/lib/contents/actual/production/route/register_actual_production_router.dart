@@ -1,13 +1,13 @@
 // Project imports:
 
-import '../../../imports.dart';
-import '../_actual.dart';
+import '../../../../imports.dart';
+import '../register_actual_production.dart';
 
 part 'register_actual_production_router.g.dart';
 
 abstract class RegisterActualProductionConstant {
-  static const String name = 'actual_product';
-  static const String path = '/actual/product';
+  static const String name = 'production_register';
+  static const String path = '/actual/production/register';
 }
 
 @TypedGoRoute<RegisterActualProductionRouter>(

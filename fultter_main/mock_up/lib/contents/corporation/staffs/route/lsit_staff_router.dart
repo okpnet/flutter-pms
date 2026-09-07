@@ -6,7 +6,7 @@ part 'lsit_staff_router.g.dart';
 
 abstract class ListStaffConstant {
   static const String name = 'staff';
-  static const String path = '/corporation/staff';
+  static const String path = '/corporation/staffs/list';
 }
 
 @TypedGoRoute<LsitStaffRouter>(
