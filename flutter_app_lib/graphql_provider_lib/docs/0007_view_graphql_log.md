@@ -30,3 +30,45 @@
 - #6・#7はCLAUDE.mdの記述と実DBの乖離であり、実DBを正とし、CLAUDE.mdの記述更新を別途検討する。
 - #8はライブラリの仕様(コンバーター設計)に関わるため、`Edit.graphql`は複数ミューテーションに分割する形で作成した。
 - 上記を踏まえ、`graphql/Company/Read.graphql`・`graphql/Company/Edit.graphql`は「外部キーが追加された後に有効になる設計」として作成し、該当箇所に本ログの番号を参照するコメントを付与した。
+
+## 追記(要件0008適用後の再検証・2026/09/08)
+
+要件0008により[このライブラリの仕様](../CLAUDE.md#このライブラリの仕様)の参照先が
+`docs/06_cteate_test.sql`(実DBのCREATE文からの推定)から
+[source/schema.graphql](../source/schema.graphql)(Postgraphileが実際に生成したスキーマ)へ
+変更されたため、本ログの問題一覧を実スキーマと照合し、`graphql/Company/Read.graphql`・
+`graphql/Company/Edit.graphql`を再作成した(要件0007再実行)。
+
+### 実スキーマ照合の結果
+
+| # | 再検証結果 |
+|---|---|
+| 1 | 確認: `SharedAppellation`型に`name`/`pronunciation`/`nickname`(いずれも`UUID`スカラー)はあるが、`shared_dictionary`への外部キー(`sharedDictionaryByName`等)は実スキーマにも存在しない。引き続き別クエリ(`CompanyReadDictionary`)で解決する構成とした。 |
+| 2 | 確認: `HistoryInfoStaff`型に`sharedAppellationsId`(`UUID`スカラー)はあるが、`SharedAppellation`への外部キーは実スキーマにも存在しない。別クエリ(`CompanyReadAppellation`)で解決する構成とした。 |
+| 3 | 確認: `InfoCompany`型に`infoAddressId`(`UUID`スカラー)はあるが、`InfoAddress`への外部キー(`infoAddressByInfoAddressId`相当のリレーションフィールド)は実スキーマにも存在しない。別クエリ(`CompanyReadAddress`、Query直下の`infoAddressByInfoAddressId(infoAddressId: ...)`)で解決する構成とした。 |
+| 4 | 確認: `InfoOffice.infoCompanyId`・`InfoStaff.infoCompanyId`から`InfoCompany`への外部キー(逆参照Connection)は実スキーマにも存在しない。`allInfoOffices`/`allInfoStaffs`の`condition: { infoCompanyId: ... }`で絞り込む構成(`CompanyReadOffices`・`CompanyReadStaffCount`)とした。 |
+| 5 | 確認: `InfoAddress`型に`address3`に相当する列は実スキーマにも存在しない(`address1`/`address2`のみ。他に`bill`(建物)/`phone`/`faxNumber`はあるが画面仕様に対応項目なし)。住所3行目は引き続き対象外。 |
+| 6 | 訂正: 実スキーマでは型・フィールド名は`SharedAppellation`/`sharedAppellationBySharedAppellationsId`(**単数形**)であり、旧版で使用していた`sharedAppellationsBySharedAppellationsId`(複数形)は実際には存在しないフィールド名だった。`Read.graphql`を単数形に修正した。 |
+| 7 | 確認: `InfoCompany`型に`historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId`のリレーションは実スキーマにも存在する(これはCLAUDE.md記述どおり有効)。ただし#2のとおりその先の`sharedAppellationsId`からのリレーションは存在しない。 |
+| 8 | 変更なし: 会社名/読みの更新が`shared_dictionary`にまたがる点は実スキーマでも同様。`UpdateSharedDictionaryBySharedDictionaryIdInput`等の入力型・`sharedDictionaryPatch`等のフィールド名も実スキーマと照合し一致を確認した。 |
+| 9 | 解消: 要件0008により`source/schema.graphql`を直接参照できるようになったため、フィールド名の推定という前提がなくなった。本再検証で照合したフィールド・型・入力型はすべて実スキーマの記載に基づく。 |
+
+### 主な変更点
+
+- 旧版は`InfoCompany`単体クエリの中に存在しないリレーション(`infoAddressByInfoAddressId`・
+  `infoStaffsByInfoCompanyId`・`infoOfficesByInfoCompanyId`・`sharedDictionaryByName`等)を
+  ネストして記述しており、実スキーマに対して実行すると失敗する内容だった。
+- 新版`Read.graphql`は、実際にリレーションが存在する範囲(`sharedAppellationBySharedAppellationsId`・
+  `historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId`)のみを1クエリにネストし、
+  リレーションが存在しない範囲(住所・スタッフ数・事業所リスト・呼称セット・辞書)は
+  それぞれ独立したクエリ(`CompanyReadAddress`・`CompanyReadStaffCount`・
+  `CompanyReadOffices`・`CompanyReadAppellation`・`CompanyReadDictionary`)に分割し、
+  アプリケーション側(コンバーター)で組み合わせて1つのドメインモデルに変換する構成とした。
+- `Edit.graphql`は入力型・パッチ型のフィールド名が実スキーマと一致することを確認し、
+  コメントの通し番号(1~4)のずれのみ修正した。
+
+### 対応方針(継続)
+
+#1~#4は引き続き本ライブラリの責務外(DB構成変更)であり、外部キー(またはPostgraphile
+スマートコメント)の追加を推奨する。#5は住所3行目のDB構成変更または画面仕様見直しのいずれかで
+解消する。低減処置の判定は[0003_risk_assessment.md](0003_risk_assessment.md)の基準に準拠する。

@@ -1,17 +1,20 @@
 # Company画面 - Edit(ミューテーション)
 #
 # 画面仕様: source/views.md #Company / Edit
-# 作成ルール: CLAUDE.md 要件0006・0007
+# 作成ルール: CLAUDE.md 要件0006・0007・0008
 # 作成前に見つかった問題点: docs/0007_view_graphql_log.md を参照(⚠コメントは同ログの番号に対応)
 #
+# 要件0008により source/schema.graphql (Postgraphileが実際に生成したスキーマ)に対して照合済み。
+#
 # ⚠ ログ#8: 「会社名」「読み」は info_company とは別テーブル(shared_dictionary)の値のため、
-#    1つのミューテーションでは更新できない。本画面のEditは以下3つのミューテーションを
+#    1つのミューテーションでは更新できない。本画面のEditは以下4つのミューテーションを
 #    アプリケーション側で組み合わせて呼び出す想定で分割して作成する。
 #    各対象レコードのPK(sharedDictionaryId / infoAddressId)はRead.graphqlの結果から得る。
 #
-#   1. UpdateCompanyName        … 会社名(shared_dictionary.ja/en)の更新
+#   1. UpdateCompanyName          … 会社名(shared_dictionary.ja/en)の更新
 #   2. UpdateCompanyPronunciation … 読み(shared_dictionary.ja/en)の更新
-#   3. UpdateCompanyProfile     … ホームページ/代表/郵便番号/住所1~3(住所3行目は ⚠ログ#5により対象外)
+#   3. UpdateCompanyProfile       … ホームページ/代表の更新
+#   4. UpdateCompanyAddress       … 郵便番号/住所1~2の更新(住所3行目は⚠ログ#5により対象外)
 
 # --- 1. 会社名の更新 --------------------------------------------------------
 mutation UpdateCompanyName($sharedDictionaryId: UUID!, $ja: String, $en: String) {
@@ -62,7 +65,8 @@ mutation UpdateCompanyProfile($infoCompanyId: UUID!, $webPage: String, $ceo: Str
 }
 
 # --- 4. 郵便番号 / 住所1~2 の更新 --------------------------------------------
-# ⚠ ログ#5: info_addressにaddress3に相当する列が存在しないため、住所3行目は更新できない。
+# ⚠ ログ#5: info_addressにaddress3に相当する列が実スキーマにも存在しないため、
+#    住所3行目は更新できない。
 mutation UpdateCompanyAddress(
   $infoAddressId: UUID!
   $zipCode: String

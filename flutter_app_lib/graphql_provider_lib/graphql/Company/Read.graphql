@@ -1,90 +1,113 @@
 # Company画面 - Read(読み込み用クエリ)
 #
 # 画面仕様: source/views.md #Company / Read
-# 作成ルール: CLAUDE.md 要件0006・0007
+# 作成ルール: CLAUDE.md 要件0006・0007・0008
 # 作成前に見つかった問題点: docs/0007_view_graphql_log.md を参照(⚠コメントは同ログの番号に対応)
 #
+# 要件0008により、[このライブラリの仕様]の参照先を source/schema.graphql (Postgraphileが
+# 実際に生成したスキーマ)に変更し、本ファイルは同スキーマに対して照合済み。
+# docs/06_cteate_test.sql からの推定で作成していた旧版(⚠ログ#1~#4)は、実スキーマ照合の結果
+# 該当する外部キー(リレーション)がやはり存在しないことを確認したため、
+# 単一クエリのネストではなく、複数クエリに分割してアプリケーション側で組み合わせる構成とした。
+#
 # 共通項(CLAUDE.md #仕様): remarks, update_at, remove, 更新者名(共通名前仕様)を含める。
-# 会社自身の呼称(会社名/読み)は info_company.shared_appellations_id 経由(共通名前仕様、別チェーン)。
 
+# --- 1. 会社本体 ------------------------------------------------------------
+# 会社名/読みは shared_appellations.name/pronunciation (UUID) までしか取得できない。
+# ⚠ ログ#1: shared_appellations.name/pronunciation -> shared_dictionary の外部キーが
+#    実スキーマにも存在しないため、以降のja/en解決は「5. 辞書(shared_dictionary)」を
+#    別クエリとして呼び出す。
+# ⚠ ログ#3: info_company.info_address_id -> info_address の外部キーが実スキーマにも
+#    存在しないため、住所は infoAddressId を取得したうえで「2. 住所」を別クエリで呼び出す。
+# ⚠ ログ#7: 更新者名は info_staff ではなく history_info_staff(複合キー historyId,
+#    infoStaffId)を参照する。ここでは history_info_staff の sharedAppellationsId まで
+#    取得し、続きは「4. 呼称セット」を別クエリで呼び出す。
 query CompanyRead($infoCompanyId: UUID!) {
   infoCompanyByInfoCompanyId(infoCompanyId: $infoCompanyId) {
     infoCompanyId
-
-    # --- 会社名 / 読み(共通名前仕様) ----------------------------------------
-    # ⚠ ログ#1: shared_appellations.name/pronunciation -> shared_dictionary の
-    #    外部キーが未定義のため、このネストは現状のDBでは生成されない。
-    # ⚠ ログ#6: 列名はCLAUDE.md記載の "shared_dictionary_name_id" 等ではなく
-    #    実DB列名 "name"/"pronunciation" を基に命名した。
-    sharedAppellationsBySharedAppellationsId {
-      sharedAppellationsId
-      # 会社名(sharedDictionaryIdはEdit時の更新先特定に使用)
-      sharedDictionaryByName {
-        sharedDictionaryId
-        ja
-        en
-      }
-      # 読み(sharedDictionaryIdはEdit時の更新先特定に使用)
-      sharedDictionaryByPronunciation {
-        sharedDictionaryId
-        ja
-        en
-      }
-    }
+    infoAddressId
 
     # --- ホームページ / 代表 -------------------------------------------------
     webPage
     ceo
-
-    # --- 郵便番号 / 住所1~3 ---------------------------------------------------
-    # ⚠ ログ#3: info_company.info_address_id -> info_address の外部キーが未定義。
-    # ⚠ ログ#5: info_addressにaddress3に相当する列が存在しない(住所3行目は取得不可)。
-    infoAddressByInfoAddressId {
-      infoAddressId
-      zipCode
-      address1
-      address2
-    }
-
-    # --- 所属するスタッフ数 ---------------------------------------------------
-    # ⚠ ログ#4: info_staff.info_company_id -> info_company の外部キーが未定義のため
-    #    この逆参照(Connection)は現状のDBでは生成されない。
-    infoStaffsByInfoCompanyId {
-      totalCount
-    }
-
-    # --- 事業所のリスト -------------------------------------------------------
-    # ⚠ ログ#4: info_office.info_company_id -> info_company の外部キーが未定義のため
-    #    この逆参照(Connection)は現状のDBでは生成されない。
-    infoOfficesByInfoCompanyId {
-      nodes {
-        infoOfficeId
-        sharedAppellationsBySharedAppellationsId {
-          sharedDictionaryByName {
-            ja
-            en
-          }
-        }
-      }
-    }
 
     # --- 共通項: remarks / update_at / remove ---------------------------------
     remarks
     updateAt
     remove
 
-    # --- 共通項: 更新者名(共通名前仕様) ----------------------------------------
-    # ⚠ ログ#2: history_info_staff.shared_appellations_id -> shared_appellations の
-    #    外部キーが未定義。
-    # ⚠ ログ#7: CLAUDE.md記載の参照先は info_staff だが、実際の外部キーは
-    #    history_info_staff(複合キー history_id, info_staff_id)を参照している。
-    historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
-      sharedAppellationsBySharedAppellationsId {
-        sharedDictionaryByName {
-          ja
-          en
-        }
-      }
+    # --- 会社名 / 読み(共通名前仕様) ------------------------------------------
+    sharedAppellationBySharedAppellationsId {
+      sharedAppellationsId
+      name
+      pronunciation
     }
+
+    # --- 共通項: 更新者名(共通名前仕様) ----------------------------------------
+    historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+      historyId
+      infoStaffId
+      sharedAppellationsId
+    }
+  }
+}
+
+# --- 2. 住所 -----------------------------------------------------------------
+# 郵便番号 / 住所1~3
+# ⚠ ログ#5: info_addressにaddress3に相当する列が実スキーマにも存在しない(住所3行目は取得不可)。
+query CompanyReadAddress($infoAddressId: UUID!) {
+  infoAddressByInfoAddressId(infoAddressId: $infoAddressId) {
+    infoAddressId
+    zipCode
+    address1
+    address2
+  }
+}
+
+# --- 3. 所属するスタッフ数 -----------------------------------------------------
+# ⚠ ログ#4: info_staff.info_company_id -> info_company の外部キーが実スキーマにも存在せず
+#    InfoCompany側からの逆参照(Connection)は生成されないため、conditionで絞り込む。
+query CompanyReadStaffCount($infoCompanyId: UUID!) {
+  allInfoStaffs(condition: { infoCompanyId: $infoCompanyId }) {
+    totalCount
+  }
+}
+
+# --- 4. 事業所のリスト ---------------------------------------------------------
+# ⚠ ログ#4: info_office.info_company_id -> info_company の外部キーが実スキーマにも存在せず
+#    InfoCompany側からの逆参照(Connection)は生成されないため、conditionで絞り込む。
+# 各事業所の名称(shared_appellationsId経由)は name/pronunciation(UUID)までのため、
+# 表示名が必要な場合は「5. 呼称セット」「6. 辞書」を続けて呼び出す。
+query CompanyReadOffices($infoCompanyId: UUID!) {
+  allInfoOffices(condition: { infoCompanyId: $infoCompanyId }) {
+    nodes {
+      infoOfficeId
+      sharedAppellationsId
+    }
+  }
+}
+
+# --- 5. 呼称セット(shared_appellations)単体取得 ---------------------------------
+# ⚠ ログ#2: history_info_staff.shared_appellations_id -> shared_appellations の外部キーが
+#    実スキーマにも存在しないため、「1. 会社本体」で取得した更新者の sharedAppellationsId、
+#    または「4. 事業所のリスト」で取得した各事業所の sharedAppellationsId を渡して呼び出す。
+query CompanyReadAppellation($sharedAppellationsId: UUID!) {
+  sharedAppellationBySharedAppellationsId(
+    sharedAppellationsId: $sharedAppellationsId
+  ) {
+    sharedAppellationsId
+    name
+    pronunciation
+  }
+}
+
+# --- 6. 辞書(shared_dictionary)単体取得 -----------------------------------------
+# 共通名前仕様のja/enはアプリケーションのローカライズに応じて呼び出し側で選択する。
+# 「1. 会社本体」のname/pronunciation、または「5. 呼称セット」のname/pronunciationを渡す。
+query CompanyReadDictionary($sharedDictionaryId: UUID!) {
+  sharedDictionaryBySharedDictionaryId(sharedDictionaryId: $sharedDictionaryId) {
+    sharedDictionaryId
+    ja
+    en
   }
 }
