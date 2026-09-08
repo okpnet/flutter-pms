@@ -72,3 +72,36 @@
 #1~#4は引き続き本ライブラリの責務外(DB構成変更)であり、外部キー(またはPostgraphile
 スマートコメント)の追加を推奨する。#5は住所3行目のDB構成変更または画面仕様見直しのいずれかで
 解消する。低減処置の判定は[0003_risk_assessment.md](0003_risk_assessment.md)の基準に準拠する。
+
+## 追記(要件0010適用後の再々検証・2026/09/09)
+
+要件0010により[source/schema.graphql](../source/schema.graphql)が更新された。
+[0009_nested_mutation_investigation.md](0009_nested_mutation_investigation.md)の追記のとおり、
+以下2件の外部キーがDB側に追加されたことを実スキーマで確認した。
+
+- #1・#6: `shared_appellations.(name/pronunciation/nickname) -> shared_dictionary`
+  (列名も`shared_dictionary_name_id`等に変更され、CLAUDE.mdの[共通名前仕様](../CLAUDE.md#共通名前仕様)と一致)
+- #3: `info_company.info_address_id -> info_address`
+- 併せて #4: `info_office`/`info_staff`.`info_company_id -> info_company`(逆参照)も追加されたことを確認した。
+
+一方、#2(`history_info_staff.shared_appellations_id -> shared_appellations`、更新者名解決用)と
+#5(`info_address`に`address3`相当の列がない)は要件0010時点でも未解消。
+
+### 変更点
+
+- `Read.graphql`: 解消された#1/#3/#4/#6の範囲を`CompanyRead`1クエリにネストし直した。
+  未解消の#2(更新者名の呼称セット以降)のみ`CompanyReadUpdaterAppellation`として分離。
+  旧版にあった`CompanyReadAddress`・`CompanyReadStaffCount`・`CompanyReadOffices`・
+  `CompanyReadAppellation`・`CompanyReadDictionary`の5クエリへの分割は不要になったため統合した。
+- `Edit.graphql`: [0009_nested_mutation_investigation.md](0009_nested_mutation_investigation.md)の
+  結論(要件0009条件「可能」判定)に基づき、`postgraphile-plugin-nested-mutations`による入れ子
+  (`InfoCompany -> SharedAppellation -> SharedDictionary`、`InfoCompany -> InfoAddress`)を用いて、
+  旧版の4ミューテーション(`UpdateCompanyName`・`UpdateCompanyPronunciation`・
+  `UpdateCompanyProfile`・`UpdateCompanyAddress`)を`UpdateCompany`1つに統合した。
+  #5により住所3行目は引き続き対象外。
+
+### 対応方針(更新)
+
+#2・#5は引き続き本ライブラリの責務外(DB構成変更)であり、低減処置の判定は
+[0003_risk_assessment.md](0003_risk_assessment.md)の基準に準拠する。解消され次第、本ログを
+再度参照のうえ要件0007を再実行することを推奨する。

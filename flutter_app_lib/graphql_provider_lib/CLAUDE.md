@@ -81,3 +81,5 @@ graphqlの生成指示は、共通項として必ず"remarks"、"update_at"、"r
 2026/09/08_0008:[このライブラリの仕様](#このライブラリの仕様)へSchemaファイルを追加。以降、Postgrapileを使ってGraphQLを作成する。
 
 2026/09/08_0009:Postgrapileにはpostgraphile-plugin-nested-mutations postgraphile-plugin-connection-filter@2.3.0のプラグインを導入しているが、ネストしたオブジェクトとして1つのミューテーションでは更新できないか調査する。調査結果が可能と判断した場合は0007を実行。
+
+2026/09/09_0010:schema.graphqlを更新。0009を実行。

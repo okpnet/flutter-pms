@@ -92,3 +92,53 @@ Company画面のEditで実際に分割が必要になっている境界([0007_vi
 
 上記が実現した場合は、本調査(要件0009)を再度参照のうえ、要件0007を再実行しミューテーションを
 1つにまとめることを推奨する。
+
+## 追記(要件0010再調査・2026/09/09)
+
+要件0010により[source/schema.graphql](../source/schema.graphql)が更新されたため、上記「補足」の
+外部キーが実際に追加されたかどうかを再調査した。
+
+### 追加された外部キーの確認
+
+| # | 追加すべき外部キー(上記表) | 再調査結果 |
+|---|---|---|
+| 1 | `shared_appellations.(name/pronunciation/nickname) -> shared_dictionary` | **追加を確認**。列名も`name`/`pronunciation`/`nickname`から`sharedDictionaryNameId`/`sharedDictionaryPronunciationId`/`sharedDictionaryNicknameId`に変更されており、CLAUDE.mdの[共通名前仕様](../CLAUDE.md#共通名前仕様)の記載(`shared_dictionary_name_id`等)と一致した([0007_view_graphql_log.md](0007_view_graphql_log.md)ログ#6も解消)。`SharedAppellation`型に`sharedDictionaryBySharedDictionaryNameId`等のリレーションフィールドが生成されている。 |
+| 2 | `info_company.info_address_id -> info_address` | **追加を確認**。`InfoCompany`型に`infoAddressByInfoAddressId`が生成されている。 |
+
+これに伴い、nested-mutationsプラグインの入れ子フィールドも1ホップ深く生成されるようになったことを確認した。
+
+```graphql
+# InfoCompanyPatch(要件0010時点)
+input InfoCompanyPatch {
+  ...
+  sharedAppellationToSharedAppellationsId: InfoCompanyFk1Input
+  infoAddressToInfoAddressId: InfoCompanyFk2Input   # ← 新規: info_addressへの入れ子
+  ...
+}
+
+# InfoCompanyFk1Input.updateBySharedAppellationsId の先(SharedAppellation更新パッチ)
+input updateSharedAppellationOnInfoCompanyForInfoCompanyFk1Patch {
+  ...
+  sharedDictionaryToSharedDictionaryNameId: SharedAppellationsFk1Input          # ← 新規
+  sharedDictionaryToSharedDictionaryPronunciationId: SharedAppellationsFk3Input # ← 新規
+  ...
+}
+```
+
+`InfoCompany -> SharedAppellation -> SharedDictionary`、`InfoCompany -> InfoAddress`のいずれも
+`updateBy<PK>Id`で対象レコードのPKとパッチを指定でき、末端(`SharedDictionaryPatch`の`ja`/`en`、
+`InfoAddressPatch`の`zipCode`/`address1`/`address2`)まで1つの`updateInfoCompanyByInfoCompanyId`
+ミューテーションの中に入れ子で記述できることをスキーマ上で確認した。
+
+なお、ログ#2(`history_info_staff.shared_appellations_id -> shared_appellations`、共通項「更新者名」
+のためのリレーション)は要件0010時点でも**未解消**。ただし更新者名はEdit対象の項目ではなく
+Read専用の共通項であるため、本ミューテーションの統合可否には影響しない。
+
+### 結論(更新)
+
+「補足」に記載した2件の外部キーがいずれも追加されたことを確認したため、要件0009の条件
+「調査結果が可能と判断した場合は0007を実行」に照らし、**今回は「可能」と判断し、要件0007を
+再実行した**。[graphql/Company/Read.graphql](../graphql/Company/Read.graphql)・
+[graphql/Company/Edit.graphql](../graphql/Company/Edit.graphql)は、Editを4分割ミューテーション
+から1つの`UpdateCompany`ミューテーションへ統合する形で作成し直した。詳細は
+[0007_view_graphql_log.md](0007_view_graphql_log.md)の追記を参照。

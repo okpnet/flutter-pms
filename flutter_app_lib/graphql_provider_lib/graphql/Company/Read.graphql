@@ -1,31 +1,24 @@
 # Company画面 - Read(読み込み用クエリ)
 #
 # 画面仕様: source/views.md #Company / Read
-# 作成ルール: CLAUDE.md 要件0006・0007・0008
+# 作成ルール: CLAUDE.md 要件0006・0007・0008・0009・0010
 # 作成前に見つかった問題点: docs/0007_view_graphql_log.md を参照(⚠コメントは同ログの番号に対応)
 #
-# 要件0008により、[このライブラリの仕様]の参照先を source/schema.graphql (Postgraphileが
-# 実際に生成したスキーマ)に変更し、本ファイルは同スキーマに対して照合済み。
-# docs/06_cteate_test.sql からの推定で作成していた旧版(⚠ログ#1~#4)は、実スキーマ照合の結果
-# 該当する外部キー(リレーション)がやはり存在しないことを確認したため、
-# 単一クエリのネストではなく、複数クエリに分割してアプリケーション側で組み合わせる構成とした。
+# 要件0010によりsource/schema.graphqlが更新され、旧版(要件0008再検証時点)で分割していた
+# 外部キー未定義の箇所のうち、以下が解消されたことを確認した(詳細はdocs/0007_view_graphql_log.md
+# の追記を参照)。
+#   - ログ#1/#6: shared_appellations.shared_dictionary_name_id/pronunciation_id -> shared_dictionary
+#   - ログ#3: info_company.info_address_id -> info_address
+#   - ログ#4: info_office/info_staff.info_company_id -> info_company (逆参照)
+# そのため、これらは1つのクエリにネストして取得できるようになった。
 #
-# 共通項(CLAUDE.md #仕様): remarks, update_at, remove, 更新者名(共通名前仕様)を含める。
+# 一方、ログ#2(history_info_staff.shared_appellations_id -> shared_appellationsの外部キー)は
+# 要件0010時点でも未解消のため、共通項「更新者名」の呼称セット以降は引き続き別クエリで解決する。
 
-# --- 1. 会社本体 ------------------------------------------------------------
-# 会社名/読みは shared_appellations.name/pronunciation (UUID) までしか取得できない。
-# ⚠ ログ#1: shared_appellations.name/pronunciation -> shared_dictionary の外部キーが
-#    実スキーマにも存在しないため、以降のja/en解決は「5. 辞書(shared_dictionary)」を
-#    別クエリとして呼び出す。
-# ⚠ ログ#3: info_company.info_address_id -> info_address の外部キーが実スキーマにも
-#    存在しないため、住所は infoAddressId を取得したうえで「2. 住所」を別クエリで呼び出す。
-# ⚠ ログ#7: 更新者名は info_staff ではなく history_info_staff(複合キー historyId,
-#    infoStaffId)を参照する。ここでは history_info_staff の sharedAppellationsId まで
-#    取得し、続きは「4. 呼称セット」を別クエリで呼び出す。
+# --- 1. 会社本体(名称・読み・プロフィール・住所・共通項) -----------------------------
 query CompanyRead($infoCompanyId: UUID!) {
   infoCompanyByInfoCompanyId(infoCompanyId: $infoCompanyId) {
     infoCompanyId
-    infoAddressId
 
     # --- ホームページ / 代表 -------------------------------------------------
     webPage
@@ -39,11 +32,48 @@ query CompanyRead($infoCompanyId: UUID!) {
     # --- 会社名 / 読み(共通名前仕様) ------------------------------------------
     sharedAppellationBySharedAppellationsId {
       sharedAppellationsId
-      name
-      pronunciation
+      sharedDictionaryBySharedDictionaryNameId {
+        sharedDictionaryId
+        ja
+        en
+      }
+      sharedDictionaryBySharedDictionaryPronunciationId {
+        sharedDictionaryId
+        ja
+        en
+      }
     }
 
-    # --- 共通項: 更新者名(共通名前仕様) ----------------------------------------
+    # --- 郵便番号 / 住所1~3 ---------------------------------------------------
+    # ⚠ ログ#5: info_addressにaddress3に相当する列が存在しないため、住所3行目は取得不可(継続)。
+    infoAddressByInfoAddressId {
+      infoAddressId
+      zipCode
+      address1
+      address2
+    }
+
+    # --- 所属するスタッフ数 ---------------------------------------------------
+    infoStaffsByInfoCompanyId {
+      totalCount
+    }
+
+    # --- 事業所のリスト -------------------------------------------------------
+    infoOfficesByInfoCompanyId {
+      nodes {
+        infoOfficeId
+        sharedAppellationBySharedAppellationsId {
+          sharedDictionaryBySharedDictionaryNameId {
+            ja
+            en
+          }
+        }
+      }
+    }
+
+    # --- 共通項: 更新者名(共通名前仕様)の呼称セットID -----------------------------
+    # ⚠ ログ#2: history_info_staff.shared_appellations_id -> shared_appellations の
+    #    外部キーが要件0010時点でも未定義のため、続きは「2. 更新者の呼称」を別クエリで呼び出す。
     historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
       historyId
       infoStaffId
@@ -52,62 +82,20 @@ query CompanyRead($infoCompanyId: UUID!) {
   }
 }
 
-# --- 2. 住所 -----------------------------------------------------------------
-# 郵便番号 / 住所1~3
-# ⚠ ログ#5: info_addressにaddress3に相当する列が実スキーマにも存在しない(住所3行目は取得不可)。
-query CompanyReadAddress($infoAddressId: UUID!) {
-  infoAddressByInfoAddressId(infoAddressId: $infoAddressId) {
-    infoAddressId
-    zipCode
-    address1
-    address2
-  }
-}
-
-# --- 3. 所属するスタッフ数 -----------------------------------------------------
-# ⚠ ログ#4: info_staff.info_company_id -> info_company の外部キーが実スキーマにも存在せず
-#    InfoCompany側からの逆参照(Connection)は生成されないため、conditionで絞り込む。
-query CompanyReadStaffCount($infoCompanyId: UUID!) {
-  allInfoStaffs(condition: { infoCompanyId: $infoCompanyId }) {
-    totalCount
-  }
-}
-
-# --- 4. 事業所のリスト ---------------------------------------------------------
-# ⚠ ログ#4: info_office.info_company_id -> info_company の外部キーが実スキーマにも存在せず
-#    InfoCompany側からの逆参照(Connection)は生成されないため、conditionで絞り込む。
-# 各事業所の名称(shared_appellationsId経由)は name/pronunciation(UUID)までのため、
-# 表示名が必要な場合は「5. 呼称セット」「6. 辞書」を続けて呼び出す。
-query CompanyReadOffices($infoCompanyId: UUID!) {
-  allInfoOffices(condition: { infoCompanyId: $infoCompanyId }) {
-    nodes {
-      infoOfficeId
-      sharedAppellationsId
-    }
-  }
-}
-
-# --- 5. 呼称セット(shared_appellations)単体取得 ---------------------------------
-# ⚠ ログ#2: history_info_staff.shared_appellations_id -> shared_appellations の外部キーが
-#    実スキーマにも存在しないため、「1. 会社本体」で取得した更新者の sharedAppellationsId、
-#    または「4. 事業所のリスト」で取得した各事業所の sharedAppellationsId を渡して呼び出す。
-query CompanyReadAppellation($sharedAppellationsId: UUID!) {
+# --- 2. 更新者の呼称(shared_appellations)・名前解決 ------------------------------
+# 「1. 会社本体」の historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId.sharedAppellationsId を渡す。
+query CompanyReadUpdaterAppellation($sharedAppellationsId: UUID!) {
   sharedAppellationBySharedAppellationsId(
     sharedAppellationsId: $sharedAppellationsId
   ) {
     sharedAppellationsId
-    name
-    pronunciation
-  }
-}
-
-# --- 6. 辞書(shared_dictionary)単体取得 -----------------------------------------
-# 共通名前仕様のja/enはアプリケーションのローカライズに応じて呼び出し側で選択する。
-# 「1. 会社本体」のname/pronunciation、または「5. 呼称セット」のname/pronunciationを渡す。
-query CompanyReadDictionary($sharedDictionaryId: UUID!) {
-  sharedDictionaryBySharedDictionaryId(sharedDictionaryId: $sharedDictionaryId) {
-    sharedDictionaryId
-    ja
-    en
+    sharedDictionaryBySharedDictionaryNameId {
+      ja
+      en
+    }
+    sharedDictionaryBySharedDictionaryPronunciationId {
+      ja
+      en
+    }
   }
 }
