@@ -1,0 +1,85 @@
+# Company画面 - Edit(ミューテーション)
+#
+# 画面仕様: source/views.md #Company / Edit
+# 作成ルール: CLAUDE.md 要件0006・0007
+# 作成前に見つかった問題点: docs/0007_view_graphql_log.md を参照(⚠コメントは同ログの番号に対応)
+#
+# ⚠ ログ#8: 「会社名」「読み」は info_company とは別テーブル(shared_dictionary)の値のため、
+#    1つのミューテーションでは更新できない。本画面のEditは以下3つのミューテーションを
+#    アプリケーション側で組み合わせて呼び出す想定で分割して作成する。
+#    各対象レコードのPK(sharedDictionaryId / infoAddressId)はRead.graphqlの結果から得る。
+#
+#   1. UpdateCompanyName        … 会社名(shared_dictionary.ja/en)の更新
+#   2. UpdateCompanyPronunciation … 読み(shared_dictionary.ja/en)の更新
+#   3. UpdateCompanyProfile     … ホームページ/代表/郵便番号/住所1~3(住所3行目は ⚠ログ#5により対象外)
+
+# --- 1. 会社名の更新 --------------------------------------------------------
+mutation UpdateCompanyName($sharedDictionaryId: UUID!, $ja: String, $en: String) {
+  updateSharedDictionaryBySharedDictionaryId(
+    input: {
+      sharedDictionaryId: $sharedDictionaryId
+      sharedDictionaryPatch: { ja: $ja, en: $en }
+    }
+  ) {
+    sharedDictionary {
+      sharedDictionaryId
+      ja
+      en
+    }
+  }
+}
+
+# --- 2. 読みの更新 -----------------------------------------------------------
+mutation UpdateCompanyPronunciation($sharedDictionaryId: UUID!, $ja: String, $en: String) {
+  updateSharedDictionaryBySharedDictionaryId(
+    input: {
+      sharedDictionaryId: $sharedDictionaryId
+      sharedDictionaryPatch: { ja: $ja, en: $en }
+    }
+  ) {
+    sharedDictionary {
+      sharedDictionaryId
+      ja
+      en
+    }
+  }
+}
+
+# --- 3. ホームページ / 代表 の更新 -------------------------------------------
+mutation UpdateCompanyProfile($infoCompanyId: UUID!, $webPage: String, $ceo: String) {
+  updateInfoCompanyByInfoCompanyId(
+    input: {
+      infoCompanyId: $infoCompanyId
+      infoCompanyPatch: { webPage: $webPage, ceo: $ceo }
+    }
+  ) {
+    infoCompany {
+      infoCompanyId
+      webPage
+      ceo
+    }
+  }
+}
+
+# --- 4. 郵便番号 / 住所1~2 の更新 --------------------------------------------
+# ⚠ ログ#5: info_addressにaddress3に相当する列が存在しないため、住所3行目は更新できない。
+mutation UpdateCompanyAddress(
+  $infoAddressId: UUID!
+  $zipCode: String
+  $address1: String
+  $address2: String
+) {
+  updateInfoAddressByInfoAddressId(
+    input: {
+      infoAddressId: $infoAddressId
+      infoAddressPatch: { zipCode: $zipCode, address1: $address1, address2: $address2 }
+    }
+  ) {
+    infoAddress {
+      infoAddressId
+      zipCode
+      address1
+      address2
+    }
+  }
+}

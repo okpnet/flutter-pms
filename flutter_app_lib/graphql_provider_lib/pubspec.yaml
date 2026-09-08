@@ -1,4 +1,4 @@
-name: gqlmdlib
+name: gqlprvlib
 description: "A new Flutter package project."
 version: 0.0.1
 homepage:
@@ -10,6 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  gqlib:
+    path: ../../flutter_pub_lib/graphql_lib
 
 dev_dependencies:
   flutter_test:
