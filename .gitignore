@@ -118,3 +118,4 @@ app.*.symbols
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 !/dev/ci/**/Gemfile.lock
 /flutter_app_lib/grid_lib
+/flutter_app_lib/graphql_provider_lib/source/schema.graphql
