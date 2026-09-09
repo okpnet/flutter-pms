@@ -40,3 +40,13 @@ lib/graphql/schema.graphql
 # schema.graphql自身の出力生成を止められないため(型定義の参照元として全operationファイルの
 # 生成に必要)、生成物側をgit管理から除外することで対応する。
 lib/postgraphile/schema.graphql.dart
+
+# 要件0015: build_runner(graphql_codegen)が生成した*.graphql.dartのうち、5000KBを超える
+# ファイルは必ずこの無視リストに追加する(環境が変わるたびにbuildrunnerで再生成される前提の
+# ため)。schema.graphql.dartは上記のとおり常に対象(実測約404MB)。
+# ファイルサイズによる動的なignoreパターンは.gitignoreの仕組み上表現できないため、要件0012
+# (build_runner実行)を行うたびに生成物のサイズを確認し、5000KBを超えるものがあれば個別に
+# パスを追記する運用とする(docs/0015_gitignore_size_check_log.md参照)。
+# 2026/09/09時点の他の生成物(参考。5000KB未満のため対象外):
+#   lib/postgraphile/Company/company_edit.graphql.dart (約108KB)
+#   lib/postgraphile/Company/company_read.graphql.dart (約166KB)

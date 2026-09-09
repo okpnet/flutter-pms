@@ -21,6 +21,7 @@
     1.  編集、更新するミューテーションはドメインモデルです。
     1.  TrinaGridの行データのMapからドメインモデルに変換して編集、更新する画面に渡します。
 1.  TrinaGridでは、ネストされているMapをfieldとして参照できないのでnested_map_flattener.dartをとおして平坦なMapに変換します。
+1.  graphql_generatorをとおしてbuildrunnerが生成したモデルのdartファイルのうち、サイズが5000KBを超えるもの、およびschema.graphql.dart(常に該当)は、環境が変わるたびにbuildrunnerで再生成される前提のため、必ずGitの無視リスト(.gitignore)に追加します(要件0015)。.gitignoreはファイルサイズでの動的な指定ができないため、要件0012(build_runner実行)のたびに生成物のサイズを確認し、該当するものを個別に追記する運用とします。
 ### 構成
 + lib
     + converters
@@ -93,3 +94,5 @@ graphqlの生成指示は、共通項として必ず"remarks"、"update_at"、"r
 2026/09/09_0013:これは0012が成功した際に実行すること。生成されたモデルからnested_map_flattener.dartのモデルをMapに、Mapをモデルに変換するテストを作成、実行。実行結果とMapをJSONにしたテキストをLogに記録。変換が失敗したときは、nested_map_flattener.dartの変更方針をLogに記録し、処理を中断すること。
 
 2026/09/09_0014:0012Logの案Aを採用。ただし、scheme.graphqlはサイズが大きいためgitの除外リストに追加すること。また、生成されたモデルもサイズが大きいためscheme.graphqlに関しては、Type宣言が不要など必要がなければbuild.ymlから除外すること。これらにあわせてbuild.ymlを編集し、Logを残す。
+
+2026/09/09_0015:0012の実行、またはGraphQLからgraphql_generatorをとおしてbuildrunnerを実行し、モデルのdartファイルを生成したファイルが大きいサイズ(5000KBを超える)、またはschema.graphql.dartは環境が変ったときにbuildrunnerを実行するため必ずGitの無視リストに追加する。

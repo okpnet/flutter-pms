@@ -295,9 +295,28 @@ class Trigger{
         //レビジョンの取得と変更
         result+=ext.tabs(2)+"SELECT Max(revision) INTO revisions FROM "+schema+"."+Relation.entityPName2+" WHERE "+idColumn.Attr.pName+"=NEW."+idColumn.Attr.pName+";"+CR;
         result+=ext.tabs(2)+"IF (revisions >= 0) THEN"+CR;
-        result+=ext.tabs(3)+"NEW.revision := revisions + 1;"+CR;
+        //変更を確認
+        result+=ext.tabs(3)+"IF ("+CR;
+        for(var index in parentColmuns){
+            var columnName=parentColmuns[index].Attr.pName;
+            if(columnName=="update_at" || columnName=="update_user_id" || columnName=="update_user_history_id" || columnName=="revision")continue;
+            if(parentColmuns.length-1>index)columnName+=",";
+            result+=ext.tabs(4)+"NEW."+columnName+CR;
+        }
+        result+=ext.tabs(3)+") IS NOT DISTINCT FROM ("+CR;
+        for(var index in parentColmuns){
+            var columnName=parentColmuns[index].Attr.pName;
+            if(columnName=="update_at" || columnName=="update_user_id" || columnName=="update_user_history_id" || columnName=="revision")continue;
+            if(parentColmuns.length-1>index)columnName+=",";
+            result+=ext.tabs(4)+"OLD."+columnName+CR;
+        }
+        result+=ext.tabs(3)+")"+CR;
+        result+=ext.tabs(3)+"THEN"+CR;
+        result+=ext.tabs(4)+"RETURN NULL;"+CR;//変更なし
+        result+=ext.tabs(3)+"END IF;"+CR;
+        result+=ext.tabs(3)+"NEW.revision := revisions + 1;"+CR;//更新。//レビジョンの変更
         result+=ext.tabs(2)+"ELSE"+CR;
-        result+=ext.tabs(3)+"NEW.revision := 1;"+CR;//レビジョンの変更
+        result+=ext.tabs(3)+"NEW.revision := 1;"+CR;//新規。レビジョンの変更
         result+=ext.tabs(2)+"END IF;"+CR;
         //履歴へ追加
         result+=ext.tabs(2)+"INSERT INTO "+schema+"."+Relation.entityPName2+" ("+CR;

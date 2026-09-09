@@ -151,3 +151,71 @@ W graphql_codegen on lib/graphql/schema.graphql:
   参照(生成自体は避けられないため、生成物をgit管理から除外する運用とした)。
 - 要件0012が成功したため、**要件0013(生成されたモデル⇔Mapの往復変換テスト)の前提条件を
   満たした。ただし0013の実行はチャットでの明示的な指示を受けてから行う。**
+
+## 再実行(2026/09/09・チャット指示「0012を実行」)
+
+再度`dart run build_runner build`を実行したところ、下記のとおり**初回は失敗**した。
+
+```
+E graphql_codegen on lib/graphql/Company/company_edit.graphql:
+  Invalid GraphQL: Failed to find operation type for OperationType.mutation
+E graphql_codegen on lib/graphql/Company/company_read.graphql:
+  Invalid GraphQL: Failed to find operation type for OperationType.query
+Failed to build with build_runner/aot in 1s; wrote 0 outputs.
+```
+
+### 原因
+
+`build.yaml`・`lib/graphql/Company/*.graphql`(要件0011の命名規則ファイル)自体には問題がなかった。
+原因は、要件0014でスキーマの実体を置くと定めた`lib/graphql/schema.graphql`が**ローカルの作業ツリーに
+存在しなかった**こと。このファイルは要件0014により`.gitignore`登録済み(容量15MB超のため)で、
+git管理下にないローカル生成物である。前回(0014適用直後)のビルドでは存在していたが、その後
+(サイズが大きいため等の理由で)ローカルディスクから削除されたとみられ、`lib/postgraphile/`配下の
+生成物(`company_edit.graphql.dart`・`company_read.graphql.dart`、schema由来の`schema.graphql.dart`)も
+同様に消えていた状態だった(git管理下にある2ファイルは`git status`上「deleted」として検出)。
+
+`schema.graphql`自体は移動前の場所である`source/schema.graphql`(15,077,637バイト、内容は
+`lib/graphql/schema.graphql`が存在した当時と同一と推定されるサイズ)にはそのまま残っていた。
+これはリポジトリルートの`.gitignore`(121行目)で`/flutter_app_lib/graphql_provider_lib/source/schema.graphql`
+がすでに無視対象になっており、削除されずに残存していたためと考えられる。
+
+### 対応
+
+要件0012の指示にある「build.ymlに問題があるときは停止」には該当しない(build.yamlは正しい)ため、
+処置を停止せず、要件0014で定めた配置(`lib/graphql/schema.graphql`)に合わせて
+`source/schema.graphql`を`lib/graphql/schema.graphql`へコピーし、再実行した。
+
+```
+  0s graphql_codegen on 3 inputs; lib/graphql/Company/company_edit.graphql
+W graphql_codegen on lib/graphql/Company/company_edit.graphql:
+  Missing scalar UUID. Defaulting to String
+  5s graphql_codegen on 3 inputs: 1 output; spent 5s building; lib/graphql/Company/company_read.graphql
+W graphql_codegen on lib/graphql/Company/company_read.graphql:
+  Missing scalar UUID. Defaulting to String
+W graphql_codegen on lib/graphql/Company/company_read.graphql:
+  Missing scalar Datetime. Defaulting to String
+W graphql_codegen on lib/graphql/schema.graphql:
+  Missing scalar UUID. Defaulting to String
+W graphql_codegen on lib/graphql/schema.graphql:
+  Missing scalar Datetime. Defaulting to String
+W graphql_codegen on lib/graphql/schema.graphql:
+  Missing scalar BigFloat. Defaulting to String
+W graphql_codegen on lib/graphql/schema.graphql:
+  Missing scalar Date. Defaulting to String
+  196s graphql_codegen on 3 inputs: 3 output; spent 191s building, 5s tracking
+  Built with build_runner/aot in 198s; wrote 3 outputs.
+```
+
+**結果: 成功。** 所要時間は約3分23秒(前回は約10分)。生成された
+`lib/postgraphile/Company/company_edit.graphql.dart`・`company_read.graphql.dart`は、
+`git diff`で前回コミット済みの内容(改行コードの差異のみ)と一致することを確認した
+(=モデル生成は再現性がある)。git管理外の`schema.graphql.dart`も同様に約404MBで再生成された。
+
+### 残課題(運用上の注意点)
+
+`lib/graphql/schema.graphql`は要件0014により意図的にgit管理外としているため、このリポジトリを
+新しく取得した環境やクリーンアップ後の環境では**手動で配置しないとビルドできない**
+(今回のように`Invalid GraphQL: Failed to find operation type`で失敗する)。
+このこと自体は「低減処置(運用ドキュメント化)で対応可能」の範囲と考えられるが、恒常的な問題になる
+場合は、`docs/06_cteate_test.sql`や`CLAUDE.md`にスキーマファイルの入手・配置手順を明記するなど、
+仕様として運用ルールを追記することを推奨する。
