@@ -1,10 +1,14 @@
 # Company画面 - Read(読み込み用クエリ)
 #
 # 画面仕様: source/views.md #Company / Read
-# 作成ルール: CLAUDE.md 要件0006・0007・0008・0009・0010
+# 作成ルール: CLAUDE.md 要件0006・0007・0008・0009・0010・0011・0014
+# ファイル名: 要件0011により「見出し2_見出し3」のスネークケース(company_read)に変更。
+#   (旧: graphql/Company/Read.graphql -> 新: graphql/Company/company_read.graphql)
+# 配置場所: 要件0014(0012Log案A採用)により、graphql_codegenの既定構成に合わせて
+#   graphql/Company/company_read.graphql -> lib/graphql/Company/company_read.graphql へ移動。
 # 作成前に見つかった問題点: docs/0007_view_graphql_log.md を参照(⚠コメントは同ログの番号に対応)
 #
-# 要件0010によりsource/schema.graphqlが更新され、旧版(要件0008再検証時点)で分割していた
+# 要件0010によりschema.graphql(現: lib/graphql/schema.graphql)が更新され、旧版(要件0008再検証時点)で分割していた
 # 外部キー未定義の箇所のうち、以下が解消されたことを確認した(詳細はdocs/0007_view_graphql_log.md
 # の追記を参照)。
 #   - ログ#1/#6: shared_appellations.shared_dictionary_name_id/pronunciation_id -> shared_dictionary

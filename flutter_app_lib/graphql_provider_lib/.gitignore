@@ -29,3 +29,14 @@ migrate_working_dir/
 .flutter-plugins-dependencies
 /build/
 /coverage/
+
+# 要件0014: Postgraphileが生成したschema.graphqlは容量が大きい(15MB超)ため、
+# git管理の対象から除外する(graphql_generatorが都度参照する入力ファイルであり、
+# リポジトリでの追跡は不要と判断)。
+lib/graphql/schema.graphql
+
+# 要件0014: 上記schema.graphqlから生成されるモデルも同様に巨大(実測423MB/928万行、
+# docs/0014_build_yaml_log.md参照)。graphql_codegenの仕様上、build.yamlの設定だけでは
+# schema.graphql自身の出力生成を止められないため(型定義の参照元として全operationファイルの
+# 生成に必要)、生成物側をgit管理から除外することで対応する。
+lib/postgraphile/schema.graphql.dart

@@ -1,13 +1,18 @@
+# 要件0014: docs/0012_build_runner_log.md の案Aを採用。
+# schema.graphql・各画面のGraphQL(query/mutation)を lib/graphql/ 配下へ統合し、
+# graphql_codegen(3.0.2)の既定構成(assetsPath/sourcesともlib配下が対象)に合わせた。
+# これにより、旧設定にあった以下2点の問題(docs/0012_build_runner_log.md参照)を解消している。
+#   - sources を postgraphile/** に制限していたため、ビルダー起動に必須の lib/$lib$ 等が
+#     除外されていた -> lib配下に統合したことで既定sourcesのみで足りるため、sources自体を削除。
+#   - schemaPath は graphql_codegen に存在しないオプションで無視されていた -> schema.graphqlも
+#     assetsPathの対象に含め、スキーマ・問い合わせを同一グロブで読み込む本来の構成にした。
 targets:
   $default:
-    sources:
-      -  postgraphile/**
     builders:
       graphql_codegen:
         options:
-          schemaPath: 
-            - "postgraphile/schema.graphql" #Typeやらの
-          assetsPath: graphql/**/*.graphql
-          outputDirectory: "../lib/postgraphile" #生成されたクラスの保管DIR(先頭の/でプロジェクトルート基準の絶対パス扱いにする)
+          assetsPath: "lib/graphql/**{.graphql,.gql,.graphqls}"
+          # 生成されたクラスの保管DIR。先頭の/でプロジェクトルート基準の絶対パス扱いになる。
+          outputDirectory: "/lib/postgraphile"
           clients: #ここが無いとOptionsが生成されない
             - graphql_flutter

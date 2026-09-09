@@ -13,7 +13,8 @@
     1.  TrinaGridのレコードからMapを取得して専用画面に渡します。
 ##  このライブラリの仕様
 1.  ~~Postgrapileが生成したスキーマは容量が大きすぎる(10メガバイト)を超えるため、データベース生成用のクエリdocs/06_create_test.sqlを参照します。~~
-1. Postgrapileが生成したスキーマは source/schema.graphql を参照する。
+1.  ~~Postgrapileが生成したスキーマは source/schema.graphql を参照する。~~
+1.  Postgrapileが生成したスキーマは lib/graphql/schema.graphql を参照する(要件0014、graphql_codegenの既定構成に合わせるためlib配下へ移動。容量が大きいためgit管理対象外)。
 1.  アプリケーションの画面に提供するデータを取得、更新するデータを提供します。
     1.  Postgrapileへ渡すデータ、受け取るデータはドメインモデルです。
     1.  TrinaGridへ渡すデータはドメインモデルを変換したMapです
@@ -28,8 +29,9 @@
             + _使用画面フォルダ名.dart//バレルファイル
     + postgraphile//graphql_generatorの出力先
     + extensions//このライブラリが使用、または提供する拡張メソッド
+    + graphql//graphql_generatorの入力(要件0014でプロジェクト直下から移動。schema.graphqlを含む)
+        + 使用画面フォルダ//[要件](#要件)で指定されたときの画面単位のフォルダ
     + gqlmdlib.dart//ライブラリのバレルファイル
-+ graphql//graphql_generatorの入力
 
 ##　進め方
 1つずつ解決していきます。そのため、このドキュメントの最後尾へ仕様として追記していきます。進め方に変更があった場合は、この項目に箇条として追加していきます。
@@ -83,3 +85,11 @@ graphqlの生成指示は、共通項として必ず"remarks"、"update_at"、"r
 2026/09/08_0009:Postgrapileにはpostgraphile-plugin-nested-mutations postgraphile-plugin-connection-filter@2.3.0のプラグインを導入しているが、ネストしたオブジェクトとして1つのミューテーションでは更新できないか調査する。調査結果が可能と判断した場合は0007を実行。
 
 2026/09/09_0010:schema.graphqlを更新。0009を実行。
+
+2026/09/09_0011:0006のファイル命名規則のルールを変更。「見出し2"##"+"_"+見出し3"###"」のスネークケースをGraphQLのファイル名とし、Readは読み込み用クエリ、Editはミューテーションに変更はない。
+
+2026/09/09_0012:buildrunnerを実行し、0066と0011の実行結果から、適切にモデルクラスが生成されるかを確認。失敗したときは状況をLogに追加。0011のGraphQLファイルを編集する。もし、build.ymlに問題があるときは以降の処置を停止し、Logに修正内容を記録すること。
+
+2026/09/09_0013:これは0012が成功した際に実行すること。生成されたモデルからnested_map_flattener.dartのモデルをMapに、Mapをモデルに変換するテストを作成、実行。実行結果とMapをJSONにしたテキストをLogに記録。変換が失敗したときは、nested_map_flattener.dartの変更方針をLogに記録し、処理を中断すること。
+
+2026/09/09_0014:0012Logの案Aを採用。ただし、scheme.graphqlはサイズが大きいためgitの除外リストに追加すること。また、生成されたモデルもサイズが大きいためscheme.graphqlに関しては、Type宣言が不要など必要がなければbuild.ymlから除外すること。これらにあわせてbuild.ymlを編集し、Logを残す。

@@ -1,17 +1,21 @@
 # Company画面 - Edit(ミューテーション)
 #
 # 画面仕様: source/views.md #Company / Edit
-# 作成ルール: CLAUDE.md 要件0006・0007・0008・0009・0010
+# 作成ルール: CLAUDE.md 要件0006・0007・0008・0009・0010・0011・0014
+# ファイル名: 要件0011により「見出し2_見出し3」のスネークケース(company_edit)に変更。
+#   (旧: graphql/Company/Edit.graphql -> 新: graphql/Company/company_edit.graphql)
+# 配置場所: 要件0014(0012Log案A採用)により、graphql_codegenの既定構成に合わせて
+#   graphql/Company/company_edit.graphql -> lib/graphql/Company/company_edit.graphql へ移動。
 # 作成前に見つかった問題点: docs/0007_view_graphql_log.md を参照(⚠コメントは同ログの番号に対応)
 #
 # 要件0009の調査(docs/0009_nested_mutation_investigation.md)時点では、会社名/読み
 # (shared_dictionary)・住所(info_address)への外部キーが存在せず、
 # postgraphile-plugin-nested-mutationsを導入していても1ミューテーションにまとめられなかった。
-# 要件0010でsource/schema.graphqlが更新され、該当する外部キーが追加されたことを確認したため、
+# 要件0010でschema.graphql(現: lib/graphql/schema.graphql)が更新され、該当する外部キーが追加されたことを確認したため、
 # 本ファイルは以下1つのミューテーションに統合して作成し直した(旧: 4つのミューテーションに分割)。
 #
 # 対象レコードのPK(sharedAppellationsId / sharedDictionaryId(名前・読み) / infoAddressId)は
-# Read.graphqlの結果から得る。
+# company_read.graphqlの結果から得る。
 
 mutation UpdateCompany(
   $infoCompanyId: UUID!
