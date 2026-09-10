@@ -1,4 +1,12 @@
 include: package:flutter_lints/flutter.yaml
 
+# 要件0015関連: schema.graphql.dartは実測423MB/928万行(graphql_codegenの生成物)。
+# lib配下にあるためDartアナライザの解析対象になり、VSCode(Dart-Code拡張)側でこのファイルの
+# アウトライン/CodeLens(テスト実行ボタン等)を構築しようとして"Maximum call stack size exceeded"
+# ダイアログが出る不具合の原因になっていた。アナライザの解析対象自体から除外して回避する。
+analyzer:
+  exclude:
+    - lib/postgraphile/schema.graphql.dart
+
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options

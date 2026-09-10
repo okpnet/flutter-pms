@@ -1,7 +1,7 @@
 ﻿# A5:ER FORMAT:18
 # A5:ER ENCODING:UTF8
 # A5:ER Mk-1 Copyright © 2007 m.matsubara
-# A5:SQL Mk-2 Version 2.20.0 beta 20 Copyright © 1997 - 2024 m.matsubara
+# A5:SQL Mk-2 Version 2.20.0 beta 24 Copyright © 1997 - 2024 m.matsubara
 #  https://a5m2.mmatsubara.com
 
 [Manager]
@@ -1864,7 +1864,7 @@ Left=100
 Top=900
 Field="アサインID","info_assign_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="担当者ID","info_staff_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
-Field="役割ID","info_role_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="役割ID","info_position_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="部署ID","info_department_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="有効","enable","*@BOOL","NOT NULL",,"\qT\q","",$FFFFFFFF,""
 Field="優先順位","priority","*@SMALLINT","NOT NULL",,"1","",$FFFFFFFF,""
@@ -1873,7 +1873,7 @@ EffectMode=None
 Tag=2.Personnel
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20240720140356
+ModifiedDateTime=20260910170204
 Position="インフォメーションー人",100,900
 ZOrder=220
 
@@ -3133,7 +3133,7 @@ Position="マスタ人的資源",2900,4600
 ZOrder=367
 
 [Entity]
-PName=info_role
+PName=info_position
 LName=役割情報
 Comment=
 TableInnerOption=
@@ -3141,16 +3141,15 @@ TableOption=
 Page=インフォメーションー人
 Left=200
 Top=2650
-Field="役割ID","info_role_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
+Field="役割ID","info_position_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="順位","priority","*@SMALLINT","NOT NULL",,"","",$FFFFFFFF,""
-Field="名称","name","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
-Field="カナ","kana","*@VARCHAR255",,,"","",$FFFFFFFF,""
+Field="呼称セットid","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 EffectMode=None
 Tag=2.Personnel
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20240720140308
+ModifiedDateTime=20260910170337
 Position="インフォメーションー人",200,2650
 ZOrder=368
 
@@ -3178,11 +3177,11 @@ Position="マスタ人的資源",1500,4050
 ZOrder=374
 
 [Relation]
-Entity1=info_role
+Entity1=info_position
 Entity2=mstr_approval
 RelationType1=1
 RelationType2=3
-Fields1=info_role_id
+Fields1=info_position_id
 Fields2=info_role_id
 Cardinarity1=
 Cardinarity2=
@@ -3311,12 +3310,12 @@ Position="インフォメーション",4500,350
 ZOrder=385
 
 [Relation]
-Entity1=info_role
+Entity1=info_position
 Entity2=info_assign
 RelationType1=2
 RelationType2=3
-Fields1=info_role_id
-Fields2=info_role_id
+Fields1=info_position_id
+Fields2=info_position_id
 Cardinarity1=
 Cardinarity2=
 Position="インフォメーションー人",0,3287,6713,3653,R,R,""
@@ -5208,7 +5207,7 @@ TermPos2=R
 ZOrder=641
 
 [Entity]
-PName=history_info_role
+PName=history_info_position
 LName=役割履歴
 Comment=
 TableInnerOption=
@@ -5217,26 +5216,25 @@ Page=インフォメーションー人
 Left=700
 Top=1650
 Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
-Field="役割ID","info_role_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
+Field="役割ID","info_position_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="順位","priority","*@SMALLINT","NOT NULL",,"","",$FFFFFFFF,""
-Field="名称","name","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
-Field="カナ","kana","*@VARCHAR255",,,"","",$FFFFFFFF,""
+Field="呼称セットid","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 EffectMode=None
 Tag=2.Personnel
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20240720140339
+ModifiedDateTime=20260910170404
 Position="インフォメーションー人",700,1650
 ZOrder=644
 
 [Relation]
-Entity1=info_role
-Entity2=history_info_role
+Entity1=info_position
+Entity2=history_info_position
 RelationType1=2
 RelationType2=3
-Fields1=info_role_id
-Fields2=info_role_id
+Fields1=info_position_id
+Fields2=info_position_id
 Cardinarity1=
 Cardinarity2=
 Position="インフォメーションー人",0,8816,1184,8507,R,R,""
@@ -7782,7 +7780,7 @@ ZOrder=-188
 
 [Relation]
 Entity1=history_info_staff
-Entity2=history_info_role
+Entity2=history_info_position
 RelationType1=1
 RelationType2=3
 Fields1=history_id,info_staff_id
@@ -8506,7 +8504,7 @@ ZOrder=-227
 
 [Relation]
 Entity1=history_info_staff
-Entity2=info_role
+Entity2=info_position
 RelationType1=1
 RelationType2=3
 Fields1=history_id,info_staff_id
@@ -11040,12 +11038,12 @@ Comment=
 TableInnerOption=
 TableOption=
 Page=インフォメーションー人
-Left=1050
-Top=150
+Left=800
+Top=100
 Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="アサインID","info_assign_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="担当者ID","info_staff_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
-Field="役割ID","info_role_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="役割ID","info_position_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="部署ID","info_department_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="有効","enable","*@BOOL","NOT NULL",,"\qT\q","",$FFFFFFFF,""
 Field="優先順位","priority","*@SMALLINT","NOT NULL",,"1","",$FFFFFFFF,""
@@ -11054,8 +11052,8 @@ EffectMode=None
 Tag=2.Personnel
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20240720140407
-Position="インフォメーションー人",1050,150
+ModifiedDateTime=20260910170218
+Position="インフォメーションー人",800,100
 ZOrder=822
 
 [Relation]
@@ -11067,12 +11065,12 @@ Fields1=info_assign_id
 Fields2=info_assign_id
 Cardinarity1=
 Cardinarity2=
-Position="インフォメーションー人",0,5475,4525,6414,R,R,""
+Position="インフォメーションー人",0,1194,4525,6414,R,R,""
 Dependence=1
 Caption=
 PName=
 LineMode=0
-Bar1=548
+Bar1=119
 Bar2=452
 Bar3=641
 TermPos1=R
@@ -14006,10 +14004,11 @@ Field="共有辞書ID","shared_dictionary_id","*@UUID","NOT NULL",0,"gen_random_
 Field="ja","ja","*@VARCHAR1024",,,"","",$FFFFFFFF,""
 Field="en","en","*@VARCHAR1024",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Index==2,ja,en
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260826102244
+ModifiedDateTime=20260910141732
 Position="共有",2150,1100
 ZOrder=934
 
@@ -14047,6 +14046,7 @@ Position="共有",0,5557,4443,4293,R,R,""
 Dependence=1
 Caption=
 PName=
+ModifiedDateTime=20260910141542
 LineMode=0
 Bar1=556
 Bar2=444
@@ -14627,14 +14627,14 @@ Fields1=shared_appellations_id
 Fields2=shared_appellations_id
 Cardinarity1=
 Cardinarity2=
-Position="共有",0,7527,1713,3262,R,R,""
+Position="共有",0,7564,1713,3262,R,R,""
 Position="マスタ品目",0,6427,3573,2243,R,R,""
 Dependence=0
 Caption=
 PName=
 ModifiedDateTime=20260826141529
 LineMode=0
-Bar1=753
+Bar1=756
 Bar2=171
 Bar3=326
 TermPos1=R
@@ -15852,3 +15852,25 @@ Bar3=490
 TermPos1=R
 TermPos2=R
 ZOrder=1043
+
+[Relation]
+Entity1=shared_appellations
+Entity2=info_position
+RelationType1=2
+RelationType2=2
+Fields1=shared_appellations_id
+Fields2=shared_appellations_id
+Cardinarity1=
+Cardinarity2=
+Position="インフォメーションー人",0,1481,8519,2179,R,R,""
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20260910170759
+LineMode=0
+Bar1=148
+Bar2=852
+Bar3=218
+TermPos1=R
+TermPos2=R
+ZOrder=1046

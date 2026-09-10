@@ -50,3 +50,6 @@ lib/postgraphile/schema.graphql.dart
 # 2026/09/09時点の他の生成物(参考。5000KB未満のため対象外):
 #   lib/postgraphile/Company/company_edit.graphql.dart (約108KB)
 #   lib/postgraphile/Company/company_read.graphql.dart (約166KB)
+# 2026/09/10時点の追加分(要件0019。同じく5000KB未満のため対象外):
+#   lib/postgraphile/info_company/info_company_edit.graphql.dart (約118KB)
+#   lib/postgraphile/info_company/info_company_read.graphql.dart (約194KB)

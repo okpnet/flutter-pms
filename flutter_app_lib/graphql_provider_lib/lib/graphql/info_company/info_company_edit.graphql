@@ -1,26 +1,28 @@
-# Company画面 - Edit(ミューテーション)
+# info_company画面 - Edit(ミューテーション)
 #
-# 画面仕様: source/views.md #Company / Edit
-# 作成ルール: CLAUDE.md 要件0006・0007・0008・0009・0010・0011・0014
-# ファイル名: 要件0011により「見出し2_見出し3」のスネークケース(company_edit)に変更。
-#   (旧: graphql/Company/Edit.graphql -> 新: graphql/Company/company_edit.graphql)
-# 配置場所: 要件0014(0012Log案A採用)により、graphql_codegenの既定構成に合わせて
-#   graphql/Company/company_edit.graphql -> lib/graphql/Company/company_edit.graphql へ移動。
-# 作成前に見つかった問題点: docs/0007_view_graphql_log.md を参照(⚠コメントは同ログの番号に対応)
+# 画面仕様: source/views.md #info_company / edit
+# 作成ルール: CLAUDE.md 要件0006・0011・0017・0018・0019
+# ファイル名: 要件0011・0017により「見出し2_見出し3」のスネークケース(info_company_edit)
+# 配置場所: 要件0014の構成にあわせ lib/graphql/info_company/info_company_edit.graphql
+# 作成前に確認した内容・問題点: docs/0019_view_graphql_log.md を参照(⚠コメントは同ログの番号に対応)
 #
-# 要件0009の調査(docs/0009_nested_mutation_investigation.md)時点では、会社名/読み
-# (shared_dictionary)・住所(info_address)への外部キーが存在せず、
-# postgraphile-plugin-nested-mutationsを導入していても1ミューテーションにまとめられなかった。
-# 要件0010でschema.graphql(現: lib/graphql/schema.graphql)が更新され、該当する外部キーが追加されたことを確認したため、
-# 本ファイルは以下1つのミューテーションに統合して作成し直した(旧: 4つのミューテーションに分割)。
+# 対象レコードのPK(infoCompanyId / sharedAppellationsId / sharedDictionaryId(名前・読み) /
+# infoAddressId)は info_company_read.graphql の結果から得る(要件0018 edit「原則としてreadから
+# 生成されたモデルのMapから変換できる」)。
 #
-# 対象レコードのPK(sharedAppellationsId / sharedDictionaryId(名前・読み) / infoAddressId)は
-# company_read.graphqlの結果から得る。
+# "Company"(要件0007・0010)のUpdateCompanyミューテーションと同じ入れ子更新パターン
+# (postgraphile-plugin-nested-mutations)を使用するが、画面仕様の違いにより以下2点が異なる。
+#   - 備考(remarks)をinfo_company本体のパッチに含める(Company画面のEditには無かった項目)。
+#   - 住所の入れ子更新に建物(bill)・電話番号(phone)・FAX番号(faxNumber)を含める
+#     (Company画面のEditはzipCode/address1/address2のみだった)。
+#   - ⚠ docs/0019_view_graphql_log.md #1: info_addressにaddress3相当の列が無いため、
+#     住所3行目は今回も更新できない(既知の制約、継続)。
 
-mutation UpdateCompany(
+mutation InfoCompanyEdit(
   $infoCompanyId: UUID!
   $webPage: String
   $ceo: String
+  $remarks: String
   $sharedAppellationsId: UUID!
   $nameSharedDictionaryId: UUID!
   $nameJa: String
@@ -32,6 +34,9 @@ mutation UpdateCompany(
   $zipCode: String
   $address1: String
   $address2: String
+  $bill: String
+  $phone: String
+  $faxNumber: String
 ) {
   updateInfoCompanyByInfoCompanyId(
     input: {
@@ -39,6 +44,9 @@ mutation UpdateCompany(
       infoCompanyPatch: {
         webPage: $webPage
         ceo: $ceo
+
+        # --- 備考(info_company) ---------------------------------------------------
+        remarks: $remarks
 
         # --- 会社名 / 読み(共通名前仕様、shared_appellations経由でshared_dictionaryへ入れ子更新) ---
         sharedAppellationToSharedAppellationsId: {
@@ -61,8 +69,7 @@ mutation UpdateCompany(
           }
         }
 
-        # --- 郵便番号 / 住所1~2(info_address経由の入れ子更新) -----------------------------
-        # ⚠ ログ#5: info_addressにaddress3に相当する列が存在しないため、住所3行目は更新できない(継続)。
+        # --- 郵便番号 / 住所1~2 / 建物 / 電話番号 / FAX番号(info_address経由の入れ子更新) ---
         infoAddressToInfoAddressId: {
           updateByInfoAddressId: {
             infoAddressId: $infoAddressId
@@ -70,6 +77,9 @@ mutation UpdateCompany(
               zipCode: $zipCode
               address1: $address1
               address2: $address2
+              bill: $bill
+              phone: $phone
+              faxNumber: $faxNumber
             }
           }
         }
@@ -80,6 +90,7 @@ mutation UpdateCompany(
       infoCompanyId
       webPage
       ceo
+      remarks
       sharedAppellationBySharedAppellationsId {
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {
@@ -98,6 +109,9 @@ mutation UpdateCompany(
         zipCode
         address1
         address2
+        bill
+        phone
+        faxNumber
       }
     }
   }

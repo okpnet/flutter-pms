@@ -1,0 +1,11 @@
+{
+  // schema.graphql.dart は実測423MB/928万行のgraphql_codegen生成物。
+  // Dartアナライザの除外はanalysis_options.yamlで設定済みだが、
+  // VSCode自体のファイル監視・検索対象からも外し、拡張機能の負荷・フリーズを避ける。
+  "files.watcherExclude": {
+    "**/lib/postgraphile/schema.graphql.dart": true
+  },
+  "search.exclude": {
+    "**/lib/postgraphile/schema.graphql.dart": true
+  }
+}
