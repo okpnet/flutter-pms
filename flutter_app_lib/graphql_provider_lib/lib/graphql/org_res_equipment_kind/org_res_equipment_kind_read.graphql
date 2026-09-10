@@ -1,0 +1,88 @@
+# org_res_equipment_kind画面 - Read(一覧・TrinaGrid用ページネーションクエリ)
+#
+# 画面仕様: source/views.md #org_res_equipment_kind / read
+# 作成ルール: CLAUDE.md 要件0006・0011・0017・0018・0021
+# 配置場所: lib/graphql/org_res_equipment_kind/org_res_equipment_kind_read.graphql
+#
+# ⚠ docs/0021_view_graphql_log.md #7: 画面仕様の見出しに対応する実スキーマの型名は
+#   "MstrEquipmentKind"(設備区分マスタ)。
+
+query OrgResEquipmentKindRead(
+  $first: Int!
+  $offset: Int
+  $condition: MstrEquipmentKindCondition
+  $orderBy: [MstrEquipmentKindsOrderBy!] = [PRIMARY_KEY_ASC]
+  $ja: Boolean!
+  $en: Boolean!
+) {
+  allMstrEquipmentKinds(
+    first: $first
+    offset: $offset
+    condition: $condition
+    orderBy: $orderBy
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      mstrEquipmentKindId
+
+      # --- 適用開始 / 適用終了 -----------------------------------------------------
+      startAt
+      stopAt
+
+      # --- 共通項: remarks / update_at / remove ---------------------------------
+      remarks
+      updateAt
+      remove
+
+      # --- 設備区分名 / 読み / 略称(共通名前仕様) ---------------------------------
+      sharedAppellationBySharedAppellationsId {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          ja @include(if: $ja)
+          en @include(if: $en)
+        }
+        sharedDictionaryBySharedDictionaryPronunciationId {
+          sharedDictionaryId
+          ja @include(if: $ja)
+          en @include(if: $en)
+        }
+        sharedDictionaryBySharedDictionaryNicknameId {
+          sharedDictionaryId
+          ja @include(if: $ja)
+          en @include(if: $en)
+        }
+      }
+
+      # --- 共通項: 更新者名(共通名前仕様)の呼称セットID -----------------------------
+      # ⚠ docs/0021_view_graphql_log.md #2: 既知の制約により
+      #   「OrgResEquipmentKindReadUpdaterAppellation」を別クエリで呼び出す。
+      historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+        historyId
+        infoStaffId
+        sharedAppellationsId
+      }
+    }
+  }
+}
+
+# --- 更新者の呼称(shared_appellations)・名前解決 --------------------------------
+query OrgResEquipmentKindReadUpdaterAppellation($sharedAppellationsId: UUID!) {
+  sharedAppellationBySharedAppellationsId(
+    sharedAppellationsId: $sharedAppellationsId
+  ) {
+    sharedAppellationsId
+    sharedDictionaryBySharedDictionaryNameId {
+      ja
+      en
+    }
+    sharedDictionaryBySharedDictionaryPronunciationId {
+      ja
+      en
+    }
+  }
+}

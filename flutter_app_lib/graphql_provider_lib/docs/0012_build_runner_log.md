@@ -219,3 +219,58 @@ W graphql_codegen on lib/graphql/schema.graphql:
 このこと自体は「低減処置(運用ドキュメント化)で対応可能」の範囲と考えられるが、恒常的な問題になる
 場合は、`docs/06_cteate_test.sql`や`CLAUDE.md`にスキーマファイルの入手・配置手順を明記するなど、
 仕様として運用ルールを追記することを推奨する。
+
+## 再々実行(2026/09/10・チャット指示「schema.graphqlを更新しました。コード生成してください。」)
+
+`lib/graphql/schema.graphql`が更新された(15,077,637→15,113,199バイト。DBの`role`テーブルを
+`position`テーブルに変更した内容が反映されたもの)ことを受け、`dart run build_runner build`を
+再実行した。1回目は下記のとおり**ビルド完了直前で異常終了**した。
+
+```
+  184s graphql_codegen on 3 inputs: 3 output; spent 178s building, 6s tracking
+Unhandled exception:
+Null check operator used on a null value
+#0      BuildSeries._writeBuildOutput (package:build_runner/src/build/build_series.dart:333)
+...(スタックトレース省略)
+```
+
+### 原因調査
+
+`graphql_codegen`自体は3入力すべて(`info_company_edit.graphql`・`info_company_read.graphql`・
+`schema.graphql`)を正常に処理し「3 output」と表示していたが、最終出力を書き出す
+`BuildSeries._writeBuildOutput`でクラッシュしていた。実際に`lib/postgraphile/`配下の生成物の
+タイムスタンプ・サイズを確認したところ、**クラッシュ前の状態(旧スキーマでの生成物)から一切
+更新されていなかった**ことを確認した(=表示上は成功しているように見えるが、実際には
+生成結果がディスクへ反映されない失敗だった)。ディスク容量は83GB空きがあり容量不足が原因では
+ない。`.dart_tool/build/asset_graph.json`のタイムスタンプは更新されていたため、内部キャッシュと
+実際のファイル出力の間で不整合が生じた可能性が高いと判断した。
+
+### 対応
+
+`dart run build_runner clean`でビルドキャッシュ(`.dart_tool/build`)を破棄したうえで
+`dart run build_runner build`を再実行したところ、**成功**した(exit code 0を確認)。
+
+```
+  184s graphql_codegen on 3 inputs: 3 output; spent 179s building, 5s tracking
+  Built with build_runner/aot in 211s; wrote 3 outputs.
+EXITCODE:0
+```
+
+`lib/postgraphile/info_company/info_company_edit.graphql.dart`・`info_company_read.graphql.dart`・
+`lib/postgraphile/schema.graphql.dart`のタイムスタンプがすべて実行時刻に更新されたことを確認した。
+`git diff --stat`では`info_company_edit/read.graphql.dart`に差分は見られなかった
+(改行コード差異のみ)。今回のスキーマ変更(role→position)は、この2画面が参照するフィールドには
+影響していないと判断できる。生成物のサイズは要件0015の閾値(5000KB)を再確認しても
+`schema.graphql.dart`(約404MB、引き続き`.gitignore`対象)以外は超過なし
+(`info_company_edit.graphql.dart`約118.2KB、`info_company_read.graphql.dart`約193.7KB)。
+
+### 教訓(今後の運用ルールへの提案)
+
+`dart run build_runner build`が「wrote N outputs」等の成功メッセージを出しつつ
+`Unhandled exception`で終了する場合、**シェルのパイプ(`| tail`等)経由では`dart`本体の終了コードが
+正しく取得できない**(パイプ先コマンドの終了コードになってしまう)ため、必ず`dart`コマンド単体の
+終了コードを確認する、またはリダイレクトで終了コードを別途記録する運用とする。また、この種の
+「クラッシュはしたが一部処理は進んでいるように見える」ケースでは、生成物のタイムスタンプ更新有無で
+実際に書き出されたかどうかを確認することを、要件0012の実行手順に加える。原因不明のクラッシュが
+再発する場合は、まず`dart run build_runner clean`でキャッシュを破棄してから再実行することを
+標準の対処手順とする。

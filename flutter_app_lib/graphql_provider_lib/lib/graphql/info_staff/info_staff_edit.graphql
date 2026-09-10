@@ -1,0 +1,94 @@
+# info_staff画面 - Edit(ミューテーション)
+#
+# 画面仕様: source/views.md #info_staff / edit
+# 作成ルール: CLAUDE.md 要件0006・0011・0017・0018・0021
+# 配置場所: lib/graphql/info_staff/info_staff_edit.graphql
+#
+# ⚠ docs/0021_view_graphql_log.md #5: info_office_idへの外部キー制約が実スキーマに無く
+#   InfoStaffPatchにも infoOfficeToInfoOfficeId のようなネスト入力は存在しないため、
+#   「事業所id」はスカラーとしてそのまま設定する(事業所自体の内容編集ではなく、
+#   既存の事業所への付け替えのみ)。
+# ⚠ #3: 更新者id/更新者履歴id/削除は0019の既定方針により変数から除外している。
+
+mutation InfoStaffEdit(
+  $infoStaffId: UUID!
+  $code: String
+  $infoOfficeId: UUID
+  $privatePhone: String
+  $remarks: String
+  $sharedAppellationsId: UUID!
+  $nameSharedDictionaryId: UUID!
+  $nameJa: String
+  $nameEn: String
+  $pronunciationSharedDictionaryId: UUID!
+  $pronunciationJa: String
+  $pronunciationEn: String
+  $nicknameSharedDictionaryId: UUID!
+  $nicknameJa: String
+  $nicknameEn: String
+) {
+  updateInfoStaffByInfoStaffId(
+    input: {
+      infoStaffId: $infoStaffId
+      infoStaffPatch: {
+        code: $code
+        infoOfficeId: $infoOfficeId
+        privatePhone: $privatePhone
+        remarks: $remarks
+
+        # --- 名前 / 読み / 略称(共通名前仕様、shared_appellations経由でshared_dictionaryへ入れ子更新) ---
+        sharedAppellationToSharedAppellationsId: {
+          updateBySharedAppellationsId: {
+            sharedAppellationsId: $sharedAppellationsId
+            sharedAppellationPatch: {
+              sharedDictionaryToSharedDictionaryNameId: {
+                updateBySharedDictionaryId: {
+                  sharedDictionaryId: $nameSharedDictionaryId
+                  sharedDictionaryPatch: { ja: $nameJa, en: $nameEn }
+                }
+              }
+              sharedDictionaryToSharedDictionaryPronunciationId: {
+                updateBySharedDictionaryId: {
+                  sharedDictionaryId: $pronunciationSharedDictionaryId
+                  sharedDictionaryPatch: { ja: $pronunciationJa, en: $pronunciationEn }
+                }
+              }
+              sharedDictionaryToSharedDictionaryNicknameId: {
+                updateBySharedDictionaryId: {
+                  sharedDictionaryId: $nicknameSharedDictionaryId
+                  sharedDictionaryPatch: { ja: $nicknameJa, en: $nicknameEn }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ) {
+    infoStaff {
+      infoStaffId
+      code
+      infoOfficeId
+      privatePhone
+      remarks
+      sharedAppellationBySharedAppellationsId {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          ja
+          en
+        }
+        sharedDictionaryBySharedDictionaryPronunciationId {
+          sharedDictionaryId
+          ja
+          en
+        }
+        sharedDictionaryBySharedDictionaryNicknameId {
+          sharedDictionaryId
+          ja
+          en
+        }
+      }
+    }
+  }
+}

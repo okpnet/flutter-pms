@@ -1,0 +1,102 @@
+# info_office画面 - Read(一覧・TrinaGrid用ページネーションクエリ)
+#
+# 画面仕様: source/views.md #info_office / read
+# 作成ルール: CLAUDE.md 要件0006・0011・0017・0018・0021
+# ファイル名: 要件0011・0017により「見出し2_見出し3」のスネークケース(info_office_read)
+# 配置場所: 要件0014の構成にあわせ lib/graphql/info_office/info_office_read.graphql
+# 作成前に確認した内容・問題点: docs/0021_view_graphql_log.md を参照(⚠コメントは同ログの番号に対応)
+#
+# 要件0018(GraphQL変換ルール)に基づく設計は info_company_read.graphql を踏襲。
+
+query InfoOfficeRead(
+  $first: Int!
+  $offset: Int
+  $condition: InfoOfficeCondition
+  $orderBy: [InfoOfficesOrderBy!] = [PRIMARY_KEY_ASC]
+  $ja: Boolean!
+  $en: Boolean!
+) {
+  allInfoOffices(
+    first: $first
+    offset: $offset
+    condition: $condition
+    orderBy: $orderBy
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      infoOfficeId
+
+      # --- 会社id ---------------------------------------------------------------
+      infoCompanyId
+
+      # --- 共通項: remarks / update_at / remove ---------------------------------
+      remarks
+      updateAt
+      remove
+
+      # --- 事業所名 / 読み / 略称(共通名前仕様) -----------------------------------
+      sharedAppellationBySharedAppellationsId {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          ja @include(if: $ja)
+          en @include(if: $en)
+        }
+        sharedDictionaryBySharedDictionaryPronunciationId {
+          sharedDictionaryId
+          ja @include(if: $ja)
+          en @include(if: $en)
+        }
+        sharedDictionaryBySharedDictionaryNicknameId {
+          sharedDictionaryId
+          ja @include(if: $ja)
+          en @include(if: $en)
+        }
+      }
+
+      # --- 郵便番号 / 住所1~2 / 建物 / 電話番号 / FAX番号 --------------------------
+      # ⚠ docs/0021_view_graphql_log.md #1: info_addressにaddress3相当の列が存在しないため
+      #   住所3行目は取得不可(0007・0019ログと同一の既知の制約)。
+      infoAddressByInfoAddressId {
+        infoAddressId
+        zipCode
+        address1
+        address2
+        bill
+        phone
+        faxNumber
+      }
+
+      # --- 共通項: 更新者名(共通名前仕様)の呼称セットID -----------------------------
+      # ⚠ docs/0021_view_graphql_log.md #2: history_info_staff.shared_appellations_id ->
+      #    shared_appellations の外部キーが実スキーマに未定義のため、続きは
+      #    「InfoOfficeReadUpdaterAppellation」を別クエリで呼び出す(0007・0019ログと同一の制約)。
+      historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+        historyId
+        infoStaffId
+        sharedAppellationsId
+      }
+    }
+  }
+}
+
+# --- 更新者の呼称(shared_appellations)・名前解決 --------------------------------
+query InfoOfficeReadUpdaterAppellation($sharedAppellationsId: UUID!) {
+  sharedAppellationBySharedAppellationsId(
+    sharedAppellationsId: $sharedAppellationsId
+  ) {
+    sharedAppellationsId
+    sharedDictionaryBySharedDictionaryNameId {
+      ja
+      en
+    }
+    sharedDictionaryBySharedDictionaryPronunciationId {
+      ja
+      en
+    }
+  }
+}

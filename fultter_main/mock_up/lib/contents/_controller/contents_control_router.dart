@@ -5,6 +5,7 @@ import 'package:mock_up/contents/_controller/contents_frame_router.dart';
 import 'package:mock_up/contents/actual/production/route/records_production_achievement_router.dart';
 import 'package:mock_up/contents/actual/production/route/register_actual_production_router.dart';
 import 'package:mock_up/contents/contents.dart';
+import 'package:mock_up/contents/corporation/positions/_positions.dart';
 import 'package:mock_up/contents/corporation/staffs/route/edit_staff_router.dart';
 import 'package:mock_up/contents/org_resources/locations/route/edit_location_router.dart';
 import 'package:mock_up/contents/org_resources/locations/route/tree_location_router.dart';
@@ -72,6 +73,19 @@ final shellNavigatorKey = GlobalKey<NavigatorState>();
                 TypedGoRoute<EditStaffRouter>(
                   path: EditStaffConstant.path,
                   name: EditStaffConstant.name,
+                ),
+              ],
+            ),
+
+            ///役職閲覧ページ
+            TypedGoRoute<ListPositionRouter>(
+              path: ListPositionConstant.path,
+              name: ListPositionConstant.name,
+              routes: [
+                ///役職編集ページ
+                TypedGoRoute<EditPositionRouter>(
+                  path: EditPositionConstant.path,
+                  name: EditPositionConstant.name,
                 ),
               ],
             ),

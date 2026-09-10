@@ -1,0 +1,124 @@
+# info_office画面 - Edit(ミューテーション)
+#
+# 画面仕様: source/views.md #info_office / edit
+# 作成ルール: CLAUDE.md 要件0006・0011・0017・0018・0021
+# ファイル名: 要件0011・0017により「見出し2_見出し3」のスネークケース(info_office_edit)
+# 配置場所: 要件0014の構成にあわせ lib/graphql/info_office/info_office_edit.graphql
+# 作成前に確認した内容・問題点: docs/0021_view_graphql_log.md を参照
+#
+# 対象レコードのPK類は info_office_read.graphql の結果から得る(要件0018 edit「原則としてread
+# から生成されたモデルのMapから変換できる」)。
+# ⚠ docs/0021_view_graphql_log.md #3: 更新者id/更新者履歴id/削除は、info_company_edit.graphql
+#   (要件0019)と同様にミューテーション変数から除外している(バックエンド側で管理される想定の
+#   共通項のため。0019での既定方針を踏襲)。
+
+mutation InfoOfficeEdit(
+  $infoOfficeId: UUID!
+  $infoCompanyId: UUID!
+  $code: String
+  $remarks: String
+  $sharedAppellationsId: UUID!
+  $nameSharedDictionaryId: UUID!
+  $nameJa: String
+  $nameEn: String
+  $pronunciationSharedDictionaryId: UUID!
+  $pronunciationJa: String
+  $pronunciationEn: String
+  $nicknameSharedDictionaryId: UUID!
+  $nicknameJa: String
+  $nicknameEn: String
+  $infoAddressId: UUID!
+  $zipCode: String
+  $address1: String
+  $address2: String
+  $bill: String
+  $phone: String
+  $faxNumber: String
+) {
+  updateInfoOfficeByInfoOfficeId(
+    input: {
+      infoOfficeId: $infoOfficeId
+      infoOfficePatch: {
+        infoCompanyId: $infoCompanyId
+        code: $code
+        remarks: $remarks
+
+        # --- 事業所名 / 読み / 略称(共通名前仕様、shared_appellations経由でshared_dictionaryへ入れ子更新) ---
+        sharedAppellationToSharedAppellationsId: {
+          updateBySharedAppellationsId: {
+            sharedAppellationsId: $sharedAppellationsId
+            sharedAppellationPatch: {
+              sharedDictionaryToSharedDictionaryNameId: {
+                updateBySharedDictionaryId: {
+                  sharedDictionaryId: $nameSharedDictionaryId
+                  sharedDictionaryPatch: { ja: $nameJa, en: $nameEn }
+                }
+              }
+              sharedDictionaryToSharedDictionaryPronunciationId: {
+                updateBySharedDictionaryId: {
+                  sharedDictionaryId: $pronunciationSharedDictionaryId
+                  sharedDictionaryPatch: { ja: $pronunciationJa, en: $pronunciationEn }
+                }
+              }
+              sharedDictionaryToSharedDictionaryNicknameId: {
+                updateBySharedDictionaryId: {
+                  sharedDictionaryId: $nicknameSharedDictionaryId
+                  sharedDictionaryPatch: { ja: $nicknameJa, en: $nicknameEn }
+                }
+              }
+            }
+          }
+        }
+
+        # --- 郵便番号 / 住所1~2 / 建物 / 電話番号 / FAX番号(info_address経由の入れ子更新) ---
+        infoAddressToInfoAddressId: {
+          updateByInfoAddressId: {
+            infoAddressId: $infoAddressId
+            infoAddressPatch: {
+              zipCode: $zipCode
+              address1: $address1
+              address2: $address2
+              bill: $bill
+              phone: $phone
+              faxNumber: $faxNumber
+            }
+          }
+        }
+      }
+    }
+  ) {
+    infoOffice {
+      infoOfficeId
+      infoCompanyId
+      code
+      remarks
+      sharedAppellationBySharedAppellationsId {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          ja
+          en
+        }
+        sharedDictionaryBySharedDictionaryPronunciationId {
+          sharedDictionaryId
+          ja
+          en
+        }
+        sharedDictionaryBySharedDictionaryNicknameId {
+          sharedDictionaryId
+          ja
+          en
+        }
+      }
+      infoAddressByInfoAddressId {
+        infoAddressId
+        zipCode
+        address1
+        address2
+        bill
+        phone
+        faxNumber
+      }
+    }
+  }
+}
