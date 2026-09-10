@@ -1,7 +1,7 @@
 ﻿# A5:ER FORMAT:18
 # A5:ER ENCODING:UTF8
 # A5:ER Mk-1 Copyright © 2007 m.matsubara
-# A5:SQL Mk-2 Version 2.20.0 beta 24 Copyright © 1997 - 2024 m.matsubara
+# A5:SQL Mk-2 Version 2.20.0 beta 20 Copyright © 1997 - 2024 m.matsubara
 #  https://a5m2.mmatsubara.com
 
 [Manager]
@@ -15862,6 +15862,7 @@ Fields1=shared_appellations_id
 Fields2=shared_appellations_id
 Cardinarity1=
 Cardinarity2=
+Position="共有",0,500,9500,1751,R,R,""
 Position="インフォメーションー人",0,1481,8519,2179,R,R,""
 Dependence=0
 Caption=
