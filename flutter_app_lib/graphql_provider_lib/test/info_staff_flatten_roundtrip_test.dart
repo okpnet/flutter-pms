@@ -43,7 +43,6 @@ Map<String, dynamic> _buildRawReadJson() => {
         'updateAt': '2026-09-10T00:00:00',
         'remove': false,
         'sharedAppellationBySharedAppellationsId': _sharedAppellationJson(),
-        'infoOfficeId': 'o1111111-1111-1111-1111-111111111111',
         'privatePhone': '090-1111-2222',
         'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId': {
           'historyId': 'h1111111-1111-1111-1111-111111111111',
@@ -64,7 +63,6 @@ Map<String, dynamic> _buildRawEditJson() => {
     'infoStaff': {
       'infoStaffId': 's1111111-1111-1111-1111-111111111111',
       'code': 'STF001',
-      'infoOfficeId': 'o1111111-1111-1111-1111-111111111111',
       'privatePhone': '090-1111-2222',
       'remarks': '備考テキスト(編集後)',
       'sharedAppellationBySharedAppellationsId': _sharedAppellationJson(),

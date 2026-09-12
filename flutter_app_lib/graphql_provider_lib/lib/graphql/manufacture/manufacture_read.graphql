@@ -1,0 +1,84 @@
+# manufacture画面 - Read(一覧・TrinaGrid用ページネーションクエリ)
+#
+# 画面仕様: source/views.md #manufacture / read
+# 作成ルール: CLAUDE.md 要件0006・0011・0017・0018・0021・0025
+# 配置場所: lib/graphql/manufacture/manufacture_read.graphql
+#
+# ⚠ docs/0025_view_graphql_evaluation_log.md: 画面仕様の見出しに対応する実スキーマの型名は
+#   "MstrManufacturer"(製造元マスタ)。id + 呼称セット + remarks/update_at/removeのみの単純な構成。
+
+query ManufactureRead(
+  $first: Int!
+  $offset: Int
+  $condition: MstrManufacturerCondition
+  $orderBy: [MstrManufacturersOrderBy!] = [PRIMARY_KEY_ASC]
+  $ja: Boolean!
+  $en: Boolean!
+) {
+  allMstrManufacturers(
+    first: $first
+    offset: $offset
+    condition: $condition
+    orderBy: $orderBy
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      mstrManufacturerId
+      code
+
+      # --- 共通項: remarks / update_at / remove ---------------------------------
+      remarks
+      updateAt
+      remove
+
+      # --- 製造元名 / 読み / 略称(共通名前仕様) -----------------------------------
+      sharedAppellationBySharedAppellationsId {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          ja @include(if: $ja)
+          en @include(if: $en)
+        }
+        sharedDictionaryBySharedDictionaryPronunciationId {
+          sharedDictionaryId
+          ja @include(if: $ja)
+          en @include(if: $en)
+        }
+        sharedDictionaryBySharedDictionaryNicknameId {
+          sharedDictionaryId
+          ja @include(if: $ja)
+          en @include(if: $en)
+        }
+      }
+
+      # --- 共通項: 更新者名(共通名前仕様)の呼称セットID -----------------------------
+      # ⚠ 既知の制約により「ManufactureReadUpdaterAppellation」を別クエリで呼び出す。
+      historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+        historyId
+        infoStaffId
+        sharedAppellationsId
+      }
+    }
+  }
+}
+
+# --- 更新者の呼称(shared_appellations)・名前解決 --------------------------------
+query ManufactureReadUpdaterAppellation($sharedAppellationsId: UUID!) {
+  sharedAppellationBySharedAppellationsId(
+    sharedAppellationsId: $sharedAppellationsId
+  ) {
+    sharedAppellationsId
+    sharedDictionaryBySharedDictionaryNameId {
+      ja
+      en
+    }
+    sharedDictionaryBySharedDictionaryPronunciationId {
+      ja
+      en
+    }
+  }
+}

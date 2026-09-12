@@ -4,16 +4,16 @@
 # 作成ルール: CLAUDE.md 要件0006・0011・0017・0018・0021
 # 配置場所: lib/graphql/info_staff/info_staff_edit.graphql
 #
-# ⚠ docs/0021_view_graphql_log.md #5: info_office_idへの外部キー制約が実スキーマに無く
-#   InfoStaffPatchにも infoOfficeToInfoOfficeId のようなネスト入力は存在しないため、
-#   「事業所id」はスカラーとしてそのまま設定する(事業所自体の内容編集ではなく、
-#   既存の事業所への付け替えのみ)。
+# ⚠ 2026/09/11のschema.graphql更新により、InfoStaff.info_office_id列自体が実スキーマから
+#   削除されたことを確認した(InfoStaffPatchからも同列が消えている)。要件0022「テーブルや列の
+#   特定ができない場合はログに残したうえで、テーブルそのものの処理をスキップする」に従い、
+#   「事業所id」フィールドをこのミューテーションから削除した
+#   (docs/0021_view_graphql_log.mdの追記を参照)。views.md側の項目定義との整合は別途要確認。
 # ⚠ #3: 更新者id/更新者履歴id/削除は0019の既定方針により変数から除外している。
 
 mutation InfoStaffEdit(
   $infoStaffId: UUID!
   $code: String
-  $infoOfficeId: UUID
   $privatePhone: String
   $remarks: String
   $sharedAppellationsId: UUID!
@@ -32,7 +32,6 @@ mutation InfoStaffEdit(
       infoStaffId: $infoStaffId
       infoStaffPatch: {
         code: $code
-        infoOfficeId: $infoOfficeId
         privatePhone: $privatePhone
         remarks: $remarks
 
@@ -68,7 +67,6 @@ mutation InfoStaffEdit(
     infoStaff {
       infoStaffId
       code
-      infoOfficeId
       privatePhone
       remarks
       sharedAppellationBySharedAppellationsId {

@@ -89,3 +89,39 @@ GraphQL作成・build_runner実行・キー定数化・往復変換テストま�
 取得できない)は、低減処置だけでは対応が難しく、テーブル構成自体の見直し(区分ごとの列追加、
 または区分マスタの固定コード化)が必要になる可能性がある項目として記録した。#6・#7・#8・#10は
 画面仕様と実スキーマの対応関係・設計判断であり、仕様変更は不要と判断する。
+
+## 追記: schema.graphql更新に伴う修正(2026/09/11・チャット指示「schema.graphqlを更新しました。コードを再生成してください。」)
+
+`lib/graphql/schema.graphql`が更新された(diff: 71,921行追加/59,041行削除という大規模な変更。
+DB構成の見直しが継続的に行われている)ことを受け`dart run build_runner build`を実行したところ、
+**3件のエラーで全体が失敗**した(`wrote 0 outputs`)。要件0022「テーブルや列の特定ができない
+場合はログに残したうえで、テーブルそのものの処理をスキップする」に従い、原因を特定した
+うえで該当箇所のみ修正した(スキップ対象は個別フィールドに限定し、画面自体は維持した)。
+
+| # | エラー | 原因 | 対応 |
+|---|---|---|---|
+| 11 | `lib/graphql/info_staff/{read,edit}.graphql`: `Failed to find type for field infoOfficeId on InfoStaff` | `InfoStaff.info_office_id`列が実スキーマ・`InfoStaffPatch`から**完全に削除**されていた(0021作成時点ではFK未定義のみが問題で列自体はあった)。 | 「事業所名」(read)・「事業所id」(edit)のフィールド・変数・別クエリ`InfoStaffReadOffice`を削除。views.md側の当該項目との整合は別途要確認として残した。 |
+| 12 | `lib/graphql/org_res_equipment/org_res_equipment_read.graphql`: `Failed to find type for field mstrItemSizesByMstrItemId on MstrItem` | `mstr_item_size`テーブルが`mstr_item_actual_size`へ改称されていた(`MstrItemSize`→`MstrItemActualSize`、`mstrItemSizesByMstrItemId`→`mstrItemActualSizesByMstrItemId`、`mstrItemSizeId`→`mstrItemActualSizeId`。`mstrItemSizeKindId`・`MstrItemSizeKind`は改称なし)。 | クエリ・`lib/contents/org_res_equipment_keyname.dart`・`test/org_res_equipment_flatten_roundtrip_test.dart`のフィールド名/型名を新名称に追随。#9(EAV構造による幅/奥行き/高さ個別列非対応)の制約自体は変わらず継続。 |
+
+修正後に再実行し、**成功**した(17入力中、修正した3ファイルのみ`output`、残り14ファイルは
+`same`)。
+
+```
+  192s graphql_codegen on 17 inputs: 3 output, 14 same; spent 187s building, 5s tracking
+  Built with build_runner/aot in 196s; wrote 17 outputs.
+EXITCODE:0
+```
+
+全テスト(`flutter test test/`、info_company・7画面ぶんの計17テスト)を再実行し、**全件成功**
+した(修正したinfo_staff・org_res_equipmentのフィクスチャも合わせて更新済み)。
+
+```
+00:19 +17: All tests passed!
+EXITCODE:0
+```
+
+この一件は、「DBスキーマは今後も変わり続ける」という[0003_risk_assessment.md]
+(0003_risk_assessment.md)のリスク認識どおりの事象であり、`info_office_id`列の削除のように
+**列そのものが無くなるケースはビルドの都度発生しうる**ことを実例として確認した。要件0022の
+「テーブル/列が特定できない場合はログに残してスキップする」運用が、今回のような部分的な
+schema変更に対して機能することを確認できた。

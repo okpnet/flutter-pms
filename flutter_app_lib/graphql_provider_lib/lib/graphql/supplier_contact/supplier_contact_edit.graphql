@@ -1,0 +1,225 @@
+# supplier_contact画面 - Edit(ミューテーション)
+#
+# 画面仕様: source/views.md #supplier_contact / edit
+# 作成ルール: CLAUDE.md 要件0006・0011・0017・0018・0021・0025
+# 配置場所: lib/graphql/supplier_contact/supplier_contact_edit.graphql
+#
+# ⚠ 実スキーマの型名は"MstrStakeholderContact"。事業所名/部署名/担当者氏名はそれぞれ独立した
+#   shared_appellations参照のため、3組のsharedAppellationsId/name/pronunciation/nickname変数を持つ。
+# ⚠ 「配送区分」はorg_res_equipmentの「場所名」等と同様、既存マスタへの付け替え(スカラーIDのみ
+#   設定)として扱う。
+# ⚠ 更新者id/更新者履歴id/削除は0019の既定方針により変数から除外している。
+
+mutation SupplierContactEdit(
+  $mstrStakeholderContactId: UUID!
+  $mstrStakeholderId: UUID
+  $code: String
+  $mail: String
+  $mstrShippingKindId: UUID
+  $remarks: String
+  $officeAppellationsId: UUID!
+  $officeNameSharedDictionaryId: UUID!
+  $officeNameJa: String
+  $officeNameEn: String
+  $officePronunciationSharedDictionaryId: UUID!
+  $officePronunciationJa: String
+  $officePronunciationEn: String
+  $officeNicknameSharedDictionaryId: UUID!
+  $officeNicknameJa: String
+  $officeNicknameEn: String
+  $departmentAppellationsId: UUID!
+  $departmentNameSharedDictionaryId: UUID!
+  $departmentNameJa: String
+  $departmentNameEn: String
+  $departmentPronunciationSharedDictionaryId: UUID!
+  $departmentPronunciationJa: String
+  $departmentPronunciationEn: String
+  $departmentNicknameSharedDictionaryId: UUID!
+  $departmentNicknameJa: String
+  $departmentNicknameEn: String
+  $contactPersonAppellationsId: UUID!
+  $contactPersonNameSharedDictionaryId: UUID!
+  $contactPersonNameJa: String
+  $contactPersonNameEn: String
+  $contactPersonPronunciationSharedDictionaryId: UUID!
+  $contactPersonPronunciationJa: String
+  $contactPersonPronunciationEn: String
+  $contactPersonNicknameSharedDictionaryId: UUID!
+  $contactPersonNicknameJa: String
+  $contactPersonNicknameEn: String
+) {
+  updateMstrStakeholderContactByMstrStakeholderContactId(
+    input: {
+      mstrStakeholderContactId: $mstrStakeholderContactId
+      mstrStakeholderContactPatch: {
+        mstrStakeholderId: $mstrStakeholderId
+        code: $code
+        mail: $mail
+        mstrShippingKindId: $mstrShippingKindId
+        remarks: $remarks
+
+        # --- 事業所名 / 読み / 略称(共通名前仕様、入れ子更新) -----------------------
+        sharedAppellationToOfficeAppellationsId: {
+          updateBySharedAppellationsId: {
+            sharedAppellationsId: $officeAppellationsId
+            sharedAppellationPatch: {
+              sharedDictionaryToSharedDictionaryNameId: {
+                updateBySharedDictionaryId: {
+                  sharedDictionaryId: $officeNameSharedDictionaryId
+                  sharedDictionaryPatch: { ja: $officeNameJa, en: $officeNameEn }
+                }
+              }
+              sharedDictionaryToSharedDictionaryPronunciationId: {
+                updateBySharedDictionaryId: {
+                  sharedDictionaryId: $officePronunciationSharedDictionaryId
+                  sharedDictionaryPatch: {
+                    ja: $officePronunciationJa
+                    en: $officePronunciationEn
+                  }
+                }
+              }
+              sharedDictionaryToSharedDictionaryNicknameId: {
+                updateBySharedDictionaryId: {
+                  sharedDictionaryId: $officeNicknameSharedDictionaryId
+                  sharedDictionaryPatch: { ja: $officeNicknameJa, en: $officeNicknameEn }
+                }
+              }
+            }
+          }
+        }
+
+        # --- 部署名 / 読み / 略称(共通名前仕様、入れ子更新) -------------------------
+        sharedAppellationToDepartmentAppellationsId: {
+          updateBySharedAppellationsId: {
+            sharedAppellationsId: $departmentAppellationsId
+            sharedAppellationPatch: {
+              sharedDictionaryToSharedDictionaryNameId: {
+                updateBySharedDictionaryId: {
+                  sharedDictionaryId: $departmentNameSharedDictionaryId
+                  sharedDictionaryPatch: { ja: $departmentNameJa, en: $departmentNameEn }
+                }
+              }
+              sharedDictionaryToSharedDictionaryPronunciationId: {
+                updateBySharedDictionaryId: {
+                  sharedDictionaryId: $departmentPronunciationSharedDictionaryId
+                  sharedDictionaryPatch: {
+                    ja: $departmentPronunciationJa
+                    en: $departmentPronunciationEn
+                  }
+                }
+              }
+              sharedDictionaryToSharedDictionaryNicknameId: {
+                updateBySharedDictionaryId: {
+                  sharedDictionaryId: $departmentNicknameSharedDictionaryId
+                  sharedDictionaryPatch: {
+                    ja: $departmentNicknameJa
+                    en: $departmentNicknameEn
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        # --- 担当者氏名 / 読み / 略称(共通名前仕様、入れ子更新) ---------------------
+        sharedAppellationToContactPersonAppellationsId: {
+          updateBySharedAppellationsId: {
+            sharedAppellationsId: $contactPersonAppellationsId
+            sharedAppellationPatch: {
+              sharedDictionaryToSharedDictionaryNameId: {
+                updateBySharedDictionaryId: {
+                  sharedDictionaryId: $contactPersonNameSharedDictionaryId
+                  sharedDictionaryPatch: {
+                    ja: $contactPersonNameJa
+                    en: $contactPersonNameEn
+                  }
+                }
+              }
+              sharedDictionaryToSharedDictionaryPronunciationId: {
+                updateBySharedDictionaryId: {
+                  sharedDictionaryId: $contactPersonPronunciationSharedDictionaryId
+                  sharedDictionaryPatch: {
+                    ja: $contactPersonPronunciationJa
+                    en: $contactPersonPronunciationEn
+                  }
+                }
+              }
+              sharedDictionaryToSharedDictionaryNicknameId: {
+                updateBySharedDictionaryId: {
+                  sharedDictionaryId: $contactPersonNicknameSharedDictionaryId
+                  sharedDictionaryPatch: {
+                    ja: $contactPersonNicknameJa
+                    en: $contactPersonNicknameEn
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ) {
+    mstrStakeholderContact {
+      mstrStakeholderContactId
+      mstrStakeholderId
+      code
+      mail
+      mstrShippingKindId
+      remarks
+      sharedAppellationByOfficeAppellationsId {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          ja
+          en
+        }
+        sharedDictionaryBySharedDictionaryPronunciationId {
+          sharedDictionaryId
+          ja
+          en
+        }
+        sharedDictionaryBySharedDictionaryNicknameId {
+          sharedDictionaryId
+          ja
+          en
+        }
+      }
+      sharedAppellationByDepartmentAppellationsId {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          ja
+          en
+        }
+        sharedDictionaryBySharedDictionaryPronunciationId {
+          sharedDictionaryId
+          ja
+          en
+        }
+        sharedDictionaryBySharedDictionaryNicknameId {
+          sharedDictionaryId
+          ja
+          en
+        }
+      }
+      sharedAppellationByContactPersonAppellationsId {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          ja
+          en
+        }
+        sharedDictionaryBySharedDictionaryPronunciationId {
+          sharedDictionaryId
+          ja
+          en
+        }
+        sharedDictionaryBySharedDictionaryNicknameId {
+          sharedDictionaryId
+          ja
+          en
+        }
+      }
+    }
+  }
+}

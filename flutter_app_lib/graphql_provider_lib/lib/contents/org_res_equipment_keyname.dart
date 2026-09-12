@@ -80,8 +80,10 @@ abstract class OrgResEquipmentKeyName {
       'mstrItemByMstrItemId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNicknameId||en';
 
   // --- read専用: サイズ幅/奥行き/高さ(⚠ #9、Relay Connection形状のためこれ以上は平坦化しない) ---
-  static const String mstrItemByMstrItemId_mstrItemSizesByMstrItemId =
-      'mstrItemByMstrItemId||mstrItemSizesByMstrItemId';
+  // 2026/09/11のschema.graphql更新でmstrItemSizesByMstrItemId→mstrItemActualSizesByMstrItemId
+  // に改称(docs/0021_view_graphql_log.mdの追記を参照)。
+  static const String mstrItemByMstrItemId_mstrItemActualSizesByMstrItemId =
+      'mstrItemByMstrItemId||mstrItemActualSizesByMstrItemId';
 
   // --- read専用: 場所名(参照のみ) --------------------------------------------
   static const String mstrLocationByMstrLocationId_mstrLocationId =

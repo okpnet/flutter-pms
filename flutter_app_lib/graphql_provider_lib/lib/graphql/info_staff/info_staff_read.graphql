@@ -5,11 +5,12 @@
 # 配置場所: lib/graphql/info_staff/info_staff_read.graphql
 # 作成前に確認した内容・問題点: docs/0021_view_graphql_log.md を参照
 #
-# ⚠ docs/0021_view_graphql_log.md #5: InfoStaff.info_office_idには外部キー制約が
-#   実スキーマに定義されておらず(InfoStaff型にinfoOfficeByInfoOfficeIdが存在しない)、
-#   「事業所名」をネストして取得できない。infoOfficeId(スカラー)を取得しておき、
-#   別クエリ「InfoStaffReadOffice」(ルートの単票取得 infoOfficeByInfoOfficeId を使用)で
-#   事業所名を解決する(0007/0019の「更新者名」解決と同じ回避パターン)。
+# ⚠ 2026/09/11のschema.graphql更新により、InfoStaff.info_office_id列自体が実スキーマから
+#   削除されたことを確認した(0021作成時点では列は存在しFK未定義のみが問題だったが、今回の
+#   更新でinfo_staffテーブルからinfo_office_id列そのものが無くなった)。要件0022「テーブルや
+#   列の特定ができない場合はログに残したうえで、テーブルそのものの処理をスキップする」に従い、
+#   「事業所名」フィールド(および解決用の別クエリInfoStaffReadOffice)をこのクエリから削除した
+#   (docs/0021_view_graphql_log.mdの追記を参照)。views.md側の項目定義との整合は別途要確認。
 
 query InfoStaffRead(
   $first: Int!
@@ -59,8 +60,7 @@ query InfoStaffRead(
         }
       }
 
-      # --- 事業所名(⚠#5、下のInfoStaffReadOfficeで解決するためのID) ----------------
-      infoOfficeId
+      # ⚠ info_office_id列が実スキーマから削除されたため、「事業所名」は取得不可(上記コメント参照)。
 
       # --- 緊急連絡先 -------------------------------------------------------------
       privatePhone
@@ -72,19 +72,6 @@ query InfoStaffRead(
         historyId
         infoStaffId
         sharedAppellationsId
-      }
-    }
-  }
-}
-
-# --- 事業所名の解決(⚠#5) --------------------------------------------------------
-query InfoStaffReadOffice($infoOfficeId: UUID!) {
-  infoOfficeByInfoOfficeId(infoOfficeId: $infoOfficeId) {
-    infoOfficeId
-    sharedAppellationBySharedAppellationsId {
-      sharedDictionaryBySharedDictionaryNameId {
-        ja
-        en
       }
     }
   }

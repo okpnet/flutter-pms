@@ -1,0 +1,138 @@
+# customer画面 - Edit(ミューテーション)
+#
+# 画面仕様: source/views.md #customer / edit
+# 作成ルール: CLAUDE.md 要件0006・0011・0017・0018・0021・0025
+# 配置場所: lib/graphql/customer/customer_edit.graphql
+#
+# ⚠ 実スキーマの型名は"MstrStakeholder"。customer/supplierは同一物理テーブルを共有するため、
+#   isCustomer/isSupplierは本ミューテーションでは変更しない(画面仕様に無いため、既存レコードの
+#   区分を維持する)。
+# ⚠ 「配送区分」はorg_res_equipmentの「場所名」等と同様、既存マスタへの付け替え(スカラーIDのみ
+#   設定)として扱う。
+# ⚠ 「提供」は1対多(mstrStakeholderProvisionsUsingMstrStakeholderId)だが、追加/削除を含む配列の
+#   入れ子ミューテーションは本バージョンでは未対応。読み取り専用として出力にのみ含める
+#   (docs/0025評価ログ8-3節参照、itemの品目提供と同じ方針)。
+# ⚠ 更新者id/更新者履歴id/削除は0019の既定方針により変数から除外している。
+
+mutation CustomerEdit(
+  $mstrStakeholderId: UUID!
+  $code: String
+  $controlCode: String
+  $mstrShippingKindId: UUID
+  $remarks: String
+  $sharedAppellationsId: UUID!
+  $nameSharedDictionaryId: UUID!
+  $nameJa: String
+  $nameEn: String
+  $pronunciationSharedDictionaryId: UUID!
+  $pronunciationJa: String
+  $pronunciationEn: String
+  $nicknameSharedDictionaryId: UUID!
+  $nicknameJa: String
+  $nicknameEn: String
+  $infoAddressId: UUID!
+  $zipCode: String
+  $address1: String
+  $address2: String
+  $bill: String
+  $phone: String
+  $faxNumber: String
+) {
+  updateMstrStakeholderByMstrStakeholderId(
+    input: {
+      mstrStakeholderId: $mstrStakeholderId
+      mstrStakeholderPatch: {
+        code: $code
+        controlCode: $controlCode
+        mstrShippingKindId: $mstrShippingKindId
+        remarks: $remarks
+
+        # --- 顧客名 / 読み / 略称(共通名前仕様、shared_appellations経由でshared_dictionaryへ入れ子更新) ---
+        sharedAppellationToSharedAppellationsId: {
+          updateBySharedAppellationsId: {
+            sharedAppellationsId: $sharedAppellationsId
+            sharedAppellationPatch: {
+              sharedDictionaryToSharedDictionaryNameId: {
+                updateBySharedDictionaryId: {
+                  sharedDictionaryId: $nameSharedDictionaryId
+                  sharedDictionaryPatch: { ja: $nameJa, en: $nameEn }
+                }
+              }
+              sharedDictionaryToSharedDictionaryPronunciationId: {
+                updateBySharedDictionaryId: {
+                  sharedDictionaryId: $pronunciationSharedDictionaryId
+                  sharedDictionaryPatch: { ja: $pronunciationJa, en: $pronunciationEn }
+                }
+              }
+              sharedDictionaryToSharedDictionaryNicknameId: {
+                updateBySharedDictionaryId: {
+                  sharedDictionaryId: $nicknameSharedDictionaryId
+                  sharedDictionaryPatch: { ja: $nicknameJa, en: $nicknameEn }
+                }
+              }
+            }
+          }
+        }
+
+        # --- 郵便番号 / 住所1~2 / 建物 / 電話番号 / FAX番号(info_address経由の入れ子更新) ---
+        infoAddressToInfoAddressId: {
+          updateByInfoAddressId: {
+            infoAddressId: $infoAddressId
+            infoAddressPatch: {
+              zipCode: $zipCode
+              address1: $address1
+              address2: $address2
+              bill: $bill
+              phone: $phone
+              faxNumber: $faxNumber
+            }
+          }
+        }
+      }
+    }
+  ) {
+    mstrStakeholder {
+      mstrStakeholderId
+      code
+      controlCode
+      mstrShippingKindId
+      remarks
+
+      # --- 提供(読み取り専用。編集は別ミューテーションで対応、⚠参照) -----------------
+      mstrStakeholderProvisionsByMstrStakeholderId {
+        nodes {
+          mstrStakeholderProvisionId
+          infoProvisionId
+        }
+      }
+
+      sharedAppellationBySharedAppellationsId {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          ja
+          en
+        }
+        sharedDictionaryBySharedDictionaryPronunciationId {
+          sharedDictionaryId
+          ja
+          en
+        }
+        sharedDictionaryBySharedDictionaryNicknameId {
+          sharedDictionaryId
+          ja
+          en
+        }
+      }
+      infoAddressByInfoAddressId {
+        infoAddressId
+        zipCode
+        address1
+        address2
+        bill
+        phone
+        faxNumber
+      }
+    }
+  }
+}

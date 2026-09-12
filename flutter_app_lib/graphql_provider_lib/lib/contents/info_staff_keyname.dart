@@ -55,9 +55,9 @@ abstract class InfoStaffKeyName {
   static const String sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNicknameId_en =
       'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNicknameId||en';
 
-  // --- read専用: 事業所名解決用(⚠ docs/0021_view_graphql_log.md #5) -----------
-  /// 事業所ID(InfoStaffReadOfficeクエリで事業所名を解決するためのキー)
-  static const String infoOfficeId = 'infoOfficeId';
+  // ⚠ 2026/09/11のschema.graphql更新でinfo_office_id列自体が実スキーマから削除されたため、
+  //   「事業所名」「事業所id」は取得・更新不可となり、対応する定数は削除した
+  //   (docs/0021_view_graphql_log.mdの追記を参照)。
 
   // --- 緊急連絡先 -----------------------------------------------------------
   static const String privatePhone = 'privatePhone';

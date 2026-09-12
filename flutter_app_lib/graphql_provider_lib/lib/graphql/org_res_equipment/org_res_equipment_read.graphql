@@ -9,12 +9,15 @@
 #   設備区分名は"mstr_equipment_kind.shared_appellations_id"
 #   (MstrEquipmentKindByMstrEquipmentCategoryId経由)、場所名は"mstr_location"
 #   (MstrLocationByMstrLocationId経由)から取得する。
-# ⚠ #9: 「サイズ幅/サイズ奥行き/サイズ高さ」はmstr_item_sizeテーブルに対応するが、実スキーマは
-#   幅・奥行き・高さを個別の列として持たず、mstrItemSizeKindId(区分マスタ)+sizeValue(値)の
-#   EAV(1品目に対し区分ごとに複数行)構造になっている。どのmstrItemSizeKindIdが「幅」
-#   「奥行き」「高さ」に対応するかはマスタデータ(DBの値)次第で、GraphQL定義時点では
+# ⚠ #9: 「サイズ幅/サイズ奥行き/サイズ高さ」はmstr_item_actual_sizeテーブル(2026/09/11の
+#   schema.graphql更新でmstr_item_size→mstr_item_actual_sizeへ改称されたことを確認。フィールド名も
+#   mstrItemSizesByMstrItemId→mstrItemActualSizesByMstrItemId、mstrItemSizeId→
+#   mstrItemActualSizeIdに追随。docs/0021_view_graphql_log.mdの追記を参照)に対応するが、実スキーマは
+#   幅・奥行き・高さを個別の列として持たず、mstrItemSizeKindId(区分マスタ、こちらは改称なし)+
+#   sizeValue(値)のEAV(1品目に対し区分ごとに複数行)構造になっている。どのmstrItemSizeKindIdが
+#   「幅」「奥行き」「高さ」に対応するかはマスタデータ(DBの値)次第で、GraphQL定義時点では
 #   静的に判別できないため、このクエリでは3項目個別のフィールドとしては取得せず、
-#   `mstrItemSizesByMstrItemId`のnodes(区分名+値のリスト)をそのまま取得するに留める
+#   `mstrItemActualSizesByMstrItemId`のnodes(区分名+値のリスト)をそのまま取得するに留める
 #   (要件0021「エラーが発生したものは無視し、ログに残す」に基づき、この3項目は
 #   個別の平坦化キーとしては未対応とし、詳細をLogに記録する)。
 
@@ -82,9 +85,9 @@ query OrgResEquipmentRead(
         }
 
         # --- サイズ幅 / サイズ奥行き / サイズ高さ(⚠#9、個別列に分解できないため一覧のまま) ---
-        mstrItemSizesByMstrItemId {
+        mstrItemActualSizesByMstrItemId {
           nodes {
-            mstrItemSizeId
+            mstrItemActualSizeId
             sizeValue
             mstrItemSizeKindByMstrItemSizeKindId {
               mstrItemSizeKindId

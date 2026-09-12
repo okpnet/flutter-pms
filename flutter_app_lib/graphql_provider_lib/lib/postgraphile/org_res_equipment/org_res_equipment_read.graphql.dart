@@ -926,7 +926,7 @@ const documentNodeQueryOrgResEquipmentRead = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(
-                                value: 'mstrItemSizesByMstrItemId',
+                                value: 'mstrItemActualSizesByMstrItemId',
                               ),
                               alias: null,
                               arguments: [],
@@ -942,7 +942,7 @@ const documentNodeQueryOrgResEquipmentRead = DocumentNode(
                                       selections: [
                                         FieldNode(
                                           name: NameNode(
-                                            value: 'mstrItemSizeId',
+                                            value: 'mstrItemActualSizeId',
                                           ),
                                           alias: null,
                                           arguments: [],
@@ -2918,7 +2918,7 @@ class Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId {
   Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId({
     required this.mstrItemId,
     this.sharedAppellationBySharedAppellationsId,
-    required this.mstrItemSizesByMstrItemId,
+    required this.mstrItemActualSizesByMstrItemId,
     this.$__typename = 'MstrItem',
   });
 
@@ -2928,7 +2928,8 @@ class Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId {
     final l$mstrItemId = json['mstrItemId'];
     final l$sharedAppellationBySharedAppellationsId =
         json['sharedAppellationBySharedAppellationsId'];
-    final l$mstrItemSizesByMstrItemId = json['mstrItemSizesByMstrItemId'];
+    final l$mstrItemActualSizesByMstrItemId =
+        json['mstrItemActualSizesByMstrItemId'];
     final l$$__typename = json['__typename'];
     return Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId(
       mstrItemId: (l$mstrItemId as String),
@@ -2939,9 +2940,9 @@ class Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId {
               (l$sharedAppellationBySharedAppellationsId
                   as Map<String, dynamic>),
             ),
-      mstrItemSizesByMstrItemId:
-          Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId.fromJson(
-            (l$mstrItemSizesByMstrItemId as Map<String, dynamic>),
+      mstrItemActualSizesByMstrItemId:
+          Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId.fromJson(
+            (l$mstrItemActualSizesByMstrItemId as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
     );
@@ -2952,8 +2953,8 @@ class Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId {
   final Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$sharedAppellationBySharedAppellationsId?
   sharedAppellationBySharedAppellationsId;
 
-  final Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId
-  mstrItemSizesByMstrItemId;
+  final Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId
+  mstrItemActualSizesByMstrItemId;
 
   final String $__typename;
 
@@ -2965,9 +2966,9 @@ class Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId {
         sharedAppellationBySharedAppellationsId;
     _resultData['sharedAppellationBySharedAppellationsId'] =
         l$sharedAppellationBySharedAppellationsId?.toJson();
-    final l$mstrItemSizesByMstrItemId = mstrItemSizesByMstrItemId;
-    _resultData['mstrItemSizesByMstrItemId'] = l$mstrItemSizesByMstrItemId
-        .toJson();
+    final l$mstrItemActualSizesByMstrItemId = mstrItemActualSizesByMstrItemId;
+    _resultData['mstrItemActualSizesByMstrItemId'] =
+        l$mstrItemActualSizesByMstrItemId.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -2978,12 +2979,12 @@ class Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId {
     final l$mstrItemId = mstrItemId;
     final l$sharedAppellationBySharedAppellationsId =
         sharedAppellationBySharedAppellationsId;
-    final l$mstrItemSizesByMstrItemId = mstrItemSizesByMstrItemId;
+    final l$mstrItemActualSizesByMstrItemId = mstrItemActualSizesByMstrItemId;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$mstrItemId,
       l$sharedAppellationBySharedAppellationsId,
-      l$mstrItemSizesByMstrItemId,
+      l$mstrItemActualSizesByMstrItemId,
       l$$__typename,
     ]);
   }
@@ -3011,9 +3012,11 @@ class Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId {
         lOther$sharedAppellationBySharedAppellationsId) {
       return false;
     }
-    final l$mstrItemSizesByMstrItemId = mstrItemSizesByMstrItemId;
-    final lOther$mstrItemSizesByMstrItemId = other.mstrItemSizesByMstrItemId;
-    if (l$mstrItemSizesByMstrItemId != lOther$mstrItemSizesByMstrItemId) {
+    final l$mstrItemActualSizesByMstrItemId = mstrItemActualSizesByMstrItemId;
+    final lOther$mstrItemActualSizesByMstrItemId =
+        other.mstrItemActualSizesByMstrItemId;
+    if (l$mstrItemActualSizesByMstrItemId !=
+        lOther$mstrItemActualSizesByMstrItemId) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -3057,18 +3060,18 @@ abstract class CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrIt
     String? mstrItemId,
     Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$sharedAppellationBySharedAppellationsId?
     sharedAppellationBySharedAppellationsId,
-    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId?
-    mstrItemSizesByMstrItemId,
+    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId?
+    mstrItemActualSizesByMstrItemId,
     String? $__typename,
   });
   CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$sharedAppellationBySharedAppellationsId<
     TRes
   >
   get sharedAppellationBySharedAppellationsId;
-  CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId<
+  CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId<
     TRes
   >
-  get mstrItemSizesByMstrItemId;
+  get mstrItemActualSizesByMstrItemId;
 }
 
 class _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId<
@@ -3096,7 +3099,7 @@ class _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemBy
   TRes call({
     Object? mstrItemId = _undefined,
     Object? sharedAppellationBySharedAppellationsId = _undefined,
-    Object? mstrItemSizesByMstrItemId = _undefined,
+    Object? mstrItemActualSizesByMstrItemId = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId(
@@ -3108,12 +3111,12 @@ class _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemBy
           ? _instance.sharedAppellationBySharedAppellationsId
           : (sharedAppellationBySharedAppellationsId
                 as Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$sharedAppellationBySharedAppellationsId?),
-      mstrItemSizesByMstrItemId:
-          mstrItemSizesByMstrItemId == _undefined ||
-              mstrItemSizesByMstrItemId == null
-          ? _instance.mstrItemSizesByMstrItemId
-          : (mstrItemSizesByMstrItemId
-                as Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId),
+      mstrItemActualSizesByMstrItemId:
+          mstrItemActualSizesByMstrItemId == _undefined ||
+              mstrItemActualSizesByMstrItemId == null
+          ? _instance.mstrItemActualSizesByMstrItemId
+          : (mstrItemActualSizesByMstrItemId
+                as Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -3136,14 +3139,15 @@ class _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemBy
           );
   }
 
-  CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId<
+  CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId<
     TRes
   >
-  get mstrItemSizesByMstrItemId {
-    final local$mstrItemSizesByMstrItemId = _instance.mstrItemSizesByMstrItemId;
-    return CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId(
-      local$mstrItemSizesByMstrItemId,
-      (e) => call(mstrItemSizesByMstrItemId: e),
+  get mstrItemActualSizesByMstrItemId {
+    final local$mstrItemActualSizesByMstrItemId =
+        _instance.mstrItemActualSizesByMstrItemId;
+    return CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId(
+      local$mstrItemActualSizesByMstrItemId,
+      (e) => call(mstrItemActualSizesByMstrItemId: e),
     );
   }
 }
@@ -3165,8 +3169,8 @@ class _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrIt
     String? mstrItemId,
     Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$sharedAppellationBySharedAppellationsId?
     sharedAppellationBySharedAppellationsId,
-    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId?
-    mstrItemSizesByMstrItemId,
+    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId?
+    mstrItemActualSizesByMstrItemId,
     String? $__typename,
   }) => _res;
 
@@ -3178,11 +3182,11 @@ class _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrIt
         _res,
       );
 
-  CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId<
+  CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId<
     TRes
   >
-  get mstrItemSizesByMstrItemId =>
-      CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId.stub(
+  get mstrItemActualSizesByMstrItemId =>
+      CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId.stub(
         _res,
       );
 }
@@ -4102,23 +4106,23 @@ class _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrIt
   }) => _res;
 }
 
-class Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId {
-  Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId({
+class Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId {
+  Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId({
     required this.nodes,
-    this.$__typename = 'MstrItemSizesConnection',
+    this.$__typename = 'MstrItemActualSizesConnection',
   });
 
-  factory Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId.fromJson(
+  factory Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId(
+    return Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes.fromJson(
+                : Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -4128,7 +4132,7 @@ class Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mst
   }
 
   final List<
-    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes?
+    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes?
   >
   nodes;
 
@@ -4159,7 +4163,7 @@ class Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mst
       return true;
     }
     if (other
-            is! Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId ||
+            is! Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -4184,50 +4188,50 @@ class Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mst
   }
 }
 
-extension UtilityExtension$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId
+extension UtilityExtension$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId
     on
-        Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId {
-  CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId<
-    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId
+        Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId {
+  CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId<
+    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId
   >
   get copyWith =>
-      CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId(
+      CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId<
+abstract class CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId<
   TRes
 > {
-  factory CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId(
-    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId
+  factory CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId(
+    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId
     instance,
     TRes Function(
-      Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId,
+      Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId,
     )
     then,
-  ) = _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId;
+  ) = _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId;
 
-  factory CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId.stub(
+  factory CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId;
+  ) = _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId;
 
   TRes call({
     List<
-      Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes?
+      Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes?
+      Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes<
-          Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes
+        CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes<
+          Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes
         >?
       >,
     )
@@ -4235,23 +4239,23 @@ abstract class CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrIt
   );
 }
 
-class _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId<
+class _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId<
   TRes
 >
     implements
-        CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId<
+        CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId<
           TRes
         > {
-  _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId(
+  _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId(
     this._instance,
     this._then,
   );
 
-  final Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId
+  final Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId
   _instance;
 
   final TRes Function(
-    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId,
+    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId,
   )
   _then;
 
@@ -4261,12 +4265,12 @@ class _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemBy
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId(
+    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes?
+                  Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -4276,12 +4280,12 @@ class _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemBy
 
   TRes nodes(
     Iterable<
-      Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes?
+      Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes<
-          Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes
+        CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes<
+          Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes
         >?
       >,
     )
@@ -4291,7 +4295,7 @@ class _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemBy
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes(
+            : CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes(
                 e,
                 (i) => i,
               ),
@@ -4300,14 +4304,14 @@ class _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemBy
   );
 }
 
-class _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId<
+class _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId<
   TRes
 >
     implements
-        CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId<
+        CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId<
           TRes
         > {
-  _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId(
+  _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId(
     this._res,
   );
 
@@ -4315,7 +4319,7 @@ class _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrIt
 
   call({
     List<
-      Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes?
+      Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes?
     >?
     nodes,
     String? $__typename,
@@ -4324,48 +4328,48 @@ class _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrIt
   nodes(_fn) => _res;
 }
 
-class Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes {
-  Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes({
-    required this.mstrItemSizeId,
+class Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes {
+  Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes({
+    required this.mstrItemActualSizeId,
     this.sizeValue,
     this.mstrItemSizeKindByMstrItemSizeKindId,
-    this.$__typename = 'MstrItemSize',
+    this.$__typename = 'MstrItemActualSize',
   });
 
-  factory Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes.fromJson(
+  factory Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
-    final l$mstrItemSizeId = json['mstrItemSizeId'];
+    final l$mstrItemActualSizeId = json['mstrItemActualSizeId'];
     final l$sizeValue = json['sizeValue'];
     final l$mstrItemSizeKindByMstrItemSizeKindId =
         json['mstrItemSizeKindByMstrItemSizeKindId'];
     final l$$__typename = json['__typename'];
-    return Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes(
-      mstrItemSizeId: (l$mstrItemSizeId as String),
+    return Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes(
+      mstrItemActualSizeId: (l$mstrItemActualSizeId as String),
       sizeValue: (l$sizeValue as String?),
       mstrItemSizeKindByMstrItemSizeKindId:
           l$mstrItemSizeKindByMstrItemSizeKindId == null
           ? null
-          : Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId.fromJson(
+          : Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId.fromJson(
               (l$mstrItemSizeKindByMstrItemSizeKindId as Map<String, dynamic>),
             ),
       $__typename: (l$$__typename as String),
     );
   }
 
-  final String mstrItemSizeId;
+  final String mstrItemActualSizeId;
 
   final String? sizeValue;
 
-  final Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId?
+  final Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId?
   mstrItemSizeKindByMstrItemSizeKindId;
 
   final String $__typename;
 
   Map<String, dynamic> toJson() {
     final _resultData = <String, dynamic>{};
-    final l$mstrItemSizeId = mstrItemSizeId;
-    _resultData['mstrItemSizeId'] = l$mstrItemSizeId;
+    final l$mstrItemActualSizeId = mstrItemActualSizeId;
+    _resultData['mstrItemActualSizeId'] = l$mstrItemActualSizeId;
     final l$sizeValue = sizeValue;
     _resultData['sizeValue'] = l$sizeValue;
     final l$mstrItemSizeKindByMstrItemSizeKindId =
@@ -4379,13 +4383,13 @@ class Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mst
 
   @override
   int get hashCode {
-    final l$mstrItemSizeId = mstrItemSizeId;
+    final l$mstrItemActualSizeId = mstrItemActualSizeId;
     final l$sizeValue = sizeValue;
     final l$mstrItemSizeKindByMstrItemSizeKindId =
         mstrItemSizeKindByMstrItemSizeKindId;
     final l$$__typename = $__typename;
     return Object.hashAll([
-      l$mstrItemSizeId,
+      l$mstrItemActualSizeId,
       l$sizeValue,
       l$mstrItemSizeKindByMstrItemSizeKindId,
       l$$__typename,
@@ -4398,13 +4402,13 @@ class Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mst
       return true;
     }
     if (other
-            is! Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes ||
+            is! Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
-    final l$mstrItemSizeId = mstrItemSizeId;
-    final lOther$mstrItemSizeId = other.mstrItemSizeId;
-    if (l$mstrItemSizeId != lOther$mstrItemSizeId) {
+    final l$mstrItemActualSizeId = mstrItemActualSizeId;
+    final lOther$mstrItemActualSizeId = other.mstrItemActualSizeId;
+    if (l$mstrItemActualSizeId != lOther$mstrItemActualSizeId) {
       return false;
     }
     final l$sizeValue = sizeValue;
@@ -4429,80 +4433,81 @@ class Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mst
   }
 }
 
-extension UtilityExtension$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes
+extension UtilityExtension$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes
     on
-        Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes {
-  CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes<
-    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes
+        Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes {
+  CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes<
+    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes
   >
   get copyWith =>
-      CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes(
+      CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes<
+abstract class CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes<
   TRes
 > {
-  factory CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes(
-    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes
+  factory CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes(
+    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes
     instance,
     TRes Function(
-      Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes,
+      Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes;
+  ) = _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes;
 
-  factory CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes.stub(
+  factory CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes;
+  ) = _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes;
 
   TRes call({
-    String? mstrItemSizeId,
+    String? mstrItemActualSizeId,
     String? sizeValue,
-    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId?
+    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId?
     mstrItemSizeKindByMstrItemSizeKindId,
     String? $__typename,
   });
-  CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId<
+  CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId<
     TRes
   >
   get mstrItemSizeKindByMstrItemSizeKindId;
 }
 
-class _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes<
+class _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes<
   TRes
 >
     implements
-        CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes<
+        CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes(
+  _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes
+  final Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes
   _instance;
 
   final TRes Function(
-    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes,
+    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes,
   )
   _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
   TRes call({
-    Object? mstrItemSizeId = _undefined,
+    Object? mstrItemActualSizeId = _undefined,
     Object? sizeValue = _undefined,
     Object? mstrItemSizeKindByMstrItemSizeKindId = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes(
-      mstrItemSizeId: mstrItemSizeId == _undefined || mstrItemSizeId == null
-          ? _instance.mstrItemSizeId
-          : (mstrItemSizeId as String),
+    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes(
+      mstrItemActualSizeId:
+          mstrItemActualSizeId == _undefined || mstrItemActualSizeId == null
+          ? _instance.mstrItemActualSizeId
+          : (mstrItemActualSizeId as String),
       sizeValue: sizeValue == _undefined
           ? _instance.sizeValue
           : (sizeValue as String?),
@@ -4510,80 +4515,80 @@ class _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemBy
           mstrItemSizeKindByMstrItemSizeKindId == _undefined
           ? _instance.mstrItemSizeKindByMstrItemSizeKindId
           : (mstrItemSizeKindByMstrItemSizeKindId
-                as Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId?),
+                as Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId<
+  CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId<
     TRes
   >
   get mstrItemSizeKindByMstrItemSizeKindId {
     final local$mstrItemSizeKindByMstrItemSizeKindId =
         _instance.mstrItemSizeKindByMstrItemSizeKindId;
     return local$mstrItemSizeKindByMstrItemSizeKindId == null
-        ? CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId.stub(
+        ? CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId(
+        : CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId(
             local$mstrItemSizeKindByMstrItemSizeKindId,
             (e) => call(mstrItemSizeKindByMstrItemSizeKindId: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes<
+class _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes<
   TRes
 >
     implements
-        CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes<
+        CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes(
+  _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes(
     this._res,
   );
 
   TRes _res;
 
   call({
-    String? mstrItemSizeId,
+    String? mstrItemActualSizeId,
     String? sizeValue,
-    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId?
+    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId?
     mstrItemSizeKindByMstrItemSizeKindId,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId<
+  CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId<
     TRes
   >
   get mstrItemSizeKindByMstrItemSizeKindId =>
-      CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId.stub(
+      CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId.stub(
         _res,
       );
 }
 
-class Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId {
-  Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId({
+class Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId {
+  Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId({
     required this.mstrItemSizeKindId,
     this.sharedAppellationBySharedAppellationsId,
     this.$__typename = 'MstrItemSizeKind',
   });
 
-  factory Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId.fromJson(
+  factory Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$mstrItemSizeKindId = json['mstrItemSizeKindId'];
     final l$sharedAppellationBySharedAppellationsId =
         json['sharedAppellationBySharedAppellationsId'];
     final l$$__typename = json['__typename'];
-    return Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId(
+    return Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId(
       mstrItemSizeKindId: (l$mstrItemSizeKindId as String),
       sharedAppellationBySharedAppellationsId:
           l$sharedAppellationBySharedAppellationsId == null
           ? null
-          : Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId.fromJson(
+          : Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId.fromJson(
               (l$sharedAppellationBySharedAppellationsId
                   as Map<String, dynamic>),
             ),
@@ -4593,7 +4598,7 @@ class Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mst
 
   final String mstrItemSizeKindId;
 
-  final Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId?
+  final Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId?
   sharedAppellationBySharedAppellationsId;
 
   final String $__typename;
@@ -4630,7 +4635,7 @@ class Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mst
       return true;
     }
     if (other
-            is! Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId ||
+            is! Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -4656,64 +4661,64 @@ class Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mst
   }
 }
 
-extension UtilityExtension$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId
+extension UtilityExtension$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId
     on
-        Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId {
-  CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId<
-    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId
+        Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId {
+  CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId<
+    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId
   >
   get copyWith =>
-      CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId(
+      CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId<
+abstract class CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId<
   TRes
 > {
-  factory CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId(
-    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId
+  factory CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId(
+    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId
     instance,
     TRes Function(
-      Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId,
+      Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId,
     )
     then,
-  ) = _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId;
+  ) = _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId;
 
-  factory CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId.stub(
+  factory CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId;
+  ) = _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId;
 
   TRes call({
     String? mstrItemSizeKindId,
-    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId?
+    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId?
     sharedAppellationBySharedAppellationsId,
     String? $__typename,
   });
-  CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId<
+  CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId<
     TRes
   >
   get sharedAppellationBySharedAppellationsId;
 }
 
-class _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId<
+class _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId<
   TRes
 >
     implements
-        CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId<
+        CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId<
           TRes
         > {
-  _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId(
+  _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId(
     this._instance,
     this._then,
   );
 
-  final Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId
+  final Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId
   _instance;
 
   final TRes Function(
-    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId,
+    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId,
   )
   _then;
 
@@ -4724,7 +4729,7 @@ class _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemBy
     Object? sharedAppellationBySharedAppellationsId = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId(
+    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId(
       mstrItemSizeKindId:
           mstrItemSizeKindId == _undefined || mstrItemSizeKindId == null
           ? _instance.mstrItemSizeKindId
@@ -4733,38 +4738,38 @@ class _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemBy
           sharedAppellationBySharedAppellationsId == _undefined
           ? _instance.sharedAppellationBySharedAppellationsId
           : (sharedAppellationBySharedAppellationsId
-                as Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId?),
+                as Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId<
+  CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId<
     TRes
   >
   get sharedAppellationBySharedAppellationsId {
     final local$sharedAppellationBySharedAppellationsId =
         _instance.sharedAppellationBySharedAppellationsId;
     return local$sharedAppellationBySharedAppellationsId == null
-        ? CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId.stub(
+        ? CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId(
+        : CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId(
             local$sharedAppellationBySharedAppellationsId,
             (e) => call(sharedAppellationBySharedAppellationsId: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId<
+class _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId<
   TRes
 >
     implements
-        CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId<
+        CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId<
           TRes
         > {
-  _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId(
+  _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId(
     this._res,
   );
 
@@ -4772,37 +4777,37 @@ class _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrIt
 
   call({
     String? mstrItemSizeKindId,
-    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId?
+    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId?
     sharedAppellationBySharedAppellationsId,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId<
+  CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId<
     TRes
   >
   get sharedAppellationBySharedAppellationsId =>
-      CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId.stub(
+      CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId.stub(
         _res,
       );
 }
 
-class Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId {
-  Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId({
+class Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId {
+  Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId({
     this.sharedDictionaryBySharedDictionaryNameId,
     this.$__typename = 'SharedAppellation',
   });
 
-  factory Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId.fromJson(
+  factory Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryBySharedDictionaryNameId =
         json['sharedDictionaryBySharedDictionaryNameId'];
     final l$$__typename = json['__typename'];
-    return Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId(
+    return Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId(
       sharedDictionaryBySharedDictionaryNameId:
           l$sharedDictionaryBySharedDictionaryNameId == null
           ? null
-          : Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId.fromJson(
+          : Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNameId
                   as Map<String, dynamic>),
             ),
@@ -4810,7 +4815,7 @@ class Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mst
     );
   }
 
-  final Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId?
+  final Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId?
   sharedDictionaryBySharedDictionaryNameId;
 
   final String $__typename;
@@ -4843,7 +4848,7 @@ class Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mst
       return true;
     }
     if (other
-            is! Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId ||
+            is! Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -4864,63 +4869,63 @@ class Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mst
   }
 }
 
-extension UtilityExtension$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId
+extension UtilityExtension$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId
     on
-        Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId {
-  CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId<
-    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId
+        Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId {
+  CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId<
+    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId
   >
   get copyWith =>
-      CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId(
+      CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId<
+abstract class CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId<
   TRes
 > {
-  factory CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId(
-    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId
+  factory CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId(
+    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId
     instance,
     TRes Function(
-      Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId,
+      Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId,
     )
     then,
-  ) = _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId;
+  ) = _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId;
 
-  factory CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId.stub(
+  factory CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId;
+  ) = _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId;
 
   TRes call({
-    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId?
+    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
     String? $__typename,
   });
-  CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId;
 }
 
-class _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId<
+class _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId<
   TRes
 >
     implements
-        CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId<
+        CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId<
           TRes
         > {
-  _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId(
+  _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId(
     this._instance,
     this._then,
   );
 
-  final Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId
+  final Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId
   _instance;
 
   final TRes Function(
-    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId,
+    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId,
   )
   _then;
 
@@ -4930,77 +4935,77 @@ class _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemBy
     Object? sharedDictionaryBySharedDictionaryNameId = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId(
+    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId(
       sharedDictionaryBySharedDictionaryNameId:
           sharedDictionaryBySharedDictionaryNameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNameId
           : (sharedDictionaryBySharedDictionaryNameId
-                as Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId?),
+                as Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId {
     final local$sharedDictionaryBySharedDictionaryNameId =
         _instance.sharedDictionaryBySharedDictionaryNameId;
     return local$sharedDictionaryBySharedDictionaryNameId == null
-        ? CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId.stub(
+        ? CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
+        : CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
             local$sharedDictionaryBySharedDictionaryNameId,
             (e) => call(sharedDictionaryBySharedDictionaryNameId: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId<
+class _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId<
   TRes
 >
     implements
-        CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId<
+        CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId<
           TRes
         > {
-  _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId(
+  _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId(
     this._res,
   );
 
   TRes _res;
 
   call({
-    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId?
+    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId =>
-      CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId.stub(
+      CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId.stub(
         _res,
       );
 }
 
-class Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId {
-  Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId({
+class Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId {
+  Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId({
     this.ja,
     this.en,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId.fromJson(
+  factory Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$ja = json['ja'];
     final l$en = json['en'];
     final l$$__typename = json['__typename'];
-    return Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
+    return Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
       ja: (l$ja as String?),
       en: (l$en as String?),
       $__typename: (l$$__typename as String),
@@ -5038,7 +5043,7 @@ class Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mst
       return true;
     }
     if (other
-            is! Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId ||
+            is! Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -5061,55 +5066,55 @@ class Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mst
   }
 }
 
-extension UtilityExtension$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId
+extension UtilityExtension$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId
     on
-        Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId {
-  CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
-    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId
+        Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId {
+  CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
+    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId
   >
   get copyWith =>
-      CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
+      CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
+abstract class CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
   TRes
 > {
-  factory CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
-    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId
+  factory CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
+    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId
     instance,
     TRes Function(
-      Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId,
+      Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId,
     )
     then,
-  ) = _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId;
 
-  factory CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId.stub(
+  factory CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId;
 
   TRes call({String? ja, String? en, String? $__typename});
 }
 
-class _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
     this._instance,
     this._then,
   );
 
-  final Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId
+  final Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId
   _instance;
 
   final TRes Function(
-    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId,
+    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId,
   )
   _then;
 
@@ -5120,7 +5125,7 @@ class _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemBy
     Object? en = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
+    Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
       ja: ja == _undefined ? _instance.ja : (ja as String?),
       en: en == _undefined ? _instance.en : (en as String?),
       $__typename: $__typename == _undefined || $__typename == null
@@ -5130,14 +5135,14 @@ class _CopyWithImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemBy
   );
 }
 
-class _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithStubImpl$Query$OrgResEquipmentRead$allMstrEquipments$nodes$mstrItemByMstrItemId$mstrItemActualSizesByMstrItemId$nodes$mstrItemSizeKindByMstrItemSizeKindId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
     this._res,
   );
 

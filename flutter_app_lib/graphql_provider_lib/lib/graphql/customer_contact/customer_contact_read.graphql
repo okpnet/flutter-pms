@@ -1,0 +1,141 @@
+# customer_contact画面 - Read(一覧・TrinaGrid用ページネーションクエリ)
+#
+# 画面仕様: source/views.md #customer_contact / read
+# 作成ルール: CLAUDE.md 要件0006・0011・0017・0018・0021・0025
+# 配置場所: lib/graphql/customer_contact/customer_contact_read.graphql
+#
+# ⚠ docs/0025_view_graphql_evaluation_log.md / docs/0026_schema_fetch_log.md: 画面仕様の見出しに
+#   対応する実スキーマの型名は"MstrStakeholderContact"(利害関係者窓口マスタ)。customer_contact/
+#   supplier_contactは同一物理テーブルを共有する。「メール」列は要件0026でprivate_phoneからmailへ
+#   物理名が変更された。事業所名/部署名/担当者氏名はそれぞれ独立したshared_appellations参照
+#   (1テーブルに複数の呼称セットを持つ、共通名前仕様の例外的な構成)。
+
+query CustomerContactRead(
+  $first: Int!
+  $offset: Int
+  $condition: MstrStakeholderContactCondition
+  $orderBy: [MstrStakeholderContactsOrderBy!] = [PRIMARY_KEY_ASC]
+  $ja: Boolean!
+  $en: Boolean!
+) {
+  allMstrStakeholderContacts(
+    first: $first
+    offset: $offset
+    condition: $condition
+    orderBy: $orderBy
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      mstrStakeholderContactId
+      mstrStakeholderId
+      code
+      mail
+
+      # --- 共通項: remarks / update_at / remove ---------------------------------
+      remarks
+      updateAt
+      remove
+
+      # --- 事業所名 / 読み / 略称(共通名前仕様) -----------------------------------
+      sharedAppellationByOfficeAppellationsId {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          ja @include(if: $ja)
+          en @include(if: $en)
+        }
+        sharedDictionaryBySharedDictionaryPronunciationId {
+          sharedDictionaryId
+          ja @include(if: $ja)
+          en @include(if: $en)
+        }
+        sharedDictionaryBySharedDictionaryNicknameId {
+          sharedDictionaryId
+          ja @include(if: $ja)
+          en @include(if: $en)
+        }
+      }
+
+      # --- 部署名 / 読み / 略称(共通名前仕様) -------------------------------------
+      sharedAppellationByDepartmentAppellationsId {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          ja @include(if: $ja)
+          en @include(if: $en)
+        }
+        sharedDictionaryBySharedDictionaryPronunciationId {
+          sharedDictionaryId
+          ja @include(if: $ja)
+          en @include(if: $en)
+        }
+        sharedDictionaryBySharedDictionaryNicknameId {
+          sharedDictionaryId
+          ja @include(if: $ja)
+          en @include(if: $en)
+        }
+      }
+
+      # --- 担当者氏名 / 読み / 略称(共通名前仕様) ---------------------------------
+      sharedAppellationByContactPersonAppellationsId {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          ja @include(if: $ja)
+          en @include(if: $en)
+        }
+        sharedDictionaryBySharedDictionaryPronunciationId {
+          sharedDictionaryId
+          ja @include(if: $ja)
+          en @include(if: $en)
+        }
+        sharedDictionaryBySharedDictionaryNicknameId {
+          sharedDictionaryId
+          ja @include(if: $ja)
+          en @include(if: $en)
+        }
+      }
+
+      # --- 配送区分id / 配送区分名(配送区分マスタ参照) -----------------------------
+      mstrShippingKindId
+      mstrShippingKindByMstrShippingKindId {
+        mstrShippingKindId
+        sharedAppellationBySharedAppellationsId {
+          sharedDictionaryBySharedDictionaryNameId {
+            ja @include(if: $ja)
+            en @include(if: $en)
+          }
+        }
+      }
+
+      # --- 共通項: 更新者名(共通名前仕様)の呼称セットID -----------------------------
+      # ⚠ 既知の制約により「CustomerContactReadUpdaterAppellation」を別クエリで呼び出す。
+      historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+        historyId
+        infoStaffId
+        sharedAppellationsId
+      }
+    }
+  }
+}
+
+# --- 更新者の呼称(shared_appellations)・名前解決 --------------------------------
+query CustomerContactReadUpdaterAppellation($sharedAppellationsId: UUID!) {
+  sharedAppellationBySharedAppellationsId(
+    sharedAppellationsId: $sharedAppellationsId
+  ) {
+    sharedAppellationsId
+    sharedDictionaryBySharedDictionaryNameId {
+      ja
+      en
+    }
+    sharedDictionaryBySharedDictionaryPronunciationId {
+      ja
+      en
+    }
+  }
+}

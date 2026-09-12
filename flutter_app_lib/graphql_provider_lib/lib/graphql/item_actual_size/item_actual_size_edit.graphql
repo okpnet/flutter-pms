@@ -1,0 +1,40 @@
+# item_actual_size画面 - Edit(ミューテーション)
+#
+# 画面仕様: source/views.md #item_actual_size / edit
+# 作成ルール: CLAUDE.md 要件0006・0011・0017・0018・0021・0025
+# 配置場所: lib/graphql/item_actual_size/item_actual_size_edit.graphql
+#
+# ⚠ 実スキーマの型名は"MstrItemActualSize"。
+# ⚠ 「品目id」「品目大きさ区分」はスカラーIDのみ設定(既存マスタへの付け替え、名称自体は編集しない)。
+# ⚠ 更新者id/更新者履歴id/削除は0019の既定方針により変数から除外している。
+
+mutation ItemActualSizeEdit(
+  $mstrItemActualSizeId: UUID!
+  $mstrItemId: UUID
+  $mstrItemSizeKindId: UUID
+  $sizeValue: BigFloat
+  $detail: String
+  $remarks: String
+) {
+  updateMstrItemActualSizeByMstrItemActualSizeId(
+    input: {
+      mstrItemActualSizeId: $mstrItemActualSizeId
+      mstrItemActualSizePatch: {
+        mstrItemId: $mstrItemId
+        mstrItemSizeKindId: $mstrItemSizeKindId
+        sizeValue: $sizeValue
+        detail: $detail
+        remarks: $remarks
+      }
+    }
+  ) {
+    mstrItemActualSize {
+      mstrItemActualSizeId
+      mstrItemId
+      mstrItemSizeKindId
+      sizeValue
+      detail
+      remarks
+    }
+  }
+}

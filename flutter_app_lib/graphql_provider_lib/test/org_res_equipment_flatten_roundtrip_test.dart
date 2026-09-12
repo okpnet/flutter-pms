@@ -62,10 +62,10 @@ Map<String, dynamic> _buildRawReadJson() => {
         'mstrItemByMstrItemId': {
           'mstrItemId': 'it111111-1111-1111-1111-111111111111',
           'sharedAppellationBySharedAppellationsId': _mstrItemSharedAppellationJson(),
-          'mstrItemSizesByMstrItemId': {
+          'mstrItemActualSizesByMstrItemId': {
             'nodes': [
               {
-                'mstrItemSizeId': 'sz111111-1111-1111-1111-111111111111',
+                'mstrItemActualSizeId': 'sz111111-1111-1111-1111-111111111111',
                 // ⚠ #9: sizeValueはBigFloatスカラーで、build.yamlにマッピング未設定のため
                 //   Stringにフォールバックして生成される(Missing scalar BigFloat警告)。
                 'sizeValue': '120.5',
@@ -81,10 +81,10 @@ Map<String, dynamic> _buildRawReadJson() => {
                   },
                   '__typename': 'MstrItemSizeKind',
                 },
-                '__typename': 'MstrItemSize',
+                '__typename': 'MstrItemActualSize',
               },
             ],
-            '__typename': 'MstrItemSizesConnection',
+            '__typename': 'MstrItemActualSizesConnection',
           },
           '__typename': 'MstrItem',
         },

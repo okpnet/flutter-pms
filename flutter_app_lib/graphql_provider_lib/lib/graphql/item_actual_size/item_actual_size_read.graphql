@@ -1,0 +1,97 @@
+# item_actual_size画面 - Read(一覧・TrinaGrid用ページネーションクエリ)
+#
+# 画面仕様: source/views.md #item_actual_size / read
+# 作成ルール: CLAUDE.md 要件0006・0011・0017・0018・0021・0025
+# 配置場所: lib/graphql/item_actual_size/item_actual_size_read.graphql
+#
+# ⚠ docs/0025_view_graphql_evaluation_log.md 4-2節: 実スキーマの型名は"MstrItemActualSize"
+#   (品目大きさマスタ)。当初views.mdにあった「呼称セット」項目はmstr_item_actual_size自身には
+#   shared_appellations_id列が存在しないため未採択・エラーとして記録済み。views.md修正後は
+#   「大きさ区分名/読み/略称」を"MstrItemSizeKind"(品目大きさ区分マスタ)経由の参照のみとし、
+#   本テーブル自身は呼称を持たない構成になった。
+# ⚠ 「品目id」「品目大きさ区分」はorg_res_equipmentの「場所名」「設備分類名」と同様、既存マスタへの
+#   付け替え(スカラーIDのみ設定、名称自体は編集しない)として扱う。
+
+query ItemActualSizeRead(
+  $first: Int!
+  $offset: Int
+  $condition: MstrItemActualSizeCondition
+  $orderBy: [MstrItemActualSizesOrderBy!] = [PRIMARY_KEY_ASC]
+  $ja: Boolean!
+  $en: Boolean!
+) {
+  allMstrItemActualSizes(
+    first: $first
+    offset: $offset
+    condition: $condition
+    orderBy: $orderBy
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      mstrItemActualSizeId
+      mstrItemId
+
+      # --- 大きさ / 詳細 ---------------------------------------------------------
+      sizeValue
+      detail
+
+      # --- 共通項: remarks / update_at / remove ---------------------------------
+      remarks
+      updateAt
+      remove
+
+      # --- 大きさ区分コード / 名 / 読み / 略称(品目大きさ区分マスタ参照、共通名前仕様) ---
+      mstrItemSizeKindByMstrItemSizeKindId {
+        mstrItemSizeKindId
+        code
+        sharedAppellationBySharedAppellationsId {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            ja @include(if: $ja)
+            en @include(if: $en)
+          }
+          sharedDictionaryBySharedDictionaryPronunciationId {
+            sharedDictionaryId
+            ja @include(if: $ja)
+            en @include(if: $en)
+          }
+          sharedDictionaryBySharedDictionaryNicknameId {
+            sharedDictionaryId
+            ja @include(if: $ja)
+            en @include(if: $en)
+          }
+        }
+      }
+
+      # --- 共通項: 更新者名(共通名前仕様)の呼称セットID -----------------------------
+      # ⚠ 既知の制約により「ItemActualSizeReadUpdaterAppellation」を別クエリで呼び出す。
+      historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+        historyId
+        infoStaffId
+        sharedAppellationsId
+      }
+    }
+  }
+}
+
+# --- 更新者の呼称(shared_appellations)・名前解決 --------------------------------
+query ItemActualSizeReadUpdaterAppellation($sharedAppellationsId: UUID!) {
+  sharedAppellationBySharedAppellationsId(
+    sharedAppellationsId: $sharedAppellationsId
+  ) {
+    sharedAppellationsId
+    sharedDictionaryBySharedDictionaryNameId {
+      ja
+      en
+    }
+    sharedDictionaryBySharedDictionaryPronunciationId {
+      ja
+      en
+    }
+  }
+}

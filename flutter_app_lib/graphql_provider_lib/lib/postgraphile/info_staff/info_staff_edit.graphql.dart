@@ -8,7 +8,6 @@ class Variables$Mutation$InfoStaffEdit {
   factory Variables$Mutation$InfoStaffEdit({
     required String infoStaffId,
     String? code,
-    String? infoOfficeId,
     String? privatePhone,
     String? remarks,
     required String sharedAppellationsId,
@@ -24,7 +23,6 @@ class Variables$Mutation$InfoStaffEdit {
   }) => Variables$Mutation$InfoStaffEdit._({
     r'infoStaffId': infoStaffId,
     if (code != null) r'code': code,
-    if (infoOfficeId != null) r'infoOfficeId': infoOfficeId,
     if (privatePhone != null) r'privatePhone': privatePhone,
     if (remarks != null) r'remarks': remarks,
     r'sharedAppellationsId': sharedAppellationsId,
@@ -48,10 +46,6 @@ class Variables$Mutation$InfoStaffEdit {
     if (data.containsKey('code')) {
       final l$code = data['code'];
       result$data['code'] = (l$code as String?);
-    }
-    if (data.containsKey('infoOfficeId')) {
-      final l$infoOfficeId = data['infoOfficeId'];
-      result$data['infoOfficeId'] = (l$infoOfficeId as String?);
     }
     if (data.containsKey('privatePhone')) {
       final l$privatePhone = data['privatePhone'];
@@ -106,8 +100,6 @@ class Variables$Mutation$InfoStaffEdit {
 
   String? get code => (_$data['code'] as String?);
 
-  String? get infoOfficeId => (_$data['infoOfficeId'] as String?);
-
   String? get privatePhone => (_$data['privatePhone'] as String?);
 
   String? get remarks => (_$data['remarks'] as String?);
@@ -142,10 +134,6 @@ class Variables$Mutation$InfoStaffEdit {
     if (_$data.containsKey('code')) {
       final l$code = code;
       result$data['code'] = l$code;
-    }
-    if (_$data.containsKey('infoOfficeId')) {
-      final l$infoOfficeId = infoOfficeId;
-      result$data['infoOfficeId'] = l$infoOfficeId;
     }
     if (_$data.containsKey('privatePhone')) {
       final l$privatePhone = privatePhone;
@@ -214,15 +202,6 @@ class Variables$Mutation$InfoStaffEdit {
       return false;
     }
     if (l$code != lOther$code) {
-      return false;
-    }
-    final l$infoOfficeId = infoOfficeId;
-    final lOther$infoOfficeId = other.infoOfficeId;
-    if (_$data.containsKey('infoOfficeId') !=
-        other._$data.containsKey('infoOfficeId')) {
-      return false;
-    }
-    if (l$infoOfficeId != lOther$infoOfficeId) {
       return false;
     }
     final l$privatePhone = privatePhone;
@@ -323,7 +302,6 @@ class Variables$Mutation$InfoStaffEdit {
   int get hashCode {
     final l$infoStaffId = infoStaffId;
     final l$code = code;
-    final l$infoOfficeId = infoOfficeId;
     final l$privatePhone = privatePhone;
     final l$remarks = remarks;
     final l$sharedAppellationsId = sharedAppellationsId;
@@ -339,7 +317,6 @@ class Variables$Mutation$InfoStaffEdit {
     return Object.hashAll([
       l$infoStaffId,
       _$data.containsKey('code') ? l$code : const {},
-      _$data.containsKey('infoOfficeId') ? l$infoOfficeId : const {},
       _$data.containsKey('privatePhone') ? l$privatePhone : const {},
       _$data.containsKey('remarks') ? l$remarks : const {},
       l$sharedAppellationsId,
@@ -368,7 +345,6 @@ abstract class CopyWith$Variables$Mutation$InfoStaffEdit<TRes> {
   TRes call({
     String? infoStaffId,
     String? code,
-    String? infoOfficeId,
     String? privatePhone,
     String? remarks,
     String? sharedAppellationsId,
@@ -397,7 +373,6 @@ class _CopyWithImpl$Variables$Mutation$InfoStaffEdit<TRes>
   TRes call({
     Object? infoStaffId = _undefined,
     Object? code = _undefined,
-    Object? infoOfficeId = _undefined,
     Object? privatePhone = _undefined,
     Object? remarks = _undefined,
     Object? sharedAppellationsId = _undefined,
@@ -416,7 +391,6 @@ class _CopyWithImpl$Variables$Mutation$InfoStaffEdit<TRes>
       if (infoStaffId != _undefined && infoStaffId != null)
         'infoStaffId': (infoStaffId as String),
       if (code != _undefined) 'code': (code as String?),
-      if (infoOfficeId != _undefined) 'infoOfficeId': (infoOfficeId as String?),
       if (privatePhone != _undefined) 'privatePhone': (privatePhone as String?),
       if (remarks != _undefined) 'remarks': (remarks as String?),
       if (sharedAppellationsId != _undefined && sharedAppellationsId != null)
@@ -452,7 +426,6 @@ class _CopyWithStubImpl$Variables$Mutation$InfoStaffEdit<TRes>
   call({
     String? infoStaffId,
     String? code,
-    String? infoOfficeId,
     String? privatePhone,
     String? remarks,
     String? sharedAppellationsId,
@@ -634,12 +607,6 @@ const documentNodeMutationInfoStaffEdit = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'infoOfficeId')),
-          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: false),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'privatePhone')),
           type: NamedTypeNode(
             name: NameNode(value: 'String'),
@@ -764,12 +731,6 @@ const documentNodeMutationInfoStaffEdit = DocumentNode(
                           ObjectFieldNode(
                             name: NameNode(value: 'code'),
                             value: VariableNode(name: NameNode(value: 'code')),
-                          ),
-                          ObjectFieldNode(
-                            name: NameNode(value: 'infoOfficeId'),
-                            value: VariableNode(
-                              name: NameNode(value: 'infoOfficeId'),
-                            ),
                           ),
                           ObjectFieldNode(
                             name: NameNode(value: 'privatePhone'),
@@ -1038,13 +999,6 @@ const documentNodeMutationInfoStaffEdit = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(value: 'code'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'infoOfficeId'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -1610,7 +1564,6 @@ class Mutation$InfoStaffEdit$updateInfoStaffByInfoStaffId$infoStaff {
   Mutation$InfoStaffEdit$updateInfoStaffByInfoStaffId$infoStaff({
     required this.infoStaffId,
     this.code,
-    this.infoOfficeId,
     this.privatePhone,
     this.remarks,
     this.sharedAppellationBySharedAppellationsId,
@@ -1622,7 +1575,6 @@ class Mutation$InfoStaffEdit$updateInfoStaffByInfoStaffId$infoStaff {
   ) {
     final l$infoStaffId = json['infoStaffId'];
     final l$code = json['code'];
-    final l$infoOfficeId = json['infoOfficeId'];
     final l$privatePhone = json['privatePhone'];
     final l$remarks = json['remarks'];
     final l$sharedAppellationBySharedAppellationsId =
@@ -1631,7 +1583,6 @@ class Mutation$InfoStaffEdit$updateInfoStaffByInfoStaffId$infoStaff {
     return Mutation$InfoStaffEdit$updateInfoStaffByInfoStaffId$infoStaff(
       infoStaffId: (l$infoStaffId as String),
       code: (l$code as String?),
-      infoOfficeId: (l$infoOfficeId as String?),
       privatePhone: (l$privatePhone as String?),
       remarks: (l$remarks as String?),
       sharedAppellationBySharedAppellationsId:
@@ -1649,8 +1600,6 @@ class Mutation$InfoStaffEdit$updateInfoStaffByInfoStaffId$infoStaff {
 
   final String? code;
 
-  final String? infoOfficeId;
-
   final String? privatePhone;
 
   final String? remarks;
@@ -1666,8 +1615,6 @@ class Mutation$InfoStaffEdit$updateInfoStaffByInfoStaffId$infoStaff {
     _resultData['infoStaffId'] = l$infoStaffId;
     final l$code = code;
     _resultData['code'] = l$code;
-    final l$infoOfficeId = infoOfficeId;
-    _resultData['infoOfficeId'] = l$infoOfficeId;
     final l$privatePhone = privatePhone;
     _resultData['privatePhone'] = l$privatePhone;
     final l$remarks = remarks;
@@ -1685,7 +1632,6 @@ class Mutation$InfoStaffEdit$updateInfoStaffByInfoStaffId$infoStaff {
   int get hashCode {
     final l$infoStaffId = infoStaffId;
     final l$code = code;
-    final l$infoOfficeId = infoOfficeId;
     final l$privatePhone = privatePhone;
     final l$remarks = remarks;
     final l$sharedAppellationBySharedAppellationsId =
@@ -1694,7 +1640,6 @@ class Mutation$InfoStaffEdit$updateInfoStaffByInfoStaffId$infoStaff {
     return Object.hashAll([
       l$infoStaffId,
       l$code,
-      l$infoOfficeId,
       l$privatePhone,
       l$remarks,
       l$sharedAppellationBySharedAppellationsId,
@@ -1720,11 +1665,6 @@ class Mutation$InfoStaffEdit$updateInfoStaffByInfoStaffId$infoStaff {
     final l$code = code;
     final lOther$code = other.code;
     if (l$code != lOther$code) {
-      return false;
-    }
-    final l$infoOfficeId = infoOfficeId;
-    final lOther$infoOfficeId = other.infoOfficeId;
-    if (l$infoOfficeId != lOther$infoOfficeId) {
       return false;
     }
     final l$privatePhone = privatePhone;
@@ -1782,7 +1722,6 @@ abstract class CopyWith$Mutation$InfoStaffEdit$updateInfoStaffByInfoStaffId$info
   TRes call({
     String? infoStaffId,
     String? code,
-    String? infoOfficeId,
     String? privatePhone,
     String? remarks,
     Mutation$InfoStaffEdit$updateInfoStaffByInfoStaffId$infoStaff$sharedAppellationBySharedAppellationsId?
@@ -1819,7 +1758,6 @@ class _CopyWithImpl$Mutation$InfoStaffEdit$updateInfoStaffByInfoStaffId$infoStaf
   TRes call({
     Object? infoStaffId = _undefined,
     Object? code = _undefined,
-    Object? infoOfficeId = _undefined,
     Object? privatePhone = _undefined,
     Object? remarks = _undefined,
     Object? sharedAppellationBySharedAppellationsId = _undefined,
@@ -1830,9 +1768,6 @@ class _CopyWithImpl$Mutation$InfoStaffEdit$updateInfoStaffByInfoStaffId$infoStaf
           ? _instance.infoStaffId
           : (infoStaffId as String),
       code: code == _undefined ? _instance.code : (code as String?),
-      infoOfficeId: infoOfficeId == _undefined
-          ? _instance.infoOfficeId
-          : (infoOfficeId as String?),
       privatePhone: privatePhone == _undefined
           ? _instance.privatePhone
           : (privatePhone as String?),
@@ -1881,7 +1816,6 @@ class _CopyWithStubImpl$Mutation$InfoStaffEdit$updateInfoStaffByInfoStaffId$info
   call({
     String? infoStaffId,
     String? code,
-    String? infoOfficeId,
     String? privatePhone,
     String? remarks,
     Mutation$InfoStaffEdit$updateInfoStaffByInfoStaffId$infoStaff$sharedAppellationBySharedAppellationsId?

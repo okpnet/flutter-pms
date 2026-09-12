@@ -1,7 +1,7 @@
 ﻿# A5:ER FORMAT:18
 # A5:ER ENCODING:UTF8
 # A5:ER Mk-1 Copyright © 2007 m.matsubara
-# A5:SQL Mk-2 Version 2.20.0 beta 24 Copyright © 1997 - 2024 m.matsubara
+# A5:SQL Mk-2 Version 2.20.0 beta 20 Copyright © 1997 - 2024 m.matsubara
 #  https://a5m2.mmatsubara.com
 
 [Manager]
@@ -61,6 +61,8 @@ Domain=@QTY=decimal(10,2)
 DomainInfo="@QTY","decimal(10,2)","",""
 Domain=@SIZE=decimal(10,4)
 DomainInfo="@SIZE","decimal(10,4)","",""
+Domain=@JSONB=jsonb
+DomainInfo="@JSONB","jsonb","",""
 Domain=@REV=integer
 DomainInfo="@REV","integer","","latest_revision"
 LogicalView=1
@@ -358,8 +360,8 @@ Comment=
 TableInnerOption=
 TableOption=
 Page=マスタ資源
-Left=5000
-Top=3150
+Left=4900
+Top=2900
 Field="利害関係者ID","mstr_stakeholder_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="顧客","is_customer","*@BOOL","NOT NULL",,"\qf\q","",$FFFFFFFF,""
 Field="外部供給者","is_supplier","*@BOOL","NOT NULL",,"\qf\q","",$FFFFFFFF,""
@@ -376,7 +378,7 @@ Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20260828153447
-Position="マスタ資源",5000,3150
+Position="マスタ資源",4900,2900
 ZOrder=45
 
 [Entity]
@@ -386,24 +388,24 @@ Comment=
 TableInnerOption=
 TableOption=
 Page=マスタ資源
-Left=3400
-Top=3000
+Left=2850
+Top=4200
 Field="窓口ID","mstr_stakeholder_contact_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="利害関係者ID","mstr_stakeholder_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="利害関係者コード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="事業所名","office_appellations_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="部署名","department_appellations_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="担当者名","contact_person_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
-Field="メール","private_phone","*@VARCHAR255",,,"","",$FFFFFFFF,""
+Field="メール","mail","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="住所ID","info_address_id","*@UUID",,,"","",$FFFFFFFF,""
-Field="配送区分ID","mstr_shipping_kind_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="配送区分ID","mstr_shipping_kind_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260911121910
-Position="マスタ資源",3400,3000
+ModifiedDateTime=20260912095622
+Position="マスタ資源",2850,4200
 ZOrder=47
 
 [Relation]
@@ -415,15 +417,15 @@ Fields1=mstr_stakeholder_id
 Fields2=mstr_stakeholder_id
 Cardinarity1=
 Cardinarity2=
-Position="マスタ資源",0,1626,6198,5673,R,R,""
+Position="マスタ資源",0,9789,6198,669,R,R,""
 Dependence=0
 Caption=
 PName=
 ModifiedDateTime=20260905225210
 LineMode=0
-Bar1=163
+Bar1=979
 Bar2=620
-Bar3=567
+Bar3=67
 TermPos1=R
 TermPos2=R
 ZOrder=48
@@ -639,7 +641,7 @@ TableOption=
 Page=マスタ工程
 Left=4200
 Top=950
-Field="品目工程運用課題マスタID","mstr_item_operation_task_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
+Field="品目工程運用課題ID","mstr_item_operation_task_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="工程運用課題ID","mstr_operation_task_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="品目ID","mstr_item_id","*@UUID","NOT NULL",,"gen_random_uuid()","",$FFFFFFFF,""
 Field="順","sequence","*@SMALLINT","NOT NULL",,"1","",$FFFFFFFF,""
@@ -649,7 +651,7 @@ EffectMode=None
 Tag=<<Inherited>>
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260906180432
+ModifiedDateTime=20260912152421
 Position="マスタ工程",4200,950
 ZOrder=70
 
@@ -1320,7 +1322,7 @@ TableOption=
 Page=マスタ工程
 Left=950
 Top=1200
-Field="工程運用マスタID","mstr_operation_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
+Field="工程運用ID","mstr_operation_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="管理コード","control_code","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="詳細","detail","*@VARCHAR1024",,,"","",$FFFFFFFF,""
@@ -1329,7 +1331,7 @@ EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260906092307
+ModifiedDateTime=20260912152339
 Position="マスタ工程",950,1200
 ZOrder=137
 
@@ -1343,7 +1345,7 @@ Page=マスタ工程
 Left=2650
 Top=1600
 Field="工程運用課題ID","mstr_operation_task_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
-Field="工程運用マスタID","mstr_operation_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="工程運用ID","mstr_operation_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="工程ID","mstr_task_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="順","sequence","*@SMALLINT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="管理コード","control_code","*@VARCHAR255",,,"","",$FFFFFFFF,""
@@ -1355,7 +1357,7 @@ EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260906083315
+ModifiedDateTime=20260912152406
 Position="マスタ工程",2650,1600
 ZOrder=138
 
@@ -2033,6 +2035,7 @@ Field="点検整備実施ID","trans_inspect_record_id","*@UUID","NOT NULL",0,"ge
 Field="点検整備予定詳細ID","trans_inspect_sch_detail_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="実施開始日","implement_start_date","*@DATETIME","NOT NULL",,"now()","",$FFFFFFFF,""
 Field="実施終了日","implement_stop_date","*@DATETIME","NOT NULL",,"now()","",$FFFFFFFF,""
+Field="測定値","result_value","*@JSONB",,,"","",$FFFFFFFF,""
 Field="結果","result","*@BOOL","NOT NULL",,"\qt\q","",$FFFFFFFF,""
 Field="結果ステータス","result_state","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="特記","note","*@VARCHAR1024",,,"","",$FFFFFFFF,""
@@ -2040,7 +2043,7 @@ Field="利害関係者","stakeholder_id","*@UUID",,,"","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260905223742
+ModifiedDateTime=20260912194802
 Position="トラザクション",450,4450
 ZOrder=247
 
@@ -2402,13 +2405,12 @@ Field="管理コード","control_code","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="詳細","detail","*@VARCHAR1024",,,"","",$FFFFFFFF,""
 Field="適合水準","conformance","*@SMALLINT","NOT NULL",,"0","",$FFFFFFFF,""
-Field="最小","min","*@SMALLINT","NOT NULL",,"0","",$FFFFFFFF,""
-Field="最大","max","*@SMALLINT","NOT NULL",,"0","",$FFFFFFFF,""
+Field="引数","arg_class","*@JSONB","NOT NULL",,"\q{}\q","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260826140051
+ModifiedDateTime=20260912200017
 Position="品質",300,2950
 ZOrder=303
 
@@ -3781,7 +3783,7 @@ Fields2=info_address_id
 Cardinarity1=
 Cardinarity2=
 Position="インフォメーション",0,1910,8090,2677,R,R,""
-Position="マスタ資源",0,1857,8143,1745,R,R,""
+Position="マスタ資源",0,1857,8143,1971,R,R,""
 Dependence=0
 Caption=
 PName=
@@ -3828,7 +3830,7 @@ Left=6750
 Top=2600
 Field="点検整備項目ID","mstr_inspection_formula_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="式","formula_class","*@SMALLINT","NOT NULL",,"1","1:eq,11:neq 2:ge 3:gt 4:le 5:lt 6:bw,16:nbw 7:in,17:nin",$FFFFFFFF,""
-Field="引数","arg_class","*@VARCHAR255","NOT NULL",,"\qtrue\q","",$FFFFFFFF,""
+Field="引数","arg_class","*@JSONB","NOT NULL",,"\q{}\q","",$FFFFFFFF,""
 Field="型","type_class","*@SMALLINT","NOT NULL",,"1","1:bool 2:number 3:text 4:array with text",$FFFFFFFF,""
 Field="フォーマット","format_class","*@VARCHAR255",,,"","書式化",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
@@ -3836,7 +3838,7 @@ EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20231005093143
+ModifiedDateTime=20260912193905
 Position="マスタ設備",6750,2600
 ZOrder=539
 
@@ -3914,7 +3916,7 @@ Fields1=mstr_stakeholder_id
 Fields2=mstr_stakeholder_id
 Cardinarity1=
 Cardinarity2=
-Position="マスタ資源",0,1863,8137,1857,R,R,""
+Position="マスタ資源",0,1863,8137,1865,R,R,""
 Dependence=0
 Caption=
 PName=
@@ -4138,8 +4140,8 @@ Comment=
 TableInnerOption=
 TableOption=
 Page=マスタ工程
-Left=4750
-Top=4550
+Left=4000
+Top=3750
 Field="工程グループID","mstr_task_group_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="グループコード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
@@ -4150,7 +4152,7 @@ Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20260826142751
-Position="マスタ工程",4750,4550
+Position="マスタ工程",4000,3750
 ZOrder=565
 
 [Entity]
@@ -5734,8 +5736,8 @@ Comment=
 TableInnerOption=
 TableOption=
 Page=マスタ資源
-Left=1750
-Top=3400
+Left=850
+Top=4500
 Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="窓口ID","mstr_stakeholder_contact_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="利害関係者ID","mstr_stakeholder_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
@@ -5743,15 +5745,15 @@ Field="利害関係者コード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFF
 Field="事業所名","office_appellations_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="部署名","department_appellations_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="担当者名","contact_person_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
-Field="メール","private_phone","*@VARCHAR255",,,"","",$FFFFFFFF,""
+Field="メール","mail","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="住所ID","info_address_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260911122029
-Position="マスタ資源",1750,3400
+ModifiedDateTime=20260912095441
+Position="マスタ資源",850,4500
 ZOrder=667
 
 [Relation]
@@ -6027,13 +6029,12 @@ Field="管理コード","control_code","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="詳細","detail","*@VARCHAR1024",,,"","",$FFFFFFFF,""
 Field="適合水準","conformance","*@SMALLINT","NOT NULL",,"0","",$FFFFFFFF,""
-Field="最小","min","*@SMALLINT","NOT NULL",,"0","",$FFFFFFFF,""
-Field="最大","max","*@SMALLINT","NOT NULL",,"0","",$FFFFFFFF,""
+Field="引数","arg_class","*@JSONB","NOT NULL",,"\q{}\q","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260826140102
+ModifiedDateTime=20260912200149
 Position="品質",300,1900
 ZOrder=690
 
@@ -6228,7 +6229,7 @@ Top=1750
 Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="点検整備項目ID","mstr_inspection_formula_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="式","formula_class","*@SMALLINT","NOT NULL",,"1","1:eq,11:neq 2:ge 3:gt 4:le 5:lt 6:bw,16:nbw 7:in,17:nin",$FFFFFFFF,""
-Field="引数","arg_class","*@VARCHAR255","NOT NULL",,"\qtrue\q","",$FFFFFFFF,""
+Field="引数","arg_class","*@JSONB","NOT NULL",,"\q{}\q","",$FFFFFFFF,""
 Field="型","type_class","*@SMALLINT","NOT NULL",,"1","1:bool 2:number 3:text 4:array with text",$FFFFFFFF,""
 Field="フォーマット","format_class","*@VARCHAR255",,,"","書式化",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
@@ -6236,7 +6237,7 @@ EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20240903093043
+ModifiedDateTime=20260912193958
 Position="マスタ設備",6650,1750
 ZOrder=701
 
@@ -6524,7 +6525,7 @@ Page=マスタ工程
 Left=350
 Top=350
 Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
-Field="工程運用マスタID","mstr_operation_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
+Field="工程運用ID","mstr_operation_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="管理コード","control_code","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="詳細","detail","*@VARCHAR1024",,,"","",$FFFFFFFF,""
@@ -6533,7 +6534,7 @@ EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260906092318
+ModifiedDateTime=20260912152353
 Position="マスタ工程",350,350
 ZOrder=727
 
@@ -6568,8 +6569,8 @@ Comment=
 TableInnerOption=
 TableOption=
 Page=マスタ工程
-Left=6150
-Top=4800
+Left=4600
+Top=4350
 Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="工程グループID","mstr_task_group_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="グループコード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
@@ -6581,7 +6582,7 @@ Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20260826142759
-Position="マスタ工程",6150,4800
+Position="マスタ工程",4600,4350
 ZOrder=729
 
 [Relation]
@@ -6798,8 +6799,8 @@ Comment=
 TableInnerOption=
 TableOption=
 Page=マスタ工程
-Left=3450
-Top=4350
+Left=3250
+Top=4450
 Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="工程ID","mstr_task_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="工程グループID","mstr_task_group_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
@@ -6814,7 +6815,7 @@ Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20260826142650
-Position="マスタ工程",3450,4350,757,635
+Position="マスタ工程",3250,4450,757,635
 ZOrder=739
 
 [Relation]
@@ -10291,7 +10292,7 @@ Left=4450
 Top=2000
 Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="工程運用課題ID","mstr_operation_task_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
-Field="工程運用マスタID","mstr_operation_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="工程運用ID","mstr_operation_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="工程ID","mstr_task_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="順","sequence","*@SMALLINT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="管理コード","control_code","*@VARCHAR255",,,"","",$FFFFFFFF,""
@@ -10302,7 +10303,7 @@ EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260905230634
+ModifiedDateTime=20260912152427
 Position="マスタ工程",4450,2000
 ZOrder=770
 
@@ -15161,8 +15162,8 @@ Comment=
 TableInnerOption=
 TableOption=
 Page=マスタ資源
-Left=6400
-Top=3600
+Left=3210
+Top=3122
 Field="配送区分ID","mstr_shipping_kind_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="配送区分コード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
@@ -15171,7 +15172,7 @@ EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20260828152405
-Position="マスタ資源",6400,3600
+Position="マスタ資源",3210,3122
 ZOrder=1005
 
 [Relation]
@@ -15204,8 +15205,8 @@ Comment=
 TableInnerOption=
 TableOption=
 Page=マスタ資源
-Left=6750
-Top=4350
+Left=3150
+Top=2400
 Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="配送区分ID","mstr_shipping_kind_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="配送区分コード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
@@ -15215,7 +15216,7 @@ EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20260828152505
-Position="マスタ資源",6750,4350
+Position="マスタ資源",3150,2400
 ZOrder=1007
 
 [Relation]
@@ -15902,7 +15903,7 @@ TermPos2=R
 ZOrder=1047
 
 [Entity]
-PName=mstr_equipment_envelope 
+PName=mstr_equipment_envelope
 LName=設備占有範囲マスタ
 Comment=
 TableInnerOption=
@@ -15910,7 +15911,7 @@ TableOption=
 Page=マスタ設備
 Left=2600
 Top=3250
-Field="占有範囲ID","mstr_equipment_envelope _id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
+Field="占有範囲ID","mstr_equipment_envelope_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="設備ID","mstr_equipment_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="奥行き","length_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="横","wide_id_","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
@@ -15919,7 +15920,7 @@ Field="重さ","wait_id","*@UUID",,,"","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260911135827
+ModifiedDateTime=20260911205020
 Position="マスタ設備",2600,3250
 ZOrder=1050
 
@@ -15967,7 +15968,7 @@ ZOrder=1056
 
 [Relation]
 Entity1=mstr_equipment
-Entity2=mstr_equipment_envelope 
+Entity2=mstr_equipment_envelope
 RelationType1=1
 RelationType2=1
 Fields1=mstr_equipment_id
@@ -15989,7 +15990,7 @@ ZOrder=1057
 
 [Relation]
 Entity1=mstr_envelope_measurement
-Entity2=mstr_equipment_envelope 
+Entity2=mstr_equipment_envelope
 RelationType1=2
 RelationType2=2
 Fields1=mstr_envelope_measurement_id
@@ -16011,7 +16012,7 @@ ZOrder=1058
 
 [Relation]
 Entity1=mstr_envelope_measurement
-Entity2=mstr_equipment_envelope 
+Entity2=mstr_equipment_envelope
 RelationType1=2
 RelationType2=2
 Fields1=mstr_envelope_measurement_id
@@ -16033,7 +16034,7 @@ ZOrder=1059
 
 [Relation]
 Entity1=mstr_envelope_measurement
-Entity2=mstr_equipment_envelope 
+Entity2=mstr_equipment_envelope
 RelationType1=2
 RelationType2=2
 Fields1=mstr_envelope_measurement_id
@@ -16055,7 +16056,7 @@ ZOrder=1060
 
 [Relation]
 Entity1=mstr_envelope_measurement
-Entity2=mstr_equipment_envelope 
+Entity2=mstr_equipment_envelope
 RelationType1=1
 RelationType2=1
 Fields1=mstr_envelope_measurement_id
@@ -16117,7 +16118,7 @@ Position="マスタ品目",500,3250
 ZOrder=1063
 
 [Entity]
-PName=history_mstr_equipment_envelope 
+PName=history_mstr_equipment_envelope
 LName=設備占有範囲マスタ履歴
 Comment=
 TableInnerOption=
@@ -16126,7 +16127,7 @@ Page=マスタ設備
 Left=3000
 Top=4150
 Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
-Field="占有範囲ID","mstr_equipment_envelope _id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
+Field="占有範囲ID","mstr_equipment_envelope_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="設備ID","mstr_equipment_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="縦","length_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="横","wide_id_","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
@@ -16135,7 +16136,7 @@ Field="重さ","wait_id","*@UUID",,,"","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260911103238
+ModifiedDateTime=20260911205056
 Position="マスタ設備",3000,4150
 ZOrder=1064
 
@@ -16182,12 +16183,12 @@ TermPos2=R
 ZOrder=1067
 
 [Relation]
-Entity1=mstr_equipment_envelope 
-Entity2=history_mstr_equipment_envelope 
+Entity1=mstr_equipment_envelope
+Entity2=history_mstr_equipment_envelope
 RelationType1=2
 RelationType2=3
-Fields1=\Qmstr_equipment_envelope _id\Q
-Fields2=\Qmstr_equipment_envelope _id\Q
+Fields1=mstr_equipment_envelope_id
+Fields2=mstr_equipment_envelope_id
 Cardinarity1=
 Cardinarity2=
 Position="マスタ設備",0,4279,5721,3787,R,R,""
@@ -16436,9 +16437,9 @@ Caption=
 PName=
 ModifiedDateTime=20260911121735
 LineMode=0
-Bar1=597
-Bar2=403
-Bar3=765
+Bar1=822
+Bar2=178
+Bar3=175
 TermPos1=R
 TermPos2=R
 ZOrder=1080
@@ -16459,9 +16460,31 @@ Caption=
 PName=
 ModifiedDateTime=20260911121756
 LineMode=0
-Bar1=601
-Bar2=399
-Bar3=831
+Bar1=816
+Bar2=184
+Bar3=175
 TermPos1=R
 TermPos2=R
 ZOrder=1081
+
+[Relation]
+Entity1=mstr_shipping_kind
+Entity2=mstr_stakeholder_contact
+RelationType1=1
+RelationType2=1
+Fields1=mstr_shipping_kind_id
+Fields2=mstr_shipping_kind_id
+Cardinarity1=
+Cardinarity2=
+Position="マスタ資源",0,5936,4064,4628,R,R,""
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20260912095754
+LineMode=0
+Bar1=594
+Bar2=406
+Bar3=463
+TermPos1=R
+TermPos2=R
+ZOrder=1082

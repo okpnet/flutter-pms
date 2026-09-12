@@ -1,0 +1,150 @@
+# item画面 - Read(一覧・TrinaGrid用ページネーションクエリ)
+#
+# 画面仕様: source/views.md #item / read
+# 作成ルール: CLAUDE.md 要件0006・0011・0017・0018・0021・0025
+# 配置場所: lib/graphql/item/item_read.graphql
+#
+# ⚠ docs/0025_view_graphql_evaluation_log.md: 画面仕様の見出しに対応する実スキーマの型名は
+#   "MstrItem"(品目マスタ)。関連: "MstrItemKind"(品目種類/品目区分マスタ)・
+#   "MstrManufacturer"(製造元マスタ)・"MstrItemProvision"→"InfoProvision"(品目提供・1対多)・
+#   "SharedUnit"(単位マスタ)。
+# ⚠ 「品目提供」は1対多(mstr_item_provisionsByMstrItemId)のため、要件0025 8-3節の方針に
+#   従いジョイン行自身のid(mstrItemProvisionId)と参照先id(infoProvisionId)の両方を取得する。
+#   複数件はアプリ側でカンマ区切りに結合する(nested_map_flattener.dartは配列をフラット化しない)。
+
+query ItemRead(
+  $first: Int!
+  $offset: Int
+  $condition: MstrItemCondition
+  $orderBy: [MstrItemsOrderBy!] = [PRIMARY_KEY_ASC]
+  $ja: Boolean!
+  $en: Boolean!
+) {
+  allMstrItems(
+    first: $first
+    offset: $offset
+    condition: $condition
+    orderBy: $orderBy
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      mstrItemId
+      mstrItemKindId
+      code
+      identification
+      controlCode
+
+      # --- 表示コード / 詳細 / ロット / 最小在庫数 / 単位id ------------------------
+      labelCode
+      description
+      lot
+      stockQuantity
+      sharedUnitId
+
+      # --- 共通項: remarks / update_at / remove ---------------------------------
+      remarks
+      updateAt
+      remove
+
+      # --- 品目種類コード / 品目種類名(品目区分マスタ参照) -------------------------
+      mstrItemKindByMstrItemKindId {
+        mstrItemKindId
+        code
+        sharedAppellationBySharedAppellationsId {
+          sharedDictionaryBySharedDictionaryNameId {
+            ja @include(if: $ja)
+            en @include(if: $en)
+          }
+        }
+      }
+
+      # --- 製造元コード / 製造元(製造元マスタ参照) ---------------------------------
+      mstrManufacturerByMstrManufacturerId {
+        mstrManufacturerId
+        code
+        sharedAppellationBySharedAppellationsId {
+          sharedDictionaryBySharedDictionaryNameId {
+            ja @include(if: $ja)
+            en @include(if: $en)
+          }
+        }
+      }
+
+      # --- 品目提供(1対多、カンマ区切りはアプリ側で結合) ---------------------------
+      mstrItemProvisionsByMstrItemId {
+        nodes {
+          mstrItemProvisionId
+          infoProvisionByInfoProvisionId {
+            infoProvisionId
+            sharedAppellationBySharedAppellationsId {
+              sharedDictionaryBySharedDictionaryNameId {
+                ja @include(if: $ja)
+                en @include(if: $en)
+              }
+            }
+          }
+        }
+      }
+
+      # --- 品目名 / 読み / 略称(共通名前仕様、品目マスタ自身の呼称セット) -----------
+      sharedAppellationBySharedAppellationsId {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          ja @include(if: $ja)
+          en @include(if: $en)
+        }
+        sharedDictionaryBySharedDictionaryPronunciationId {
+          sharedDictionaryId
+          ja @include(if: $ja)
+          en @include(if: $en)
+        }
+        sharedDictionaryBySharedDictionaryNicknameId {
+          sharedDictionaryId
+          ja @include(if: $ja)
+          en @include(if: $en)
+        }
+      }
+
+      # --- 単位(単位マスタの略称参照) ---------------------------------------------
+      sharedUnitBySharedUnitId {
+        sharedUnitId
+        sharedAppellationBySharedAppellationsId {
+          sharedDictionaryBySharedDictionaryNicknameId {
+            ja @include(if: $ja)
+            en @include(if: $en)
+          }
+        }
+      }
+
+      # --- 共通項: 更新者名(共通名前仕様)の呼称セットID -----------------------------
+      # ⚠ 既知の制約により「ItemReadUpdaterAppellation」を別クエリで呼び出す。
+      historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+        historyId
+        infoStaffId
+        sharedAppellationsId
+      }
+    }
+  }
+}
+
+# --- 更新者の呼称(shared_appellations)・名前解決 --------------------------------
+query ItemReadUpdaterAppellation($sharedAppellationsId: UUID!) {
+  sharedAppellationBySharedAppellationsId(
+    sharedAppellationsId: $sharedAppellationsId
+  ) {
+    sharedAppellationsId
+    sharedDictionaryBySharedDictionaryNameId {
+      ja
+      en
+    }
+    sharedDictionaryBySharedDictionaryPronunciationId {
+      ja
+      en
+    }
+  }
+}

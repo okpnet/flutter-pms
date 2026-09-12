@@ -1,0 +1,130 @@
+# customer画面 - Read(一覧・TrinaGrid用ページネーションクエリ)
+#
+# 画面仕様: source/views.md #customer / read
+# 作成ルール: CLAUDE.md 要件0006・0011・0017・0018・0021・0025
+# 配置場所: lib/graphql/customer/customer_read.graphql
+#
+# ⚠ docs/0025_view_graphql_evaluation_log.md: 画面仕様の見出しに対応する実スキーマの型名は
+#   "MstrStakeholder"(利害関係者マスタ)。customer/supplierは同一物理テーブルを共有し、
+#   `isCustomer`/`isSupplier`列で判別する(views.md #customer 「### 提案への指示」参照)。
+# ⚠ このクエリを呼び出す側は、$conditionに必ず `isCustomer: true` を含めること
+#   (仕入先(supplier)のレコードを誤って含めないため)。
+# ⚠ 「提供」は1対多(mstrStakeholderProvisionsByMstrStakeholderId)のため、要件0025 8-3節の方針に
+#   従いジョイン行自身のid(mstrStakeholderProvisionId)と参照先id(infoProvisionId)の両方を取得する。
+#   複数件はアプリ側でカンマ区切りに結合する。
+
+query CustomerRead(
+  $first: Int!
+  $offset: Int
+  $condition: MstrStakeholderCondition
+  $orderBy: [MstrStakeholdersOrderBy!] = [PRIMARY_KEY_ASC]
+  $ja: Boolean!
+  $en: Boolean!
+) {
+  allMstrStakeholders(
+    first: $first
+    offset: $offset
+    condition: $condition
+    orderBy: $orderBy
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      mstrStakeholderId
+      code
+      controlCode
+
+      # --- 共通項: remarks / update_at / remove ---------------------------------
+      remarks
+      updateAt
+      remove
+
+      # --- 顧客名 / 読み / 略称(共通名前仕様) -------------------------------------
+      sharedAppellationBySharedAppellationsId {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          ja @include(if: $ja)
+          en @include(if: $en)
+        }
+        sharedDictionaryBySharedDictionaryPronunciationId {
+          sharedDictionaryId
+          ja @include(if: $ja)
+          en @include(if: $en)
+        }
+        sharedDictionaryBySharedDictionaryNicknameId {
+          sharedDictionaryId
+          ja @include(if: $ja)
+          en @include(if: $en)
+        }
+      }
+
+      # --- 提供(1対多、カンマ区切りはアプリ側で結合) -------------------------------
+      mstrStakeholderProvisionsByMstrStakeholderId {
+        nodes {
+          mstrStakeholderProvisionId
+          infoProvisionByInfoProvisionId {
+            infoProvisionId
+            sharedAppellationBySharedAppellationsId {
+              sharedDictionaryBySharedDictionaryNameId {
+                ja @include(if: $ja)
+                en @include(if: $en)
+              }
+            }
+          }
+        }
+      }
+
+      # --- 配送区分id / 配送区分名(配送区分マスタ参照) -----------------------------
+      mstrShippingKindId
+      mstrShippingKindByMstrShippingKindId {
+        mstrShippingKindId
+        sharedAppellationBySharedAppellationsId {
+          sharedDictionaryBySharedDictionaryNameId {
+            ja @include(if: $ja)
+            en @include(if: $en)
+          }
+        }
+      }
+
+      # --- 郵便番号 / 住所1~2 / 建物 / 電話番号 / FAX番号(info_address経由) --------
+      infoAddressByInfoAddressId {
+        infoAddressId
+        zipCode
+        address1
+        address2
+        bill
+        phone
+        faxNumber
+      }
+
+      # --- 共通項: 更新者名(共通名前仕様)の呼称セットID -----------------------------
+      # ⚠ 既知の制約により「CustomerReadUpdaterAppellation」を別クエリで呼び出す。
+      historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+        historyId
+        infoStaffId
+        sharedAppellationsId
+      }
+    }
+  }
+}
+
+# --- 更新者の呼称(shared_appellations)・名前解決 --------------------------------
+query CustomerReadUpdaterAppellation($sharedAppellationsId: UUID!) {
+  sharedAppellationBySharedAppellationsId(
+    sharedAppellationsId: $sharedAppellationsId
+  ) {
+    sharedAppellationsId
+    sharedDictionaryBySharedDictionaryNameId {
+      ja
+      en
+    }
+    sharedDictionaryBySharedDictionaryPronunciationId {
+      ja
+      en
+    }
+  }
+}
