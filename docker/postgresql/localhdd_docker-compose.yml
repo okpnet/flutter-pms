@@ -1,0 +1,27 @@
+version: '3'
+services:
+  db:
+    image: ${REGISTRY_HOST}:${REGISTRY_PORT}/postgres:14
+    container_name: postgres
+    command: -c 'config_file=/etc/postgresql/postgresql.conf' #postgres conf
+    ports:
+      - 5432:5432
+    volumes:
+      - db-store:/etc/pgdata
+      - ./script:/docker-entrypoint-initdb.d #initilize
+      - ./config/postgresql.conf:/etc/postgresql/postgresql.conf #postgresql conf source file
+      - ./config/pg_hba.conf:/etc/postgresql/pg_hba.conf #postgresql conf source file
+    environment:
+      TZ: Asia/Tokyo
+      POSTGRES_USER: ${DB_UID}
+      POSTGRES_PASSWORD: ${DB_PWD}
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --locale=C"
+      PGDATA: /etc/pgdata
+
+volumes:
+  db-store:
+    driver: local
+    driver_opts:
+      type: none
+      device: /hdd/db_data
+      o: bind

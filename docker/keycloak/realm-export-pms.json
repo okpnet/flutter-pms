@@ -1,0 +1,225 @@
+{
+  "id": "pms",
+  "realm": "pms",
+  "enabled": true,
+  "registrationAllowed": true,
+  "verifyEmail": false,
+  "defaultRoles": [
+    "app-user"
+  ],
+  "roles": {
+    "realm": [
+      {
+        "name": "realm-admin",
+        "description": "Realm全体の管理者"
+      },
+      {
+        "name": "user-manager",
+        "description": "ユーザー管理権限"
+      },
+      {
+        "name": "section-manager",
+        "description": "セクション管理とユーザー管理（user-managerを継承）"
+      }
+    ],
+    "client": {
+      "qual-app": [
+        {
+          "name": "app-user",
+          "description": "アプリ利用者（全ユーザーに割当）"
+        },
+        {
+          "name": "section-user",
+          "description": "セクションに所属するユーザー（抽象）"
+        },
+        {
+          "name": "section-approver",
+          "description": "セクションの承認権限（section-userを継承）"
+        },
+        {
+          "name": "section-general",
+          "description": "セクションの一般ユーザー（section-userを継承）"
+        },
+        {
+          "name": "app-guest",
+          "description": "アプリの閲覧のみ権限"
+        },
+        {
+          "name": "app-passive",
+          "description": "アプリのパッシブユーザー（自アカウント登録のみ）"
+        }
+      ]
+    }
+  },
+  "clients": [
+    {
+      "clientId": "qual-app",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": true,
+      "directAccessGrantsEnabled": true,
+        "redirectUris": [
+        "http://localhost:4000/callback"
+      ],
+      "defaultRoles": [
+        "app-user"
+      ],
+      "protocolMappers": [
+        {
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-hardcoded-claim-mapper",
+          "name": "x-hasura-default-role",
+          "config": {
+            "claim.name": "https://hasura\\.io/jwt/claims.x-hasura-default-role",
+            "claim.value": "https://hasura\\.io/jwt/claims.x-hasura-default-role",
+            "jsonType.label": "String",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "lightweight.claim": "true",
+            "userinfo.token.claim": "true",
+            "access.tokenResponse.claim": "true",
+            "introspection.token.claim": "true"
+          }
+        },
+        {
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-client-role-mapper",
+          "name": "x-hasura-allowed-roles",
+          "config": {
+            "usermodel.clientRoleMapping.clientId": "qual-app",
+            "usermodel.clientRoleMapping.rolePrefix": "",
+            "multivalued": "true",
+            "claim.name": "https://hasura\\.io/jwt/claims.x-hasura-allowed-roles",
+            "jsonType.label": "String",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "lightweight.claim": "true",
+            "userinfo.token.claim": "true",
+            "introspection.token.claim": "true"
+          }
+        },
+        {
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "name": "x-hasura-attribute",
+          "config": {
+            "claim.name": "https://hasura\\.io/jwt/claims.x-hasura-attribute",
+            "jsonType.label": "String",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "lightweight.claim": "true",
+            "userinfo.token.claim": "true",
+            "introspection.token.claim": "true",
+            "multivalued": "true",
+            "aggregate.attrs": "true",
+            "user.attribute": ""
+          }
+        }
+      ],
+      "attributes": {
+        "realm_client": "false",
+        "post.logout.redirect.uris": "+",
+        "standard.token.exchange.enabled": false,
+        "oauth2.device.authorization.grant.enabled": false,
+        "oidc.ciba.grant.enabled": false,
+        "pkce.code.challenge.method": "S256",
+        "login_theme": "",
+        "display.on.consent.screen": "false",
+        "consent.screen.text": "",
+        "backchannel.logout.url": "",
+        "backchannel.logout.session.required": "true",
+        "backchannel.logout.revoke.offline.tokens": "false",
+        "logoUri": "",
+        "policyUri": "",
+        "tosUri": "",
+        "access.token.signed.response.alg": "",
+        "access.token.header.type.rfc9068": "false",
+        "id.token.signed.response.alg": "",
+        "id.token.encrypted.response.alg": "",
+        "id.token.encrypted.response.enc": "",
+        "user.info.response.signature.alg": "",
+        "user.info.encrypted.response.alg": "",
+        "user.info.encrypted.response.enc": "",
+        "request.object.signature.alg": "any",
+        "request.object.encryption.alg": "any",
+        "request.object.encryption.enc": "any",
+        "request.object.required": "not required",
+        "authorization.signed.response.alg": "",
+        "authorization.encrypted.response.alg": "",
+        "authorization.encrypted.response.enc": "",
+        "exclude.session.state.from.auth.response": "",
+        "exclude.issuer.from.auth.response": "",
+        "use.refresh.tokens": "true",
+        "client_credentials.use_refresh_token": "false",
+        "token.response.type.bearer.lower-case": "false",
+        "standard.token.exchange.enableRefreshRequestedTokenType": "",
+        "access.token.lifespan": "",
+        "client.session.idle.timeout": "",
+        "client.session.max.lifespan": "",
+        "client.offline.session.idle.timeout": "",
+        "tls.client.certificate.bound.access.tokens": "false",
+        "require.pushed.authorization.requests": "false",
+        "client.use.lightweight.access.token.enabled": "false",
+        "client.introspection.response.allow.jwt.claim.enabled": "false",
+        "minimum.acr.value": "",
+        "acr.loa.map": "{}"
+      },
+      "authenticationFlowBindingOverrides": {
+        "browser": "",
+        "direct_grant": ""
+      },
+      "fullScopeAllowed": true,
+      "nodeReRegistrationTimeout": -1
+    }
+  ],
+  "groups": [
+    {
+      "name": "Sales",
+      "attributes": {
+        "description": [
+          "販売（営業）部門"
+        ]
+      }
+    },
+    {
+      "name": "Purchasing",
+      "attributes": {
+        "description": [
+          "購買部門"
+        ]
+      }
+    },
+    {
+      "name": "Production",
+      "attributes": {
+        "description": [
+          "生産部門"
+        ]
+      }
+    },
+    {
+      "name": "Shipping",
+      "attributes": {
+        "description": [
+          "出荷部門"
+        ]
+      }
+    },
+    {
+      "name": "Others",
+      "attributes": {
+        "description": [
+          "その他部門"
+        ]
+      }
+    },
+    {
+      "name": "Guest",
+      "attributes": {
+        "description": [
+          "Gestユーザー（閲覧のみ）"
+        ]
+      }
+    }
+  ]
+}

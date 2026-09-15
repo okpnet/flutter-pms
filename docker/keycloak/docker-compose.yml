@@ -1,0 +1,18 @@
+services:
+  keycloak:
+    image: ${REGISTRY_HOST}:${REGISTRY_PORT}/quay.io/keycloak/keycloak:latest
+    container_name: keycloak
+    restart: always
+    environment:
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+    command:
+      - start-dev
+      - --https-port=8443
+      - --https-certificate-file=/etc/letsencrypt/live/${DOMAIN}/fullchain.pem
+      - --https-certificate-key-file=/etc/letsencrypt/live/${DOMAIN}/privkey.pem
+    ports:
+      - "8443:8443"
+    volumes:
+      - /opt/letsencrypt:/etc/letsencrypt
+

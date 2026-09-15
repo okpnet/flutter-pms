@@ -1,0 +1,7 @@
+\c avocado
+GRANT ALL ON ALL SEQUENCES IN SCHEMA stores TO stores_admin;
+GRANT ALL ON ALL FUNCTIONS IN SCHEMA stores TO stores_admin;
+GRANT ALL ON ALL TABLES IN SCHEMA stores TO stores_admin;
+
+GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA stores TO stores_admin;
+GRANT SELECT,UPDATE,DELETE ON ALL TABLES IN SCHEMA  stores TO stores_user;
