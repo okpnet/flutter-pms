@@ -204,9 +204,9 @@ create table tests.mstr_item_kind (
 create table tests.history_shared_appellations (
     history_id uuid default gen_random_uuid(),
     shared_appellations_id uuid not null,
-    name uuid not null,
-    pronunciation uuid default null,
-    nickname uuid default null,
+    shared_dictionary_name_id uuid not null,
+    shared_dictionary_pronunciation_id uuid default null,
+    shared_dictionary_nickname_id uuid default null,
     revision integer default 1,
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -265,7 +265,7 @@ create table tests.history_mstr_equipment (
     update_user_history_id uuid default null,
     remove boolean default 'f'
 );
-create table tests.history_mstr_equipmen_kind (
+create table tests.history_mstr_equipment_kind (
     history_id uuid default gen_random_uuid(),
     mstr_equipment_kind_id uuid not null,
     kind_code varchar(255) not null,
@@ -1046,7 +1046,7 @@ create table tests.history_mstr_item_tree (
 create table tests.history_mstr_item (
     history_id uuid default gen_random_uuid(),
     mstr_item_id uuid not null,
-    system_class integer default '0000000000000000',
+    mstr_item_kind_id uuid not null,
     code varchar(255) not null,
     identification varchar(255) default null,
     control_code varchar(255) default null,
@@ -1221,7 +1221,7 @@ create table tests.history_info_staff_access_permission (
     update_user_history_id uuid default null,
     remove boolean default 'f'
 );
-create table tests.historymstr_approval_scope_pattern (
+create table tests.history_mstr_approval_scope_pattern (
     history_id uuid default gen_random_uuid(),
     mstr_approval_scope_pattern_id uuid not null,
     mstr_approval_pattern_id uuid default null,
@@ -3069,9 +3069,9 @@ comment on column tests.mstr_item_kind.remove is '削除';
 comment on table tests.history_shared_appellations is '名前セット履歴';
 comment on column tests.history_shared_appellations.history_id is '履歴ID';
 comment on column tests.history_shared_appellations.shared_appellations_id is '呼称セットID';
-comment on column tests.history_shared_appellations.name is '名前';
-comment on column tests.history_shared_appellations.pronunciation is '読み';
-comment on column tests.history_shared_appellations.nickname is '略称';
+comment on column tests.history_shared_appellations.shared_dictionary_name_id is '名前';
+comment on column tests.history_shared_appellations.shared_dictionary_pronunciation_id is '読み';
+comment on column tests.history_shared_appellations.shared_dictionary_nickname_id is '略称';
 comment on column tests.history_shared_appellations.revision is 'レビジョン';
 comment on column tests.history_shared_appellations.remarks is '備考';
 comment on column tests.history_shared_appellations.update_at is '更新日時';
@@ -3125,19 +3125,19 @@ comment on column tests.history_mstr_equipment.update_at is '更新日時';
 comment on column tests.history_mstr_equipment.update_user_id is '更新者ID';
 comment on column tests.history_mstr_equipment.update_user_history_id is '更新者履歴ID';
 comment on column tests.history_mstr_equipment.remove is '削除';
-comment on table tests.history_mstr_equipmen_kind is '設備分類マスタ履歴';
-comment on column tests.history_mstr_equipmen_kind.history_id is '履歴ID';
-comment on column tests.history_mstr_equipmen_kind.mstr_equipment_kind_id is '設備類分ID';
-comment on column tests.history_mstr_equipmen_kind.kind_code is '分類コード';
-comment on column tests.history_mstr_equipmen_kind.shared_appellations_id is '呼称セットID';
-comment on column tests.history_mstr_equipmen_kind.start_at is '適用開始';
-comment on column tests.history_mstr_equipmen_kind.stop_at is '適用終了';
-comment on column tests.history_mstr_equipmen_kind.revision is 'レビジョン';
-comment on column tests.history_mstr_equipmen_kind.remarks is '備考';
-comment on column tests.history_mstr_equipmen_kind.update_at is '更新日時';
-comment on column tests.history_mstr_equipmen_kind.update_user_id is '更新者ID';
-comment on column tests.history_mstr_equipmen_kind.update_user_history_id is '更新者履歴ID';
-comment on column tests.history_mstr_equipmen_kind.remove is '削除';
+comment on table tests.history_mstr_equipment_kind is '設備分類マスタ履歴';
+comment on column tests.history_mstr_equipment_kind.history_id is '履歴ID';
+comment on column tests.history_mstr_equipment_kind.mstr_equipment_kind_id is '設備類分ID';
+comment on column tests.history_mstr_equipment_kind.kind_code is '分類コード';
+comment on column tests.history_mstr_equipment_kind.shared_appellations_id is '呼称セットID';
+comment on column tests.history_mstr_equipment_kind.start_at is '適用開始';
+comment on column tests.history_mstr_equipment_kind.stop_at is '適用終了';
+comment on column tests.history_mstr_equipment_kind.revision is 'レビジョン';
+comment on column tests.history_mstr_equipment_kind.remarks is '備考';
+comment on column tests.history_mstr_equipment_kind.update_at is '更新日時';
+comment on column tests.history_mstr_equipment_kind.update_user_id is '更新者ID';
+comment on column tests.history_mstr_equipment_kind.update_user_history_id is '更新者履歴ID';
+comment on column tests.history_mstr_equipment_kind.remove is '削除';
 comment on table tests.mstr_equipment_kind is '設備分類マスタ';
 comment on column tests.mstr_equipment_kind.mstr_equipment_kind_id is '設備類分ID';
 comment on column tests.mstr_equipment_kind.kind_code is '分類コード';
@@ -3848,7 +3848,7 @@ comment on column tests.history_mstr_item_tree.remove is '削除';
 comment on table tests.history_mstr_item is '品目マスタ履歴';
 comment on column tests.history_mstr_item.history_id is '履歴ID';
 comment on column tests.history_mstr_item.mstr_item_id is '品目ID';
-comment on column tests.history_mstr_item.system_class is 'システム区分';
+comment on column tests.history_mstr_item.mstr_item_kind_id is '品目種類ID';
 comment on column tests.history_mstr_item.code is '品目コード';
 comment on column tests.history_mstr_item.identification is '識別コード';
 comment on column tests.history_mstr_item.control_code is '管理コード';
@@ -4012,17 +4012,17 @@ comment on column tests.history_info_staff_access_permission.update_at is '更�
 comment on column tests.history_info_staff_access_permission.update_user_id is '更新者ID';
 comment on column tests.history_info_staff_access_permission.update_user_history_id is '更新者履歴ID';
 comment on column tests.history_info_staff_access_permission.remove is '削除';
-comment on table tests.historymstr_approval_scope_pattern is '承認範囲パターンマスタ履歴';
-comment on column tests.historymstr_approval_scope_pattern.history_id is '履歴ID';
-comment on column tests.historymstr_approval_scope_pattern.mstr_approval_scope_pattern_id is '承認範囲パターンID';
-comment on column tests.historymstr_approval_scope_pattern.mstr_approval_pattern_id is '承認パターンID';
-comment on column tests.historymstr_approval_scope_pattern.info_access_path_approval_id is 'アクセスパス承認情報ID';
-comment on column tests.historymstr_approval_scope_pattern.revision is 'レビジョン';
-comment on column tests.historymstr_approval_scope_pattern.remarks is '備考';
-comment on column tests.historymstr_approval_scope_pattern.update_at is '更新日時';
-comment on column tests.historymstr_approval_scope_pattern.update_user_id is '更新者ID';
-comment on column tests.historymstr_approval_scope_pattern.update_user_history_id is '更新者履歴ID';
-comment on column tests.historymstr_approval_scope_pattern.remove is '削除';
+comment on table tests.history_mstr_approval_scope_pattern is '承認範囲パターンマスタ履歴';
+comment on column tests.history_mstr_approval_scope_pattern.history_id is '履歴ID';
+comment on column tests.history_mstr_approval_scope_pattern.mstr_approval_scope_pattern_id is '承認範囲パターンID';
+comment on column tests.history_mstr_approval_scope_pattern.mstr_approval_pattern_id is '承認パターンID';
+comment on column tests.history_mstr_approval_scope_pattern.info_access_path_approval_id is 'アクセスパス承認情報ID';
+comment on column tests.history_mstr_approval_scope_pattern.revision is 'レビジョン';
+comment on column tests.history_mstr_approval_scope_pattern.remarks is '備考';
+comment on column tests.history_mstr_approval_scope_pattern.update_at is '更新日時';
+comment on column tests.history_mstr_approval_scope_pattern.update_user_id is '更新者ID';
+comment on column tests.history_mstr_approval_scope_pattern.update_user_history_id is '更新者履歴ID';
+comment on column tests.history_mstr_approval_scope_pattern.remove is '削除';
 comment on table tests.history_mstr_approval_pattern is '承認パターンマスタ履歴';
 comment on column tests.history_mstr_approval_pattern.history_id is '履歴ID';
 comment on column tests.history_mstr_approval_pattern.mstr_approval_pattern_id is '承認パターンID';
@@ -5646,10 +5646,10 @@ create unique index history_mstr_equipment_PKI
     on tests.history_mstr_equipment(history_id,mstr_equipment_id);
 alter table tests.history_mstr_equipment
     add constraint history_mstr_equipment_PKC primary key (history_id,mstr_equipment_id);
-create unique index history_mstr_equipmen_kind_PKI
-    on tests.history_mstr_equipmen_kind(history_id,mstr_equipment_kind_id);
-alter table tests.history_mstr_equipmen_kind
-    add constraint history_mstr_equipmen_kind_PKC primary key (history_id,mstr_equipment_kind_id);
+create unique index history_mstr_equipment_kind_PKI
+    on tests.history_mstr_equipment_kind(history_id,mstr_equipment_kind_id);
+alter table tests.history_mstr_equipment_kind
+    add constraint history_mstr_equipment_kind_PKC primary key (history_id,mstr_equipment_kind_id);
 create unique index mstr_equipment_kind_PKI
     on tests.mstr_equipment_kind(mstr_equipment_kind_id);
 alter table tests.mstr_equipment_kind
@@ -5926,10 +5926,10 @@ create unique index history_info_staff_access_permission_PKI
     on tests.history_info_staff_access_permission(history_id,info_staff_access_permission_id);
 alter table tests.history_info_staff_access_permission
     add constraint history_info_staff_access_permission_PKC primary key (history_id,info_staff_access_permission_id);
-create unique index historymstr_approval_scope_pattern_PKI
-    on tests.historymstr_approval_scope_pattern(history_id,mstr_approval_scope_pattern_id);
-alter table tests.historymstr_approval_scope_pattern
-    add constraint historymstr_approval_scope_pattern_PKC primary key (history_id,mstr_approval_scope_pattern_id);
+create unique index history_mstr_approval_scope_pattern_PKI
+    on tests.history_mstr_approval_scope_pattern(history_id,mstr_approval_scope_pattern_id);
+alter table tests.history_mstr_approval_scope_pattern
+    add constraint history_mstr_approval_scope_pattern_PKC primary key (history_id,mstr_approval_scope_pattern_id);
 create unique index history_mstr_approval_pattern_PKI
     on tests.history_mstr_approval_pattern(history_id,mstr_approval_pattern_id);
 alter table tests.history_mstr_approval_pattern
@@ -6490,8 +6490,8 @@ alter table tests.history_shared_dictionary add constraint history_shared_dictio
 alter table tests.shared_dictionary add constraint shared_dictionary_FK1 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_equipment add constraint history_mstr_equipment_FK1 foreign key (mstr_equipment_id) references tests.mstr_equipment (mstr_equipment_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_equipment add constraint history_mstr_equipment_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.history_mstr_equipmen_kind add constraint history_mstr_equipmen_kind_FK1 foreign key (mstr_equipment_kind_id) references tests.mstr_equipment_kind (mstr_equipment_kind_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.history_mstr_equipmen_kind add constraint history_mstr_equipmen_kind_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.history_mstr_equipment_kind add constraint history_mstr_equipment_kind_FK1 foreign key (mstr_equipment_kind_id) references tests.mstr_equipment_kind (mstr_equipment_kind_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.history_mstr_equipment_kind add constraint history_mstr_equipment_kind_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_equipment_kind add constraint mstr_equipment_kind_FK1 foreign key (shared_appellations_id) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_equipment_kind add constraint mstr_equipment_kind_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_info_staff_icon add constraint history_info_staff_icon_FK1 foreign key (info_role_id) references tests.info_staff_icon (info_role_id) DEFERRABLE INITIALLY DEFERRED;
@@ -6634,8 +6634,8 @@ alter table tests.history_mstr_license add constraint history_mstr_license_FK1 f
 alter table tests.history_mstr_license add constraint history_mstr_license_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_info_staff_access_permission add constraint history_info_staff_access_permission_FK1 foreign key (info_staff_access_permission_id) references tests.info_staff_access_permission (info_staff_access_permission_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_info_staff_access_permission add constraint history_info_staff_access_permission_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.historymstr_approval_scope_pattern add constraint historymstr_approval_scope_pattern_FK1 foreign key (mstr_approval_scope_pattern_id) references tests.mstr_approval_scope_pattern (mstr_approval_scope_pattern_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.historymstr_approval_scope_pattern add constraint historymstr_approval_scope_pattern_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.history_mstr_approval_scope_pattern add constraint history_mstr_approval_scope_pattern_FK1 foreign key (mstr_approval_scope_pattern_id) references tests.mstr_approval_scope_pattern (mstr_approval_scope_pattern_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.history_mstr_approval_scope_pattern add constraint history_mstr_approval_scope_pattern_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_approval_pattern add constraint history_mstr_approval_pattern_FK1 foreign key (mstr_approval_pattern_id) references tests.mstr_approval_pattern (mstr_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_approval_pattern add constraint history_mstr_approval_pattern_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_capability add constraint history_mstr_capability_FK1 foreign key (mstr_capability_id) references tests.mstr_capability (mstr_capability_id) DEFERRABLE INITIALLY DEFERRED;
@@ -8090,8 +8090,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_equipment BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_equipment FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_equipment();
 
--- history_mstr_equipmen_kind update trigger
-CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_equipmen_kind() RETURNS trigger AS
+-- history_mstr_equipment_kind update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_equipment_kind() RETURNS trigger AS
 $BODY$
 DECLARE
     latest_row record;
@@ -8109,9 +8109,10 @@ BEGIN
 END
 $BODY$
 LANGUAGE plpgsql VOLATILE;
-CREATE TRIGGER trg_01_updatetimes_history_mstr_equipmen_kind BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_equipmen_kind FOR EACH ROW EXECUTE
-PROCEDURE tests.trg_01_updatetimes_history_mstr_equipmen_kind();
+CREATE TRIGGER trg_01_updatetimes_history_mstr_equipment_kind BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_equipment_kind FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_history_mstr_equipment_kind();
 
+-- mstr_equipment_kind history trigger
 -- mstr_equipment_kind update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_equipment_kind() RETURNS trigger AS
 $BODY$
@@ -8133,6 +8134,76 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_mstr_equipment_kind BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_equipment_kind FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_mstr_equipment_kind();
+
+
+CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_equipment_kind() RETURNS trigger AS
+$BODY$
+DECLARE
+    revisions int;
+BEGIN
+    IF (TG_OP = 'UPDATE') OR (TG_OP='INSERT') THEN
+        SELECT Max(revision) INTO revisions FROM tests.history_mstr_equipment_kind WHERE mstr_equipment_kind_id=NEW.mstr_equipment_kind_id;
+        IF (revisions >= 0) THEN
+            IF (
+                NEW.mstr_equipment_kind_id,
+                NEW.kind_code,
+                NEW.shared_appellations_id,
+                NEW.start_at,
+                NEW.stop_at,
+                NEW.remarks,
+                NEW.remove
+            ) IS NOT DISTINCT FROM (
+                OLD.mstr_equipment_kind_id,
+                OLD.kind_code,
+                OLD.shared_appellations_id,
+                OLD.start_at,
+                OLD.stop_at,
+                OLD.remarks,
+                OLD.remove
+            )
+            THEN
+                RETURN NULL;
+            END IF;
+            NEW.revision := revisions + 1;
+        ELSE
+            NEW.revision := 1;
+        END IF;
+        INSERT INTO tests.history_mstr_equipment_kind (
+            mstr_equipment_kind_id,
+            kind_code,
+            shared_appellations_id,
+            start_at,
+            stop_at,
+            revision,
+            remarks,
+            update_at,
+            update_user_id,
+            update_user_history_id,
+            remove
+        )
+        VALUES
+        (
+            NEW.mstr_equipment_kind_id,
+            NEW.kind_code,
+            NEW.shared_appellations_id,
+            NEW.start_at,
+            NEW.stop_at,
+            NEW.revision,
+            NEW.remarks,
+            NEW.update_at,
+            NEW.update_user_id,
+            NEW.update_user_history_id,
+            NEW.remove
+        );
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_02_history_mstr_equipment_kind BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_equipment_kind FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_02_history_mstr_equipment_kind();
 
 -- history_info_staff_icon update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_info_staff_icon() RETURNS trigger AS
@@ -10746,8 +10817,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_info_staff_access_permission BEFORE INSERT OR UPDATE OR DELETE ON tests.history_info_staff_access_permission FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_info_staff_access_permission();
 
--- historymstr_approval_scope_pattern update trigger
-CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_historymstr_approval_scope_pattern() RETURNS trigger AS
+-- history_mstr_approval_scope_pattern update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_approval_scope_pattern() RETURNS trigger AS
 $BODY$
 DECLARE
     latest_row record;
@@ -10765,8 +10836,8 @@ BEGIN
 END
 $BODY$
 LANGUAGE plpgsql VOLATILE;
-CREATE TRIGGER trg_01_updatetimes_historymstr_approval_scope_pattern BEFORE INSERT OR UPDATE OR DELETE ON tests.historymstr_approval_scope_pattern FOR EACH ROW EXECUTE
-PROCEDURE tests.trg_01_updatetimes_historymstr_approval_scope_pattern();
+CREATE TRIGGER trg_01_updatetimes_history_mstr_approval_scope_pattern BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_approval_scope_pattern FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_history_mstr_approval_scope_pattern();
 
 -- history_mstr_approval_pattern update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_approval_pattern() RETURNS trigger AS
@@ -11938,6 +12009,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_manufacturer BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_manufacturer FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_manufacturer();
 
+-- mstr_approval_scope_pattern history trigger
 -- mstr_approval_scope_pattern update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_approval_scope_pattern() RETURNS trigger AS
 $BODY$
@@ -11959,6 +12031,68 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_mstr_approval_scope_pattern BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_approval_scope_pattern FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_mstr_approval_scope_pattern();
+
+
+CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_approval_scope_pattern() RETURNS trigger AS
+$BODY$
+DECLARE
+    revisions int;
+BEGIN
+    IF (TG_OP = 'UPDATE') OR (TG_OP='INSERT') THEN
+        SELECT Max(revision) INTO revisions FROM tests.history_mstr_approval_scope_pattern WHERE mstr_approval_scope_pattern_id=NEW.mstr_approval_scope_pattern_id;
+        IF (revisions >= 0) THEN
+            IF (
+                NEW.mstr_approval_scope_pattern_id,
+                NEW.mstr_approval_pattern_id,
+                NEW.info_access_path_approval_id,
+                NEW.remarks,
+                NEW.remove
+            ) IS NOT DISTINCT FROM (
+                OLD.mstr_approval_scope_pattern_id,
+                OLD.mstr_approval_pattern_id,
+                OLD.info_access_path_approval_id,
+                OLD.remarks,
+                OLD.remove
+            )
+            THEN
+                RETURN NULL;
+            END IF;
+            NEW.revision := revisions + 1;
+        ELSE
+            NEW.revision := 1;
+        END IF;
+        INSERT INTO tests.history_mstr_approval_scope_pattern (
+            mstr_approval_scope_pattern_id,
+            mstr_approval_pattern_id,
+            info_access_path_approval_id,
+            revision,
+            remarks,
+            update_at,
+            update_user_id,
+            update_user_history_id,
+            remove
+        )
+        VALUES
+        (
+            NEW.mstr_approval_scope_pattern_id,
+            NEW.mstr_approval_pattern_id,
+            NEW.info_access_path_approval_id,
+            NEW.revision,
+            NEW.remarks,
+            NEW.update_at,
+            NEW.update_user_id,
+            NEW.update_user_history_id,
+            NEW.remove
+        );
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_02_history_mstr_approval_scope_pattern BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_approval_scope_pattern FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_02_history_mstr_approval_scope_pattern();
 
 -- mstr_approval_pattern_detail history trigger
 -- mstr_approval_pattern_detail update trigger
