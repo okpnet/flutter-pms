@@ -156,3 +156,50 @@ customer/supplier(親場所マスタのエラー)・item_actual_size(呼称セ�
 
 今回のschema変更は、views.mdが対象とする画面のいずれにも影響しない。要件0025で作成済みの
 9画面・既存8画面とも生成物の再作成は不要と判断し、実施していない。
+
+## 追記2: 0026再々実行(2026/09/15、「0026を実行」の再指示)
+
+前回(追記1)以降、他コミット(`f6613b5`〜`19cb69c`)でリポジトリが進んでおり、要件0025で
+作成した9画面の生成物(GraphQL/モデル/キー定数/テスト)はすべて維持されていることを確認した
+うえで、要件0020の重複判定のため再度差分の有無を確認した。
+
+### 接続・取得・差分判定
+
+`curl`で疎通確認(`HTTP 405`、変化なし)後、`get-graphql-schema`で再取得したところ389,298行
+(直前の`lib/graphql/schema.graphql`は375,490行、+13,808行)と、これまでで最も大きい差分を検出した。
+`@graphql-inspector/cli diff`では8,143件の差分が報告されたが、大半はFk#番号ズレ由来のノイズで、
+実質的な差分(578件)の内訳は以下のとおり。
+
+1.  **新規テーブル`MstrInspectionKind`(検査種類マスタ)が追加された**(対応するCreate/Delete/
+    Update/History系の型一式、1,270型・旧1,258型から+12型)。
+2.  `MstrItem`に`mstrInspectionsByMstrItemId`、`MstrStakeholder`に
+    `mstrInspectionsByExternalInspection`、`SharedAppellation`に
+    `mstrInspectionKindsBySharedAppellationsId`等、検査関連の新規逆参照フィールドが追加された。
+3.  `MstrEquipmentKind`の逆参照フィールド名が誤字修正された:
+    `historyMstrEquipmenKindsByMstrEquipmentKindId`(Equipmen、tが1つ欠落)→
+    `historyMstrEquipmentKindsByMstrEquipmentKindId`。org_res_equipment_kind画面の
+    GraphQLファイル(read/edit とも)はこのフィールドを参照していないことを確認済み
+    (`grep`で該当箇所なし)。
+4.  他はいずれも新規CRUD型の追加(既存型への破壊的変更ではない)。
+
+新規テーブル`MstrInspectionKind`はviews.mdの対象17見出しに存在しない。#3の誤字修正は
+org_res_equipment_kindの生成済みGraphQLが参照しないフィールドのため影響なし。要件0026は
+差分の有無のみを条件にしているため、要件0020のスキップ対象にはあたらないと判断し、
+前回と同様に**置き換えを実行した**。
+
+### 置き換え・要件0024の実行・影響確認
+
+`lib/graphql/schema.graphql`を置き換え(375,490行 → 389,298行)、
+`dart run build_runner build --build-filter="lib/postgraphile/schema.graphql.dart"`を実行した。
+
+結果: `Built with build_runner/aot in 219s; wrote 1 output.`(警告は前回までと同種のみ)。
+
+- `git status`で`lib/graphql/schema.graphql`以外の本ライブラリの生成済みファイルに変更が
+  無いことを確認(既存17画面の`*.graphql`/`*.graphql.dart`は再生成されていない)。
+- `dart analyze lib test`: error・warning 0件。
+- `flutter test`: 35件すべて成功。
+
+### 結論
+
+新規テーブル`MstrInspectionKind`の追加を含む今回のschema変更も、views.mdが対象とする17画面には
+影響しない。生成物の再作成は不要と判断し、実施していない。

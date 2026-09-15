@@ -1,0 +1,149 @@
+# equipment_inspection画面 - Read(一覧・TrinaGrid用ページネーションクエリ)
+#
+# 画面仕様: source/views.md #equipment_inspection / read
+# 作成ルール: CLAUDE.md 要件0006・0011・0017・0018・0021・0025
+# 配置場所: lib/graphql/equipment_inspection/equipment_inspection_read.graphql
+#
+# ⚠ docs/0025_task_operation_inspection_evaluation_log.md 4-1節: 当初views.mdにあった
+#   「工程id」「工程(#task)」は`MstrInspection`に対応する列・関連型が存在せず未採択・エラーと
+#   して記録した(現在は打ち消し線で無効化済み)。views.md修正後は「点検整備区分id」
+#   (`inspectionKind`、必須列)が追加され、エラーは解消している。
+# ⚠ 実スキーマの型名は"MstrInspection"(点検整備マスタ)。本テーブル自身もshared_appellationsId
+#   (自身の呼称)を持つが、views.mdはこの画面でその名前を使用しない設計のため取得しない。
+# ⚠ 「標準間隔」はPostgres interval型。`Interval`はスカラーではなくオブジェクト型のため
+#   サブセレクションが必須(要件0025評価: taskの標準時間と同じ注意点)。
+
+query EquipmentInspectionRead(
+  $first: Int!
+  $offset: Int
+  $condition: MstrInspectionCondition
+  $orderBy: [MstrInspectionsOrderBy!] = [PRIMARY_KEY_ASC]
+  $ja: Boolean!
+  $en: Boolean!
+) {
+  allMstrInspections(
+    first: $first
+    offset: $offset
+    condition: $condition
+    orderBy: $orderBy
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      mstrInspectionId
+      code
+      inspectionKind
+      baseDate
+      timeInterval {
+        seconds
+        minutes
+        hours
+        days
+        months
+        years
+      }
+      externalInspection
+      inspectionFormulaId
+      mstrItemId
+
+      # --- 共通項: remarks / update_at / remove ---------------------------------
+      remarks
+      updateAt
+      remove
+
+      # --- 外部点検委託先名 / 略称 / 読み(利害関係者マスタ参照) --------------------
+      mstrStakeholderByExternalInspection {
+        mstrStakeholderId
+        sharedAppellationBySharedAppellationsId {
+          sharedDictionaryBySharedDictionaryNameId {
+            ja @include(if: $ja)
+            en @include(if: $en)
+          }
+          sharedDictionaryBySharedDictionaryPronunciationId {
+            ja @include(if: $ja)
+            en @include(if: $en)
+          }
+          sharedDictionaryBySharedDictionaryNicknameId {
+            ja @include(if: $ja)
+            en @include(if: $en)
+          }
+        }
+      }
+
+      # --- 点検整備区分名 / 読み / 略称(点検整備区分マスタ参照) --------------------
+      mstrInspectionKindByInspectionKind {
+        mstrInspectionKindId
+        sharedAppellationBySharedAppellationsId {
+          sharedDictionaryBySharedDictionaryNameId {
+            ja @include(if: $ja)
+            en @include(if: $en)
+          }
+          sharedDictionaryBySharedDictionaryPronunciationId {
+            ja @include(if: $ja)
+            en @include(if: $en)
+          }
+          sharedDictionaryBySharedDictionaryNicknameId {
+            ja @include(if: $ja)
+            en @include(if: $en)
+          }
+        }
+      }
+
+      # --- 点検整備サービス品目名 / 読み / 略称(品目マスタ参照) --------------------
+      mstrItemByMstrItemId {
+        mstrItemId
+        sharedAppellationBySharedAppellationsId {
+          sharedDictionaryBySharedDictionaryNameId {
+            ja @include(if: $ja)
+            en @include(if: $en)
+          }
+          sharedDictionaryBySharedDictionaryPronunciationId {
+            ja @include(if: $ja)
+            en @include(if: $en)
+          }
+          sharedDictionaryBySharedDictionaryNicknameId {
+            ja @include(if: $ja)
+            en @include(if: $en)
+          }
+        }
+      }
+
+      # --- 式 / 引数 / 型 / フォーマット(点検整備項目式マスタ参照) ------------------
+      mstrInspectionFormulaByInspectionFormulaId {
+        mstrInspectionFormulaId
+        formulaClass
+        argClass
+        typeClass
+        formatClass
+      }
+
+      # --- 共通項: 更新者名(共通名前仕様)の呼称セットID -----------------------------
+      # ⚠ 既知の制約により「EquipmentInspectionReadUpdaterAppellation」を別クエリで呼び出す。
+      historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+        historyId
+        infoStaffId
+        sharedAppellationsId
+      }
+    }
+  }
+}
+
+# --- 更新者の呼称(shared_appellations)・名前解決 --------------------------------
+query EquipmentInspectionReadUpdaterAppellation($sharedAppellationsId: UUID!) {
+  sharedAppellationBySharedAppellationsId(
+    sharedAppellationsId: $sharedAppellationsId
+  ) {
+    sharedAppellationsId
+    sharedDictionaryBySharedDictionaryNameId {
+      ja
+      en
+    }
+    sharedDictionaryBySharedDictionaryPronunciationId {
+      ja
+      en
+    }
+  }
+}

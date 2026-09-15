@@ -1,0 +1,118 @@
+# oepration_editer画面 - Read(専用編集画面の初期表示用クエリ)
+#
+# 画面仕様: source/views.md #oepration_editer / read(見出し名はviews.md原文どおり。
+#   "operation_editor"の誤記と見られるが、要件0025評価ログでは既存の"info_postion"等と同様、
+#   見出し文字列自体は書き換えずディレクトリ/ファイル名に使用している)
+# 作成ルール: CLAUDE.md 要件0006・0011・0017・0018・0021・0025
+# 配置場所: lib/graphql/oepration_editer/oepration_editer_read.graphql
+#
+# ⚠ 実スキーマの型名は"MstrOperation"(operationと同一物理テーブル)。
+# ⚠ 「工程運用課題」(工程運用課題マスタ→品目工程運用課題マスタ)は1対多×1対多のため、
+#   読み取り専用として配列のまま取得する(品目提供/提供と同じ方針)。
+
+query OeprationEditerRead(
+  $first: Int!
+  $offset: Int
+  $condition: MstrOperationCondition
+  $orderBy: [MstrOperationsOrderBy!] = [PRIMARY_KEY_ASC]
+  $ja: Boolean!
+  $en: Boolean!
+) {
+  allMstrOperations(
+    first: $first
+    offset: $offset
+    condition: $condition
+    orderBy: $orderBy
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      mstrOperationId
+      controlCode
+      detail
+
+      # --- 共通項: remarks / update_at / remove ---------------------------------
+      remarks
+      updateAt
+      remove
+
+      # --- 呼称セット(共通名前仕様) ------------------------------------------------
+      sharedAppellationBySharedAppellationsId {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          ja @include(if: $ja)
+          en @include(if: $en)
+        }
+        sharedDictionaryBySharedDictionaryPronunciationId {
+          sharedDictionaryId
+          ja @include(if: $ja)
+          en @include(if: $en)
+        }
+        sharedDictionaryBySharedDictionaryNicknameId {
+          sharedDictionaryId
+          ja @include(if: $ja)
+          en @include(if: $en)
+        }
+      }
+
+      # --- 工程運用課題(⚠1対多、品目工程運用課題マスタまで参照する配列) -------------
+      mstrOperationTasksByMstrOperationId {
+        nodes {
+          mstrOperationTaskId
+          mstrTaskId
+          sequence
+          sharedAppellationBySharedAppellationsId {
+            sharedDictionaryBySharedDictionaryNameId {
+              ja @include(if: $ja)
+              en @include(if: $en)
+            }
+          }
+          mstrItemOperationTasksByMstrOperationTaskId {
+            nodes {
+              mstrItemOperationTaskId
+              mstrItemId
+              sequence
+              defaultInterval {
+                seconds
+                minutes
+                hours
+                days
+                months
+                years
+              }
+            }
+          }
+        }
+      }
+
+      # --- 共通項: 更新者名(共通名前仕様)の呼称セットID -----------------------------
+      # ⚠ 既知の制約により「OeprationEditerReadUpdaterAppellation」を別クエリで呼び出す。
+      historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+        historyId
+        infoStaffId
+        sharedAppellationsId
+      }
+    }
+  }
+}
+
+# --- 更新者の呼称(shared_appellations)・名前解決 --------------------------------
+query OeprationEditerReadUpdaterAppellation($sharedAppellationsId: UUID!) {
+  sharedAppellationBySharedAppellationsId(
+    sharedAppellationsId: $sharedAppellationsId
+  ) {
+    sharedAppellationsId
+    sharedDictionaryBySharedDictionaryNameId {
+      ja
+      en
+    }
+    sharedDictionaryBySharedDictionaryPronunciationId {
+      ja
+      en
+    }
+  }
+}

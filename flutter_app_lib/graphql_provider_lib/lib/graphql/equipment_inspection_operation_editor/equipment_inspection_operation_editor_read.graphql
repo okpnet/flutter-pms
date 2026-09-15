@@ -1,0 +1,118 @@
+# equipment_inspection_operation_editor画面 - Read(専用編集画面の初期表示用クエリ)
+#
+# 画面仕様: source/views.md #equipment_inspection_operation_editor / read
+# 作成ルール: CLAUDE.md 要件0006・0011・0017・0018・0021・0025
+# 配置場所: lib/graphql/equipment_inspection_operation_editor/equipment_inspection_operation_editor_read.graphql
+#
+# ⚠ 実スキーマの型名は"MstrInspectionOperation"(equipment_inspection_operationと同一物理テーブル)。
+# ⚠ 要件0025評価: 「設備id」「設備名」はviews.md原文に記載が無かったが、mstrEquipmentIdが
+#   必須列(NOT NULL)のため、モレとしてviews.mdへ追加したうえで対応した。
+# ⚠ 「点検項目」(点検整備運用課題マスタ)は1対多のため、読み取り専用として配列のまま取得する。
+
+query EquipmentInspectionOperationEditorRead(
+  $first: Int!
+  $offset: Int
+  $condition: MstrInspectionOperationCondition
+  $orderBy: [MstrInspectionOperationsOrderBy!] = [PRIMARY_KEY_ASC]
+  $ja: Boolean!
+  $en: Boolean!
+) {
+  allMstrInspectionOperations(
+    first: $first
+    offset: $offset
+    condition: $condition
+    orderBy: $orderBy
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      mstrInspectionOperationId
+      code
+      mstrEquipmentId
+
+      # --- 共通項: remarks / update_at / remove ---------------------------------
+      remarks
+      updateAt
+      remove
+
+      # --- 点検運用名 / 読み / 略称(共通名前仕様) ---------------------------------
+      sharedAppellationBySharedAppellationsId {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          ja @include(if: $ja)
+          en @include(if: $en)
+        }
+        sharedDictionaryBySharedDictionaryPronunciationId {
+          sharedDictionaryId
+          ja @include(if: $ja)
+          en @include(if: $en)
+        }
+        sharedDictionaryBySharedDictionaryNicknameId {
+          sharedDictionaryId
+          ja @include(if: $ja)
+          en @include(if: $en)
+        }
+      }
+
+      # --- 設備名(参照のみ、mstr_item経由、org_res_equipmentと同じ設計) -------------
+      mstrEquipmentByMstrEquipmentId {
+        mstrEquipmentId
+        mstrItemByMstrItemId {
+          sharedAppellationBySharedAppellationsId {
+            sharedDictionaryBySharedDictionaryNameId {
+              ja @include(if: $ja)
+              en @include(if: $en)
+            }
+          }
+        }
+      }
+
+      # --- 点検項目(⚠1対多、配列のまま) -------------------------------------------
+      mstrInspectionOperationTasksByMstrInspectionOperationId {
+        nodes {
+          mstrInspectionOperationTaskId
+          mstrInspectionId
+          sequence
+          commencementDate
+          timeInterval {
+            seconds
+            minutes
+            hours
+            days
+            months
+            years
+          }
+        }
+      }
+
+      # --- 共通項: 更新者名(共通名前仕様)の呼称セットID -----------------------------
+      # ⚠ 既知の制約により「EquipmentInspectionOperationEditorReadUpdaterAppellation」を別クエリで呼び出す。
+      historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+        historyId
+        infoStaffId
+        sharedAppellationsId
+      }
+    }
+  }
+}
+
+# --- 更新者の呼称(shared_appellations)・名前解決 --------------------------------
+query EquipmentInspectionOperationEditorReadUpdaterAppellation($sharedAppellationsId: UUID!) {
+  sharedAppellationBySharedAppellationsId(
+    sharedAppellationsId: $sharedAppellationsId
+  ) {
+    sharedAppellationsId
+    sharedDictionaryBySharedDictionaryNameId {
+      ja
+      en
+    }
+    sharedDictionaryBySharedDictionaryPronunciationId {
+      ja
+      en
+    }
+  }
+}

@@ -1,0 +1,59 @@
+# equipment_inspection画面 - Edit(ミューテーション)
+#
+# 画面仕様: source/views.md #equipment_inspection / edit
+# 作成ルール: CLAUDE.md 要件0006・0011・0017・0018・0021・0025
+# 配置場所: lib/graphql/equipment_inspection/equipment_inspection_edit.graphql
+#
+# ⚠ 実スキーマの型名は"MstrInspection"。
+# ⚠ 「点検整備区分」「外部」「点検整備サービス品目」「点検整備項目式」はorg_res_equipmentの
+#   「場所名」等と同様、既存マスタへの付け替え(スカラーIDのみ設定)として扱う。
+# ⚠ 「標準間隔」はミューテーション変数を`IntervalInput`とする(taskの標準時間と同じ注意点、
+#   `Interval`(出力用オブジェクト型)を入力に使うとgraphql_codegenが失敗する)。
+# ⚠ 更新者id/更新者履歴id/削除は0019の既定方針により変数から除外している。
+
+mutation EquipmentInspectionEdit(
+  $mstrInspectionId: UUID!
+  $code: String
+  $inspectionKind: UUID
+  $baseDate: Datetime
+  $timeInterval: IntervalInput
+  $externalInspection: UUID
+  $inspectionFormulaId: UUID
+  $mstrItemId: UUID
+  $remarks: String
+) {
+  updateMstrInspectionByMstrInspectionId(
+    input: {
+      mstrInspectionId: $mstrInspectionId
+      mstrInspectionPatch: {
+        code: $code
+        inspectionKind: $inspectionKind
+        baseDate: $baseDate
+        timeInterval: $timeInterval
+        externalInspection: $externalInspection
+        inspectionFormulaId: $inspectionFormulaId
+        mstrItemId: $mstrItemId
+        remarks: $remarks
+      }
+    }
+  ) {
+    mstrInspection {
+      mstrInspectionId
+      code
+      inspectionKind
+      baseDate
+      timeInterval {
+        seconds
+        minutes
+        hours
+        days
+        months
+        years
+      }
+      externalInspection
+      inspectionFormulaId
+      mstrItemId
+      remarks
+    }
+  }
+}

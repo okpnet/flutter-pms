@@ -619,8 +619,8 @@ create table tests.history_mstr_inspection_operation_task (
     mstr_inspection_operation_task_id uuid not null,
     mstr_inspection_operation_id uuid not null,
     mstr_inspection_id uuid not null,
-    sequence smallint not null,
-    commencement_date timestamp not null,
+    sequence smallint default 1,
+    commencement_date timestamp default now(),
     time_interval interval not null,
     revision integer default 1,
     remarks varchar(1024) default null,
@@ -646,7 +646,7 @@ create table tests.mstr_inspection_operation_task (
 create table tests.history_info_department_access_permission (
     history_id uuid default gen_random_uuid(),
     info_department_access_permission_id uuid not null,
-    info_access_path_id uuid not null,
+    info_access_path_id uuid default null,
     info_department_id uuid not null,
     revision integer default 1,
     remarks varchar(1024) default null,
@@ -845,8 +845,8 @@ create table tests.history_mstr_item_operation_task (
     history_id uuid default gen_random_uuid(),
     mstr_item_operation_task_id uuid not null,
     mstr_operation_task_id uuid not null,
-    mstr_item_id uuid default gen_random_uuid(),
-    sequence smallint not null,
+    mstr_item_id uuid not null,
+    sequence smallint default 1,
     default_interval interval default '0:0:0',
     revision integer default 1,
     remarks varchar(1024) default null,
@@ -898,7 +898,7 @@ create table tests.history_mstr_equipment_available (
 create table tests.history_mstr_task (
     history_id uuid default gen_random_uuid(),
     mstr_task_id uuid not null,
-    mstr_task_group_id uuid not null,
+    mstr_task_group_id uuid default null,
     code varchar(255) not null,
     shared_appellations_id uuid not null,
     detail varchar(255) default null,
@@ -1054,7 +1054,7 @@ create table tests.history_mstr_item (
     shared_appellations_id uuid not null,
     label_code varchar(255) default null,
     description varchar(255) default null,
-    info_unit_id uuid default null,
+    shared_unit_id uuid default null,
     increment decimal(10,2) default 0,
     lot boolean default 'f',
     stock_quantity decimal(10,2) default 0,
@@ -1073,7 +1073,6 @@ create table tests.history_mstr_audit_std_checkitem (
     control_code varchar(255) default null,
     shared_appellations_id uuid not null,
     detail varchar(1024) default null,
-    conformance smallint default 0,
     arg_class jsonb default '{}',
     revision integer default 1,
     remarks varchar(1024) default null,
@@ -1135,6 +1134,7 @@ create table tests.history_mstr_stakeholder_contact (
     contact_person_appellations_id uuid not null,
     mail varchar(255) default null,
     info_address_id uuid default null,
+    mstr_shipping_kind_id uuid default null,
     revision integer default 1,
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -1317,10 +1317,10 @@ create table tests.history_mstr_sign (
     history_id uuid default gen_random_uuid(),
     mstr_sign_id uuid not null,
     info_staff_id uuid not null,
+    auth_subject_id uuid default null,
     code varchar(255) default null,
     mail varchar(255) default null,
     role smallint default 10,
-    mstr_signin_id uuid default null,
     revision integer default 1,
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -1436,6 +1436,7 @@ create table tests.history_info_access_path_approval (
 create table tests.history_info_access_path (
     history_id uuid default gen_random_uuid(),
     info_access_path_id uuid not null,
+    info_app_id uuid not null,
     name varchar(255) not null,
     usecase_path1 varchar(255) default null,
     usecase_path2 varchar(255) default null,
@@ -1479,7 +1480,7 @@ create table tests.info_company (
 create table tests.history_info_app (
     history_id uuid default gen_random_uuid(),
     info_app_id uuid not null,
-    info_company_id uuid not null,
+    info_company_id uuid default null,
     name varchar(255) not null,
     revision integer default 1,
     remarks varchar(1024) default null,
@@ -1960,7 +1961,6 @@ create table tests.mstr_audit_std_checkitem (
     control_code varchar(255) default null,
     shared_appellations_id uuid not null,
     detail varchar(1024) default null,
-    conformance smallint default 0,
     arg_class jsonb default '{}',
     revision integer default 1,
     remarks varchar(1024) default null,
@@ -3856,7 +3856,7 @@ comment on column tests.history_mstr_item.mstr_manufacturer_id is '製造元ID';
 comment on column tests.history_mstr_item.shared_appellations_id is '呼称セットID';
 comment on column tests.history_mstr_item.label_code is '表示コード';
 comment on column tests.history_mstr_item.description is '詳細';
-comment on column tests.history_mstr_item.info_unit_id is '単位ID';
+comment on column tests.history_mstr_item.shared_unit_id is '単位ID';
 comment on column tests.history_mstr_item.increment is '刻み';
 comment on column tests.history_mstr_item.lot is 'ロット';
 comment on column tests.history_mstr_item.stock_quantity is '最少在庫数量';
@@ -3874,7 +3874,6 @@ comment on column tests.history_mstr_audit_std_checkitem.code is '監査標準�
 comment on column tests.history_mstr_audit_std_checkitem.control_code is '管理コード';
 comment on column tests.history_mstr_audit_std_checkitem.shared_appellations_id is '呼称セットID';
 comment on column tests.history_mstr_audit_std_checkitem.detail is '詳細';
-comment on column tests.history_mstr_audit_std_checkitem.conformance is '適合水準';
 comment on column tests.history_mstr_audit_std_checkitem.arg_class is '引数';
 comment on column tests.history_mstr_audit_std_checkitem.revision is 'レビジョン';
 comment on column tests.history_mstr_audit_std_checkitem.remarks is '備考';
@@ -3932,6 +3931,7 @@ comment on column tests.history_mstr_stakeholder_contact.department_appellations
 comment on column tests.history_mstr_stakeholder_contact.contact_person_appellations_id is '担当者名';
 comment on column tests.history_mstr_stakeholder_contact.mail is 'メール';
 comment on column tests.history_mstr_stakeholder_contact.info_address_id is '住所ID';
+comment on column tests.history_mstr_stakeholder_contact.mstr_shipping_kind_id is '配送区分ID';
 comment on column tests.history_mstr_stakeholder_contact.revision is 'レビジョン';
 comment on column tests.history_mstr_stakeholder_contact.remarks is '備考';
 comment on column tests.history_mstr_stakeholder_contact.update_at is '更新日時';
@@ -4101,10 +4101,10 @@ comment on table tests.history_mstr_sign is 'サインマスタ履歴';
 comment on column tests.history_mstr_sign.history_id is '履歴ID';
 comment on column tests.history_mstr_sign.mstr_sign_id is 'サインID';
 comment on column tests.history_mstr_sign.info_staff_id is '担当者ID';
+comment on column tests.history_mstr_sign.auth_subject_id is 'OICD認証ID';
 comment on column tests.history_mstr_sign.code is 'サインコード';
 comment on column tests.history_mstr_sign.mail is 'メールアドレス';
 comment on column tests.history_mstr_sign.role is '権限';
-comment on column tests.history_mstr_sign.mstr_signin_id is 'サインインID';
 comment on column tests.history_mstr_sign.revision is 'レビジョン';
 comment on column tests.history_mstr_sign.remarks is '備考';
 comment on column tests.history_mstr_sign.update_at is '更新日時';
@@ -4212,6 +4212,7 @@ comment on column tests.history_info_access_path_approval.remove is '削除';
 comment on table tests.history_info_access_path is 'アクセスパス履歴';
 comment on column tests.history_info_access_path.history_id is '履歴ID';
 comment on column tests.history_info_access_path.info_access_path_id is 'アクセスパスID';
+comment on column tests.history_info_access_path.info_app_id is 'アプリケーションID';
 comment on column tests.history_info_access_path.name is 'アクセスパス名';
 comment on column tests.history_info_access_path.usecase_path1 is 'ユースケースパス1';
 comment on column tests.history_info_access_path.usecase_path2 is 'ユースケースパス2';
@@ -4696,7 +4697,6 @@ comment on column tests.mstr_audit_std_checkitem.code is '監査標準項目コ�
 comment on column tests.mstr_audit_std_checkitem.control_code is '管理コード';
 comment on column tests.mstr_audit_std_checkitem.shared_appellations_id is '呼称セットID';
 comment on column tests.mstr_audit_std_checkitem.detail is '詳細';
-comment on column tests.mstr_audit_std_checkitem.conformance is '適合水準';
 comment on column tests.mstr_audit_std_checkitem.arg_class is '引数';
 comment on column tests.mstr_audit_std_checkitem.revision is 'レビジョン';
 comment on column tests.mstr_audit_std_checkitem.remarks is '備考';
@@ -13207,7 +13207,6 @@ BEGIN
                 NEW.control_code,
                 NEW.shared_appellations_id,
                 NEW.detail,
-                NEW.conformance,
                 NEW.arg_class,
                 NEW.remarks,
                 NEW.remove
@@ -13218,7 +13217,6 @@ BEGIN
                 OLD.control_code,
                 OLD.shared_appellations_id,
                 OLD.detail,
-                OLD.conformance,
                 OLD.arg_class,
                 OLD.remarks,
                 OLD.remove
@@ -13237,7 +13235,6 @@ BEGIN
             control_code,
             shared_appellations_id,
             detail,
-            conformance,
             arg_class,
             revision,
             remarks,
@@ -13254,7 +13251,6 @@ BEGIN
             NEW.control_code,
             NEW.shared_appellations_id,
             NEW.detail,
-            NEW.conformance,
             NEW.arg_class,
             NEW.revision,
             NEW.remarks,
