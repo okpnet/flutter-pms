@@ -14,12 +14,14 @@ query OrgResEquipmentKindRead(
   $orderBy: [MstrEquipmentKindsOrderBy!] = [PRIMARY_KEY_ASC]
   $ja: Boolean!
   $en: Boolean!
+  $removed: Boolean = false
 ) {
   allMstrEquipmentKinds(
     first: $first
     offset: $offset
     condition: $condition
     orderBy: $orderBy
+    filter: { remove: { equalTo: $removed } }
   ) {
     totalCount
     pageInfo {

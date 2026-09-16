@@ -7,8 +7,10 @@
 # 配置場所: lib/graphql/oepration_editer/oepration_editer_read.graphql
 #
 # ⚠ 実スキーマの型名は"MstrOperation"(operationと同一物理テーブル)。
-# ⚠ 「工程運用課題」(工程運用課題マスタ→品目工程運用課題マスタ)は1対多×1対多のため、
-#   読み取り専用として配列のまま取得する(品目提供/提供と同じ方針)。
+# ⚠ 「工程運用課題」は1対多のため、要件0027(readで配列を読み込まない)・0028(列(先頭)は
+#   更新日時が最新の先頭1レコード)に基づき、更新日時降順の先頭1件のidのみ取得し、件数は
+#   totalCountで取得する(views.md #oepration_editer 「工程運用課題id(先頭)」「工程運用課題数」)。
+#   詳細な配列(品目工程運用課題マスタまで)はeditのみで取得する。
 
 query OeprationEditerRead(
   $first: Int!
@@ -17,12 +19,14 @@ query OeprationEditerRead(
   $orderBy: [MstrOperationsOrderBy!] = [PRIMARY_KEY_ASC]
   $ja: Boolean!
   $en: Boolean!
+  $removed: Boolean = false
 ) {
   allMstrOperations(
     first: $first
     offset: $offset
     condition: $condition
     orderBy: $orderBy
+    filter: { remove: { equalTo: $removed } }
   ) {
     totalCount
     pageInfo {
@@ -59,34 +63,15 @@ query OeprationEditerRead(
         }
       }
 
-      # --- 工程運用課題(⚠1対多、品目工程運用課題マスタまで参照する配列) -------------
-      mstrOperationTasksByMstrOperationId {
+      # --- 工程運用課題id(先頭) / 工程運用課題数 -----------------------------------
+      mstrOperationTasksByMstrOperationId(
+        first: 1
+        orderBy: [UPDATE_AT_DESC]
+      ) {
         nodes {
           mstrOperationTaskId
-          mstrTaskId
-          sequence
-          sharedAppellationBySharedAppellationsId {
-            sharedDictionaryBySharedDictionaryNameId {
-              ja @include(if: $ja)
-              en @include(if: $en)
-            }
-          }
-          mstrItemOperationTasksByMstrOperationTaskId {
-            nodes {
-              mstrItemOperationTaskId
-              mstrItemId
-              sequence
-              defaultInterval {
-                seconds
-                minutes
-                hours
-                days
-                months
-                years
-              }
-            }
-          }
         }
+        totalCount
       }
 
       # --- 共通項: 更新者名(共通名前仕様)の呼称セットID -----------------------------

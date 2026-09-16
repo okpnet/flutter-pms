@@ -44,39 +44,16 @@ Map<String, dynamic> _buildRawReadJson() => {
         'updateAt': '2026-09-15T00:00:00',
         'remove': false,
         'sharedAppellationBySharedAppellationsId': _sharedAppellationJson(),
+        // 要件0027・0028: readは「工程運用課題id(先頭)」「工程運用課題数」のみを取得する
+        // (詳細な配列はeditのみで取得するため、readのモックはidとtotalCountのみで構成する)。
         'mstrOperationTasksByMstrOperationId': {
           'nodes': [
             {
               'mstrOperationTaskId': 'ot111111-1111-1111-1111-111111111111',
-              'mstrTaskId': 'tk111111-1111-1111-1111-111111111111',
-              'sequence': 1,
-              'sharedAppellationBySharedAppellationsId': {
-                'sharedDictionaryBySharedDictionaryNameId': {'ja': '組立', 'en': null, '__typename': 'SharedDictionary'},
-                '__typename': 'SharedAppellation',
-              },
-              'mstrItemOperationTasksByMstrOperationTaskId': {
-                'nodes': [
-                  {
-                    'mstrItemOperationTaskId': 'io111111-1111-1111-1111-111111111111',
-                    'mstrItemId': 'im111111-1111-1111-1111-111111111111',
-                    'sequence': 1,
-                    'defaultInterval': {
-                      'seconds': 0.0,
-                      'minutes': 10,
-                      'hours': 0,
-                      'days': 0,
-                      'months': 0,
-                      'years': 0,
-                      '__typename': 'Interval',
-                    },
-                    '__typename': 'MstrItemOperationTask',
-                  },
-                ],
-                '__typename': 'MstrItemOperationTasksConnection',
-              },
               '__typename': 'MstrOperationTask',
             },
           ],
+          'totalCount': 1,
           '__typename': 'MstrOperationTasksConnection',
         },
         'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId': {

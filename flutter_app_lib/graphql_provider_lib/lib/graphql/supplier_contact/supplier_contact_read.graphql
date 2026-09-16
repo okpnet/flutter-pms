@@ -17,12 +17,14 @@ query SupplierContactRead(
   $orderBy: [MstrStakeholderContactsOrderBy!] = [PRIMARY_KEY_ASC]
   $ja: Boolean!
   $en: Boolean!
+  $removed: Boolean = false
 ) {
   allMstrStakeholderContacts(
     first: $first
     offset: $offset
     condition: $condition
     orderBy: $orderBy
+    filter: { remove: { equalTo: $removed } }
   ) {
     totalCount
     pageInfo {

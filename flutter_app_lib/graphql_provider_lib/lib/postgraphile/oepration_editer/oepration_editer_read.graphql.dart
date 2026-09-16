@@ -13,6 +13,7 @@ class Variables$Query$OeprationEditerRead {
     List<Enum$MstrOperationsOrderBy>? orderBy,
     required bool ja,
     required bool en,
+    bool? removed,
   }) => Variables$Query$OeprationEditerRead._({
     r'first': first,
     if (offset != null) r'offset': offset,
@@ -20,6 +21,7 @@ class Variables$Query$OeprationEditerRead {
     if (orderBy != null) r'orderBy': orderBy,
     r'ja': ja,
     r'en': en,
+    if (removed != null) r'removed': removed,
   });
 
   Variables$Query$OeprationEditerRead._(this._$data);
@@ -52,6 +54,10 @@ class Variables$Query$OeprationEditerRead {
     result$data['ja'] = (l$ja as bool);
     final l$en = data['en'];
     result$data['en'] = (l$en as bool);
+    if (data.containsKey('removed')) {
+      final l$removed = data['removed'];
+      result$data['removed'] = (l$removed as bool?);
+    }
     return Variables$Query$OeprationEditerRead._(result$data);
   }
 
@@ -70,6 +76,8 @@ class Variables$Query$OeprationEditerRead {
   bool get ja => (_$data['ja'] as bool);
 
   bool get en => (_$data['en'] as bool);
+
+  bool? get removed => (_$data['removed'] as bool?);
 
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
@@ -93,6 +101,10 @@ class Variables$Query$OeprationEditerRead {
     result$data['ja'] = l$ja;
     final l$en = en;
     result$data['en'] = l$en;
+    if (_$data.containsKey('removed')) {
+      final l$removed = removed;
+      result$data['removed'] = l$removed;
+    }
     return result$data;
   }
 
@@ -161,6 +173,14 @@ class Variables$Query$OeprationEditerRead {
     if (l$en != lOther$en) {
       return false;
     }
+    final l$removed = removed;
+    final lOther$removed = other.removed;
+    if (_$data.containsKey('removed') != other._$data.containsKey('removed')) {
+      return false;
+    }
+    if (l$removed != lOther$removed) {
+      return false;
+    }
     return true;
   }
 
@@ -172,6 +192,7 @@ class Variables$Query$OeprationEditerRead {
     final l$orderBy = orderBy;
     final l$ja = ja;
     final l$en = en;
+    final l$removed = removed;
     return Object.hashAll([
       l$first,
       _$data.containsKey('offset') ? l$offset : const {},
@@ -183,6 +204,7 @@ class Variables$Query$OeprationEditerRead {
           : const {},
       l$ja,
       l$en,
+      _$data.containsKey('removed') ? l$removed : const {},
     ]);
   }
 }
@@ -203,6 +225,7 @@ abstract class CopyWith$Variables$Query$OeprationEditerRead<TRes> {
     List<Enum$MstrOperationsOrderBy>? orderBy,
     bool? ja,
     bool? en,
+    bool? removed,
   });
 }
 
@@ -223,6 +246,7 @@ class _CopyWithImpl$Variables$Query$OeprationEditerRead<TRes>
     Object? orderBy = _undefined,
     Object? ja = _undefined,
     Object? en = _undefined,
+    Object? removed = _undefined,
   }) => _then(
     Variables$Query$OeprationEditerRead._({
       ..._instance._$data,
@@ -234,6 +258,7 @@ class _CopyWithImpl$Variables$Query$OeprationEditerRead<TRes>
         'orderBy': (orderBy as List<Enum$MstrOperationsOrderBy>?),
       if (ja != _undefined && ja != null) 'ja': (ja as bool),
       if (en != _undefined && en != null) 'en': (en as bool),
+      if (removed != _undefined) 'removed': (removed as bool?),
     }),
   );
 }
@@ -251,6 +276,7 @@ class _CopyWithStubImpl$Variables$Query$OeprationEditerRead<TRes>
     List<Enum$MstrOperationsOrderBy>? orderBy,
     bool? ja,
     bool? en,
+    bool? removed,
   }) => _res;
 }
 
@@ -454,6 +480,15 @@ const documentNodeQueryOeprationEditerRead = DocumentNode(
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'removed')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'Boolean'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: BooleanValueNode(value: false)),
+          directives: [],
+        ),
       ],
       directives: [],
       selectionSet: SelectionSetNode(
@@ -477,6 +512,26 @@ const documentNodeQueryOeprationEditerRead = DocumentNode(
               ArgumentNode(
                 name: NameNode(value: 'orderBy'),
                 value: VariableNode(name: NameNode(value: 'orderBy')),
+              ),
+              ArgumentNode(
+                name: NameNode(value: 'filter'),
+                value: ObjectValueNode(
+                  fields: [
+                    ObjectFieldNode(
+                      name: NameNode(value: 'remove'),
+                      value: ObjectValueNode(
+                        fields: [
+                          ObjectFieldNode(
+                            name: NameNode(value: 'equalTo'),
+                            value: VariableNode(
+                              name: NameNode(value: 'removed'),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
             directives: [],
@@ -795,7 +850,22 @@ const documentNodeQueryOeprationEditerRead = DocumentNode(
                           value: 'mstrOperationTasksByMstrOperationId',
                         ),
                         alias: null,
-                        arguments: [],
+                        arguments: [
+                          ArgumentNode(
+                            name: NameNode(value: 'first'),
+                            value: IntValueNode(value: '1'),
+                          ),
+                          ArgumentNode(
+                            name: NameNode(value: 'orderBy'),
+                            value: ListValueNode(
+                              values: [
+                                EnumValueNode(
+                                  name: NameNode(value: 'UPDATE_AT_DESC'),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                         directives: [],
                         selectionSet: SelectionSetNode(
                           selections: [
@@ -816,254 +886,6 @@ const documentNodeQueryOeprationEditerRead = DocumentNode(
                                     selectionSet: null,
                                   ),
                                   FieldNode(
-                                    name: NameNode(value: 'mstrTaskId'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(value: 'sequence'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(
-                                      value:
-                                          'sharedAppellationBySharedAppellationsId',
-                                    ),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: SelectionSetNode(
-                                      selections: [
-                                        FieldNode(
-                                          name: NameNode(
-                                            value:
-                                                'sharedDictionaryBySharedDictionaryNameId',
-                                          ),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: SelectionSetNode(
-                                            selections: [
-                                              FieldNode(
-                                                name: NameNode(value: 'ja'),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [
-                                                  DirectiveNode(
-                                                    name: NameNode(
-                                                      value: 'include',
-                                                    ),
-                                                    arguments: [
-                                                      ArgumentNode(
-                                                        name: NameNode(
-                                                          value: 'if',
-                                                        ),
-                                                        value: VariableNode(
-                                                          name: NameNode(
-                                                            value: 'ja',
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(value: 'en'),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [
-                                                  DirectiveNode(
-                                                    name: NameNode(
-                                                      value: 'include',
-                                                    ),
-                                                    arguments: [
-                                                      ArgumentNode(
-                                                        name: NameNode(
-                                                          value: 'if',
-                                                        ),
-                                                        value: VariableNode(
-                                                          name: NameNode(
-                                                            value: 'en',
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: '__typename',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(value: '__typename'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(
-                                      value:
-                                          'mstrItemOperationTasksByMstrOperationTaskId',
-                                    ),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: SelectionSetNode(
-                                      selections: [
-                                        FieldNode(
-                                          name: NameNode(value: 'nodes'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: SelectionSetNode(
-                                            selections: [
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value:
-                                                      'mstrItemOperationTaskId',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: 'mstrItemId',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: 'sequence',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: 'defaultInterval',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: SelectionSetNode(
-                                                  selections: [
-                                                    FieldNode(
-                                                      name: NameNode(
-                                                        value: 'seconds',
-                                                      ),
-                                                      alias: null,
-                                                      arguments: [],
-                                                      directives: [],
-                                                      selectionSet: null,
-                                                    ),
-                                                    FieldNode(
-                                                      name: NameNode(
-                                                        value: 'minutes',
-                                                      ),
-                                                      alias: null,
-                                                      arguments: [],
-                                                      directives: [],
-                                                      selectionSet: null,
-                                                    ),
-                                                    FieldNode(
-                                                      name: NameNode(
-                                                        value: 'hours',
-                                                      ),
-                                                      alias: null,
-                                                      arguments: [],
-                                                      directives: [],
-                                                      selectionSet: null,
-                                                    ),
-                                                    FieldNode(
-                                                      name: NameNode(
-                                                        value: 'days',
-                                                      ),
-                                                      alias: null,
-                                                      arguments: [],
-                                                      directives: [],
-                                                      selectionSet: null,
-                                                    ),
-                                                    FieldNode(
-                                                      name: NameNode(
-                                                        value: 'months',
-                                                      ),
-                                                      alias: null,
-                                                      arguments: [],
-                                                      directives: [],
-                                                      selectionSet: null,
-                                                    ),
-                                                    FieldNode(
-                                                      name: NameNode(
-                                                        value: 'years',
-                                                      ),
-                                                      alias: null,
-                                                      arguments: [],
-                                                      directives: [],
-                                                      selectionSet: null,
-                                                    ),
-                                                    FieldNode(
-                                                      name: NameNode(
-                                                        value: '__typename',
-                                                      ),
-                                                      alias: null,
-                                                      arguments: [],
-                                                      directives: [],
-                                                      selectionSet: null,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: '__typename',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(value: '__typename'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  FieldNode(
                                     name: NameNode(value: '__typename'),
                                     alias: null,
                                     arguments: [],
@@ -1072,6 +894,13 @@ const documentNodeQueryOeprationEditerRead = DocumentNode(
                                   ),
                                 ],
                               ),
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'totalCount'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
                             ),
                             FieldNode(
                               name: NameNode(value: '__typename'),
@@ -3034,6 +2863,7 @@ class _CopyWithStubImpl$Query$OeprationEditerRead$allMstrOperations$nodes$shared
 class Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId {
   Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId({
     required this.nodes,
+    required this.totalCount,
     this.$__typename = 'MstrOperationTasksConnection',
   });
 
@@ -3041,6 +2871,7 @@ class Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstr
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
+    final l$totalCount = json['totalCount'];
     final l$$__typename = json['__typename'];
     return Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId(
       nodes: (l$nodes as List<dynamic>)
@@ -3052,6 +2883,7 @@ class Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstr
                   ),
           )
           .toList(),
+      totalCount: (l$totalCount as int),
       $__typename: (l$$__typename as String),
     );
   }
@@ -3061,12 +2893,16 @@ class Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstr
   >
   nodes;
 
+  final int totalCount;
+
   final String $__typename;
 
   Map<String, dynamic> toJson() {
     final _resultData = <String, dynamic>{};
     final l$nodes = nodes;
     _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$totalCount = totalCount;
+    _resultData['totalCount'] = l$totalCount;
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -3075,9 +2911,11 @@ class Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstr
   @override
   int get hashCode {
     final l$nodes = nodes;
+    final l$totalCount = totalCount;
     final l$$__typename = $__typename;
     return Object.hashAll([
       Object.hashAll(l$nodes.map((v) => v)),
+      l$totalCount,
       l$$__typename,
     ]);
   }
@@ -3103,6 +2941,11 @@ class Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstr
       if (l$nodes$entry != lOther$nodes$entry) {
         return false;
       }
+    }
+    final l$totalCount = totalCount;
+    final lOther$totalCount = other.totalCount;
+    if (l$totalCount != lOther$totalCount) {
+      return false;
     }
     final l$$__typename = $__typename;
     final lOther$$__typename = other.$__typename;
@@ -3147,6 +2990,7 @@ abstract class CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOp
       Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes?
     >?
     nodes,
+    int? totalCount,
     String? $__typename,
   });
   TRes nodes(
@@ -3188,6 +3032,7 @@ class _CopyWithImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperat
 
   TRes call({
     Object? nodes = _undefined,
+    Object? totalCount = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId(
@@ -3197,6 +3042,9 @@ class _CopyWithImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperat
                 as List<
                   Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes?
                 >),
+      totalCount: totalCount == _undefined || totalCount == null
+          ? _instance.totalCount
+          : (totalCount as int),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -3247,6 +3095,7 @@ class _CopyWithStubImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOp
       Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes?
     >?
     nodes,
+    int? totalCount,
     String? $__typename,
   }) => _res;
 
@@ -3256,10 +3105,6 @@ class _CopyWithStubImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOp
 class Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes {
   Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes({
     required this.mstrOperationTaskId,
-    required this.mstrTaskId,
-    this.sequence,
-    this.sharedAppellationBySharedAppellationsId,
-    required this.mstrItemOperationTasksByMstrOperationTaskId,
     this.$__typename = 'MstrOperationTask',
   });
 
@@ -3267,44 +3112,14 @@ class Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstr
     Map<String, dynamic> json,
   ) {
     final l$mstrOperationTaskId = json['mstrOperationTaskId'];
-    final l$mstrTaskId = json['mstrTaskId'];
-    final l$sequence = json['sequence'];
-    final l$sharedAppellationBySharedAppellationsId =
-        json['sharedAppellationBySharedAppellationsId'];
-    final l$mstrItemOperationTasksByMstrOperationTaskId =
-        json['mstrItemOperationTasksByMstrOperationTaskId'];
     final l$$__typename = json['__typename'];
     return Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes(
       mstrOperationTaskId: (l$mstrOperationTaskId as String),
-      mstrTaskId: (l$mstrTaskId as String),
-      sequence: (l$sequence as int?),
-      sharedAppellationBySharedAppellationsId:
-          l$sharedAppellationBySharedAppellationsId == null
-          ? null
-          : Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId.fromJson(
-              (l$sharedAppellationBySharedAppellationsId
-                  as Map<String, dynamic>),
-            ),
-      mstrItemOperationTasksByMstrOperationTaskId:
-          Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId.fromJson(
-            (l$mstrItemOperationTasksByMstrOperationTaskId
-                as Map<String, dynamic>),
-          ),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String mstrOperationTaskId;
-
-  final String mstrTaskId;
-
-  final int? sequence;
-
-  final Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId?
-  sharedAppellationBySharedAppellationsId;
-
-  final Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId
-  mstrItemOperationTasksByMstrOperationTaskId;
 
   final String $__typename;
 
@@ -3312,18 +3127,6 @@ class Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstr
     final _resultData = <String, dynamic>{};
     final l$mstrOperationTaskId = mstrOperationTaskId;
     _resultData['mstrOperationTaskId'] = l$mstrOperationTaskId;
-    final l$mstrTaskId = mstrTaskId;
-    _resultData['mstrTaskId'] = l$mstrTaskId;
-    final l$sequence = sequence;
-    _resultData['sequence'] = l$sequence;
-    final l$sharedAppellationBySharedAppellationsId =
-        sharedAppellationBySharedAppellationsId;
-    _resultData['sharedAppellationBySharedAppellationsId'] =
-        l$sharedAppellationBySharedAppellationsId?.toJson();
-    final l$mstrItemOperationTasksByMstrOperationTaskId =
-        mstrItemOperationTasksByMstrOperationTaskId;
-    _resultData['mstrItemOperationTasksByMstrOperationTaskId'] =
-        l$mstrItemOperationTasksByMstrOperationTaskId.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -3332,21 +3135,8 @@ class Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstr
   @override
   int get hashCode {
     final l$mstrOperationTaskId = mstrOperationTaskId;
-    final l$mstrTaskId = mstrTaskId;
-    final l$sequence = sequence;
-    final l$sharedAppellationBySharedAppellationsId =
-        sharedAppellationBySharedAppellationsId;
-    final l$mstrItemOperationTasksByMstrOperationTaskId =
-        mstrItemOperationTasksByMstrOperationTaskId;
     final l$$__typename = $__typename;
-    return Object.hashAll([
-      l$mstrOperationTaskId,
-      l$mstrTaskId,
-      l$sequence,
-      l$sharedAppellationBySharedAppellationsId,
-      l$mstrItemOperationTasksByMstrOperationTaskId,
-      l$$__typename,
-    ]);
+    return Object.hashAll([l$mstrOperationTaskId, l$$__typename]);
   }
 
   @override
@@ -3362,32 +3152,6 @@ class Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstr
     final l$mstrOperationTaskId = mstrOperationTaskId;
     final lOther$mstrOperationTaskId = other.mstrOperationTaskId;
     if (l$mstrOperationTaskId != lOther$mstrOperationTaskId) {
-      return false;
-    }
-    final l$mstrTaskId = mstrTaskId;
-    final lOther$mstrTaskId = other.mstrTaskId;
-    if (l$mstrTaskId != lOther$mstrTaskId) {
-      return false;
-    }
-    final l$sequence = sequence;
-    final lOther$sequence = other.sequence;
-    if (l$sequence != lOther$sequence) {
-      return false;
-    }
-    final l$sharedAppellationBySharedAppellationsId =
-        sharedAppellationBySharedAppellationsId;
-    final lOther$sharedAppellationBySharedAppellationsId =
-        other.sharedAppellationBySharedAppellationsId;
-    if (l$sharedAppellationBySharedAppellationsId !=
-        lOther$sharedAppellationBySharedAppellationsId) {
-      return false;
-    }
-    final l$mstrItemOperationTasksByMstrOperationTaskId =
-        mstrItemOperationTasksByMstrOperationTaskId;
-    final lOther$mstrItemOperationTasksByMstrOperationTaskId =
-        other.mstrItemOperationTasksByMstrOperationTaskId;
-    if (l$mstrItemOperationTasksByMstrOperationTaskId !=
-        lOther$mstrItemOperationTasksByMstrOperationTaskId) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -3428,24 +3192,7 @@ abstract class CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOp
     TRes res,
   ) = _CopyWithStubImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes;
 
-  TRes call({
-    String? mstrOperationTaskId,
-    String? mstrTaskId,
-    int? sequence,
-    Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId?
-    sharedAppellationBySharedAppellationsId,
-    Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId?
-    mstrItemOperationTasksByMstrOperationTaskId,
-    String? $__typename,
-  });
-  CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId<
-    TRes
-  >
-  get sharedAppellationBySharedAppellationsId;
-  CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId<
-    TRes
-  >
-  get mstrItemOperationTasksByMstrOperationTaskId;
+  TRes call({String? mstrOperationTaskId, String? $__typename});
 }
 
 class _CopyWithImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes<
@@ -3472,10 +3219,6 @@ class _CopyWithImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperat
 
   TRes call({
     Object? mstrOperationTaskId = _undefined,
-    Object? mstrTaskId = _undefined,
-    Object? sequence = _undefined,
-    Object? sharedAppellationBySharedAppellationsId = _undefined,
-    Object? mstrItemOperationTasksByMstrOperationTaskId = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes(
@@ -3483,56 +3226,11 @@ class _CopyWithImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperat
           mstrOperationTaskId == _undefined || mstrOperationTaskId == null
           ? _instance.mstrOperationTaskId
           : (mstrOperationTaskId as String),
-      mstrTaskId: mstrTaskId == _undefined || mstrTaskId == null
-          ? _instance.mstrTaskId
-          : (mstrTaskId as String),
-      sequence: sequence == _undefined
-          ? _instance.sequence
-          : (sequence as int?),
-      sharedAppellationBySharedAppellationsId:
-          sharedAppellationBySharedAppellationsId == _undefined
-          ? _instance.sharedAppellationBySharedAppellationsId
-          : (sharedAppellationBySharedAppellationsId
-                as Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId?),
-      mstrItemOperationTasksByMstrOperationTaskId:
-          mstrItemOperationTasksByMstrOperationTaskId == _undefined ||
-              mstrItemOperationTasksByMstrOperationTaskId == null
-          ? _instance.mstrItemOperationTasksByMstrOperationTaskId
-          : (mstrItemOperationTasksByMstrOperationTaskId
-                as Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
-
-  CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId<
-    TRes
-  >
-  get sharedAppellationBySharedAppellationsId {
-    final local$sharedAppellationBySharedAppellationsId =
-        _instance.sharedAppellationBySharedAppellationsId;
-    return local$sharedAppellationBySharedAppellationsId == null
-        ? CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId(
-            local$sharedAppellationBySharedAppellationsId,
-            (e) => call(sharedAppellationBySharedAppellationsId: e),
-          );
-  }
-
-  CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId<
-    TRes
-  >
-  get mstrItemOperationTasksByMstrOperationTaskId {
-    final local$mstrItemOperationTasksByMstrOperationTaskId =
-        _instance.mstrItemOperationTasksByMstrOperationTaskId;
-    return CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId(
-      local$mstrItemOperationTasksByMstrOperationTaskId,
-      (e) => call(mstrItemOperationTasksByMstrOperationTaskId: e),
-    );
-  }
 }
 
 class _CopyWithStubImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes<
@@ -3548,1109 +3246,7 @@ class _CopyWithStubImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOp
 
   TRes _res;
 
-  call({
-    String? mstrOperationTaskId,
-    String? mstrTaskId,
-    int? sequence,
-    Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId?
-    sharedAppellationBySharedAppellationsId,
-    Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId?
-    mstrItemOperationTasksByMstrOperationTaskId,
-    String? $__typename,
-  }) => _res;
-
-  CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId<
-    TRes
-  >
-  get sharedAppellationBySharedAppellationsId =>
-      CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId.stub(
-        _res,
-      );
-
-  CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId<
-    TRes
-  >
-  get mstrItemOperationTasksByMstrOperationTaskId =>
-      CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId.stub(
-        _res,
-      );
-}
-
-class Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId {
-  Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId({
-    this.sharedDictionaryBySharedDictionaryNameId,
-    this.$__typename = 'SharedAppellation',
-  });
-
-  factory Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId.fromJson(
-    Map<String, dynamic> json,
-  ) {
-    final l$sharedDictionaryBySharedDictionaryNameId =
-        json['sharedDictionaryBySharedDictionaryNameId'];
-    final l$$__typename = json['__typename'];
-    return Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId(
-      sharedDictionaryBySharedDictionaryNameId:
-          l$sharedDictionaryBySharedDictionaryNameId == null
-          ? null
-          : Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId.fromJson(
-              (l$sharedDictionaryBySharedDictionaryNameId
-                  as Map<String, dynamic>),
-            ),
-      $__typename: (l$$__typename as String),
-    );
-  }
-
-  final Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId?
-  sharedDictionaryBySharedDictionaryNameId;
-
-  final String $__typename;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$sharedDictionaryBySharedDictionaryNameId =
-        sharedDictionaryBySharedDictionaryNameId;
-    _resultData['sharedDictionaryBySharedDictionaryNameId'] =
-        l$sharedDictionaryBySharedDictionaryNameId?.toJson();
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$sharedDictionaryBySharedDictionaryNameId =
-        sharedDictionaryBySharedDictionaryNameId;
-    final l$$__typename = $__typename;
-    return Object.hashAll([
-      l$sharedDictionaryBySharedDictionaryNameId,
-      l$$__typename,
-    ]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (other
-            is! Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$sharedDictionaryBySharedDictionaryNameId =
-        sharedDictionaryBySharedDictionaryNameId;
-    final lOther$sharedDictionaryBySharedDictionaryNameId =
-        other.sharedDictionaryBySharedDictionaryNameId;
-    if (l$sharedDictionaryBySharedDictionaryNameId !=
-        lOther$sharedDictionaryBySharedDictionaryNameId) {
-      return false;
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId
-    on
-        Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId {
-  CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId<
-    Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId
-  >
-  get copyWith =>
-      CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId(
-        this,
-        (i) => i,
-      );
-}
-
-abstract class CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId<
-  TRes
-> {
-  factory CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId(
-    Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId
-    instance,
-    TRes Function(
-      Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId,
-    )
-    then,
-  ) = _CopyWithImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId;
-
-  factory CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId.stub(
-    TRes res,
-  ) = _CopyWithStubImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId;
-
-  TRes call({
-    Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId?
-    sharedDictionaryBySharedDictionaryNameId,
-    String? $__typename,
-  });
-  CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
-    TRes
-  >
-  get sharedDictionaryBySharedDictionaryNameId;
-}
-
-class _CopyWithImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId<
-  TRes
->
-    implements
-        CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId<
-          TRes
-        > {
-  _CopyWithImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId(
-    this._instance,
-    this._then,
-  );
-
-  final Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId
-  _instance;
-
-  final TRes Function(
-    Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId,
-  )
-  _then;
-
-  static const _undefined = <dynamic, dynamic>{};
-
-  TRes call({
-    Object? sharedDictionaryBySharedDictionaryNameId = _undefined,
-    Object? $__typename = _undefined,
-  }) => _then(
-    Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId(
-      sharedDictionaryBySharedDictionaryNameId:
-          sharedDictionaryBySharedDictionaryNameId == _undefined
-          ? _instance.sharedDictionaryBySharedDictionaryNameId
-          : (sharedDictionaryBySharedDictionaryNameId
-                as Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId?),
-      $__typename: $__typename == _undefined || $__typename == null
-          ? _instance.$__typename
-          : ($__typename as String),
-    ),
-  );
-
-  CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
-    TRes
-  >
-  get sharedDictionaryBySharedDictionaryNameId {
-    final local$sharedDictionaryBySharedDictionaryNameId =
-        _instance.sharedDictionaryBySharedDictionaryNameId;
-    return local$sharedDictionaryBySharedDictionaryNameId == null
-        ? CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
-            local$sharedDictionaryBySharedDictionaryNameId,
-            (e) => call(sharedDictionaryBySharedDictionaryNameId: e),
-          );
-  }
-}
-
-class _CopyWithStubImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId<
-  TRes
->
-    implements
-        CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId<
-          TRes
-        > {
-  _CopyWithStubImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId(
-    this._res,
-  );
-
-  TRes _res;
-
-  call({
-    Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId?
-    sharedDictionaryBySharedDictionaryNameId,
-    String? $__typename,
-  }) => _res;
-
-  CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
-    TRes
-  >
-  get sharedDictionaryBySharedDictionaryNameId =>
-      CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId.stub(
-        _res,
-      );
-}
-
-class Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId {
-  Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId({
-    this.ja,
-    this.en,
-    this.$__typename = 'SharedDictionary',
-  });
-
-  factory Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId.fromJson(
-    Map<String, dynamic> json,
-  ) {
-    final l$ja = json['ja'];
-    final l$en = json['en'];
-    final l$$__typename = json['__typename'];
-    return Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
-      ja: (l$ja as String?),
-      en: (l$en as String?),
-      $__typename: (l$$__typename as String),
-    );
-  }
-
-  final String? ja;
-
-  final String? en;
-
-  final String $__typename;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$ja = ja;
-    _resultData['ja'] = l$ja;
-    final l$en = en;
-    _resultData['en'] = l$en;
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$ja = ja;
-    final l$en = en;
-    final l$$__typename = $__typename;
-    return Object.hashAll([l$ja, l$en, l$$__typename]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (other
-            is! Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$ja = ja;
-    final lOther$ja = other.ja;
-    if (l$ja != lOther$ja) {
-      return false;
-    }
-    final l$en = en;
-    final lOther$en = other.en;
-    if (l$en != lOther$en) {
-      return false;
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId
-    on
-        Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId {
-  CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
-    Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId
-  >
-  get copyWith =>
-      CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
-        this,
-        (i) => i,
-      );
-}
-
-abstract class CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
-  TRes
-> {
-  factory CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
-    Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId
-    instance,
-    TRes Function(
-      Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId,
-    )
-    then,
-  ) = _CopyWithImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId;
-
-  factory CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId.stub(
-    TRes res,
-  ) = _CopyWithStubImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId;
-
-  TRes call({String? ja, String? en, String? $__typename});
-}
-
-class _CopyWithImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
-  TRes
->
-    implements
-        CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
-          TRes
-        > {
-  _CopyWithImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
-    this._instance,
-    this._then,
-  );
-
-  final Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId
-  _instance;
-
-  final TRes Function(
-    Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId,
-  )
-  _then;
-
-  static const _undefined = <dynamic, dynamic>{};
-
-  TRes call({
-    Object? ja = _undefined,
-    Object? en = _undefined,
-    Object? $__typename = _undefined,
-  }) => _then(
-    Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
-      ja: ja == _undefined ? _instance.ja : (ja as String?),
-      en: en == _undefined ? _instance.en : (en as String?),
-      $__typename: $__typename == _undefined || $__typename == null
-          ? _instance.$__typename
-          : ($__typename as String),
-    ),
-  );
-}
-
-class _CopyWithStubImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
-  TRes
->
-    implements
-        CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
-          TRes
-        > {
-  _CopyWithStubImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
-    this._res,
-  );
-
-  TRes _res;
-
-  call({String? ja, String? en, String? $__typename}) => _res;
-}
-
-class Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId {
-  Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId({
-    required this.nodes,
-    this.$__typename = 'MstrItemOperationTasksConnection',
-  });
-
-  factory Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId.fromJson(
-    Map<String, dynamic> json,
-  ) {
-    final l$nodes = json['nodes'];
-    final l$$__typename = json['__typename'];
-    return Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId(
-      nodes: (l$nodes as List<dynamic>)
-          .map(
-            (e) => e == null
-                ? null
-                : Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes.fromJson(
-                    (e as Map<String, dynamic>),
-                  ),
-          )
-          .toList(),
-      $__typename: (l$$__typename as String),
-    );
-  }
-
-  final List<
-    Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes?
-  >
-  nodes;
-
-  final String $__typename;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$nodes = nodes;
-    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$nodes = nodes;
-    final l$$__typename = $__typename;
-    return Object.hashAll([
-      Object.hashAll(l$nodes.map((v) => v)),
-      l$$__typename,
-    ]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (other
-            is! Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$nodes = nodes;
-    final lOther$nodes = other.nodes;
-    if (l$nodes.length != lOther$nodes.length) {
-      return false;
-    }
-    for (int i = 0; i < l$nodes.length; i++) {
-      final l$nodes$entry = l$nodes[i];
-      final lOther$nodes$entry = lOther$nodes[i];
-      if (l$nodes$entry != lOther$nodes$entry) {
-        return false;
-      }
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId
-    on
-        Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId {
-  CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId<
-    Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId
-  >
-  get copyWith =>
-      CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId(
-        this,
-        (i) => i,
-      );
-}
-
-abstract class CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId<
-  TRes
-> {
-  factory CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId(
-    Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId
-    instance,
-    TRes Function(
-      Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId,
-    )
-    then,
-  ) = _CopyWithImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId;
-
-  factory CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId.stub(
-    TRes res,
-  ) = _CopyWithStubImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId;
-
-  TRes call({
-    List<
-      Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes?
-    >?
-    nodes,
-    String? $__typename,
-  });
-  TRes nodes(
-    Iterable<
-      Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes?
-    >
-    Function(
-      Iterable<
-        CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes<
-          Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes
-        >?
-      >,
-    )
-    _fn,
-  );
-}
-
-class _CopyWithImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId<
-  TRes
->
-    implements
-        CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId<
-          TRes
-        > {
-  _CopyWithImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId(
-    this._instance,
-    this._then,
-  );
-
-  final Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId
-  _instance;
-
-  final TRes Function(
-    Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId,
-  )
-  _then;
-
-  static const _undefined = <dynamic, dynamic>{};
-
-  TRes call({
-    Object? nodes = _undefined,
-    Object? $__typename = _undefined,
-  }) => _then(
-    Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId(
-      nodes: nodes == _undefined || nodes == null
-          ? _instance.nodes
-          : (nodes
-                as List<
-                  Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes?
-                >),
-      $__typename: $__typename == _undefined || $__typename == null
-          ? _instance.$__typename
-          : ($__typename as String),
-    ),
-  );
-
-  TRes nodes(
-    Iterable<
-      Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes?
-    >
-    Function(
-      Iterable<
-        CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes<
-          Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes
-        >?
-      >,
-    )
-    _fn,
-  ) => call(
-    nodes: _fn(
-      _instance.nodes.map(
-        (e) => e == null
-            ? null
-            : CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes(
-                e,
-                (i) => i,
-              ),
-      ),
-    ).toList(),
-  );
-}
-
-class _CopyWithStubImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId<
-  TRes
->
-    implements
-        CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId<
-          TRes
-        > {
-  _CopyWithStubImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId(
-    this._res,
-  );
-
-  TRes _res;
-
-  call({
-    List<
-      Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes?
-    >?
-    nodes,
-    String? $__typename,
-  }) => _res;
-
-  nodes(_fn) => _res;
-}
-
-class Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes {
-  Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes({
-    required this.mstrItemOperationTaskId,
-    this.mstrItemId,
-    this.sequence,
-    this.defaultInterval,
-    this.$__typename = 'MstrItemOperationTask',
-  });
-
-  factory Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes.fromJson(
-    Map<String, dynamic> json,
-  ) {
-    final l$mstrItemOperationTaskId = json['mstrItemOperationTaskId'];
-    final l$mstrItemId = json['mstrItemId'];
-    final l$sequence = json['sequence'];
-    final l$defaultInterval = json['defaultInterval'];
-    final l$$__typename = json['__typename'];
-    return Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes(
-      mstrItemOperationTaskId: (l$mstrItemOperationTaskId as String),
-      mstrItemId: (l$mstrItemId as String?),
-      sequence: (l$sequence as int?),
-      defaultInterval: l$defaultInterval == null
-          ? null
-          : Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval.fromJson(
-              (l$defaultInterval as Map<String, dynamic>),
-            ),
-      $__typename: (l$$__typename as String),
-    );
-  }
-
-  final String mstrItemOperationTaskId;
-
-  final String? mstrItemId;
-
-  final int? sequence;
-
-  final Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval?
-  defaultInterval;
-
-  final String $__typename;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$mstrItemOperationTaskId = mstrItemOperationTaskId;
-    _resultData['mstrItemOperationTaskId'] = l$mstrItemOperationTaskId;
-    final l$mstrItemId = mstrItemId;
-    _resultData['mstrItemId'] = l$mstrItemId;
-    final l$sequence = sequence;
-    _resultData['sequence'] = l$sequence;
-    final l$defaultInterval = defaultInterval;
-    _resultData['defaultInterval'] = l$defaultInterval?.toJson();
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$mstrItemOperationTaskId = mstrItemOperationTaskId;
-    final l$mstrItemId = mstrItemId;
-    final l$sequence = sequence;
-    final l$defaultInterval = defaultInterval;
-    final l$$__typename = $__typename;
-    return Object.hashAll([
-      l$mstrItemOperationTaskId,
-      l$mstrItemId,
-      l$sequence,
-      l$defaultInterval,
-      l$$__typename,
-    ]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (other
-            is! Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$mstrItemOperationTaskId = mstrItemOperationTaskId;
-    final lOther$mstrItemOperationTaskId = other.mstrItemOperationTaskId;
-    if (l$mstrItemOperationTaskId != lOther$mstrItemOperationTaskId) {
-      return false;
-    }
-    final l$mstrItemId = mstrItemId;
-    final lOther$mstrItemId = other.mstrItemId;
-    if (l$mstrItemId != lOther$mstrItemId) {
-      return false;
-    }
-    final l$sequence = sequence;
-    final lOther$sequence = other.sequence;
-    if (l$sequence != lOther$sequence) {
-      return false;
-    }
-    final l$defaultInterval = defaultInterval;
-    final lOther$defaultInterval = other.defaultInterval;
-    if (l$defaultInterval != lOther$defaultInterval) {
-      return false;
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes
-    on
-        Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes {
-  CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes<
-    Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes
-  >
-  get copyWith =>
-      CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes(
-        this,
-        (i) => i,
-      );
-}
-
-abstract class CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes<
-  TRes
-> {
-  factory CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes(
-    Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes
-    instance,
-    TRes Function(
-      Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes,
-    )
-    then,
-  ) = _CopyWithImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes;
-
-  factory CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes.stub(
-    TRes res,
-  ) = _CopyWithStubImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes;
-
-  TRes call({
-    String? mstrItemOperationTaskId,
-    String? mstrItemId,
-    int? sequence,
-    Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval?
-    defaultInterval,
-    String? $__typename,
-  });
-  CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval<
-    TRes
-  >
-  get defaultInterval;
-}
-
-class _CopyWithImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes<
-  TRes
->
-    implements
-        CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes<
-          TRes
-        > {
-  _CopyWithImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes(
-    this._instance,
-    this._then,
-  );
-
-  final Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes
-  _instance;
-
-  final TRes Function(
-    Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes,
-  )
-  _then;
-
-  static const _undefined = <dynamic, dynamic>{};
-
-  TRes call({
-    Object? mstrItemOperationTaskId = _undefined,
-    Object? mstrItemId = _undefined,
-    Object? sequence = _undefined,
-    Object? defaultInterval = _undefined,
-    Object? $__typename = _undefined,
-  }) => _then(
-    Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes(
-      mstrItemOperationTaskId:
-          mstrItemOperationTaskId == _undefined ||
-              mstrItemOperationTaskId == null
-          ? _instance.mstrItemOperationTaskId
-          : (mstrItemOperationTaskId as String),
-      mstrItemId: mstrItemId == _undefined
-          ? _instance.mstrItemId
-          : (mstrItemId as String?),
-      sequence: sequence == _undefined
-          ? _instance.sequence
-          : (sequence as int?),
-      defaultInterval: defaultInterval == _undefined
-          ? _instance.defaultInterval
-          : (defaultInterval
-                as Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval?),
-      $__typename: $__typename == _undefined || $__typename == null
-          ? _instance.$__typename
-          : ($__typename as String),
-    ),
-  );
-
-  CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval<
-    TRes
-  >
-  get defaultInterval {
-    final local$defaultInterval = _instance.defaultInterval;
-    return local$defaultInterval == null
-        ? CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval(
-            local$defaultInterval,
-            (e) => call(defaultInterval: e),
-          );
-  }
-}
-
-class _CopyWithStubImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes<
-  TRes
->
-    implements
-        CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes<
-          TRes
-        > {
-  _CopyWithStubImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes(
-    this._res,
-  );
-
-  TRes _res;
-
-  call({
-    String? mstrItemOperationTaskId,
-    String? mstrItemId,
-    int? sequence,
-    Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval?
-    defaultInterval,
-    String? $__typename,
-  }) => _res;
-
-  CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval<
-    TRes
-  >
-  get defaultInterval =>
-      CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval.stub(
-        _res,
-      );
-}
-
-class Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval {
-  Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval({
-    this.seconds,
-    this.minutes,
-    this.hours,
-    this.days,
-    this.months,
-    this.years,
-    this.$__typename = 'Interval',
-  });
-
-  factory Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval.fromJson(
-    Map<String, dynamic> json,
-  ) {
-    final l$seconds = json['seconds'];
-    final l$minutes = json['minutes'];
-    final l$hours = json['hours'];
-    final l$days = json['days'];
-    final l$months = json['months'];
-    final l$years = json['years'];
-    final l$$__typename = json['__typename'];
-    return Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval(
-      seconds: (l$seconds as num?)?.toDouble(),
-      minutes: (l$minutes as int?),
-      hours: (l$hours as int?),
-      days: (l$days as int?),
-      months: (l$months as int?),
-      years: (l$years as int?),
-      $__typename: (l$$__typename as String),
-    );
-  }
-
-  final double? seconds;
-
-  final int? minutes;
-
-  final int? hours;
-
-  final int? days;
-
-  final int? months;
-
-  final int? years;
-
-  final String $__typename;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$seconds = seconds;
-    _resultData['seconds'] = l$seconds;
-    final l$minutes = minutes;
-    _resultData['minutes'] = l$minutes;
-    final l$hours = hours;
-    _resultData['hours'] = l$hours;
-    final l$days = days;
-    _resultData['days'] = l$days;
-    final l$months = months;
-    _resultData['months'] = l$months;
-    final l$years = years;
-    _resultData['years'] = l$years;
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$seconds = seconds;
-    final l$minutes = minutes;
-    final l$hours = hours;
-    final l$days = days;
-    final l$months = months;
-    final l$years = years;
-    final l$$__typename = $__typename;
-    return Object.hashAll([
-      l$seconds,
-      l$minutes,
-      l$hours,
-      l$days,
-      l$months,
-      l$years,
-      l$$__typename,
-    ]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (other
-            is! Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$seconds = seconds;
-    final lOther$seconds = other.seconds;
-    if (l$seconds != lOther$seconds) {
-      return false;
-    }
-    final l$minutes = minutes;
-    final lOther$minutes = other.minutes;
-    if (l$minutes != lOther$minutes) {
-      return false;
-    }
-    final l$hours = hours;
-    final lOther$hours = other.hours;
-    if (l$hours != lOther$hours) {
-      return false;
-    }
-    final l$days = days;
-    final lOther$days = other.days;
-    if (l$days != lOther$days) {
-      return false;
-    }
-    final l$months = months;
-    final lOther$months = other.months;
-    if (l$months != lOther$months) {
-      return false;
-    }
-    final l$years = years;
-    final lOther$years = other.years;
-    if (l$years != lOther$years) {
-      return false;
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval
-    on
-        Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval {
-  CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval<
-    Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval
-  >
-  get copyWith =>
-      CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval(
-        this,
-        (i) => i,
-      );
-}
-
-abstract class CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval<
-  TRes
-> {
-  factory CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval(
-    Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval
-    instance,
-    TRes Function(
-      Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval,
-    )
-    then,
-  ) = _CopyWithImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval;
-
-  factory CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval.stub(
-    TRes res,
-  ) = _CopyWithStubImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval;
-
-  TRes call({
-    double? seconds,
-    int? minutes,
-    int? hours,
-    int? days,
-    int? months,
-    int? years,
-    String? $__typename,
-  });
-}
-
-class _CopyWithImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval<
-  TRes
->
-    implements
-        CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval<
-          TRes
-        > {
-  _CopyWithImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval(
-    this._instance,
-    this._then,
-  );
-
-  final Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval
-  _instance;
-
-  final TRes Function(
-    Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval,
-  )
-  _then;
-
-  static const _undefined = <dynamic, dynamic>{};
-
-  TRes call({
-    Object? seconds = _undefined,
-    Object? minutes = _undefined,
-    Object? hours = _undefined,
-    Object? days = _undefined,
-    Object? months = _undefined,
-    Object? years = _undefined,
-    Object? $__typename = _undefined,
-  }) => _then(
-    Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval(
-      seconds: seconds == _undefined ? _instance.seconds : (seconds as double?),
-      minutes: minutes == _undefined ? _instance.minutes : (minutes as int?),
-      hours: hours == _undefined ? _instance.hours : (hours as int?),
-      days: days == _undefined ? _instance.days : (days as int?),
-      months: months == _undefined ? _instance.months : (months as int?),
-      years: years == _undefined ? _instance.years : (years as int?),
-      $__typename: $__typename == _undefined || $__typename == null
-          ? _instance.$__typename
-          : ($__typename as String),
-    ),
-  );
-}
-
-class _CopyWithStubImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval<
-  TRes
->
-    implements
-        CopyWith$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval<
-          TRes
-        > {
-  _CopyWithStubImpl$Query$OeprationEditerRead$allMstrOperations$nodes$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes$defaultInterval(
-    this._res,
-  );
-
-  TRes _res;
-
-  call({
-    double? seconds,
-    int? minutes,
-    int? hours,
-    int? days,
-    int? months,
-    int? years,
-    String? $__typename,
-  }) => _res;
+  call({String? mstrOperationTaskId, String? $__typename}) => _res;
 }
 
 class Query$OeprationEditerRead$allMstrOperations$nodes$historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {

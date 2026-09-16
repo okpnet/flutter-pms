@@ -11,10 +11,15 @@
 #   `mstrTaskTreesByParentMstrTaskId`のtotalCountで取得する(要件0025評価: 先行実装の
 #   org_res_location/info_departmentではこの「子の数」相当が未実装のままだったため、今回は
 #   totalCountで正しく実装した)。
-# ⚠ 「工程場所」(場所/使用設備/供給者)は"MstrTaskLocation"経由で1対多(1つの工程が複数の
-#   場所・設備・供給者候補を持ちうる)。views.mdは単一値であるかのように記述しているが、
-#   実スキーマ上は配列のため、nodesをそのまま取得する(要件0025評価ログ参照。品目提供/提供と
-#   同様、単一値に丸めず配列のまま扱う)。
+# ⚠ 「工程場所」(場所/使用設備/供給者)は"MstrTaskLocation"経由で1対多。要件0027(readで配列を
+#   読み込まない)・0028(列(先頭)は更新日時が最新の先頭1レコード)への対応として、views.mdの
+#   「工程場所id(先頭)」「工程場所数」のとおり、更新日時降順の先頭1件のみ取得し、件数は
+#   totalCountで取得する(2026/09/16改訂、以前は配列のまま取得していた)。
+# ⚠ 「工程グループ」は"mstrTaskGroupId"の直接列参照(1対1)であり1対多ではない。views.mdの
+#   「工程グループid(先頭)」「工程グループ数」という表記は「工程場所」と同様の(先頭)/数の
+#   パターンが誤って適用されたものと考えられる(要件0028再評価時に指摘)。実スキーマ上
+#   多重度が存在しないため、本クエリでは従来どおり単一オブジェクト参照のまま実装し、
+#   「工程グループ数」に対応するフィールドは追加していない。views.md側の記述訂正を推奨する。
 
 query TaskRead(
   $first: Int!
@@ -23,12 +28,14 @@ query TaskRead(
   $orderBy: [MstrTasksOrderBy!] = [PRIMARY_KEY_ASC]
   $ja: Boolean!
   $en: Boolean!
+  $removed: Boolean = false
 ) {
   allMstrTasks(
     first: $first
     offset: $offset
     condition: $condition
     orderBy: $orderBy
+    filter: { remove: { equalTo: $removed } }
   ) {
     totalCount
     pageInfo {
@@ -108,8 +115,11 @@ query TaskRead(
         }
       }
 
-      # --- 工程場所(⚠1対多、配列のまま) -------------------------------------------
-      mstrTaskLocationsByMstrTaskId {
+      # --- 工程場所id(先頭) / 工程場所数 -------------------------------------------
+      mstrTaskLocationsByMstrTaskId(
+        first: 1
+        orderBy: [UPDATE_AT_DESC]
+      ) {
         nodes {
           mstrTaskLocationId
           mstrLocationByMstrLocationId {
@@ -169,6 +179,7 @@ query TaskRead(
             }
           }
         }
+        totalCount
       }
 
       # --- 共通項: 更新者名(共通名前仕様)の呼称セットID -----------------------------

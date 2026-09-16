@@ -17,12 +17,14 @@ query EquipmentInspectionOperationRead(
   $orderBy: [MstrInspectionOperationsOrderBy!] = [PRIMARY_KEY_ASC]
   $ja: Boolean!
   $en: Boolean!
+  $removed: Boolean = false
 ) {
   allMstrInspectionOperations(
     first: $first
     offset: $offset
     condition: $condition
     orderBy: $orderBy
+    filter: { remove: { equalTo: $removed } }
   ) {
     totalCount
     pageInfo {

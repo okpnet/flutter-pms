@@ -69,6 +69,7 @@ Map<String, dynamic> _buildRawReadJson() => {
           },
           '__typename': 'MstrTaskGroup',
         },
+        // 要件0027・0028: readは「工程場所id(先頭)」「工程場所数」のとおり先頭1件+totalCountを取得する。
         'mstrTaskLocationsByMstrTaskId': {
           'nodes': [
             {
@@ -79,6 +80,7 @@ Map<String, dynamic> _buildRawReadJson() => {
               '__typename': 'MstrTaskLocation',
             },
           ],
+          'totalCount': 1,
           '__typename': 'MstrTaskLocationsConnection',
         },
         'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId': {

@@ -13,6 +13,7 @@ class Variables$Query$OrgResEquipmentKindRead {
     List<Enum$MstrEquipmentKindsOrderBy>? orderBy,
     required bool ja,
     required bool en,
+    bool? removed,
   }) => Variables$Query$OrgResEquipmentKindRead._({
     r'first': first,
     if (offset != null) r'offset': offset,
@@ -20,6 +21,7 @@ class Variables$Query$OrgResEquipmentKindRead {
     if (orderBy != null) r'orderBy': orderBy,
     r'ja': ja,
     r'en': en,
+    if (removed != null) r'removed': removed,
   });
 
   Variables$Query$OrgResEquipmentKindRead._(this._$data);
@@ -52,6 +54,10 @@ class Variables$Query$OrgResEquipmentKindRead {
     result$data['ja'] = (l$ja as bool);
     final l$en = data['en'];
     result$data['en'] = (l$en as bool);
+    if (data.containsKey('removed')) {
+      final l$removed = data['removed'];
+      result$data['removed'] = (l$removed as bool?);
+    }
     return Variables$Query$OrgResEquipmentKindRead._(result$data);
   }
 
@@ -70,6 +76,8 @@ class Variables$Query$OrgResEquipmentKindRead {
   bool get ja => (_$data['ja'] as bool);
 
   bool get en => (_$data['en'] as bool);
+
+  bool? get removed => (_$data['removed'] as bool?);
 
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
@@ -93,6 +101,10 @@ class Variables$Query$OrgResEquipmentKindRead {
     result$data['ja'] = l$ja;
     final l$en = en;
     result$data['en'] = l$en;
+    if (_$data.containsKey('removed')) {
+      final l$removed = removed;
+      result$data['removed'] = l$removed;
+    }
     return result$data;
   }
 
@@ -162,6 +174,14 @@ class Variables$Query$OrgResEquipmentKindRead {
     if (l$en != lOther$en) {
       return false;
     }
+    final l$removed = removed;
+    final lOther$removed = other.removed;
+    if (_$data.containsKey('removed') != other._$data.containsKey('removed')) {
+      return false;
+    }
+    if (l$removed != lOther$removed) {
+      return false;
+    }
     return true;
   }
 
@@ -173,6 +193,7 @@ class Variables$Query$OrgResEquipmentKindRead {
     final l$orderBy = orderBy;
     final l$ja = ja;
     final l$en = en;
+    final l$removed = removed;
     return Object.hashAll([
       l$first,
       _$data.containsKey('offset') ? l$offset : const {},
@@ -184,6 +205,7 @@ class Variables$Query$OrgResEquipmentKindRead {
           : const {},
       l$ja,
       l$en,
+      _$data.containsKey('removed') ? l$removed : const {},
     ]);
   }
 }
@@ -204,6 +226,7 @@ abstract class CopyWith$Variables$Query$OrgResEquipmentKindRead<TRes> {
     List<Enum$MstrEquipmentKindsOrderBy>? orderBy,
     bool? ja,
     bool? en,
+    bool? removed,
   });
 }
 
@@ -227,6 +250,7 @@ class _CopyWithImpl$Variables$Query$OrgResEquipmentKindRead<TRes>
     Object? orderBy = _undefined,
     Object? ja = _undefined,
     Object? en = _undefined,
+    Object? removed = _undefined,
   }) => _then(
     Variables$Query$OrgResEquipmentKindRead._({
       ..._instance._$data,
@@ -238,6 +262,7 @@ class _CopyWithImpl$Variables$Query$OrgResEquipmentKindRead<TRes>
         'orderBy': (orderBy as List<Enum$MstrEquipmentKindsOrderBy>?),
       if (ja != _undefined && ja != null) 'ja': (ja as bool),
       if (en != _undefined && en != null) 'en': (en as bool),
+      if (removed != _undefined) 'removed': (removed as bool?),
     }),
   );
 }
@@ -255,6 +280,7 @@ class _CopyWithStubImpl$Variables$Query$OrgResEquipmentKindRead<TRes>
     List<Enum$MstrEquipmentKindsOrderBy>? orderBy,
     bool? ja,
     bool? en,
+    bool? removed,
   }) => _res;
 }
 
@@ -460,6 +486,15 @@ const documentNodeQueryOrgResEquipmentKindRead = DocumentNode(
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'removed')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'Boolean'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: BooleanValueNode(value: false)),
+          directives: [],
+        ),
       ],
       directives: [],
       selectionSet: SelectionSetNode(
@@ -483,6 +518,26 @@ const documentNodeQueryOrgResEquipmentKindRead = DocumentNode(
               ArgumentNode(
                 name: NameNode(value: 'orderBy'),
                 value: VariableNode(name: NameNode(value: 'orderBy')),
+              ),
+              ArgumentNode(
+                name: NameNode(value: 'filter'),
+                value: ObjectValueNode(
+                  fields: [
+                    ObjectFieldNode(
+                      name: NameNode(value: 'remove'),
+                      value: ObjectValueNode(
+                        fields: [
+                          ObjectFieldNode(
+                            name: NameNode(value: 'equalTo'),
+                            value: VariableNode(
+                              name: NameNode(value: 'removed'),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
             directives: [],

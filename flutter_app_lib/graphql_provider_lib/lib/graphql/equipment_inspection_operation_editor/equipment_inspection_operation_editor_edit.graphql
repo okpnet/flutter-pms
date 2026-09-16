@@ -10,6 +10,9 @@
 # ⚠ 「点検項目」は1対多のため、追加/削除を含む配列の入れ子ミューテーションは本バージョンでは
 #   未対応。読み取り専用として出力にのみ含める。
 # ⚠ 更新者id/更新者履歴id/削除は0019の既定方針により変数から除外している。
+# ⚠ 要件0027・0028により、本画面の"### read"はviews.mdから削除された(編集専用画面のため、
+#   編集前の1件読み込みはRFE(read for editing)のデフォルト規則(editと同じ内容をidキーで
+#   1件取得、配列列を除く)に委ねる。専用の"_rfe.graphql"は本セッションでは未作成)。
 
 mutation EquipmentInspectionOperationEditorEdit(
   $mstrInspectionOperationId: UUID!
