@@ -203,3 +203,61 @@ org_res_equipment_kindの生成済みGraphQLが参照しないフィールドの
 
 新規テーブル`MstrInspectionKind`の追加を含む今回のschema変更も、views.mdが対象とする17画面には
 影響しない。生成物の再作成は不要と判断し、実施していない。
+
+## 追記3: 0026再実行(2026/09/17、「2026を実行」の再指示)
+
+チャットの指示「2026を実行」は要件番号「0026」の入力ミスと判断し(直近まで一貫して
+「00XX」形式の4桁で指示されており、要件番号としての「2026」は存在しないため)、要件0026を
+再実行した。なお本セッションの外でリポジトリが大きく進んでおり(要件0027〜0030の追加、
+バーコード用テーブルの追加等)、`git status`はクリーンな状態から開始した。
+
+### 接続・取得・差分判定
+
+`curl`で疎通確認(`HTTP 405`、変化なし)後、`get-graphql-schema`で再取得したところ437,212行
+(直前の`lib/graphql/schema.graphql`は389,298行、+47,914行)と、これまでで最大の差分を検出した。
+`@graphql-inspector/cli diff`は9,610件を報告したが、大半はFk#番号ズレ由来のノイズ。
+`type X implements Node`の一覧差分を取ったところ、新規テーブルは**`SharedSymbolCounter`のみ**
+(直近のコミット「ER修正。バーコード用のシンボルをテーブルに追加した」に対応、views.mdの対象
+17+9見出しには含まれない)。
+
+views.mdの対象テーブルに関する実質的な差分は以下のとおり。
+
+1.  **ほぼ全テーブルに`symbol`列が追加された**(views.mdの17+9見出しが対応する型のうち
+    `InfoCompany`・`InfoOffice`・`InfoDepartment`・`InfoStaff`・`InfoPosition`・
+    `MstrEquipment`・`MstrEquipmentKind`・`MstrLocation`・`MstrStakeholder`・
+    `MstrStakeholderContact`・`MstrShippingKind`・`MstrItemKind`・`MstrManufacturer`・
+    `MstrItemActualSize`・`MstrItem`・`MstrItemProvision`・`MstrItemSizeKind`・
+    `MstrStakeholderProvision`・`MstrTaskGroup`・`MstrTask`・`MstrTaskTree`・
+    `MstrTaskLocation`・`MstrOperation`・`MstrItemOperationTask`・`MstrInspectionKind`・
+    `MstrInspection`・`MstrInspectionFormula`・`MstrInspectionOperation`・
+    `MstrInspectionOperationTask`・`InfoAddress`・`InfoProvision`含めほぼすべてに追加された)。
+    バーコード用シンボルのER変更に対応するものと見られる。
+2.  **`MstrItem.mstrItemKindId`が`UUID`(任意)から`UUID!`(必須)に変更された**(itemの
+    「品目種類id」)。
+3.  **`MstrItemOperationTask.mstrItemId`が`UUID`(任意)から`UUID!`(必須)に変更された**
+    (oepration_editerの品目工程運用課題「品目ID」)。
+
+2・3はいずれも出力型(`type`)側のみの変更で、対応する`Patch`型
+(`MstrItemPatch.mstrItemKindId`・`MstrItemOperationTaskPatch.mstrItemId`)は引き続き
+`UUID`(任意)のままであることを確認した。ミューテーション変数の型定義は変更不要。
+
+### 置き換え・要件0024の実行・影響確認
+
+`lib/graphql/schema.graphql`を置き換え(389,298行 → 437,212行)、
+`dart run build_runner build --build-filter="lib/postgraphile/schema.graphql.dart"`を実行した。
+
+結果: `Built with build_runner/aot in 243s; wrote 1 output.`(新規スカラー`BigInt`について
+`Missing scalar BigInt. Defaulting to String`の警告が追加されたが、既存のBigFloat/Date/
+Datetime/UUID/JSONと同種の既知の警告)。
+
+- `git status`で`lib/graphql/schema.graphql`以外の生成済みファイルに変更が無いことを確認。
+- `dart analyze lib test`: error・warning 0件。
+- `flutter test`: 50件すべて成功(前回51件から1件減っているのは、本ログ範囲外の作業
+  ("### read"がviews.mdから削除されたequipment_inspection_operation_editor向けのreadテスト
+  削除)によるもので、今回のschema置き換えとは無関係)。
+
+### 次のアクション
+
+新規列`symbol`の追加、および`mstrItemKindId`/`mstrItemId`の必須化は、views.mdでの評価
+(要件0025のスコープ、モレの要否判断)が別途必要。本ログでは記録のみに留め、views.md・
+GraphQLファイルの修正は行っていない。

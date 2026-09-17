@@ -1,7 +1,7 @@
 ﻿# A5:ER FORMAT:18
 # A5:ER ENCODING:UTF8
 # A5:ER Mk-1 Copyright © 2007 m.matsubara
-# A5:SQL Mk-2 Version 2.20.0 beta 24 Copyright © 1997 - 2024 m.matsubara
+# A5:SQL Mk-2 Version 2.20.0 beta 20 Copyright © 1997 - 2024 m.matsubara
 #  https://a5m2.mmatsubara.com
 
 [Manager]
@@ -1208,8 +1208,8 @@ Comment=
 TableInnerOption=
 TableOption=
 Page=トラザクション
-Left=2900
-Top=3950
+Left=2200
+Top=4050
 Field="受入実績ID","trans_purchase_rec_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="発注明細ID","trans_purchase_detail_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="受入日時","receive_at","*@DATETIME",,,"now()","",$FFFFFFFF,""
@@ -1220,7 +1220,7 @@ EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20260905223246
-Position="トラザクション",2900,3950
+Position="トラザクション",2200,4050
 ZOrder=113
 
 [Relation]
@@ -1652,15 +1652,15 @@ Fields1=trans_purchase_rec_id
 Fields2=trans_purchase_rec_id
 Cardinarity1=
 Cardinarity2=
-Position="トラザクション",0,183,6406,3083,R,R,""
+Position="トラザクション",0,2005,6406,7435,R,R,""
 Dependence=0
 Caption=
 PName=
 ModifiedDateTime=20260905223449
 LineMode=0
-Bar1=18
+Bar1=200
 Bar2=641
-Bar3=308
+Bar3=744
 TermPos1=R
 TermPos2=R
 ZOrder=196
@@ -9815,7 +9815,7 @@ Fields2=update_user_history_id,update_user_id
 Cardinarity1=
 Cardinarity2=
 Position="インフォメーションー人",0,9500,500,4035,R,R,""
-Position="トラザクション",0,500,9500,1284,R,R,""
+Position="トラザクション",0,500,9500,5818,R,L,""
 Dependence=0
 Caption=auto create.
 PName=
@@ -10967,8 +10967,8 @@ Comment=
 TableInnerOption=
 TableOption=
 Page=トラザクション
-Left=4050
-Top=4600
+Left=3950
+Top=4650
 Field="コンテナ階層ID","hrchy_trans_container_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="祖先コンテナID","ancestor_trans_container_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="子孫コンテナID","descendant_trans_container_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
@@ -10976,7 +10976,7 @@ EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20260917133041
-Position="トラザクション",4050,4600,1024,339
+Position="トラザクション",3950,4650,1024,339
 ZOrder=801
 
 [Relation]
@@ -12267,8 +12267,8 @@ Comment=
 TableInnerOption=
 TableOption=
 Page=トラザクション
-Left=4050
-Top=4050
+Left=4000
+Top=3950
 Field="コンテナ体系ID","trans_container_tree_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="自コンテナID","trans_container_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="親コンテナID","parent_trans_container_id","*@UUID",,,"","",$FFFFFFFF,""
@@ -12279,7 +12279,7 @@ EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20241016073751
-Position="トラザクション",4050,4050
+Position="トラザクション",4000,3950
 ZOrder=876
 
 [Relation]
@@ -12313,7 +12313,7 @@ Fields1=parent_trans_container_id
 Fields2=ancestor_trans_container_id
 Cardinarity1=
 Cardinarity2=
-Position="トラザクション",0,5742,5510,6260,R,R,""
+Position="トラザクション",0,5742,5510,6266,R,R,""
 Dependence=0
 Caption=
 PName=
@@ -12321,7 +12321,7 @@ ModifiedDateTime=20241016083648
 LineMode=0
 Bar1=574
 Bar2=551
-Bar3=626
+Bar3=627
 TermPos1=R
 TermPos2=R
 ZOrder=878
@@ -13304,7 +13304,7 @@ Fields2=update_user_history_id,update_user_id
 Cardinarity1=
 Cardinarity2=
 Position="インフォメーションー人",0,6514,3486,2595,R,R,""
-Position="トラザクション",0,2239,7761,1774,R,R,""
+Position="トラザクション",0,2239,7761,7130,R,L,""
 Dependence=0
 Caption=auto create.
 PName=
