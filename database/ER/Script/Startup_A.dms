@@ -11,6 +11,7 @@ var TAB="    ";
 var HIERARCHY_METHOD_PRIFIX="trg_03_hierarchy";
 var UPDATE_TRIGGER_PRIFIX="trg_01_updatetimes";
 var HISTORY_TRIGGER_PRIFX="trg_02_history";
+var SYMBOL_TRIGGER_PRIFX="trg_04_symbol";
 
 //拡張
 var ext={
@@ -221,6 +222,7 @@ class UniqueIndex{
 
 //トリガークラス
 class Trigger{
+    //リレーショナルな履歴テーブルがないときNull
     Relation=null;
 	IsEntity=null;
     //コンストラクタ
@@ -269,9 +271,34 @@ class Trigger{
         //println(result);
         return result;
     }
-    //履歴トリガークエリ生成
+    
     function GetQuery(schema,parentEntity,childEntity){
-       	if(Relation == null)return GetUpdateQuery(schema,parentEntity);
+        ///更新日時トリガー
+        var result=GetUpdateQuery(schema,parentEntity) + CR;
+        
+        ///リニアシンボルトリガー
+		var hasSymboleCol= ext.toAny(parentEntity.Columns,function(e){
+		    return e.Attr.pName=="symbol";
+		});
+		if(hasSymboleCol){
+		    var reg=new RegExp("^trans_");
+            var procedure="trg_gen_symbol_seq()";
+            if(reg.test(parentEntity.Name)){
+                ///トラザクションテーブル
+                procedure="trg_gen_symbol_by_month()";
+            }
+            result+="CREATE TRIGGER "+SYMBOL_TRIGGER_PRIFX+"_"+parentEntity.Name+" BEFORE INSERT ON "+schema+"."+parentEntity.Name+" FOR EACH ROW EXECUTE PROCEDURE " + schema + "." +procedure + ";"+CR;
+		}
+        ///履歴トリガー
+        if(Relation!=null) {
+           result += GetHistoryQuery(schema,parentEntity,childEntity) + CR;
+        }
+        return result;
+    }
+    
+    //履歴トリガークエリ生成
+    function GetHistoryQuery(schema,parentEntity,childEntity){
+//       	if(Relation == null)return GetUpdateQuery(schema,parentEntity);
         if(Relation.entityPName2 == null){
             return "error:entity1 is "+rel.entityPName1+". entity2 is not exists.";
         }
@@ -285,7 +312,7 @@ class Trigger{
         }
 
         var result="-- "+Relation.entityPName1+" history trigger"+CR;
-        result+=GetUpdateQuery(schema,parentEntity)+CR;
+//        result+=GetUpdateQuery(schema,parentEntity)+CR;
         result+="CREATE OR REPLACE FUNCTION "+schema+"."+HISTORY_TRIGGER_PRIFX+"_"+Relation.entityPName1+"() RETURNS trigger AS"+CR;
         result+="$BODY$"+CR;
         result+="DECLARE"+CR;
@@ -368,6 +395,12 @@ class Entity{
             IsView=false;
             lName=entity.lName;
             Comment=entity.comment;
+            
+            var hasSymbol=ext.toAny(entity.attributes,function(e){
+		        return e.pName=="symbol";
+		    });
+
+            
             for(var index in entity.attributes)Columns.add(new Column(entity.attributes[index]));
             for(var index in commonAttrs)Columns.add(new Column(commonAttrs[index]));
 //            println(Name+':'+entity.lName);
@@ -401,9 +434,9 @@ class Entity{
 
             var triggerRel=ext.toFirst(relations,function(e){return (e.entityPName1==Name && e.entityPName2==("history_"+Name));});
             if(triggerRel != null){
-				IsTrigger=new Trigger(triggerRel,null);
+				IsTrigger=(new Trigger(triggerRel,null));
 			}else{
-				IsTrigger=new Trigger(null,entity);
+				IsTrigger=(new Trigger(null,entity));
 			}
 
         }else if(entity.objectType=="View"){
@@ -1084,9 +1117,89 @@ var mng =(function(){
     return new GeneratManager(result.document,SCHEMA);
 })();
 
+//汎用メソッド群
+var pubcunction=(function(){
+    var comment="-- This method is used for generating symbols; examples of symbols include barcodes and QR codes.";
+    //33進数変換
+    var base33Func="CREATE OR REPLACE FUNCTION "+SCHEMA+".to_base33(n bigint, min_len int default 4) RETURNs varchar AS"+CR;
+    base33Func+="$BODY$"+CR;
+    base33Func+="DECLARE"+CR;
+    base33Func+=ext.tabs(1)+"alphabet text := '0123456789ABCDEFGHJKMNPQRSTUVWXYZ';"+CR;
+    base33Func+=ext.tabs(1)+"result text := '';";
+    base33Func+="BEGIN"+CR;
+    base33Func+=ext.tabs(1)+"IF n = 0 THEN"+CR;
+    base33Func+=ext.tabs(2)+"RETURN lpad('0', min_len, '0');"+CR;
+    base33Func+=ext.tabs(1)+"END IF;"+CR;
+    base33Func+=ext.tabs(1)+"WHILE n > 0 LOOP"+CR;
+    base33Func+=ext.tabs(2)+"result := substr(alphabet, ((n % 33) + 1)::int, 1) || result;"+CR;
+    base33Func+=ext.tabs(2)+"n := n / 33;"+CR;
+    base33Func+=ext.tabs(1)+"END LOOP;"+CR;
+    base33Func+=ext.tabs(1)+"RETURN CASE WHEN length(result) < min_len THEN lpad(result, min_len, '0') ELSE result END;"+CR;
+    base33Func+="END;"+CR;
+    base33Func+="$BODY$"+CR;
+    base33Func+="LANGUAGE plpgsql immutable;"+CR;
+    
+    //シンボルテーブルの値を更新
+    var nextSequenceFunc="CREATE OR REPLACE FUNCTION "+SCHEMA+".next_seq(p_table_name varchar, p_yy int, p_mm int) RETURNs bigint AS"+CR;
+    nextSequenceFunc+="$BODY$"+CR;
+    nextSequenceFunc+="DECLARE"+CR;
+    nextSequenceFunc+=ext.tabs(1)+"v_counter bigint;"+CR;
+    nextSequenceFunc+="BEGIN"+CR;
+    nextSequenceFunc+=ext.tabs(1)+"insert into "+SCHEMA+".shared_symbol_counter(table_name, yy, mm, counter)"+CR;
+    nextSequenceFunc+=ext.tabs(1)+"values (p_table_name, p_yy, p_mm, 1)"+CR;
+    nextSequenceFunc+=ext.tabs(1)+"on conflict (table_name, yy, mm)"+CR;
+    nextSequenceFunc+=ext.tabs(1)+"do update set counter = "+SCHEMA+".shared_symbol_counter.counter + 1"+CR;
+    nextSequenceFunc+=ext.tabs(1)+"RETURNing counter into v_counter;"+CR;
+    nextSequenceFunc+=ext.tabs(1)+"RETURN v_counter;"+CR;
+    nextSequenceFunc+="END;"+CR;
+    nextSequenceFunc+="$BODY$"+CR;
+    nextSequenceFunc+="LANGUAGE plpgsql;"+CR;
+    
+    //汎用トリガー関数: 引数なし。TG_TABLE_NAMEで自テーブル名を自動取得
+    var taransMonthFunc="CREATE OR REPLACE FUNCTION "+SCHEMA+".trg_gen_symbol_by_month() RETURNs trigger AS"+CR;
+    taransMonthFunc+="$BODY$"+CR;
+    taransMonthFunc+="DECLARE"+CR;
+    taransMonthFunc+=ext.tabs(1)+"v_yy int;"+CR;
+    taransMonthFunc+=ext.tabs(1)+"v_mm int;"+CR;
+    taransMonthFunc+=ext.tabs(1)+"v_seq bigint;"+CR;
+    taransMonthFunc+="BEGIN"+CR;
+    taransMonthFunc+=ext.tabs(1)+"IF NULLIF(NEW.symbol, '') IS NOT null THEN"+CR;
+    taransMonthFunc+=ext.tabs(2)+"RETURN NEW;"+CR;
+    taransMonthFunc+=ext.tabs(1)+"END IF;"+CR;
+    taransMonthFunc+=ext.tabs(1)+"v_yy := extract(year from now())::int % 100;"+CR;
+    taransMonthFunc+=ext.tabs(1)+"v_mm := extract(month from now())::int;"+CR;
+    taransMonthFunc+=ext.tabs(1)+"v_seq := "+SCHEMA+".next_seq(TG_TABLE_NAME::varchar, v_yy, v_mm);"+CR;
+    taransMonthFunc+=ext.tabs(1)+"NEW.symbol := lpad(v_yy::text, 2, '0') || lpad(v_mm::text, 2, '0')"+CR;
+    taransMonthFunc+=ext.tabs(3)+"|| '-' || "+SCHEMA+".to_base33(v_seq, 4);"+CR;
+    taransMonthFunc+=ext.tabs(1)+"RETURN NEW;"+CR;
+    taransMonthFunc+="END;"+CR;
+    taransMonthFunc+="$BODY$"+CR;
+    taransMonthFunc+="LANGUAGE plpgsql;"+CR;
+
+    //汎用トリガー関数: 引数なし。TG_TABLE_NAMEで自テーブル名を自動取得.恒久カウンタとして機能する(mm=0は実カレンダーには出現しない値なので安全)
+    var gensymbolFunc="CREATE OR REPLACE FUNCTION "+SCHEMA+".trg_gen_symbol_seq() RETURNs trigger AS"+CR;
+    gensymbolFunc+="$BODY$"+CR;
+    gensymbolFunc+="DECLARE"+CR;
+    gensymbolFunc+=ext.tabs(1)+"v_seq bigint;"+CR;
+    gensymbolFunc+="BEGIN"+CR;
+    gensymbolFunc+=ext.tabs(1)+"IF NULLIF(NEW.symbol, '') IS NOT null THEN"+CR;
+    gensymbolFunc+=ext.tabs(2)+"RETURN NEW;"+CR;
+    gensymbolFunc+=ext.tabs(1)+"END IF;"+CR;
+    gensymbolFunc+=ext.tabs(1)+"v_seq := "+SCHEMA+".next_seq(TG_TABLE_NAME::varchar, 0, 0);"+CR;
+    gensymbolFunc+=ext.tabs(1)+"NEW.symbol := "+SCHEMA+".to_base33(v_seq, 4);"+CR;
+    gensymbolFunc+=ext.tabs(1)+"RETURN NEW;"+CR;
+    gensymbolFunc+="END;"+CR;
+    gensymbolFunc+="$BODY$"+CR;
+    gensymbolFunc+="LANGUAGE plpgsql;"+CR;
+    
+    return base33Func+CR+nextSequenceFunc+CR+taransMonthFunc+CR+gensymbolFunc;
+});
+
+
+
 //mng.CreateDropFromName("info_company");//名前のテーブルを消去
 //mng.CreateAllDrop();//全テーブル消去
-mng.CreateAll(false,"\\c test_avocado","");//全テーブル生成
+mng.CreateAll(false,"\\c test_avocado"+CR+pubcunction(),"");//全テーブル生成
 //mng.CreateEntityFromNames(selectEntities,false);//選択しているアイテムから
 //mng.CreateDeleteAll();//全テーブルの全レコード削除
 

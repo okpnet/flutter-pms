@@ -65,6 +65,8 @@ Domain=@JSONB=jsonb
 DomainInfo="@JSONB","jsonb","",""
 Domain=@REV=integer
 DomainInfo="@REV","integer","","latest_revision"
+Domain=@VARCHAR4=varchar(4)
+DomainInfo="@VARCHAR4","varchar(4)","",""
 LogicalView=1
 DecodeDomain=0
 ViewModePageIndividually=1
@@ -118,6 +120,8 @@ Field="事業所コード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="住所ID","info_address_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=1.Information
 Color=$000000
@@ -145,7 +149,9 @@ Field="組織区分2","category2","*@UUID",,,"","",$FFFFFFFF,""
 Field="組織区分3","category3","*@UUID",,,"","",$FFFFFFFF,""
 Field="住所ID","info_address_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,info_department_id,info_company_id
+Index==2,symbol
 EffectMode=None
 Tag=1.Information
 Color=$000000
@@ -171,6 +177,8 @@ Field="性別","sex","*@VARCHAR16",,,"","",$FFFFFFFF,""
 Field="電話","phone","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="緊急電話","private_phone","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=2.Personnel
 Color=$000000
@@ -197,6 +205,8 @@ Field="最大","max","*@PARCENT2","NOT NULL",,"100.00","",$FFFFFFFF,""
 Field="最小","min","*@PARCENT2","NOT NULL",,"0.00","",$FFFFFFFF,""
 Field="刻み","step","*@PARCENT2","NOT NULL",,"1.00","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=2.Personnel
 Color=$000000
@@ -223,6 +233,8 @@ Field="顧客","customer_license","*@BOOL","NOT NULL",,"\qf\q","",$FFFFFFFF,""
 Field="内部","organization_license","*@BOOL","NOT NULL",,"\qf\q","",$FFFFFFFF,""
 Field="更新間隔","update_interval","*@INTERVAL","NOT NULL",,"\q0:0:0\q","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=2.Personnel
 Color=$000000
@@ -242,16 +254,18 @@ Left=2150
 Top=1100
 Field="サインID","mstr_sign_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="担当者ID","info_staff_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
-Field="OICD認証ID","auth_subject_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="OICD認証ID","auth_subject_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="サインコード","code","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="メールアドレス","mail","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="権限","role","*@SMALLINT","NOT NULL",,"10","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=2.Personnel
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260906091427
+ModifiedDateTime=20260917172555
 Position="マスタ人的資源",2150,1100
 ZOrder=20
 
@@ -270,7 +284,9 @@ Field="力量ID","mstr_capability_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="値","value","*@PARCENT2","NOT NULL",,"0","",$FFFFFFFF,""
 Field="停止","stop","*@BOOL","NOT NULL",,"\qf\q","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==0,info_staff_id,mstr_capability_id
+Index==2,symbol
 EffectMode=None
 Tag=2.Personnel
 Color=$000000
@@ -322,7 +338,9 @@ Field="停止日時","abeyance_at","*@DATETIME",,,"","",$FFFFFFFF,""
 Field="取り消し","revocation","*@BOOL","NOT NULL",,"\qf\q","",$FFFFFFFF,""
 Field="取り消し日時","revocation_at","*@DATETIME",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,mstr_license_id
+Index==2,symbol
 EffectMode=None
 Tag=2.Personnel
 Color=$000000
@@ -373,6 +391,8 @@ Field="メール","mail","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="住所ID","info_address_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="配送区分ID","mstr_shipping_kind_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -400,6 +420,8 @@ Field="メール","mail","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="住所ID","info_address_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="配送区分ID","mstr_shipping_kind_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -447,6 +469,8 @@ Field="管理コード","control_code","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="表示コード","label_code","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="場所ID","mstr_location_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -472,6 +496,8 @@ Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$F
 Field="住所ID","info_address_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="使用","available","*@BOOL","NOT NULL",,"\qt\q","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -520,6 +546,8 @@ Field="詳細","detail","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="区分","class","*@SMALLINT","NOT NULL",,"0","",$FFFFFFFF,""
 Field="標準時間","default_time","*@INTERVAL","NOT NULL",,"\q0:0:0\q","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -545,6 +573,8 @@ Field="管理コード","control_code","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="詳細","detail","*@VARCHAR1024",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -563,7 +593,7 @@ Page=マスタ品目
 Left=3550
 Top=2200
 Field="品目ID","mstr_item_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
-Field="品目種類ID","mstr_item_kind_id","*@UUID","NOT NULL",,"gen_random_uuid()","",$FFFFFFFF,""
+Field="品目種類ID","mstr_item_kind_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="品目コード","code","*@VARCHAR255","NOT NULL",,"","品番",$FFFFFFFF,""
 Field="識別コード","identification","*@VARCHAR255",,,"","識別コード",$FFFFFFFF,""
 Field="管理コード","control_code","*@VARCHAR255",,,"","オリジナルコード",$FFFFFFFF,""
@@ -576,11 +606,13 @@ Field="刻み","increment","*@QTY","NOT NULL",,"0","",$FFFFFFFF,""
 Field="ロット","lot","*@BOOL","NOT NULL",,"\qf\q","",$FFFFFFFF,""
 Field="最少在庫数量","stock_quantity","*@QTY","NOT NULL",,"0","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260828084955
+ModifiedDateTime=20260917164903
 Position="マスタ品目",3550,2200
 ZOrder=65
 
@@ -601,7 +633,7 @@ EffectMode=None
 Tag=1.Information
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260828084724
+ModifiedDateTime=20260917134751
 Position="共有",500,1600
 ZOrder=66
 
@@ -623,7 +655,9 @@ Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$F
 Field="数量","quantity","*@QTY","NOT NULL",,"","",$FFFFFFFF,""
 Field="詳細","detail","*@VARCHAR1024",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,mstr_item_id
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -643,15 +677,17 @@ Left=4200
 Top=950
 Field="品目工程運用課題ID","mstr_item_operation_task_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="工程運用課題ID","mstr_operation_task_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
-Field="品目ID","mstr_item_id","*@UUID","NOT NULL",,"gen_random_uuid()","",$FFFFFFFF,""
+Field="品目ID","mstr_item_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="順","sequence","*@SMALLINT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="標準時間","default_interval","*@INTERVAL","NOT NULL",,"\q0:0:0\q","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=<<Inherited>>
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260912152421
+ModifiedDateTime=20260917165014
 Position="マスタ工程",4200,950
 ZOrder=70
 
@@ -677,6 +713,8 @@ Field="管理コード3","control_code_3","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="受注日","order_processing_date","*@DATETIME",,,"","",$FFFFFFFF,""
 Field="納期","delivery_date","*@DATETIME",,,"","",$FFFFFFFF,""
 Field="完了期限","deadline","*@DATETIME",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -704,6 +742,8 @@ Field="発注管理コード3","purchase_ctrl_3","*@VARCHAR255",,,"","",$FFFFFFF
 Field="登録日","register_at","*@DATETIME",,,"","",$FFFFFFFF,""
 Field="発注日","purchase_order_date","*@DATETIME",,,"","",$FFFFFFFF,""
 Field="発注期限","deadline","*@DATETIME",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -729,6 +769,8 @@ Field="在庫数量","inventory_resavation","*@QTY","NOT NULL",,"0","",$FFFFFFFF
 Field="期限","deadline","*@DATETIME",,,"","",$FFFFFFFF,""
 Field="品目履歴ID","history_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="品目ID","mstr_item_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -748,6 +790,8 @@ Top=200
 Field="生産計画ID","trans_product_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="資材計画ID","trans_resorce_plan_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="完了期限","deadline","*@DATETIME",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -770,6 +814,8 @@ Field="工程ID","mstr_task_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="予定作業時間","interval_plan","*@INTERVAL",,,"","",$FFFFFFFF,""
 Field="開始予定","start_at","*@DATETIME",,,"","",$FFFFFFFF,""
 Field="完了予定","completion_at","*@DATETIME",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -792,6 +838,8 @@ Field="引当予約ID","trans_inventory_request_id","*@UUID",,,"","",$FFFFFFFF,"
 Field="受払実績ID","convey_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="作業担当履歴ID","staff_history_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="作業担当者ID","info_staff_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -818,6 +866,8 @@ Field="作業担当者履歴ID","staff_history_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="作業担当者ID","info_staff_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="設備履歴ID","equipment_history_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="設備ID","mstr_equipment_id","*@UUID",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -841,7 +891,9 @@ Field="出荷オーダーコード","code","*@VARCHAR255","NOT NULL",,"","",$FFF
 Field="到着予定日","estimated_arrival_date","@DATE","NOT NULL",,"","",$FFFFFFFF,""
 Field="履歴利害関係者ID","history_mstr_stakeholder_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="利害関係者ID","mstr_stakeholder_id","*@UUID",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,trans_order_id
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -864,7 +916,9 @@ Field="受注明細ID","trans_order_detail_id","*@UUID","NOT NULL",,"","",$FFFFF
 Field="個別出荷予定日","edtimated_shipping_date","*@DATETIME",,,"","",$FFFFFFFF,""
 Field="個別到着予定日","estimated_arrival_date","@DATE",,,"","",$FFFFFFFF,""
 Field="出荷数量","shipping_quantity","*@QTY","NOT NULL",,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,trans_shipping_id,trans_order_detail_id
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -889,7 +943,9 @@ Field="数量","quantity","*@QTY","NOT NULL",,"0","",$FFFFFFFF,""
 Field="単価","cost","*@QTY",,,"","",$FFFFFFFF,""
 Field="個別納期","delivery_date","*@DATETIME",,,"","",$FFFFFFFF,""
 Field="個別完了期限","deadline","*@DATETIME",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,trans_order_id,history_mstr_item_id
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -1025,7 +1081,9 @@ Field="数量","quantity","*@QTY",,,"","",$FFFFFFFF,""
 Field="納期","period","*@DATETIME",,,"","",$FFFFFFFF,""
 Field="品目履歴ID","history_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="品目ID","mstr_item_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,trans_purchase_detail_id,trans_purchase_id
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -1091,6 +1149,8 @@ Field="購買引当予約ID","trans_purchase_rez_id","*@UUID","NOT NULL",0,"gen_
 Field="発注ID","trans_purchase_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="発注明細ID","trans_purchase_detail_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="引当数量","quantity","*@QTY","NOT NULL",,"0","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -1132,6 +1192,8 @@ Top=4650
 Field="発注成績書ID","trans_purchase_certification_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="受入実績ID","trans_purchase_rec_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="成績書ID","trans_certificate_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -1152,6 +1214,8 @@ Field="受入実績ID","trans_purchase_rec_id","*@UUID","NOT NULL",0,"gen_random
 Field="発注明細ID","trans_purchase_detail_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="受入日時","receive_at","*@DATETIME",,,"now()","",$FFFFFFFF,""
 Field="数量","quantity","*@QTY","NOT NULL",,"0","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -1196,6 +1260,8 @@ Field="シリアル番号","serial","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="成績署名","name","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="区分","class","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="ファイルID","trans_file_id","*@UUID",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -1215,6 +1281,8 @@ Top=4400
 Field="作業成績書ID","trans_work_record_certificate_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="成績書ID","trans_certificate_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="作業実績ID","trans_work_record_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -1306,6 +1374,8 @@ Field="場所履歴ID","history_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="場所ID","mstr_location_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="作業担当者履歴ID","staff_history_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="作業担当者ID","info_staff_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -1327,6 +1397,8 @@ Field="管理コード","control_code","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="詳細","detail","*@VARCHAR1024",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -1352,7 +1424,9 @@ Field="管理コード","control_code","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="詳細","detail","*@VARCHAR1024",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,mstr_operation_id,mstr_task_id,sequence
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -1376,6 +1450,8 @@ Field="ファイル名","name","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="番号","number","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="タイトル","title","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="詳細","detail","*@VARCHAR1024",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -1464,7 +1540,9 @@ Field="品目大きさ区分ID","mstr_item_size_kind_id","*@UUID","NOT NULL",,""
 Field="大きさ","size_value","*@SIZE","NOT NULL",,"0.0","",$FFFFFFFF,""
 Field="詳細","detail","*@VARCHAR1024",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,mstr_item_id,mstr_item_size_kind_id
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -1510,6 +1588,8 @@ Field="棚ビジターID","trans_visiter_id","*@UUID","NOT NULL",0,"gen_random_u
 Field="コンテナID","trans_container_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="状態","status","*@SMALLINT",,,"","",$FFFFFFFF,""
 Field="数量","quantity","*@QTY","NOT NULL",,"0","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -1554,6 +1634,8 @@ Field="受入実績ID","trans_purchase_rec_id","*@UUID","NOT NULL",,"","",$FFFFF
 Field="棚ビジターID","trans_visiter_id","*@UUID","NOT NULL",,"gen_random_uuid()","",$FFFFFFFF,""
 Field="発注明細ID","trans_purchase_detail_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="数量","quantity","*@QTY","NOT NULL",,"0","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -1598,6 +1680,8 @@ Field="作業実績ID","trans_work_record_id","*@UUID","NOT NULL",,"","",$FFFFFF
 Field="生産計画詳細ID","trans_product_detail_id","","NOT NULL",,"","",$FFFFFFFF,""
 Field="生産計画ID","trans_product_id","","NOT NULL",,"","",$FFFFFFFF,""
 Field="数量","quantity","*@QTY","NOT NULL",,"0","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -1643,6 +1727,8 @@ Field="引当予定日","register_plan_at","*@DATETIME",,,"now()","",$FFFFFFFF,"
 Field="引当数量","quantity","*@QTY","NOT NULL",,"0","",$FFFFFFFF,""
 Field="作業担当者履歴ID","staff_history_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="作業担当者ID","info_staff_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -1667,6 +1753,8 @@ Field="生産引き当てID","trans_product_rez_id","*@UUID",,,"","",$FFFFFFFF,"
 Field="生産計画詳細ID","trans_product_detail_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="生産計画ID","trans_product_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="引当数量","quantity","*@QTY","NOT NULL",,"0","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -1781,6 +1869,8 @@ Field="ユースケースパス3","usecase_path3","*@VARCHAR255",,,"","",$FFFFFF
 Field="ページクラス","classes","*@SMALLINT","NOT NULL",,"0","0:0b000 system access\n1:0x001 primary page\n3:0b011 secoundry page",$FFFFFFFF,""
 Field="順","sequence","*@SMALLINT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=1.Information
 Color=$000000
@@ -1802,7 +1892,9 @@ Field="アプリケーションID","info_app_id","*@UUID","NOT NULL",0,"gen_rand
 Field="会社ID","info_company_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="アプリケーション名","name","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,name
+Index==2,symbol
 EffectMode=None
 Tag=1.Information
 Color=$000000
@@ -1847,6 +1939,8 @@ Field="アクセスパスID","info_access_path_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="担当者ID","info_staff_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="パーミット","permit","*@SMALLINT",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=2.Personnel
 Color=$000000
@@ -1872,6 +1966,8 @@ Field="部署ID","info_department_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="有効","enable","*@BOOL","NOT NULL",,"\qT\q","",$FFFFFFFF,""
 Field="優先順位","priority","*@SMALLINT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=2.Personnel
 Color=$000000
@@ -1943,6 +2039,8 @@ Field="外部点検整備","external_inspection","*@UUID",,,"","",$FFFFFFFF,""
 Field="点検整備項目ID","inspection_formula_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="点検整備サービス品目ID","mstr_item_id","*@UUID","NOT NULL",,"","使用するサービス",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -1961,17 +2059,19 @@ Page=トラザクション
 Left=250
 Top=2800
 Field="点検整備予定ID","trans_inspect_sch_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
-Field="コード","code","*@VARCHAR255",,,"","",$FFFFFFFF,""
-Field="名前","name","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
-Field="カナ","kana","*@VARCHAR255",,,"","",$FFFFFFFF,""
-Field="略称","nickname","*@VARCHAR255",,,"","",$FFFFFFFF,""
-Field="特記","note","*@VARCHAR1024",,,"","",$FFFFFFFF,""
+Field="管理コード","code","*@VARCHAR255",,,"","",$FFFFFFFF,""
+Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"gen_random_uuid()","",$FFFFFFFF,""
 Field="設備履歴ID","history_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="設備ID","mstr_equipment_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="要求事項","requirements","*@VARCHAR1024",,,"","",$FFFFFFFF,""
+Field="注意事項","attention","*@VARCHAR1024",,,"","",$FFFFFFFF,""
+Field="補足事項","recommendation","*@VARCHAR1024",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20231004122140
+ModifiedDateTime=20260917075320
 Position="トラザクション",250,2800
 ZOrder=238
 
@@ -1982,8 +2082,8 @@ Comment=
 TableInnerOption=
 TableOption=
 Page=トラザクション
-Left=300
-Top=3700
+Left=250
+Top=3650
 Field="点検整備予定詳細ID","trans_inspect_sch_detail_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="点検整備予定ID","trans_inspect_sch_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="発注明細ID","trans_purchase_detail_id","*@UUID",,,"","",$FFFFFFFF,""
@@ -1991,11 +2091,13 @@ Field="開始予定日","scheduled_start_date","*@DATETIME","NOT NULL",,"","",$F
 Field="終了予定日","scheduled_end_date","*@DATETIME","NOT NULL",,"","",$FFFFFFFF,""
 Field="外部供給者履歴ID","history_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="外部供給者ID","mstr_stakeholder_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20260905223623
-Position="トラザクション",300,3700
+Position="トラザクション",250,3650
 ZOrder=241
 
 [Relation]
@@ -2038,6 +2140,8 @@ Field="結果","result","*@BOOL","NOT NULL",,"\qt\q","",$FFFFFFFF,""
 Field="結果ステータス","result_state","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="特記","note","*@VARCHAR1024",,,"","",$FFFFFFFF,""
 Field="利害関係者","stakeholder_id","*@UUID",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -2060,6 +2164,8 @@ Field="ファイルID","trans_file_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="点検整備結果名","name","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="区分","class","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="リマインダID","trans_file_reminder_id","*@UUID",,,"gen_random_uuid()","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -2105,6 +2211,8 @@ Field="内容","detail","*@VARCHAR1024","NOT NULL",,"","",$FFFFFFFF,""
 Field="報告者","reporter","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="受領者","recipient","*@UUID",,,"","",$FFFFFFFF,""
 Field="受領承認","approved","*@UUID",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -2130,6 +2238,8 @@ Field="内容","detail","*@VARCHAR1024","NOT NULL",,"","",$FFFFFFFF,""
 Field="報告者","reporter","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="受領者","recipient","*@UUID",,,"","",$FFFFFFFF,""
 Field="受領承認","approved","*@UUID",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -2155,6 +2265,8 @@ Field="タイトル","title","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="内容","detail","*@VARCHAR1024","NOT NULL",,"","",$FFFFFFFF,""
 Field="承認","approval","*@UUID",,,"","",$FFFFFFFF,""
 Field="承認日","approval_at","*@DATETIME",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -2178,6 +2290,8 @@ Field="名前","name","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="番号","number","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="タイトル","title","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="詳細","detail","*@VARCHAR1024",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -2201,6 +2315,8 @@ Field="名前","name","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="番号","number","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="タイトル","title","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="詳細","detail","*@VARCHAR1024",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -2224,7 +2340,9 @@ Field="名前","name","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="番号","number","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="タイトル","title","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="詳細","detail","*@VARCHAR1024",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,trans_complaint_equipment_adapter_id,trans_complaint_id
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -2248,6 +2366,8 @@ Field="名前","name","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="番号","number","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="タイトル","title","*@VARCHAR1024",,,"","",$FFFFFFFF,""
 Field="詳細","detail","*@VARCHAR1024",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -2291,6 +2411,8 @@ Field="有効性","enable","*@BOOL","NOT NULL",,"\qf\q","",$FFFFFFFF,""
 Field="監視測定予定日","observe_schedule","*@DATETIME",,,"","",$FFFFFFFF,""
 Field="監視測定日","observe_at","*@DATETIME",,,"","",$FFFFFFFF,""
 Field="監視測定者","observer","*@UUID",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -2310,6 +2432,8 @@ Top=2300
 Field="再発防止監視ID","trans_observer_preventive_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="監視ID","trans_observer_disposal_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="再発防止ID","trans_recurrence_prevention_id","*@UUID","NOT NULL",,"gen_random_uuid()","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -2357,6 +2481,8 @@ Field="発生頻度","frequency","*@SIZE",,,"","",$FFFFFFFF,""
 Field="重大度","momentous","*@SIZE",,,"","",$FFFFFFFF,""
 Field="対応可否","action","*@SMALLINT",,,"","",$FFFFFFFF,""
 Field="残留リスクID","residual_risk_id","*@UUID",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -2380,6 +2506,8 @@ Field="区分","category","*@SMALLINT","NOT NULL",,"0","",$FFFFFFFF,""
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="詳細","detail","*@VARCHAR1024",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -2402,12 +2530,16 @@ Field="監査標準項目コード","code","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="管理コード","control_code","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="詳細","detail","*@VARCHAR1024",,,"","",$FFFFFFFF,""
+Field="型","type_class","*@SMALLINT","NOT NULL",,"","",$FFFFFFFF,""
+Field="式","formula_class","*@SMALLINT","NOT NULL",,"","",$FFFFFFFF,""
 Field="引数","arg_class","*@JSONB","NOT NULL",,"\q{}\q","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260915194355
+ModifiedDateTime=20260917172853
 Position="品質",300,2950
 ZOrder=303
 
@@ -2452,6 +2584,8 @@ Field="名前","name","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="番号","number","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="タイトル","title","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="詳細","detail","*@VARCHAR1024",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -2497,7 +2631,7 @@ EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20241016083813
+ModifiedDateTime=20260917133005
 Position="マスタ資源",3100,1800,957,344
 ZOrder=308
 
@@ -2517,6 +2651,8 @@ Field="作業担当者ID","info_staff_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,"
 Field="借用日","lent_at","*@DATETIME","NOT NULL",,"now()","",$FFFFFFFF,""
 Field="返却者","return_staff_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="返却日","return_at","*@DATETIME",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -2540,6 +2676,8 @@ Field="名前","name","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="番号","number","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="タイトル","title","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="詳細","detail","*@VARCHAR1024",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -2562,6 +2700,8 @@ Field="名前","name","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="番号","number","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="タイトル","title","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="詳細","detail","*@VARCHAR1024","NOT NULL",,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -2588,6 +2728,8 @@ Field="名前","name","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="番号","number","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="タイトル","title","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="詳細","detail","*@VARCHAR1024",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -2703,6 +2845,8 @@ Field="名前","name","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="番号","number","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="タイトル","title","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="詳細","detail","*@VARCHAR1024",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -2771,6 +2915,8 @@ Field="名前","name","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="番号","number","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="タイトル","title","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="詳細","detail","*@VARCHAR1024",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -2845,6 +2991,8 @@ Field="タイトル","title","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="詳細","detail","*@VARCHAR1024",,,"","",$FFFFFFFF,""
 Field="組織情報ID","info_department_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="利害関係者ID","mstr_stakeholder_id","*@UUID",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -2909,6 +3057,8 @@ Top=4650
 Field="チームID","trans_audit_team_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="監査ID","trans_audit_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="チーム名","name","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -2955,6 +3105,8 @@ Field="監査標準ID","mstr_audit_std_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,
 Field="メンバー区分","ccategory","*@SMALLINT","NOT NULL",,"0","監査リーダー：チームリーダー：メンバー",$FFFFFFFF,""
 Field="履歴ID","history_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="担当者ID","info_staff_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -2976,6 +3128,8 @@ Field="監査ID","trans_audit_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="参加区分","class","*@SMALLINT","NOT NULL",,"","オブザーバー、案内人",$FFFFFFFF,""
 Field="参加者名","name","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="参加者組織名","department","*@VARCHAR255",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -3036,13 +3190,13 @@ Fields1=trans_inspect_record_id
 Fields2=trans_inspect_record_id
 Cardinarity1=
 Cardinarity2=
-Position="トラザクション",0,885,5269,1226,R,R,""
+Position="トラザクション",0,5585,5269,1226,R,R,""
 Dependence=0
 Caption=
 PName=
 ModifiedDateTime=20260905223904
 LineMode=0
-Bar1=88
+Bar1=558
 Bar2=527
 Bar3=123
 TermPos1=R
@@ -3084,7 +3238,9 @@ Field="承認グループID","trans_approval_gr_id","*@UUID","NOT NULL",0,"gen_r
 Field="承認パターンID","mstr_approval_pattern_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="承認結果ID","trans_approved_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="状態","status","*@SMALLINT","NOT NULL",,"32767","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,trans_approval_gr_id,trans_approved_id
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -3105,6 +3261,8 @@ Field="承認グループID","trans_approval_gr_id","*@UUID","NOT NULL",0,"","",
 Field="承認結果ID","trans_approved_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="履歴ID","staff_history_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="担当者ID","info_staff_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -3124,6 +3282,8 @@ Top=4600
 Field="承認パターンID","mstr_approval_pattern_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=2.Personnel
 Color=$000000
@@ -3145,6 +3305,8 @@ Field="役割ID","info_position_id","*@UUID","NOT NULL",0,"gen_random_uuid()",""
 Field="順位","priority","*@SMALLINT","NOT NULL",,"","",$FFFFFFFF,""
 Field="呼称セットid","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=2.Personnel
 Color=$000000
@@ -3168,6 +3330,8 @@ Field="役割ID","info_role_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="順位","priority","*@SMALLINT","NOT NULL",,"32767","",$FFFFFFFF,""
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=2.Personnel
 Color=$000000
@@ -3235,6 +3399,8 @@ Field="承認結果ID","trans_approved_id","*@UUID","NOT NULL",0,"","",$FFFFFFFF
 Field="期限","period","*@DATETIME","NOT NULL",,"","",$FFFFFFFF,""
 Field="状態","status","*@SMALLINT","NOT NULL",,"32767","",$FFFFFFFF,""
 Field="順","priority","*@SMALLINT","NOT NULL",,"0","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -3301,6 +3467,8 @@ Field="名前","name","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="カナ","kana","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="タグ","tag","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=1.Information
 Color=$000000
@@ -3344,6 +3512,8 @@ Field="設備識別タグID","mstr_equipment_tag_id","*@UUID","NOT NULL",0,"gen_
 Field="様式ファイルID","trans_file_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="名前","name","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -3389,6 +3559,8 @@ Field="コード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="デフォルト","is_default","*@BOOL","NOT NULL",,"\qt\q","",$FFFFFFFF,""
 Field="アクセスパスID","info_access_path_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -3431,6 +3603,8 @@ Top=1000
 Field="点検整備実施ID","trans_inspection_report_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="点検整備予定詳細ID","trans_inspect_sch_detail_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レポートID","mstr_report_id","*@UUID",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -3501,6 +3675,8 @@ Field="建物","bill","*@VARCHAR1024",,,"","",$FFFFFFFF,""
 Field="電話番号","phone","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="FAX","fax_number","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=1.Information
 Color=$000000
@@ -3590,6 +3766,8 @@ Field="承認経路ID","mstr_approval_pattern_detail_id","*@UUID","NOT NULL",0,"
 Field="承認ID","mstr_approval_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="承認パターンID","mstr_approval_pattern_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -3676,6 +3854,8 @@ Field="承認範囲パターンID","mstr_approval_scope_pattern_id","*@UUID","NO
 Field="承認パターンID","mstr_approval_pattern_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="アクセスパス承認情報ID","info_access_path_approval_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -3741,6 +3921,8 @@ Field="製造元ID","mstr_manufacturer_id","*@UUID","NOT NULL",0,"gen_random_uui
 Field="管理コード","code","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -3831,6 +4013,8 @@ Field="引数","arg_class","*@JSONB","NOT NULL",,"\q{}\q","",$FFFFFFFF,""
 Field="型","type_class","*@SMALLINT","NOT NULL",,"1","1:bool 2:number 3:text 4:array with text",$FFFFFFFF,""
 Field="フォーマット","format_class","*@VARCHAR255",,,"","書式化",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -3876,10 +4060,12 @@ Field="提供コード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="詳細","details","*@VARCHAR1024",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==0,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260826130555
+ModifiedDateTime=20260917142335
 Position="インフォメーション",1200,2450
 ZOrder=543
 
@@ -3896,6 +4082,8 @@ Field="利害関係者提供ID","mstr_stakeholder_provision_id","*@UUID","NOT NU
 Field="利害関係者ID","mstr_stakeholder_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="提供ID","info_provision_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -3988,6 +4176,8 @@ Field="決定日","decision_date","*@DATETIME",,,"","",$FFFFFFFF,""
 Field="納期","deadline","*@DATETIME",,,"","",$FFFFFFFF,""
 Field="完了予定日","expected_completion_date","*@DATETIME",,,"","",$FFFFFFFF,""
 Field="出荷予定日","planned_shipping_date","*@DATETIME",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -4011,7 +4201,9 @@ Field="単価","cost","*@QTY",,,"","",$FFFFFFFF,""
 Field="個別納期","deadline","*@DATETIME",,,"","",$FFFFFFFF,""
 Field="履歴ID","history_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="品目ID","mstr_item_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,trans_unrecognized_id,mstr_item_id,history_id
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -4144,6 +4336,8 @@ Field="グループコード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="詳細","details","*@VARCHAR1024",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -4165,6 +4359,8 @@ Field="利用可能外部ID","mstr_outsource_available_id","*@UUID","NOT NULL",0
 Field="工程場所ID","mstr_task_location_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="利害関係者ID","mstr_stakeholder_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -4186,6 +4382,8 @@ Field="利用可能設備ID","mstr_equipment_available_id","*@UUID","NOT NULL",0
 Field="工程場所ID","mstr_task_location_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="設備ID","mstr_equipment_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="履歴ID","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -4392,6 +4590,8 @@ Field="オプション","option","*@VARCHAR1024",,,"","",$FFFFFFFF,""
 Field="URLアドレス","urls","*@VARCHAR1024",,,"","",$FFFFFFFF,""
 Field="開始日時","start_at","*@DATETIME",,,"","",$FFFFFFFF,""
 Field="通知有効期限","expiration_date","*@INTERVAL",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -4436,6 +4636,8 @@ Field="サインID","mstr_sign_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="初回アクセス日時","start_at","*@DATETIME",,,"","",$FFFFFFFF,""
 Field="完了日時","completion_at","*@DATETIME",,,"","",$FFFFFFFF,""
 Field="完了フラグ","completion","*@BOOL","NOT NULL",,"\qf\q","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -4480,12 +4682,14 @@ Field="アプリケーションID","info_app_id","*@UUID","NOT NULL",1,"","",$FF
 Field="会社情報ID","info_company_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="アプリケーション名","name","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,name
+Index==2,symbol
 EffectMode=None
 Tag=1.Information
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260915194005
+ModifiedDateTime=20260917135005
 Position="インフォメーション",2050,300
 ZOrder=603
 
@@ -4528,6 +4732,8 @@ Field="住所ID","info_address_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="ホームページ","web_page","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="代表","ceo","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=1.Information
 Color=$000000
@@ -4552,11 +4758,13 @@ Field="住所ID","info_address_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="ホームページ","web_page","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="代表","ceo","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==0,symbol
 EffectMode=None
 Tag=1.Information
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260826120431
+ModifiedDateTime=20260917142311
 Position="インフォメーション",750,1750
 ZOrder=607
 
@@ -4673,11 +4881,13 @@ Field="ユースケースパス3","usecase_path3","*@VARCHAR255",,,"","",$FFFFFF
 Field="ページクラス","classes","*@SMALLINT","NOT NULL",,"0","",$FFFFFFFF,""
 Field="順","sequence","*@SMALLINT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=1.Information
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260915173006
+ModifiedDateTime=20260917135001
 Position="インフォメーション",3350,150
 ZOrder=612
 
@@ -4721,11 +4931,13 @@ Field="名前","name","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="カナ","kana","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="タグ","tag","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=1.Information
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20240720144216
+ModifiedDateTime=20260917134956
 Position="インフォメーション",6400,400
 ZOrder=614
 
@@ -4773,11 +4985,13 @@ Field="組織区分2","category2","*@UUID",,,"","",$FFFFFFFF,""
 Field="組織区分3","category3","*@UUID",,,"","",$FFFFFFFF,""
 Field="住所ID","info_address_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=1.Information
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260826130854
+ModifiedDateTime=20260917134939
 Position="インフォメーション",5550,3650
 ZOrder=616
 
@@ -4816,14 +5030,16 @@ Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFF
 Field="事業所ID","info_office_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="会社ID","info_company_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="事業所コード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
-Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"gen_random_uuid()","",$FFFFFFFF,""
+Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="住所ID","info_address_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=1.Information
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260826131022
+ModifiedDateTime=20260917171956
 Position="インフォメーション",4150,5000
 ZOrder=620
 
@@ -4863,11 +5079,13 @@ Field="単位ID","shared_unit_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="詳細","description","*@VARCHAR1024",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=1.Information
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260828084752
+ModifiedDateTime=20260917134810
 Position="共有",700,2250
 ZOrder=622
 
@@ -4933,11 +5151,13 @@ Field="建物","bill","*@VARCHAR1024",,,"","",$FFFFFFFF,""
 Field="電話番号","phone","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="FAX","fax_number","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=1.Information
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20231004114552
+ModifiedDateTime=20260917134930
 Position="インフォメーション",800,4250
 ZOrder=626
 
@@ -4981,10 +5201,12 @@ Field="提供コード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="詳細","details","*@VARCHAR1024",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260826130622
+ModifiedDateTime=20260917140253
 Position="インフォメーション",700,3300
 ZOrder=628
 
@@ -5025,16 +5247,18 @@ Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFF
 Field="担当者ID","info_staff_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="会社ID","info_company_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="担当者コード","code","*@VARCHAR16",,,"","",$FFFFFFFF,""
-Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"gen_random_uuid()","",$FFFFFFFF,""
+Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="性別","sex","*@VARCHAR16",,,"","",$FFFFFFFF,""
 Field="電話","phone","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="緊急電話","private_phone","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=2.Personnel
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260911113103
+ModifiedDateTime=20260917172022
 Position="インフォメーションー人",3100,1300
 ZOrder=630
 
@@ -5102,11 +5326,13 @@ Field="サインコード","code","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="メールアドレス","mail","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="権限","role","*@SMALLINT","NOT NULL",,"10","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=2.Personnel
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260915173154
+ModifiedDateTime=20260917172550
 Position="マスタ人的資源",2600,150
 ZOrder=634
 
@@ -5148,7 +5374,9 @@ Field="力量ID","mstr_capability_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="値","value","*@PARCENT2","NOT NULL",,"0","",$FFFFFFFF,""
 Field="停止","stop","*@BOOL","NOT NULL",,"\qf\q","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==0,info_staff_id
+Index==2,symbol
 EffectMode=None
 Tag=2.Personnel
 Color=$000000
@@ -5220,6 +5448,8 @@ Field="役割ID","info_position_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="順位","priority","*@SMALLINT","NOT NULL",,"","",$FFFFFFFF,""
 Field="呼称セットid","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=2.Personnel
 Color=$000000
@@ -5268,6 +5498,8 @@ Field="役割ID","info_role_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="順位","priority","*@SMALLINT","NOT NULL",,"32767","",$FFFFFFFF,""
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=2.Personnel
 Color=$000000
@@ -5314,6 +5546,8 @@ Field="承認経路ID","mstr_approval_pattern_detail_id","*@UUID","NOT NULL",1,"
 Field="承認ID","mstr_approval_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="承認パターンID","mstr_approval_pattern_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -5333,18 +5567,20 @@ Top=900
 Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="力量ID","mstr_capability_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="力量コード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
-Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"gen_random_uuid()","",$FFFFFFFF,""
+Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="力量詳細","detail","*@VARCHAR1024",,,"","",$FFFFFFFF,""
 Field="基準","reference_value","*@PARCENT2","NOT NULL",,"","",$FFFFFFFF,""
 Field="最大","max","*@PARCENT2","NOT NULL",,"100.00","",$FFFFFFFF,""
 Field="最小","min","*@PARCENT2","NOT NULL",,"0.00","",$FFFFFFFF,""
 Field="刻み","step","*@PARCENT2","NOT NULL",,"1.00","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=2.Personnel
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260826134205
+ModifiedDateTime=20260917172209
 Position="マスタ人的資源",6950,900
 ZOrder=649
 
@@ -5407,13 +5643,15 @@ Left=4050
 Top=4950
 Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="承認パターンID","mstr_approval_pattern_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
-Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"gen_random_uuid()","",$FFFFFFFF,""
+Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=2.Personnel
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260826140908
+ModifiedDateTime=20260917172144
 Position="マスタ人的資源",4050,4950
 ZOrder=653
 
@@ -5455,6 +5693,8 @@ Field="承認範囲パターンID","mstr_approval_scope_pattern_id","*@UUID","NO
 Field="承認パターンID","mstr_approval_pattern_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="アクセスパス承認情報ID","info_access_path_approval_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -5498,6 +5738,8 @@ Field="アクセスパスID","info_access_path_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="担当者ID","info_staff_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="パーミット","permit","*@SMALLINT",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=2.Personnel
 Color=$000000
@@ -5549,6 +5791,8 @@ Field="顧客","customer_license","*@BOOL","NOT NULL",,"\qf\q","",$FFFFFFFF,""
 Field="内部","organization_license","*@BOOL","NOT NULL",,"\qf\q","",$FFFFFFFF,""
 Field="更新間隔","update_interval","*@INTERVAL","NOT NULL",,"\q0:0:0\q","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=2.Personnel
 Color=$000000
@@ -5598,6 +5842,8 @@ Field="停止日時","abeyance_at","*@DATETIME",,,"","",$FFFFFFFF,""
 Field="取り消し","revocation","*@BOOL","NOT NULL",,"\qf\q","",$FFFFFFFF,""
 Field="取り消し日時","revocation_at","*@DATETIME",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=2.Personnel
 Color=$000000
@@ -5649,6 +5895,8 @@ Field="メール","mail","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="住所ID","info_address_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="配送区分ID","mstr_shipping_kind_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -5695,6 +5943,8 @@ Field="利害関係者提供ID","mstr_stakeholder_provision_id","*@UUID","NOT NU
 Field="利害関係者ID","mstr_stakeholder_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="提供ID","info_provision_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -5747,6 +5997,8 @@ Field="メール","mail","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="住所ID","info_address_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="配送区分ID","mstr_shipping_kind_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -5884,6 +6136,8 @@ Field="設備識別タグID","mstr_equipment_tag_id","*@UUID","NOT NULL",1,"",""
 Field="様式ファイルID","trans_file_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="名前","name","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -5933,6 +6187,8 @@ Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$F
 Field="住所ID","info_address_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="使用","available","*@BOOL","NOT NULL",,"\qt\q","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -5980,6 +6236,8 @@ Field="区分","category","*@SMALLINT","NOT NULL",,"0","",$FFFFFFFF,""
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="詳細","detail","*@VARCHAR1024",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -6027,12 +6285,16 @@ Field="監査標準項目コード","code","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="管理コード","control_code","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="詳細","detail","*@VARCHAR1024",,,"","",$FFFFFFFF,""
+Field="型","type_class","*@SMALLINT","NOT NULL",,"","",$FFFFFFFF,""
+Field="式","formula_class","*@SMALLINT","NOT NULL",,"","",$FFFFFFFF,""
 Field="引数","arg_class","*@JSONB","NOT NULL",,"\q{}\q","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260915194359
+ModifiedDateTime=20260917172948
 Position="品質",300,1900
 ZOrder=690
 
@@ -6084,6 +6346,8 @@ Field="刻み","increment","*@QTY","NOT NULL",,"0","",$FFFFFFFF,""
 Field="ロット","lot","*@BOOL","NOT NULL",,"\qf\q","",$FFFFFFFF,""
 Field="最少在庫数量","stock_quantity","*@QTY","NOT NULL",,"0","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -6133,6 +6397,8 @@ Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$F
 Field="数量","quantity","*@QTY","NOT NULL",,"","",$FFFFFFFF,""
 Field="詳細","detail","*@VARCHAR1024",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -6183,6 +6449,8 @@ Field="詳細","detail","*@VARCHAR1024",,,"","",$FFFFFFFF,""
 Field="単位履歴ID","unit_history_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="単位ID","info_unit_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -6231,6 +6499,8 @@ Field="引数","arg_class","*@JSONB","NOT NULL",,"\q{}\q","",$FFFFFFFF,""
 Field="型","type_class","*@SMALLINT","NOT NULL",,"1","1:bool 2:number 3:text 4:array with text",$FFFFFFFF,""
 Field="フォーマット","format_class","*@VARCHAR255",,,"","書式化",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -6276,18 +6546,20 @@ Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFF
 Field="点検整備マスタID","mstr_inspection_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="点検コード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
-Field="点検区分","inspection_kind","*@UUID",,,"","",$FFFFFFFF,""
+Field="点検区分","inspection_kind","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="標準起算日","base_date","*@DATETIME","NOT NULL",,"now()","",$FFFFFFFF,""
 Field="標準間隔","time_interval","*@INTERVAL","NOT NULL",,"\q0 0:00:00\q","0:指定しない",$FFFFFFFF,""
 Field="外部点検整備","external_inspection","*@UUID",,,"","",$FFFFFFFF,""
 Field="点検整備項目ID","inspection_formula_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="点検整備サービス品目ID","mstr_item_id","*@UUID","NOT NULL",,"","使用するサービス",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260915144551
+ModifiedDateTime=20260917172438
 Position="マスタ設備",6650,1350
 ZOrder=706
 
@@ -6462,6 +6734,8 @@ Field="製造元ID","mstr_manufacturer_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF
 Field="管理コード","code","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -6505,6 +6779,8 @@ Field="管理コード","control_code","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="詳細","detail","*@VARCHAR1024",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -6552,6 +6828,8 @@ Field="グループコード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="詳細","details","*@VARCHAR1024",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -6597,6 +6875,8 @@ Field="場所ID","mstr_location_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="設備ID","mstr_equipment_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="利害関係者ID","mstr_stakeholder_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -6644,6 +6924,8 @@ Field="場所ID","mstr_location_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="設備ID","mstr_equipment_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="利害関係者ID","mstr_stakeholder_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -6785,6 +7067,8 @@ Field="詳細","detail","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="区分","class","*@SMALLINT","NOT NULL",,"0","",$FFFFFFFF,""
 Field="標準時間","default_time","*@INTERVAL","NOT NULL",,"\q0:0:0\q","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -6852,6 +7136,8 @@ Field="利用可能設備ID","mstr_equipment_available_id","*@UUID","NOT NULL",1
 Field="工程場所ID","mstr_task_location_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="設備ID","mstr_equipment_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="履歴ID","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -6893,7 +7179,7 @@ Fields1=mstr_task_location_id
 Fields2=mstr_task_location_id
 Cardinarity1=
 Cardinarity2=
-Position="マスタ工程",0,2622,7378,2421,R,R,""
+Position="マスタ工程",0,2622,7378,2401,R,R,""
 Dependence=0
 Caption=
 PName=
@@ -6903,7 +7189,7 @@ ModifiedDateTime=20260905225821
 LineMode=0
 Bar1=262
 Bar2=738
-Bar3=242
+Bar3=240
 TermPos1=R
 TermPos2=R
 ZOrder=746
@@ -6922,6 +7208,8 @@ Field="利用可能外部ID","mstr_outsource_available_id","*@UUID","NOT NULL",1
 Field="工程場所ID","mstr_task_location_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="利害関係者ID","mstr_stakeholder_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -6969,14 +7257,16 @@ Field="自工程マスタID","mstr_task_id","*@UUID","NOT NULL",,"","",$FFFFFFFF
 Field="親工程マスタID","parent_mstr_task_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="工程体系コード","code","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="管理コード","control_code","*@VARCHAR255",,,"","",$FFFFFFFF,""
-Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"gen_random_uuid()","",$FFFFFFFF,""
+Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="詳細","detail","*@VARCHAR1024",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260826142513
+ModifiedDateTime=20260917172628
 Position="マスタ工程",6800,3100
 ZOrder=749
 
@@ -7017,6 +7307,8 @@ Field="品目ID","mstr_item_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="順","sequence","*@SMALLINT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="標準時間","default_interval","*@INTERVAL","NOT NULL",,"\q0:0:0\q","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -7066,6 +7358,8 @@ Field="コード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="デフォルト","is_default","*@BOOL","NOT NULL",,"\qt\q","",$FFFFFFFF,""
 Field="アクセスパスID","info_access_path_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -10274,6 +10568,8 @@ Field="管理コード","control_code","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="詳細","detail","*@VARCHAR1024",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -10434,6 +10730,8 @@ Field="タイトル","title","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="メッセージ","message","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="既読","is_reade","*@BOOL","NOT NULL",,"\qf\q","",$FFFFFFFF,""
 Field="削除予定","expiration_date","*@DATETIME","NOT NULL",,"CURRENT_DATE + 30","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -10478,6 +10776,8 @@ Field="状態","status","*@SMALLINT","NOT NULL",,"0","0b000:稼働\n0b001:停止
 Field="予定日","plan_date","*@DATETIME","NOT NULL",,"","",$FFFFFFFF,""
 Field="実行日","start_date","*@DATETIME","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -10523,6 +10823,8 @@ Field="状態","status","*@SMALLINT","NOT NULL",,"0","0b000:稼働\n0b001:停止
 Field="予定日","plan_date","*@DATETIME","NOT NULL",,"","",$FFFFFFFF,""
 Field="実行日","start_date","*@DATETIME","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -10632,7 +10934,7 @@ Index==2,ancestor_info_department_id,descendant_info_department_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20241219111458
+ModifiedDateTime=20260917132948
 Position="インフォメーション",7150,3450
 ZOrder=796
 
@@ -10649,6 +10951,8 @@ Field="コンテナID","trans_container_id","*@UUID","NOT NULL",0,"gen_random_uu
 Field="コード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="コンテナ名","name","*@VARCHAR1024",,,"","",$FFFFFFFF,""
 Field="場所ID","mstr_location_id","*@UUID",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -10671,7 +10975,7 @@ Field="子孫コンテナID","descendant_trans_container_id","*@UUID","NOT NULL"
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20241015221547
+ModifiedDateTime=20260917133041
 Position="トラザクション",4050,4600,1024,339
 ZOrder=801
 
@@ -10779,6 +11083,8 @@ Field="設備ID","mstr_equipment_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="適用開始","start_at","*@DATETIME","NOT NULL",,"now()","",$FFFFFFFF,""
 Field="適用終了","stop_at","*@DATETIME",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -10845,6 +11151,8 @@ Field="設備ID","mstr_equipment_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="適用開始","start_at","*@DATETIME","NOT NULL",,"now()","",$FFFFFFFF,""
 Field="適用終了","stop_at","*@DATETIME",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -10890,6 +11198,8 @@ Field="設備ID","mstr_item_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="適用開始","start_at","*@DATETIME","NOT NULL",,"now()","",$FFFFFFFF,""
 Field="適用終了","stop_at","*@DATETIME",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -10912,6 +11222,8 @@ Field="品目ID","mstr_item_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="適用開始","start_at","*@DATETIME","NOT NULL",,"now()","",$FFFFFFFF,""
 Field="適用終了","stop_at","*@DATETIME",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -11025,6 +11337,8 @@ Field="部署ID","info_department_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="有効","enable","*@BOOL","NOT NULL",,"\qT\q","",$FFFFFFFF,""
 Field="優先順位","priority","*@SMALLINT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=2.Personnel
 Color=$000000
@@ -11067,6 +11381,8 @@ Field="部署アクセスパスID","info_department_access_permission_id","*@UUI
 Field="アクセスパスID","info_access_path_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="組織情報ID","info_department_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -11110,10 +11426,12 @@ Field="部署アクセスパスID","info_department_access_permission_id","*@UUI
 Field="アクセスパスID","info_access_path_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="組織情報ID","info_department_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260915193920
+ModifiedDateTime=20260917134952
 Position="インフォメーション",6700,1200
 ZOrder=827
 
@@ -11245,6 +11563,8 @@ Field="順","sequence","*@SMALLINT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="起算日","commencement_date","*@DATETIME","NOT NULL",,"now()","",$FFFFFFFF,""
 Field="間隔","time_interval","*@INTERVAL","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -11269,6 +11589,8 @@ Field="順","sequence","*@SMALLINT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="起算日","commencement_date","*@DATETIME","NOT NULL",,"now()","",$FFFFFFFF,""
 Field="間隔","time_interval","*@INTERVAL","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -11290,6 +11612,8 @@ Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$F
 Field="点検整備運用コード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="設備ID","mstr_equipment_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -11378,6 +11702,8 @@ Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$F
 Field="点検整備運用コード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="設備ID","mstr_equipment_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -11513,7 +11839,7 @@ EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20241016083738
+ModifiedDateTime=20260917133025
 Position="マスタ品目",6250,3800
 ZOrder=855
 
@@ -11577,7 +11903,7 @@ EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20241016083842
+ModifiedDateTime=20260917133032
 Position="マスタ工程",5600,3800
 ZOrder=858
 
@@ -11638,7 +11964,9 @@ Field="組織体系ID","info_department_tree_id","*@UUID","NOT NULL",0,"gen_rand
 Field="自組織ID","info_department_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="親組織ID","parent_info_department_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,info_department_id,parent_info_department_id
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -11721,7 +12049,7 @@ Fields1=info_department_id
 Fields2=descendant_info_department_id
 Cardinarity1=
 Cardinarity2=
-Position="インフォメーション",0,9373,3420,7026,R,R,""
+Position="インフォメーション",0,9373,3420,7038,R,R,""
 Dependence=0
 Caption=
 PName=
@@ -11730,7 +12058,7 @@ ModifiedDateTime=20241221083117
 LineMode=0
 Bar1=937
 Bar2=342
-Bar3=703
+Bar3=704
 TermPos1=R
 TermPos2=R
 ZOrder=866
@@ -11749,10 +12077,12 @@ Field="組織体系ID","info_department_tree_id","*@UUID","NOT NULL",1,"","",$FF
 Field="自組織ID","info_department_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="親組織ID","parent_info_department_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20241219111445
+ModifiedDateTime=20260917134947
 Position="インフォメーション",6900,2200
 ZOrder=867
 
@@ -11790,6 +12120,8 @@ Field="場所体系ID","mstr_location_tree_id","*@UUID","NOT NULL",0,"gen_random
 Field="自場所ID","mstr_location_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="親場所ID","parent_mstr_location_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -11898,6 +12230,8 @@ Field="場所体系ID","mstr_location_tree_id","*@UUID","NOT NULL",1,"","",$FFFF
 Field="自場所ID","mstr_location_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="親場所ID","parent_mstr_location_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -11939,6 +12273,8 @@ Field="コンテナ体系ID","trans_container_tree_id","*@UUID","NOT NULL",0,"ge
 Field="自コンテナID","trans_container_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="親コンテナID","parent_trans_container_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -12259,6 +12595,8 @@ Field="版コード","version_code","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="版名","version_name","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Field="承認結果ID","trans_approved_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -12282,17 +12620,19 @@ Field="コード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="名前","name","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="文書階層ID","mstr_document_tier_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="ファイルID","trans_file_id","*@UUID",,,"","",$FFFFFFFF,""
-Field="タイトル","title","*@VARCHAR255","NOT NULL",,"\qt\q","",$FFFFFFFF,""
+Field="タイトル","title","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="管理番号","control_number","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="版コード","version_code","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="版名","version_name","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
-Field="承認結果ID","trans_approved_id","*@UUID",,,"","",$FFFFFFFF,""
+Field="承認結果ID","trans_approved_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20250905210614
+ModifiedDateTime=20260917172329
 Position="文書",3200,2300
 ZOrder=883
 
@@ -12331,6 +12671,8 @@ Field="文書体系ID","mstr_document_tree_id","*@UUID","NOT NULL",0,"gen_random
 Field="自文書ID","mstr_document_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="親文書ID","parent_mstr_document_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -12398,7 +12740,7 @@ EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20250829101355
+ModifiedDateTime=20260917133050
 Position="文書",300,2650
 ZOrder=888
 
@@ -12460,6 +12802,8 @@ Field="文書体系ID","mstr_document_tree_id","*@UUID","NOT NULL",1,"","",$FFFF
 Field="自文書ID","mstr_document_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="親文書ID","parent_mstr_document_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -12505,6 +12849,8 @@ Field="限定名詞","attributive_noun","*@VARCHAR255","NOT NULL",,"","",$FFFFFF
 Field="管理番号識別子","Identifier","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="階層番号","tier_number","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -12552,6 +12898,8 @@ Field="限定名詞","attributive_noun","*@VARCHAR255","NOT NULL",,"","",$FFFFFF
 Field="管理番号識別子","Identifier","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="階層番号","tier_number","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -12644,6 +12992,8 @@ Field="コンテンツ","content","text","NOT NULL",,"","",$FFFFFFFF,""
 Field="イメージコンテンツ","image_content","*@BOOL","NOT NULL",,"\qf\q","",$FFFFFFFF,""
 Field="ファイルID","trans_file_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -12665,6 +13015,8 @@ Field="コンテンツ体系ID","mstr_document_content_tree_id","*@UUID","NOT NU
 Field="自コンテンツID","mstr_document_content_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="親コンテンツID","parent_mstr_document_content_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -12693,6 +13045,8 @@ Field="コンテンツ","content","text","NOT NULL",,"","",$FFFFFFFF,""
 Field="イメージコンテンツ","image_content","*@BOOL","NOT NULL",,"\qf\q","",$FFFFFFFF,""
 Field="ファイルID","trans_file_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -12717,7 +13071,7 @@ EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260829091858
+ModifiedDateTime=20260917133054
 Position="文書",650,4850
 ZOrder=904
 
@@ -12865,6 +13219,8 @@ Field="コンテンツ体系ID","mstr_document_content_tree_id","*@UUID","NOT NU
 Field="自コンテンツID","mstr_document_content_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="親コンテンツID","parent_mstr_document_content_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -13089,6 +13445,8 @@ Field="品目HSコードID","mstr_item_hcds_id","*@UUID","NOT NULL",0,"gen_rando
 Field="品目ID","mstr_item_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="国","iso3166_3","*@VARCHAR2","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Field="コード","code","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -13133,6 +13491,8 @@ Field="品目ID","mstr_item_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="国","iso3166_3","*@VARCHAR2","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Field="コード","code","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -13176,6 +13536,8 @@ Field="担当者ID","info_staff_id","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,"
 Field="担当者履歴ID","info_staff_history_id","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="名称","name","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=2.Personnel
 Color=$000000
@@ -13223,6 +13585,8 @@ Field="担当者ID","info_staff_id","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,"
 Field="担当者履歴ID","info_staff_history_id","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="名称","name","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=2.Personnel
 Color=$000000
@@ -13709,6 +14073,8 @@ Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$F
 Field="適用開始","start_at","*@DATETIME","NOT NULL",,"now()","",$FFFFFFFF,""
 Field="適用終了","stop_at","*@DATETIME",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -13732,6 +14098,8 @@ Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$F
 Field="適用開始","start_at","*@DATETIME","NOT NULL",,"now()","",$FFFFFFFF,""
 Field="適用終了","stop_at","*@DATETIME",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -13801,6 +14169,8 @@ Field="管理コード","control_code","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="表示コード","label_code","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="場所ID","mstr_location_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Tag=3.Resource
 Color=$000000
@@ -13916,7 +14286,7 @@ Index==2,ja,en
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260910141732
+ModifiedDateTime=20260917134756
 Position="共有",2150,1100
 ZOrder=934
 
@@ -13933,11 +14303,13 @@ Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFF
 Field="共有辞書ID","shared_dictionary_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="ja","ja","*@VARCHAR1024",,,"","",$FFFFFFFF,""
 Field="en","en","*@VARCHAR1024",,,"","",$FFFFFFFF,""
-Field="レビジョン","revision","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260826102255
+ModifiedDateTime=20260917165205
 Position="共有",2050,1800
 ZOrder=936
 
@@ -13980,7 +14352,7 @@ Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260915171152
+ModifiedDateTime=20260917134733
 Position="共有",400,500
 ZOrder=938
 
@@ -13999,10 +14371,12 @@ Field="名前","shared_dictionary_name_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,
 Field="読み","shared_dictionary_pronunciation_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="略称","shared_dictionary_nickname_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260915171217
+ModifiedDateTime=20260917134747
 Position="共有",2150,400
 ZOrder=939
 
@@ -14723,6 +15097,8 @@ Field="品目種類ID","mstr_item_kind_id","*@UUID","NOT NULL",0,"gen_random_uui
 Field="品目コード","code","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -14744,6 +15120,8 @@ Field="品目種類ID","mstr_item_kind_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF
 Field="品目コード","code","*@VARCHAR255",,,"","",$FFFFFFFF,""
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -14899,7 +15277,9 @@ Field="大きさ区分コード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFF
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="単位ID","shared_unit_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==1,code
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -14945,6 +15325,8 @@ Field="品目大きさ区分コード","code","*@VARCHAR255","NOT NULL",,"","",$
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="単位ID","shared_unit_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -15074,6 +15456,8 @@ Field="配送区分ID","mstr_shipping_kind_id","*@UUID","NOT NULL",0,"gen_random
 Field="配送区分コード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -15118,6 +15502,8 @@ Field="配送区分ID","mstr_shipping_kind_id","*@UUID","NOT NULL",1,"","",$FFFF
 Field="配送区分コード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -15201,7 +15587,6 @@ Cardinarity1=
 Cardinarity2=
 Position="インフォメーションー人",0,5000,5000,5000,R,R,""
 Position="マスタ資源",0,1934,8066,1447,R,R,""
-Position="ビュー",0,5000,5000,5000,R,R,""
 Dependence=0
 Caption=auto create.
 PName=
@@ -15224,7 +15609,6 @@ Cardinarity1=
 Cardinarity2=
 Position="インフォメーションー人",0,5000,5000,5000,R,R,""
 Position="マスタ資源",0,1333,8667,3601,R,R,""
-Position="ビュー",0,5000,5000,5000,R,R,""
 Dependence=0
 Caption=auto create.
 PName=
@@ -15249,7 +15633,9 @@ Field="出荷明細実績ID","trans_shipping_order_detail_record_id","*@UUID","N
 Field="出荷オーダー明細ID","trans_shipping_order_detail_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="出荷日時","shipping_date","*@DATETIME","NOT NULL",,"","",$FFFFFFFF,""
 Field="出荷数量","shipping_quantity","*@QTY","NOT NULL",,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,trans_shipping_order_detail_record_id,trans_shipping_order_detail_id
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -15823,6 +16209,8 @@ Field="奥行き","length_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="横","wide_id_","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="高さ","height_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="重さ","wait_id","*@UUID",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -15842,6 +16230,8 @@ Top=4100
 Field="大きさID","mstr_envelope_measurement_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="値","measurement_value","*@SIZE","NOT NULL",,"0.0","",$FFFFFFFF,""
 Field="単位ID","shared_unit_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -15997,6 +16387,8 @@ Field="縦","length_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="幅","wide_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="高さ","hight_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="重さ","wait_id","*@UUID",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -16016,6 +16408,8 @@ Top=3250
 Field="梱包サイズ大きさID","mstr_spec_measurement_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="値","measurement_value","*@SIZE","NOT NULL",,"","",$FFFFFFFF,""
 Field="単位ID","shared_unit_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -16039,6 +16433,8 @@ Field="縦","length_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="横","wide_id_","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="高さ","height_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="重さ","wait_id","*@UUID",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -16059,6 +16455,8 @@ Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFF
 Field="大きさID","mstr_envelope_measurement_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="値","measurement_value","*@SIZE","NOT NULL",,"0.0","",$FFFFFFFF,""
 Field="単位ID","shared_unit_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -16254,6 +16652,8 @@ Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFF
 Field="梱包サイズ大きさID","mstr_spec_measurement_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="値","measurement_value","*@SIZE","NOT NULL",,"","",$FFFFFFFF,""
 Field="単位ID","shared_unit_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -16299,6 +16699,8 @@ Field="縦","length_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="幅","wide_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="高さ","hight_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="重さ","wait_id","*@UUID",,,"","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -16408,6 +16810,8 @@ Field="点検整備区分ID","mstr_inspection_kind_id","*@UUID","NOT NULL",0,"ge
 Field="点検整備区分コード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -16474,6 +16878,8 @@ Field="点検整備区分ID","mstr_inspection_kind_id","*@UUID","NOT NULL",1,"",
 Field="点検整備区分コード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
+Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -16558,7 +16964,6 @@ Cardinarity1=
 Cardinarity2=
 Position="インフォメーションー人",0,5000,5000,5000,R,R,""
 Position="マスタ品目",0,5000,5000,5000,R,R,""
-Position="ビュー",0,5000,5000,5000,R,R,""
 Dependence=0
 Caption=auto create.
 PName=
@@ -16581,7 +16986,6 @@ Cardinarity1=
 Cardinarity2=
 Position="インフォメーションー人",0,5000,5000,5000,R,R,""
 Position="マスタ品目",0,5000,5000,5000,R,R,""
-Position="ビュー",0,5000,5000,5000,R,R,""
 Dependence=0
 Caption=auto create.
 PName=
@@ -16648,7 +17052,6 @@ Cardinarity1=
 Cardinarity2=
 Position="インフォメーションー人",0,5000,5000,5000,R,R,""
 Position="マスタ品目",0,5000,5000,5000,R,R,""
-Position="ビュー",0,5000,5000,5000,R,R,""
 Dependence=0
 Caption=auto create.
 PName=
@@ -16671,7 +17074,6 @@ Cardinarity1=
 Cardinarity2=
 Position="インフォメーションー人",0,5000,5000,5000,R,R,""
 Position="マスタ品目",0,5000,5000,5000,R,R,""
-Position="ビュー",0,5000,5000,5000,R,R,""
 Dependence=0
 Caption=auto create.
 PName=
@@ -16816,3 +17218,45 @@ Bar3=820
 TermPos1=R
 TermPos2=L
 ZOrder=1097
+
+[Relation]
+Entity1=shared_appellations
+Entity2=trans_inspect_sch
+RelationType1=1
+RelationType2=3
+Fields1=shared_appellations_id
+Fields2=shared_appellations_id
+Cardinarity1=
+Cardinarity2=
+Position="共有",0,1258,8742,1676,R,R,""
+Position="トラザクション",0,865,9135,2872,R,R,""
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=126
+Bar2=874
+Bar3=168
+TermPos1=R
+TermPos2=R
+ZOrder=1098
+
+[Entity]
+PName=shared_symbol_counter
+LName=リニアシンボルカウンタ
+Comment=
+TableInnerOption=
+TableOption=
+Page=共有
+Left=3650
+Top=800
+Field="テーブル名","table_name ","*@VARCHAR255","NOT NULL",0,"","",$FFFFFFFF,""
+Field="年","yy","@INT","NOT NULL",1,"","",$FFFFFFFF,""
+Field="月","mm","@INT","NOT NULL",2,"","",$FFFFFFFF,""
+Field="カウンタ","counter","bigint","NOT NULL",,"0","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20260917164430
+Position="共有",3650,800
+ZOrder=1099

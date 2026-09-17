@@ -1,0 +1,143 @@
+//Title:QualDB初期化クエリ生成
+//Author:hayato 
+//Data:2023/06/01
+
+var frmER =(function(){
+        var result=application.getActiveWindow();
+        if (result.formType != "A5EREditor") {
+            alert("アクティブウィンドウをERエディタにしてから実行してください。");
+            exit();
+        }
+        return result;
+    })();
+
+
+var ext={
+    "toFirst":function(array,func){
+        for(var index in array){
+            if(func(array[index]))return array[index];
+        }
+        return null;
+      },
+    "toWhere":function(array,func){//func->result bool,argment array[i]
+        var result=new Array;
+        for(var index in array){
+            if(func(array[index]))result.add(array[index]);
+        }
+        return result;
+        },
+    "toAny":function(array,func){
+        for(var index in array){
+            if(func(array[index]))return true;
+        }
+        return false;
+    },
+    "toSelect":function(array,func){
+        var result=new Array;
+        for(var i in array){
+            var funcResult=func(array[i]);
+            if(funcResult != null)result.add(funcResult);
+        }
+        return result;
+    },
+    "tabs":function(e){
+        var tabResults="";
+        if(0>=e)return tabResults;
+        for(var i=0;e>i;i++) tabResults+="    ";
+        return tabResults;
+    },
+    "toFor":function(array,func){
+        for(var i in array){
+            var funcResult=func(i,array[i]);
+        }
+    }
+};
+
+var select=function(array,func){
+        var result=new Array;
+        for(var i in array){
+            var funcResult=func(array[i]);
+            if(funcResult != null)result.add(funcResult);
+        }
+        return result;
+    };
+
+
+var create=function(doc){
+    //ヒエラルキーは除くテーブルセット
+    var entityArray=ext.toSelect(doc.objects,function(e){
+        var reg=new RegExp("^(hrchy_|history_hrchy_|shared_)");
+        if(e.objectType=="Entity" && !reg.test(e.pName))return e;
+    });
+
+    ext.toFor(entityArray,function(index,entity){
+        uniqueIndexs(entity);
+    });
+
+    println("Done!!");
+};
+
+var addAtribute=function(entity){
+    var hasSymboleCol= ext.toAny(entity.attributes,function(e){
+        return e.pName=="symbol";
+    });
+    if(hasSymboleCol){
+        println('has symbol => ' + entity.pName);
+        return;
+    }
+    var attr= entity.attributes.add();
+    attr['pName']="symbol";
+    attr['lName']="リニアシンボル";
+    attr['dataType']="*@VARCHAR16";
+    attr['notNull']=true;
+    attr['defaultValue']="''";
+    println('Add symbol => ' + entity.pName);
+
+};
+
+var uniqueIndexs=function(entity){
+    var hasSymboleCol= ext.toAny(entity.attributes,function(e){
+        return e.pName=="symbol";
+    });
+    var reg=new RegExp("\Wsymbol\W");
+//    var hasUnique=ext.toAny(entity.indexes,function(e){
+//        return reg.test(e.attributes);
+//    });
+
+//    if(hasSymboleCol || !hasUnique){
+//        println("skip=>"+entity.pName);
+//        var indexs=entity.indexes.add();
+//        indexs['unique']=2;
+//        indexs['attributes']='2,symbole';
+//        return;
+//    }
+
+    if(!hasSymboleCol){
+        return;
+    }
+    
+    var idx=0;
+    ext.toFor(entity.indexes,function(e){
+        if(reg.test(e.attributes)){
+            return;
+        }
+        idx++;
+    });
+    println(idx+"=>"+entity.pName);
+    //entity.attributes.delete("symbole");
+    
+};
+
+var removeAtribute=function(entity){
+    var hasSymboleCol= ext.toAny(entity.attributes,function(e){
+        return e.pName=="symbole";
+    });
+    if(!hasSymboleCol){
+        println("skip=>"+entity.pName);
+        return;
+    }
+    //entity.attributes.delete("symbole");
+    
+};
+
+create(frmER.document);

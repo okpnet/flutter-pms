@@ -1,11 +1,90 @@
 \c test_avocado
---211.create tables
+CREATE OR REPLACE FUNCTION tests.to_base33(n bigint, min_len int default 4) RETURNs varchar AS
+$BODY$
+DECLARE
+    alphabet text := '0123456789ABCDEFGHJKMNPQRSTUVWXYZ';
+    result text := '';BEGIN
+    IF n = 0 THEN
+        RETURN lpad('0', min_len, '0');
+    END IF;
+    WHILE n > 0 LOOP
+        result := substr(alphabet, ((n % 33) + 1)::int, 1) || result;
+        n := n / 33;
+    END LOOP;
+    RETURN CASE WHEN length(result) < min_len THEN lpad(result, min_len, '0') ELSE result END;
+END;
+$BODY$
+LANGUAGE plpgsql immutable;
+
+CREATE OR REPLACE FUNCTION tests.next_seq(p_table_name varchar, p_yy int, p_mm int) RETURNs bigint AS
+$BODY$
+DECLARE
+    v_counter bigint;
+BEGIN
+    insert into tests.shared_symbol_counter(table_name, yy, mm, counter)
+    values (p_table_name, p_yy, p_mm, 1)
+    on conflict (table_name, yy, mm)
+    do update set counter = tests.shared_symbol_counter.counter + 1
+    RETURNing counter into v_counter;
+    RETURN v_counter;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION tests.trg_gen_symbol_by_month() RETURNs trigger AS
+$BODY$
+DECLARE
+    v_yy int;
+    v_mm int;
+    v_seq bigint;
+BEGIN
+    IF NULLIF(NEW.symbol, '') IS NOT null THEN
+        RETURN NEW;
+    END IF;
+    v_yy := extract(year from now())::int % 100;
+    v_mm := extract(month from now())::int;
+    v_seq := tests.next_seq(TG_TABLE_NAME::varchar, v_yy, v_mm);
+    NEW.symbol := lpad(v_yy::text, 2, '0') || lpad(v_mm::text, 2, '0')
+            || '-' || tests.to_base33(v_seq, 4);
+    RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION tests.trg_gen_symbol_seq() RETURNs trigger AS
+$BODY$
+DECLARE
+    v_seq bigint;
+BEGIN
+    IF NULLIF(NEW.symbol, '') IS NOT null THEN
+        RETURN NEW;
+    END IF;
+    v_seq := tests.next_seq(TG_TABLE_NAME::varchar, 0, 0);
+    NEW.symbol := tests.to_base33(v_seq, 4);
+    RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+--212.create tables
+create table tests.shared_symbol_counter (
+    table_name  varchar(255) not null,
+    yy integer not null,
+    mm integer not null,
+    counter bigint default 0,
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
 create table tests.history_mstr_inspection_kind (
     history_id uuid default gen_random_uuid(),
     mstr_inspection_kind_id uuid not null,
     code varchar(255) not null,
     shared_appellations_id uuid not null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -17,6 +96,7 @@ create table tests.mstr_inspection_kind (
     code varchar(255) not null,
     shared_appellations_id uuid not null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -31,6 +111,7 @@ create table tests.history_mstr_packing_spec (
     wide_id uuid not null,
     hight_id uuid not null,
     wait_id uuid default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -42,6 +123,7 @@ create table tests.history_mstr_spec_measurement (
     mstr_spec_measurement_id uuid not null,
     measurement_value decimal(10,4) not null,
     shared_unit_id uuid not null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -53,6 +135,7 @@ create table tests.history_mstr_envelope_measurement (
     mstr_envelope_measurement_id uuid not null,
     measurement_value decimal(10,4) default 0.0,
     shared_unit_id uuid not null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -67,6 +150,7 @@ create table tests.history_mstr_equipment_envelope (
     wide_id_ uuid not null,
     height_id uuid not null,
     wait_id uuid default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -77,6 +161,7 @@ create table tests.mstr_spec_measurement (
     mstr_spec_measurement_id uuid default gen_random_uuid(),
     measurement_value decimal(10,4) not null,
     shared_unit_id uuid not null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -90,6 +175,7 @@ create table tests.mstr_packing_spec (
     wide_id uuid not null,
     hight_id uuid not null,
     wait_id uuid default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -100,6 +186,7 @@ create table tests.mstr_envelope_measurement (
     mstr_envelope_measurement_id uuid default gen_random_uuid(),
     measurement_value decimal(10,4) default 0.0,
     shared_unit_id uuid not null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -113,6 +200,7 @@ create table tests.mstr_equipment_envelope (
     wide_id_ uuid not null,
     height_id uuid not null,
     wait_id uuid default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -124,6 +212,7 @@ create table tests.trans_shipping_order_detail_record (
     trans_shipping_order_detail_id uuid not null,
     shipping_date timestamp not null,
     shipping_quantity decimal(10,2) not null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -136,6 +225,7 @@ create table tests.history_mstr_shipping_kind (
     code varchar(255) not null,
     shared_appellations_id uuid not null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -147,6 +237,7 @@ create table tests.mstr_shipping_kind (
     code varchar(255) not null,
     shared_appellations_id uuid not null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -160,6 +251,7 @@ create table tests.history_mstr_item_size_kind (
     shared_appellations_id uuid not null,
     shared_unit_id uuid not null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -172,6 +264,7 @@ create table tests.mstr_item_size_kind (
     shared_appellations_id uuid not null,
     shared_unit_id uuid not null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -184,6 +277,7 @@ create table tests.history_mstr_item_kind (
     code varchar(255) default null,
     shared_appellations_id uuid not null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -195,6 +289,7 @@ create table tests.mstr_item_kind (
     code varchar(255) default null,
     shared_appellations_id uuid not null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -208,6 +303,7 @@ create table tests.history_shared_appellations (
     shared_dictionary_pronunciation_id uuid default null,
     shared_dictionary_nickname_id uuid default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -231,7 +327,8 @@ create table tests.history_shared_dictionary (
     shared_dictionary_id uuid not null,
     ja varchar(1024) default null,
     en varchar(1024) default null,
-    revision integer not null,
+    revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -259,6 +356,7 @@ create table tests.history_mstr_equipment (
     label_code varchar(255) default null,
     mstr_location_id uuid default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -273,6 +371,7 @@ create table tests.history_mstr_equipment_kind (
     start_at timestamp default now(),
     stop_at timestamp default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -286,6 +385,7 @@ create table tests.mstr_equipment_kind (
     start_at timestamp default now(),
     stop_at timestamp default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -300,6 +400,7 @@ create table tests.history_info_staff_icon (
     info_staff_history_id varchar(255) not null,
     name varchar(255) default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -313,6 +414,7 @@ create table tests.info_staff_icon (
     info_staff_history_id varchar(255) not null,
     name varchar(255) default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -326,6 +428,7 @@ create table tests.history_mstr_item_hcdcs (
     iso3166_3 varchar(2) default '',
     code varchar(16) default '',
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -337,6 +440,7 @@ create table tests.mstr_item_hcdcs (
     mstr_item_id uuid not null,
     iso3166_3 varchar(2) default '',
     code varchar(16) default '',
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -349,6 +453,7 @@ create table tests.history_mstr_document_content_tree (
     mstr_document_content_id uuid not null,
     parent_mstr_document_content_id uuid default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -377,6 +482,7 @@ create table tests.history_mstr_document_content (
     image_content boolean default 'f',
     trans_file_id uuid default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -388,6 +494,7 @@ create table tests.mstr_document_content_tree (
     mstr_document_content_id uuid not null,
     parent_mstr_document_content_id uuid default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -405,6 +512,7 @@ create table tests.mstr_document_content (
     image_content boolean default 'f',
     trans_file_id uuid default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -421,6 +529,7 @@ create table tests.history_mstr_document_tier (
     Identifier varchar(255) not null,
     tier_number integer default 1,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -436,6 +545,7 @@ create table tests.mstr_document_tier (
     Identifier varchar(255) not null,
     tier_number integer default 1,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -448,6 +558,7 @@ create table tests.history_mstr_document_tree (
     mstr_document_id uuid not null,
     parent_mstr_document_id uuid default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -469,6 +580,7 @@ create table tests.mstr_document_tree (
     mstr_document_id uuid not null,
     parent_mstr_document_id uuid default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -482,12 +594,13 @@ create table tests.history_mstr_document (
     name varchar(255) not null,
     mstr_document_tier_id uuid not null,
     trans_file_id uuid default null,
-    title varchar(255) default 't',
+    title varchar(255) not null,
     control_number varchar(255) not null,
     version_code integer default 1,
     version_name varchar(16) default '',
-    trans_approved_id uuid default null,
+    trans_approved_id uuid not null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -506,6 +619,7 @@ create table tests.mstr_document (
     version_name varchar(16) default '',
     trans_approved_id uuid not null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -517,6 +631,7 @@ create table tests.trans_container_tree (
     trans_container_id uuid not null,
     parent_trans_container_id uuid default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -529,6 +644,7 @@ create table tests.history_mstr_location_tree (
     mstr_location_id uuid not null,
     parent_mstr_location_id uuid default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -540,6 +656,7 @@ create table tests.mstr_location_tree (
     mstr_location_id uuid not null,
     parent_mstr_location_id uuid default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -552,6 +669,7 @@ create table tests.history_info_department_tree (
     info_department_id uuid not null,
     parent_info_department_id uuid default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -563,6 +681,7 @@ create table tests.info_department_tree (
     info_department_id uuid not null,
     parent_info_department_id uuid default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -596,6 +715,7 @@ create table tests.history_mstr_inspection_operation (
     code varchar(255) not null,
     mstr_equipment_id uuid not null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -608,6 +728,7 @@ create table tests.mstr_inspection_operation (
     code varchar(255) not null,
     mstr_equipment_id uuid not null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -623,6 +744,7 @@ create table tests.history_mstr_inspection_operation_task (
     commencement_date timestamp default now(),
     time_interval interval not null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -637,6 +759,7 @@ create table tests.mstr_inspection_operation_task (
     commencement_date timestamp default now(),
     time_interval interval not null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -649,6 +772,7 @@ create table tests.history_info_department_access_permission (
     info_access_path_id uuid default null,
     info_department_id uuid not null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -660,6 +784,7 @@ create table tests.info_department_access_permission (
     info_access_path_id uuid default null,
     info_department_id uuid not null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -676,6 +801,7 @@ create table tests.history_info_assign (
     enable boolean default 'T',
     priority smallint default 1,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -689,6 +815,7 @@ create table tests.mstr_item_provision (
     start_at timestamp default now(),
     stop_at timestamp default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -703,6 +830,7 @@ create table tests.history_mstr_item_provision (
     start_at timestamp default now(),
     stop_at timestamp default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -717,6 +845,7 @@ create table tests.history_mstr_equipment_provision (
     start_at timestamp default now(),
     stop_at timestamp default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -730,6 +859,7 @@ create table tests.mstr_equipment_provision (
     start_at timestamp default now(),
     stop_at timestamp default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -751,6 +881,7 @@ create table tests.trans_container (
     code varchar(255) not null,
     name varchar(1024) default null,
     mstr_location_id uuid default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -775,6 +906,7 @@ create table tests.history_info_app_status (
     plan_date timestamp not null,
     start_date timestamp not null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -788,6 +920,7 @@ create table tests.info_app_status (
     plan_date timestamp not null,
     start_date timestamp not null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -804,6 +937,7 @@ create table tests.trans_announcement (
     message varchar(255) default null,
     is_reade boolean default 'f',
     expiration_date timestamp default CURRENT_DATE + 30,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -820,6 +954,7 @@ create table tests.history_mstr_operation_task (
     shared_appellations_id uuid not null,
     detail varchar(1024) default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -835,6 +970,7 @@ create table tests.history_mstr_report (
     is_default boolean default 't',
     info_access_path_id uuid not null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -849,6 +985,7 @@ create table tests.history_mstr_item_operation_task (
     sequence smallint default 1,
     default_interval interval default '0:0:0',
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -862,9 +999,10 @@ create table tests.history_mstr_task_tree (
     parent_mstr_task_id uuid default null,
     code varchar(255) default null,
     control_code varchar(255) default null,
-    shared_appellations_id uuid default gen_random_uuid(),
+    shared_appellations_id uuid not null,
     detail varchar(1024) default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -877,6 +1015,7 @@ create table tests.history_mstr_outsource_available (
     mstr_task_location_id uuid not null,
     mstr_stakeholder_id uuid default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -889,6 +1028,7 @@ create table tests.history_mstr_equipment_available (
     mstr_task_location_id uuid not null,
     mstr_equipment_id uuid default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -905,6 +1045,7 @@ create table tests.history_mstr_task (
     class smallint default 0,
     default_time interval default '0:0:0',
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -920,6 +1061,7 @@ create table tests.history_mstr_task_location (
     mstr_equipment_id uuid default null,
     mstr_stakeholder_id uuid default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -934,6 +1076,7 @@ create table tests.mstr_task_location (
     mstr_equipment_id uuid default null,
     mstr_stakeholder_id uuid default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -947,6 +1090,7 @@ create table tests.history_mstr_task_group (
     shared_appellations_id uuid not null,
     details varchar(1024) default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -960,6 +1104,7 @@ create table tests.history_mstr_operation (
     shared_appellations_id uuid not null,
     detail varchar(1024) default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -972,6 +1117,7 @@ create table tests.history_mstr_manufacturer (
     code varchar(255) default null,
     shared_appellations_id uuid not null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -983,13 +1129,14 @@ create table tests.history_mstr_inspection (
     mstr_inspection_id uuid not null,
     code varchar(255) not null,
     shared_appellations_id uuid not null,
-    inspection_kind uuid default null,
+    inspection_kind uuid not null,
     base_date timestamp default now(),
     time_interval interval default '0 0:00:00',
     external_inspection uuid default null,
     inspection_formula_id uuid default null,
     revision integer default 1,
     mstr_item_id uuid not null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1004,6 +1151,7 @@ create table tests.history_mstr_inspection_formula (
     type_class smallint default 1,
     format_class varchar(255) default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1020,6 +1168,7 @@ create table tests.history_mstr_item_actual_size (
     unit_history_id uuid default null,
     info_unit_id uuid default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1037,6 +1186,7 @@ create table tests.history_mstr_item_tree (
     quantity decimal(10,2) not null,
     detail varchar(1024) default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1059,6 +1209,7 @@ create table tests.history_mstr_item (
     lot boolean default 'f',
     stock_quantity decimal(10,2) default 0,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1073,8 +1224,11 @@ create table tests.history_mstr_audit_std_checkitem (
     control_code varchar(255) default null,
     shared_appellations_id uuid not null,
     detail varchar(1024) default null,
+    type_class smallint not null,
+    formula_class smallint not null,
     arg_class jsonb default '{}',
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1090,6 +1244,7 @@ create table tests.history_mstr_audit_std (
     shared_appellations_id uuid not null,
     detail varchar(1024) default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1106,6 +1261,7 @@ create table tests.history_mstr_location (
     info_address_id uuid default null,
     available boolean default 't',
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1118,6 +1274,7 @@ create table tests.history_mstr_equipment_tag (
     trans_file_id uuid default null,
     name varchar(255) default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1136,6 +1293,7 @@ create table tests.history_mstr_stakeholder_contact (
     info_address_id uuid default null,
     mstr_shipping_kind_id uuid default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1148,6 +1306,7 @@ create table tests.history_mstr_stakeholder_provision (
     mstr_stakeholder_id uuid not null,
     info_provision_id uuid not null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1167,6 +1326,7 @@ create table tests.history_mstr_stakeholder (
     info_address_id uuid default null,
     mstr_shipping_kind_id uuid default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1185,6 +1345,7 @@ create table tests.history_mstr_staff_license (
     revocation boolean default 'f',
     revocation_at timestamp default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1202,6 +1363,7 @@ create table tests.history_mstr_license (
     organization_license boolean default 'f',
     update_interval interval default '0:0:0',
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1215,6 +1377,7 @@ create table tests.history_info_staff_access_permission (
     info_staff_id uuid default null,
     permit smallint default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1227,6 +1390,7 @@ create table tests.history_mstr_approval_scope_pattern (
     mstr_approval_pattern_id uuid default null,
     info_access_path_approval_id uuid default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1236,8 +1400,9 @@ create table tests.history_mstr_approval_scope_pattern (
 create table tests.history_mstr_approval_pattern (
     history_id uuid default gen_random_uuid(),
     mstr_approval_pattern_id uuid not null,
-    shared_appellations_id uuid default gen_random_uuid(),
+    shared_appellations_id uuid not null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1248,13 +1413,14 @@ create table tests.history_mstr_capability (
     history_id uuid default gen_random_uuid(),
     mstr_capability_id uuid not null,
     code varchar(255) not null,
-    shared_appellations_id uuid default gen_random_uuid(),
+    shared_appellations_id uuid not null,
     detail varchar(1024) default null,
     reference_value decimal(5,2) not null,
     max decimal(5,2) default 100.00,
     min decimal(5,2) default 0.00,
     step decimal(5,2) default 1.00,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1267,6 +1433,7 @@ create table tests.history_mstr_approval_pattern_detail (
     mstr_approval_id uuid not null,
     mstr_approval_pattern_id uuid not null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1281,6 +1448,7 @@ create table tests.history_mstr_approval (
     priority smallint default 32767,
     shared_appellations_id uuid not null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1293,6 +1461,7 @@ create table tests.history_info_position (
     priority smallint not null,
     shared_appellations_id uuid not null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1307,6 +1476,7 @@ create table tests.history_mstr_staff_capability (
     value decimal(5,2) default 0,
     stop boolean default 'f',
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1322,6 +1492,7 @@ create table tests.history_mstr_sign (
     mail varchar(255) default null,
     role smallint default 10,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1333,11 +1504,12 @@ create table tests.history_info_staff (
     info_staff_id uuid not null,
     info_company_id uuid default null,
     code varchar(16) default null,
-    shared_appellations_id uuid default gen_random_uuid(),
+    shared_appellations_id uuid not null,
     sex varchar(16) default null,
     phone varchar(255) default null,
     private_phone varchar(255) default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1352,6 +1524,7 @@ create table tests.history_info_provision (
     shared_appellations_id uuid not null,
     details varchar(1024) default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1369,6 +1542,7 @@ create table tests.history_info_address (
     phone varchar(255) default null,
     fax_number varchar(255) default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1381,6 +1555,7 @@ create table tests.history_shared_unit (
     shared_appellations_id uuid not null,
     description varchar(1024) default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1392,9 +1567,10 @@ create table tests.history_info_office (
     info_office_id uuid not null,
     info_company_id uuid not null,
     code varchar(255) not null,
-    shared_appellations_id uuid default gen_random_uuid(),
+    shared_appellations_id uuid not null,
     info_address_id uuid default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1413,6 +1589,7 @@ create table tests.history_info_department (
     category3 uuid default null,
     info_address_id uuid default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1427,6 +1604,7 @@ create table tests.history_info_access_path_approval (
     kana varchar(255) default null,
     tag varchar(255) default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1444,6 +1622,7 @@ create table tests.history_info_access_path (
     classes smallint default 0,
     sequence smallint default 1,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1458,6 +1637,7 @@ create table tests.history_info_company (
     web_page varchar(255) default null,
     ceo varchar(255) default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1471,6 +1651,7 @@ create table tests.info_company (
     web_page varchar(255) default null,
     ceo varchar(255) default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1483,6 +1664,7 @@ create table tests.history_info_app (
     info_company_id uuid default null,
     name varchar(255) not null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1496,6 +1678,7 @@ create table tests.trans_anonymouse (
     start_at timestamp default null,
     completion_at timestamp default null,
     completion boolean default 'f',
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1512,6 +1695,7 @@ create table tests.trans_file_reminder (
     urls varchar(1024) default null,
     start_at timestamp default null,
     expiration_date interval default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1523,6 +1707,7 @@ create table tests.mstr_equipment_available (
     mstr_task_location_id uuid not null,
     mstr_equipment_id uuid default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1534,6 +1719,7 @@ create table tests.mstr_outsource_available (
     mstr_task_location_id uuid not null,
     mstr_stakeholder_id uuid default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1546,6 +1732,7 @@ create table tests.mstr_task_group (
     shared_appellations_id uuid not null,
     details varchar(1024) default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1560,6 +1747,7 @@ create table tests.trans_unrecognized_detail (
     deadline timestamp default null,
     history_id uuid not null,
     mstr_item_id uuid not null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1575,6 +1763,7 @@ create table tests.trans_unrecognized (
     deadline timestamp default null,
     expected_completion_date timestamp default null,
     planned_shipping_date timestamp default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1586,6 +1775,7 @@ create table tests.mstr_stakeholder_provision (
     mstr_stakeholder_id uuid not null,
     info_provision_id uuid not null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1599,6 +1789,7 @@ create table tests.info_provision (
     shared_appellations_id uuid not null,
     details varchar(1024) default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1612,6 +1803,7 @@ create table tests.mstr_inspection_formula (
     type_class smallint default 1,
     format_class varchar(255) default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1623,6 +1815,7 @@ create table tests.mstr_manufacturer (
     code varchar(255) default null,
     shared_appellations_id uuid not null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1634,6 +1827,7 @@ create table tests.mstr_approval_scope_pattern (
     mstr_approval_pattern_id uuid default null,
     info_access_path_approval_id uuid default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1645,6 +1839,7 @@ create table tests.mstr_approval_pattern_detail (
     mstr_approval_id uuid not null,
     mstr_approval_pattern_id uuid not null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1661,6 +1856,7 @@ create table tests.info_address (
     phone varchar(255) default null,
     fax_number varchar(255) default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1671,6 +1867,7 @@ create table tests.trans_inspection_report (
     trans_inspection_report_id uuid default gen_random_uuid(),
     trans_inspect_sch_detail_id uuid not null,
     mstr_report_id uuid default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1685,6 +1882,7 @@ create table tests.mstr_report (
     is_default boolean default 't',
     info_access_path_id uuid not null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1696,6 +1894,7 @@ create table tests.mstr_equipment_tag (
     trans_file_id uuid default null,
     name varchar(255) default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1709,6 +1908,7 @@ create table tests.info_access_path_approval (
     kana varchar(255) default null,
     tag varchar(255) default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1720,6 +1920,7 @@ create table tests.trans_approved (
     period timestamp not null,
     status smallint default 32767,
     priority smallint default 0,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1733,6 +1934,7 @@ create table tests.mstr_approval (
     priority smallint default 32767,
     shared_appellations_id uuid not null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1744,6 +1946,7 @@ create table tests.info_position (
     priority smallint not null,
     shared_appellations_id uuid not null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1754,6 +1957,7 @@ create table tests.mstr_approval_pattern (
     mstr_approval_pattern_id uuid default gen_random_uuid(),
     shared_appellations_id uuid not null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1765,6 +1969,7 @@ create table tests.trans_approval (
     trans_approved_id uuid not null,
     staff_history_id uuid not null,
     info_staff_id uuid not null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1776,6 +1981,7 @@ create table tests.trans_approval_gr (
     mstr_approval_pattern_id uuid not null,
     trans_approved_id uuid not null,
     status smallint default 32767,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1788,6 +1994,7 @@ create table tests.trans_audit_member (
     class smallint not null,
     name varchar(255) not null,
     department varchar(255) default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1803,6 +2010,7 @@ create table tests.trans_auditor (
     ccategory smallint default 0,
     history_id uuid not null,
     info_staff_id uuid not null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1813,6 +2021,7 @@ create table tests.trans_audit_team (
     trans_audit_team_id uuid default gen_random_uuid(),
     trans_audit_id uuid not null,
     name varchar(255) not null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1833,6 +2042,7 @@ create table tests.trans_audit (
     detail varchar(1024) default null,
     info_department_id uuid default null,
     mstr_stakeholder_id uuid default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1847,6 +2057,7 @@ create table tests.trans_task_risk (
     number varchar(255) default null,
     title varchar(255) default null,
     detail varchar(1024) default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1863,6 +2074,7 @@ create table tests.trans_order_detail_risk (
     number varchar(255) default null,
     title varchar(255) default null,
     detail varchar(1024) default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1880,6 +2092,7 @@ create table tests.trans_prevention_detail (
     number varchar(255) default null,
     title varchar(255) default null,
     detail varchar(1024) default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1893,6 +2106,7 @@ create table tests.trans_prevention (
     number varchar(255) default null,
     title varchar(255) default null,
     detail varchar(1024) not null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1907,6 +2121,7 @@ create table tests.trans_order_risk (
     number varchar(255) default null,
     title varchar(255) default null,
     detail varchar(1024) default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1921,6 +2136,7 @@ create table tests.trans_equipment_lent (
     lent_at timestamp default now(),
     return_staff_id uuid default null,
     return_at timestamp default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1948,6 +2164,7 @@ create table tests.trans_disposal_detail (
     number varchar(255) default null,
     title varchar(255) default null,
     detail varchar(1024) default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1961,8 +2178,11 @@ create table tests.mstr_audit_std_checkitem (
     control_code varchar(255) default null,
     shared_appellations_id uuid not null,
     detail varchar(1024) default null,
+    type_class smallint not null,
+    formula_class smallint not null,
     arg_class jsonb default '{}',
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1977,6 +2197,7 @@ create table tests.mstr_audit_std (
     shared_appellations_id uuid not null,
     detail varchar(1024) default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -1993,6 +2214,7 @@ create table tests.trans_risk (
     momentous decimal(10,4) default null,
     action smallint default null,
     residual_risk_id uuid default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2003,6 +2225,7 @@ create table tests.trans_observer_preventive (
     trans_observer_preventive_id uuid default gen_random_uuid(),
     trans_observer_disposal_id uuid not null,
     trans_recurrence_prevention_id uuid default gen_random_uuid(),
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2015,6 +2238,7 @@ create table tests.trans_observer_disposal (
     observe_schedule timestamp default null,
     observe_at timestamp default null,
     observer uuid default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2029,6 +2253,7 @@ create table tests.trans_complaint_stakeholder_adapter (
     number varchar(255) default null,
     title varchar(1024) default null,
     detail varchar(1024) default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2043,6 +2268,7 @@ create table tests.trans_complaint_equipment_adapter (
     number varchar(255) default null,
     title varchar(255) default null,
     detail varchar(1024) default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2057,6 +2283,7 @@ create table tests.trans_complaint_process_adapter (
     number varchar(255) default null,
     title varchar(255) default null,
     detail varchar(1024) default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2071,6 +2298,7 @@ create table tests.trans_complaint_order_adapter (
     number varchar(255) default null,
     title varchar(255) default null,
     detail varchar(1024) default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2087,6 +2315,7 @@ create table tests.trans_disposal (
     detail varchar(1024) not null,
     approval uuid default null,
     approval_at timestamp default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2103,6 +2332,7 @@ create table tests.trans_recurrence_prevention (
     reporter uuid not null,
     recipient uuid default null,
     approved uuid default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2117,6 +2347,7 @@ create table tests.trans_complaint (
     reporter uuid not null,
     recipient uuid default null,
     approved uuid default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2130,6 +2361,7 @@ create table tests.trans_inspect_imp_file (
     name varchar(255) not null,
     class varchar(255) default null,
     trans_file_reminder_id uuid default gen_random_uuid(),
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2146,6 +2378,7 @@ create table tests.trans_inspect_record (
     result_state varchar(255) default null,
     note varchar(1024) default null,
     stakeholder_id uuid default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2160,6 +2393,7 @@ create table tests.trans_inspect_sch_detail (
     scheduled_end_date timestamp not null,
     history_id uuid not null,
     mstr_stakeholder_id uuid not null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2169,12 +2403,13 @@ create table tests.trans_inspect_sch_detail (
 create table tests.trans_inspect_sch (
     trans_inspect_sch_id uuid default gen_random_uuid(),
     code varchar(255) default null,
-    name varchar(255) not null,
-    kana varchar(255) default null,
-    nickname varchar(255) default null,
-    note varchar(1024) default null,
+    shared_appellations_id uuid default gen_random_uuid(),
     history_id uuid not null,
     mstr_equipment_id uuid not null,
+    requirements varchar(1024) default null,
+    attention varchar(1024) default null,
+    recommendation varchar(1024) default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2192,6 +2427,7 @@ create table tests.mstr_inspection (
     inspection_formula_id uuid default null,
     revision integer default 1,
     mstr_item_id uuid not null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2207,6 +2443,7 @@ create table tests.info_assign (
     enable boolean default 'T',
     priority smallint default 1,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2219,6 +2456,7 @@ create table tests.info_staff_access_permission (
     info_staff_id uuid default null,
     permit smallint default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2230,6 +2468,7 @@ create table tests.info_app (
     info_company_id uuid default null,
     name varchar(255) not null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2246,6 +2485,7 @@ create table tests.info_access_path (
     classes smallint default 0,
     sequence smallint default 1,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2261,6 +2501,7 @@ create table tests.trans_inventory_request (
     trans_product_detail_id uuid default null,
     trans_product_id uuid default null,
     quantity decimal(10,2) default 0,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2275,6 +2516,7 @@ create table tests.trans_product_rez (
     quantity decimal(10,2) default 0,
     staff_history_id uuid not null,
     info_staff_id uuid not null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2288,6 +2530,7 @@ create table tests.trans_work_record_visiter (
     trans_product_detail_id varchar(2) not null,
     trans_product_id varchar(2) not null,
     quantity decimal(10,2) default 0,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2300,6 +2543,7 @@ create table tests.trans_purchase_rec_visiter (
     trans_visiter_id uuid default gen_random_uuid(),
     trans_purchase_detail_id uuid not null,
     quantity decimal(10,2) default 0,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2311,6 +2555,7 @@ create table tests.trans_visiter (
     trans_container_id uuid not null,
     status smallint default null,
     quantity decimal(10,2) default 0,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2324,6 +2569,7 @@ create table tests.mstr_item_actual_size (
     size_value decimal(10,4) default 0.0,
     detail varchar(1024) default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2337,6 +2583,7 @@ create table tests.trans_file (
     number varchar(255) default null,
     title varchar(255) default null,
     detail varchar(1024) default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2352,6 +2599,7 @@ create table tests.mstr_operation_task (
     shared_appellations_id uuid not null,
     detail varchar(1024) default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2364,6 +2612,7 @@ create table tests.mstr_operation (
     shared_appellations_id uuid not null,
     detail varchar(1024) default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2380,6 +2629,7 @@ create table tests.trans_convey (
     mstr_location_id uuid not null,
     staff_history_id uuid not null,
     info_staff_id uuid not null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2390,6 +2640,7 @@ create table tests.trans_work_record_certificate (
     trans_work_record_certificate_id uuid default gen_random_uuid(),
     trans_certificate_id uuid not null,
     trans_work_record_id uuid not null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2402,6 +2653,7 @@ create table tests.trans_certificate (
     name varchar(255) default null,
     class varchar(255) default null,
     trans_file_id uuid default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2413,6 +2665,7 @@ create table tests.trans_purchase_rec (
     trans_purchase_detail_id uuid not null,
     receive_at timestamp default now(),
     quantity decimal(10,2) default 0,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2423,6 +2676,7 @@ create table tests.trans_purchase_certification (
     trans_purchase_certification_id uuid default gen_random_uuid(),
     trans_purchase_rec_id uuid not null,
     trans_certificate_id uuid not null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2434,6 +2688,7 @@ create table tests.trans_purchase_rez (
     trans_purchase_id uuid default null,
     trans_purchase_detail_id uuid default null,
     quantity decimal(10,2) default 0,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2449,6 +2704,7 @@ create table tests.trans_purchase_detail (
     period timestamp default null,
     history_id uuid not null,
     mstr_item_id uuid not null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2464,6 +2720,7 @@ create table tests.trans_order_detail (
     cost decimal(10,2) default null,
     delivery_date timestamp default null,
     deadline timestamp default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2477,6 +2734,7 @@ create table tests.trans_shipping_order_detail (
     edtimated_shipping_date timestamp default null,
     estimated_arrival_date date default null,
     shipping_quantity decimal(10,2) not null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2491,6 +2749,7 @@ create table tests.trans_ship_order (
     estimated_arrival_date date not null,
     history_mstr_stakeholder_id uuid default null,
     mstr_stakeholder_id uuid default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2508,6 +2767,7 @@ create table tests.trans_work_record (
     info_staff_id uuid default null,
     equipment_history_id uuid default null,
     mstr_equipment_id uuid default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2521,6 +2781,7 @@ create table tests.trans_inventory_apply (
     convey_id uuid default null,
     staff_history_id uuid not null,
     info_staff_id uuid not null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2534,6 +2795,7 @@ create table tests.trans_product_detail (
     interval_plan interval default null,
     start_at timestamp default null,
     completion_at timestamp default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2544,6 +2806,7 @@ create table tests.trans_product (
     trans_product_id uuid default gen_random_uuid(),
     trans_resorce_plan_id uuid default null,
     deadline timestamp default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2560,6 +2823,7 @@ create table tests.trans_resorce_plan (
     deadline timestamp default null,
     history_id uuid not null,
     mstr_item_id uuid not null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2578,6 +2842,7 @@ create table tests.trans_purchase (
     register_at timestamp default null,
     purchase_order_date timestamp default null,
     deadline timestamp default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2598,6 +2863,7 @@ create table tests.trans_order (
     order_processing_date timestamp default null,
     delivery_date timestamp default null,
     deadline timestamp default null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2607,10 +2873,11 @@ create table tests.trans_order (
 create table tests.mstr_item_operation_task (
     mstr_item_operation_task_id uuid default gen_random_uuid(),
     mstr_operation_task_id uuid not null,
-    mstr_item_id uuid default gen_random_uuid(),
+    mstr_item_id uuid not null,
     sequence smallint default 1,
     default_interval interval default '0:0:0',
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2627,6 +2894,7 @@ create table tests.mstr_item_tree (
     quantity decimal(10,2) not null,
     detail varchar(1024) default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2646,7 +2914,7 @@ create table tests.shared_unit (
 );
 create table tests.mstr_item (
     mstr_item_id uuid default gen_random_uuid(),
-    mstr_item_kind_id uuid default gen_random_uuid(),
+    mstr_item_kind_id uuid not null,
     code varchar(255) not null,
     identification varchar(255) default null,
     control_code varchar(255) default null,
@@ -2659,6 +2927,7 @@ create table tests.mstr_item (
     lot boolean default 'f',
     stock_quantity decimal(10,2) default 0,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2674,6 +2943,7 @@ create table tests.mstr_task_tree (
     shared_appellations_id uuid not null,
     detail varchar(1024) default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2689,6 +2959,7 @@ create table tests.mstr_task (
     class smallint default 0,
     default_time interval default '0:0:0',
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2704,6 +2975,7 @@ create table tests.mstr_location (
     info_address_id uuid default null,
     available boolean default 't',
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2719,6 +2991,7 @@ create table tests.mstr_equipment (
     label_code varchar(255) default null,
     mstr_location_id uuid default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2736,6 +3009,7 @@ create table tests.mstr_stakeholder_contact (
     info_address_id uuid default null,
     mstr_shipping_kind_id uuid default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2754,6 +3028,7 @@ create table tests.mstr_stakeholder (
     info_address_id uuid default null,
     mstr_shipping_kind_id uuid default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2771,6 +3046,7 @@ create table tests.mstr_staff_license (
     revocation boolean default 'f',
     revocation_at timestamp default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2784,6 +3060,7 @@ create table tests.mstr_staff_capability (
     value decimal(5,2) default 0,
     stop boolean default 'f',
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2793,11 +3070,12 @@ create table tests.mstr_staff_capability (
 create table tests.mstr_sign (
     mstr_sign_id uuid default gen_random_uuid(),
     info_staff_id uuid not null,
-    auth_subject_id uuid not null,
+    auth_subject_id uuid default null,
     code varchar(255) default null,
     mail varchar(255) default null,
     role smallint default 10,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2814,6 +3092,7 @@ create table tests.mstr_license (
     organization_license boolean default 'f',
     update_interval interval default '0:0:0',
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2830,6 +3109,7 @@ create table tests.mstr_capability (
     min decimal(5,2) default 0.00,
     step decimal(5,2) default 1.00,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2845,6 +3125,7 @@ create table tests.info_staff (
     phone varchar(255) default null,
     private_phone varchar(255) default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2862,6 +3143,7 @@ create table tests.info_department (
     category3 uuid default null,
     info_address_id uuid default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2875,19 +3157,31 @@ create table tests.info_office (
     shared_appellations_id uuid not null,
     info_address_id uuid default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
     update_user_history_id uuid default null,
     remove boolean default 'f'
 );
---211.add table comments
+--212.add table comments
+comment on table tests.shared_symbol_counter is 'リニアシンボルカウンタ';
+comment on column tests.shared_symbol_counter.table_name  is 'テーブル名';
+comment on column tests.shared_symbol_counter.yy is '年';
+comment on column tests.shared_symbol_counter.mm is '月';
+comment on column tests.shared_symbol_counter.counter is 'カウンタ';
+comment on column tests.shared_symbol_counter.remarks is '備考';
+comment on column tests.shared_symbol_counter.update_at is '更新日時';
+comment on column tests.shared_symbol_counter.update_user_id is '更新者ID';
+comment on column tests.shared_symbol_counter.update_user_history_id is '更新者履歴ID';
+comment on column tests.shared_symbol_counter.remove is '削除';
 comment on table tests.history_mstr_inspection_kind is '点検整備区分マスタ履歴';
 comment on column tests.history_mstr_inspection_kind.history_id is '履歴ID';
 comment on column tests.history_mstr_inspection_kind.mstr_inspection_kind_id is '点検整備区分ID';
 comment on column tests.history_mstr_inspection_kind.code is '点検整備区分コード';
 comment on column tests.history_mstr_inspection_kind.shared_appellations_id is '呼称セットID';
 comment on column tests.history_mstr_inspection_kind.revision is 'レビジョン';
+comment on column tests.history_mstr_inspection_kind.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_inspection_kind.remarks is '備考';
 comment on column tests.history_mstr_inspection_kind.update_at is '更新日時';
 comment on column tests.history_mstr_inspection_kind.update_user_id is '更新者ID';
@@ -2898,6 +3192,7 @@ comment on column tests.mstr_inspection_kind.mstr_inspection_kind_id is '点検�
 comment on column tests.mstr_inspection_kind.code is '点検整備区分コード';
 comment on column tests.mstr_inspection_kind.shared_appellations_id is '呼称セットID';
 comment on column tests.mstr_inspection_kind.revision is 'レビジョン';
+comment on column tests.mstr_inspection_kind.symbol is 'リニアシンボル';
 comment on column tests.mstr_inspection_kind.remarks is '備考';
 comment on column tests.mstr_inspection_kind.update_at is '更新日時';
 comment on column tests.mstr_inspection_kind.update_user_id is '更新者ID';
@@ -2911,6 +3206,7 @@ comment on column tests.history_mstr_packing_spec.length_id is '縦';
 comment on column tests.history_mstr_packing_spec.wide_id is '幅';
 comment on column tests.history_mstr_packing_spec.hight_id is '高さ';
 comment on column tests.history_mstr_packing_spec.wait_id is '重さ';
+comment on column tests.history_mstr_packing_spec.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_packing_spec.remarks is '備考';
 comment on column tests.history_mstr_packing_spec.update_at is '更新日時';
 comment on column tests.history_mstr_packing_spec.update_user_id is '更新者ID';
@@ -2921,6 +3217,7 @@ comment on column tests.history_mstr_spec_measurement.history_id is '履歴ID';
 comment on column tests.history_mstr_spec_measurement.mstr_spec_measurement_id is '梱包サイズ大きさID';
 comment on column tests.history_mstr_spec_measurement.measurement_value is '値';
 comment on column tests.history_mstr_spec_measurement.shared_unit_id is '単位ID';
+comment on column tests.history_mstr_spec_measurement.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_spec_measurement.remarks is '備考';
 comment on column tests.history_mstr_spec_measurement.update_at is '更新日時';
 comment on column tests.history_mstr_spec_measurement.update_user_id is '更新者ID';
@@ -2931,6 +3228,7 @@ comment on column tests.history_mstr_envelope_measurement.history_id is '履歴I
 comment on column tests.history_mstr_envelope_measurement.mstr_envelope_measurement_id is '大きさID';
 comment on column tests.history_mstr_envelope_measurement.measurement_value is '値';
 comment on column tests.history_mstr_envelope_measurement.shared_unit_id is '単位ID';
+comment on column tests.history_mstr_envelope_measurement.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_envelope_measurement.remarks is '備考';
 comment on column tests.history_mstr_envelope_measurement.update_at is '更新日時';
 comment on column tests.history_mstr_envelope_measurement.update_user_id is '更新者ID';
@@ -2944,6 +3242,7 @@ comment on column tests.history_mstr_equipment_envelope.length_id is '縦';
 comment on column tests.history_mstr_equipment_envelope.wide_id_ is '横';
 comment on column tests.history_mstr_equipment_envelope.height_id is '高さ';
 comment on column tests.history_mstr_equipment_envelope.wait_id is '重さ';
+comment on column tests.history_mstr_equipment_envelope.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_equipment_envelope.remarks is '備考';
 comment on column tests.history_mstr_equipment_envelope.update_at is '更新日時';
 comment on column tests.history_mstr_equipment_envelope.update_user_id is '更新者ID';
@@ -2953,6 +3252,7 @@ comment on table tests.mstr_spec_measurement is '梱包サイズ大きさマス�
 comment on column tests.mstr_spec_measurement.mstr_spec_measurement_id is '梱包サイズ大きさID';
 comment on column tests.mstr_spec_measurement.measurement_value is '値';
 comment on column tests.mstr_spec_measurement.shared_unit_id is '単位ID';
+comment on column tests.mstr_spec_measurement.symbol is 'リニアシンボル';
 comment on column tests.mstr_spec_measurement.remarks is '備考';
 comment on column tests.mstr_spec_measurement.update_at is '更新日時';
 comment on column tests.mstr_spec_measurement.update_user_id is '更新者ID';
@@ -2965,6 +3265,7 @@ comment on column tests.mstr_packing_spec.length_id is '縦';
 comment on column tests.mstr_packing_spec.wide_id is '幅';
 comment on column tests.mstr_packing_spec.hight_id is '高さ';
 comment on column tests.mstr_packing_spec.wait_id is '重さ';
+comment on column tests.mstr_packing_spec.symbol is 'リニアシンボル';
 comment on column tests.mstr_packing_spec.remarks is '備考';
 comment on column tests.mstr_packing_spec.update_at is '更新日時';
 comment on column tests.mstr_packing_spec.update_user_id is '更新者ID';
@@ -2974,6 +3275,7 @@ comment on table tests.mstr_envelope_measurement is '設備占有範囲量マス
 comment on column tests.mstr_envelope_measurement.mstr_envelope_measurement_id is '大きさID';
 comment on column tests.mstr_envelope_measurement.measurement_value is '値';
 comment on column tests.mstr_envelope_measurement.shared_unit_id is '単位ID';
+comment on column tests.mstr_envelope_measurement.symbol is 'リニアシンボル';
 comment on column tests.mstr_envelope_measurement.remarks is '備考';
 comment on column tests.mstr_envelope_measurement.update_at is '更新日時';
 comment on column tests.mstr_envelope_measurement.update_user_id is '更新者ID';
@@ -2986,6 +3288,7 @@ comment on column tests.mstr_equipment_envelope.length_id is '奥行き';
 comment on column tests.mstr_equipment_envelope.wide_id_ is '横';
 comment on column tests.mstr_equipment_envelope.height_id is '高さ';
 comment on column tests.mstr_equipment_envelope.wait_id is '重さ';
+comment on column tests.mstr_equipment_envelope.symbol is 'リニアシンボル';
 comment on column tests.mstr_equipment_envelope.remarks is '備考';
 comment on column tests.mstr_equipment_envelope.update_at is '更新日時';
 comment on column tests.mstr_equipment_envelope.update_user_id is '更新者ID';
@@ -2996,6 +3299,7 @@ comment on column tests.trans_shipping_order_detail_record.trans_shipping_order_
 comment on column tests.trans_shipping_order_detail_record.trans_shipping_order_detail_id is '出荷オーダー明細ID';
 comment on column tests.trans_shipping_order_detail_record.shipping_date is '出荷日時';
 comment on column tests.trans_shipping_order_detail_record.shipping_quantity is '出荷数量';
+comment on column tests.trans_shipping_order_detail_record.symbol is 'リニアシンボル';
 comment on column tests.trans_shipping_order_detail_record.remarks is '備考';
 comment on column tests.trans_shipping_order_detail_record.update_at is '更新日時';
 comment on column tests.trans_shipping_order_detail_record.update_user_id is '更新者ID';
@@ -3007,6 +3311,7 @@ comment on column tests.history_mstr_shipping_kind.mstr_shipping_kind_id is '配
 comment on column tests.history_mstr_shipping_kind.code is '配送区分コード';
 comment on column tests.history_mstr_shipping_kind.shared_appellations_id is '呼称セットID';
 comment on column tests.history_mstr_shipping_kind.revision is 'レビジョン';
+comment on column tests.history_mstr_shipping_kind.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_shipping_kind.remarks is '備考';
 comment on column tests.history_mstr_shipping_kind.update_at is '更新日時';
 comment on column tests.history_mstr_shipping_kind.update_user_id is '更新者ID';
@@ -3017,6 +3322,7 @@ comment on column tests.mstr_shipping_kind.mstr_shipping_kind_id is '配送区�
 comment on column tests.mstr_shipping_kind.code is '配送区分コード';
 comment on column tests.mstr_shipping_kind.shared_appellations_id is '呼称セットID';
 comment on column tests.mstr_shipping_kind.revision is 'レビジョン';
+comment on column tests.mstr_shipping_kind.symbol is 'リニアシンボル';
 comment on column tests.mstr_shipping_kind.remarks is '備考';
 comment on column tests.mstr_shipping_kind.update_at is '更新日時';
 comment on column tests.mstr_shipping_kind.update_user_id is '更新者ID';
@@ -3029,6 +3335,7 @@ comment on column tests.history_mstr_item_size_kind.code is '品目大きさ区�
 comment on column tests.history_mstr_item_size_kind.shared_appellations_id is '呼称セットID';
 comment on column tests.history_mstr_item_size_kind.shared_unit_id is '単位ID';
 comment on column tests.history_mstr_item_size_kind.revision is 'レビジョン';
+comment on column tests.history_mstr_item_size_kind.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_item_size_kind.remarks is '備考';
 comment on column tests.history_mstr_item_size_kind.update_at is '更新日時';
 comment on column tests.history_mstr_item_size_kind.update_user_id is '更新者ID';
@@ -3040,6 +3347,7 @@ comment on column tests.mstr_item_size_kind.code is '大きさ区分コード';
 comment on column tests.mstr_item_size_kind.shared_appellations_id is '呼称セットID';
 comment on column tests.mstr_item_size_kind.shared_unit_id is '単位ID';
 comment on column tests.mstr_item_size_kind.revision is 'レビジョン';
+comment on column tests.mstr_item_size_kind.symbol is 'リニアシンボル';
 comment on column tests.mstr_item_size_kind.remarks is '備考';
 comment on column tests.mstr_item_size_kind.update_at is '更新日時';
 comment on column tests.mstr_item_size_kind.update_user_id is '更新者ID';
@@ -3051,6 +3359,7 @@ comment on column tests.history_mstr_item_kind.mstr_item_kind_id is '品目種�
 comment on column tests.history_mstr_item_kind.code is '品目コード';
 comment on column tests.history_mstr_item_kind.shared_appellations_id is '呼称セットID';
 comment on column tests.history_mstr_item_kind.revision is 'レビジョン';
+comment on column tests.history_mstr_item_kind.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_item_kind.remarks is '備考';
 comment on column tests.history_mstr_item_kind.update_at is '更新日時';
 comment on column tests.history_mstr_item_kind.update_user_id is '更新者ID';
@@ -3061,6 +3370,7 @@ comment on column tests.mstr_item_kind.mstr_item_kind_id is '品目種類ID';
 comment on column tests.mstr_item_kind.code is '品目コード';
 comment on column tests.mstr_item_kind.shared_appellations_id is '呼称セットID';
 comment on column tests.mstr_item_kind.revision is 'レビジョン';
+comment on column tests.mstr_item_kind.symbol is 'リニアシンボル';
 comment on column tests.mstr_item_kind.remarks is '備考';
 comment on column tests.mstr_item_kind.update_at is '更新日時';
 comment on column tests.mstr_item_kind.update_user_id is '更新者ID';
@@ -3073,6 +3383,7 @@ comment on column tests.history_shared_appellations.shared_dictionary_name_id is
 comment on column tests.history_shared_appellations.shared_dictionary_pronunciation_id is '読み';
 comment on column tests.history_shared_appellations.shared_dictionary_nickname_id is '略称';
 comment on column tests.history_shared_appellations.revision is 'レビジョン';
+comment on column tests.history_shared_appellations.symbol is 'リニアシンボル';
 comment on column tests.history_shared_appellations.remarks is '備考';
 comment on column tests.history_shared_appellations.update_at is '更新日時';
 comment on column tests.history_shared_appellations.update_user_id is '更新者ID';
@@ -3095,6 +3406,7 @@ comment on column tests.history_shared_dictionary.shared_dictionary_id is '共�
 comment on column tests.history_shared_dictionary.ja is 'ja';
 comment on column tests.history_shared_dictionary.en is 'en';
 comment on column tests.history_shared_dictionary.revision is 'レビジョン';
+comment on column tests.history_shared_dictionary.symbol is 'リニアシンボル';
 comment on column tests.history_shared_dictionary.remarks is '備考';
 comment on column tests.history_shared_dictionary.update_at is '更新日時';
 comment on column tests.history_shared_dictionary.update_user_id is '更新者ID';
@@ -3120,6 +3432,7 @@ comment on column tests.history_mstr_equipment.control_code is '管理コード'
 comment on column tests.history_mstr_equipment.label_code is '表示コード';
 comment on column tests.history_mstr_equipment.mstr_location_id is '場所ID';
 comment on column tests.history_mstr_equipment.revision is 'レビジョン';
+comment on column tests.history_mstr_equipment.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_equipment.remarks is '備考';
 comment on column tests.history_mstr_equipment.update_at is '更新日時';
 comment on column tests.history_mstr_equipment.update_user_id is '更新者ID';
@@ -3133,6 +3446,7 @@ comment on column tests.history_mstr_equipment_kind.shared_appellations_id is '�
 comment on column tests.history_mstr_equipment_kind.start_at is '適用開始';
 comment on column tests.history_mstr_equipment_kind.stop_at is '適用終了';
 comment on column tests.history_mstr_equipment_kind.revision is 'レビジョン';
+comment on column tests.history_mstr_equipment_kind.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_equipment_kind.remarks is '備考';
 comment on column tests.history_mstr_equipment_kind.update_at is '更新日時';
 comment on column tests.history_mstr_equipment_kind.update_user_id is '更新者ID';
@@ -3145,6 +3459,7 @@ comment on column tests.mstr_equipment_kind.shared_appellations_id is '呼称セ
 comment on column tests.mstr_equipment_kind.start_at is '適用開始';
 comment on column tests.mstr_equipment_kind.stop_at is '適用終了';
 comment on column tests.mstr_equipment_kind.revision is 'レビジョン';
+comment on column tests.mstr_equipment_kind.symbol is 'リニアシンボル';
 comment on column tests.mstr_equipment_kind.remarks is '備考';
 comment on column tests.mstr_equipment_kind.update_at is '更新日時';
 comment on column tests.mstr_equipment_kind.update_user_id is '更新者ID';
@@ -3158,6 +3473,7 @@ comment on column tests.history_info_staff_icon.info_staff_id is '担当者ID';
 comment on column tests.history_info_staff_icon.info_staff_history_id is '担当者履歴ID';
 comment on column tests.history_info_staff_icon.name is '名称';
 comment on column tests.history_info_staff_icon.revision is 'レビジョン';
+comment on column tests.history_info_staff_icon.symbol is 'リニアシンボル';
 comment on column tests.history_info_staff_icon.remarks is '備考';
 comment on column tests.history_info_staff_icon.update_at is '更新日時';
 comment on column tests.history_info_staff_icon.update_user_id is '更新者ID';
@@ -3170,6 +3486,7 @@ comment on column tests.info_staff_icon.info_staff_id is '担当者ID';
 comment on column tests.info_staff_icon.info_staff_history_id is '担当者履歴ID';
 comment on column tests.info_staff_icon.name is '名称';
 comment on column tests.info_staff_icon.revision is 'レビジョン';
+comment on column tests.info_staff_icon.symbol is 'リニアシンボル';
 comment on column tests.info_staff_icon.remarks is '備考';
 comment on column tests.info_staff_icon.update_at is '更新日時';
 comment on column tests.info_staff_icon.update_user_id is '更新者ID';
@@ -3182,6 +3499,7 @@ comment on column tests.history_mstr_item_hcdcs.mstr_item_id is '品目ID';
 comment on column tests.history_mstr_item_hcdcs.iso3166_3 is '国';
 comment on column tests.history_mstr_item_hcdcs.code is 'コード';
 comment on column tests.history_mstr_item_hcdcs.revision is 'レビジョン';
+comment on column tests.history_mstr_item_hcdcs.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_item_hcdcs.remarks is '備考';
 comment on column tests.history_mstr_item_hcdcs.update_at is '更新日時';
 comment on column tests.history_mstr_item_hcdcs.update_user_id is '更新者ID';
@@ -3192,6 +3510,7 @@ comment on column tests.mstr_item_hcdcs.mstr_item_hcds_id is '品目HSコードI
 comment on column tests.mstr_item_hcdcs.mstr_item_id is '品目ID';
 comment on column tests.mstr_item_hcdcs.iso3166_3 is '国';
 comment on column tests.mstr_item_hcdcs.code is 'コード';
+comment on column tests.mstr_item_hcdcs.symbol is 'リニアシンボル';
 comment on column tests.mstr_item_hcdcs.remarks is '備考';
 comment on column tests.mstr_item_hcdcs.update_at is '更新日時';
 comment on column tests.mstr_item_hcdcs.update_user_id is '更新者ID';
@@ -3203,6 +3522,7 @@ comment on column tests.history_mstr_document_content_tree.mstr_document_content
 comment on column tests.history_mstr_document_content_tree.mstr_document_content_id is '自コンテンツID';
 comment on column tests.history_mstr_document_content_tree.parent_mstr_document_content_id is '親コンテンツID';
 comment on column tests.history_mstr_document_content_tree.revision is 'レビジョン';
+comment on column tests.history_mstr_document_content_tree.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_document_content_tree.remarks is '備考';
 comment on column tests.history_mstr_document_content_tree.update_at is '更新日時';
 comment on column tests.history_mstr_document_content_tree.update_user_id is '更新者ID';
@@ -3229,6 +3549,7 @@ comment on column tests.history_mstr_document_content.content is 'コンテン�
 comment on column tests.history_mstr_document_content.image_content is 'イメージコンテンツ';
 comment on column tests.history_mstr_document_content.trans_file_id is 'ファイルID';
 comment on column tests.history_mstr_document_content.revision is 'レビジョン';
+comment on column tests.history_mstr_document_content.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_document_content.remarks is '備考';
 comment on column tests.history_mstr_document_content.update_at is '更新日時';
 comment on column tests.history_mstr_document_content.update_user_id is '更新者ID';
@@ -3239,6 +3560,7 @@ comment on column tests.mstr_document_content_tree.mstr_document_content_tree_id
 comment on column tests.mstr_document_content_tree.mstr_document_content_id is '自コンテンツID';
 comment on column tests.mstr_document_content_tree.parent_mstr_document_content_id is '親コンテンツID';
 comment on column tests.mstr_document_content_tree.revision is 'レビジョン';
+comment on column tests.mstr_document_content_tree.symbol is 'リニアシンボル';
 comment on column tests.mstr_document_content_tree.remarks is '備考';
 comment on column tests.mstr_document_content_tree.update_at is '更新日時';
 comment on column tests.mstr_document_content_tree.update_user_id is '更新者ID';
@@ -3255,6 +3577,7 @@ comment on column tests.mstr_document_content.content is 'コンテンツ';
 comment on column tests.mstr_document_content.image_content is 'イメージコンテンツ';
 comment on column tests.mstr_document_content.trans_file_id is 'ファイルID';
 comment on column tests.mstr_document_content.revision is 'レビジョン';
+comment on column tests.mstr_document_content.symbol is 'リニアシンボル';
 comment on column tests.mstr_document_content.remarks is '備考';
 comment on column tests.mstr_document_content.update_at is '更新日時';
 comment on column tests.mstr_document_content.update_user_id is '更新者ID';
@@ -3270,6 +3593,7 @@ comment on column tests.history_mstr_document_tier.attributive_noun is '限定�
 comment on column tests.history_mstr_document_tier.Identifier is '管理番号識別子';
 comment on column tests.history_mstr_document_tier.tier_number is '階層番号';
 comment on column tests.history_mstr_document_tier.revision is 'レビジョン';
+comment on column tests.history_mstr_document_tier.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_document_tier.remarks is '備考';
 comment on column tests.history_mstr_document_tier.update_at is '更新日時';
 comment on column tests.history_mstr_document_tier.update_user_id is '更新者ID';
@@ -3284,6 +3608,7 @@ comment on column tests.mstr_document_tier.attributive_noun is '限定名詞';
 comment on column tests.mstr_document_tier.Identifier is '管理番号識別子';
 comment on column tests.mstr_document_tier.tier_number is '階層番号';
 comment on column tests.mstr_document_tier.revision is 'レビジョン';
+comment on column tests.mstr_document_tier.symbol is 'リニアシンボル';
 comment on column tests.mstr_document_tier.remarks is '備考';
 comment on column tests.mstr_document_tier.update_at is '更新日時';
 comment on column tests.mstr_document_tier.update_user_id is '更新者ID';
@@ -3295,6 +3620,7 @@ comment on column tests.history_mstr_document_tree.mstr_document_tree_id is '文
 comment on column tests.history_mstr_document_tree.mstr_document_id is '自文書ID';
 comment on column tests.history_mstr_document_tree.parent_mstr_document_id is '親文書ID';
 comment on column tests.history_mstr_document_tree.revision is 'レビジョン';
+comment on column tests.history_mstr_document_tree.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_document_tree.remarks is '備考';
 comment on column tests.history_mstr_document_tree.update_at is '更新日時';
 comment on column tests.history_mstr_document_tree.update_user_id is '更新者ID';
@@ -3314,6 +3640,7 @@ comment on column tests.mstr_document_tree.mstr_document_tree_id is '文書体�
 comment on column tests.mstr_document_tree.mstr_document_id is '自文書ID';
 comment on column tests.mstr_document_tree.parent_mstr_document_id is '親文書ID';
 comment on column tests.mstr_document_tree.revision is 'レビジョン';
+comment on column tests.mstr_document_tree.symbol is 'リニアシンボル';
 comment on column tests.mstr_document_tree.remarks is '備考';
 comment on column tests.mstr_document_tree.update_at is '更新日時';
 comment on column tests.mstr_document_tree.update_user_id is '更新者ID';
@@ -3332,6 +3659,7 @@ comment on column tests.history_mstr_document.version_code is '版コード';
 comment on column tests.history_mstr_document.version_name is '版名';
 comment on column tests.history_mstr_document.trans_approved_id is '承認結果ID';
 comment on column tests.history_mstr_document.revision is 'レビジョン';
+comment on column tests.history_mstr_document.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_document.remarks is '備考';
 comment on column tests.history_mstr_document.update_at is '更新日時';
 comment on column tests.history_mstr_document.update_user_id is '更新者ID';
@@ -3349,6 +3677,7 @@ comment on column tests.mstr_document.version_code is '版コード';
 comment on column tests.mstr_document.version_name is '版名';
 comment on column tests.mstr_document.trans_approved_id is '承認結果ID';
 comment on column tests.mstr_document.revision is 'レビジョン';
+comment on column tests.mstr_document.symbol is 'リニアシンボル';
 comment on column tests.mstr_document.remarks is '備考';
 comment on column tests.mstr_document.update_at is '更新日時';
 comment on column tests.mstr_document.update_user_id is '更新者ID';
@@ -3359,6 +3688,7 @@ comment on column tests.trans_container_tree.trans_container_tree_id is 'コン�
 comment on column tests.trans_container_tree.trans_container_id is '自コンテナID';
 comment on column tests.trans_container_tree.parent_trans_container_id is '親コンテナID';
 comment on column tests.trans_container_tree.revision is 'レビジョン';
+comment on column tests.trans_container_tree.symbol is 'リニアシンボル';
 comment on column tests.trans_container_tree.remarks is '備考';
 comment on column tests.trans_container_tree.update_at is '更新日時';
 comment on column tests.trans_container_tree.update_user_id is '更新者ID';
@@ -3370,6 +3700,7 @@ comment on column tests.history_mstr_location_tree.mstr_location_tree_id is '場
 comment on column tests.history_mstr_location_tree.mstr_location_id is '自場所ID';
 comment on column tests.history_mstr_location_tree.parent_mstr_location_id is '親場所ID';
 comment on column tests.history_mstr_location_tree.revision is 'レビジョン';
+comment on column tests.history_mstr_location_tree.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_location_tree.remarks is '備考';
 comment on column tests.history_mstr_location_tree.update_at is '更新日時';
 comment on column tests.history_mstr_location_tree.update_user_id is '更新者ID';
@@ -3380,6 +3711,7 @@ comment on column tests.mstr_location_tree.mstr_location_tree_id is '場所体�
 comment on column tests.mstr_location_tree.mstr_location_id is '自場所ID';
 comment on column tests.mstr_location_tree.parent_mstr_location_id is '親場所ID';
 comment on column tests.mstr_location_tree.revision is 'レビジョン';
+comment on column tests.mstr_location_tree.symbol is 'リニアシンボル';
 comment on column tests.mstr_location_tree.remarks is '備考';
 comment on column tests.mstr_location_tree.update_at is '更新日時';
 comment on column tests.mstr_location_tree.update_user_id is '更新者ID';
@@ -3391,6 +3723,7 @@ comment on column tests.history_info_department_tree.info_department_tree_id is 
 comment on column tests.history_info_department_tree.info_department_id is '自組織ID';
 comment on column tests.history_info_department_tree.parent_info_department_id is '親組織ID';
 comment on column tests.history_info_department_tree.revision is 'レビジョン';
+comment on column tests.history_info_department_tree.symbol is 'リニアシンボル';
 comment on column tests.history_info_department_tree.remarks is '備考';
 comment on column tests.history_info_department_tree.update_at is '更新日時';
 comment on column tests.history_info_department_tree.update_user_id is '更新者ID';
@@ -3401,6 +3734,7 @@ comment on column tests.info_department_tree.info_department_tree_id is '組織�
 comment on column tests.info_department_tree.info_department_id is '自組織ID';
 comment on column tests.info_department_tree.parent_info_department_id is '親組織ID';
 comment on column tests.info_department_tree.revision is 'レビジョン';
+comment on column tests.info_department_tree.symbol is 'リニアシンボル';
 comment on column tests.info_department_tree.remarks is '備考';
 comment on column tests.info_department_tree.update_at is '更新日時';
 comment on column tests.info_department_tree.update_user_id is '更新者ID';
@@ -3431,6 +3765,7 @@ comment on column tests.history_mstr_inspection_operation.shared_appellations_id
 comment on column tests.history_mstr_inspection_operation.code is '点検整備運用コード';
 comment on column tests.history_mstr_inspection_operation.mstr_equipment_id is '設備ID';
 comment on column tests.history_mstr_inspection_operation.revision is 'レビジョン';
+comment on column tests.history_mstr_inspection_operation.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_inspection_operation.remarks is '備考';
 comment on column tests.history_mstr_inspection_operation.update_at is '更新日時';
 comment on column tests.history_mstr_inspection_operation.update_user_id is '更新者ID';
@@ -3442,6 +3777,7 @@ comment on column tests.mstr_inspection_operation.shared_appellations_id is '呼
 comment on column tests.mstr_inspection_operation.code is '点検整備運用コード';
 comment on column tests.mstr_inspection_operation.mstr_equipment_id is '設備ID';
 comment on column tests.mstr_inspection_operation.revision is 'レビジョン';
+comment on column tests.mstr_inspection_operation.symbol is 'リニアシンボル';
 comment on column tests.mstr_inspection_operation.remarks is '備考';
 comment on column tests.mstr_inspection_operation.update_at is '更新日時';
 comment on column tests.mstr_inspection_operation.update_user_id is '更新者ID';
@@ -3456,6 +3792,7 @@ comment on column tests.history_mstr_inspection_operation_task.sequence is '順'
 comment on column tests.history_mstr_inspection_operation_task.commencement_date is '起算日';
 comment on column tests.history_mstr_inspection_operation_task.time_interval is '間隔';
 comment on column tests.history_mstr_inspection_operation_task.revision is 'レビジョン';
+comment on column tests.history_mstr_inspection_operation_task.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_inspection_operation_task.remarks is '備考';
 comment on column tests.history_mstr_inspection_operation_task.update_at is '更新日時';
 comment on column tests.history_mstr_inspection_operation_task.update_user_id is '更新者ID';
@@ -3469,6 +3806,7 @@ comment on column tests.mstr_inspection_operation_task.sequence is '順';
 comment on column tests.mstr_inspection_operation_task.commencement_date is '起算日';
 comment on column tests.mstr_inspection_operation_task.time_interval is '間隔';
 comment on column tests.mstr_inspection_operation_task.revision is 'レビジョン';
+comment on column tests.mstr_inspection_operation_task.symbol is 'リニアシンボル';
 comment on column tests.mstr_inspection_operation_task.remarks is '備考';
 comment on column tests.mstr_inspection_operation_task.update_at is '更新日時';
 comment on column tests.mstr_inspection_operation_task.update_user_id is '更新者ID';
@@ -3480,6 +3818,7 @@ comment on column tests.history_info_department_access_permission.info_departmen
 comment on column tests.history_info_department_access_permission.info_access_path_id is 'アクセスパスID';
 comment on column tests.history_info_department_access_permission.info_department_id is '組織情報ID';
 comment on column tests.history_info_department_access_permission.revision is 'レビジョン';
+comment on column tests.history_info_department_access_permission.symbol is 'リニアシンボル';
 comment on column tests.history_info_department_access_permission.remarks is '備考';
 comment on column tests.history_info_department_access_permission.update_at is '更新日時';
 comment on column tests.history_info_department_access_permission.update_user_id is '更新者ID';
@@ -3490,6 +3829,7 @@ comment on column tests.info_department_access_permission.info_department_access
 comment on column tests.info_department_access_permission.info_access_path_id is 'アクセスパスID';
 comment on column tests.info_department_access_permission.info_department_id is '組織情報ID';
 comment on column tests.info_department_access_permission.revision is 'レビジョン';
+comment on column tests.info_department_access_permission.symbol is 'リニアシンボル';
 comment on column tests.info_department_access_permission.remarks is '備考';
 comment on column tests.info_department_access_permission.update_at is '更新日時';
 comment on column tests.info_department_access_permission.update_user_id is '更新者ID';
@@ -3505,6 +3845,7 @@ comment on column tests.history_info_assign.info_department_id is '部署ID';
 comment on column tests.history_info_assign.enable is '有効';
 comment on column tests.history_info_assign.priority is '優先順位';
 comment on column tests.history_info_assign.revision is 'レビジョン';
+comment on column tests.history_info_assign.symbol is 'リニアシンボル';
 comment on column tests.history_info_assign.remarks is '備考';
 comment on column tests.history_info_assign.update_at is '更新日時';
 comment on column tests.history_info_assign.update_user_id is '更新者ID';
@@ -3517,6 +3858,7 @@ comment on column tests.mstr_item_provision.mstr_item_id is '品目ID';
 comment on column tests.mstr_item_provision.start_at is '適用開始';
 comment on column tests.mstr_item_provision.stop_at is '適用終了';
 comment on column tests.mstr_item_provision.revision is 'レビジョン';
+comment on column tests.mstr_item_provision.symbol is 'リニアシンボル';
 comment on column tests.mstr_item_provision.remarks is '備考';
 comment on column tests.mstr_item_provision.update_at is '更新日時';
 comment on column tests.mstr_item_provision.update_user_id is '更新者ID';
@@ -3530,6 +3872,7 @@ comment on column tests.history_mstr_item_provision.mstr_item_id is '設備ID';
 comment on column tests.history_mstr_item_provision.start_at is '適用開始';
 comment on column tests.history_mstr_item_provision.stop_at is '適用終了';
 comment on column tests.history_mstr_item_provision.revision is 'レビジョン';
+comment on column tests.history_mstr_item_provision.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_item_provision.remarks is '備考';
 comment on column tests.history_mstr_item_provision.update_at is '更新日時';
 comment on column tests.history_mstr_item_provision.update_user_id is '更新者ID';
@@ -3543,6 +3886,7 @@ comment on column tests.history_mstr_equipment_provision.mstr_equipment_id is '�
 comment on column tests.history_mstr_equipment_provision.start_at is '適用開始';
 comment on column tests.history_mstr_equipment_provision.stop_at is '適用終了';
 comment on column tests.history_mstr_equipment_provision.revision is 'レビジョン';
+comment on column tests.history_mstr_equipment_provision.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_equipment_provision.remarks is '備考';
 comment on column tests.history_mstr_equipment_provision.update_at is '更新日時';
 comment on column tests.history_mstr_equipment_provision.update_user_id is '更新者ID';
@@ -3555,6 +3899,7 @@ comment on column tests.mstr_equipment_provision.mstr_equipment_id is '設備ID'
 comment on column tests.mstr_equipment_provision.start_at is '適用開始';
 comment on column tests.mstr_equipment_provision.stop_at is '適用終了';
 comment on column tests.mstr_equipment_provision.revision is 'レビジョン';
+comment on column tests.mstr_equipment_provision.symbol is 'リニアシンボル';
 comment on column tests.mstr_equipment_provision.remarks is '備考';
 comment on column tests.mstr_equipment_provision.update_at is '更新日時';
 comment on column tests.mstr_equipment_provision.update_user_id is '更新者ID';
@@ -3574,6 +3919,7 @@ comment on column tests.trans_container.trans_container_id is 'コンテナID';
 comment on column tests.trans_container.code is 'コード';
 comment on column tests.trans_container.name is 'コンテナ名';
 comment on column tests.trans_container.mstr_location_id is '場所ID';
+comment on column tests.trans_container.symbol is 'リニアシンボル';
 comment on column tests.trans_container.remarks is '備考';
 comment on column tests.trans_container.update_at is '更新日時';
 comment on column tests.trans_container.update_user_id is '更新者ID';
@@ -3596,6 +3942,7 @@ comment on column tests.history_info_app_status.status is '状態';
 comment on column tests.history_info_app_status.plan_date is '予定日';
 comment on column tests.history_info_app_status.start_date is '実行日';
 comment on column tests.history_info_app_status.revision is 'レビジョン';
+comment on column tests.history_info_app_status.symbol is 'リニアシンボル';
 comment on column tests.history_info_app_status.remarks is '備考';
 comment on column tests.history_info_app_status.update_at is '更新日時';
 comment on column tests.history_info_app_status.update_user_id is '更新者ID';
@@ -3608,6 +3955,7 @@ comment on column tests.info_app_status.status is '状態';
 comment on column tests.info_app_status.plan_date is '予定日';
 comment on column tests.info_app_status.start_date is '実行日';
 comment on column tests.info_app_status.revision is 'レビジョン';
+comment on column tests.info_app_status.symbol is 'リニアシンボル';
 comment on column tests.info_app_status.remarks is '備考';
 comment on column tests.info_app_status.update_at is '更新日時';
 comment on column tests.info_app_status.update_user_id is '更新者ID';
@@ -3623,6 +3971,7 @@ comment on column tests.trans_announcement.title is 'タイトル';
 comment on column tests.trans_announcement.message is 'メッセージ';
 comment on column tests.trans_announcement.is_reade is '既読';
 comment on column tests.trans_announcement.expiration_date is '削除予定';
+comment on column tests.trans_announcement.symbol is 'リニアシンボル';
 comment on column tests.trans_announcement.remarks is '備考';
 comment on column tests.trans_announcement.update_at is '更新日時';
 comment on column tests.trans_announcement.update_user_id is '更新者ID';
@@ -3638,6 +3987,7 @@ comment on column tests.history_mstr_operation_task.control_code is '管理コ�
 comment on column tests.history_mstr_operation_task.shared_appellations_id is '呼称セットID';
 comment on column tests.history_mstr_operation_task.detail is '詳細';
 comment on column tests.history_mstr_operation_task.revision is 'レビジョン';
+comment on column tests.history_mstr_operation_task.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_operation_task.remarks is '備考';
 comment on column tests.history_mstr_operation_task.update_at is '更新日時';
 comment on column tests.history_mstr_operation_task.update_user_id is '更新者ID';
@@ -3652,6 +4002,7 @@ comment on column tests.history_mstr_report.code is 'コード';
 comment on column tests.history_mstr_report.is_default is 'デフォルト';
 comment on column tests.history_mstr_report.info_access_path_id is 'アクセスパスID';
 comment on column tests.history_mstr_report.revision is 'レビジョン';
+comment on column tests.history_mstr_report.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_report.remarks is '備考';
 comment on column tests.history_mstr_report.update_at is '更新日時';
 comment on column tests.history_mstr_report.update_user_id is '更新者ID';
@@ -3665,6 +4016,7 @@ comment on column tests.history_mstr_item_operation_task.mstr_item_id is '品目
 comment on column tests.history_mstr_item_operation_task.sequence is '順';
 comment on column tests.history_mstr_item_operation_task.default_interval is '標準時間';
 comment on column tests.history_mstr_item_operation_task.revision is 'レビジョン';
+comment on column tests.history_mstr_item_operation_task.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_item_operation_task.remarks is '備考';
 comment on column tests.history_mstr_item_operation_task.update_at is '更新日時';
 comment on column tests.history_mstr_item_operation_task.update_user_id is '更新者ID';
@@ -3680,6 +4032,7 @@ comment on column tests.history_mstr_task_tree.control_code is '管理コード'
 comment on column tests.history_mstr_task_tree.shared_appellations_id is '呼称セットID';
 comment on column tests.history_mstr_task_tree.detail is '詳細';
 comment on column tests.history_mstr_task_tree.revision is 'レビジョン';
+comment on column tests.history_mstr_task_tree.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_task_tree.remarks is '備考';
 comment on column tests.history_mstr_task_tree.update_at is '更新日時';
 comment on column tests.history_mstr_task_tree.update_user_id is '更新者ID';
@@ -3691,6 +4044,7 @@ comment on column tests.history_mstr_outsource_available.mstr_outsource_availabl
 comment on column tests.history_mstr_outsource_available.mstr_task_location_id is '工程場所ID';
 comment on column tests.history_mstr_outsource_available.mstr_stakeholder_id is '利害関係者ID';
 comment on column tests.history_mstr_outsource_available.revision is 'レビジョン';
+comment on column tests.history_mstr_outsource_available.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_outsource_available.remarks is '備考';
 comment on column tests.history_mstr_outsource_available.update_at is '更新日時';
 comment on column tests.history_mstr_outsource_available.update_user_id is '更新者ID';
@@ -3702,6 +4056,7 @@ comment on column tests.history_mstr_equipment_available.mstr_equipment_availabl
 comment on column tests.history_mstr_equipment_available.mstr_task_location_id is '工程場所ID';
 comment on column tests.history_mstr_equipment_available.mstr_equipment_id is '設備ID';
 comment on column tests.history_mstr_equipment_available.revision is '履歴ID';
+comment on column tests.history_mstr_equipment_available.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_equipment_available.remarks is '備考';
 comment on column tests.history_mstr_equipment_available.update_at is '更新日時';
 comment on column tests.history_mstr_equipment_available.update_user_id is '更新者ID';
@@ -3717,6 +4072,7 @@ comment on column tests.history_mstr_task.detail is '詳細';
 comment on column tests.history_mstr_task.class is '区分';
 comment on column tests.history_mstr_task.default_time is '標準時間';
 comment on column tests.history_mstr_task.revision is 'レビジョン';
+comment on column tests.history_mstr_task.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_task.remarks is '備考';
 comment on column tests.history_mstr_task.update_at is '更新日時';
 comment on column tests.history_mstr_task.update_user_id is '更新者ID';
@@ -3731,6 +4087,7 @@ comment on column tests.history_mstr_task_location.mstr_location_id is '場所ID
 comment on column tests.history_mstr_task_location.mstr_equipment_id is '設備ID';
 comment on column tests.history_mstr_task_location.mstr_stakeholder_id is '利害関係者ID';
 comment on column tests.history_mstr_task_location.revision is 'レビジョン';
+comment on column tests.history_mstr_task_location.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_task_location.remarks is '備考';
 comment on column tests.history_mstr_task_location.update_at is '更新日時';
 comment on column tests.history_mstr_task_location.update_user_id is '更新者ID';
@@ -3744,6 +4101,7 @@ comment on column tests.mstr_task_location.mstr_location_id is '場所ID';
 comment on column tests.mstr_task_location.mstr_equipment_id is '設備ID';
 comment on column tests.mstr_task_location.mstr_stakeholder_id is '利害関係者ID';
 comment on column tests.mstr_task_location.revision is 'レビジョン';
+comment on column tests.mstr_task_location.symbol is 'リニアシンボル';
 comment on column tests.mstr_task_location.remarks is '備考';
 comment on column tests.mstr_task_location.update_at is '更新日時';
 comment on column tests.mstr_task_location.update_user_id is '更新者ID';
@@ -3756,6 +4114,7 @@ comment on column tests.history_mstr_task_group.code is 'グループコード';
 comment on column tests.history_mstr_task_group.shared_appellations_id is '呼称セットID';
 comment on column tests.history_mstr_task_group.details is '詳細';
 comment on column tests.history_mstr_task_group.revision is 'レビジョン';
+comment on column tests.history_mstr_task_group.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_task_group.remarks is '備考';
 comment on column tests.history_mstr_task_group.update_at is '更新日時';
 comment on column tests.history_mstr_task_group.update_user_id is '更新者ID';
@@ -3768,6 +4127,7 @@ comment on column tests.history_mstr_operation.control_code is '管理コード'
 comment on column tests.history_mstr_operation.shared_appellations_id is '呼称セットID';
 comment on column tests.history_mstr_operation.detail is '詳細';
 comment on column tests.history_mstr_operation.revision is 'レビジョン';
+comment on column tests.history_mstr_operation.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_operation.remarks is '備考';
 comment on column tests.history_mstr_operation.update_at is '更新日時';
 comment on column tests.history_mstr_operation.update_user_id is '更新者ID';
@@ -3779,6 +4139,7 @@ comment on column tests.history_mstr_manufacturer.mstr_manufacturer_id is '製�
 comment on column tests.history_mstr_manufacturer.code is '管理コード';
 comment on column tests.history_mstr_manufacturer.shared_appellations_id is '呼称セットID';
 comment on column tests.history_mstr_manufacturer.revision is 'レビジョン';
+comment on column tests.history_mstr_manufacturer.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_manufacturer.remarks is '備考';
 comment on column tests.history_mstr_manufacturer.update_at is '更新日時';
 comment on column tests.history_mstr_manufacturer.update_user_id is '更新者ID';
@@ -3796,6 +4157,7 @@ comment on column tests.history_mstr_inspection.external_inspection is '外部�
 comment on column tests.history_mstr_inspection.inspection_formula_id is '点検整備項目ID';
 comment on column tests.history_mstr_inspection.revision is 'レビジョン';
 comment on column tests.history_mstr_inspection.mstr_item_id is '点検整備サービス品目ID';
+comment on column tests.history_mstr_inspection.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_inspection.remarks is '備考';
 comment on column tests.history_mstr_inspection.update_at is '更新日時';
 comment on column tests.history_mstr_inspection.update_user_id is '更新者ID';
@@ -3809,6 +4171,7 @@ comment on column tests.history_mstr_inspection_formula.arg_class is '引数';
 comment on column tests.history_mstr_inspection_formula.type_class is '型';
 comment on column tests.history_mstr_inspection_formula.format_class is 'フォーマット';
 comment on column tests.history_mstr_inspection_formula.revision is 'レビジョン';
+comment on column tests.history_mstr_inspection_formula.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_inspection_formula.remarks is '備考';
 comment on column tests.history_mstr_inspection_formula.update_at is '更新日時';
 comment on column tests.history_mstr_inspection_formula.update_user_id is '更新者ID';
@@ -3824,6 +4187,7 @@ comment on column tests.history_mstr_item_actual_size.detail is '詳細';
 comment on column tests.history_mstr_item_actual_size.unit_history_id is '単位履歴ID';
 comment on column tests.history_mstr_item_actual_size.info_unit_id is '単位ID';
 comment on column tests.history_mstr_item_actual_size.revision is 'レビジョン';
+comment on column tests.history_mstr_item_actual_size.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_item_actual_size.remarks is '備考';
 comment on column tests.history_mstr_item_actual_size.update_at is '更新日時';
 comment on column tests.history_mstr_item_actual_size.update_user_id is '更新者ID';
@@ -3840,6 +4204,7 @@ comment on column tests.history_mstr_item_tree.shared_appellations_id is '呼称
 comment on column tests.history_mstr_item_tree.quantity is '数量';
 comment on column tests.history_mstr_item_tree.detail is '詳細';
 comment on column tests.history_mstr_item_tree.revision is 'レビジョン';
+comment on column tests.history_mstr_item_tree.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_item_tree.remarks is '備考';
 comment on column tests.history_mstr_item_tree.update_at is '更新日時';
 comment on column tests.history_mstr_item_tree.update_user_id is '更新者ID';
@@ -3861,6 +4226,7 @@ comment on column tests.history_mstr_item.increment is '刻み';
 comment on column tests.history_mstr_item.lot is 'ロット';
 comment on column tests.history_mstr_item.stock_quantity is '最少在庫数量';
 comment on column tests.history_mstr_item.revision is 'レビジョン';
+comment on column tests.history_mstr_item.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_item.remarks is '備考';
 comment on column tests.history_mstr_item.update_at is '更新日時';
 comment on column tests.history_mstr_item.update_user_id is '更新者ID';
@@ -3874,8 +4240,11 @@ comment on column tests.history_mstr_audit_std_checkitem.code is '監査標準�
 comment on column tests.history_mstr_audit_std_checkitem.control_code is '管理コード';
 comment on column tests.history_mstr_audit_std_checkitem.shared_appellations_id is '呼称セットID';
 comment on column tests.history_mstr_audit_std_checkitem.detail is '詳細';
+comment on column tests.history_mstr_audit_std_checkitem.type_class is '型';
+comment on column tests.history_mstr_audit_std_checkitem.formula_class is '式';
 comment on column tests.history_mstr_audit_std_checkitem.arg_class is '引数';
 comment on column tests.history_mstr_audit_std_checkitem.revision is 'レビジョン';
+comment on column tests.history_mstr_audit_std_checkitem.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_audit_std_checkitem.remarks is '備考';
 comment on column tests.history_mstr_audit_std_checkitem.update_at is '更新日時';
 comment on column tests.history_mstr_audit_std_checkitem.update_user_id is '更新者ID';
@@ -3890,6 +4259,7 @@ comment on column tests.history_mstr_audit_std.category is '区分';
 comment on column tests.history_mstr_audit_std.shared_appellations_id is '呼称セットID';
 comment on column tests.history_mstr_audit_std.detail is '詳細';
 comment on column tests.history_mstr_audit_std.revision is 'レビジョン';
+comment on column tests.history_mstr_audit_std.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_audit_std.remarks is '備考';
 comment on column tests.history_mstr_audit_std.update_at is '更新日時';
 comment on column tests.history_mstr_audit_std.update_user_id is '更新者ID';
@@ -3905,6 +4275,7 @@ comment on column tests.history_mstr_location.shared_appellations_id is '呼称�
 comment on column tests.history_mstr_location.info_address_id is '住所ID';
 comment on column tests.history_mstr_location.available is '使用';
 comment on column tests.history_mstr_location.revision is 'レビジョン';
+comment on column tests.history_mstr_location.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_location.remarks is '備考';
 comment on column tests.history_mstr_location.update_at is '更新日時';
 comment on column tests.history_mstr_location.update_user_id is '更新者ID';
@@ -3916,6 +4287,7 @@ comment on column tests.history_mstr_equipment_tag.mstr_equipment_tag_id is '設
 comment on column tests.history_mstr_equipment_tag.trans_file_id is '様式ファイルID';
 comment on column tests.history_mstr_equipment_tag.name is '名前';
 comment on column tests.history_mstr_equipment_tag.revision is 'レビジョン';
+comment on column tests.history_mstr_equipment_tag.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_equipment_tag.remarks is '備考';
 comment on column tests.history_mstr_equipment_tag.update_at is '更新日時';
 comment on column tests.history_mstr_equipment_tag.update_user_id is '更新者ID';
@@ -3933,6 +4305,7 @@ comment on column tests.history_mstr_stakeholder_contact.mail is 'メール';
 comment on column tests.history_mstr_stakeholder_contact.info_address_id is '住所ID';
 comment on column tests.history_mstr_stakeholder_contact.mstr_shipping_kind_id is '配送区分ID';
 comment on column tests.history_mstr_stakeholder_contact.revision is 'レビジョン';
+comment on column tests.history_mstr_stakeholder_contact.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_stakeholder_contact.remarks is '備考';
 comment on column tests.history_mstr_stakeholder_contact.update_at is '更新日時';
 comment on column tests.history_mstr_stakeholder_contact.update_user_id is '更新者ID';
@@ -3944,6 +4317,7 @@ comment on column tests.history_mstr_stakeholder_provision.mstr_stakeholder_prov
 comment on column tests.history_mstr_stakeholder_provision.mstr_stakeholder_id is '利害関係者ID';
 comment on column tests.history_mstr_stakeholder_provision.info_provision_id is '提供ID';
 comment on column tests.history_mstr_stakeholder_provision.revision is 'レビジョン';
+comment on column tests.history_mstr_stakeholder_provision.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_stakeholder_provision.remarks is '備考';
 comment on column tests.history_mstr_stakeholder_provision.update_at is '更新日時';
 comment on column tests.history_mstr_stakeholder_provision.update_user_id is '更新者ID';
@@ -3962,6 +4336,7 @@ comment on column tests.history_mstr_stakeholder.mail is 'メール';
 comment on column tests.history_mstr_stakeholder.info_address_id is '住所ID';
 comment on column tests.history_mstr_stakeholder.mstr_shipping_kind_id is '配送区分ID';
 comment on column tests.history_mstr_stakeholder.revision is 'レビジョン';
+comment on column tests.history_mstr_stakeholder.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_stakeholder.remarks is '備考';
 comment on column tests.history_mstr_stakeholder.update_at is '更新日時';
 comment on column tests.history_mstr_stakeholder.update_user_id is '更新者ID';
@@ -3979,6 +4354,7 @@ comment on column tests.history_mstr_staff_license.abeyance_at is '停止日時'
 comment on column tests.history_mstr_staff_license.revocation is '取り消し';
 comment on column tests.history_mstr_staff_license.revocation_at is '取り消し日時';
 comment on column tests.history_mstr_staff_license.revision is 'レビジョン';
+comment on column tests.history_mstr_staff_license.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_staff_license.remarks is '備考';
 comment on column tests.history_mstr_staff_license.update_at is '更新日時';
 comment on column tests.history_mstr_staff_license.update_user_id is '更新者ID';
@@ -3995,6 +4371,7 @@ comment on column tests.history_mstr_license.customer_license is '顧客';
 comment on column tests.history_mstr_license.organization_license is '内部';
 comment on column tests.history_mstr_license.update_interval is '更新間隔';
 comment on column tests.history_mstr_license.revision is 'レビジョン';
+comment on column tests.history_mstr_license.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_license.remarks is '備考';
 comment on column tests.history_mstr_license.update_at is '更新日時';
 comment on column tests.history_mstr_license.update_user_id is '更新者ID';
@@ -4007,6 +4384,7 @@ comment on column tests.history_info_staff_access_permission.info_access_path_id
 comment on column tests.history_info_staff_access_permission.info_staff_id is '担当者ID';
 comment on column tests.history_info_staff_access_permission.permit is 'パーミット';
 comment on column tests.history_info_staff_access_permission.revision is 'レビジョン';
+comment on column tests.history_info_staff_access_permission.symbol is 'リニアシンボル';
 comment on column tests.history_info_staff_access_permission.remarks is '備考';
 comment on column tests.history_info_staff_access_permission.update_at is '更新日時';
 comment on column tests.history_info_staff_access_permission.update_user_id is '更新者ID';
@@ -4018,6 +4396,7 @@ comment on column tests.history_mstr_approval_scope_pattern.mstr_approval_scope_
 comment on column tests.history_mstr_approval_scope_pattern.mstr_approval_pattern_id is '承認パターンID';
 comment on column tests.history_mstr_approval_scope_pattern.info_access_path_approval_id is 'アクセスパス承認情報ID';
 comment on column tests.history_mstr_approval_scope_pattern.revision is 'レビジョン';
+comment on column tests.history_mstr_approval_scope_pattern.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_approval_scope_pattern.remarks is '備考';
 comment on column tests.history_mstr_approval_scope_pattern.update_at is '更新日時';
 comment on column tests.history_mstr_approval_scope_pattern.update_user_id is '更新者ID';
@@ -4028,6 +4407,7 @@ comment on column tests.history_mstr_approval_pattern.history_id is '履歴ID';
 comment on column tests.history_mstr_approval_pattern.mstr_approval_pattern_id is '承認パターンID';
 comment on column tests.history_mstr_approval_pattern.shared_appellations_id is '呼称セットID';
 comment on column tests.history_mstr_approval_pattern.revision is 'レビジョン';
+comment on column tests.history_mstr_approval_pattern.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_approval_pattern.remarks is '備考';
 comment on column tests.history_mstr_approval_pattern.update_at is '更新日時';
 comment on column tests.history_mstr_approval_pattern.update_user_id is '更新者ID';
@@ -4044,6 +4424,7 @@ comment on column tests.history_mstr_capability.max is '最大';
 comment on column tests.history_mstr_capability.min is '最小';
 comment on column tests.history_mstr_capability.step is '刻み';
 comment on column tests.history_mstr_capability.revision is 'レビジョン';
+comment on column tests.history_mstr_capability.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_capability.remarks is '備考';
 comment on column tests.history_mstr_capability.update_at is '更新日時';
 comment on column tests.history_mstr_capability.update_user_id is '更新者ID';
@@ -4055,6 +4436,7 @@ comment on column tests.history_mstr_approval_pattern_detail.mstr_approval_patte
 comment on column tests.history_mstr_approval_pattern_detail.mstr_approval_id is '承認ID';
 comment on column tests.history_mstr_approval_pattern_detail.mstr_approval_pattern_id is '承認パターンID';
 comment on column tests.history_mstr_approval_pattern_detail.revision is 'レビジョン';
+comment on column tests.history_mstr_approval_pattern_detail.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_approval_pattern_detail.remarks is '備考';
 comment on column tests.history_mstr_approval_pattern_detail.update_at is '更新日時';
 comment on column tests.history_mstr_approval_pattern_detail.update_user_id is '更新者ID';
@@ -4068,6 +4450,7 @@ comment on column tests.history_mstr_approval.info_role_id is '役割ID';
 comment on column tests.history_mstr_approval.priority is '順位';
 comment on column tests.history_mstr_approval.shared_appellations_id is '呼称セットID';
 comment on column tests.history_mstr_approval.revision is 'レビジョン';
+comment on column tests.history_mstr_approval.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_approval.remarks is '備考';
 comment on column tests.history_mstr_approval.update_at is '更新日時';
 comment on column tests.history_mstr_approval.update_user_id is '更新者ID';
@@ -4079,6 +4462,7 @@ comment on column tests.history_info_position.info_position_id is '役割ID';
 comment on column tests.history_info_position.priority is '順位';
 comment on column tests.history_info_position.shared_appellations_id is '呼称セットid';
 comment on column tests.history_info_position.revision is 'レビジョン';
+comment on column tests.history_info_position.symbol is 'リニアシンボル';
 comment on column tests.history_info_position.remarks is '備考';
 comment on column tests.history_info_position.update_at is '更新日時';
 comment on column tests.history_info_position.update_user_id is '更新者ID';
@@ -4092,6 +4476,7 @@ comment on column tests.history_mstr_staff_capability.mstr_capability_id is '力
 comment on column tests.history_mstr_staff_capability.value is '値';
 comment on column tests.history_mstr_staff_capability.stop is '停止';
 comment on column tests.history_mstr_staff_capability.revision is 'レビジョン';
+comment on column tests.history_mstr_staff_capability.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_staff_capability.remarks is '備考';
 comment on column tests.history_mstr_staff_capability.update_at is '更新日時';
 comment on column tests.history_mstr_staff_capability.update_user_id is '更新者ID';
@@ -4106,6 +4491,7 @@ comment on column tests.history_mstr_sign.code is 'サインコード';
 comment on column tests.history_mstr_sign.mail is 'メールアドレス';
 comment on column tests.history_mstr_sign.role is '権限';
 comment on column tests.history_mstr_sign.revision is 'レビジョン';
+comment on column tests.history_mstr_sign.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_sign.remarks is '備考';
 comment on column tests.history_mstr_sign.update_at is '更新日時';
 comment on column tests.history_mstr_sign.update_user_id is '更新者ID';
@@ -4121,6 +4507,7 @@ comment on column tests.history_info_staff.sex is '性別';
 comment on column tests.history_info_staff.phone is '電話';
 comment on column tests.history_info_staff.private_phone is '緊急電話';
 comment on column tests.history_info_staff.revision is 'レビジョン';
+comment on column tests.history_info_staff.symbol is 'リニアシンボル';
 comment on column tests.history_info_staff.remarks is '備考';
 comment on column tests.history_info_staff.update_at is '更新日時';
 comment on column tests.history_info_staff.update_user_id is '更新者ID';
@@ -4134,6 +4521,7 @@ comment on column tests.history_info_provision.code is '提供コード';
 comment on column tests.history_info_provision.shared_appellations_id is '呼称セットID';
 comment on column tests.history_info_provision.details is '詳細';
 comment on column tests.history_info_provision.revision is 'レビジョン';
+comment on column tests.history_info_provision.symbol is 'リニアシンボル';
 comment on column tests.history_info_provision.remarks is '備考';
 comment on column tests.history_info_provision.update_at is '更新日時';
 comment on column tests.history_info_provision.update_user_id is '更新者ID';
@@ -4150,6 +4538,7 @@ comment on column tests.history_info_address.bill is '建物';
 comment on column tests.history_info_address.phone is '電話番号';
 comment on column tests.history_info_address.fax_number is 'FAX';
 comment on column tests.history_info_address.revision is 'レビジョン';
+comment on column tests.history_info_address.symbol is 'リニアシンボル';
 comment on column tests.history_info_address.remarks is '備考';
 comment on column tests.history_info_address.update_at is '更新日時';
 comment on column tests.history_info_address.update_user_id is '更新者ID';
@@ -4161,6 +4550,7 @@ comment on column tests.history_shared_unit.shared_unit_id is '単位ID';
 comment on column tests.history_shared_unit.shared_appellations_id is '呼称セットID';
 comment on column tests.history_shared_unit.description is '詳細';
 comment on column tests.history_shared_unit.revision is 'レビジョン';
+comment on column tests.history_shared_unit.symbol is 'リニアシンボル';
 comment on column tests.history_shared_unit.remarks is '備考';
 comment on column tests.history_shared_unit.update_at is '更新日時';
 comment on column tests.history_shared_unit.update_user_id is '更新者ID';
@@ -4174,6 +4564,7 @@ comment on column tests.history_info_office.code is '事業所コード';
 comment on column tests.history_info_office.shared_appellations_id is '呼称セットID';
 comment on column tests.history_info_office.info_address_id is '住所ID';
 comment on column tests.history_info_office.revision is 'レビジョン';
+comment on column tests.history_info_office.symbol is 'リニアシンボル';
 comment on column tests.history_info_office.remarks is '備考';
 comment on column tests.history_info_office.update_at is '更新日時';
 comment on column tests.history_info_office.update_user_id is '更新者ID';
@@ -4191,6 +4582,7 @@ comment on column tests.history_info_department.category2 is '組織区分2';
 comment on column tests.history_info_department.category3 is '組織区分3';
 comment on column tests.history_info_department.info_address_id is '住所ID';
 comment on column tests.history_info_department.revision is 'レビジョン';
+comment on column tests.history_info_department.symbol is 'リニアシンボル';
 comment on column tests.history_info_department.remarks is '備考';
 comment on column tests.history_info_department.update_at is '更新日時';
 comment on column tests.history_info_department.update_user_id is '更新者ID';
@@ -4204,6 +4596,7 @@ comment on column tests.history_info_access_path_approval.name is '名前';
 comment on column tests.history_info_access_path_approval.kana is 'カナ';
 comment on column tests.history_info_access_path_approval.tag is 'タグ';
 comment on column tests.history_info_access_path_approval.revision is 'レビジョン';
+comment on column tests.history_info_access_path_approval.symbol is 'リニアシンボル';
 comment on column tests.history_info_access_path_approval.remarks is '備考';
 comment on column tests.history_info_access_path_approval.update_at is '更新日時';
 comment on column tests.history_info_access_path_approval.update_user_id is '更新者ID';
@@ -4220,6 +4613,7 @@ comment on column tests.history_info_access_path.usecase_path3 is 'ユースケ�
 comment on column tests.history_info_access_path.classes is 'ページクラス';
 comment on column tests.history_info_access_path.sequence is '順';
 comment on column tests.history_info_access_path.revision is 'レビジョン';
+comment on column tests.history_info_access_path.symbol is 'リニアシンボル';
 comment on column tests.history_info_access_path.remarks is '備考';
 comment on column tests.history_info_access_path.update_at is '更新日時';
 comment on column tests.history_info_access_path.update_user_id is '更新者ID';
@@ -4233,6 +4627,7 @@ comment on column tests.history_info_company.info_address_id is '住所ID';
 comment on column tests.history_info_company.web_page is 'ホームページ';
 comment on column tests.history_info_company.ceo is '代表';
 comment on column tests.history_info_company.revision is 'レビジョン';
+comment on column tests.history_info_company.symbol is 'リニアシンボル';
 comment on column tests.history_info_company.remarks is '備考';
 comment on column tests.history_info_company.update_at is '更新日時';
 comment on column tests.history_info_company.update_user_id is '更新者ID';
@@ -4245,6 +4640,7 @@ comment on column tests.info_company.info_address_id is '住所ID';
 comment on column tests.info_company.web_page is 'ホームページ';
 comment on column tests.info_company.ceo is '代表';
 comment on column tests.info_company.revision is 'レビジョン';
+comment on column tests.info_company.symbol is 'リニアシンボル';
 comment on column tests.info_company.remarks is '備考';
 comment on column tests.info_company.update_at is '更新日時';
 comment on column tests.info_company.update_user_id is '更新者ID';
@@ -4256,6 +4652,7 @@ comment on column tests.history_info_app.info_app_id is 'アプリケーショ�
 comment on column tests.history_info_app.info_company_id is '会社情報ID';
 comment on column tests.history_info_app.name is 'アプリケーション名';
 comment on column tests.history_info_app.revision is 'レビジョン';
+comment on column tests.history_info_app.symbol is 'リニアシンボル';
 comment on column tests.history_info_app.remarks is '備考';
 comment on column tests.history_info_app.update_at is '更新日時';
 comment on column tests.history_info_app.update_user_id is '更新者ID';
@@ -4268,6 +4665,7 @@ comment on column tests.trans_anonymouse.mstr_sign_id is 'サインID';
 comment on column tests.trans_anonymouse.start_at is '初回アクセス日時';
 comment on column tests.trans_anonymouse.completion_at is '完了日時';
 comment on column tests.trans_anonymouse.completion is '完了フラグ';
+comment on column tests.trans_anonymouse.symbol is 'リニアシンボル';
 comment on column tests.trans_anonymouse.remarks is '備考';
 comment on column tests.trans_anonymouse.update_at is '更新日時';
 comment on column tests.trans_anonymouse.update_user_id is '更新者ID';
@@ -4283,6 +4681,7 @@ comment on column tests.trans_file_reminder.option is 'オプション';
 comment on column tests.trans_file_reminder.urls is 'URLアドレス';
 comment on column tests.trans_file_reminder.start_at is '開始日時';
 comment on column tests.trans_file_reminder.expiration_date is '通知有効期限';
+comment on column tests.trans_file_reminder.symbol is 'リニアシンボル';
 comment on column tests.trans_file_reminder.remarks is '備考';
 comment on column tests.trans_file_reminder.update_at is '更新日時';
 comment on column tests.trans_file_reminder.update_user_id is '更新者ID';
@@ -4293,6 +4692,7 @@ comment on column tests.mstr_equipment_available.mstr_equipment_available_id is 
 comment on column tests.mstr_equipment_available.mstr_task_location_id is '工程場所ID';
 comment on column tests.mstr_equipment_available.mstr_equipment_id is '設備ID';
 comment on column tests.mstr_equipment_available.revision is '履歴ID';
+comment on column tests.mstr_equipment_available.symbol is 'リニアシンボル';
 comment on column tests.mstr_equipment_available.remarks is '備考';
 comment on column tests.mstr_equipment_available.update_at is '更新日時';
 comment on column tests.mstr_equipment_available.update_user_id is '更新者ID';
@@ -4303,6 +4703,7 @@ comment on column tests.mstr_outsource_available.mstr_outsource_available_id is 
 comment on column tests.mstr_outsource_available.mstr_task_location_id is '工程場所ID';
 comment on column tests.mstr_outsource_available.mstr_stakeholder_id is '利害関係者ID';
 comment on column tests.mstr_outsource_available.revision is 'レビジョン';
+comment on column tests.mstr_outsource_available.symbol is 'リニアシンボル';
 comment on column tests.mstr_outsource_available.remarks is '備考';
 comment on column tests.mstr_outsource_available.update_at is '更新日時';
 comment on column tests.mstr_outsource_available.update_user_id is '更新者ID';
@@ -4314,6 +4715,7 @@ comment on column tests.mstr_task_group.code is 'グループコード';
 comment on column tests.mstr_task_group.shared_appellations_id is '呼称セットID';
 comment on column tests.mstr_task_group.details is '詳細';
 comment on column tests.mstr_task_group.revision is 'レビジョン';
+comment on column tests.mstr_task_group.symbol is 'リニアシンボル';
 comment on column tests.mstr_task_group.remarks is '備考';
 comment on column tests.mstr_task_group.update_at is '更新日時';
 comment on column tests.mstr_task_group.update_user_id is '更新者ID';
@@ -4327,6 +4729,7 @@ comment on column tests.trans_unrecognized_detail.cost is '単価';
 comment on column tests.trans_unrecognized_detail.deadline is '個別納期';
 comment on column tests.trans_unrecognized_detail.history_id is '履歴ID';
 comment on column tests.trans_unrecognized_detail.mstr_item_id is '品目ID';
+comment on column tests.trans_unrecognized_detail.symbol is 'リニアシンボル';
 comment on column tests.trans_unrecognized_detail.remarks is '備考';
 comment on column tests.trans_unrecognized_detail.update_at is '更新日時';
 comment on column tests.trans_unrecognized_detail.update_user_id is '更新者ID';
@@ -4341,6 +4744,7 @@ comment on column tests.trans_unrecognized.decision_date is '決定日';
 comment on column tests.trans_unrecognized.deadline is '納期';
 comment on column tests.trans_unrecognized.expected_completion_date is '完了予定日';
 comment on column tests.trans_unrecognized.planned_shipping_date is '出荷予定日';
+comment on column tests.trans_unrecognized.symbol is 'リニアシンボル';
 comment on column tests.trans_unrecognized.remarks is '備考';
 comment on column tests.trans_unrecognized.update_at is '更新日時';
 comment on column tests.trans_unrecognized.update_user_id is '更新者ID';
@@ -4351,6 +4755,7 @@ comment on column tests.mstr_stakeholder_provision.mstr_stakeholder_provision_id
 comment on column tests.mstr_stakeholder_provision.mstr_stakeholder_id is '利害関係者ID';
 comment on column tests.mstr_stakeholder_provision.info_provision_id is '提供ID';
 comment on column tests.mstr_stakeholder_provision.revision is 'レビジョン';
+comment on column tests.mstr_stakeholder_provision.symbol is 'リニアシンボル';
 comment on column tests.mstr_stakeholder_provision.remarks is '備考';
 comment on column tests.mstr_stakeholder_provision.update_at is '更新日時';
 comment on column tests.mstr_stakeholder_provision.update_user_id is '更新者ID';
@@ -4363,6 +4768,7 @@ comment on column tests.info_provision.code is '提供コード';
 comment on column tests.info_provision.shared_appellations_id is '呼称セットID';
 comment on column tests.info_provision.details is '詳細';
 comment on column tests.info_provision.revision is 'レビジョン';
+comment on column tests.info_provision.symbol is 'リニアシンボル';
 comment on column tests.info_provision.remarks is '備考';
 comment on column tests.info_provision.update_at is '更新日時';
 comment on column tests.info_provision.update_user_id is '更新者ID';
@@ -4375,6 +4781,7 @@ comment on column tests.mstr_inspection_formula.arg_class is '引数';
 comment on column tests.mstr_inspection_formula.type_class is '型';
 comment on column tests.mstr_inspection_formula.format_class is 'フォーマット';
 comment on column tests.mstr_inspection_formula.revision is 'レビジョン';
+comment on column tests.mstr_inspection_formula.symbol is 'リニアシンボル';
 comment on column tests.mstr_inspection_formula.remarks is '備考';
 comment on column tests.mstr_inspection_formula.update_at is '更新日時';
 comment on column tests.mstr_inspection_formula.update_user_id is '更新者ID';
@@ -4385,6 +4792,7 @@ comment on column tests.mstr_manufacturer.mstr_manufacturer_id is '製造元ID';
 comment on column tests.mstr_manufacturer.code is '管理コード';
 comment on column tests.mstr_manufacturer.shared_appellations_id is '呼称セットID';
 comment on column tests.mstr_manufacturer.revision is 'レビジョン';
+comment on column tests.mstr_manufacturer.symbol is 'リニアシンボル';
 comment on column tests.mstr_manufacturer.remarks is '備考';
 comment on column tests.mstr_manufacturer.update_at is '更新日時';
 comment on column tests.mstr_manufacturer.update_user_id is '更新者ID';
@@ -4395,6 +4803,7 @@ comment on column tests.mstr_approval_scope_pattern.mstr_approval_scope_pattern_
 comment on column tests.mstr_approval_scope_pattern.mstr_approval_pattern_id is '承認パターンID';
 comment on column tests.mstr_approval_scope_pattern.info_access_path_approval_id is 'アクセスパス承認情報ID';
 comment on column tests.mstr_approval_scope_pattern.revision is 'レビジョン';
+comment on column tests.mstr_approval_scope_pattern.symbol is 'リニアシンボル';
 comment on column tests.mstr_approval_scope_pattern.remarks is '備考';
 comment on column tests.mstr_approval_scope_pattern.update_at is '更新日時';
 comment on column tests.mstr_approval_scope_pattern.update_user_id is '更新者ID';
@@ -4405,6 +4814,7 @@ comment on column tests.mstr_approval_pattern_detail.mstr_approval_pattern_detai
 comment on column tests.mstr_approval_pattern_detail.mstr_approval_id is '承認ID';
 comment on column tests.mstr_approval_pattern_detail.mstr_approval_pattern_id is '承認パターンID';
 comment on column tests.mstr_approval_pattern_detail.revision is 'レビジョン';
+comment on column tests.mstr_approval_pattern_detail.symbol is 'リニアシンボル';
 comment on column tests.mstr_approval_pattern_detail.remarks is '備考';
 comment on column tests.mstr_approval_pattern_detail.update_at is '更新日時';
 comment on column tests.mstr_approval_pattern_detail.update_user_id is '更新者ID';
@@ -4420,6 +4830,7 @@ comment on column tests.info_address.bill is '建物';
 comment on column tests.info_address.phone is '電話番号';
 comment on column tests.info_address.fax_number is 'FAX';
 comment on column tests.info_address.revision is 'レビジョン';
+comment on column tests.info_address.symbol is 'リニアシンボル';
 comment on column tests.info_address.remarks is '備考';
 comment on column tests.info_address.update_at is '更新日時';
 comment on column tests.info_address.update_user_id is '更新者ID';
@@ -4429,6 +4840,7 @@ comment on table tests.trans_inspection_report is '点検レポート実績';
 comment on column tests.trans_inspection_report.trans_inspection_report_id is '点検整備実施ID';
 comment on column tests.trans_inspection_report.trans_inspect_sch_detail_id is '点検整備予定詳細ID';
 comment on column tests.trans_inspection_report.mstr_report_id is 'レポートID';
+comment on column tests.trans_inspection_report.symbol is 'リニアシンボル';
 comment on column tests.trans_inspection_report.remarks is '備考';
 comment on column tests.trans_inspection_report.update_at is '更新日時';
 comment on column tests.trans_inspection_report.update_user_id is '更新者ID';
@@ -4442,6 +4854,7 @@ comment on column tests.mstr_report.code is 'コード';
 comment on column tests.mstr_report.is_default is 'デフォルト';
 comment on column tests.mstr_report.info_access_path_id is 'アクセスパスID';
 comment on column tests.mstr_report.revision is 'レビジョン';
+comment on column tests.mstr_report.symbol is 'リニアシンボル';
 comment on column tests.mstr_report.remarks is '備考';
 comment on column tests.mstr_report.update_at is '更新日時';
 comment on column tests.mstr_report.update_user_id is '更新者ID';
@@ -4452,6 +4865,7 @@ comment on column tests.mstr_equipment_tag.mstr_equipment_tag_id is '設備識�
 comment on column tests.mstr_equipment_tag.trans_file_id is '様式ファイルID';
 comment on column tests.mstr_equipment_tag.name is '名前';
 comment on column tests.mstr_equipment_tag.revision is 'レビジョン';
+comment on column tests.mstr_equipment_tag.symbol is 'リニアシンボル';
 comment on column tests.mstr_equipment_tag.remarks is '備考';
 comment on column tests.mstr_equipment_tag.update_at is '更新日時';
 comment on column tests.mstr_equipment_tag.update_user_id is '更新者ID';
@@ -4464,6 +4878,7 @@ comment on column tests.info_access_path_approval.name is '名前';
 comment on column tests.info_access_path_approval.kana is 'カナ';
 comment on column tests.info_access_path_approval.tag is 'タグ';
 comment on column tests.info_access_path_approval.revision is 'レビジョン';
+comment on column tests.info_access_path_approval.symbol is 'リニアシンボル';
 comment on column tests.info_access_path_approval.remarks is '備考';
 comment on column tests.info_access_path_approval.update_at is '更新日時';
 comment on column tests.info_access_path_approval.update_user_id is '更新者ID';
@@ -4474,6 +4889,7 @@ comment on column tests.trans_approved.trans_approved_id is '承認結果ID';
 comment on column tests.trans_approved.period is '期限';
 comment on column tests.trans_approved.status is '状態';
 comment on column tests.trans_approved.priority is '順';
+comment on column tests.trans_approved.symbol is 'リニアシンボル';
 comment on column tests.trans_approved.remarks is '備考';
 comment on column tests.trans_approved.update_at is '更新日時';
 comment on column tests.trans_approved.update_user_id is '更新者ID';
@@ -4486,6 +4902,7 @@ comment on column tests.mstr_approval.info_role_id is '役割ID';
 comment on column tests.mstr_approval.priority is '順位';
 comment on column tests.mstr_approval.shared_appellations_id is '呼称セットID';
 comment on column tests.mstr_approval.revision is 'レビジョン';
+comment on column tests.mstr_approval.symbol is 'リニアシンボル';
 comment on column tests.mstr_approval.remarks is '備考';
 comment on column tests.mstr_approval.update_at is '更新日時';
 comment on column tests.mstr_approval.update_user_id is '更新者ID';
@@ -4496,6 +4913,7 @@ comment on column tests.info_position.info_position_id is '役割ID';
 comment on column tests.info_position.priority is '順位';
 comment on column tests.info_position.shared_appellations_id is '呼称セットid';
 comment on column tests.info_position.revision is 'レビジョン';
+comment on column tests.info_position.symbol is 'リニアシンボル';
 comment on column tests.info_position.remarks is '備考';
 comment on column tests.info_position.update_at is '更新日時';
 comment on column tests.info_position.update_user_id is '更新者ID';
@@ -4505,6 +4923,7 @@ comment on table tests.mstr_approval_pattern is '承認パターンマスタ';
 comment on column tests.mstr_approval_pattern.mstr_approval_pattern_id is '承認パターンID';
 comment on column tests.mstr_approval_pattern.shared_appellations_id is '呼称セットID';
 comment on column tests.mstr_approval_pattern.revision is 'レビジョン';
+comment on column tests.mstr_approval_pattern.symbol is 'リニアシンボル';
 comment on column tests.mstr_approval_pattern.remarks is '備考';
 comment on column tests.mstr_approval_pattern.update_at is '更新日時';
 comment on column tests.mstr_approval_pattern.update_user_id is '更新者ID';
@@ -4515,6 +4934,7 @@ comment on column tests.trans_approval.trans_approval_gr_id is '承認グルー�
 comment on column tests.trans_approval.trans_approved_id is '承認結果ID';
 comment on column tests.trans_approval.staff_history_id is '履歴ID';
 comment on column tests.trans_approval.info_staff_id is '担当者ID';
+comment on column tests.trans_approval.symbol is 'リニアシンボル';
 comment on column tests.trans_approval.remarks is '備考';
 comment on column tests.trans_approval.update_at is '更新日時';
 comment on column tests.trans_approval.update_user_id is '更新者ID';
@@ -4525,6 +4945,7 @@ comment on column tests.trans_approval_gr.trans_approval_gr_id is '承認グル�
 comment on column tests.trans_approval_gr.mstr_approval_pattern_id is '承認パターンID';
 comment on column tests.trans_approval_gr.trans_approved_id is '承認結果ID';
 comment on column tests.trans_approval_gr.status is '状態';
+comment on column tests.trans_approval_gr.symbol is 'リニアシンボル';
 comment on column tests.trans_approval_gr.remarks is '備考';
 comment on column tests.trans_approval_gr.update_at is '更新日時';
 comment on column tests.trans_approval_gr.update_user_id is '更新者ID';
@@ -4536,6 +4957,7 @@ comment on column tests.trans_audit_member.trans_audit_id is '監査ID';
 comment on column tests.trans_audit_member.class is '参加区分';
 comment on column tests.trans_audit_member.name is '参加者名';
 comment on column tests.trans_audit_member.department is '参加者組織名';
+comment on column tests.trans_audit_member.symbol is 'リニアシンボル';
 comment on column tests.trans_audit_member.remarks is '備考';
 comment on column tests.trans_audit_member.update_at is '更新日時';
 comment on column tests.trans_audit_member.update_user_id is '更新者ID';
@@ -4550,6 +4972,7 @@ comment on column tests.trans_auditor.mstr_audit_std_id is '監査標準ID';
 comment on column tests.trans_auditor.ccategory is 'メンバー区分';
 comment on column tests.trans_auditor.history_id is '履歴ID';
 comment on column tests.trans_auditor.info_staff_id is '担当者ID';
+comment on column tests.trans_auditor.symbol is 'リニアシンボル';
 comment on column tests.trans_auditor.remarks is '備考';
 comment on column tests.trans_auditor.update_at is '更新日時';
 comment on column tests.trans_auditor.update_user_id is '更新者ID';
@@ -4559,6 +4982,7 @@ comment on table tests.trans_audit_team is '監査チーム';
 comment on column tests.trans_audit_team.trans_audit_team_id is 'チームID';
 comment on column tests.trans_audit_team.trans_audit_id is '監査ID';
 comment on column tests.trans_audit_team.name is 'チーム名';
+comment on column tests.trans_audit_team.symbol is 'リニアシンボル';
 comment on column tests.trans_audit_team.remarks is '備考';
 comment on column tests.trans_audit_team.update_at is '更新日時';
 comment on column tests.trans_audit_team.update_user_id is '更新者ID';
@@ -4578,6 +5002,7 @@ comment on column tests.trans_audit.title is 'タイトル';
 comment on column tests.trans_audit.detail is '詳細';
 comment on column tests.trans_audit.info_department_id is '組織情報ID';
 comment on column tests.trans_audit.mstr_stakeholder_id is '利害関係者ID';
+comment on column tests.trans_audit.symbol is 'リニアシンボル';
 comment on column tests.trans_audit.remarks is '備考';
 comment on column tests.trans_audit.update_at is '更新日時';
 comment on column tests.trans_audit.update_user_id is '更新者ID';
@@ -4591,6 +5016,7 @@ comment on column tests.trans_task_risk.name is '名前';
 comment on column tests.trans_task_risk.number is '番号';
 comment on column tests.trans_task_risk.title is 'タイトル';
 comment on column tests.trans_task_risk.detail is '詳細';
+comment on column tests.trans_task_risk.symbol is 'リニアシンボル';
 comment on column tests.trans_task_risk.remarks is '備考';
 comment on column tests.trans_task_risk.update_at is '更新日時';
 comment on column tests.trans_task_risk.update_user_id is '更新者ID';
@@ -4606,6 +5032,7 @@ comment on column tests.trans_order_detail_risk.name is '名前';
 comment on column tests.trans_order_detail_risk.number is '番号';
 comment on column tests.trans_order_detail_risk.title is 'タイトル';
 comment on column tests.trans_order_detail_risk.detail is '詳細';
+comment on column tests.trans_order_detail_risk.symbol is 'リニアシンボル';
 comment on column tests.trans_order_detail_risk.remarks is '備考';
 comment on column tests.trans_order_detail_risk.update_at is '更新日時';
 comment on column tests.trans_order_detail_risk.update_user_id is '更新者ID';
@@ -4622,6 +5049,7 @@ comment on column tests.trans_prevention_detail.name is '名前';
 comment on column tests.trans_prevention_detail.number is '番号';
 comment on column tests.trans_prevention_detail.title is 'タイトル';
 comment on column tests.trans_prevention_detail.detail is '詳細';
+comment on column tests.trans_prevention_detail.symbol is 'リニアシンボル';
 comment on column tests.trans_prevention_detail.remarks is '備考';
 comment on column tests.trans_prevention_detail.update_at is '更新日時';
 comment on column tests.trans_prevention_detail.update_user_id is '更新者ID';
@@ -4634,6 +5062,7 @@ comment on column tests.trans_prevention.name is '名前';
 comment on column tests.trans_prevention.number is '番号';
 comment on column tests.trans_prevention.title is 'タイトル';
 comment on column tests.trans_prevention.detail is '詳細';
+comment on column tests.trans_prevention.symbol is 'リニアシンボル';
 comment on column tests.trans_prevention.remarks is '備考';
 comment on column tests.trans_prevention.update_at is '更新日時';
 comment on column tests.trans_prevention.update_user_id is '更新者ID';
@@ -4647,6 +5076,7 @@ comment on column tests.trans_order_risk.name is '名前';
 comment on column tests.trans_order_risk.number is '番号';
 comment on column tests.trans_order_risk.title is 'タイトル';
 comment on column tests.trans_order_risk.detail is '詳細';
+comment on column tests.trans_order_risk.symbol is 'リニアシンボル';
 comment on column tests.trans_order_risk.remarks is '備考';
 comment on column tests.trans_order_risk.update_at is '更新日時';
 comment on column tests.trans_order_risk.update_user_id is '更新者ID';
@@ -4660,6 +5090,7 @@ comment on column tests.trans_equipment_lent.info_staff_id is '作業担当者ID
 comment on column tests.trans_equipment_lent.lent_at is '借用日';
 comment on column tests.trans_equipment_lent.return_staff_id is '返却者';
 comment on column tests.trans_equipment_lent.return_at is '返却日';
+comment on column tests.trans_equipment_lent.symbol is 'リニアシンボル';
 comment on column tests.trans_equipment_lent.remarks is '備考';
 comment on column tests.trans_equipment_lent.update_at is '更新日時';
 comment on column tests.trans_equipment_lent.update_user_id is '更新者ID';
@@ -4685,6 +5116,7 @@ comment on column tests.trans_disposal_detail.name is '名前';
 comment on column tests.trans_disposal_detail.number is '番号';
 comment on column tests.trans_disposal_detail.title is 'タイトル';
 comment on column tests.trans_disposal_detail.detail is '詳細';
+comment on column tests.trans_disposal_detail.symbol is 'リニアシンボル';
 comment on column tests.trans_disposal_detail.remarks is '備考';
 comment on column tests.trans_disposal_detail.update_at is '更新日時';
 comment on column tests.trans_disposal_detail.update_user_id is '更新者ID';
@@ -4697,8 +5129,11 @@ comment on column tests.mstr_audit_std_checkitem.code is '監査標準項目コ�
 comment on column tests.mstr_audit_std_checkitem.control_code is '管理コード';
 comment on column tests.mstr_audit_std_checkitem.shared_appellations_id is '呼称セットID';
 comment on column tests.mstr_audit_std_checkitem.detail is '詳細';
+comment on column tests.mstr_audit_std_checkitem.type_class is '型';
+comment on column tests.mstr_audit_std_checkitem.formula_class is '式';
 comment on column tests.mstr_audit_std_checkitem.arg_class is '引数';
 comment on column tests.mstr_audit_std_checkitem.revision is 'レビジョン';
+comment on column tests.mstr_audit_std_checkitem.symbol is 'リニアシンボル';
 comment on column tests.mstr_audit_std_checkitem.remarks is '備考';
 comment on column tests.mstr_audit_std_checkitem.update_at is '更新日時';
 comment on column tests.mstr_audit_std_checkitem.update_user_id is '更新者ID';
@@ -4712,6 +5147,7 @@ comment on column tests.mstr_audit_std.category is '区分';
 comment on column tests.mstr_audit_std.shared_appellations_id is '呼称セットID';
 comment on column tests.mstr_audit_std.detail is '詳細';
 comment on column tests.mstr_audit_std.revision is 'レビジョン';
+comment on column tests.mstr_audit_std.symbol is 'リニアシンボル';
 comment on column tests.mstr_audit_std.remarks is '備考';
 comment on column tests.mstr_audit_std.update_at is '更新日時';
 comment on column tests.mstr_audit_std.update_user_id is '更新者ID';
@@ -4727,6 +5163,7 @@ comment on column tests.trans_risk.frequency is '発生頻度';
 comment on column tests.trans_risk.momentous is '重大度';
 comment on column tests.trans_risk.action is '対応可否';
 comment on column tests.trans_risk.residual_risk_id is '残留リスクID';
+comment on column tests.trans_risk.symbol is 'リニアシンボル';
 comment on column tests.trans_risk.remarks is '備考';
 comment on column tests.trans_risk.update_at is '更新日時';
 comment on column tests.trans_risk.update_user_id is '更新者ID';
@@ -4736,6 +5173,7 @@ comment on table tests.trans_observer_preventive is '再発防止監視';
 comment on column tests.trans_observer_preventive.trans_observer_preventive_id is '再発防止監視ID';
 comment on column tests.trans_observer_preventive.trans_observer_disposal_id is '監視ID';
 comment on column tests.trans_observer_preventive.trans_recurrence_prevention_id is '再発防止ID';
+comment on column tests.trans_observer_preventive.symbol is 'リニアシンボル';
 comment on column tests.trans_observer_preventive.remarks is '備考';
 comment on column tests.trans_observer_preventive.update_at is '更新日時';
 comment on column tests.trans_observer_preventive.update_user_id is '更新者ID';
@@ -4747,6 +5185,7 @@ comment on column tests.trans_observer_disposal.enable is '有効性';
 comment on column tests.trans_observer_disposal.observe_schedule is '監視測定予定日';
 comment on column tests.trans_observer_disposal.observe_at is '監視測定日';
 comment on column tests.trans_observer_disposal.observer is '監視測定者';
+comment on column tests.trans_observer_disposal.symbol is 'リニアシンボル';
 comment on column tests.trans_observer_disposal.remarks is '備考';
 comment on column tests.trans_observer_disposal.update_at is '更新日時';
 comment on column tests.trans_observer_disposal.update_user_id is '更新者ID';
@@ -4760,6 +5199,7 @@ comment on column tests.trans_complaint_stakeholder_adapter.name is '名前';
 comment on column tests.trans_complaint_stakeholder_adapter.number is '番号';
 comment on column tests.trans_complaint_stakeholder_adapter.title is 'タイトル';
 comment on column tests.trans_complaint_stakeholder_adapter.detail is '詳細';
+comment on column tests.trans_complaint_stakeholder_adapter.symbol is 'リニアシンボル';
 comment on column tests.trans_complaint_stakeholder_adapter.remarks is '備考';
 comment on column tests.trans_complaint_stakeholder_adapter.update_at is '更新日時';
 comment on column tests.trans_complaint_stakeholder_adapter.update_user_id is '更新者ID';
@@ -4773,6 +5213,7 @@ comment on column tests.trans_complaint_equipment_adapter.name is '名前';
 comment on column tests.trans_complaint_equipment_adapter.number is '番号';
 comment on column tests.trans_complaint_equipment_adapter.title is 'タイトル';
 comment on column tests.trans_complaint_equipment_adapter.detail is '詳細';
+comment on column tests.trans_complaint_equipment_adapter.symbol is 'リニアシンボル';
 comment on column tests.trans_complaint_equipment_adapter.remarks is '備考';
 comment on column tests.trans_complaint_equipment_adapter.update_at is '更新日時';
 comment on column tests.trans_complaint_equipment_adapter.update_user_id is '更新者ID';
@@ -4786,6 +5227,7 @@ comment on column tests.trans_complaint_process_adapter.name is '名前';
 comment on column tests.trans_complaint_process_adapter.number is '番号';
 comment on column tests.trans_complaint_process_adapter.title is 'タイトル';
 comment on column tests.trans_complaint_process_adapter.detail is '詳細';
+comment on column tests.trans_complaint_process_adapter.symbol is 'リニアシンボル';
 comment on column tests.trans_complaint_process_adapter.remarks is '備考';
 comment on column tests.trans_complaint_process_adapter.update_at is '更新日時';
 comment on column tests.trans_complaint_process_adapter.update_user_id is '更新者ID';
@@ -4799,6 +5241,7 @@ comment on column tests.trans_complaint_order_adapter.name is '名前';
 comment on column tests.trans_complaint_order_adapter.number is '番号';
 comment on column tests.trans_complaint_order_adapter.title is 'タイトル';
 comment on column tests.trans_complaint_order_adapter.detail is '詳細';
+comment on column tests.trans_complaint_order_adapter.symbol is 'リニアシンボル';
 comment on column tests.trans_complaint_order_adapter.remarks is '備考';
 comment on column tests.trans_complaint_order_adapter.update_at is '更新日時';
 comment on column tests.trans_complaint_order_adapter.update_user_id is '更新者ID';
@@ -4814,6 +5257,7 @@ comment on column tests.trans_disposal.title is 'タイトル';
 comment on column tests.trans_disposal.detail is '内容';
 comment on column tests.trans_disposal.approval is '承認';
 comment on column tests.trans_disposal.approval_at is '承認日';
+comment on column tests.trans_disposal.symbol is 'リニアシンボル';
 comment on column tests.trans_disposal.remarks is '備考';
 comment on column tests.trans_disposal.update_at is '更新日時';
 comment on column tests.trans_disposal.update_user_id is '更新者ID';
@@ -4829,6 +5273,7 @@ comment on column tests.trans_recurrence_prevention.detail is '内容';
 comment on column tests.trans_recurrence_prevention.reporter is '報告者';
 comment on column tests.trans_recurrence_prevention.recipient is '受領者';
 comment on column tests.trans_recurrence_prevention.approved is '受領承認';
+comment on column tests.trans_recurrence_prevention.symbol is 'リニアシンボル';
 comment on column tests.trans_recurrence_prevention.remarks is '備考';
 comment on column tests.trans_recurrence_prevention.update_at is '更新日時';
 comment on column tests.trans_recurrence_prevention.update_user_id is '更新者ID';
@@ -4842,6 +5287,7 @@ comment on column tests.trans_complaint.detail is '内容';
 comment on column tests.trans_complaint.reporter is '報告者';
 comment on column tests.trans_complaint.recipient is '受領者';
 comment on column tests.trans_complaint.approved is '受領承認';
+comment on column tests.trans_complaint.symbol is 'リニアシンボル';
 comment on column tests.trans_complaint.remarks is '備考';
 comment on column tests.trans_complaint.update_at is '更新日時';
 comment on column tests.trans_complaint.update_user_id is '更新者ID';
@@ -4854,6 +5300,7 @@ comment on column tests.trans_inspect_imp_file.trans_file_id is 'ファイルID'
 comment on column tests.trans_inspect_imp_file.name is '点検整備結果名';
 comment on column tests.trans_inspect_imp_file.class is '区分';
 comment on column tests.trans_inspect_imp_file.trans_file_reminder_id is 'リマインダID';
+comment on column tests.trans_inspect_imp_file.symbol is 'リニアシンボル';
 comment on column tests.trans_inspect_imp_file.remarks is '備考';
 comment on column tests.trans_inspect_imp_file.update_at is '更新日時';
 comment on column tests.trans_inspect_imp_file.update_user_id is '更新者ID';
@@ -4869,6 +5316,7 @@ comment on column tests.trans_inspect_record.result is '結果';
 comment on column tests.trans_inspect_record.result_state is '結果ステータス';
 comment on column tests.trans_inspect_record.note is '特記';
 comment on column tests.trans_inspect_record.stakeholder_id is '利害関係者';
+comment on column tests.trans_inspect_record.symbol is 'リニアシンボル';
 comment on column tests.trans_inspect_record.remarks is '備考';
 comment on column tests.trans_inspect_record.update_at is '更新日時';
 comment on column tests.trans_inspect_record.update_user_id is '更新者ID';
@@ -4882,6 +5330,7 @@ comment on column tests.trans_inspect_sch_detail.scheduled_start_date is '開始
 comment on column tests.trans_inspect_sch_detail.scheduled_end_date is '終了予定日';
 comment on column tests.trans_inspect_sch_detail.history_id is '外部供給者履歴ID';
 comment on column tests.trans_inspect_sch_detail.mstr_stakeholder_id is '外部供給者ID';
+comment on column tests.trans_inspect_sch_detail.symbol is 'リニアシンボル';
 comment on column tests.trans_inspect_sch_detail.remarks is '備考';
 comment on column tests.trans_inspect_sch_detail.update_at is '更新日時';
 comment on column tests.trans_inspect_sch_detail.update_user_id is '更新者ID';
@@ -4889,13 +5338,14 @@ comment on column tests.trans_inspect_sch_detail.update_user_history_id is '更�
 comment on column tests.trans_inspect_sch_detail.remove is '削除';
 comment on table tests.trans_inspect_sch is '点検整備予定';
 comment on column tests.trans_inspect_sch.trans_inspect_sch_id is '点検整備予定ID';
-comment on column tests.trans_inspect_sch.code is 'コード';
-comment on column tests.trans_inspect_sch.name is '名前';
-comment on column tests.trans_inspect_sch.kana is 'カナ';
-comment on column tests.trans_inspect_sch.nickname is '略称';
-comment on column tests.trans_inspect_sch.note is '特記';
+comment on column tests.trans_inspect_sch.code is '管理コード';
+comment on column tests.trans_inspect_sch.shared_appellations_id is '呼称セットID';
 comment on column tests.trans_inspect_sch.history_id is '設備履歴ID';
 comment on column tests.trans_inspect_sch.mstr_equipment_id is '設備ID';
+comment on column tests.trans_inspect_sch.requirements is '要求事項';
+comment on column tests.trans_inspect_sch.attention is '注意事項';
+comment on column tests.trans_inspect_sch.recommendation is '補足事項';
+comment on column tests.trans_inspect_sch.symbol is 'リニアシンボル';
 comment on column tests.trans_inspect_sch.remarks is '備考';
 comment on column tests.trans_inspect_sch.update_at is '更新日時';
 comment on column tests.trans_inspect_sch.update_user_id is '更新者ID';
@@ -4912,6 +5362,7 @@ comment on column tests.mstr_inspection.external_inspection is '外部点検整�
 comment on column tests.mstr_inspection.inspection_formula_id is '点検整備項目ID';
 comment on column tests.mstr_inspection.revision is 'レビジョン';
 comment on column tests.mstr_inspection.mstr_item_id is '点検整備サービス品目ID';
+comment on column tests.mstr_inspection.symbol is 'リニアシンボル';
 comment on column tests.mstr_inspection.remarks is '備考';
 comment on column tests.mstr_inspection.update_at is '更新日時';
 comment on column tests.mstr_inspection.update_user_id is '更新者ID';
@@ -4926,6 +5377,7 @@ comment on column tests.info_assign.info_department_id is '部署ID';
 comment on column tests.info_assign.enable is '有効';
 comment on column tests.info_assign.priority is '優先順位';
 comment on column tests.info_assign.revision is 'レビジョン';
+comment on column tests.info_assign.symbol is 'リニアシンボル';
 comment on column tests.info_assign.remarks is '備考';
 comment on column tests.info_assign.update_at is '更新日時';
 comment on column tests.info_assign.update_user_id is '更新者ID';
@@ -4937,6 +5389,7 @@ comment on column tests.info_staff_access_permission.info_access_path_id is 'ア
 comment on column tests.info_staff_access_permission.info_staff_id is '担当者ID';
 comment on column tests.info_staff_access_permission.permit is 'パーミット';
 comment on column tests.info_staff_access_permission.revision is 'レビジョン';
+comment on column tests.info_staff_access_permission.symbol is 'リニアシンボル';
 comment on column tests.info_staff_access_permission.remarks is '備考';
 comment on column tests.info_staff_access_permission.update_at is '更新日時';
 comment on column tests.info_staff_access_permission.update_user_id is '更新者ID';
@@ -4947,6 +5400,7 @@ comment on column tests.info_app.info_app_id is 'アプリケーションID';
 comment on column tests.info_app.info_company_id is '会社ID';
 comment on column tests.info_app.name is 'アプリケーション名';
 comment on column tests.info_app.revision is 'レビジョン';
+comment on column tests.info_app.symbol is 'リニアシンボル';
 comment on column tests.info_app.remarks is '備考';
 comment on column tests.info_app.update_at is '更新日時';
 comment on column tests.info_app.update_user_id is '更新者ID';
@@ -4962,6 +5416,7 @@ comment on column tests.info_access_path.usecase_path3 is 'ユースケースパ
 comment on column tests.info_access_path.classes is 'ページクラス';
 comment on column tests.info_access_path.sequence is '順';
 comment on column tests.info_access_path.revision is 'レビジョン';
+comment on column tests.info_access_path.symbol is 'リニアシンボル';
 comment on column tests.info_access_path.remarks is '備考';
 comment on column tests.info_access_path.update_at is '更新日時';
 comment on column tests.info_access_path.update_user_id is '更新者ID';
@@ -4976,6 +5431,7 @@ comment on column tests.trans_inventory_request.trans_product_rez_id is '生産�
 comment on column tests.trans_inventory_request.trans_product_detail_id is '生産計画詳細ID';
 comment on column tests.trans_inventory_request.trans_product_id is '生産計画ID';
 comment on column tests.trans_inventory_request.quantity is '引当数量';
+comment on column tests.trans_inventory_request.symbol is 'リニアシンボル';
 comment on column tests.trans_inventory_request.remarks is '備考';
 comment on column tests.trans_inventory_request.update_at is '更新日時';
 comment on column tests.trans_inventory_request.update_user_id is '更新者ID';
@@ -4989,6 +5445,7 @@ comment on column tests.trans_product_rez.register_plan_at is '引当予定日';
 comment on column tests.trans_product_rez.quantity is '引当数量';
 comment on column tests.trans_product_rez.staff_history_id is '作業担当者履歴ID';
 comment on column tests.trans_product_rez.info_staff_id is '作業担当者ID';
+comment on column tests.trans_product_rez.symbol is 'リニアシンボル';
 comment on column tests.trans_product_rez.remarks is '備考';
 comment on column tests.trans_product_rez.update_at is '更新日時';
 comment on column tests.trans_product_rez.update_user_id is '更新者ID';
@@ -5001,6 +5458,7 @@ comment on column tests.trans_work_record_visiter.trans_work_record_id is '作�
 comment on column tests.trans_work_record_visiter.trans_product_detail_id is '生産計画詳細ID';
 comment on column tests.trans_work_record_visiter.trans_product_id is '生産計画ID';
 comment on column tests.trans_work_record_visiter.quantity is '数量';
+comment on column tests.trans_work_record_visiter.symbol is 'リニアシンボル';
 comment on column tests.trans_work_record_visiter.remarks is '備考';
 comment on column tests.trans_work_record_visiter.update_at is '更新日時';
 comment on column tests.trans_work_record_visiter.update_user_id is '更新者ID';
@@ -5012,6 +5470,7 @@ comment on column tests.trans_purchase_rec_visiter.trans_purchase_rec_id is '受
 comment on column tests.trans_purchase_rec_visiter.trans_visiter_id is '棚ビジターID';
 comment on column tests.trans_purchase_rec_visiter.trans_purchase_detail_id is '発注明細ID';
 comment on column tests.trans_purchase_rec_visiter.quantity is '数量';
+comment on column tests.trans_purchase_rec_visiter.symbol is 'リニアシンボル';
 comment on column tests.trans_purchase_rec_visiter.remarks is '備考';
 comment on column tests.trans_purchase_rec_visiter.update_at is '更新日時';
 comment on column tests.trans_purchase_rec_visiter.update_user_id is '更新者ID';
@@ -5022,6 +5481,7 @@ comment on column tests.trans_visiter.trans_visiter_id is '棚ビジターID';
 comment on column tests.trans_visiter.trans_container_id is 'コンテナID';
 comment on column tests.trans_visiter.status is '状態';
 comment on column tests.trans_visiter.quantity is '数量';
+comment on column tests.trans_visiter.symbol is 'リニアシンボル';
 comment on column tests.trans_visiter.remarks is '備考';
 comment on column tests.trans_visiter.update_at is '更新日時';
 comment on column tests.trans_visiter.update_user_id is '更新者ID';
@@ -5034,6 +5494,7 @@ comment on column tests.mstr_item_actual_size.mstr_item_size_kind_id is '品目�
 comment on column tests.mstr_item_actual_size.size_value is '大きさ';
 comment on column tests.mstr_item_actual_size.detail is '詳細';
 comment on column tests.mstr_item_actual_size.revision is 'レビジョン';
+comment on column tests.mstr_item_actual_size.symbol is 'リニアシンボル';
 comment on column tests.mstr_item_actual_size.remarks is '備考';
 comment on column tests.mstr_item_actual_size.update_at is '更新日時';
 comment on column tests.mstr_item_actual_size.update_user_id is '更新者ID';
@@ -5046,6 +5507,7 @@ comment on column tests.trans_file.name is 'ファイル名';
 comment on column tests.trans_file.number is '番号';
 comment on column tests.trans_file.title is 'タイトル';
 comment on column tests.trans_file.detail is '詳細';
+comment on column tests.trans_file.symbol is 'リニアシンボル';
 comment on column tests.trans_file.remarks is '備考';
 comment on column tests.trans_file.update_at is '更新日時';
 comment on column tests.trans_file.update_user_id is '更新者ID';
@@ -5060,6 +5522,7 @@ comment on column tests.mstr_operation_task.control_code is '管理コード';
 comment on column tests.mstr_operation_task.shared_appellations_id is '呼称セットID';
 comment on column tests.mstr_operation_task.detail is '詳細';
 comment on column tests.mstr_operation_task.revision is 'レビジョン';
+comment on column tests.mstr_operation_task.symbol is 'リニアシンボル';
 comment on column tests.mstr_operation_task.remarks is '備考';
 comment on column tests.mstr_operation_task.update_at is '更新日時';
 comment on column tests.mstr_operation_task.update_user_id is '更新者ID';
@@ -5071,6 +5534,7 @@ comment on column tests.mstr_operation.control_code is '管理コード';
 comment on column tests.mstr_operation.shared_appellations_id is '呼称セットID';
 comment on column tests.mstr_operation.detail is '詳細';
 comment on column tests.mstr_operation.revision is 'レビジョン';
+comment on column tests.mstr_operation.symbol is 'リニアシンボル';
 comment on column tests.mstr_operation.remarks is '備考';
 comment on column tests.mstr_operation.update_at is '更新日時';
 comment on column tests.mstr_operation.update_user_id is '更新者ID';
@@ -5086,6 +5550,7 @@ comment on column tests.trans_convey.history_id is '場所履歴ID';
 comment on column tests.trans_convey.mstr_location_id is '場所ID';
 comment on column tests.trans_convey.staff_history_id is '作業担当者履歴ID';
 comment on column tests.trans_convey.info_staff_id is '作業担当者ID';
+comment on column tests.trans_convey.symbol is 'リニアシンボル';
 comment on column tests.trans_convey.remarks is '備考';
 comment on column tests.trans_convey.update_at is '更新日時';
 comment on column tests.trans_convey.update_user_id is '更新者ID';
@@ -5095,6 +5560,7 @@ comment on table tests.trans_work_record_certificate is '作業成績書';
 comment on column tests.trans_work_record_certificate.trans_work_record_certificate_id is '作業成績書ID';
 comment on column tests.trans_work_record_certificate.trans_certificate_id is '成績書ID';
 comment on column tests.trans_work_record_certificate.trans_work_record_id is '作業実績ID';
+comment on column tests.trans_work_record_certificate.symbol is 'リニアシンボル';
 comment on column tests.trans_work_record_certificate.remarks is '備考';
 comment on column tests.trans_work_record_certificate.update_at is '更新日時';
 comment on column tests.trans_work_record_certificate.update_user_id is '更新者ID';
@@ -5106,6 +5572,7 @@ comment on column tests.trans_certificate.serial is 'シリアル番号';
 comment on column tests.trans_certificate.name is '成績署名';
 comment on column tests.trans_certificate.class is '区分';
 comment on column tests.trans_certificate.trans_file_id is 'ファイルID';
+comment on column tests.trans_certificate.symbol is 'リニアシンボル';
 comment on column tests.trans_certificate.remarks is '備考';
 comment on column tests.trans_certificate.update_at is '更新日時';
 comment on column tests.trans_certificate.update_user_id is '更新者ID';
@@ -5116,6 +5583,7 @@ comment on column tests.trans_purchase_rec.trans_purchase_rec_id is '受入実�
 comment on column tests.trans_purchase_rec.trans_purchase_detail_id is '発注明細ID';
 comment on column tests.trans_purchase_rec.receive_at is '受入日時';
 comment on column tests.trans_purchase_rec.quantity is '数量';
+comment on column tests.trans_purchase_rec.symbol is 'リニアシンボル';
 comment on column tests.trans_purchase_rec.remarks is '備考';
 comment on column tests.trans_purchase_rec.update_at is '更新日時';
 comment on column tests.trans_purchase_rec.update_user_id is '更新者ID';
@@ -5125,6 +5593,7 @@ comment on table tests.trans_purchase_certification is '発注成績書';
 comment on column tests.trans_purchase_certification.trans_purchase_certification_id is '発注成績書ID';
 comment on column tests.trans_purchase_certification.trans_purchase_rec_id is '受入実績ID';
 comment on column tests.trans_purchase_certification.trans_certificate_id is '成績書ID';
+comment on column tests.trans_purchase_certification.symbol is 'リニアシンボル';
 comment on column tests.trans_purchase_certification.remarks is '備考';
 comment on column tests.trans_purchase_certification.update_at is '更新日時';
 comment on column tests.trans_purchase_certification.update_user_id is '更新者ID';
@@ -5135,6 +5604,7 @@ comment on column tests.trans_purchase_rez.trans_purchase_rez_id is '購買引�
 comment on column tests.trans_purchase_rez.trans_purchase_id is '発注ID';
 comment on column tests.trans_purchase_rez.trans_purchase_detail_id is '発注明細ID';
 comment on column tests.trans_purchase_rez.quantity is '引当数量';
+comment on column tests.trans_purchase_rez.symbol is 'リニアシンボル';
 comment on column tests.trans_purchase_rez.remarks is '備考';
 comment on column tests.trans_purchase_rez.update_at is '更新日時';
 comment on column tests.trans_purchase_rez.update_user_id is '更新者ID';
@@ -5149,6 +5619,7 @@ comment on column tests.trans_purchase_detail.quantity is '数量';
 comment on column tests.trans_purchase_detail.period is '納期';
 comment on column tests.trans_purchase_detail.history_id is '品目履歴ID';
 comment on column tests.trans_purchase_detail.mstr_item_id is '品目ID';
+comment on column tests.trans_purchase_detail.symbol is 'リニアシンボル';
 comment on column tests.trans_purchase_detail.remarks is '備考';
 comment on column tests.trans_purchase_detail.update_at is '更新日時';
 comment on column tests.trans_purchase_detail.update_user_id is '更新者ID';
@@ -5163,6 +5634,7 @@ comment on column tests.trans_order_detail.quantity is '数量';
 comment on column tests.trans_order_detail.cost is '単価';
 comment on column tests.trans_order_detail.delivery_date is '個別納期';
 comment on column tests.trans_order_detail.deadline is '個別完了期限';
+comment on column tests.trans_order_detail.symbol is 'リニアシンボル';
 comment on column tests.trans_order_detail.remarks is '備考';
 comment on column tests.trans_order_detail.update_at is '更新日時';
 comment on column tests.trans_order_detail.update_user_id is '更新者ID';
@@ -5175,6 +5647,7 @@ comment on column tests.trans_shipping_order_detail.trans_order_detail_id is '�
 comment on column tests.trans_shipping_order_detail.edtimated_shipping_date is '個別出荷予定日';
 comment on column tests.trans_shipping_order_detail.estimated_arrival_date is '個別到着予定日';
 comment on column tests.trans_shipping_order_detail.shipping_quantity is '出荷数量';
+comment on column tests.trans_shipping_order_detail.symbol is 'リニアシンボル';
 comment on column tests.trans_shipping_order_detail.remarks is '備考';
 comment on column tests.trans_shipping_order_detail.update_at is '更新日時';
 comment on column tests.trans_shipping_order_detail.update_user_id is '更新者ID';
@@ -5188,6 +5661,7 @@ comment on column tests.trans_ship_order.code is '出荷オーダーコード';
 comment on column tests.trans_ship_order.estimated_arrival_date is '到着予定日';
 comment on column tests.trans_ship_order.history_mstr_stakeholder_id is '履歴利害関係者ID';
 comment on column tests.trans_ship_order.mstr_stakeholder_id is '利害関係者ID';
+comment on column tests.trans_ship_order.symbol is 'リニアシンボル';
 comment on column tests.trans_ship_order.remarks is '備考';
 comment on column tests.trans_ship_order.update_at is '更新日時';
 comment on column tests.trans_ship_order.update_user_id is '更新者ID';
@@ -5204,6 +5678,7 @@ comment on column tests.trans_work_record.staff_history_id is '作業担当者�
 comment on column tests.trans_work_record.info_staff_id is '作業担当者ID';
 comment on column tests.trans_work_record.equipment_history_id is '設備履歴ID';
 comment on column tests.trans_work_record.mstr_equipment_id is '設備ID';
+comment on column tests.trans_work_record.symbol is 'リニアシンボル';
 comment on column tests.trans_work_record.remarks is '備考';
 comment on column tests.trans_work_record.update_at is '更新日時';
 comment on column tests.trans_work_record.update_user_id is '更新者ID';
@@ -5216,6 +5691,7 @@ comment on column tests.trans_inventory_apply.trans_inventory_request_id is '引
 comment on column tests.trans_inventory_apply.convey_id is '受払実績ID';
 comment on column tests.trans_inventory_apply.staff_history_id is '作業担当履歴ID';
 comment on column tests.trans_inventory_apply.info_staff_id is '作業担当者ID';
+comment on column tests.trans_inventory_apply.symbol is 'リニアシンボル';
 comment on column tests.trans_inventory_apply.remarks is '備考';
 comment on column tests.trans_inventory_apply.update_at is '更新日時';
 comment on column tests.trans_inventory_apply.update_user_id is '更新者ID';
@@ -5228,6 +5704,7 @@ comment on column tests.trans_product_detail.mstr_task_id is '工程ID';
 comment on column tests.trans_product_detail.interval_plan is '予定作業時間';
 comment on column tests.trans_product_detail.start_at is '開始予定';
 comment on column tests.trans_product_detail.completion_at is '完了予定';
+comment on column tests.trans_product_detail.symbol is 'リニアシンボル';
 comment on column tests.trans_product_detail.remarks is '備考';
 comment on column tests.trans_product_detail.update_at is '更新日時';
 comment on column tests.trans_product_detail.update_user_id is '更新者ID';
@@ -5237,6 +5714,7 @@ comment on table tests.trans_product is '生産計画';
 comment on column tests.trans_product.trans_product_id is '生産計画ID';
 comment on column tests.trans_product.trans_resorce_plan_id is '資材計画ID';
 comment on column tests.trans_product.deadline is '完了期限';
+comment on column tests.trans_product.symbol is 'リニアシンボル';
 comment on column tests.trans_product.remarks is '備考';
 comment on column tests.trans_product.update_at is '更新日時';
 comment on column tests.trans_product.update_user_id is '更新者ID';
@@ -5252,6 +5730,7 @@ comment on column tests.trans_resorce_plan.inventory_resavation is '在庫数量
 comment on column tests.trans_resorce_plan.deadline is '期限';
 comment on column tests.trans_resorce_plan.history_id is '品目履歴ID';
 comment on column tests.trans_resorce_plan.mstr_item_id is '品目ID';
+comment on column tests.trans_resorce_plan.symbol is 'リニアシンボル';
 comment on column tests.trans_resorce_plan.remarks is '備考';
 comment on column tests.trans_resorce_plan.update_at is '更新日時';
 comment on column tests.trans_resorce_plan.update_user_id is '更新者ID';
@@ -5269,6 +5748,7 @@ comment on column tests.trans_purchase.purchase_ctrl_3 is '発注管理コード
 comment on column tests.trans_purchase.register_at is '登録日';
 comment on column tests.trans_purchase.purchase_order_date is '発注日';
 comment on column tests.trans_purchase.deadline is '発注期限';
+comment on column tests.trans_purchase.symbol is 'リニアシンボル';
 comment on column tests.trans_purchase.remarks is '備考';
 comment on column tests.trans_purchase.update_at is '更新日時';
 comment on column tests.trans_purchase.update_user_id is '更新者ID';
@@ -5288,6 +5768,7 @@ comment on column tests.trans_order.control_code_3 is '管理コード3';
 comment on column tests.trans_order.order_processing_date is '受注日';
 comment on column tests.trans_order.delivery_date is '納期';
 comment on column tests.trans_order.deadline is '完了期限';
+comment on column tests.trans_order.symbol is 'リニアシンボル';
 comment on column tests.trans_order.remarks is '備考';
 comment on column tests.trans_order.update_at is '更新日時';
 comment on column tests.trans_order.update_user_id is '更新者ID';
@@ -5300,6 +5781,7 @@ comment on column tests.mstr_item_operation_task.mstr_item_id is '品目ID';
 comment on column tests.mstr_item_operation_task.sequence is '順';
 comment on column tests.mstr_item_operation_task.default_interval is '標準時間';
 comment on column tests.mstr_item_operation_task.revision is 'レビジョン';
+comment on column tests.mstr_item_operation_task.symbol is 'リニアシンボル';
 comment on column tests.mstr_item_operation_task.remarks is '備考';
 comment on column tests.mstr_item_operation_task.update_at is '更新日時';
 comment on column tests.mstr_item_operation_task.update_user_id is '更新者ID';
@@ -5315,6 +5797,7 @@ comment on column tests.mstr_item_tree.shared_appellations_id is '呼称セッ�
 comment on column tests.mstr_item_tree.quantity is '数量';
 comment on column tests.mstr_item_tree.detail is '詳細';
 comment on column tests.mstr_item_tree.revision is 'レビジョン';
+comment on column tests.mstr_item_tree.symbol is 'リニアシンボル';
 comment on column tests.mstr_item_tree.remarks is '備考';
 comment on column tests.mstr_item_tree.update_at is '更新日時';
 comment on column tests.mstr_item_tree.update_user_id is '更新者ID';
@@ -5345,6 +5828,7 @@ comment on column tests.mstr_item.increment is '刻み';
 comment on column tests.mstr_item.lot is 'ロット';
 comment on column tests.mstr_item.stock_quantity is '最少在庫数量';
 comment on column tests.mstr_item.revision is 'レビジョン';
+comment on column tests.mstr_item.symbol is 'リニアシンボル';
 comment on column tests.mstr_item.remarks is '備考';
 comment on column tests.mstr_item.update_at is '更新日時';
 comment on column tests.mstr_item.update_user_id is '更新者ID';
@@ -5359,6 +5843,7 @@ comment on column tests.mstr_task_tree.control_code is '管理コード';
 comment on column tests.mstr_task_tree.shared_appellations_id is '呼称セットID';
 comment on column tests.mstr_task_tree.detail is '詳細';
 comment on column tests.mstr_task_tree.revision is 'レビジョン';
+comment on column tests.mstr_task_tree.symbol is 'リニアシンボル';
 comment on column tests.mstr_task_tree.remarks is '備考';
 comment on column tests.mstr_task_tree.update_at is '更新日時';
 comment on column tests.mstr_task_tree.update_user_id is '更新者ID';
@@ -5373,6 +5858,7 @@ comment on column tests.mstr_task.detail is '詳細';
 comment on column tests.mstr_task.class is '区分';
 comment on column tests.mstr_task.default_time is '標準時間';
 comment on column tests.mstr_task.revision is 'レビジョン';
+comment on column tests.mstr_task.symbol is 'リニアシンボル';
 comment on column tests.mstr_task.remarks is '備考';
 comment on column tests.mstr_task.update_at is '更新日時';
 comment on column tests.mstr_task.update_user_id is '更新者ID';
@@ -5387,6 +5873,7 @@ comment on column tests.mstr_location.shared_appellations_id is '呼称セット
 comment on column tests.mstr_location.info_address_id is '住所ID';
 comment on column tests.mstr_location.available is '使用';
 comment on column tests.mstr_location.revision is 'レビジョン';
+comment on column tests.mstr_location.symbol is 'リニアシンボル';
 comment on column tests.mstr_location.remarks is '備考';
 comment on column tests.mstr_location.update_at is '更新日時';
 comment on column tests.mstr_location.update_user_id is '更新者ID';
@@ -5401,6 +5888,7 @@ comment on column tests.mstr_equipment.control_code is '管理コード';
 comment on column tests.mstr_equipment.label_code is '表示コード';
 comment on column tests.mstr_equipment.mstr_location_id is '場所ID';
 comment on column tests.mstr_equipment.revision is 'レビジョン';
+comment on column tests.mstr_equipment.symbol is 'リニアシンボル';
 comment on column tests.mstr_equipment.remarks is '備考';
 comment on column tests.mstr_equipment.update_at is '更新日時';
 comment on column tests.mstr_equipment.update_user_id is '更新者ID';
@@ -5417,6 +5905,7 @@ comment on column tests.mstr_stakeholder_contact.mail is 'メール';
 comment on column tests.mstr_stakeholder_contact.info_address_id is '住所ID';
 comment on column tests.mstr_stakeholder_contact.mstr_shipping_kind_id is '配送区分ID';
 comment on column tests.mstr_stakeholder_contact.revision is 'レビジョン';
+comment on column tests.mstr_stakeholder_contact.symbol is 'リニアシンボル';
 comment on column tests.mstr_stakeholder_contact.remarks is '備考';
 comment on column tests.mstr_stakeholder_contact.update_at is '更新日時';
 comment on column tests.mstr_stakeholder_contact.update_user_id is '更新者ID';
@@ -5434,6 +5923,7 @@ comment on column tests.mstr_stakeholder.mail is 'メール';
 comment on column tests.mstr_stakeholder.info_address_id is '住所ID';
 comment on column tests.mstr_stakeholder.mstr_shipping_kind_id is '配送区分ID';
 comment on column tests.mstr_stakeholder.revision is 'レビジョン';
+comment on column tests.mstr_stakeholder.symbol is 'リニアシンボル';
 comment on column tests.mstr_stakeholder.remarks is '備考';
 comment on column tests.mstr_stakeholder.update_at is '更新日時';
 comment on column tests.mstr_stakeholder.update_user_id is '更新者ID';
@@ -5450,6 +5940,7 @@ comment on column tests.mstr_staff_license.abeyance_at is '停止日時';
 comment on column tests.mstr_staff_license.revocation is '取り消し';
 comment on column tests.mstr_staff_license.revocation_at is '取り消し日時';
 comment on column tests.mstr_staff_license.revision is 'レビジョン';
+comment on column tests.mstr_staff_license.symbol is 'リニアシンボル';
 comment on column tests.mstr_staff_license.remarks is '備考';
 comment on column tests.mstr_staff_license.update_at is '更新日時';
 comment on column tests.mstr_staff_license.update_user_id is '更新者ID';
@@ -5462,6 +5953,7 @@ comment on column tests.mstr_staff_capability.mstr_capability_id is '力量ID';
 comment on column tests.mstr_staff_capability.value is '値';
 comment on column tests.mstr_staff_capability.stop is '停止';
 comment on column tests.mstr_staff_capability.revision is 'レビジョン';
+comment on column tests.mstr_staff_capability.symbol is 'リニアシンボル';
 comment on column tests.mstr_staff_capability.remarks is '備考';
 comment on column tests.mstr_staff_capability.update_at is '更新日時';
 comment on column tests.mstr_staff_capability.update_user_id is '更新者ID';
@@ -5475,6 +5967,7 @@ comment on column tests.mstr_sign.code is 'サインコード';
 comment on column tests.mstr_sign.mail is 'メールアドレス';
 comment on column tests.mstr_sign.role is '権限';
 comment on column tests.mstr_sign.revision is 'レビジョン';
+comment on column tests.mstr_sign.symbol is 'リニアシンボル';
 comment on column tests.mstr_sign.remarks is '備考';
 comment on column tests.mstr_sign.update_at is '更新日時';
 comment on column tests.mstr_sign.update_user_id is '更新者ID';
@@ -5490,6 +5983,7 @@ comment on column tests.mstr_license.customer_license is '顧客';
 comment on column tests.mstr_license.organization_license is '内部';
 comment on column tests.mstr_license.update_interval is '更新間隔';
 comment on column tests.mstr_license.revision is 'レビジョン';
+comment on column tests.mstr_license.symbol is 'リニアシンボル';
 comment on column tests.mstr_license.remarks is '備考';
 comment on column tests.mstr_license.update_at is '更新日時';
 comment on column tests.mstr_license.update_user_id is '更新者ID';
@@ -5505,6 +5999,7 @@ comment on column tests.mstr_capability.max is '最大';
 comment on column tests.mstr_capability.min is '最小';
 comment on column tests.mstr_capability.step is '刻み';
 comment on column tests.mstr_capability.revision is 'レビジョン';
+comment on column tests.mstr_capability.symbol is 'リニアシンボル';
 comment on column tests.mstr_capability.remarks is '備考';
 comment on column tests.mstr_capability.update_at is '更新日時';
 comment on column tests.mstr_capability.update_user_id is '更新者ID';
@@ -5519,6 +6014,7 @@ comment on column tests.info_staff.sex is '性別';
 comment on column tests.info_staff.phone is '電話';
 comment on column tests.info_staff.private_phone is '緊急電話';
 comment on column tests.info_staff.revision is 'レビジョン';
+comment on column tests.info_staff.symbol is 'リニアシンボル';
 comment on column tests.info_staff.remarks is '備考';
 comment on column tests.info_staff.update_at is '更新日時';
 comment on column tests.info_staff.update_user_id is '更新者ID';
@@ -5535,6 +6031,7 @@ comment on column tests.info_department.category2 is '組織区分2';
 comment on column tests.info_department.category3 is '組織区分3';
 comment on column tests.info_department.info_address_id is '住所ID';
 comment on column tests.info_department.revision is 'レビジョン';
+comment on column tests.info_department.symbol is 'リニアシンボル';
 comment on column tests.info_department.remarks is '備考';
 comment on column tests.info_department.update_at is '更新日時';
 comment on column tests.info_department.update_user_id is '更新者ID';
@@ -5547,87 +6044,128 @@ comment on column tests.info_office.code is '事業所コード';
 comment on column tests.info_office.shared_appellations_id is '呼称セットID';
 comment on column tests.info_office.info_address_id is '住所ID';
 comment on column tests.info_office.revision is 'レビジョン';
+comment on column tests.info_office.symbol is 'リニアシンボル';
 comment on column tests.info_office.remarks is '備考';
 comment on column tests.info_office.update_at is '更新日時';
 comment on column tests.info_office.update_user_id is '更新者ID';
 comment on column tests.info_office.update_user_history_id is '更新者履歴ID';
 comment on column tests.info_office.remove is '削除';
---211.add table primary key and index
+--212.add table primary key and index
+create unique index shared_symbol_counter_PKI
+    on tests.shared_symbol_counter(table_name ,yy,mm);
+alter table tests.shared_symbol_counter
+    add constraint shared_symbol_counter_PKC primary key (table_name ,yy,mm);
 create unique index history_mstr_inspection_kind_PKI
     on tests.history_mstr_inspection_kind(history_id,mstr_inspection_kind_id);
 alter table tests.history_mstr_inspection_kind
     add constraint history_mstr_inspection_kind_PKC primary key (history_id,mstr_inspection_kind_id);
+alter table tests.history_mstr_inspection_kind
+     add constraint history_mstr_inspection_kind_IX1 unique (symbol);
 create unique index mstr_inspection_kind_PKI
     on tests.mstr_inspection_kind(mstr_inspection_kind_id);
 alter table tests.mstr_inspection_kind
     add constraint mstr_inspection_kind_PKC primary key (mstr_inspection_kind_id);
+alter table tests.mstr_inspection_kind
+     add constraint mstr_inspection_kind_IX1 unique (symbol);
 create unique index history_mstr_packing_spec_PKI
     on tests.history_mstr_packing_spec(history_id,mstr_packing_spec_id);
 alter table tests.history_mstr_packing_spec
     add constraint history_mstr_packing_spec_PKC primary key (history_id,mstr_packing_spec_id);
+alter table tests.history_mstr_packing_spec
+     add constraint history_mstr_packing_spec_IX1 unique (symbol);
 create unique index history_mstr_spec_measurement_PKI
     on tests.history_mstr_spec_measurement(history_id,mstr_spec_measurement_id);
 alter table tests.history_mstr_spec_measurement
     add constraint history_mstr_spec_measurement_PKC primary key (history_id,mstr_spec_measurement_id);
+alter table tests.history_mstr_spec_measurement
+     add constraint history_mstr_spec_measurement_IX1 unique (symbol);
 create unique index history_mstr_envelope_measurement_PKI
     on tests.history_mstr_envelope_measurement(history_id,mstr_envelope_measurement_id);
 alter table tests.history_mstr_envelope_measurement
     add constraint history_mstr_envelope_measurement_PKC primary key (history_id,mstr_envelope_measurement_id);
+alter table tests.history_mstr_envelope_measurement
+     add constraint history_mstr_envelope_measurement_IX1 unique (symbol);
 create unique index history_mstr_equipment_envelope_PKI
     on tests.history_mstr_equipment_envelope(history_id,mstr_equipment_envelope_id);
 alter table tests.history_mstr_equipment_envelope
     add constraint history_mstr_equipment_envelope_PKC primary key (history_id,mstr_equipment_envelope_id);
+alter table tests.history_mstr_equipment_envelope
+     add constraint history_mstr_equipment_envelope_IX1 unique (symbol);
 create unique index mstr_spec_measurement_PKI
     on tests.mstr_spec_measurement(mstr_spec_measurement_id);
 alter table tests.mstr_spec_measurement
     add constraint mstr_spec_measurement_PKC primary key (mstr_spec_measurement_id);
+alter table tests.mstr_spec_measurement
+     add constraint mstr_spec_measurement_IX1 unique (symbol);
 create unique index mstr_packing_spec_PKI
     on tests.mstr_packing_spec(mstr_packing_spec_id);
 alter table tests.mstr_packing_spec
     add constraint mstr_packing_spec_PKC primary key (mstr_packing_spec_id);
+alter table tests.mstr_packing_spec
+     add constraint mstr_packing_spec_IX1 unique (symbol);
 create unique index mstr_envelope_measurement_PKI
     on tests.mstr_envelope_measurement(mstr_envelope_measurement_id);
 alter table tests.mstr_envelope_measurement
     add constraint mstr_envelope_measurement_PKC primary key (mstr_envelope_measurement_id);
+alter table tests.mstr_envelope_measurement
+     add constraint mstr_envelope_measurement_IX1 unique (symbol);
 create unique index mstr_equipment_envelope_PKI
     on tests.mstr_equipment_envelope(mstr_equipment_envelope_id);
 alter table tests.mstr_equipment_envelope
     add constraint mstr_equipment_envelope_PKC primary key (mstr_equipment_envelope_id);
+alter table tests.mstr_equipment_envelope
+     add constraint mstr_equipment_envelope_IX1 unique (symbol);
 create unique index trans_shipping_order_detail_record_PKI
     on tests.trans_shipping_order_detail_record(trans_shipping_order_detail_record_id);
 alter table tests.trans_shipping_order_detail_record
     add constraint trans_shipping_order_detail_record_PKC primary key (trans_shipping_order_detail_record_id);
 alter table tests.trans_shipping_order_detail_record
      add constraint trans_shipping_order_detail_record_IX1 unique (trans_shipping_order_detail_record_id,trans_shipping_order_detail_id);
+alter table tests.trans_shipping_order_detail_record
+     add constraint trans_shipping_order_detail_record_IX2 unique (symbol);
 create unique index history_mstr_shipping_kind_PKI
     on tests.history_mstr_shipping_kind(history_id,mstr_shipping_kind_id);
 alter table tests.history_mstr_shipping_kind
     add constraint history_mstr_shipping_kind_PKC primary key (history_id,mstr_shipping_kind_id);
+alter table tests.history_mstr_shipping_kind
+     add constraint history_mstr_shipping_kind_IX1 unique (symbol);
 create unique index mstr_shipping_kind_PKI
     on tests.mstr_shipping_kind(mstr_shipping_kind_id);
 alter table tests.mstr_shipping_kind
     add constraint mstr_shipping_kind_PKC primary key (mstr_shipping_kind_id);
+alter table tests.mstr_shipping_kind
+     add constraint mstr_shipping_kind_IX1 unique (symbol);
 create unique index history_mstr_item_size_kind_PKI
     on tests.history_mstr_item_size_kind(history_id,mstr_item_size_kind_id);
 alter table tests.history_mstr_item_size_kind
     add constraint history_mstr_item_size_kind_PKC primary key (history_id,mstr_item_size_kind_id);
+alter table tests.history_mstr_item_size_kind
+     add constraint history_mstr_item_size_kind_IX1 unique (symbol);
 create unique index mstr_item_size_kind_PKI
     on tests.mstr_item_size_kind(mstr_item_size_kind_id);
 alter table tests.mstr_item_size_kind
     add constraint mstr_item_size_kind_PKC primary key (mstr_item_size_kind_id);
 create unique index mstr_item_size_kind_IX1
-     on tests.mstr_item_size_kind(code);create unique index history_mstr_item_kind_PKI
+     on tests.mstr_item_size_kind(code);alter table tests.mstr_item_size_kind
+     add constraint mstr_item_size_kind_IX2 unique (symbol);
+create unique index history_mstr_item_kind_PKI
     on tests.history_mstr_item_kind(history_id,mstr_item_kind_id);
 alter table tests.history_mstr_item_kind
     add constraint history_mstr_item_kind_PKC primary key (history_id,mstr_item_kind_id);
+alter table tests.history_mstr_item_kind
+     add constraint history_mstr_item_kind_IX1 unique (symbol);
 create unique index mstr_item_kind_PKI
     on tests.mstr_item_kind(mstr_item_kind_id);
 alter table tests.mstr_item_kind
     add constraint mstr_item_kind_PKC primary key (mstr_item_kind_id);
+alter table tests.mstr_item_kind
+     add constraint mstr_item_kind_IX1 unique (symbol);
 create unique index history_shared_appellations_PKI
     on tests.history_shared_appellations(history_id,shared_appellations_id);
 alter table tests.history_shared_appellations
     add constraint history_shared_appellations_PKC primary key (history_id,shared_appellations_id);
+alter table tests.history_shared_appellations
+     add constraint history_shared_appellations_IX1 unique (symbol);
 create unique index shared_appellations_PKI
     on tests.shared_appellations(shared_appellations_id);
 alter table tests.shared_appellations
@@ -5636,6 +6174,8 @@ create unique index history_shared_dictionary_PKI
     on tests.history_shared_dictionary(history_id,shared_dictionary_id);
 alter table tests.history_shared_dictionary
     add constraint history_shared_dictionary_PKC primary key (history_id,shared_dictionary_id);
+alter table tests.history_shared_dictionary
+     add constraint history_shared_dictionary_IX1 unique (symbol);
 create unique index shared_dictionary_PKI
     on tests.shared_dictionary(shared_dictionary_id);
 alter table tests.shared_dictionary
@@ -5646,34 +6186,50 @@ create unique index history_mstr_equipment_PKI
     on tests.history_mstr_equipment(history_id,mstr_equipment_id);
 alter table tests.history_mstr_equipment
     add constraint history_mstr_equipment_PKC primary key (history_id,mstr_equipment_id);
+alter table tests.history_mstr_equipment
+     add constraint history_mstr_equipment_IX1 unique (symbol);
 create unique index history_mstr_equipment_kind_PKI
     on tests.history_mstr_equipment_kind(history_id,mstr_equipment_kind_id);
 alter table tests.history_mstr_equipment_kind
     add constraint history_mstr_equipment_kind_PKC primary key (history_id,mstr_equipment_kind_id);
+alter table tests.history_mstr_equipment_kind
+     add constraint history_mstr_equipment_kind_IX1 unique (symbol);
 create unique index mstr_equipment_kind_PKI
     on tests.mstr_equipment_kind(mstr_equipment_kind_id);
 alter table tests.mstr_equipment_kind
     add constraint mstr_equipment_kind_PKC primary key (mstr_equipment_kind_id);
+alter table tests.mstr_equipment_kind
+     add constraint mstr_equipment_kind_IX1 unique (symbol);
 create unique index history_info_staff_icon_PKI
     on tests.history_info_staff_icon(history_id,info_role_id);
 alter table tests.history_info_staff_icon
     add constraint history_info_staff_icon_PKC primary key (history_id,info_role_id);
+alter table tests.history_info_staff_icon
+     add constraint history_info_staff_icon_IX1 unique (symbol);
 create unique index info_staff_icon_PKI
     on tests.info_staff_icon(info_role_id);
 alter table tests.info_staff_icon
     add constraint info_staff_icon_PKC primary key (info_role_id);
+alter table tests.info_staff_icon
+     add constraint info_staff_icon_IX1 unique (symbol);
 create unique index history_mstr_item_hcdcs_PKI
     on tests.history_mstr_item_hcdcs(history_id,mstr_item_hcds_id);
 alter table tests.history_mstr_item_hcdcs
     add constraint history_mstr_item_hcdcs_PKC primary key (history_id,mstr_item_hcds_id);
+alter table tests.history_mstr_item_hcdcs
+     add constraint history_mstr_item_hcdcs_IX1 unique (symbol);
 create unique index mstr_item_hcdcs_PKI
     on tests.mstr_item_hcdcs(mstr_item_hcds_id);
 alter table tests.mstr_item_hcdcs
     add constraint mstr_item_hcdcs_PKC primary key (mstr_item_hcds_id);
+alter table tests.mstr_item_hcdcs
+     add constraint mstr_item_hcdcs_IX1 unique (symbol);
 create unique index history_mstr_document_content_tree_PKI
     on tests.history_mstr_document_content_tree(history_id,mstr_document_content_tree_id);
 alter table tests.history_mstr_document_content_tree
     add constraint history_mstr_document_content_tree_PKC primary key (history_id,mstr_document_content_tree_id);
+alter table tests.history_mstr_document_content_tree
+     add constraint history_mstr_document_content_tree_IX1 unique (symbol);
 create unique index hrchy_mstr_document_content_PKI
     on tests.hrchy_mstr_document_content(hrchy_mstr_document_content_id);
 alter table tests.hrchy_mstr_document_content
@@ -5682,26 +6238,38 @@ create unique index history_mstr_document_content_PKI
     on tests.history_mstr_document_content(history_id,mstr_document_content_id);
 alter table tests.history_mstr_document_content
     add constraint history_mstr_document_content_PKC primary key (history_id,mstr_document_content_id);
+alter table tests.history_mstr_document_content
+     add constraint history_mstr_document_content_IX1 unique (symbol);
 create unique index mstr_document_content_tree_PKI
     on tests.mstr_document_content_tree(mstr_document_content_tree_id);
 alter table tests.mstr_document_content_tree
     add constraint mstr_document_content_tree_PKC primary key (mstr_document_content_tree_id);
+alter table tests.mstr_document_content_tree
+     add constraint mstr_document_content_tree_IX1 unique (symbol);
 create unique index mstr_document_content_PKI
     on tests.mstr_document_content(mstr_document_content_id);
 alter table tests.mstr_document_content
     add constraint mstr_document_content_PKC primary key (mstr_document_content_id);
+alter table tests.mstr_document_content
+     add constraint mstr_document_content_IX1 unique (symbol);
 create unique index history_mstr_document_tier_PKI
     on tests.history_mstr_document_tier(history_id,mstr_document_tier_id);
 alter table tests.history_mstr_document_tier
     add constraint history_mstr_document_tier_PKC primary key (history_id,mstr_document_tier_id);
+alter table tests.history_mstr_document_tier
+     add constraint history_mstr_document_tier_IX1 unique (symbol);
 create unique index mstr_document_tier_PKI
     on tests.mstr_document_tier(mstr_document_tier_id);
 alter table tests.mstr_document_tier
     add constraint mstr_document_tier_PKC primary key (mstr_document_tier_id);
+alter table tests.mstr_document_tier
+     add constraint mstr_document_tier_IX1 unique (symbol);
 create unique index history_mstr_document_tree_PKI
     on tests.history_mstr_document_tree(history_id,mstr_document_tree_id);
 alter table tests.history_mstr_document_tree
     add constraint history_mstr_document_tree_PKC primary key (history_id,mstr_document_tree_id);
+alter table tests.history_mstr_document_tree
+     add constraint history_mstr_document_tree_IX1 unique (symbol);
 create unique index hrchy_mstr_documet_PKI
     on tests.hrchy_mstr_documet(hrchy_mstr_document_id);
 alter table tests.hrchy_mstr_documet
@@ -5710,36 +6278,52 @@ create unique index mstr_document_tree_PKI
     on tests.mstr_document_tree(mstr_document_tree_id);
 alter table tests.mstr_document_tree
     add constraint mstr_document_tree_PKC primary key (mstr_document_tree_id);
+alter table tests.mstr_document_tree
+     add constraint mstr_document_tree_IX1 unique (symbol);
 create unique index history_mstr_document_PKI
     on tests.history_mstr_document(history_id,mstr_document_id);
 alter table tests.history_mstr_document
     add constraint history_mstr_document_PKC primary key (history_id,mstr_document_id);
+alter table tests.history_mstr_document
+     add constraint history_mstr_document_IX1 unique (symbol);
 create unique index mstr_document_PKI
     on tests.mstr_document(mstr_document_id);
 alter table tests.mstr_document
     add constraint mstr_document_PKC primary key (mstr_document_id);
+alter table tests.mstr_document
+     add constraint mstr_document_IX1 unique (symbol);
 create unique index trans_container_tree_PKI
     on tests.trans_container_tree(trans_container_tree_id);
 alter table tests.trans_container_tree
     add constraint trans_container_tree_PKC primary key (trans_container_tree_id);
+alter table tests.trans_container_tree
+     add constraint trans_container_tree_IX1 unique (symbol);
 create unique index history_mstr_location_tree_PKI
     on tests.history_mstr_location_tree(history_id,mstr_location_tree_id);
 alter table tests.history_mstr_location_tree
     add constraint history_mstr_location_tree_PKC primary key (history_id,mstr_location_tree_id);
+alter table tests.history_mstr_location_tree
+     add constraint history_mstr_location_tree_IX1 unique (symbol);
 create unique index mstr_location_tree_PKI
     on tests.mstr_location_tree(mstr_location_tree_id);
 alter table tests.mstr_location_tree
     add constraint mstr_location_tree_PKC primary key (mstr_location_tree_id);
+alter table tests.mstr_location_tree
+     add constraint mstr_location_tree_IX1 unique (symbol);
 create unique index history_info_department_tree_PKI
     on tests.history_info_department_tree(history_id,info_department_tree_id);
 alter table tests.history_info_department_tree
     add constraint history_info_department_tree_PKC primary key (history_id,info_department_tree_id);
+alter table tests.history_info_department_tree
+     add constraint history_info_department_tree_IX1 unique (symbol);
 create unique index info_department_tree_PKI
     on tests.info_department_tree(info_department_tree_id);
 alter table tests.info_department_tree
     add constraint info_department_tree_PKC primary key (info_department_tree_id);
 alter table tests.info_department_tree
      add constraint info_department_tree_IX1 unique (info_department_id,parent_info_department_id);
+alter table tests.info_department_tree
+     add constraint info_department_tree_IX2 unique (symbol);
 create unique index hrchy_mstr_task_PKI
     on tests.hrchy_mstr_task(hrchy_mstr_task_id);
 alter table tests.hrchy_mstr_task
@@ -5752,46 +6336,68 @@ create unique index history_mstr_inspection_operation_PKI
     on tests.history_mstr_inspection_operation(history_id,mstr_inspection_operation_id);
 alter table tests.history_mstr_inspection_operation
     add constraint history_mstr_inspection_operation_PKC primary key (history_id,mstr_inspection_operation_id);
+alter table tests.history_mstr_inspection_operation
+     add constraint history_mstr_inspection_operation_IX1 unique (symbol);
 create unique index mstr_inspection_operation_PKI
     on tests.mstr_inspection_operation(mstr_inspection_operation_id);
 alter table tests.mstr_inspection_operation
     add constraint mstr_inspection_operation_PKC primary key (mstr_inspection_operation_id);
+alter table tests.mstr_inspection_operation
+     add constraint mstr_inspection_operation_IX1 unique (symbol);
 create unique index history_mstr_inspection_operation_task_PKI
     on tests.history_mstr_inspection_operation_task(history_id,mstr_inspection_operation_task_id);
 alter table tests.history_mstr_inspection_operation_task
     add constraint history_mstr_inspection_operation_task_PKC primary key (history_id,mstr_inspection_operation_task_id);
+alter table tests.history_mstr_inspection_operation_task
+     add constraint history_mstr_inspection_operation_task_IX1 unique (symbol);
 create unique index mstr_inspection_operation_task_PKI
     on tests.mstr_inspection_operation_task(mstr_inspection_operation_task_id);
 alter table tests.mstr_inspection_operation_task
     add constraint mstr_inspection_operation_task_PKC primary key (mstr_inspection_operation_task_id);
+alter table tests.mstr_inspection_operation_task
+     add constraint mstr_inspection_operation_task_IX1 unique (symbol);
 create unique index history_info_department_access_permission_PKI
     on tests.history_info_department_access_permission(history_id,info_department_access_permission_id);
 alter table tests.history_info_department_access_permission
     add constraint history_info_department_access_permission_PKC primary key (history_id,info_department_access_permission_id);
+alter table tests.history_info_department_access_permission
+     add constraint history_info_department_access_permission_IX1 unique (symbol);
 create unique index info_department_access_permission_PKI
     on tests.info_department_access_permission(info_department_access_permission_id);
 alter table tests.info_department_access_permission
     add constraint info_department_access_permission_PKC primary key (info_department_access_permission_id);
+alter table tests.info_department_access_permission
+     add constraint info_department_access_permission_IX1 unique (symbol);
 create unique index history_info_assign_PKI
     on tests.history_info_assign(history_id,info_assign_id);
 alter table tests.history_info_assign
     add constraint history_info_assign_PKC primary key (history_id,info_assign_id);
+alter table tests.history_info_assign
+     add constraint history_info_assign_IX1 unique (symbol);
 create unique index mstr_item_provision_PKI
     on tests.mstr_item_provision(mstr_item_provision_id);
 alter table tests.mstr_item_provision
     add constraint mstr_item_provision_PKC primary key (mstr_item_provision_id);
+alter table tests.mstr_item_provision
+     add constraint mstr_item_provision_IX1 unique (symbol);
 create unique index history_mstr_item_provision_PKI
     on tests.history_mstr_item_provision(history_id,mstr_item_provision_id);
 alter table tests.history_mstr_item_provision
     add constraint history_mstr_item_provision_PKC primary key (history_id,mstr_item_provision_id);
+alter table tests.history_mstr_item_provision
+     add constraint history_mstr_item_provision_IX1 unique (symbol);
 create unique index history_mstr_equipment_provision_PKI
     on tests.history_mstr_equipment_provision(history_id,mstr_equipment_provision_id);
 alter table tests.history_mstr_equipment_provision
     add constraint history_mstr_equipment_provision_PKC primary key (history_id,mstr_equipment_provision_id);
+alter table tests.history_mstr_equipment_provision
+     add constraint history_mstr_equipment_provision_IX1 unique (symbol);
 create unique index mstr_equipment_provision_PKI
     on tests.mstr_equipment_provision(mstr_equipment_provision_id);
 alter table tests.mstr_equipment_provision
     add constraint mstr_equipment_provision_PKC primary key (mstr_equipment_provision_id);
+alter table tests.mstr_equipment_provision
+     add constraint mstr_equipment_provision_IX1 unique (symbol);
 create unique index hrchy_trans_container_PKI
     on tests.hrchy_trans_container(hrchy_trans_container_id);
 alter table tests.hrchy_trans_container
@@ -5800,6 +6406,8 @@ create unique index trans_container_PKI
     on tests.trans_container(trans_container_id);
 alter table tests.trans_container
     add constraint trans_container_PKC primary key (trans_container_id);
+alter table tests.trans_container
+     add constraint trans_container_IX1 unique (symbol);
 create unique index hrchy_info_department_PKI
     on tests.hrchy_info_department(hrchy_info_department_id);
 alter table tests.hrchy_info_department
@@ -5810,186 +6418,278 @@ create unique index history_info_app_status_PKI
     on tests.history_info_app_status(history_id,info_app_status_id);
 alter table tests.history_info_app_status
     add constraint history_info_app_status_PKC primary key (history_id,info_app_status_id);
+alter table tests.history_info_app_status
+     add constraint history_info_app_status_IX1 unique (symbol);
 create unique index info_app_status_PKI
     on tests.info_app_status(info_app_status_id);
 alter table tests.info_app_status
     add constraint info_app_status_PKC primary key (info_app_status_id);
+alter table tests.info_app_status
+     add constraint info_app_status_IX1 unique (symbol);
 create unique index trans_announcement_PKI
     on tests.trans_announcement(trans_authtoken_id);
 alter table tests.trans_announcement
     add constraint trans_announcement_PKC primary key (trans_authtoken_id);
+alter table tests.trans_announcement
+     add constraint trans_announcement_IX1 unique (symbol);
 create unique index history_mstr_operation_task_PKI
     on tests.history_mstr_operation_task(history_id,mstr_operation_task_id);
 alter table tests.history_mstr_operation_task
     add constraint history_mstr_operation_task_PKC primary key (history_id,mstr_operation_task_id);
+alter table tests.history_mstr_operation_task
+     add constraint history_mstr_operation_task_IX1 unique (symbol);
 create unique index history_mstr_report_PKI
     on tests.history_mstr_report(history_id,mstr_report_id);
 alter table tests.history_mstr_report
     add constraint history_mstr_report_PKC primary key (history_id,mstr_report_id);
+alter table tests.history_mstr_report
+     add constraint history_mstr_report_IX1 unique (symbol);
 create unique index history_mstr_item_operation_task_PKI
     on tests.history_mstr_item_operation_task(history_id,mstr_item_operation_task_id);
 alter table tests.history_mstr_item_operation_task
     add constraint history_mstr_item_operation_task_PKC primary key (history_id,mstr_item_operation_task_id);
+alter table tests.history_mstr_item_operation_task
+     add constraint history_mstr_item_operation_task_IX1 unique (symbol);
 create unique index history_mstr_task_tree_PKI
     on tests.history_mstr_task_tree(history_id,mstr_task_tree_id);
 alter table tests.history_mstr_task_tree
     add constraint history_mstr_task_tree_PKC primary key (history_id,mstr_task_tree_id);
+alter table tests.history_mstr_task_tree
+     add constraint history_mstr_task_tree_IX1 unique (symbol);
 create unique index history_mstr_outsource_available_PKI
     on tests.history_mstr_outsource_available(history_id,mstr_outsource_available_id);
 alter table tests.history_mstr_outsource_available
     add constraint history_mstr_outsource_available_PKC primary key (history_id,mstr_outsource_available_id);
+alter table tests.history_mstr_outsource_available
+     add constraint history_mstr_outsource_available_IX1 unique (symbol);
 create unique index history_mstr_equipment_available_PKI
     on tests.history_mstr_equipment_available(history_id,mstr_equipment_available_id);
 alter table tests.history_mstr_equipment_available
     add constraint history_mstr_equipment_available_PKC primary key (history_id,mstr_equipment_available_id);
+alter table tests.history_mstr_equipment_available
+     add constraint history_mstr_equipment_available_IX1 unique (symbol);
 create unique index history_mstr_task_PKI
     on tests.history_mstr_task(history_id,mstr_task_id);
 alter table tests.history_mstr_task
     add constraint history_mstr_task_PKC primary key (history_id,mstr_task_id);
+alter table tests.history_mstr_task
+     add constraint history_mstr_task_IX1 unique (symbol);
 create unique index history_mstr_task_location_PKI
     on tests.history_mstr_task_location(history_id,mstr_task_location_id);
 alter table tests.history_mstr_task_location
     add constraint history_mstr_task_location_PKC primary key (history_id,mstr_task_location_id);
+alter table tests.history_mstr_task_location
+     add constraint history_mstr_task_location_IX1 unique (symbol);
 create unique index mstr_task_location_PKI
     on tests.mstr_task_location(mstr_task_location_id);
 alter table tests.mstr_task_location
     add constraint mstr_task_location_PKC primary key (mstr_task_location_id);
+alter table tests.mstr_task_location
+     add constraint mstr_task_location_IX1 unique (symbol);
 create unique index history_mstr_task_group_PKI
     on tests.history_mstr_task_group(history_id,mstr_task_group_id);
 alter table tests.history_mstr_task_group
     add constraint history_mstr_task_group_PKC primary key (history_id,mstr_task_group_id);
+alter table tests.history_mstr_task_group
+     add constraint history_mstr_task_group_IX1 unique (symbol);
 create unique index history_mstr_operation_PKI
     on tests.history_mstr_operation(history_id,mstr_operation_id);
 alter table tests.history_mstr_operation
     add constraint history_mstr_operation_PKC primary key (history_id,mstr_operation_id);
+alter table tests.history_mstr_operation
+     add constraint history_mstr_operation_IX1 unique (symbol);
 create unique index history_mstr_manufacturer_PKI
     on tests.history_mstr_manufacturer(history_id,mstr_manufacturer_id);
 alter table tests.history_mstr_manufacturer
     add constraint history_mstr_manufacturer_PKC primary key (history_id,mstr_manufacturer_id);
+alter table tests.history_mstr_manufacturer
+     add constraint history_mstr_manufacturer_IX1 unique (symbol);
 create unique index history_mstr_inspection_PKI
     on tests.history_mstr_inspection(history_id,mstr_inspection_id);
 alter table tests.history_mstr_inspection
     add constraint history_mstr_inspection_PKC primary key (history_id,mstr_inspection_id);
+alter table tests.history_mstr_inspection
+     add constraint history_mstr_inspection_IX1 unique (symbol);
 create unique index history_mstr_inspection_formula_PKI
     on tests.history_mstr_inspection_formula(history_id,mstr_inspection_formula_id);
 alter table tests.history_mstr_inspection_formula
     add constraint history_mstr_inspection_formula_PKC primary key (history_id,mstr_inspection_formula_id);
+alter table tests.history_mstr_inspection_formula
+     add constraint history_mstr_inspection_formula_IX1 unique (symbol);
 create unique index history_mstr_item_actual_size_PKI
     on tests.history_mstr_item_actual_size(history_id,mstr_item_actual_size_id);
 alter table tests.history_mstr_item_actual_size
     add constraint history_mstr_item_actual_size_PKC primary key (history_id,mstr_item_actual_size_id);
+alter table tests.history_mstr_item_actual_size
+     add constraint history_mstr_item_actual_size_IX1 unique (symbol);
 create unique index history_mstr_item_tree_PKI
     on tests.history_mstr_item_tree(history_id,mstr_item_tree_id);
 alter table tests.history_mstr_item_tree
     add constraint history_mstr_item_tree_PKC primary key (history_id,mstr_item_tree_id);
+alter table tests.history_mstr_item_tree
+     add constraint history_mstr_item_tree_IX1 unique (symbol);
 create unique index history_mstr_item_PKI
     on tests.history_mstr_item(history_id,mstr_item_id);
 alter table tests.history_mstr_item
     add constraint history_mstr_item_PKC primary key (history_id,mstr_item_id);
+alter table tests.history_mstr_item
+     add constraint history_mstr_item_IX1 unique (symbol);
 create unique index history_mstr_audit_std_checkitem_PKI
     on tests.history_mstr_audit_std_checkitem(history_id,mstr_audit_std_checkitem_id,mstr_audit_std_id);
 alter table tests.history_mstr_audit_std_checkitem
     add constraint history_mstr_audit_std_checkitem_PKC primary key (history_id,mstr_audit_std_checkitem_id,mstr_audit_std_id);
+alter table tests.history_mstr_audit_std_checkitem
+     add constraint history_mstr_audit_std_checkitem_IX1 unique (symbol);
 create unique index history_mstr_audit_std_PKI
     on tests.history_mstr_audit_std(history_id,mstr_audit_std_id);
 alter table tests.history_mstr_audit_std
     add constraint history_mstr_audit_std_PKC primary key (history_id,mstr_audit_std_id);
+alter table tests.history_mstr_audit_std
+     add constraint history_mstr_audit_std_IX1 unique (symbol);
 create unique index history_mstr_location_PKI
     on tests.history_mstr_location(history_id,mstr_location_id);
 alter table tests.history_mstr_location
     add constraint history_mstr_location_PKC primary key (history_id,mstr_location_id);
+alter table tests.history_mstr_location
+     add constraint history_mstr_location_IX1 unique (symbol);
 create unique index history_mstr_equipment_tag_PKI
     on tests.history_mstr_equipment_tag(history_id,mstr_equipment_tag_id);
 alter table tests.history_mstr_equipment_tag
     add constraint history_mstr_equipment_tag_PKC primary key (history_id,mstr_equipment_tag_id);
+alter table tests.history_mstr_equipment_tag
+     add constraint history_mstr_equipment_tag_IX1 unique (symbol);
 create unique index history_mstr_stakeholder_contact_PKI
     on tests.history_mstr_stakeholder_contact(history_id,mstr_stakeholder_contact_id);
 alter table tests.history_mstr_stakeholder_contact
     add constraint history_mstr_stakeholder_contact_PKC primary key (history_id,mstr_stakeholder_contact_id);
+alter table tests.history_mstr_stakeholder_contact
+     add constraint history_mstr_stakeholder_contact_IX1 unique (symbol);
 create unique index history_mstr_stakeholder_provision_PKI
     on tests.history_mstr_stakeholder_provision(history_id,mstr_stakeholder_provision_id);
 alter table tests.history_mstr_stakeholder_provision
     add constraint history_mstr_stakeholder_provision_PKC primary key (history_id,mstr_stakeholder_provision_id);
+alter table tests.history_mstr_stakeholder_provision
+     add constraint history_mstr_stakeholder_provision_IX1 unique (symbol);
 create unique index history_mstr_stakeholder_PKI
     on tests.history_mstr_stakeholder(history_id,mstr_stakeholder_id);
 alter table tests.history_mstr_stakeholder
     add constraint history_mstr_stakeholder_PKC primary key (history_id,mstr_stakeholder_id);
+alter table tests.history_mstr_stakeholder
+     add constraint history_mstr_stakeholder_IX1 unique (symbol);
 create unique index history_mstr_staff_license_PKI
     on tests.history_mstr_staff_license(history_id,mstr_staff_license_id);
 alter table tests.history_mstr_staff_license
     add constraint history_mstr_staff_license_PKC primary key (history_id,mstr_staff_license_id);
+alter table tests.history_mstr_staff_license
+     add constraint history_mstr_staff_license_IX1 unique (symbol);
 create unique index history_mstr_license_PKI
     on tests.history_mstr_license(history_id,mstr_license_id);
 alter table tests.history_mstr_license
     add constraint history_mstr_license_PKC primary key (history_id,mstr_license_id);
+alter table tests.history_mstr_license
+     add constraint history_mstr_license_IX1 unique (symbol);
 create unique index history_info_staff_access_permission_PKI
     on tests.history_info_staff_access_permission(history_id,info_staff_access_permission_id);
 alter table tests.history_info_staff_access_permission
     add constraint history_info_staff_access_permission_PKC primary key (history_id,info_staff_access_permission_id);
+alter table tests.history_info_staff_access_permission
+     add constraint history_info_staff_access_permission_IX1 unique (symbol);
 create unique index history_mstr_approval_scope_pattern_PKI
     on tests.history_mstr_approval_scope_pattern(history_id,mstr_approval_scope_pattern_id);
 alter table tests.history_mstr_approval_scope_pattern
     add constraint history_mstr_approval_scope_pattern_PKC primary key (history_id,mstr_approval_scope_pattern_id);
+alter table tests.history_mstr_approval_scope_pattern
+     add constraint history_mstr_approval_scope_pattern_IX1 unique (symbol);
 create unique index history_mstr_approval_pattern_PKI
     on tests.history_mstr_approval_pattern(history_id,mstr_approval_pattern_id);
 alter table tests.history_mstr_approval_pattern
     add constraint history_mstr_approval_pattern_PKC primary key (history_id,mstr_approval_pattern_id);
+alter table tests.history_mstr_approval_pattern
+     add constraint history_mstr_approval_pattern_IX1 unique (symbol);
 create unique index history_mstr_capability_PKI
     on tests.history_mstr_capability(history_id,mstr_capability_id);
 alter table tests.history_mstr_capability
     add constraint history_mstr_capability_PKC primary key (history_id,mstr_capability_id);
+alter table tests.history_mstr_capability
+     add constraint history_mstr_capability_IX1 unique (symbol);
 create unique index history_mstr_approval_pattern_detail_PKI
     on tests.history_mstr_approval_pattern_detail(history_id,mstr_approval_pattern_detail_id);
 alter table tests.history_mstr_approval_pattern_detail
     add constraint history_mstr_approval_pattern_detail_PKC primary key (history_id,mstr_approval_pattern_detail_id);
+alter table tests.history_mstr_approval_pattern_detail
+     add constraint history_mstr_approval_pattern_detail_IX1 unique (symbol);
 create unique index history_mstr_approval_PKI
     on tests.history_mstr_approval(history_id,mstr_approval_id);
 alter table tests.history_mstr_approval
     add constraint history_mstr_approval_PKC primary key (history_id,mstr_approval_id);
+alter table tests.history_mstr_approval
+     add constraint history_mstr_approval_IX1 unique (symbol);
 create unique index history_info_position_PKI
     on tests.history_info_position(history_id,info_position_id);
 alter table tests.history_info_position
     add constraint history_info_position_PKC primary key (history_id,info_position_id);
+alter table tests.history_info_position
+     add constraint history_info_position_IX1 unique (symbol);
 create unique index history_mstr_staff_capability_PKI
     on tests.history_mstr_staff_capability(history_id,mstr_staff_capability_id,info_staff_id);
 alter table tests.history_mstr_staff_capability
     add constraint history_mstr_staff_capability_PKC primary key (history_id,mstr_staff_capability_id,info_staff_id);
+alter table tests.history_mstr_staff_capability
+     add constraint history_mstr_staff_capability_IX1 unique (symbol);
 create unique index history_mstr_sign_PKI
     on tests.history_mstr_sign(history_id,mstr_sign_id);
 alter table tests.history_mstr_sign
     add constraint history_mstr_sign_PKC primary key (history_id,mstr_sign_id);
+alter table tests.history_mstr_sign
+     add constraint history_mstr_sign_IX1 unique (symbol);
 create unique index history_info_staff_PKI
     on tests.history_info_staff(history_id,info_staff_id);
 alter table tests.history_info_staff
     add constraint history_info_staff_PKC primary key (history_id,info_staff_id);
+alter table tests.history_info_staff
+     add constraint history_info_staff_IX1 unique (symbol);
 create unique index history_info_provision_PKI
     on tests.history_info_provision(history_id,info_provision_id);
 alter table tests.history_info_provision
     add constraint history_info_provision_PKC primary key (history_id,info_provision_id);
+alter table tests.history_info_provision
+     add constraint history_info_provision_IX1 unique (symbol);
 create unique index history_info_address_PKI
     on tests.history_info_address(history_id,info_address_id);
 alter table tests.history_info_address
     add constraint history_info_address_PKC primary key (history_id,info_address_id);
+alter table tests.history_info_address
+     add constraint history_info_address_IX1 unique (symbol);
 create unique index history_shared_unit_PKI
     on tests.history_shared_unit(history_id,shared_unit_id);
 alter table tests.history_shared_unit
     add constraint history_shared_unit_PKC primary key (history_id,shared_unit_id);
+alter table tests.history_shared_unit
+     add constraint history_shared_unit_IX1 unique (symbol);
 create unique index history_info_office_PKI
     on tests.history_info_office(history_id,info_office_id);
 alter table tests.history_info_office
     add constraint history_info_office_PKC primary key (history_id,info_office_id);
+alter table tests.history_info_office
+     add constraint history_info_office_IX1 unique (symbol);
 create unique index history_info_department_PKI
     on tests.history_info_department(history_id,info_department_id);
 alter table tests.history_info_department
     add constraint history_info_department_PKC primary key (history_id,info_department_id);
+alter table tests.history_info_department
+     add constraint history_info_department_IX1 unique (symbol);
 create unique index history_info_access_path_approval_PKI
     on tests.history_info_access_path_approval(history_id,info_access_path_approval_id);
 alter table tests.history_info_access_path_approval
     add constraint history_info_access_path_approval_PKC primary key (history_id,info_access_path_approval_id);
+alter table tests.history_info_access_path_approval
+     add constraint history_info_access_path_approval_IX1 unique (symbol);
 create unique index history_info_access_path_PKI
     on tests.history_info_access_path(history_id,info_access_path_id);
 alter table tests.history_info_access_path
     add constraint history_info_access_path_PKC primary key (history_id,info_access_path_id);
+alter table tests.history_info_access_path
+     add constraint history_info_access_path_IX1 unique (symbol);
 create unique index history_info_company_PKI
     on tests.history_info_company(history_id,info_company_id);
 alter table tests.history_info_company
@@ -5998,46 +6698,66 @@ create unique index info_company_PKI
     on tests.info_company(info_company_id);
 alter table tests.info_company
     add constraint info_company_PKC primary key (info_company_id);
+alter table tests.info_company
+     add constraint info_company_IX1 unique (symbol);
 create unique index history_info_app_PKI
     on tests.history_info_app(history_id,info_app_id);
 alter table tests.history_info_app
     add constraint history_info_app_PKC primary key (history_id,info_app_id);
 alter table tests.history_info_app
      add constraint history_info_app_IX1 unique (name);
+alter table tests.history_info_app
+     add constraint history_info_app_IX2 unique (symbol);
 create unique index trans_anonymouse_PKI
     on tests.trans_anonymouse(trans_anonymouse_id);
 alter table tests.trans_anonymouse
     add constraint trans_anonymouse_PKC primary key (trans_anonymouse_id);
+alter table tests.trans_anonymouse
+     add constraint trans_anonymouse_IX1 unique (symbol);
 create unique index trans_file_reminder_PKI
     on tests.trans_file_reminder(trans_file_reminder_id);
 alter table tests.trans_file_reminder
     add constraint trans_file_reminder_PKC primary key (trans_file_reminder_id);
+alter table tests.trans_file_reminder
+     add constraint trans_file_reminder_IX1 unique (symbol);
 create unique index mstr_equipment_available_PKI
     on tests.mstr_equipment_available(mstr_equipment_available_id);
 alter table tests.mstr_equipment_available
     add constraint mstr_equipment_available_PKC primary key (mstr_equipment_available_id);
+alter table tests.mstr_equipment_available
+     add constraint mstr_equipment_available_IX1 unique (symbol);
 create unique index mstr_outsource_available_PKI
     on tests.mstr_outsource_available(mstr_outsource_available_id);
 alter table tests.mstr_outsource_available
     add constraint mstr_outsource_available_PKC primary key (mstr_outsource_available_id);
+alter table tests.mstr_outsource_available
+     add constraint mstr_outsource_available_IX1 unique (symbol);
 create unique index mstr_task_group_PKI
     on tests.mstr_task_group(mstr_task_group_id);
 alter table tests.mstr_task_group
     add constraint mstr_task_group_PKC primary key (mstr_task_group_id);
+alter table tests.mstr_task_group
+     add constraint mstr_task_group_IX1 unique (symbol);
 create unique index trans_unrecognized_detail_PKI
     on tests.trans_unrecognized_detail(trans_unrecognized_detail_id);
 alter table tests.trans_unrecognized_detail
     add constraint trans_unrecognized_detail_PKC primary key (trans_unrecognized_detail_id);
 alter table tests.trans_unrecognized_detail
      add constraint trans_unrecognized_detail_IX1 unique (trans_unrecognized_id,mstr_item_id,history_id);
+alter table tests.trans_unrecognized_detail
+     add constraint trans_unrecognized_detail_IX2 unique (symbol);
 create unique index trans_unrecognized_PKI
     on tests.trans_unrecognized(trans_unrecognized_id);
 alter table tests.trans_unrecognized
     add constraint trans_unrecognized_PKC primary key (trans_unrecognized_id);
+alter table tests.trans_unrecognized
+     add constraint trans_unrecognized_IX1 unique (symbol);
 create unique index mstr_stakeholder_provision_PKI
     on tests.mstr_stakeholder_provision(mstr_stakeholder_provision_id);
 alter table tests.mstr_stakeholder_provision
     add constraint mstr_stakeholder_provision_PKC primary key (mstr_stakeholder_provision_id);
+alter table tests.mstr_stakeholder_provision
+     add constraint mstr_stakeholder_provision_IX1 unique (symbol);
 create unique index info_provision_PKI
     on tests.info_provision(info_provision_id);
 alter table tests.info_provision
@@ -6046,104 +6766,154 @@ create unique index mstr_inspection_formula_PKI
     on tests.mstr_inspection_formula(mstr_inspection_formula_id);
 alter table tests.mstr_inspection_formula
     add constraint mstr_inspection_formula_PKC primary key (mstr_inspection_formula_id);
+alter table tests.mstr_inspection_formula
+     add constraint mstr_inspection_formula_IX1 unique (symbol);
 create unique index mstr_manufacturer_PKI
     on tests.mstr_manufacturer(mstr_manufacturer_id);
 alter table tests.mstr_manufacturer
     add constraint mstr_manufacturer_PKC primary key (mstr_manufacturer_id);
+alter table tests.mstr_manufacturer
+     add constraint mstr_manufacturer_IX1 unique (symbol);
 create unique index mstr_approval_scope_pattern_PKI
     on tests.mstr_approval_scope_pattern(mstr_approval_scope_pattern_id);
 alter table tests.mstr_approval_scope_pattern
     add constraint mstr_approval_scope_pattern_PKC primary key (mstr_approval_scope_pattern_id);
+alter table tests.mstr_approval_scope_pattern
+     add constraint mstr_approval_scope_pattern_IX1 unique (symbol);
 create unique index mstr_approval_pattern_detail_PKI
     on tests.mstr_approval_pattern_detail(mstr_approval_pattern_detail_id);
 alter table tests.mstr_approval_pattern_detail
     add constraint mstr_approval_pattern_detail_PKC primary key (mstr_approval_pattern_detail_id);
+alter table tests.mstr_approval_pattern_detail
+     add constraint mstr_approval_pattern_detail_IX1 unique (symbol);
 create unique index info_address_PKI
     on tests.info_address(info_address_id);
 alter table tests.info_address
     add constraint info_address_PKC primary key (info_address_id);
+alter table tests.info_address
+     add constraint info_address_IX1 unique (symbol);
 create unique index trans_inspection_report_PKI
     on tests.trans_inspection_report(trans_inspection_report_id);
 alter table tests.trans_inspection_report
     add constraint trans_inspection_report_PKC primary key (trans_inspection_report_id);
+alter table tests.trans_inspection_report
+     add constraint trans_inspection_report_IX1 unique (symbol);
 create unique index mstr_report_PKI
     on tests.mstr_report(mstr_report_id);
 alter table tests.mstr_report
     add constraint mstr_report_PKC primary key (mstr_report_id);
+alter table tests.mstr_report
+     add constraint mstr_report_IX1 unique (symbol);
 create unique index mstr_equipment_tag_PKI
     on tests.mstr_equipment_tag(mstr_equipment_tag_id);
 alter table tests.mstr_equipment_tag
     add constraint mstr_equipment_tag_PKC primary key (mstr_equipment_tag_id);
+alter table tests.mstr_equipment_tag
+     add constraint mstr_equipment_tag_IX1 unique (symbol);
 create unique index info_access_path_approval_PKI
     on tests.info_access_path_approval(info_access_path_approval_id);
 alter table tests.info_access_path_approval
     add constraint info_access_path_approval_PKC primary key (info_access_path_approval_id);
+alter table tests.info_access_path_approval
+     add constraint info_access_path_approval_IX1 unique (symbol);
 create unique index trans_approved_PKI
     on tests.trans_approved(trans_approved_id);
 alter table tests.trans_approved
     add constraint trans_approved_PKC primary key (trans_approved_id);
+alter table tests.trans_approved
+     add constraint trans_approved_IX1 unique (symbol);
 create unique index mstr_approval_PKI
     on tests.mstr_approval(mstr_approval_id);
 alter table tests.mstr_approval
     add constraint mstr_approval_PKC primary key (mstr_approval_id);
+alter table tests.mstr_approval
+     add constraint mstr_approval_IX1 unique (symbol);
 create unique index info_position_PKI
     on tests.info_position(info_position_id);
 alter table tests.info_position
     add constraint info_position_PKC primary key (info_position_id);
+alter table tests.info_position
+     add constraint info_position_IX1 unique (symbol);
 create unique index mstr_approval_pattern_PKI
     on tests.mstr_approval_pattern(mstr_approval_pattern_id);
 alter table tests.mstr_approval_pattern
     add constraint mstr_approval_pattern_PKC primary key (mstr_approval_pattern_id);
+alter table tests.mstr_approval_pattern
+     add constraint mstr_approval_pattern_IX1 unique (symbol);
 create unique index trans_approval_PKI
     on tests.trans_approval(trans_approval_gr_id);
 alter table tests.trans_approval
     add constraint trans_approval_PKC primary key (trans_approval_gr_id);
+alter table tests.trans_approval
+     add constraint trans_approval_IX1 unique (symbol);
 create unique index trans_approval_gr_PKI
     on tests.trans_approval_gr(trans_approval_gr_id);
 alter table tests.trans_approval_gr
     add constraint trans_approval_gr_PKC primary key (trans_approval_gr_id);
 alter table tests.trans_approval_gr
      add constraint trans_approval_gr_IX1 unique (trans_approval_gr_id,trans_approved_id);
+alter table tests.trans_approval_gr
+     add constraint trans_approval_gr_IX2 unique (symbol);
 create unique index trans_audit_member_PKI
     on tests.trans_audit_member(trans_audit_member_id,trans_audit_id);
 alter table tests.trans_audit_member
     add constraint trans_audit_member_PKC primary key (trans_audit_member_id,trans_audit_id);
+alter table tests.trans_audit_member
+     add constraint trans_audit_member_IX1 unique (symbol);
 create unique index trans_auditor_PKI
     on tests.trans_auditor(trans_auditor_id,trans_audit_id,trans_audit_team_id);
 alter table tests.trans_auditor
     add constraint trans_auditor_PKC primary key (trans_auditor_id,trans_audit_id,trans_audit_team_id);
+alter table tests.trans_auditor
+     add constraint trans_auditor_IX1 unique (symbol);
 create unique index trans_audit_team_PKI
     on tests.trans_audit_team(trans_audit_team_id,trans_audit_id);
 alter table tests.trans_audit_team
     add constraint trans_audit_team_PKC primary key (trans_audit_team_id,trans_audit_id);
+alter table tests.trans_audit_team
+     add constraint trans_audit_team_IX1 unique (symbol);
 create unique index trans_audit_PKI
     on tests.trans_audit(trans_audit_id);
 alter table tests.trans_audit
     add constraint trans_audit_PKC primary key (trans_audit_id);
+alter table tests.trans_audit
+     add constraint trans_audit_IX1 unique (symbol);
 create unique index trans_task_risk_PKI
     on tests.trans_task_risk(trans_task_risk_id);
 alter table tests.trans_task_risk
     add constraint trans_task_risk_PKC primary key (trans_task_risk_id);
+alter table tests.trans_task_risk
+     add constraint trans_task_risk_IX1 unique (symbol);
 create unique index trans_order_detail_risk_PKI
     on tests.trans_order_detail_risk(trans_order_detail_risk_id);
 alter table tests.trans_order_detail_risk
     add constraint trans_order_detail_risk_PKC primary key (trans_order_detail_risk_id);
+alter table tests.trans_order_detail_risk
+     add constraint trans_order_detail_risk_IX1 unique (symbol);
 create unique index trans_prevention_detail_PKI
     on tests.trans_prevention_detail(trans_prevetion_detail_id,trans_risk_id,trans_prevention_id);
 alter table tests.trans_prevention_detail
     add constraint trans_prevention_detail_PKC primary key (trans_prevetion_detail_id,trans_risk_id,trans_prevention_id);
+alter table tests.trans_prevention_detail
+     add constraint trans_prevention_detail_IX1 unique (symbol);
 create unique index trans_prevention_PKI
     on tests.trans_prevention(trans_prevention_id,trans_risk_id);
 alter table tests.trans_prevention
     add constraint trans_prevention_PKC primary key (trans_prevention_id,trans_risk_id);
+alter table tests.trans_prevention
+     add constraint trans_prevention_IX1 unique (symbol);
 create unique index trans_order_risk_PKI
     on tests.trans_order_risk(trans_order_risk_id);
 alter table tests.trans_order_risk
     add constraint trans_order_risk_PKC primary key (trans_order_risk_id);
+alter table tests.trans_order_risk
+     add constraint trans_order_risk_IX1 unique (symbol);
 create unique index trans_equipment_lent_PKI
     on tests.trans_equipment_lent(trans_equipment_lent_id);
 alter table tests.trans_equipment_lent
     add constraint trans_equipment_lent_PKC primary key (trans_equipment_lent_id);
+alter table tests.trans_equipment_lent
+     add constraint trans_equipment_lent_IX1 unique (symbol);
 create unique index hrchy_mstr_location_PKI
     on tests.hrchy_mstr_location(hrchy_mstr_location_id);
 alter table tests.hrchy_mstr_location
@@ -6152,220 +6922,320 @@ create unique index trans_disposal_detail_PKI
     on tests.trans_disposal_detail(trans_disposal_detail_id,trans_disposal_id,trans_complaint_id);
 alter table tests.trans_disposal_detail
     add constraint trans_disposal_detail_PKC primary key (trans_disposal_detail_id,trans_disposal_id,trans_complaint_id);
+alter table tests.trans_disposal_detail
+     add constraint trans_disposal_detail_IX1 unique (symbol);
 create unique index mstr_audit_std_checkitem_PKI
     on tests.mstr_audit_std_checkitem(mstr_audit_std_checkitem_id,mstr_audit_std_id);
 alter table tests.mstr_audit_std_checkitem
     add constraint mstr_audit_std_checkitem_PKC primary key (mstr_audit_std_checkitem_id,mstr_audit_std_id);
+alter table tests.mstr_audit_std_checkitem
+     add constraint mstr_audit_std_checkitem_IX1 unique (symbol);
 create unique index mstr_audit_std_PKI
     on tests.mstr_audit_std(mstr_audit_std_id);
 alter table tests.mstr_audit_std
     add constraint mstr_audit_std_PKC primary key (mstr_audit_std_id);
+alter table tests.mstr_audit_std
+     add constraint mstr_audit_std_IX1 unique (symbol);
 create unique index trans_risk_PKI
     on tests.trans_risk(trans_risk_id);
 alter table tests.trans_risk
     add constraint trans_risk_PKC primary key (trans_risk_id);
+alter table tests.trans_risk
+     add constraint trans_risk_IX1 unique (symbol);
 create unique index trans_observer_preventive_PKI
     on tests.trans_observer_preventive(trans_observer_preventive_id);
 alter table tests.trans_observer_preventive
     add constraint trans_observer_preventive_PKC primary key (trans_observer_preventive_id);
+alter table tests.trans_observer_preventive
+     add constraint trans_observer_preventive_IX1 unique (symbol);
 create unique index trans_observer_disposal_PKI
     on tests.trans_observer_disposal(trans_observer_disposal_id);
 alter table tests.trans_observer_disposal
     add constraint trans_observer_disposal_PKC primary key (trans_observer_disposal_id);
+alter table tests.trans_observer_disposal
+     add constraint trans_observer_disposal_IX1 unique (symbol);
 create unique index trans_complaint_stakeholder_adapter_PKI
     on tests.trans_complaint_stakeholder_adapter(trans_complaint_stakeholder_adapter_id,trans_complaint_id);
 alter table tests.trans_complaint_stakeholder_adapter
     add constraint trans_complaint_stakeholder_adapter_PKC primary key (trans_complaint_stakeholder_adapter_id,trans_complaint_id);
+alter table tests.trans_complaint_stakeholder_adapter
+     add constraint trans_complaint_stakeholder_adapter_IX1 unique (symbol);
 create unique index trans_complaint_equipment_adapter_PKI
     on tests.trans_complaint_equipment_adapter(trans_complaint_equipment_adapter_id);
 alter table tests.trans_complaint_equipment_adapter
     add constraint trans_complaint_equipment_adapter_PKC primary key (trans_complaint_equipment_adapter_id);
 alter table tests.trans_complaint_equipment_adapter
      add constraint trans_complaint_equipment_adapter_IX1 unique (trans_complaint_equipment_adapter_id,trans_complaint_id);
+alter table tests.trans_complaint_equipment_adapter
+     add constraint trans_complaint_equipment_adapter_IX2 unique (symbol);
 create unique index trans_complaint_process_adapter_PKI
     on tests.trans_complaint_process_adapter(trans_complaint_process_adapter_id,trans_complaint_id);
 alter table tests.trans_complaint_process_adapter
     add constraint trans_complaint_process_adapter_PKC primary key (trans_complaint_process_adapter_id,trans_complaint_id);
+alter table tests.trans_complaint_process_adapter
+     add constraint trans_complaint_process_adapter_IX1 unique (symbol);
 create unique index trans_complaint_order_adapter_PKI
     on tests.trans_complaint_order_adapter(trans_complaint_order_adapter_id,trans_complaint_id);
 alter table tests.trans_complaint_order_adapter
     add constraint trans_complaint_order_adapter_PKC primary key (trans_complaint_order_adapter_id,trans_complaint_id);
+alter table tests.trans_complaint_order_adapter
+     add constraint trans_complaint_order_adapter_IX1 unique (symbol);
 create unique index trans_disposal_PKI
     on tests.trans_disposal(trans_disposal_id,trans_complaint_id);
 alter table tests.trans_disposal
     add constraint trans_disposal_PKC primary key (trans_disposal_id,trans_complaint_id);
+alter table tests.trans_disposal
+     add constraint trans_disposal_IX1 unique (symbol);
 create unique index trans_recurrence_prevention_PKI
     on tests.trans_recurrence_prevention(trans_recurrence_prevention_id);
 alter table tests.trans_recurrence_prevention
     add constraint trans_recurrence_prevention_PKC primary key (trans_recurrence_prevention_id);
+alter table tests.trans_recurrence_prevention
+     add constraint trans_recurrence_prevention_IX1 unique (symbol);
 create unique index trans_complaint_PKI
     on tests.trans_complaint(trans_complaint_id);
 alter table tests.trans_complaint
     add constraint trans_complaint_PKC primary key (trans_complaint_id);
+alter table tests.trans_complaint
+     add constraint trans_complaint_IX1 unique (symbol);
 create unique index trans_inspect_imp_file_PKI
     on tests.trans_inspect_imp_file(trans_inspect_imp_file_id);
 alter table tests.trans_inspect_imp_file
     add constraint trans_inspect_imp_file_PKC primary key (trans_inspect_imp_file_id);
+alter table tests.trans_inspect_imp_file
+     add constraint trans_inspect_imp_file_IX1 unique (symbol);
 create unique index trans_inspect_record_PKI
     on tests.trans_inspect_record(trans_inspect_record_id);
 alter table tests.trans_inspect_record
     add constraint trans_inspect_record_PKC primary key (trans_inspect_record_id);
+alter table tests.trans_inspect_record
+     add constraint trans_inspect_record_IX1 unique (symbol);
 create unique index trans_inspect_sch_detail_PKI
     on tests.trans_inspect_sch_detail(trans_inspect_sch_detail_id);
 alter table tests.trans_inspect_sch_detail
     add constraint trans_inspect_sch_detail_PKC primary key (trans_inspect_sch_detail_id);
+alter table tests.trans_inspect_sch_detail
+     add constraint trans_inspect_sch_detail_IX1 unique (symbol);
 create unique index trans_inspect_sch_PKI
     on tests.trans_inspect_sch(trans_inspect_sch_id);
 alter table tests.trans_inspect_sch
     add constraint trans_inspect_sch_PKC primary key (trans_inspect_sch_id);
+alter table tests.trans_inspect_sch
+     add constraint trans_inspect_sch_IX1 unique (symbol);
 create unique index mstr_inspection_PKI
     on tests.mstr_inspection(mstr_inspection_id);
 alter table tests.mstr_inspection
     add constraint mstr_inspection_PKC primary key (mstr_inspection_id);
+alter table tests.mstr_inspection
+     add constraint mstr_inspection_IX1 unique (symbol);
 create unique index info_assign_PKI
     on tests.info_assign(info_assign_id);
 alter table tests.info_assign
     add constraint info_assign_PKC primary key (info_assign_id);
+alter table tests.info_assign
+     add constraint info_assign_IX1 unique (symbol);
 create unique index info_staff_access_permission_PKI
     on tests.info_staff_access_permission(info_staff_access_permission_id);
 alter table tests.info_staff_access_permission
     add constraint info_staff_access_permission_PKC primary key (info_staff_access_permission_id);
+alter table tests.info_staff_access_permission
+     add constraint info_staff_access_permission_IX1 unique (symbol);
 create unique index info_app_PKI
     on tests.info_app(info_app_id);
 alter table tests.info_app
     add constraint info_app_PKC primary key (info_app_id);
 alter table tests.info_app
      add constraint info_app_IX1 unique (name);
+alter table tests.info_app
+     add constraint info_app_IX2 unique (symbol);
 create unique index info_access_path_PKI
     on tests.info_access_path(info_access_path_id);
 alter table tests.info_access_path
     add constraint info_access_path_PKC primary key (info_access_path_id);
+alter table tests.info_access_path
+     add constraint info_access_path_IX1 unique (symbol);
 create unique index trans_inventory_request_PKI
     on tests.trans_inventory_request(trans_inventory_request_id);
 alter table tests.trans_inventory_request
     add constraint trans_inventory_request_PKC primary key (trans_inventory_request_id);
+alter table tests.trans_inventory_request
+     add constraint trans_inventory_request_IX1 unique (symbol);
 create unique index trans_product_rez_PKI
     on tests.trans_product_rez(trans_product_rez_id);
 alter table tests.trans_product_rez
     add constraint trans_product_rez_PKC primary key (trans_product_rez_id);
+alter table tests.trans_product_rez
+     add constraint trans_product_rez_IX1 unique (symbol);
 create unique index trans_work_record_visiter_PKI
     on tests.trans_work_record_visiter(trans_work_record_visiter_id);
 alter table tests.trans_work_record_visiter
     add constraint trans_work_record_visiter_PKC primary key (trans_work_record_visiter_id);
+alter table tests.trans_work_record_visiter
+     add constraint trans_work_record_visiter_IX1 unique (symbol);
 create unique index trans_purchase_rec_visiter_PKI
     on tests.trans_purchase_rec_visiter(trans_purchase_rec_visiter_id);
 alter table tests.trans_purchase_rec_visiter
     add constraint trans_purchase_rec_visiter_PKC primary key (trans_purchase_rec_visiter_id);
+alter table tests.trans_purchase_rec_visiter
+     add constraint trans_purchase_rec_visiter_IX1 unique (symbol);
 create unique index trans_visiter_PKI
     on tests.trans_visiter(trans_visiter_id);
 alter table tests.trans_visiter
     add constraint trans_visiter_PKC primary key (trans_visiter_id);
+alter table tests.trans_visiter
+     add constraint trans_visiter_IX1 unique (symbol);
 create unique index mstr_item_actual_size_PKI
     on tests.mstr_item_actual_size(mstr_item_actual_size_id);
 alter table tests.mstr_item_actual_size
     add constraint mstr_item_actual_size_PKC primary key (mstr_item_actual_size_id);
 alter table tests.mstr_item_actual_size
      add constraint mstr_item_actual_size_IX1 unique (mstr_item_id,mstr_item_size_kind_id);
+alter table tests.mstr_item_actual_size
+     add constraint mstr_item_actual_size_IX2 unique (symbol);
 create unique index trans_file_PKI
     on tests.trans_file(trans_file_id);
 alter table tests.trans_file
     add constraint trans_file_PKC primary key (trans_file_id);
+alter table tests.trans_file
+     add constraint trans_file_IX1 unique (symbol);
 create unique index mstr_operation_task_PKI
     on tests.mstr_operation_task(mstr_operation_task_id);
 alter table tests.mstr_operation_task
     add constraint mstr_operation_task_PKC primary key (mstr_operation_task_id);
 alter table tests.mstr_operation_task
      add constraint mstr_operation_task_IX1 unique (mstr_operation_id,mstr_task_id,sequence);
+alter table tests.mstr_operation_task
+     add constraint mstr_operation_task_IX2 unique (symbol);
 create unique index mstr_operation_PKI
     on tests.mstr_operation(mstr_operation_id);
 alter table tests.mstr_operation
     add constraint mstr_operation_PKC primary key (mstr_operation_id);
+alter table tests.mstr_operation
+     add constraint mstr_operation_IX1 unique (symbol);
 create unique index trans_convey_PKI
     on tests.trans_convey(trans_convey_id);
 alter table tests.trans_convey
     add constraint trans_convey_PKC primary key (trans_convey_id);
+alter table tests.trans_convey
+     add constraint trans_convey_IX1 unique (symbol);
 create unique index trans_work_record_certificate_PKI
     on tests.trans_work_record_certificate(trans_work_record_certificate_id);
 alter table tests.trans_work_record_certificate
     add constraint trans_work_record_certificate_PKC primary key (trans_work_record_certificate_id);
+alter table tests.trans_work_record_certificate
+     add constraint trans_work_record_certificate_IX1 unique (symbol);
 create unique index trans_certificate_PKI
     on tests.trans_certificate(trans_certificate_id);
 alter table tests.trans_certificate
     add constraint trans_certificate_PKC primary key (trans_certificate_id);
+alter table tests.trans_certificate
+     add constraint trans_certificate_IX1 unique (symbol);
 create unique index trans_purchase_rec_PKI
     on tests.trans_purchase_rec(trans_purchase_rec_id);
 alter table tests.trans_purchase_rec
     add constraint trans_purchase_rec_PKC primary key (trans_purchase_rec_id);
+alter table tests.trans_purchase_rec
+     add constraint trans_purchase_rec_IX1 unique (symbol);
 create unique index trans_purchase_certification_PKI
     on tests.trans_purchase_certification(trans_purchase_certification_id);
 alter table tests.trans_purchase_certification
     add constraint trans_purchase_certification_PKC primary key (trans_purchase_certification_id);
+alter table tests.trans_purchase_certification
+     add constraint trans_purchase_certification_IX1 unique (symbol);
 create unique index trans_purchase_rez_PKI
     on tests.trans_purchase_rez(trans_purchase_rez_id);
 alter table tests.trans_purchase_rez
     add constraint trans_purchase_rez_PKC primary key (trans_purchase_rez_id);
+alter table tests.trans_purchase_rez
+     add constraint trans_purchase_rez_IX1 unique (symbol);
 create unique index trans_purchase_detail_PKI
     on tests.trans_purchase_detail(trans_purchase_detail_id);
 alter table tests.trans_purchase_detail
     add constraint trans_purchase_detail_PKC primary key (trans_purchase_detail_id);
 alter table tests.trans_purchase_detail
      add constraint trans_purchase_detail_IX1 unique (trans_purchase_detail_id,trans_purchase_id);
+alter table tests.trans_purchase_detail
+     add constraint trans_purchase_detail_IX2 unique (symbol);
 create unique index trans_order_detail_PKI
     on tests.trans_order_detail(trans_order_detail_id);
 alter table tests.trans_order_detail
     add constraint trans_order_detail_PKC primary key (trans_order_detail_id);
 alter table tests.trans_order_detail
      add constraint trans_order_detail_IX1 unique (trans_order_id,history_mstr_item_id);
+alter table tests.trans_order_detail
+     add constraint trans_order_detail_IX2 unique (symbol);
 create unique index trans_shipping_order_detail_PKI
     on tests.trans_shipping_order_detail(trans_shipping_order_detail_id);
 alter table tests.trans_shipping_order_detail
     add constraint trans_shipping_order_detail_PKC primary key (trans_shipping_order_detail_id);
 alter table tests.trans_shipping_order_detail
      add constraint trans_shipping_order_detail_IX1 unique (trans_shipping_id,trans_order_detail_id);
+alter table tests.trans_shipping_order_detail
+     add constraint trans_shipping_order_detail_IX2 unique (symbol);
 create unique index trans_ship_order_PKI
     on tests.trans_ship_order(trans_shipping_id);
 alter table tests.trans_ship_order
     add constraint trans_ship_order_PKC primary key (trans_shipping_id);
 alter table tests.trans_ship_order
      add constraint trans_ship_order_IX1 unique (trans_order_id);
+alter table tests.trans_ship_order
+     add constraint trans_ship_order_IX2 unique (symbol);
 create unique index trans_work_record_PKI
     on tests.trans_work_record(trans_work_record_id);
 alter table tests.trans_work_record
     add constraint trans_work_record_PKC primary key (trans_work_record_id);
+alter table tests.trans_work_record
+     add constraint trans_work_record_IX1 unique (symbol);
 create unique index trans_inventory_apply_PKI
     on tests.trans_inventory_apply(trans_inventory_apply_id);
 alter table tests.trans_inventory_apply
     add constraint trans_inventory_apply_PKC primary key (trans_inventory_apply_id);
+alter table tests.trans_inventory_apply
+     add constraint trans_inventory_apply_IX1 unique (symbol);
 create unique index trans_product_detail_PKI
     on tests.trans_product_detail(trans_product_detail_id);
 alter table tests.trans_product_detail
     add constraint trans_product_detail_PKC primary key (trans_product_detail_id);
+alter table tests.trans_product_detail
+     add constraint trans_product_detail_IX1 unique (symbol);
 create unique index trans_product_PKI
     on tests.trans_product(trans_product_id);
 alter table tests.trans_product
     add constraint trans_product_PKC primary key (trans_product_id);
+alter table tests.trans_product
+     add constraint trans_product_IX1 unique (symbol);
 create unique index trans_resorce_plan_PKI
     on tests.trans_resorce_plan(trans_resorce_plan_id);
 alter table tests.trans_resorce_plan
     add constraint trans_resorce_plan_PKC primary key (trans_resorce_plan_id);
+alter table tests.trans_resorce_plan
+     add constraint trans_resorce_plan_IX1 unique (symbol);
 create unique index trans_purchase_PKI
     on tests.trans_purchase(trans_purchase_id);
 alter table tests.trans_purchase
     add constraint trans_purchase_PKC primary key (trans_purchase_id);
+alter table tests.trans_purchase
+     add constraint trans_purchase_IX1 unique (symbol);
 create unique index trans_order_PKI
     on tests.trans_order(trans_order_id);
 alter table tests.trans_order
     add constraint trans_order_PKC primary key (trans_order_id);
+alter table tests.trans_order
+     add constraint trans_order_IX1 unique (symbol);
 create unique index mstr_item_operation_task_PKI
     on tests.mstr_item_operation_task(mstr_item_operation_task_id);
 alter table tests.mstr_item_operation_task
     add constraint mstr_item_operation_task_PKC primary key (mstr_item_operation_task_id);
+alter table tests.mstr_item_operation_task
+     add constraint mstr_item_operation_task_IX1 unique (symbol);
 create unique index mstr_item_tree_PKI
     on tests.mstr_item_tree(mstr_item_tree_id);
 alter table tests.mstr_item_tree
     add constraint mstr_item_tree_PKC primary key (mstr_item_tree_id);
 alter table tests.mstr_item_tree
      add constraint mstr_item_tree_IX1 unique (mstr_item_id);
+alter table tests.mstr_item_tree
+     add constraint mstr_item_tree_IX2 unique (symbol);
 create unique index shared_unit_PKI
     on tests.shared_unit(shared_unit_id);
 alter table tests.shared_unit
@@ -6374,67 +7244,97 @@ create unique index mstr_item_PKI
     on tests.mstr_item(mstr_item_id);
 alter table tests.mstr_item
     add constraint mstr_item_PKC primary key (mstr_item_id);
+alter table tests.mstr_item
+     add constraint mstr_item_IX1 unique (symbol);
 create unique index mstr_task_tree_PKI
     on tests.mstr_task_tree(mstr_task_tree_id);
 alter table tests.mstr_task_tree
     add constraint mstr_task_tree_PKC primary key (mstr_task_tree_id);
+alter table tests.mstr_task_tree
+     add constraint mstr_task_tree_IX1 unique (symbol);
 create unique index mstr_task_PKI
     on tests.mstr_task(mstr_task_id);
 alter table tests.mstr_task
     add constraint mstr_task_PKC primary key (mstr_task_id);
+alter table tests.mstr_task
+     add constraint mstr_task_IX1 unique (symbol);
 create unique index mstr_location_PKI
     on tests.mstr_location(mstr_location_id);
 alter table tests.mstr_location
     add constraint mstr_location_PKC primary key (mstr_location_id);
+alter table tests.mstr_location
+     add constraint mstr_location_IX1 unique (symbol);
 create unique index mstr_equipment_PKI
     on tests.mstr_equipment(mstr_equipment_id);
 alter table tests.mstr_equipment
     add constraint mstr_equipment_PKC primary key (mstr_equipment_id);
+alter table tests.mstr_equipment
+     add constraint mstr_equipment_IX1 unique (symbol);
 create unique index mstr_stakeholder_contact_PKI
     on tests.mstr_stakeholder_contact(mstr_stakeholder_contact_id);
 alter table tests.mstr_stakeholder_contact
     add constraint mstr_stakeholder_contact_PKC primary key (mstr_stakeholder_contact_id);
+alter table tests.mstr_stakeholder_contact
+     add constraint mstr_stakeholder_contact_IX1 unique (symbol);
 create unique index mstr_stakeholder_PKI
     on tests.mstr_stakeholder(mstr_stakeholder_id);
 alter table tests.mstr_stakeholder
     add constraint mstr_stakeholder_PKC primary key (mstr_stakeholder_id);
+alter table tests.mstr_stakeholder
+     add constraint mstr_stakeholder_IX1 unique (symbol);
 create unique index mstr_staff_license_PKI
     on tests.mstr_staff_license(mstr_staff_license_id);
 alter table tests.mstr_staff_license
     add constraint mstr_staff_license_PKC primary key (mstr_staff_license_id);
 alter table tests.mstr_staff_license
      add constraint mstr_staff_license_IX1 unique (mstr_license_id);
+alter table tests.mstr_staff_license
+     add constraint mstr_staff_license_IX2 unique (symbol);
 create unique index mstr_staff_capability_PKI
     on tests.mstr_staff_capability(mstr_staff_capability_id,info_staff_id);
 alter table tests.mstr_staff_capability
     add constraint mstr_staff_capability_PKC primary key (mstr_staff_capability_id,info_staff_id);
+alter table tests.mstr_staff_capability
+     add constraint mstr_staff_capability_IX1 unique (symbol);
 create unique index mstr_sign_PKI
     on tests.mstr_sign(mstr_sign_id);
 alter table tests.mstr_sign
     add constraint mstr_sign_PKC primary key (mstr_sign_id);
+alter table tests.mstr_sign
+     add constraint mstr_sign_IX1 unique (symbol);
 create unique index mstr_license_PKI
     on tests.mstr_license(mstr_license_id);
 alter table tests.mstr_license
     add constraint mstr_license_PKC primary key (mstr_license_id);
+alter table tests.mstr_license
+     add constraint mstr_license_IX1 unique (symbol);
 create unique index mstr_capability_PKI
     on tests.mstr_capability(mstr_capability_id);
 alter table tests.mstr_capability
     add constraint mstr_capability_PKC primary key (mstr_capability_id);
+alter table tests.mstr_capability
+     add constraint mstr_capability_IX1 unique (symbol);
 create unique index info_staff_PKI
     on tests.info_staff(info_staff_id);
 alter table tests.info_staff
     add constraint info_staff_PKC primary key (info_staff_id);
+alter table tests.info_staff
+     add constraint info_staff_IX1 unique (symbol);
 create unique index info_department_PKI
     on tests.info_department(info_department_id);
 alter table tests.info_department
     add constraint info_department_PKC primary key (info_department_id);
 alter table tests.info_department
      add constraint info_department_IX1 unique (info_department_id,info_company_id);
+alter table tests.info_department
+     add constraint info_department_IX2 unique (symbol);
 create unique index info_office_PKI
     on tests.info_office(info_office_id);
 alter table tests.info_office
     add constraint info_office_PKC primary key (info_office_id);
---211.add table foreign key
+alter table tests.info_office
+     add constraint info_office_IX1 unique (symbol);
+--212.add table foreign key
 alter table tests.history_mstr_inspection_kind add constraint history_mstr_inspection_kind_FK1 foreign key (mstr_inspection_kind_id) references tests.mstr_inspection_kind (mstr_inspection_kind_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_inspection_kind add constraint history_mstr_inspection_kind_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_inspection_kind add constraint mstr_inspection_kind_FK1 foreign key (shared_appellations_id) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
@@ -6797,7 +7697,8 @@ alter table tests.trans_inspect_sch_detail add constraint trans_inspect_sch_deta
 alter table tests.trans_inspect_sch_detail add constraint trans_inspect_sch_detail_FK2 foreign key (trans_purchase_detail_id) references tests.trans_purchase_detail (trans_purchase_detail_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_inspect_sch_detail add constraint trans_inspect_sch_detail_FK3 foreign key (trans_inspect_sch_id) references tests.trans_inspect_sch (trans_inspect_sch_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_inspect_sch_detail add constraint trans_inspect_sch_detail_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_inspect_sch add constraint trans_inspect_sch_FK1 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_inspect_sch add constraint trans_inspect_sch_FK1 foreign key (shared_appellations_id) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_inspect_sch add constraint trans_inspect_sch_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_inspection add constraint mstr_inspection_FK1 foreign key (external_inspection) references tests.mstr_stakeholder (mstr_stakeholder_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_inspection add constraint mstr_inspection_FK2 foreign key (shared_appellations_id) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_inspection add constraint mstr_inspection_FK3 foreign key (mstr_item_id) references tests.mstr_item (mstr_item_id) DEFERRABLE INITIALLY DEFERRED;
@@ -6951,7 +7852,29 @@ alter table tests.info_office add constraint info_office_FK1 foreign key (shared
 alter table tests.info_office add constraint info_office_FK2 foreign key (info_company_id) references tests.info_company (info_company_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_office add constraint info_office_FK3 foreign key (info_address_id) references tests.info_address (info_address_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_office add constraint info_office_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
---211.add table trigger
+--212.add table trigger
+-- shared_symbol_counter update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_shared_symbol_counter() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_shared_symbol_counter BEFORE INSERT OR UPDATE OR DELETE ON tests.shared_symbol_counter FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_shared_symbol_counter();
+
+
 -- history_mstr_inspection_kind update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_inspection_kind() RETURNS trigger AS
 $BODY$
@@ -6974,7 +7897,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_inspection_kind BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_inspection_kind FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_inspection_kind();
 
--- mstr_inspection_kind history trigger
+
+CREATE TRIGGER trg_04_symbol_history_mstr_inspection_kind BEFORE INSERT ON tests.history_mstr_inspection_kind FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- mstr_inspection_kind update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_inspection_kind() RETURNS trigger AS
 $BODY$
@@ -6998,6 +7922,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_inspection_kind BEFORE INSERT OR UPDATE O
 PROCEDURE tests.trg_01_updatetimes_mstr_inspection_kind();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_inspection_kind BEFORE INSERT ON tests.mstr_inspection_kind FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_inspection_kind history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_inspection_kind() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -7010,12 +7936,14 @@ BEGIN
                 NEW.mstr_inspection_kind_id,
                 NEW.code,
                 NEW.shared_appellations_id,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.mstr_inspection_kind_id,
                 OLD.code,
                 OLD.shared_appellations_id,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -7031,6 +7959,7 @@ BEGIN
             code,
             shared_appellations_id,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -7043,6 +7972,7 @@ BEGIN
             NEW.code,
             NEW.shared_appellations_id,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -7058,6 +7988,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_inspection_kind BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_inspection_kind FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_inspection_kind();
+
 
 -- history_mstr_packing_spec update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_packing_spec() RETURNS trigger AS
@@ -7081,6 +8012,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_packing_spec BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_packing_spec FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_packing_spec();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_packing_spec BEFORE INSERT ON tests.history_mstr_packing_spec FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_spec_measurement update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_spec_measurement() RETURNS trigger AS
 $BODY$
@@ -7103,6 +8036,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_spec_measurement BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_spec_measurement FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_spec_measurement();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_spec_measurement BEFORE INSERT ON tests.history_mstr_spec_measurement FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_envelope_measurement update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_envelope_measurement() RETURNS trigger AS
 $BODY$
@@ -7125,6 +8060,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_envelope_measurement BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_envelope_measurement FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_envelope_measurement();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_envelope_measurement BEFORE INSERT ON tests.history_mstr_envelope_measurement FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_equipment_envelope update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_equipment_envelope() RETURNS trigger AS
 $BODY$
@@ -7147,7 +8084,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_equipment_envelope BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_equipment_envelope FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_equipment_envelope();
 
--- mstr_spec_measurement history trigger
+
+CREATE TRIGGER trg_04_symbol_history_mstr_equipment_envelope BEFORE INSERT ON tests.history_mstr_equipment_envelope FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- mstr_spec_measurement update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_spec_measurement() RETURNS trigger AS
 $BODY$
@@ -7171,6 +8109,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_spec_measurement BEFORE INSERT OR UPDATE 
 PROCEDURE tests.trg_01_updatetimes_mstr_spec_measurement();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_spec_measurement BEFORE INSERT ON tests.mstr_spec_measurement FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_spec_measurement history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_spec_measurement() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -7183,12 +8123,14 @@ BEGIN
                 NEW.mstr_spec_measurement_id,
                 NEW.measurement_value,
                 NEW.shared_unit_id,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.mstr_spec_measurement_id,
                 OLD.measurement_value,
                 OLD.shared_unit_id,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -7203,6 +8145,7 @@ BEGIN
             mstr_spec_measurement_id,
             measurement_value,
             shared_unit_id,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -7214,6 +8157,7 @@ BEGIN
             NEW.mstr_spec_measurement_id,
             NEW.measurement_value,
             NEW.shared_unit_id,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -7230,7 +8174,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_spec_measurement BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_spec_measurement FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_spec_measurement();
 
--- mstr_packing_spec history trigger
+
 -- mstr_packing_spec update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_packing_spec() RETURNS trigger AS
 $BODY$
@@ -7254,6 +8198,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_packing_spec BEFORE INSERT OR UPDATE OR D
 PROCEDURE tests.trg_01_updatetimes_mstr_packing_spec();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_packing_spec BEFORE INSERT ON tests.mstr_packing_spec FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_packing_spec history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_packing_spec() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -7269,6 +8215,7 @@ BEGIN
                 NEW.wide_id,
                 NEW.hight_id,
                 NEW.wait_id,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -7278,6 +8225,7 @@ BEGIN
                 OLD.wide_id,
                 OLD.hight_id,
                 OLD.wait_id,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -7295,6 +8243,7 @@ BEGIN
             wide_id,
             hight_id,
             wait_id,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -7309,6 +8258,7 @@ BEGIN
             NEW.wide_id,
             NEW.hight_id,
             NEW.wait_id,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -7325,7 +8275,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_packing_spec BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_packing_spec FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_packing_spec();
 
--- mstr_envelope_measurement history trigger
+
 -- mstr_envelope_measurement update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_envelope_measurement() RETURNS trigger AS
 $BODY$
@@ -7349,6 +8299,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_envelope_measurement BEFORE INSERT OR UPD
 PROCEDURE tests.trg_01_updatetimes_mstr_envelope_measurement();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_envelope_measurement BEFORE INSERT ON tests.mstr_envelope_measurement FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_envelope_measurement history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_envelope_measurement() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -7361,12 +8313,14 @@ BEGIN
                 NEW.mstr_envelope_measurement_id,
                 NEW.measurement_value,
                 NEW.shared_unit_id,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.mstr_envelope_measurement_id,
                 OLD.measurement_value,
                 OLD.shared_unit_id,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -7381,6 +8335,7 @@ BEGIN
             mstr_envelope_measurement_id,
             measurement_value,
             shared_unit_id,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -7392,6 +8347,7 @@ BEGIN
             NEW.mstr_envelope_measurement_id,
             NEW.measurement_value,
             NEW.shared_unit_id,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -7408,7 +8364,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_envelope_measurement BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_envelope_measurement FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_envelope_measurement();
 
--- mstr_equipment_envelope history trigger
+
 -- mstr_equipment_envelope update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_equipment_envelope() RETURNS trigger AS
 $BODY$
@@ -7432,6 +8388,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_equipment_envelope BEFORE INSERT OR UPDAT
 PROCEDURE tests.trg_01_updatetimes_mstr_equipment_envelope();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_equipment_envelope BEFORE INSERT ON tests.mstr_equipment_envelope FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_equipment_envelope history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_equipment_envelope() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -7447,6 +8405,7 @@ BEGIN
                 NEW.wide_id_,
                 NEW.height_id,
                 NEW.wait_id,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -7456,6 +8415,7 @@ BEGIN
                 OLD.wide_id_,
                 OLD.height_id,
                 OLD.wait_id,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -7473,6 +8433,7 @@ BEGIN
             wide_id_,
             height_id,
             wait_id,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -7487,6 +8448,7 @@ BEGIN
             NEW.wide_id_,
             NEW.height_id,
             NEW.wait_id,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -7502,6 +8464,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_equipment_envelope BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_equipment_envelope FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_equipment_envelope();
+
 
 -- trans_shipping_order_detail_record update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_shipping_order_detail_record() RETURNS trigger AS
@@ -7525,6 +8488,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_shipping_order_detail_record BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_shipping_order_detail_record FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_shipping_order_detail_record();
 
+
+CREATE TRIGGER trg_04_symbol_trans_shipping_order_detail_record BEFORE INSERT ON tests.trans_shipping_order_detail_record FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- history_mstr_shipping_kind update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_shipping_kind() RETURNS trigger AS
 $BODY$
@@ -7547,7 +8512,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_shipping_kind BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_shipping_kind FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_shipping_kind();
 
--- mstr_shipping_kind history trigger
+
+CREATE TRIGGER trg_04_symbol_history_mstr_shipping_kind BEFORE INSERT ON tests.history_mstr_shipping_kind FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- mstr_shipping_kind update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_shipping_kind() RETURNS trigger AS
 $BODY$
@@ -7571,6 +8537,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_shipping_kind BEFORE INSERT OR UPDATE OR 
 PROCEDURE tests.trg_01_updatetimes_mstr_shipping_kind();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_shipping_kind BEFORE INSERT ON tests.mstr_shipping_kind FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_shipping_kind history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_shipping_kind() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -7583,12 +8551,14 @@ BEGIN
                 NEW.mstr_shipping_kind_id,
                 NEW.code,
                 NEW.shared_appellations_id,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.mstr_shipping_kind_id,
                 OLD.code,
                 OLD.shared_appellations_id,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -7604,6 +8574,7 @@ BEGIN
             code,
             shared_appellations_id,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -7616,6 +8587,7 @@ BEGIN
             NEW.code,
             NEW.shared_appellations_id,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -7631,6 +8603,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_shipping_kind BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_shipping_kind FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_shipping_kind();
+
 
 -- history_mstr_item_size_kind update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_item_size_kind() RETURNS trigger AS
@@ -7654,7 +8627,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_item_size_kind BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_item_size_kind FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_item_size_kind();
 
--- mstr_item_size_kind history trigger
+
+CREATE TRIGGER trg_04_symbol_history_mstr_item_size_kind BEFORE INSERT ON tests.history_mstr_item_size_kind FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- mstr_item_size_kind update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_item_size_kind() RETURNS trigger AS
 $BODY$
@@ -7678,6 +8652,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_item_size_kind BEFORE INSERT OR UPDATE OR
 PROCEDURE tests.trg_01_updatetimes_mstr_item_size_kind();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_item_size_kind BEFORE INSERT ON tests.mstr_item_size_kind FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_item_size_kind history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_item_size_kind() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -7691,6 +8667,7 @@ BEGIN
                 NEW.code,
                 NEW.shared_appellations_id,
                 NEW.shared_unit_id,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -7698,6 +8675,7 @@ BEGIN
                 OLD.code,
                 OLD.shared_appellations_id,
                 OLD.shared_unit_id,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -7714,6 +8692,7 @@ BEGIN
             shared_appellations_id,
             shared_unit_id,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -7727,6 +8706,7 @@ BEGIN
             NEW.shared_appellations_id,
             NEW.shared_unit_id,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -7742,6 +8722,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_item_size_kind BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_item_size_kind FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_item_size_kind();
+
 
 -- history_mstr_item_kind update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_item_kind() RETURNS trigger AS
@@ -7765,7 +8746,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_item_kind BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_item_kind FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_item_kind();
 
--- mstr_item_kind history trigger
+
+CREATE TRIGGER trg_04_symbol_history_mstr_item_kind BEFORE INSERT ON tests.history_mstr_item_kind FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- mstr_item_kind update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_item_kind() RETURNS trigger AS
 $BODY$
@@ -7789,6 +8771,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_item_kind BEFORE INSERT OR UPDATE OR DELE
 PROCEDURE tests.trg_01_updatetimes_mstr_item_kind();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_item_kind BEFORE INSERT ON tests.mstr_item_kind FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_item_kind history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_item_kind() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -7801,12 +8785,14 @@ BEGIN
                 NEW.mstr_item_kind_id,
                 NEW.code,
                 NEW.shared_appellations_id,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.mstr_item_kind_id,
                 OLD.code,
                 OLD.shared_appellations_id,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -7822,6 +8808,7 @@ BEGIN
             code,
             shared_appellations_id,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -7834,6 +8821,7 @@ BEGIN
             NEW.code,
             NEW.shared_appellations_id,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -7849,6 +8837,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_item_kind BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_item_kind FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_item_kind();
+
 
 -- history_shared_appellations update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_shared_appellations() RETURNS trigger AS
@@ -7872,7 +8861,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_shared_appellations BEFORE INSERT OR UPDATE OR DELETE ON tests.history_shared_appellations FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_shared_appellations();
 
--- shared_appellations history trigger
+
+CREATE TRIGGER trg_04_symbol_history_shared_appellations BEFORE INSERT ON tests.history_shared_appellations FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- shared_appellations update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_shared_appellations() RETURNS trigger AS
 $BODY$
@@ -7896,6 +8886,7 @@ CREATE TRIGGER trg_01_updatetimes_shared_appellations BEFORE INSERT OR UPDATE OR
 PROCEDURE tests.trg_01_updatetimes_shared_appellations();
 
 
+-- shared_appellations history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_shared_appellations() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -7961,6 +8952,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_shared_appellations BEFORE INSERT OR UPDATE OR DELETE ON tests.shared_appellations FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_shared_appellations();
 
+
 -- history_shared_dictionary update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_shared_dictionary() RETURNS trigger AS
 $BODY$
@@ -7983,7 +8975,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_shared_dictionary BEFORE INSERT OR UPDATE OR DELETE ON tests.history_shared_dictionary FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_shared_dictionary();
 
--- shared_dictionary history trigger
+
+CREATE TRIGGER trg_04_symbol_history_shared_dictionary BEFORE INSERT ON tests.history_shared_dictionary FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- shared_dictionary update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_shared_dictionary() RETURNS trigger AS
 $BODY$
@@ -8007,6 +9000,7 @@ CREATE TRIGGER trg_01_updatetimes_shared_dictionary BEFORE INSERT OR UPDATE OR D
 PROCEDURE tests.trg_01_updatetimes_shared_dictionary();
 
 
+-- shared_dictionary history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_shared_dictionary() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -8068,6 +9062,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_shared_dictionary BEFORE INSERT OR UPDATE OR DELETE ON tests.shared_dictionary FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_shared_dictionary();
 
+
 -- history_mstr_equipment update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_equipment() RETURNS trigger AS
 $BODY$
@@ -8090,6 +9085,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_equipment BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_equipment FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_equipment();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_equipment BEFORE INSERT ON tests.history_mstr_equipment FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_equipment_kind update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_equipment_kind() RETURNS trigger AS
 $BODY$
@@ -8112,7 +9109,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_equipment_kind BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_equipment_kind FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_equipment_kind();
 
--- mstr_equipment_kind history trigger
+
+CREATE TRIGGER trg_04_symbol_history_mstr_equipment_kind BEFORE INSERT ON tests.history_mstr_equipment_kind FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- mstr_equipment_kind update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_equipment_kind() RETURNS trigger AS
 $BODY$
@@ -8136,6 +9134,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_equipment_kind BEFORE INSERT OR UPDATE OR
 PROCEDURE tests.trg_01_updatetimes_mstr_equipment_kind();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_equipment_kind BEFORE INSERT ON tests.mstr_equipment_kind FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_equipment_kind history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_equipment_kind() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -8150,6 +9150,7 @@ BEGIN
                 NEW.shared_appellations_id,
                 NEW.start_at,
                 NEW.stop_at,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -8158,6 +9159,7 @@ BEGIN
                 OLD.shared_appellations_id,
                 OLD.start_at,
                 OLD.stop_at,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -8175,6 +9177,7 @@ BEGIN
             start_at,
             stop_at,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -8189,6 +9192,7 @@ BEGIN
             NEW.start_at,
             NEW.stop_at,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -8204,6 +9208,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_equipment_kind BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_equipment_kind FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_equipment_kind();
+
 
 -- history_info_staff_icon update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_info_staff_icon() RETURNS trigger AS
@@ -8227,7 +9232,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_info_staff_icon BEFORE INSERT OR UPDATE OR DELETE ON tests.history_info_staff_icon FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_info_staff_icon();
 
--- info_staff_icon history trigger
+
+CREATE TRIGGER trg_04_symbol_history_info_staff_icon BEFORE INSERT ON tests.history_info_staff_icon FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- info_staff_icon update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_info_staff_icon() RETURNS trigger AS
 $BODY$
@@ -8251,6 +9257,8 @@ CREATE TRIGGER trg_01_updatetimes_info_staff_icon BEFORE INSERT OR UPDATE OR DEL
 PROCEDURE tests.trg_01_updatetimes_info_staff_icon();
 
 
+CREATE TRIGGER trg_04_symbol_info_staff_icon BEFORE INSERT ON tests.info_staff_icon FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- info_staff_icon history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_info_staff_icon() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -8265,6 +9273,7 @@ BEGIN
                 NEW.info_staff_id,
                 NEW.info_staff_history_id,
                 NEW.name,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -8273,6 +9282,7 @@ BEGIN
                 OLD.info_staff_id,
                 OLD.info_staff_history_id,
                 OLD.name,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -8290,6 +9300,7 @@ BEGIN
             info_staff_history_id,
             name,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -8304,6 +9315,7 @@ BEGIN
             NEW.info_staff_history_id,
             NEW.name,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -8319,6 +9331,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_info_staff_icon BEFORE INSERT OR UPDATE OR DELETE ON tests.info_staff_icon FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_info_staff_icon();
+
 
 -- history_mstr_item_hcdcs update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_item_hcdcs() RETURNS trigger AS
@@ -8342,7 +9355,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_item_hcdcs BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_item_hcdcs FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_item_hcdcs();
 
--- mstr_item_hcdcs history trigger
+
+CREATE TRIGGER trg_04_symbol_history_mstr_item_hcdcs BEFORE INSERT ON tests.history_mstr_item_hcdcs FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- mstr_item_hcdcs update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_item_hcdcs() RETURNS trigger AS
 $BODY$
@@ -8366,6 +9380,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_item_hcdcs BEFORE INSERT OR UPDATE OR DEL
 PROCEDURE tests.trg_01_updatetimes_mstr_item_hcdcs();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_item_hcdcs BEFORE INSERT ON tests.mstr_item_hcdcs FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_item_hcdcs history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_item_hcdcs() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -8379,6 +9395,7 @@ BEGIN
                 NEW.mstr_item_id,
                 NEW.iso3166_3,
                 NEW.code,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -8386,6 +9403,7 @@ BEGIN
                 OLD.mstr_item_id,
                 OLD.iso3166_3,
                 OLD.code,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -8401,6 +9419,7 @@ BEGIN
             mstr_item_id,
             iso3166_3,
             code,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -8413,6 +9432,7 @@ BEGIN
             NEW.mstr_item_id,
             NEW.iso3166_3,
             NEW.code,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -8428,6 +9448,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_item_hcdcs BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_item_hcdcs FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_item_hcdcs();
+
 
 -- history_mstr_document_content_tree update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_document_content_tree() RETURNS trigger AS
@@ -8451,6 +9472,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_document_content_tree BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_document_content_tree FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_document_content_tree();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_document_content_tree BEFORE INSERT ON tests.history_mstr_document_content_tree FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- hrchy_mstr_document_content update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_hrchy_mstr_document_content() RETURNS trigger AS
 $BODY$
@@ -8472,6 +9495,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_hrchy_mstr_document_content BEFORE INSERT OR UPDATE OR DELETE ON tests.hrchy_mstr_document_content FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_hrchy_mstr_document_content();
+
 
 -- history_mstr_document_content update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_document_content() RETURNS trigger AS
@@ -8495,7 +9519,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_document_content BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_document_content FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_document_content();
 
--- mstr_document_content_tree history trigger
+
+CREATE TRIGGER trg_04_symbol_history_mstr_document_content BEFORE INSERT ON tests.history_mstr_document_content FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- mstr_document_content_tree update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_document_content_tree() RETURNS trigger AS
 $BODY$
@@ -8519,6 +9544,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_document_content_tree BEFORE INSERT OR UP
 PROCEDURE tests.trg_01_updatetimes_mstr_document_content_tree();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_document_content_tree BEFORE INSERT ON tests.mstr_document_content_tree FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_document_content_tree history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_document_content_tree() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -8531,12 +9558,14 @@ BEGIN
                 NEW.mstr_document_content_tree_id,
                 NEW.mstr_document_content_id,
                 NEW.parent_mstr_document_content_id,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.mstr_document_content_tree_id,
                 OLD.mstr_document_content_id,
                 OLD.parent_mstr_document_content_id,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -8552,6 +9581,7 @@ BEGIN
             mstr_document_content_id,
             parent_mstr_document_content_id,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -8564,6 +9594,7 @@ BEGIN
             NEW.mstr_document_content_id,
             NEW.parent_mstr_document_content_id,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -8580,7 +9611,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_document_content_tree BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_document_content_tree FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_document_content_tree();
 
--- mstr_document_content history trigger
+
 -- mstr_document_content update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_document_content() RETURNS trigger AS
 $BODY$
@@ -8604,6 +9635,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_document_content BEFORE INSERT OR UPDATE 
 PROCEDURE tests.trg_01_updatetimes_mstr_document_content();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_document_content BEFORE INSERT ON tests.mstr_document_content FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_document_content history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_document_content() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -8622,6 +9655,7 @@ BEGIN
                 NEW.content,
                 NEW.image_content,
                 NEW.trans_file_id,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -8634,6 +9668,7 @@ BEGIN
                 OLD.content,
                 OLD.image_content,
                 OLD.trans_file_id,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -8655,6 +9690,7 @@ BEGIN
             image_content,
             trans_file_id,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -8673,6 +9709,7 @@ BEGIN
             NEW.image_content,
             NEW.trans_file_id,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -8688,6 +9725,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_document_content BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_document_content FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_document_content();
+
 
 -- history_mstr_document_tier update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_document_tier() RETURNS trigger AS
@@ -8711,7 +9749,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_document_tier BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_document_tier FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_document_tier();
 
--- mstr_document_tier history trigger
+
+CREATE TRIGGER trg_04_symbol_history_mstr_document_tier BEFORE INSERT ON tests.history_mstr_document_tier FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- mstr_document_tier update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_document_tier() RETURNS trigger AS
 $BODY$
@@ -8735,6 +9774,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_document_tier BEFORE INSERT OR UPDATE OR 
 PROCEDURE tests.trg_01_updatetimes_mstr_document_tier();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_document_tier BEFORE INSERT ON tests.mstr_document_tier FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_document_tier history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_document_tier() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -8751,6 +9792,7 @@ BEGIN
                 NEW.attributive_noun,
                 NEW.Identifier,
                 NEW.tier_number,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -8761,6 +9803,7 @@ BEGIN
                 OLD.attributive_noun,
                 OLD.Identifier,
                 OLD.tier_number,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -8780,6 +9823,7 @@ BEGIN
             Identifier,
             tier_number,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -8796,6 +9840,7 @@ BEGIN
             NEW.Identifier,
             NEW.tier_number,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -8811,6 +9856,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_document_tier BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_document_tier FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_document_tier();
+
 
 -- history_mstr_document_tree update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_document_tree() RETURNS trigger AS
@@ -8834,6 +9880,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_document_tree BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_document_tree FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_document_tree();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_document_tree BEFORE INSERT ON tests.history_mstr_document_tree FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- hrchy_mstr_documet update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_hrchy_mstr_documet() RETURNS trigger AS
 $BODY$
@@ -8856,7 +9904,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_hrchy_mstr_documet BEFORE INSERT OR UPDATE OR DELETE ON tests.hrchy_mstr_documet FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_hrchy_mstr_documet();
 
--- mstr_document_tree history trigger
+
 -- mstr_document_tree update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_document_tree() RETURNS trigger AS
 $BODY$
@@ -8880,6 +9928,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_document_tree BEFORE INSERT OR UPDATE OR 
 PROCEDURE tests.trg_01_updatetimes_mstr_document_tree();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_document_tree BEFORE INSERT ON tests.mstr_document_tree FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_document_tree history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_document_tree() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -8892,12 +9942,14 @@ BEGIN
                 NEW.mstr_document_tree_id,
                 NEW.mstr_document_id,
                 NEW.parent_mstr_document_id,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.mstr_document_tree_id,
                 OLD.mstr_document_id,
                 OLD.parent_mstr_document_id,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -8913,6 +9965,7 @@ BEGIN
             mstr_document_id,
             parent_mstr_document_id,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -8925,6 +9978,7 @@ BEGIN
             NEW.mstr_document_id,
             NEW.parent_mstr_document_id,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -8940,6 +9994,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_document_tree BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_document_tree FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_document_tree();
+
 
 -- history_mstr_document update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_document() RETURNS trigger AS
@@ -8963,7 +10018,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_document BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_document FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_document();
 
--- mstr_document history trigger
+
+CREATE TRIGGER trg_04_symbol_history_mstr_document BEFORE INSERT ON tests.history_mstr_document FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- mstr_document update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_document() RETURNS trigger AS
 $BODY$
@@ -8987,6 +10043,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_document BEFORE INSERT OR UPDATE OR DELET
 PROCEDURE tests.trg_01_updatetimes_mstr_document();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_document BEFORE INSERT ON tests.mstr_document FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_document history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_document() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -9006,6 +10064,7 @@ BEGIN
                 NEW.version_code,
                 NEW.version_name,
                 NEW.trans_approved_id,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -9019,6 +10078,7 @@ BEGIN
                 OLD.version_code,
                 OLD.version_name,
                 OLD.trans_approved_id,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -9041,6 +10101,7 @@ BEGIN
             version_name,
             trans_approved_id,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -9060,6 +10121,7 @@ BEGIN
             NEW.version_name,
             NEW.trans_approved_id,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -9075,6 +10137,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_document BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_document FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_document();
+
 
 -- trans_container_tree update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_container_tree() RETURNS trigger AS
@@ -9098,6 +10161,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_container_tree BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_container_tree FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_container_tree();
 
+
+CREATE TRIGGER trg_04_symbol_trans_container_tree BEFORE INSERT ON tests.trans_container_tree FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- history_mstr_location_tree update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_location_tree() RETURNS trigger AS
 $BODY$
@@ -9120,7 +10185,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_location_tree BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_location_tree FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_location_tree();
 
--- mstr_location_tree history trigger
+
+CREATE TRIGGER trg_04_symbol_history_mstr_location_tree BEFORE INSERT ON tests.history_mstr_location_tree FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- mstr_location_tree update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_location_tree() RETURNS trigger AS
 $BODY$
@@ -9144,6 +10210,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_location_tree BEFORE INSERT OR UPDATE OR 
 PROCEDURE tests.trg_01_updatetimes_mstr_location_tree();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_location_tree BEFORE INSERT ON tests.mstr_location_tree FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_location_tree history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_location_tree() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -9156,12 +10224,14 @@ BEGIN
                 NEW.mstr_location_tree_id,
                 NEW.mstr_location_id,
                 NEW.parent_mstr_location_id,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.mstr_location_tree_id,
                 OLD.mstr_location_id,
                 OLD.parent_mstr_location_id,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -9177,6 +10247,7 @@ BEGIN
             mstr_location_id,
             parent_mstr_location_id,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -9189,6 +10260,7 @@ BEGIN
             NEW.mstr_location_id,
             NEW.parent_mstr_location_id,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -9204,6 +10276,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_location_tree BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_location_tree FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_location_tree();
+
 
 -- history_info_department_tree update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_info_department_tree() RETURNS trigger AS
@@ -9227,7 +10300,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_info_department_tree BEFORE INSERT OR UPDATE OR DELETE ON tests.history_info_department_tree FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_info_department_tree();
 
--- info_department_tree history trigger
+
+CREATE TRIGGER trg_04_symbol_history_info_department_tree BEFORE INSERT ON tests.history_info_department_tree FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- info_department_tree update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_info_department_tree() RETURNS trigger AS
 $BODY$
@@ -9251,6 +10325,8 @@ CREATE TRIGGER trg_01_updatetimes_info_department_tree BEFORE INSERT OR UPDATE O
 PROCEDURE tests.trg_01_updatetimes_info_department_tree();
 
 
+CREATE TRIGGER trg_04_symbol_info_department_tree BEFORE INSERT ON tests.info_department_tree FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- info_department_tree history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_info_department_tree() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -9263,12 +10339,14 @@ BEGIN
                 NEW.info_department_tree_id,
                 NEW.info_department_id,
                 NEW.parent_info_department_id,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.info_department_tree_id,
                 OLD.info_department_id,
                 OLD.parent_info_department_id,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -9284,6 +10362,7 @@ BEGIN
             info_department_id,
             parent_info_department_id,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -9296,6 +10375,7 @@ BEGIN
             NEW.info_department_id,
             NEW.parent_info_department_id,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -9311,6 +10391,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_info_department_tree BEFORE INSERT OR UPDATE OR DELETE ON tests.info_department_tree FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_info_department_tree();
+
 
 -- hrchy_mstr_task update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_hrchy_mstr_task() RETURNS trigger AS
@@ -9334,6 +10415,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_hrchy_mstr_task BEFORE INSERT OR UPDATE OR DELETE ON tests.hrchy_mstr_task FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_hrchy_mstr_task();
 
+
 -- hrchy_mstr_item update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_hrchy_mstr_item() RETURNS trigger AS
 $BODY$
@@ -9355,6 +10437,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_hrchy_mstr_item BEFORE INSERT OR UPDATE OR DELETE ON tests.hrchy_mstr_item FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_hrchy_mstr_item();
+
 
 -- history_mstr_inspection_operation update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_inspection_operation() RETURNS trigger AS
@@ -9378,7 +10461,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_inspection_operation BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_inspection_operation FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_inspection_operation();
 
--- mstr_inspection_operation history trigger
+
+CREATE TRIGGER trg_04_symbol_history_mstr_inspection_operation BEFORE INSERT ON tests.history_mstr_inspection_operation FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- mstr_inspection_operation update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_inspection_operation() RETURNS trigger AS
 $BODY$
@@ -9402,6 +10486,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_inspection_operation BEFORE INSERT OR UPD
 PROCEDURE tests.trg_01_updatetimes_mstr_inspection_operation();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_inspection_operation BEFORE INSERT ON tests.mstr_inspection_operation FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_inspection_operation history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_inspection_operation() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -9415,6 +10501,7 @@ BEGIN
                 NEW.shared_appellations_id,
                 NEW.code,
                 NEW.mstr_equipment_id,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -9422,6 +10509,7 @@ BEGIN
                 OLD.shared_appellations_id,
                 OLD.code,
                 OLD.mstr_equipment_id,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -9438,6 +10526,7 @@ BEGIN
             code,
             mstr_equipment_id,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -9451,6 +10540,7 @@ BEGIN
             NEW.code,
             NEW.mstr_equipment_id,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -9466,6 +10556,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_inspection_operation BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_inspection_operation FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_inspection_operation();
+
 
 -- history_mstr_inspection_operation_task update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_inspection_operation_task() RETURNS trigger AS
@@ -9489,7 +10580,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_inspection_operation_task BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_inspection_operation_task FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_inspection_operation_task();
 
--- mstr_inspection_operation_task history trigger
+
+CREATE TRIGGER trg_04_symbol_history_mstr_inspection_operation_task BEFORE INSERT ON tests.history_mstr_inspection_operation_task FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- mstr_inspection_operation_task update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_inspection_operation_task() RETURNS trigger AS
 $BODY$
@@ -9513,6 +10605,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_inspection_operation_task BEFORE INSERT O
 PROCEDURE tests.trg_01_updatetimes_mstr_inspection_operation_task();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_inspection_operation_task BEFORE INSERT ON tests.mstr_inspection_operation_task FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_inspection_operation_task history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_inspection_operation_task() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -9528,6 +10622,7 @@ BEGIN
                 NEW.sequence,
                 NEW.commencement_date,
                 NEW.time_interval,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -9537,6 +10632,7 @@ BEGIN
                 OLD.sequence,
                 OLD.commencement_date,
                 OLD.time_interval,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -9555,6 +10651,7 @@ BEGIN
             commencement_date,
             time_interval,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -9570,6 +10667,7 @@ BEGIN
             NEW.commencement_date,
             NEW.time_interval,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -9585,6 +10683,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_inspection_operation_task BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_inspection_operation_task FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_inspection_operation_task();
+
 
 -- history_info_department_access_permission update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_info_department_access_permission() RETURNS trigger AS
@@ -9608,7 +10707,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_info_department_access_permission BEFORE INSERT OR UPDATE OR DELETE ON tests.history_info_department_access_permission FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_info_department_access_permission();
 
--- info_department_access_permission history trigger
+
+CREATE TRIGGER trg_04_symbol_history_info_department_access_permission BEFORE INSERT ON tests.history_info_department_access_permission FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- info_department_access_permission update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_info_department_access_permission() RETURNS trigger AS
 $BODY$
@@ -9632,6 +10732,8 @@ CREATE TRIGGER trg_01_updatetimes_info_department_access_permission BEFORE INSER
 PROCEDURE tests.trg_01_updatetimes_info_department_access_permission();
 
 
+CREATE TRIGGER trg_04_symbol_info_department_access_permission BEFORE INSERT ON tests.info_department_access_permission FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- info_department_access_permission history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_info_department_access_permission() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -9644,12 +10746,14 @@ BEGIN
                 NEW.info_department_access_permission_id,
                 NEW.info_access_path_id,
                 NEW.info_department_id,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.info_department_access_permission_id,
                 OLD.info_access_path_id,
                 OLD.info_department_id,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -9665,6 +10769,7 @@ BEGIN
             info_access_path_id,
             info_department_id,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -9677,6 +10782,7 @@ BEGIN
             NEW.info_access_path_id,
             NEW.info_department_id,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -9692,6 +10798,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_info_department_access_permission BEFORE INSERT OR UPDATE OR DELETE ON tests.info_department_access_permission FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_info_department_access_permission();
+
 
 -- history_info_assign update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_info_assign() RETURNS trigger AS
@@ -9715,7 +10822,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_info_assign BEFORE INSERT OR UPDATE OR DELETE ON tests.history_info_assign FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_info_assign();
 
--- mstr_item_provision history trigger
+
+CREATE TRIGGER trg_04_symbol_history_info_assign BEFORE INSERT ON tests.history_info_assign FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- mstr_item_provision update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_item_provision() RETURNS trigger AS
 $BODY$
@@ -9739,6 +10847,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_item_provision BEFORE INSERT OR UPDATE OR
 PROCEDURE tests.trg_01_updatetimes_mstr_item_provision();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_item_provision BEFORE INSERT ON tests.mstr_item_provision FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_item_provision history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_item_provision() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -9753,6 +10863,7 @@ BEGIN
                 NEW.mstr_item_id,
                 NEW.start_at,
                 NEW.stop_at,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -9761,6 +10872,7 @@ BEGIN
                 OLD.mstr_item_id,
                 OLD.start_at,
                 OLD.stop_at,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -9778,6 +10890,7 @@ BEGIN
             start_at,
             stop_at,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -9792,6 +10905,7 @@ BEGIN
             NEW.start_at,
             NEW.stop_at,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -9807,6 +10921,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_item_provision BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_item_provision FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_item_provision();
+
 
 -- history_mstr_item_provision update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_item_provision() RETURNS trigger AS
@@ -9830,6 +10945,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_item_provision BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_item_provision FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_item_provision();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_item_provision BEFORE INSERT ON tests.history_mstr_item_provision FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_equipment_provision update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_equipment_provision() RETURNS trigger AS
 $BODY$
@@ -9852,7 +10969,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_equipment_provision BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_equipment_provision FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_equipment_provision();
 
--- mstr_equipment_provision history trigger
+
+CREATE TRIGGER trg_04_symbol_history_mstr_equipment_provision BEFORE INSERT ON tests.history_mstr_equipment_provision FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- mstr_equipment_provision update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_equipment_provision() RETURNS trigger AS
 $BODY$
@@ -9876,6 +10994,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_equipment_provision BEFORE INSERT OR UPDA
 PROCEDURE tests.trg_01_updatetimes_mstr_equipment_provision();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_equipment_provision BEFORE INSERT ON tests.mstr_equipment_provision FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_equipment_provision history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_equipment_provision() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -9890,6 +11010,7 @@ BEGIN
                 NEW.mstr_equipment_id,
                 NEW.start_at,
                 NEW.stop_at,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -9898,6 +11019,7 @@ BEGIN
                 OLD.mstr_equipment_id,
                 OLD.start_at,
                 OLD.stop_at,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -9915,6 +11037,7 @@ BEGIN
             start_at,
             stop_at,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -9929,6 +11052,7 @@ BEGIN
             NEW.start_at,
             NEW.stop_at,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -9944,6 +11068,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_equipment_provision BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_equipment_provision FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_equipment_provision();
+
 
 -- hrchy_trans_container update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_hrchy_trans_container() RETURNS trigger AS
@@ -9967,6 +11092,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_hrchy_trans_container BEFORE INSERT OR UPDATE OR DELETE ON tests.hrchy_trans_container FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_hrchy_trans_container();
 
+
 -- trans_container update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_container() RETURNS trigger AS
 $BODY$
@@ -9989,6 +11115,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_container BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_container FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_container();
 
+
+CREATE TRIGGER trg_04_symbol_trans_container BEFORE INSERT ON tests.trans_container FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- hrchy_info_department update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_hrchy_info_department() RETURNS trigger AS
 $BODY$
@@ -10010,6 +11138,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_hrchy_info_department BEFORE INSERT OR UPDATE OR DELETE ON tests.hrchy_info_department FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_hrchy_info_department();
+
 
 -- history_info_app_status update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_info_app_status() RETURNS trigger AS
@@ -10033,7 +11162,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_info_app_status BEFORE INSERT OR UPDATE OR DELETE ON tests.history_info_app_status FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_info_app_status();
 
--- info_app_status history trigger
+
+CREATE TRIGGER trg_04_symbol_history_info_app_status BEFORE INSERT ON tests.history_info_app_status FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- info_app_status update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_info_app_status() RETURNS trigger AS
 $BODY$
@@ -10057,6 +11187,8 @@ CREATE TRIGGER trg_01_updatetimes_info_app_status BEFORE INSERT OR UPDATE OR DEL
 PROCEDURE tests.trg_01_updatetimes_info_app_status();
 
 
+CREATE TRIGGER trg_04_symbol_info_app_status BEFORE INSERT ON tests.info_app_status FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- info_app_status history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_info_app_status() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -10071,6 +11203,7 @@ BEGIN
                 NEW.status,
                 NEW.plan_date,
                 NEW.start_date,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -10079,6 +11212,7 @@ BEGIN
                 OLD.status,
                 OLD.plan_date,
                 OLD.start_date,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -10096,6 +11230,7 @@ BEGIN
             plan_date,
             start_date,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -10110,6 +11245,7 @@ BEGIN
             NEW.plan_date,
             NEW.start_date,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -10125,6 +11261,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_info_app_status BEFORE INSERT OR UPDATE OR DELETE ON tests.info_app_status FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_info_app_status();
+
 
 -- trans_announcement update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_announcement() RETURNS trigger AS
@@ -10148,6 +11285,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_announcement BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_announcement FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_announcement();
 
+
+CREATE TRIGGER trg_04_symbol_trans_announcement BEFORE INSERT ON tests.trans_announcement FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- history_mstr_operation_task update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_operation_task() RETURNS trigger AS
 $BODY$
@@ -10170,6 +11309,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_operation_task BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_operation_task FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_operation_task();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_operation_task BEFORE INSERT ON tests.history_mstr_operation_task FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_report update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_report() RETURNS trigger AS
 $BODY$
@@ -10192,6 +11333,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_report BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_report FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_report();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_report BEFORE INSERT ON tests.history_mstr_report FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_item_operation_task update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_item_operation_task() RETURNS trigger AS
 $BODY$
@@ -10214,6 +11357,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_item_operation_task BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_item_operation_task FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_item_operation_task();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_item_operation_task BEFORE INSERT ON tests.history_mstr_item_operation_task FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_task_tree update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_task_tree() RETURNS trigger AS
 $BODY$
@@ -10236,6 +11381,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_task_tree BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_task_tree FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_task_tree();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_task_tree BEFORE INSERT ON tests.history_mstr_task_tree FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_outsource_available update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_outsource_available() RETURNS trigger AS
 $BODY$
@@ -10258,6 +11405,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_outsource_available BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_outsource_available FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_outsource_available();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_outsource_available BEFORE INSERT ON tests.history_mstr_outsource_available FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_equipment_available update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_equipment_available() RETURNS trigger AS
 $BODY$
@@ -10280,6 +11429,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_equipment_available BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_equipment_available FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_equipment_available();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_equipment_available BEFORE INSERT ON tests.history_mstr_equipment_available FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_task update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_task() RETURNS trigger AS
 $BODY$
@@ -10302,6 +11453,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_task BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_task FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_task();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_task BEFORE INSERT ON tests.history_mstr_task FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_task_location update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_task_location() RETURNS trigger AS
 $BODY$
@@ -10324,7 +11477,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_task_location BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_task_location FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_task_location();
 
--- mstr_task_location history trigger
+
+CREATE TRIGGER trg_04_symbol_history_mstr_task_location BEFORE INSERT ON tests.history_mstr_task_location FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- mstr_task_location update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_task_location() RETURNS trigger AS
 $BODY$
@@ -10348,6 +11502,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_task_location BEFORE INSERT OR UPDATE OR 
 PROCEDURE tests.trg_01_updatetimes_mstr_task_location();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_task_location BEFORE INSERT ON tests.mstr_task_location FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_task_location history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_task_location() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -10363,6 +11519,7 @@ BEGIN
                 NEW.mstr_location_id,
                 NEW.mstr_equipment_id,
                 NEW.mstr_stakeholder_id,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -10372,6 +11529,7 @@ BEGIN
                 OLD.mstr_location_id,
                 OLD.mstr_equipment_id,
                 OLD.mstr_stakeholder_id,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -10390,6 +11548,7 @@ BEGIN
             mstr_equipment_id,
             mstr_stakeholder_id,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -10405,6 +11564,7 @@ BEGIN
             NEW.mstr_equipment_id,
             NEW.mstr_stakeholder_id,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -10420,6 +11580,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_task_location BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_task_location FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_task_location();
+
 
 -- history_mstr_task_group update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_task_group() RETURNS trigger AS
@@ -10443,6 +11604,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_task_group BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_task_group FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_task_group();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_task_group BEFORE INSERT ON tests.history_mstr_task_group FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_operation update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_operation() RETURNS trigger AS
 $BODY$
@@ -10465,6 +11628,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_operation BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_operation FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_operation();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_operation BEFORE INSERT ON tests.history_mstr_operation FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_manufacturer update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_manufacturer() RETURNS trigger AS
 $BODY$
@@ -10487,6 +11652,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_manufacturer BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_manufacturer FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_manufacturer();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_manufacturer BEFORE INSERT ON tests.history_mstr_manufacturer FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_inspection update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_inspection() RETURNS trigger AS
 $BODY$
@@ -10509,6 +11676,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_inspection BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_inspection FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_inspection();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_inspection BEFORE INSERT ON tests.history_mstr_inspection FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_inspection_formula update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_inspection_formula() RETURNS trigger AS
 $BODY$
@@ -10531,6 +11700,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_inspection_formula BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_inspection_formula FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_inspection_formula();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_inspection_formula BEFORE INSERT ON tests.history_mstr_inspection_formula FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_item_actual_size update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_item_actual_size() RETURNS trigger AS
 $BODY$
@@ -10553,6 +11724,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_item_actual_size BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_item_actual_size FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_item_actual_size();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_item_actual_size BEFORE INSERT ON tests.history_mstr_item_actual_size FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_item_tree update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_item_tree() RETURNS trigger AS
 $BODY$
@@ -10575,6 +11748,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_item_tree BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_item_tree FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_item_tree();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_item_tree BEFORE INSERT ON tests.history_mstr_item_tree FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_item update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_item() RETURNS trigger AS
 $BODY$
@@ -10597,6 +11772,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_item BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_item FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_item();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_item BEFORE INSERT ON tests.history_mstr_item FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_audit_std_checkitem update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_audit_std_checkitem() RETURNS trigger AS
 $BODY$
@@ -10619,6 +11796,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_audit_std_checkitem BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_audit_std_checkitem FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_audit_std_checkitem();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_audit_std_checkitem BEFORE INSERT ON tests.history_mstr_audit_std_checkitem FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_audit_std update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_audit_std() RETURNS trigger AS
 $BODY$
@@ -10641,6 +11820,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_audit_std BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_audit_std FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_audit_std();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_audit_std BEFORE INSERT ON tests.history_mstr_audit_std FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_location update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_location() RETURNS trigger AS
 $BODY$
@@ -10663,6 +11844,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_location BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_location FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_location();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_location BEFORE INSERT ON tests.history_mstr_location FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_equipment_tag update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_equipment_tag() RETURNS trigger AS
 $BODY$
@@ -10685,6 +11868,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_equipment_tag BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_equipment_tag FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_equipment_tag();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_equipment_tag BEFORE INSERT ON tests.history_mstr_equipment_tag FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_stakeholder_contact update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_stakeholder_contact() RETURNS trigger AS
 $BODY$
@@ -10707,6 +11892,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_stakeholder_contact BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_stakeholder_contact FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_stakeholder_contact();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_stakeholder_contact BEFORE INSERT ON tests.history_mstr_stakeholder_contact FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_stakeholder_provision update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_stakeholder_provision() RETURNS trigger AS
 $BODY$
@@ -10729,6 +11916,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_stakeholder_provision BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_stakeholder_provision FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_stakeholder_provision();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_stakeholder_provision BEFORE INSERT ON tests.history_mstr_stakeholder_provision FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_stakeholder update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_stakeholder() RETURNS trigger AS
 $BODY$
@@ -10751,6 +11940,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_stakeholder BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_stakeholder FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_stakeholder();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_stakeholder BEFORE INSERT ON tests.history_mstr_stakeholder FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_staff_license update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_staff_license() RETURNS trigger AS
 $BODY$
@@ -10773,6 +11964,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_staff_license BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_staff_license FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_staff_license();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_staff_license BEFORE INSERT ON tests.history_mstr_staff_license FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_license update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_license() RETURNS trigger AS
 $BODY$
@@ -10795,6 +11988,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_license BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_license FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_license();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_license BEFORE INSERT ON tests.history_mstr_license FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_info_staff_access_permission update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_info_staff_access_permission() RETURNS trigger AS
 $BODY$
@@ -10817,6 +12012,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_info_staff_access_permission BEFORE INSERT OR UPDATE OR DELETE ON tests.history_info_staff_access_permission FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_info_staff_access_permission();
 
+
+CREATE TRIGGER trg_04_symbol_history_info_staff_access_permission BEFORE INSERT ON tests.history_info_staff_access_permission FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_approval_scope_pattern update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_approval_scope_pattern() RETURNS trigger AS
 $BODY$
@@ -10839,6 +12036,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_approval_scope_pattern BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_approval_scope_pattern FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_approval_scope_pattern();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_approval_scope_pattern BEFORE INSERT ON tests.history_mstr_approval_scope_pattern FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_approval_pattern update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_approval_pattern() RETURNS trigger AS
 $BODY$
@@ -10861,6 +12060,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_approval_pattern BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_approval_pattern FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_approval_pattern();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_approval_pattern BEFORE INSERT ON tests.history_mstr_approval_pattern FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_capability update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_capability() RETURNS trigger AS
 $BODY$
@@ -10883,6 +12084,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_capability BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_capability FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_capability();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_capability BEFORE INSERT ON tests.history_mstr_capability FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_approval_pattern_detail update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_approval_pattern_detail() RETURNS trigger AS
 $BODY$
@@ -10905,6 +12108,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_approval_pattern_detail BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_approval_pattern_detail FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_approval_pattern_detail();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_approval_pattern_detail BEFORE INSERT ON tests.history_mstr_approval_pattern_detail FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_approval update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_approval() RETURNS trigger AS
 $BODY$
@@ -10927,6 +12132,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_approval BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_approval FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_approval();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_approval BEFORE INSERT ON tests.history_mstr_approval FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_info_position update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_info_position() RETURNS trigger AS
 $BODY$
@@ -10949,6 +12156,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_info_position BEFORE INSERT OR UPDATE OR DELETE ON tests.history_info_position FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_info_position();
 
+
+CREATE TRIGGER trg_04_symbol_history_info_position BEFORE INSERT ON tests.history_info_position FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_staff_capability update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_staff_capability() RETURNS trigger AS
 $BODY$
@@ -10971,6 +12180,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_staff_capability BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_staff_capability FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_staff_capability();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_staff_capability BEFORE INSERT ON tests.history_mstr_staff_capability FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_mstr_sign update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_sign() RETURNS trigger AS
 $BODY$
@@ -10993,6 +12204,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_sign BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_sign FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_mstr_sign();
 
+
+CREATE TRIGGER trg_04_symbol_history_mstr_sign BEFORE INSERT ON tests.history_mstr_sign FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_info_staff update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_info_staff() RETURNS trigger AS
 $BODY$
@@ -11015,6 +12228,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_info_staff BEFORE INSERT OR UPDATE OR DELETE ON tests.history_info_staff FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_info_staff();
 
+
+CREATE TRIGGER trg_04_symbol_history_info_staff BEFORE INSERT ON tests.history_info_staff FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_info_provision update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_info_provision() RETURNS trigger AS
 $BODY$
@@ -11037,6 +12252,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_info_provision BEFORE INSERT OR UPDATE OR DELETE ON tests.history_info_provision FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_info_provision();
 
+
+CREATE TRIGGER trg_04_symbol_history_info_provision BEFORE INSERT ON tests.history_info_provision FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_info_address update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_info_address() RETURNS trigger AS
 $BODY$
@@ -11059,6 +12276,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_info_address BEFORE INSERT OR UPDATE OR DELETE ON tests.history_info_address FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_info_address();
 
+
+CREATE TRIGGER trg_04_symbol_history_info_address BEFORE INSERT ON tests.history_info_address FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_shared_unit update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_shared_unit() RETURNS trigger AS
 $BODY$
@@ -11081,6 +12300,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_shared_unit BEFORE INSERT OR UPDATE OR DELETE ON tests.history_shared_unit FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_shared_unit();
 
+
+CREATE TRIGGER trg_04_symbol_history_shared_unit BEFORE INSERT ON tests.history_shared_unit FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_info_office update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_info_office() RETURNS trigger AS
 $BODY$
@@ -11103,6 +12324,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_info_office BEFORE INSERT OR UPDATE OR DELETE ON tests.history_info_office FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_info_office();
 
+
+CREATE TRIGGER trg_04_symbol_history_info_office BEFORE INSERT ON tests.history_info_office FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_info_department update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_info_department() RETURNS trigger AS
 $BODY$
@@ -11125,6 +12348,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_info_department BEFORE INSERT OR UPDATE OR DELETE ON tests.history_info_department FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_info_department();
 
+
+CREATE TRIGGER trg_04_symbol_history_info_department BEFORE INSERT ON tests.history_info_department FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_info_access_path_approval update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_info_access_path_approval() RETURNS trigger AS
 $BODY$
@@ -11147,6 +12372,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_info_access_path_approval BEFORE INSERT OR UPDATE OR DELETE ON tests.history_info_access_path_approval FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_info_access_path_approval();
 
+
+CREATE TRIGGER trg_04_symbol_history_info_access_path_approval BEFORE INSERT ON tests.history_info_access_path_approval FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_info_access_path update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_info_access_path() RETURNS trigger AS
 $BODY$
@@ -11169,6 +12396,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_info_access_path BEFORE INSERT OR UPDATE OR DELETE ON tests.history_info_access_path FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_info_access_path();
 
+
+CREATE TRIGGER trg_04_symbol_history_info_access_path BEFORE INSERT ON tests.history_info_access_path FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_info_company update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_info_company() RETURNS trigger AS
 $BODY$
@@ -11191,7 +12420,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_info_company BEFORE INSERT OR UPDATE OR DELETE ON tests.history_info_company FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_info_company();
 
--- info_company history trigger
+
+CREATE TRIGGER trg_04_symbol_history_info_company BEFORE INSERT ON tests.history_info_company FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- info_company update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_info_company() RETURNS trigger AS
 $BODY$
@@ -11215,6 +12445,8 @@ CREATE TRIGGER trg_01_updatetimes_info_company BEFORE INSERT OR UPDATE OR DELETE
 PROCEDURE tests.trg_01_updatetimes_info_company();
 
 
+CREATE TRIGGER trg_04_symbol_info_company BEFORE INSERT ON tests.info_company FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- info_company history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_info_company() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -11229,6 +12461,7 @@ BEGIN
                 NEW.info_address_id,
                 NEW.web_page,
                 NEW.ceo,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -11237,6 +12470,7 @@ BEGIN
                 OLD.info_address_id,
                 OLD.web_page,
                 OLD.ceo,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -11254,6 +12488,7 @@ BEGIN
             web_page,
             ceo,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -11268,6 +12503,7 @@ BEGIN
             NEW.web_page,
             NEW.ceo,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -11283,6 +12519,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_info_company BEFORE INSERT OR UPDATE OR DELETE ON tests.info_company FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_info_company();
+
 
 -- history_info_app update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_info_app() RETURNS trigger AS
@@ -11306,6 +12543,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_info_app BEFORE INSERT OR UPDATE OR DELETE ON tests.history_info_app FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_history_info_app();
 
+
+CREATE TRIGGER trg_04_symbol_history_info_app BEFORE INSERT ON tests.history_info_app FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- trans_anonymouse update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_anonymouse() RETURNS trigger AS
 $BODY$
@@ -11328,6 +12567,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_anonymouse BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_anonymouse FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_anonymouse();
 
+
+CREATE TRIGGER trg_04_symbol_trans_anonymouse BEFORE INSERT ON tests.trans_anonymouse FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_file_reminder update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_file_reminder() RETURNS trigger AS
 $BODY$
@@ -11350,7 +12591,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_file_reminder BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_file_reminder FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_file_reminder();
 
--- mstr_equipment_available history trigger
+
+CREATE TRIGGER trg_04_symbol_trans_file_reminder BEFORE INSERT ON tests.trans_file_reminder FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- mstr_equipment_available update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_equipment_available() RETURNS trigger AS
 $BODY$
@@ -11374,6 +12616,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_equipment_available BEFORE INSERT OR UPDA
 PROCEDURE tests.trg_01_updatetimes_mstr_equipment_available();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_equipment_available BEFORE INSERT ON tests.mstr_equipment_available FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_equipment_available history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_equipment_available() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -11386,12 +12630,14 @@ BEGIN
                 NEW.mstr_equipment_available_id,
                 NEW.mstr_task_location_id,
                 NEW.mstr_equipment_id,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.mstr_equipment_available_id,
                 OLD.mstr_task_location_id,
                 OLD.mstr_equipment_id,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -11407,6 +12653,7 @@ BEGIN
             mstr_task_location_id,
             mstr_equipment_id,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -11419,6 +12666,7 @@ BEGIN
             NEW.mstr_task_location_id,
             NEW.mstr_equipment_id,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -11435,7 +12683,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_equipment_available BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_equipment_available FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_equipment_available();
 
--- mstr_outsource_available history trigger
+
 -- mstr_outsource_available update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_outsource_available() RETURNS trigger AS
 $BODY$
@@ -11459,6 +12707,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_outsource_available BEFORE INSERT OR UPDA
 PROCEDURE tests.trg_01_updatetimes_mstr_outsource_available();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_outsource_available BEFORE INSERT ON tests.mstr_outsource_available FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_outsource_available history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_outsource_available() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -11471,12 +12721,14 @@ BEGIN
                 NEW.mstr_outsource_available_id,
                 NEW.mstr_task_location_id,
                 NEW.mstr_stakeholder_id,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.mstr_outsource_available_id,
                 OLD.mstr_task_location_id,
                 OLD.mstr_stakeholder_id,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -11492,6 +12744,7 @@ BEGIN
             mstr_task_location_id,
             mstr_stakeholder_id,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -11504,6 +12757,7 @@ BEGIN
             NEW.mstr_task_location_id,
             NEW.mstr_stakeholder_id,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -11520,7 +12774,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_outsource_available BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_outsource_available FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_outsource_available();
 
--- mstr_task_group history trigger
+
 -- mstr_task_group update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_task_group() RETURNS trigger AS
 $BODY$
@@ -11544,6 +12798,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_task_group BEFORE INSERT OR UPDATE OR DEL
 PROCEDURE tests.trg_01_updatetimes_mstr_task_group();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_task_group BEFORE INSERT ON tests.mstr_task_group FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_task_group history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_task_group() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -11557,6 +12813,7 @@ BEGIN
                 NEW.code,
                 NEW.shared_appellations_id,
                 NEW.details,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -11564,6 +12821,7 @@ BEGIN
                 OLD.code,
                 OLD.shared_appellations_id,
                 OLD.details,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -11580,6 +12838,7 @@ BEGIN
             shared_appellations_id,
             details,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -11593,6 +12852,7 @@ BEGIN
             NEW.shared_appellations_id,
             NEW.details,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -11608,6 +12868,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_task_group BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_task_group FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_task_group();
+
 
 -- trans_unrecognized_detail update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_unrecognized_detail() RETURNS trigger AS
@@ -11631,6 +12892,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_unrecognized_detail BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_unrecognized_detail FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_unrecognized_detail();
 
+
+CREATE TRIGGER trg_04_symbol_trans_unrecognized_detail BEFORE INSERT ON tests.trans_unrecognized_detail FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_unrecognized update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_unrecognized() RETURNS trigger AS
 $BODY$
@@ -11653,7 +12916,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_unrecognized BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_unrecognized FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_unrecognized();
 
--- mstr_stakeholder_provision history trigger
+
+CREATE TRIGGER trg_04_symbol_trans_unrecognized BEFORE INSERT ON tests.trans_unrecognized FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- mstr_stakeholder_provision update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_stakeholder_provision() RETURNS trigger AS
 $BODY$
@@ -11677,6 +12941,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_stakeholder_provision BEFORE INSERT OR UP
 PROCEDURE tests.trg_01_updatetimes_mstr_stakeholder_provision();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_stakeholder_provision BEFORE INSERT ON tests.mstr_stakeholder_provision FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_stakeholder_provision history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_stakeholder_provision() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -11689,12 +12955,14 @@ BEGIN
                 NEW.mstr_stakeholder_provision_id,
                 NEW.mstr_stakeholder_id,
                 NEW.info_provision_id,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.mstr_stakeholder_provision_id,
                 OLD.mstr_stakeholder_id,
                 OLD.info_provision_id,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -11710,6 +12978,7 @@ BEGIN
             mstr_stakeholder_id,
             info_provision_id,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -11722,6 +12991,7 @@ BEGIN
             NEW.mstr_stakeholder_id,
             NEW.info_provision_id,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -11738,7 +13008,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_stakeholder_provision BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_stakeholder_provision FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_stakeholder_provision();
 
--- info_provision history trigger
+
 -- info_provision update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_info_provision() RETURNS trigger AS
 $BODY$
@@ -11762,6 +13032,8 @@ CREATE TRIGGER trg_01_updatetimes_info_provision BEFORE INSERT OR UPDATE OR DELE
 PROCEDURE tests.trg_01_updatetimes_info_provision();
 
 
+CREATE TRIGGER trg_04_symbol_info_provision BEFORE INSERT ON tests.info_provision FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- info_provision history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_info_provision() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -11776,6 +13048,7 @@ BEGIN
                 NEW.code,
                 NEW.shared_appellations_id,
                 NEW.details,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -11784,6 +13057,7 @@ BEGIN
                 OLD.code,
                 OLD.shared_appellations_id,
                 OLD.details,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -11801,6 +13075,7 @@ BEGIN
             shared_appellations_id,
             details,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -11815,6 +13090,7 @@ BEGIN
             NEW.shared_appellations_id,
             NEW.details,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -11831,7 +13107,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_info_provision BEFORE INSERT OR UPDATE OR DELETE ON tests.info_provision FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_info_provision();
 
--- mstr_inspection_formula history trigger
+
 -- mstr_inspection_formula update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_inspection_formula() RETURNS trigger AS
 $BODY$
@@ -11855,6 +13131,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_inspection_formula BEFORE INSERT OR UPDAT
 PROCEDURE tests.trg_01_updatetimes_mstr_inspection_formula();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_inspection_formula BEFORE INSERT ON tests.mstr_inspection_formula FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_inspection_formula history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_inspection_formula() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -11869,6 +13147,7 @@ BEGIN
                 NEW.arg_class,
                 NEW.type_class,
                 NEW.format_class,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -11877,6 +13156,7 @@ BEGIN
                 OLD.arg_class,
                 OLD.type_class,
                 OLD.format_class,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -11894,6 +13174,7 @@ BEGIN
             type_class,
             format_class,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -11908,6 +13189,7 @@ BEGIN
             NEW.type_class,
             NEW.format_class,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -11924,7 +13206,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_inspection_formula BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_inspection_formula FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_inspection_formula();
 
--- mstr_manufacturer history trigger
+
 -- mstr_manufacturer update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_manufacturer() RETURNS trigger AS
 $BODY$
@@ -11948,6 +13230,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_manufacturer BEFORE INSERT OR UPDATE OR D
 PROCEDURE tests.trg_01_updatetimes_mstr_manufacturer();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_manufacturer BEFORE INSERT ON tests.mstr_manufacturer FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_manufacturer history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_manufacturer() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -11960,12 +13244,14 @@ BEGIN
                 NEW.mstr_manufacturer_id,
                 NEW.code,
                 NEW.shared_appellations_id,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.mstr_manufacturer_id,
                 OLD.code,
                 OLD.shared_appellations_id,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -11981,6 +13267,7 @@ BEGIN
             code,
             shared_appellations_id,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -11993,6 +13280,7 @@ BEGIN
             NEW.code,
             NEW.shared_appellations_id,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -12009,7 +13297,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_manufacturer BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_manufacturer FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_manufacturer();
 
--- mstr_approval_scope_pattern history trigger
+
 -- mstr_approval_scope_pattern update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_approval_scope_pattern() RETURNS trigger AS
 $BODY$
@@ -12033,6 +13321,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_approval_scope_pattern BEFORE INSERT OR U
 PROCEDURE tests.trg_01_updatetimes_mstr_approval_scope_pattern();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_approval_scope_pattern BEFORE INSERT ON tests.mstr_approval_scope_pattern FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_approval_scope_pattern history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_approval_scope_pattern() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -12045,12 +13335,14 @@ BEGIN
                 NEW.mstr_approval_scope_pattern_id,
                 NEW.mstr_approval_pattern_id,
                 NEW.info_access_path_approval_id,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.mstr_approval_scope_pattern_id,
                 OLD.mstr_approval_pattern_id,
                 OLD.info_access_path_approval_id,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -12066,6 +13358,7 @@ BEGIN
             mstr_approval_pattern_id,
             info_access_path_approval_id,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -12078,6 +13371,7 @@ BEGIN
             NEW.mstr_approval_pattern_id,
             NEW.info_access_path_approval_id,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -12094,7 +13388,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_approval_scope_pattern BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_approval_scope_pattern FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_approval_scope_pattern();
 
--- mstr_approval_pattern_detail history trigger
+
 -- mstr_approval_pattern_detail update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_approval_pattern_detail() RETURNS trigger AS
 $BODY$
@@ -12118,6 +13412,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_approval_pattern_detail BEFORE INSERT OR 
 PROCEDURE tests.trg_01_updatetimes_mstr_approval_pattern_detail();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_approval_pattern_detail BEFORE INSERT ON tests.mstr_approval_pattern_detail FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_approval_pattern_detail history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_approval_pattern_detail() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -12130,12 +13426,14 @@ BEGIN
                 NEW.mstr_approval_pattern_detail_id,
                 NEW.mstr_approval_id,
                 NEW.mstr_approval_pattern_id,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.mstr_approval_pattern_detail_id,
                 OLD.mstr_approval_id,
                 OLD.mstr_approval_pattern_id,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -12151,6 +13449,7 @@ BEGIN
             mstr_approval_id,
             mstr_approval_pattern_id,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -12163,6 +13462,7 @@ BEGIN
             NEW.mstr_approval_id,
             NEW.mstr_approval_pattern_id,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -12179,7 +13479,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_approval_pattern_detail BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_approval_pattern_detail FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_approval_pattern_detail();
 
--- info_address history trigger
+
 -- info_address update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_info_address() RETURNS trigger AS
 $BODY$
@@ -12203,6 +13503,8 @@ CREATE TRIGGER trg_01_updatetimes_info_address BEFORE INSERT OR UPDATE OR DELETE
 PROCEDURE tests.trg_01_updatetimes_info_address();
 
 
+CREATE TRIGGER trg_04_symbol_info_address BEFORE INSERT ON tests.info_address FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- info_address history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_info_address() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -12220,6 +13522,7 @@ BEGIN
                 NEW.bill,
                 NEW.phone,
                 NEW.fax_number,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -12231,6 +13534,7 @@ BEGIN
                 OLD.bill,
                 OLD.phone,
                 OLD.fax_number,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -12251,6 +13555,7 @@ BEGIN
             phone,
             fax_number,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -12268,6 +13573,7 @@ BEGIN
             NEW.phone,
             NEW.fax_number,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -12283,6 +13589,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_info_address BEFORE INSERT OR UPDATE OR DELETE ON tests.info_address FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_info_address();
+
 
 -- trans_inspection_report update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_inspection_report() RETURNS trigger AS
@@ -12306,7 +13613,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_inspection_report BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_inspection_report FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_inspection_report();
 
--- mstr_report history trigger
+
+CREATE TRIGGER trg_04_symbol_trans_inspection_report BEFORE INSERT ON tests.trans_inspection_report FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- mstr_report update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_report() RETURNS trigger AS
 $BODY$
@@ -12330,6 +13638,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_report BEFORE INSERT OR UPDATE OR DELETE 
 PROCEDURE tests.trg_01_updatetimes_mstr_report();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_report BEFORE INSERT ON tests.mstr_report FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_report history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_report() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -12345,6 +13655,7 @@ BEGIN
                 NEW.code,
                 NEW.is_default,
                 NEW.info_access_path_id,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -12354,6 +13665,7 @@ BEGIN
                 OLD.code,
                 OLD.is_default,
                 OLD.info_access_path_id,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -12372,6 +13684,7 @@ BEGIN
             is_default,
             info_access_path_id,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -12387,6 +13700,7 @@ BEGIN
             NEW.is_default,
             NEW.info_access_path_id,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -12403,7 +13717,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_report BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_report FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_report();
 
--- mstr_equipment_tag history trigger
+
 -- mstr_equipment_tag update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_equipment_tag() RETURNS trigger AS
 $BODY$
@@ -12427,6 +13741,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_equipment_tag BEFORE INSERT OR UPDATE OR 
 PROCEDURE tests.trg_01_updatetimes_mstr_equipment_tag();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_equipment_tag BEFORE INSERT ON tests.mstr_equipment_tag FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_equipment_tag history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_equipment_tag() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -12439,12 +13755,14 @@ BEGIN
                 NEW.mstr_equipment_tag_id,
                 NEW.trans_file_id,
                 NEW.name,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.mstr_equipment_tag_id,
                 OLD.trans_file_id,
                 OLD.name,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -12460,6 +13778,7 @@ BEGIN
             trans_file_id,
             name,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -12472,6 +13791,7 @@ BEGIN
             NEW.trans_file_id,
             NEW.name,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -12488,7 +13808,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_equipment_tag BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_equipment_tag FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_equipment_tag();
 
--- info_access_path_approval history trigger
+
 -- info_access_path_approval update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_info_access_path_approval() RETURNS trigger AS
 $BODY$
@@ -12512,6 +13832,8 @@ CREATE TRIGGER trg_01_updatetimes_info_access_path_approval BEFORE INSERT OR UPD
 PROCEDURE tests.trg_01_updatetimes_info_access_path_approval();
 
 
+CREATE TRIGGER trg_04_symbol_info_access_path_approval BEFORE INSERT ON tests.info_access_path_approval FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- info_access_path_approval history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_info_access_path_approval() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -12526,6 +13848,7 @@ BEGIN
                 NEW.name,
                 NEW.kana,
                 NEW.tag,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -12534,6 +13857,7 @@ BEGIN
                 OLD.name,
                 OLD.kana,
                 OLD.tag,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -12551,6 +13875,7 @@ BEGIN
             kana,
             tag,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -12565,6 +13890,7 @@ BEGIN
             NEW.kana,
             NEW.tag,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -12580,6 +13906,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_info_access_path_approval BEFORE INSERT OR UPDATE OR DELETE ON tests.info_access_path_approval FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_info_access_path_approval();
+
 
 -- trans_approved update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_approved() RETURNS trigger AS
@@ -12602,7 +13929,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_approved BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_approved FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_approved();
 
--- mstr_approval history trigger
+
+CREATE TRIGGER trg_04_symbol_trans_approved BEFORE INSERT ON tests.trans_approved FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- mstr_approval update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_approval() RETURNS trigger AS
 $BODY$
@@ -12626,6 +13954,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_approval BEFORE INSERT OR UPDATE OR DELET
 PROCEDURE tests.trg_01_updatetimes_mstr_approval();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_approval BEFORE INSERT ON tests.mstr_approval FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_approval history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_approval() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -12640,6 +13970,7 @@ BEGIN
                 NEW.info_role_id,
                 NEW.priority,
                 NEW.shared_appellations_id,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -12648,6 +13979,7 @@ BEGIN
                 OLD.info_role_id,
                 OLD.priority,
                 OLD.shared_appellations_id,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -12665,6 +13997,7 @@ BEGIN
             priority,
             shared_appellations_id,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -12679,6 +14012,7 @@ BEGIN
             NEW.priority,
             NEW.shared_appellations_id,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -12695,7 +14029,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_approval BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_approval FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_approval();
 
--- info_position history trigger
+
 -- info_position update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_info_position() RETURNS trigger AS
 $BODY$
@@ -12719,6 +14053,8 @@ CREATE TRIGGER trg_01_updatetimes_info_position BEFORE INSERT OR UPDATE OR DELET
 PROCEDURE tests.trg_01_updatetimes_info_position();
 
 
+CREATE TRIGGER trg_04_symbol_info_position BEFORE INSERT ON tests.info_position FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- info_position history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_info_position() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -12731,12 +14067,14 @@ BEGIN
                 NEW.info_position_id,
                 NEW.priority,
                 NEW.shared_appellations_id,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.info_position_id,
                 OLD.priority,
                 OLD.shared_appellations_id,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -12752,6 +14090,7 @@ BEGIN
             priority,
             shared_appellations_id,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -12764,6 +14103,7 @@ BEGIN
             NEW.priority,
             NEW.shared_appellations_id,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -12780,7 +14120,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_info_position BEFORE INSERT OR UPDATE OR DELETE ON tests.info_position FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_info_position();
 
--- mstr_approval_pattern history trigger
+
 -- mstr_approval_pattern update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_approval_pattern() RETURNS trigger AS
 $BODY$
@@ -12804,6 +14144,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_approval_pattern BEFORE INSERT OR UPDATE 
 PROCEDURE tests.trg_01_updatetimes_mstr_approval_pattern();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_approval_pattern BEFORE INSERT ON tests.mstr_approval_pattern FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_approval_pattern history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_approval_pattern() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -12815,11 +14157,13 @@ BEGIN
             IF (
                 NEW.mstr_approval_pattern_id,
                 NEW.shared_appellations_id,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.mstr_approval_pattern_id,
                 OLD.shared_appellations_id,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -12834,6 +14178,7 @@ BEGIN
             mstr_approval_pattern_id,
             shared_appellations_id,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -12845,6 +14190,7 @@ BEGIN
             NEW.mstr_approval_pattern_id,
             NEW.shared_appellations_id,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -12860,6 +14206,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_approval_pattern BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_approval_pattern FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_approval_pattern();
+
 
 -- trans_approval update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_approval() RETURNS trigger AS
@@ -12882,6 +14229,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_approval BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_approval FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_approval();
 
+
+CREATE TRIGGER trg_04_symbol_trans_approval BEFORE INSERT ON tests.trans_approval FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_approval_gr update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_approval_gr() RETURNS trigger AS
 $BODY$
@@ -12904,6 +14253,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_approval_gr BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_approval_gr FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_approval_gr();
 
+
+CREATE TRIGGER trg_04_symbol_trans_approval_gr BEFORE INSERT ON tests.trans_approval_gr FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_audit_member update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_audit_member() RETURNS trigger AS
 $BODY$
@@ -12926,6 +14277,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_audit_member BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_audit_member FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_audit_member();
 
+
+CREATE TRIGGER trg_04_symbol_trans_audit_member BEFORE INSERT ON tests.trans_audit_member FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_auditor update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_auditor() RETURNS trigger AS
 $BODY$
@@ -12948,6 +14301,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_auditor BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_auditor FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_auditor();
 
+
+CREATE TRIGGER trg_04_symbol_trans_auditor BEFORE INSERT ON tests.trans_auditor FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_audit_team update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_audit_team() RETURNS trigger AS
 $BODY$
@@ -12970,6 +14325,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_audit_team BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_audit_team FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_audit_team();
 
+
+CREATE TRIGGER trg_04_symbol_trans_audit_team BEFORE INSERT ON tests.trans_audit_team FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_audit update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_audit() RETURNS trigger AS
 $BODY$
@@ -12992,6 +14349,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_audit BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_audit FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_audit();
 
+
+CREATE TRIGGER trg_04_symbol_trans_audit BEFORE INSERT ON tests.trans_audit FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_task_risk update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_task_risk() RETURNS trigger AS
 $BODY$
@@ -13014,6 +14373,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_task_risk BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_task_risk FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_task_risk();
 
+
+CREATE TRIGGER trg_04_symbol_trans_task_risk BEFORE INSERT ON tests.trans_task_risk FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_order_detail_risk update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_order_detail_risk() RETURNS trigger AS
 $BODY$
@@ -13036,6 +14397,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_order_detail_risk BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_order_detail_risk FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_order_detail_risk();
 
+
+CREATE TRIGGER trg_04_symbol_trans_order_detail_risk BEFORE INSERT ON tests.trans_order_detail_risk FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_prevention_detail update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_prevention_detail() RETURNS trigger AS
 $BODY$
@@ -13058,6 +14421,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_prevention_detail BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_prevention_detail FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_prevention_detail();
 
+
+CREATE TRIGGER trg_04_symbol_trans_prevention_detail BEFORE INSERT ON tests.trans_prevention_detail FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_prevention update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_prevention() RETURNS trigger AS
 $BODY$
@@ -13080,6 +14445,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_prevention BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_prevention FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_prevention();
 
+
+CREATE TRIGGER trg_04_symbol_trans_prevention BEFORE INSERT ON tests.trans_prevention FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_order_risk update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_order_risk() RETURNS trigger AS
 $BODY$
@@ -13102,6 +14469,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_order_risk BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_order_risk FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_order_risk();
 
+
+CREATE TRIGGER trg_04_symbol_trans_order_risk BEFORE INSERT ON tests.trans_order_risk FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_equipment_lent update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_equipment_lent() RETURNS trigger AS
 $BODY$
@@ -13124,6 +14493,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_equipment_lent BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_equipment_lent FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_equipment_lent();
 
+
+CREATE TRIGGER trg_04_symbol_trans_equipment_lent BEFORE INSERT ON tests.trans_equipment_lent FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- hrchy_mstr_location update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_hrchy_mstr_location() RETURNS trigger AS
 $BODY$
@@ -13145,6 +14516,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_hrchy_mstr_location BEFORE INSERT OR UPDATE OR DELETE ON tests.hrchy_mstr_location FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_hrchy_mstr_location();
+
 
 -- trans_disposal_detail update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_disposal_detail() RETURNS trigger AS
@@ -13168,7 +14540,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_disposal_detail BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_disposal_detail FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_disposal_detail();
 
--- mstr_audit_std_checkitem history trigger
+
+CREATE TRIGGER trg_04_symbol_trans_disposal_detail BEFORE INSERT ON tests.trans_disposal_detail FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- mstr_audit_std_checkitem update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_audit_std_checkitem() RETURNS trigger AS
 $BODY$
@@ -13192,6 +14565,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_audit_std_checkitem BEFORE INSERT OR UPDA
 PROCEDURE tests.trg_01_updatetimes_mstr_audit_std_checkitem();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_audit_std_checkitem BEFORE INSERT ON tests.mstr_audit_std_checkitem FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_audit_std_checkitem history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_audit_std_checkitem() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -13207,7 +14582,10 @@ BEGIN
                 NEW.control_code,
                 NEW.shared_appellations_id,
                 NEW.detail,
+                NEW.type_class,
+                NEW.formula_class,
                 NEW.arg_class,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -13217,7 +14595,10 @@ BEGIN
                 OLD.control_code,
                 OLD.shared_appellations_id,
                 OLD.detail,
+                OLD.type_class,
+                OLD.formula_class,
                 OLD.arg_class,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -13235,8 +14616,11 @@ BEGIN
             control_code,
             shared_appellations_id,
             detail,
+            type_class,
+            formula_class,
             arg_class,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -13251,8 +14635,11 @@ BEGIN
             NEW.control_code,
             NEW.shared_appellations_id,
             NEW.detail,
+            NEW.type_class,
+            NEW.formula_class,
             NEW.arg_class,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -13269,7 +14656,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_audit_std_checkitem BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_audit_std_checkitem FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_audit_std_checkitem();
 
--- mstr_audit_std history trigger
+
 -- mstr_audit_std update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_audit_std() RETURNS trigger AS
 $BODY$
@@ -13293,6 +14680,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_audit_std BEFORE INSERT OR UPDATE OR DELE
 PROCEDURE tests.trg_01_updatetimes_mstr_audit_std();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_audit_std BEFORE INSERT ON tests.mstr_audit_std FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_audit_std history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_audit_std() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -13308,6 +14697,7 @@ BEGIN
                 NEW.category,
                 NEW.shared_appellations_id,
                 NEW.detail,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -13317,6 +14707,7 @@ BEGIN
                 OLD.category,
                 OLD.shared_appellations_id,
                 OLD.detail,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -13335,6 +14726,7 @@ BEGIN
             shared_appellations_id,
             detail,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -13350,6 +14742,7 @@ BEGIN
             NEW.shared_appellations_id,
             NEW.detail,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -13365,6 +14758,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_audit_std BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_audit_std FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_audit_std();
+
 
 -- trans_risk update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_risk() RETURNS trigger AS
@@ -13388,6 +14782,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_risk BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_risk FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_risk();
 
+
+CREATE TRIGGER trg_04_symbol_trans_risk BEFORE INSERT ON tests.trans_risk FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_observer_preventive update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_observer_preventive() RETURNS trigger AS
 $BODY$
@@ -13410,6 +14806,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_observer_preventive BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_observer_preventive FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_observer_preventive();
 
+
+CREATE TRIGGER trg_04_symbol_trans_observer_preventive BEFORE INSERT ON tests.trans_observer_preventive FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_observer_disposal update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_observer_disposal() RETURNS trigger AS
 $BODY$
@@ -13432,6 +14830,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_observer_disposal BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_observer_disposal FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_observer_disposal();
 
+
+CREATE TRIGGER trg_04_symbol_trans_observer_disposal BEFORE INSERT ON tests.trans_observer_disposal FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_complaint_stakeholder_adapter update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_complaint_stakeholder_adapter() RETURNS trigger AS
 $BODY$
@@ -13454,6 +14854,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_complaint_stakeholder_adapter BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_complaint_stakeholder_adapter FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_complaint_stakeholder_adapter();
 
+
+CREATE TRIGGER trg_04_symbol_trans_complaint_stakeholder_adapter BEFORE INSERT ON tests.trans_complaint_stakeholder_adapter FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_complaint_equipment_adapter update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_complaint_equipment_adapter() RETURNS trigger AS
 $BODY$
@@ -13476,6 +14878,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_complaint_equipment_adapter BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_complaint_equipment_adapter FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_complaint_equipment_adapter();
 
+
+CREATE TRIGGER trg_04_symbol_trans_complaint_equipment_adapter BEFORE INSERT ON tests.trans_complaint_equipment_adapter FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_complaint_process_adapter update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_complaint_process_adapter() RETURNS trigger AS
 $BODY$
@@ -13497,6 +14901,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_complaint_process_adapter BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_complaint_process_adapter FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_complaint_process_adapter();
 
+
+CREATE TRIGGER trg_04_symbol_trans_complaint_process_adapter BEFORE INSERT ON tests.trans_complaint_process_adapter FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_complaint_order_adapter update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_complaint_order_adapter() RETURNS trigger AS
 $BODY$
@@ -13519,6 +14925,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_complaint_order_adapter BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_complaint_order_adapter FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_complaint_order_adapter();
 
+
+CREATE TRIGGER trg_04_symbol_trans_complaint_order_adapter BEFORE INSERT ON tests.trans_complaint_order_adapter FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_disposal update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_disposal() RETURNS trigger AS
 $BODY$
@@ -13541,6 +14949,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_disposal BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_disposal FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_disposal();
 
+
+CREATE TRIGGER trg_04_symbol_trans_disposal BEFORE INSERT ON tests.trans_disposal FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_recurrence_prevention update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_recurrence_prevention() RETURNS trigger AS
 $BODY$
@@ -13563,6 +14973,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_recurrence_prevention BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_recurrence_prevention FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_recurrence_prevention();
 
+
+CREATE TRIGGER trg_04_symbol_trans_recurrence_prevention BEFORE INSERT ON tests.trans_recurrence_prevention FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_complaint update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_complaint() RETURNS trigger AS
 $BODY$
@@ -13585,6 +14997,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_complaint BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_complaint FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_complaint();
 
+
+CREATE TRIGGER trg_04_symbol_trans_complaint BEFORE INSERT ON tests.trans_complaint FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_inspect_imp_file update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_inspect_imp_file() RETURNS trigger AS
 $BODY$
@@ -13607,6 +15021,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_inspect_imp_file BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_inspect_imp_file FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_inspect_imp_file();
 
+
+CREATE TRIGGER trg_04_symbol_trans_inspect_imp_file BEFORE INSERT ON tests.trans_inspect_imp_file FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_inspect_record update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_inspect_record() RETURNS trigger AS
 $BODY$
@@ -13629,6 +15045,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_inspect_record BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_inspect_record FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_inspect_record();
 
+
+CREATE TRIGGER trg_04_symbol_trans_inspect_record BEFORE INSERT ON tests.trans_inspect_record FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_inspect_sch_detail update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_inspect_sch_detail() RETURNS trigger AS
 $BODY$
@@ -13651,6 +15069,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_inspect_sch_detail BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_inspect_sch_detail FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_inspect_sch_detail();
 
+
+CREATE TRIGGER trg_04_symbol_trans_inspect_sch_detail BEFORE INSERT ON tests.trans_inspect_sch_detail FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_inspect_sch update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_inspect_sch() RETURNS trigger AS
 $BODY$
@@ -13673,7 +15093,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_inspect_sch BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_inspect_sch FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_inspect_sch();
 
--- mstr_inspection history trigger
+
+CREATE TRIGGER trg_04_symbol_trans_inspect_sch BEFORE INSERT ON tests.trans_inspect_sch FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- mstr_inspection update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_inspection() RETURNS trigger AS
 $BODY$
@@ -13697,6 +15118,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_inspection BEFORE INSERT OR UPDATE OR DEL
 PROCEDURE tests.trg_01_updatetimes_mstr_inspection();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_inspection BEFORE INSERT ON tests.mstr_inspection FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_inspection history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_inspection() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -13715,6 +15138,7 @@ BEGIN
                 NEW.external_inspection,
                 NEW.inspection_formula_id,
                 NEW.mstr_item_id,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -13727,6 +15151,7 @@ BEGIN
                 OLD.external_inspection,
                 OLD.inspection_formula_id,
                 OLD.mstr_item_id,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -13748,6 +15173,7 @@ BEGIN
             inspection_formula_id,
             revision,
             mstr_item_id,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -13766,6 +15192,7 @@ BEGIN
             NEW.inspection_formula_id,
             NEW.revision,
             NEW.mstr_item_id,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -13782,7 +15209,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_inspection BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_inspection FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_inspection();
 
--- info_assign history trigger
+
 -- info_assign update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_info_assign() RETURNS trigger AS
 $BODY$
@@ -13806,6 +15233,8 @@ CREATE TRIGGER trg_01_updatetimes_info_assign BEFORE INSERT OR UPDATE OR DELETE 
 PROCEDURE tests.trg_01_updatetimes_info_assign();
 
 
+CREATE TRIGGER trg_04_symbol_info_assign BEFORE INSERT ON tests.info_assign FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- info_assign history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_info_assign() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -13822,6 +15251,7 @@ BEGIN
                 NEW.info_department_id,
                 NEW.enable,
                 NEW.priority,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -13832,6 +15262,7 @@ BEGIN
                 OLD.info_department_id,
                 OLD.enable,
                 OLD.priority,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -13851,6 +15282,7 @@ BEGIN
             enable,
             priority,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -13867,6 +15299,7 @@ BEGIN
             NEW.enable,
             NEW.priority,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -13883,7 +15316,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_info_assign BEFORE INSERT OR UPDATE OR DELETE ON tests.info_assign FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_info_assign();
 
--- info_staff_access_permission history trigger
+
 -- info_staff_access_permission update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_info_staff_access_permission() RETURNS trigger AS
 $BODY$
@@ -13907,6 +15340,8 @@ CREATE TRIGGER trg_01_updatetimes_info_staff_access_permission BEFORE INSERT OR 
 PROCEDURE tests.trg_01_updatetimes_info_staff_access_permission();
 
 
+CREATE TRIGGER trg_04_symbol_info_staff_access_permission BEFORE INSERT ON tests.info_staff_access_permission FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- info_staff_access_permission history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_info_staff_access_permission() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -13920,6 +15355,7 @@ BEGIN
                 NEW.info_access_path_id,
                 NEW.info_staff_id,
                 NEW.permit,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -13927,6 +15363,7 @@ BEGIN
                 OLD.info_access_path_id,
                 OLD.info_staff_id,
                 OLD.permit,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -13943,6 +15380,7 @@ BEGIN
             info_staff_id,
             permit,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -13956,6 +15394,7 @@ BEGIN
             NEW.info_staff_id,
             NEW.permit,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -13972,7 +15411,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_info_staff_access_permission BEFORE INSERT OR UPDATE OR DELETE ON tests.info_staff_access_permission FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_info_staff_access_permission();
 
--- info_app history trigger
+
 -- info_app update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_info_app() RETURNS trigger AS
 $BODY$
@@ -13996,6 +15435,8 @@ CREATE TRIGGER trg_01_updatetimes_info_app BEFORE INSERT OR UPDATE OR DELETE ON 
 PROCEDURE tests.trg_01_updatetimes_info_app();
 
 
+CREATE TRIGGER trg_04_symbol_info_app BEFORE INSERT ON tests.info_app FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- info_app history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_info_app() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -14008,12 +15449,14 @@ BEGIN
                 NEW.info_app_id,
                 NEW.info_company_id,
                 NEW.name,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.info_app_id,
                 OLD.info_company_id,
                 OLD.name,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -14029,6 +15472,7 @@ BEGIN
             info_company_id,
             name,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -14041,6 +15485,7 @@ BEGIN
             NEW.info_company_id,
             NEW.name,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -14057,7 +15502,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_info_app BEFORE INSERT OR UPDATE OR DELETE ON tests.info_app FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_info_app();
 
--- info_access_path history trigger
+
 -- info_access_path update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_info_access_path() RETURNS trigger AS
 $BODY$
@@ -14081,6 +15526,8 @@ CREATE TRIGGER trg_01_updatetimes_info_access_path BEFORE INSERT OR UPDATE OR DE
 PROCEDURE tests.trg_01_updatetimes_info_access_path();
 
 
+CREATE TRIGGER trg_04_symbol_info_access_path BEFORE INSERT ON tests.info_access_path FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- info_access_path history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_info_access_path() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -14098,6 +15545,7 @@ BEGIN
                 NEW.usecase_path3,
                 NEW.classes,
                 NEW.sequence,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -14109,6 +15557,7 @@ BEGIN
                 OLD.usecase_path3,
                 OLD.classes,
                 OLD.sequence,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -14129,6 +15578,7 @@ BEGIN
             classes,
             sequence,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -14146,6 +15596,7 @@ BEGIN
             NEW.classes,
             NEW.sequence,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -14161,6 +15612,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_info_access_path BEFORE INSERT OR UPDATE OR DELETE ON tests.info_access_path FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_info_access_path();
+
 
 -- trans_inventory_request update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_inventory_request() RETURNS trigger AS
@@ -14184,6 +15636,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_inventory_request BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_inventory_request FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_inventory_request();
 
+
+CREATE TRIGGER trg_04_symbol_trans_inventory_request BEFORE INSERT ON tests.trans_inventory_request FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_product_rez update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_product_rez() RETURNS trigger AS
 $BODY$
@@ -14206,6 +15660,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_product_rez BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_product_rez FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_product_rez();
 
+
+CREATE TRIGGER trg_04_symbol_trans_product_rez BEFORE INSERT ON tests.trans_product_rez FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_work_record_visiter update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_work_record_visiter() RETURNS trigger AS
 $BODY$
@@ -14228,6 +15684,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_work_record_visiter BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_work_record_visiter FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_work_record_visiter();
 
+
+CREATE TRIGGER trg_04_symbol_trans_work_record_visiter BEFORE INSERT ON tests.trans_work_record_visiter FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_purchase_rec_visiter update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_purchase_rec_visiter() RETURNS trigger AS
 $BODY$
@@ -14250,6 +15708,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_purchase_rec_visiter BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_purchase_rec_visiter FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_purchase_rec_visiter();
 
+
+CREATE TRIGGER trg_04_symbol_trans_purchase_rec_visiter BEFORE INSERT ON tests.trans_purchase_rec_visiter FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_visiter update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_visiter() RETURNS trigger AS
 $BODY$
@@ -14272,7 +15732,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_visiter BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_visiter FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_visiter();
 
--- mstr_item_actual_size history trigger
+
+CREATE TRIGGER trg_04_symbol_trans_visiter BEFORE INSERT ON tests.trans_visiter FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- mstr_item_actual_size update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_item_actual_size() RETURNS trigger AS
 $BODY$
@@ -14296,6 +15757,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_item_actual_size BEFORE INSERT OR UPDATE 
 PROCEDURE tests.trg_01_updatetimes_mstr_item_actual_size();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_item_actual_size BEFORE INSERT ON tests.mstr_item_actual_size FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_item_actual_size history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_item_actual_size() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -14310,6 +15773,7 @@ BEGIN
                 NEW.mstr_item_size_kind_id,
                 NEW.size_value,
                 NEW.detail,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -14318,6 +15782,7 @@ BEGIN
                 OLD.mstr_item_size_kind_id,
                 OLD.size_value,
                 OLD.detail,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -14335,6 +15800,7 @@ BEGIN
             size_value,
             detail,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -14349,6 +15815,7 @@ BEGIN
             NEW.size_value,
             NEW.detail,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -14364,6 +15831,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_item_actual_size BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_item_actual_size FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_item_actual_size();
+
 
 -- trans_file update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_file() RETURNS trigger AS
@@ -14387,7 +15855,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_file BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_file FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_file();
 
--- mstr_operation_task history trigger
+
+CREATE TRIGGER trg_04_symbol_trans_file BEFORE INSERT ON tests.trans_file FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- mstr_operation_task update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_operation_task() RETURNS trigger AS
 $BODY$
@@ -14411,6 +15880,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_operation_task BEFORE INSERT OR UPDATE OR
 PROCEDURE tests.trg_01_updatetimes_mstr_operation_task();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_operation_task BEFORE INSERT ON tests.mstr_operation_task FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_operation_task history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_operation_task() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -14427,6 +15898,7 @@ BEGIN
                 NEW.control_code,
                 NEW.shared_appellations_id,
                 NEW.detail,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -14437,6 +15909,7 @@ BEGIN
                 OLD.control_code,
                 OLD.shared_appellations_id,
                 OLD.detail,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -14456,6 +15929,7 @@ BEGIN
             shared_appellations_id,
             detail,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -14472,6 +15946,7 @@ BEGIN
             NEW.shared_appellations_id,
             NEW.detail,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -14488,7 +15963,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_operation_task BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_operation_task FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_operation_task();
 
--- mstr_operation history trigger
+
 -- mstr_operation update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_operation() RETURNS trigger AS
 $BODY$
@@ -14512,6 +15987,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_operation BEFORE INSERT OR UPDATE OR DELE
 PROCEDURE tests.trg_01_updatetimes_mstr_operation();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_operation BEFORE INSERT ON tests.mstr_operation FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_operation history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_operation() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -14525,6 +16002,7 @@ BEGIN
                 NEW.control_code,
                 NEW.shared_appellations_id,
                 NEW.detail,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -14532,6 +16010,7 @@ BEGIN
                 OLD.control_code,
                 OLD.shared_appellations_id,
                 OLD.detail,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -14548,6 +16027,7 @@ BEGIN
             shared_appellations_id,
             detail,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -14561,6 +16041,7 @@ BEGIN
             NEW.shared_appellations_id,
             NEW.detail,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -14576,6 +16057,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_operation BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_operation FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_operation();
+
 
 -- trans_convey update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_convey() RETURNS trigger AS
@@ -14599,6 +16081,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_convey BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_convey FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_convey();
 
+
+CREATE TRIGGER trg_04_symbol_trans_convey BEFORE INSERT ON tests.trans_convey FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_work_record_certificate update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_work_record_certificate() RETURNS trigger AS
 $BODY$
@@ -14621,6 +16105,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_work_record_certificate BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_work_record_certificate FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_work_record_certificate();
 
+
+CREATE TRIGGER trg_04_symbol_trans_work_record_certificate BEFORE INSERT ON tests.trans_work_record_certificate FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_certificate update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_certificate() RETURNS trigger AS
 $BODY$
@@ -14643,6 +16129,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_certificate BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_certificate FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_certificate();
 
+
+CREATE TRIGGER trg_04_symbol_trans_certificate BEFORE INSERT ON tests.trans_certificate FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_purchase_rec update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_purchase_rec() RETURNS trigger AS
 $BODY$
@@ -14665,6 +16153,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_purchase_rec BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_purchase_rec FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_purchase_rec();
 
+
+CREATE TRIGGER trg_04_symbol_trans_purchase_rec BEFORE INSERT ON tests.trans_purchase_rec FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_purchase_certification update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_purchase_certification() RETURNS trigger AS
 $BODY$
@@ -14687,6 +16177,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_purchase_certification BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_purchase_certification FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_purchase_certification();
 
+
+CREATE TRIGGER trg_04_symbol_trans_purchase_certification BEFORE INSERT ON tests.trans_purchase_certification FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_purchase_rez update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_purchase_rez() RETURNS trigger AS
 $BODY$
@@ -14709,6 +16201,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_purchase_rez BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_purchase_rez FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_purchase_rez();
 
+
+CREATE TRIGGER trg_04_symbol_trans_purchase_rez BEFORE INSERT ON tests.trans_purchase_rez FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_purchase_detail update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_purchase_detail() RETURNS trigger AS
 $BODY$
@@ -14731,6 +16225,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_purchase_detail BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_purchase_detail FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_purchase_detail();
 
+
+CREATE TRIGGER trg_04_symbol_trans_purchase_detail BEFORE INSERT ON tests.trans_purchase_detail FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_order_detail update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_order_detail() RETURNS trigger AS
 $BODY$
@@ -14753,6 +16249,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_order_detail BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_order_detail FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_order_detail();
 
+
+CREATE TRIGGER trg_04_symbol_trans_order_detail BEFORE INSERT ON tests.trans_order_detail FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_shipping_order_detail update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_shipping_order_detail() RETURNS trigger AS
 $BODY$
@@ -14775,6 +16273,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_shipping_order_detail BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_shipping_order_detail FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_shipping_order_detail();
 
+
+CREATE TRIGGER trg_04_symbol_trans_shipping_order_detail BEFORE INSERT ON tests.trans_shipping_order_detail FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_ship_order update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_ship_order() RETURNS trigger AS
 $BODY$
@@ -14797,6 +16297,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_ship_order BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_ship_order FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_ship_order();
 
+
+CREATE TRIGGER trg_04_symbol_trans_ship_order BEFORE INSERT ON tests.trans_ship_order FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_work_record update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_work_record() RETURNS trigger AS
 $BODY$
@@ -14819,6 +16321,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_work_record BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_work_record FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_work_record();
 
+
+CREATE TRIGGER trg_04_symbol_trans_work_record BEFORE INSERT ON tests.trans_work_record FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_inventory_apply update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_inventory_apply() RETURNS trigger AS
 $BODY$
@@ -14841,6 +16345,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_inventory_apply BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_inventory_apply FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_inventory_apply();
 
+
+CREATE TRIGGER trg_04_symbol_trans_inventory_apply BEFORE INSERT ON tests.trans_inventory_apply FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_product_detail update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_product_detail() RETURNS trigger AS
 $BODY$
@@ -14863,6 +16369,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_product_detail BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_product_detail FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_product_detail();
 
+
+CREATE TRIGGER trg_04_symbol_trans_product_detail BEFORE INSERT ON tests.trans_product_detail FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_product update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_product() RETURNS trigger AS
 $BODY$
@@ -14885,6 +16393,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_product BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_product FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_product();
 
+
+CREATE TRIGGER trg_04_symbol_trans_product BEFORE INSERT ON tests.trans_product FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_resorce_plan update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_resorce_plan() RETURNS trigger AS
 $BODY$
@@ -14907,6 +16417,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_resorce_plan BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_resorce_plan FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_resorce_plan();
 
+
+CREATE TRIGGER trg_04_symbol_trans_resorce_plan BEFORE INSERT ON tests.trans_resorce_plan FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_purchase update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_purchase() RETURNS trigger AS
 $BODY$
@@ -14929,6 +16441,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_purchase BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_purchase FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_purchase();
 
+
+CREATE TRIGGER trg_04_symbol_trans_purchase BEFORE INSERT ON tests.trans_purchase FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_order update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_order() RETURNS trigger AS
 $BODY$
@@ -14951,7 +16465,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_order BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_order FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_01_updatetimes_trans_order();
 
--- mstr_item_operation_task history trigger
+
+CREATE TRIGGER trg_04_symbol_trans_order BEFORE INSERT ON tests.trans_order FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- mstr_item_operation_task update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_item_operation_task() RETURNS trigger AS
 $BODY$
@@ -14975,6 +16490,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_item_operation_task BEFORE INSERT OR UPDA
 PROCEDURE tests.trg_01_updatetimes_mstr_item_operation_task();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_item_operation_task BEFORE INSERT ON tests.mstr_item_operation_task FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_item_operation_task history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_item_operation_task() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -14989,6 +16506,7 @@ BEGIN
                 NEW.mstr_item_id,
                 NEW.sequence,
                 NEW.default_interval,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -14997,6 +16515,7 @@ BEGIN
                 OLD.mstr_item_id,
                 OLD.sequence,
                 OLD.default_interval,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -15014,6 +16533,7 @@ BEGIN
             sequence,
             default_interval,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -15028,6 +16548,7 @@ BEGIN
             NEW.sequence,
             NEW.default_interval,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -15044,7 +16565,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_item_operation_task BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_item_operation_task FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_item_operation_task();
 
--- mstr_item_tree history trigger
+
 -- mstr_item_tree update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_item_tree() RETURNS trigger AS
 $BODY$
@@ -15068,6 +16589,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_item_tree BEFORE INSERT OR UPDATE OR DELE
 PROCEDURE tests.trg_01_updatetimes_mstr_item_tree();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_item_tree BEFORE INSERT ON tests.mstr_item_tree FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_item_tree history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_item_tree() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -15085,6 +16608,7 @@ BEGIN
                 NEW.shared_appellations_id,
                 NEW.quantity,
                 NEW.detail,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -15096,6 +16620,7 @@ BEGIN
                 OLD.shared_appellations_id,
                 OLD.quantity,
                 OLD.detail,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -15116,6 +16641,7 @@ BEGIN
             quantity,
             detail,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -15133,6 +16659,7 @@ BEGIN
             NEW.quantity,
             NEW.detail,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -15149,7 +16676,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_item_tree BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_item_tree FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_item_tree();
 
--- shared_unit history trigger
+
 -- shared_unit update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_shared_unit() RETURNS trigger AS
 $BODY$
@@ -15173,6 +16700,7 @@ CREATE TRIGGER trg_01_updatetimes_shared_unit BEFORE INSERT OR UPDATE OR DELETE 
 PROCEDURE tests.trg_01_updatetimes_shared_unit();
 
 
+-- shared_unit history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_shared_unit() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -15234,7 +16762,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_shared_unit BEFORE INSERT OR UPDATE OR DELETE ON tests.shared_unit FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_shared_unit();
 
--- mstr_item history trigger
+
 -- mstr_item update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_item() RETURNS trigger AS
 $BODY$
@@ -15258,6 +16786,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_item BEFORE INSERT OR UPDATE OR DELETE ON
 PROCEDURE tests.trg_01_updatetimes_mstr_item();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_item BEFORE INSERT ON tests.mstr_item FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_item history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_item() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -15280,6 +16810,7 @@ BEGIN
                 NEW.increment,
                 NEW.lot,
                 NEW.stock_quantity,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -15296,6 +16827,7 @@ BEGIN
                 OLD.increment,
                 OLD.lot,
                 OLD.stock_quantity,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -15321,6 +16853,7 @@ BEGIN
             lot,
             stock_quantity,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -15343,6 +16876,7 @@ BEGIN
             NEW.lot,
             NEW.stock_quantity,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -15359,7 +16893,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_item BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_item FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_item();
 
--- mstr_task_tree history trigger
+
 -- mstr_task_tree update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_task_tree() RETURNS trigger AS
 $BODY$
@@ -15383,6 +16917,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_task_tree BEFORE INSERT OR UPDATE OR DELE
 PROCEDURE tests.trg_01_updatetimes_mstr_task_tree();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_task_tree BEFORE INSERT ON tests.mstr_task_tree FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_task_tree history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_task_tree() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -15399,6 +16935,7 @@ BEGIN
                 NEW.control_code,
                 NEW.shared_appellations_id,
                 NEW.detail,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -15409,6 +16946,7 @@ BEGIN
                 OLD.control_code,
                 OLD.shared_appellations_id,
                 OLD.detail,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -15428,6 +16966,7 @@ BEGIN
             shared_appellations_id,
             detail,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -15444,6 +16983,7 @@ BEGIN
             NEW.shared_appellations_id,
             NEW.detail,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -15460,7 +17000,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_task_tree BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_task_tree FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_task_tree();
 
--- mstr_task history trigger
+
 -- mstr_task update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_task() RETURNS trigger AS
 $BODY$
@@ -15484,6 +17024,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_task BEFORE INSERT OR UPDATE OR DELETE ON
 PROCEDURE tests.trg_01_updatetimes_mstr_task();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_task BEFORE INSERT ON tests.mstr_task FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_task history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_task() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -15500,6 +17042,7 @@ BEGIN
                 NEW.detail,
                 NEW.class,
                 NEW.default_time,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -15510,6 +17053,7 @@ BEGIN
                 OLD.detail,
                 OLD.class,
                 OLD.default_time,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -15529,6 +17073,7 @@ BEGIN
             class,
             default_time,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -15545,6 +17090,7 @@ BEGIN
             NEW.class,
             NEW.default_time,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -15561,7 +17107,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_task BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_task FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_task();
 
--- mstr_location history trigger
+
 -- mstr_location update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_location() RETURNS trigger AS
 $BODY$
@@ -15585,6 +17131,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_location BEFORE INSERT OR UPDATE OR DELET
 PROCEDURE tests.trg_01_updatetimes_mstr_location();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_location BEFORE INSERT ON tests.mstr_location FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_location history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_location() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -15601,6 +17149,7 @@ BEGIN
                 NEW.shared_appellations_id,
                 NEW.info_address_id,
                 NEW.available,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -15611,6 +17160,7 @@ BEGIN
                 OLD.shared_appellations_id,
                 OLD.info_address_id,
                 OLD.available,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -15630,6 +17180,7 @@ BEGIN
             info_address_id,
             available,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -15646,6 +17197,7 @@ BEGIN
             NEW.info_address_id,
             NEW.available,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -15662,7 +17214,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_location BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_location FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_location();
 
--- mstr_equipment history trigger
+
 -- mstr_equipment update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_equipment() RETURNS trigger AS
 $BODY$
@@ -15686,6 +17238,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_equipment BEFORE INSERT OR UPDATE OR DELE
 PROCEDURE tests.trg_01_updatetimes_mstr_equipment();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_equipment BEFORE INSERT ON tests.mstr_equipment FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_equipment history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_equipment() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -15702,6 +17256,7 @@ BEGIN
                 NEW.control_code,
                 NEW.label_code,
                 NEW.mstr_location_id,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -15712,6 +17267,7 @@ BEGIN
                 OLD.control_code,
                 OLD.label_code,
                 OLD.mstr_location_id,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -15731,6 +17287,7 @@ BEGIN
             label_code,
             mstr_location_id,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -15747,6 +17304,7 @@ BEGIN
             NEW.label_code,
             NEW.mstr_location_id,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -15763,7 +17321,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_equipment BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_equipment FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_equipment();
 
--- mstr_stakeholder_contact history trigger
+
 -- mstr_stakeholder_contact update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_stakeholder_contact() RETURNS trigger AS
 $BODY$
@@ -15787,6 +17345,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_stakeholder_contact BEFORE INSERT OR UPDA
 PROCEDURE tests.trg_01_updatetimes_mstr_stakeholder_contact();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_stakeholder_contact BEFORE INSERT ON tests.mstr_stakeholder_contact FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_stakeholder_contact history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_stakeholder_contact() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -15805,6 +17365,7 @@ BEGIN
                 NEW.mail,
                 NEW.info_address_id,
                 NEW.mstr_shipping_kind_id,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -15817,6 +17378,7 @@ BEGIN
                 OLD.mail,
                 OLD.info_address_id,
                 OLD.mstr_shipping_kind_id,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -15838,6 +17400,7 @@ BEGIN
             info_address_id,
             mstr_shipping_kind_id,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -15856,6 +17419,7 @@ BEGIN
             NEW.info_address_id,
             NEW.mstr_shipping_kind_id,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -15872,7 +17436,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_stakeholder_contact BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_stakeholder_contact FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_stakeholder_contact();
 
--- mstr_stakeholder history trigger
+
 -- mstr_stakeholder update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_stakeholder() RETURNS trigger AS
 $BODY$
@@ -15896,6 +17460,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_stakeholder BEFORE INSERT OR UPDATE OR DE
 PROCEDURE tests.trg_01_updatetimes_mstr_stakeholder();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_stakeholder BEFORE INSERT ON tests.mstr_stakeholder FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_stakeholder history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_stakeholder() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -15915,6 +17481,7 @@ BEGIN
                 NEW.mail,
                 NEW.info_address_id,
                 NEW.mstr_shipping_kind_id,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -15928,6 +17495,7 @@ BEGIN
                 OLD.mail,
                 OLD.info_address_id,
                 OLD.mstr_shipping_kind_id,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -15950,6 +17518,7 @@ BEGIN
             info_address_id,
             mstr_shipping_kind_id,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -15969,6 +17538,7 @@ BEGIN
             NEW.info_address_id,
             NEW.mstr_shipping_kind_id,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -15985,7 +17555,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_stakeholder BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_stakeholder FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_stakeholder();
 
--- mstr_staff_license history trigger
+
 -- mstr_staff_license update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_staff_license() RETURNS trigger AS
 $BODY$
@@ -16009,6 +17579,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_staff_license BEFORE INSERT OR UPDATE OR 
 PROCEDURE tests.trg_01_updatetimes_mstr_staff_license();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_staff_license BEFORE INSERT ON tests.mstr_staff_license FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_staff_license history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_staff_license() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -16027,6 +17599,7 @@ BEGIN
                 NEW.abeyance_at,
                 NEW.revocation,
                 NEW.revocation_at,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -16039,6 +17612,7 @@ BEGIN
                 OLD.abeyance_at,
                 OLD.revocation,
                 OLD.revocation_at,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -16060,6 +17634,7 @@ BEGIN
             revocation,
             revocation_at,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -16078,6 +17653,7 @@ BEGIN
             NEW.revocation,
             NEW.revocation_at,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -16094,7 +17670,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_staff_license BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_staff_license FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_staff_license();
 
--- mstr_staff_capability history trigger
+
 -- mstr_staff_capability update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_staff_capability() RETURNS trigger AS
 $BODY$
@@ -16118,6 +17694,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_staff_capability BEFORE INSERT OR UPDATE 
 PROCEDURE tests.trg_01_updatetimes_mstr_staff_capability();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_staff_capability BEFORE INSERT ON tests.mstr_staff_capability FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_staff_capability history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_staff_capability() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -16132,6 +17710,7 @@ BEGIN
                 NEW.mstr_capability_id,
                 NEW.value,
                 NEW.stop,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -16140,6 +17719,7 @@ BEGIN
                 OLD.mstr_capability_id,
                 OLD.value,
                 OLD.stop,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -16157,6 +17737,7 @@ BEGIN
             value,
             stop,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -16171,6 +17752,7 @@ BEGIN
             NEW.value,
             NEW.stop,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -16187,7 +17769,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_staff_capability BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_staff_capability FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_staff_capability();
 
--- mstr_sign history trigger
+
 -- mstr_sign update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_sign() RETURNS trigger AS
 $BODY$
@@ -16211,6 +17793,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_sign BEFORE INSERT OR UPDATE OR DELETE ON
 PROCEDURE tests.trg_01_updatetimes_mstr_sign();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_sign BEFORE INSERT ON tests.mstr_sign FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_sign history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_sign() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -16226,6 +17810,7 @@ BEGIN
                 NEW.code,
                 NEW.mail,
                 NEW.role,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -16235,6 +17820,7 @@ BEGIN
                 OLD.code,
                 OLD.mail,
                 OLD.role,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -16253,6 +17839,7 @@ BEGIN
             mail,
             role,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -16268,6 +17855,7 @@ BEGIN
             NEW.mail,
             NEW.role,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -16284,7 +17872,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_sign BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_sign FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_sign();
 
--- mstr_license history trigger
+
 -- mstr_license update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_license() RETURNS trigger AS
 $BODY$
@@ -16308,6 +17896,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_license BEFORE INSERT OR UPDATE OR DELETE
 PROCEDURE tests.trg_01_updatetimes_mstr_license();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_license BEFORE INSERT ON tests.mstr_license FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_license history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_license() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -16325,6 +17915,7 @@ BEGIN
                 NEW.customer_license,
                 NEW.organization_license,
                 NEW.update_interval,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -16336,6 +17927,7 @@ BEGIN
                 OLD.customer_license,
                 OLD.organization_license,
                 OLD.update_interval,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -16356,6 +17948,7 @@ BEGIN
             organization_license,
             update_interval,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -16373,6 +17966,7 @@ BEGIN
             NEW.organization_license,
             NEW.update_interval,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -16389,7 +17983,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_license BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_license FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_license();
 
--- mstr_capability history trigger
+
 -- mstr_capability update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_capability() RETURNS trigger AS
 $BODY$
@@ -16413,6 +18007,8 @@ CREATE TRIGGER trg_01_updatetimes_mstr_capability BEFORE INSERT OR UPDATE OR DEL
 PROCEDURE tests.trg_01_updatetimes_mstr_capability();
 
 
+CREATE TRIGGER trg_04_symbol_mstr_capability BEFORE INSERT ON tests.mstr_capability FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_capability history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_capability() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -16430,6 +18026,7 @@ BEGIN
                 NEW.max,
                 NEW.min,
                 NEW.step,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -16441,6 +18038,7 @@ BEGIN
                 OLD.max,
                 OLD.min,
                 OLD.step,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -16461,6 +18059,7 @@ BEGIN
             min,
             step,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -16478,6 +18077,7 @@ BEGIN
             NEW.min,
             NEW.step,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -16494,7 +18094,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_mstr_capability BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_capability FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_mstr_capability();
 
--- info_staff history trigger
+
 -- info_staff update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_info_staff() RETURNS trigger AS
 $BODY$
@@ -16518,6 +18118,8 @@ CREATE TRIGGER trg_01_updatetimes_info_staff BEFORE INSERT OR UPDATE OR DELETE O
 PROCEDURE tests.trg_01_updatetimes_info_staff();
 
 
+CREATE TRIGGER trg_04_symbol_info_staff BEFORE INSERT ON tests.info_staff FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- info_staff history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_info_staff() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -16534,6 +18136,7 @@ BEGIN
                 NEW.sex,
                 NEW.phone,
                 NEW.private_phone,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -16544,6 +18147,7 @@ BEGIN
                 OLD.sex,
                 OLD.phone,
                 OLD.private_phone,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -16563,6 +18167,7 @@ BEGIN
             phone,
             private_phone,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -16579,6 +18184,7 @@ BEGIN
             NEW.phone,
             NEW.private_phone,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -16595,7 +18201,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_info_staff BEFORE INSERT OR UPDATE OR DELETE ON tests.info_staff FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_info_staff();
 
--- info_department history trigger
+
 -- info_department update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_info_department() RETURNS trigger AS
 $BODY$
@@ -16619,6 +18225,8 @@ CREATE TRIGGER trg_01_updatetimes_info_department BEFORE INSERT OR UPDATE OR DEL
 PROCEDURE tests.trg_01_updatetimes_info_department();
 
 
+CREATE TRIGGER trg_04_symbol_info_department BEFORE INSERT ON tests.info_department FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- info_department history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_info_department() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -16637,6 +18245,7 @@ BEGIN
                 NEW.category2,
                 NEW.category3,
                 NEW.info_address_id,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -16649,6 +18258,7 @@ BEGIN
                 OLD.category2,
                 OLD.category3,
                 OLD.info_address_id,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -16670,6 +18280,7 @@ BEGIN
             category3,
             info_address_id,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -16688,6 +18299,7 @@ BEGIN
             NEW.category3,
             NEW.info_address_id,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -16704,7 +18316,7 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_info_department BEFORE INSERT OR UPDATE OR DELETE ON tests.info_department FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_info_department();
 
--- info_office history trigger
+
 -- info_office update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_info_office() RETURNS trigger AS
 $BODY$
@@ -16728,6 +18340,8 @@ CREATE TRIGGER trg_01_updatetimes_info_office BEFORE INSERT OR UPDATE OR DELETE 
 PROCEDURE tests.trg_01_updatetimes_info_office();
 
 
+CREATE TRIGGER trg_04_symbol_info_office BEFORE INSERT ON tests.info_office FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- info_office history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_info_office() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -16742,6 +18356,7 @@ BEGIN
                 NEW.code,
                 NEW.shared_appellations_id,
                 NEW.info_address_id,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -16750,6 +18365,7 @@ BEGIN
                 OLD.code,
                 OLD.shared_appellations_id,
                 OLD.info_address_id,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -16767,6 +18383,7 @@ BEGIN
             shared_appellations_id,
             info_address_id,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -16781,6 +18398,7 @@ BEGIN
             NEW.shared_appellations_id,
             NEW.info_address_id,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -16796,6 +18414,7 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_02_history_info_office BEFORE INSERT OR UPDATE OR DELETE ON tests.info_office FOR EACH ROW EXECUTE
 PROCEDURE tests.trg_02_history_info_office();
+
 
 --7.add hierarchy trigger
 -- mstr_document_content_tree hierarchy table after trigger
