@@ -879,7 +879,7 @@ create table tests.hrchy_trans_container (
 create table tests.trans_container (
     trans_container_id uuid default gen_random_uuid(),
     code varchar(255) not null,
-    name varchar(1024) default null,
+    shared_appellations_id uuid default gen_random_uuid(),
     mstr_location_id uuid default null,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -2525,10 +2525,8 @@ create table tests.trans_product_rez (
 );
 create table tests.trans_work_record_visiter (
     trans_work_record_visiter_id uuid default gen_random_uuid(),
-    trans_visiter_id uuid default gen_random_uuid(),
+    trans_visiter_id uuid not null,
     trans_work_record_id uuid not null,
-    trans_product_detail_id varchar(2) not null,
-    trans_product_id varchar(2) not null,
     quantity decimal(10,2) default 0,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -3916,7 +3914,7 @@ comment on column tests.hrchy_trans_container.remove is '削除';
 comment on table tests.trans_container is 'コンテナ';
 comment on column tests.trans_container.trans_container_id is 'コンテナID';
 comment on column tests.trans_container.code is 'コード';
-comment on column tests.trans_container.name is 'コンテナ名';
+comment on column tests.trans_container.shared_appellations_id is '呼称セットID';
 comment on column tests.trans_container.mstr_location_id is '場所ID';
 comment on column tests.trans_container.symbol is 'リニアシンボル';
 comment on column tests.trans_container.remarks is '備考';
@@ -5454,8 +5452,6 @@ comment on table tests.trans_work_record_visiter is '作業実績ビジター';
 comment on column tests.trans_work_record_visiter.trans_work_record_visiter_id is '作業実績ビジターID';
 comment on column tests.trans_work_record_visiter.trans_visiter_id is '棚ビジターID';
 comment on column tests.trans_work_record_visiter.trans_work_record_id is '作業実績ID';
-comment on column tests.trans_work_record_visiter.trans_product_detail_id is '生産計画詳細ID';
-comment on column tests.trans_work_record_visiter.trans_product_id is '生産計画ID';
 comment on column tests.trans_work_record_visiter.quantity is '数量';
 comment on column tests.trans_work_record_visiter.symbol is 'リニアシンボル';
 comment on column tests.trans_work_record_visiter.remarks is '備考';
@@ -7466,8 +7462,9 @@ alter table tests.history_mstr_equipment_provision add constraint history_mstr_e
 alter table tests.mstr_equipment_provision add constraint mstr_equipment_provision_FK1 foreign key (mstr_equipment_id) references tests.mstr_equipment (mstr_equipment_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_equipment_provision add constraint mstr_equipment_provision_FK2 foreign key (info_provision_id) references tests.info_provision (info_provision_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_equipment_provision add constraint mstr_equipment_provision_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_container add constraint trans_container_FK1 foreign key (mstr_location_id) references tests.mstr_location (mstr_location_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_container add constraint trans_container_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_container add constraint trans_container_FK1 foreign key (shared_appellations_id) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_container add constraint trans_container_FK2 foreign key (mstr_location_id) references tests.mstr_location (mstr_location_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_container add constraint trans_container_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_info_app_status add constraint history_info_app_status_FK1 foreign key (info_app_status_id) references tests.info_app_status (info_app_status_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_info_app_status add constraint history_info_app_status_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_app_status add constraint info_app_status_FK1 foreign key (info_app_id) references tests.info_app (info_app_id) DEFERRABLE INITIALLY DEFERRED;

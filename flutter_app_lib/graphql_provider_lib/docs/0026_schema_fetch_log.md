@@ -261,3 +261,115 @@ Datetime/UUID/JSONと同種の既知の警告)。
 新規列`symbol`の追加、および`mstrItemKindId`/`mstrItemId`の必須化は、views.mdでの評価
 (要件0025のスコープ、モレの要否判断)が別途必要。本ログでは記録のみに留め、views.md・
 GraphQLファイルの修正は行っていない。
+
+## 追記4: 0026再実行(2026/09/18、「0026を実行」の指示)
+
+### 接続・取得・差分判定
+
+`curl`で疎通確認(`HTTP 405`)後、`get-graphql-schema`で再取得したところ438,395行(直前の
+`lib/graphql/schema.graphql`は437,212行、+1,183行)と、これまでより小規模な差分を検出した。
+`type X implements Node`の一覧差分を取ったところ、以下の変化があった。
+
+- **新規テーブル`TransOperationsPlan`・`TransWorkPlan`が追加**
+- **既存テーブル`TransProduct`・`TransProductDetail`が削除**
+
+いずれもviews.mdの対象見出し(既存26+新規7、inspection_sch除く)には含まれない。views.mdの
+対象テーブルへの影響としては、以下の逆参照フィールドの変化のみを検出した(Fk#番号ズレノイズ
+除く実質差分216件中の一部)。
+
+- `MstrTask`(taskの主テーブル): `transProductDetailsByMstrTaskId`が削除され、
+  `transWorkPlansByMstrTaskId`が追加された。
+- `TransResorcePlan`(resource_planの主テーブル): `transProductsByTransResorcePlanId`が削除され、
+  `transOperationsPlansByTransResorcePlanId`が追加された。
+
+これらはいずれも既存の生成済みGraphQLファイル(task_read/edit.graphql、
+resource_plan未生成のため対象外)が選択していないフィールドのため、既存の生成物への実害は
+無いと判断した。他の対象テーブル(info_company〜equipment_inspection_peration_task、
+order/order_detail/ship_order/purchase/purchase_detail/unrecognized)には実質的な変更は
+無かった。
+
+### 置き換え・要件0024の実行・影響確認
+
+`lib/graphql/schema.graphql`を置き換え(437,212行 → 438,395行)、
+`dart run build_runner build --build-filter="lib/postgraphile/schema.graphql.dart"`を実行した。
+
+結果: `Built with build_runner/aot in 226s; wrote 1 output.`(警告は既知のスカラー代替のみ)。
+
+- `git status`で`lib/graphql/schema.graphql`以外の生成済みファイルに変更が無いことを確認。
+- `dart analyze lib test`: error・warning 0件。
+- `flutter test`: 60件すべて成功(前回50件から10件増加しているのは、本ログ範囲外の並行作業
+  (`symbol`列のGraphQL反映)によるもので、今回のschema置き換えとは無関係)。
+
+### 次のアクション
+
+新規テーブル`TransOperationsPlan`・`TransWorkPlan`はviews.mdに未反映(要件0025のスコープ)。
+「生産」関連と見られる`TransProduct`・`TransProductDetail`の廃止に伴う再設計の可能性があり、
+業務要件の確認が必要。
+
+## 追記5: 0026再実行(2026/09/18、「0026の実行。完了後0025を実行。」の指示)
+
+### 接続・取得・差分判定
+
+`curl`で疎通確認(`HTTP 405`)後、`get-graphql-schema`で再取得したところ438,885行(直前の
+`lib/graphql/schema.graphql`は438,395行、+490行)と、小規模な差分を検出した。
+`type X implements Node`の一覧差分は無く(新規・削除テーブルなし)、実質差分(Fk#番号ズレ
+ノイズ除く)は以下の2点のみだった。
+
+1.  **`TransContainer.name`(String)が削除され、`sharedAppellationsId`(共通名前仕様)が
+    追加された**(コンテナ名を`shared_appellations`経由の呼称セットへ移行する設計変更と
+    見られる)。
+2.  **`TransWorkRecordVisiter.transProductId`が削除された**(前回追記4で確認した
+    `TransProduct`廃止に伴う残存フィールドの整理と見られる)。
+
+いずれも`TransContainer`・`TransWorkRecordVisiter`はviews.mdの対象見出し(38見出し)に
+含まれておらず、影響は無い。
+
+### 置き換え・要件0024の実行・影響確認
+
+`lib/graphql/schema.graphql`を置き換え(438,395行 → 438,885行)、
+`dart run build_runner build --build-filter="lib/postgraphile/schema.graphql.dart"`を実行した。
+
+結果: `Built with build_runner/aot in 241s; wrote 1 output.`(警告は既知のスカラー代替のみ)。
+
+- `git status`で`lib/graphql/schema.graphql`以外の生成済みファイルに変更が無いことを確認。
+- `dart analyze lib test`: error・warning 0件。
+- `flutter test`: 60件すべて成功。
+
+### 次のアクション
+
+`TransContainer`・`TransWorkRecordVisiter`はviews.md未対応のため対応不要。引き続き
+`TransOperationsPlan`・`TransWorkPlan`(前回追記4)はviews.mdへの評価・反映が要件0025の
+スコープとして残っている。
+
+## 追記6: 0026再実行(2026/09/18、「0026実行。完了後0025実行。」の指示)
+
+### 接続・取得・差分判定
+
+`curl`で疎通確認(`HTTP 405`)後、`get-graphql-schema`で再取得したところ438,850行(直前の
+`lib/graphql/schema.graphql`は438,885行、-35行)と、小規模な差分を検出した。新規・削除
+テーブルは無し。実質差分(Fk#番号ズレノイズ除く)は以下の2点のみだった。
+
+1.  **`TransWorkRecordVisiter.transProductDetailId`列が削除された**(前回
+    [docs/0025_container_and_visiter_evaluation_log.md](0025_container_and_visiter_evaluation_log.md)
+    で「`TransProduct`廃止の余波で参照先を失い孤立した列」としてエラー記録していた
+    まさにその列)。
+2.  `TransWorkRecordVisiter.transVisiterId`が`UUID`(任意)から`UUID!`(必須)に変更された。
+
+`TransWorkRecordVisiter`はviews.mdの`work_rcord_visiter`見出しに対応する(要件0025の
+スコープ)ため、置き換えを実行した。
+
+### 置き換え・要件0024の実行・影響確認
+
+`lib/graphql/schema.graphql`を置き換え(438,885行 → 438,850行)、
+`dart run build_runner build --build-filter="lib/postgraphile/schema.graphql.dart"`を実行した。
+
+結果: `Built with build_runner/aot in 283s; wrote 1 output.`(警告は既知のスカラー代替のみ)。
+
+- `git status`で`lib/graphql/schema.graphql`以外の生成済みファイルに変更が無いことを確認。
+- `dart analyze lib test`: error・warning 0件。
+- `flutter test`: 60件すべて成功。
+
+### 次のアクション
+
+`transProductDetailId`列の削除に伴うviews.md側の対応は、要件0025として続けて実施する
+(docs/0025_container_and_visiter_evaluation_log.md の続報を参照)。

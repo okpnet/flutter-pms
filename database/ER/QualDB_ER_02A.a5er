@@ -1,7 +1,7 @@
 ﻿# A5:ER FORMAT:18
 # A5:ER ENCODING:UTF8
 # A5:ER Mk-1 Copyright © 2007 m.matsubara
-# A5:SQL Mk-2 Version 2.20.0 beta 24 Copyright © 1997 - 2024 m.matsubara
+# A5:SQL Mk-2 Version 2.20.0 beta 20 Copyright © 1997 - 2024 m.matsubara
 #  https://a5m2.mmatsubara.com
 
 [Manager]
@@ -1674,17 +1674,15 @@ Page=トラザクション
 Left=6650
 Top=3650
 Field="作業実績ビジターID","trans_work_record_visiter_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
-Field="棚ビジターID","trans_visiter_id","*@UUID","NOT NULL",,"gen_random_uuid()","",$FFFFFFFF,""
+Field="棚ビジターID","trans_visiter_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="作業実績ID","trans_work_record_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
-Field="生産計画詳細ID","trans_product_detail_id","","NOT NULL",,"","",$FFFFFFFF,""
-Field="生産計画ID","trans_product_id","","NOT NULL",,"","",$FFFFFFFF,""
 Field="数量","quantity","*@QTY","NOT NULL",,"0","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260905222557
+ModifiedDateTime=20260918222107
 Position="トラザクション",6650,3650
 ZOrder=199
 
@@ -10948,14 +10946,14 @@ Left=5500
 Top=4400
 Field="コンテナID","trans_container_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="コード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
-Field="コンテナ名","name","*@VARCHAR1024",,,"","",$FFFFFFFF,""
+Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"gen_random_uuid()","",$FFFFFFFF,""
 Field="場所ID","mstr_location_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20241016073847
+ModifiedDateTime=20260918211455
 Position="トラザクション",5500,4400
 ZOrder=800
 
@@ -17269,6 +17267,17 @@ Fields1=history_id,info_staff_id
 Fields2=update_user_history_id,update_user_id
 Cardinarity1=
 Cardinarity2=
+Position="共有",0,5000,5000,5000,R,R,""
+Position="インフォメーション",0,5000,5000,5000,R,R,""
+Position="インフォメーションー人",0,5000,5000,5000,R,R,""
+Position="マスタ人的資源",0,5000,5000,5000,R,R,""
+Position="マスタ設備",0,5000,5000,5000,R,R,""
+Position="マスタ資源",0,5000,5000,5000,R,R,""
+Position="マスタ工程",0,5000,5000,5000,R,R,""
+Position="文書",0,5000,5000,5000,R,R,""
+Position="承認",0,5000,5000,5000,R,R,""
+Position="品質",0,5000,5000,5000,R,R,""
+Position="ビュー",0,5000,5000,5000,R,R,""
 Dependence=0
 Caption=auto create.
 PName=
@@ -17279,3 +17288,25 @@ Bar3=500
 TermPos1=R
 TermPos2=R
 ZOrder=-513
+
+[Relation]
+Entity1=shared_appellations
+Entity2=trans_container
+RelationType1=1
+RelationType2=3
+Fields1=shared_appellations_id
+Fields2=shared_appellations_id
+Cardinarity1=
+Cardinarity2=
+Position="共有",0,500,9500,1751,R,R,""
+Position="トラザクション",0,8290,1710,1273,R,R,""
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=829
+Bar2=171
+Bar3=127
+TermPos1=R
+TermPos2=R
+ZOrder=1100
