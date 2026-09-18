@@ -658,6 +658,13 @@ const documentNodeQueryTaskRead = DocumentNode(
                         ),
                       ),
                       FieldNode(
+                        name: NameNode(value: 'symbol'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
                         name: NameNode(value: 'remarks'),
                         alias: null,
                         arguments: [],
@@ -2743,6 +2750,7 @@ class Query$TaskRead$allMstrTasks$nodes {
     this.detail,
     this.$class,
     this.defaultTime,
+    this.symbol,
     this.remarks,
     this.updateAt,
     this.remove,
@@ -2764,6 +2772,7 @@ class Query$TaskRead$allMstrTasks$nodes {
     final l$detail = json['detail'];
     final l$$class = json['class'];
     final l$defaultTime = json['defaultTime'];
+    final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
@@ -2790,6 +2799,7 @@ class Query$TaskRead$allMstrTasks$nodes {
           : Query$TaskRead$allMstrTasks$nodes$defaultTime.fromJson(
               (l$defaultTime as Map<String, dynamic>),
             ),
+      symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
@@ -2840,6 +2850,8 @@ class Query$TaskRead$allMstrTasks$nodes {
 
   final Query$TaskRead$allMstrTasks$nodes$defaultTime? defaultTime;
 
+  final String? symbol;
+
   final String? remarks;
 
   final String? updateAt;
@@ -2880,6 +2892,8 @@ class Query$TaskRead$allMstrTasks$nodes {
     _resultData['class'] = l$$class;
     final l$defaultTime = defaultTime;
     _resultData['defaultTime'] = l$defaultTime?.toJson();
+    final l$symbol = symbol;
+    _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
     final l$updateAt = updateAt;
@@ -2919,6 +2933,7 @@ class Query$TaskRead$allMstrTasks$nodes {
     final l$detail = detail;
     final l$$class = $class;
     final l$defaultTime = defaultTime;
+    final l$symbol = symbol;
     final l$remarks = remarks;
     final l$updateAt = updateAt;
     final l$remove = remove;
@@ -2938,6 +2953,7 @@ class Query$TaskRead$allMstrTasks$nodes {
       l$detail,
       l$$class,
       l$defaultTime,
+      l$symbol,
       l$remarks,
       l$updateAt,
       l$remove,
@@ -2988,6 +3004,11 @@ class Query$TaskRead$allMstrTasks$nodes {
     final l$defaultTime = defaultTime;
     final lOther$defaultTime = other.defaultTime;
     if (l$defaultTime != lOther$defaultTime) {
+      return false;
+    }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (l$symbol != lOther$symbol) {
       return false;
     }
     final l$remarks = remarks;
@@ -3078,6 +3099,7 @@ abstract class CopyWith$Query$TaskRead$allMstrTasks$nodes<TRes> {
     String? detail,
     int? $class,
     Query$TaskRead$allMstrTasks$nodes$defaultTime? defaultTime,
+    String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
@@ -3135,6 +3157,7 @@ class _CopyWithImpl$Query$TaskRead$allMstrTasks$nodes<TRes>
     Object? detail = _undefined,
     Object? $class = _undefined,
     Object? defaultTime = _undefined,
+    Object? symbol = _undefined,
     Object? remarks = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
@@ -3161,6 +3184,7 @@ class _CopyWithImpl$Query$TaskRead$allMstrTasks$nodes<TRes>
       defaultTime: defaultTime == _undefined
           ? _instance.defaultTime
           : (defaultTime as Query$TaskRead$allMstrTasks$nodes$defaultTime?),
+      symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
@@ -3311,6 +3335,7 @@ class _CopyWithStubImpl$Query$TaskRead$allMstrTasks$nodes<TRes>
     String? detail,
     int? $class,
     Query$TaskRead$allMstrTasks$nodes$defaultTime? defaultTime,
+    String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
@@ -10005,7 +10030,7 @@ class Query$TaskRead$allMstrTasks$nodes$historyInfoStaffByUpdateUserHistoryIdAnd
   Query$TaskRead$allMstrTasks$nodes$historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId({
     required this.historyId,
     required this.infoStaffId,
-    this.sharedAppellationsId,
+    required this.sharedAppellationsId,
     this.$__typename = 'HistoryInfoStaff',
   });
 
@@ -10019,7 +10044,7 @@ class Query$TaskRead$allMstrTasks$nodes$historyInfoStaffByUpdateUserHistoryIdAnd
     return Query$TaskRead$allMstrTasks$nodes$historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      sharedAppellationsId: (l$sharedAppellationsId as String?),
+      sharedAppellationsId: (l$sharedAppellationsId as String),
       $__typename: (l$$__typename as String),
     );
   }
@@ -10028,7 +10053,7 @@ class Query$TaskRead$allMstrTasks$nodes$historyInfoStaffByUpdateUserHistoryIdAnd
 
   final String infoStaffId;
 
-  final String? sharedAppellationsId;
+  final String sharedAppellationsId;
 
   final String $__typename;
 
@@ -10165,9 +10190,10 @@ class _CopyWithImpl$Query$TaskRead$allMstrTasks$nodes$historyInfoStaffByUpdateUs
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      sharedAppellationsId: sharedAppellationsId == _undefined
+      sharedAppellationsId:
+          sharedAppellationsId == _undefined || sharedAppellationsId == null
           ? _instance.sharedAppellationsId
-          : (sharedAppellationsId as String?),
+          : (sharedAppellationsId as String),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),

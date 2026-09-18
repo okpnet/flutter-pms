@@ -1,7 +1,7 @@
 ﻿# A5:ER FORMAT:18
 # A5:ER ENCODING:UTF8
 # A5:ER Mk-1 Copyright © 2007 m.matsubara
-# A5:SQL Mk-2 Version 2.20.0 beta 20 Copyright © 1997 - 2024 m.matsubara
+# A5:SQL Mk-2 Version 2.20.0 beta 24 Copyright © 1997 - 2024 m.matsubara
 #  https://a5m2.mmatsubara.com
 
 [Manager]
@@ -779,7 +779,7 @@ Position="トラザクション",4200,950
 ZOrder=76
 
 [Entity]
-PName=trans_product
+PName=trans_operations_plan
 LName=生産計画
 Comment=生産計画をMRP以外に手動で作成する場合がある。
 TableInnerOption=
@@ -787,7 +787,7 @@ TableOption=
 Page=トラザクション
 Left=5450
 Top=200
-Field="生産計画ID","trans_product_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
+Field="生産計画ID","trans_operations_plan_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="資材計画ID","trans_resorce_plan_id","*@UUID",,,"","",$FFFFFFFF,""
 Field="完了期限","deadline","*@DATETIME",,,"","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
@@ -795,12 +795,12 @@ Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20231004122008
+ModifiedDateTime=20260918160742
 Position="トラザクション",5450,200
 ZOrder=78
 
 [Entity]
-PName=trans_product_detail
+PName=trans_work_plan
 LName=生産計画明細
 Comment=
 TableInnerOption=
@@ -808,8 +808,8 @@ TableOption=
 Page=トラザクション
 Left=7050
 Top=350
-Field="生産計画詳細ID","trans_product_detail_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
-Field="生産計画ID","trans_product_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="生産計画詳細ID","trans_work_plan_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
+Field="生産計画ID","trans_operations_plan_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="工程ID","mstr_task_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="予定作業時間","interval_plan","*@INTERVAL",,,"","",$FFFFFFFF,""
 Field="開始予定","start_at","*@DATETIME",,,"","",$FFFFFFFF,""
@@ -819,7 +819,7 @@ Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260905222134
+ModifiedDateTime=20260918160813
 Position="トラザクション",7050,350
 ZOrder=79
 
@@ -857,7 +857,7 @@ Page=トラザクション
 Left=7000
 Top=2150
 Field="作業実績ID","trans_work_record_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
-Field="生産計画詳細ID","trans_product_detail_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="生産計画詳細ID","trans_work_plan_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="回数","nth_time","*@SMALLINT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="開始","start_at","*@DATETIME",,,"now()","",$FFFFFFFF,""
 Field="終了","stop_at","*@DATETIME",,,"now()","",$FFFFFFFF,""
@@ -871,7 +871,7 @@ Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260905222437
+ModifiedDateTime=20260918160935
 Position="トラザクション",7000,2150
 ZOrder=82
 
@@ -999,7 +999,7 @@ ZOrder=88
 
 [Relation]
 Entity1=trans_resorce_plan
-Entity2=trans_product
+Entity2=trans_operations_plan
 RelationType1=1
 RelationType2=3
 Fields1=trans_resorce_plan_id
@@ -1020,12 +1020,12 @@ TermPos2=R
 ZOrder=89
 
 [Relation]
-Entity1=trans_product
-Entity2=trans_product_detail
+Entity1=trans_operations_plan
+Entity2=trans_work_plan
 RelationType1=1
 RelationType2=3
-Fields1=trans_product_id
-Fields2=trans_product_id
+Fields1=trans_operations_plan_id
+Fields2=trans_operations_plan_id
 Cardinarity1=
 Cardinarity2=
 Position="トラザクション",0,4729,5271,4416,R,R,""
@@ -1043,7 +1043,7 @@ ZOrder=90
 
 [Relation]
 Entity1=mstr_task
-Entity2=trans_product_detail
+Entity2=trans_work_plan
 RelationType1=2
 RelationType2=3
 Fields1=mstr_task_id
@@ -1100,15 +1100,15 @@ Fields1=trans_purchase_id
 Fields2=trans_purchase_id
 Cardinarity1=
 Cardinarity2=
-Position="トラザクション",0,9536,9292,4915,R,R,""
+Position="トラザクション",0,5335,9089,2663,R,R,""
 Dependence=0
 Caption=
 PName=
 ModifiedDateTime=20230816165755
 LineMode=0
-Bar1=954
-Bar2=929
-Bar3=492
+Bar1=534
+Bar2=909
+Bar3=266
 TermPos1=R
 TermPos2=R
 ZOrder=95
@@ -1167,13 +1167,13 @@ Fields1=trans_purchase_detail_id
 Fields2=trans_purchase_detail_id
 Cardinarity1=
 Cardinarity2=
-Position="トラザクション",0,2969,7031,3961,R,R,""
+Position="トラザクション",0,1458,7031,3961,R,R,""
 Dependence=0
 Caption=
 PName=
 ModifiedDateTime=20260906085714
 LineMode=0
-Bar1=297
+Bar1=146
 Bar2=703
 Bar3=396
 TermPos1=R
@@ -1512,7 +1512,7 @@ Fields1=trans_shipping_id
 Fields2=trans_shipping_id
 Cardinarity1=
 Cardinarity2=
-Position="トラザクション",0,5266,5790,1526,R,R,""
+Position="トラザクション",0,5266,5790,4482,R,R,""
 Dependence=0
 Caption=
 PName=
@@ -1520,7 +1520,7 @@ ModifiedDateTime=20260828211709
 LineMode=0
 Bar1=527
 Bar2=579
-Bar3=153
+Bar3=448
 TermPos1=R
 TermPos2=R
 ZOrder=152
@@ -1632,14 +1632,13 @@ Top=3350
 Field="受入実績ビジターID","trans_purchase_rec_visiter_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="受入実績ID","trans_purchase_rec_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="棚ビジターID","trans_visiter_id","*@UUID","NOT NULL",,"gen_random_uuid()","",$FFFFFFFF,""
-Field="発注明細ID","trans_purchase_detail_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="数量","quantity","*@QTY","NOT NULL",,"0","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260905223545
+ModifiedDateTime=20260918105512
 Position="トラザクション",4100,3350
 ZOrder=195
 
@@ -1721,7 +1720,7 @@ Page=トラザクション
 Left=5900
 Top=700
 Field="生産引当ID","trans_product_rez_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
-Field="生産計画詳細ID","trans_product_detail_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="生産計画詳細ID","trans_work_plan_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="引当予約日","register_at","*@DATETIME","NOT NULL",,"now()","",$FFFFFFFF,""
 Field="引当予定日","register_plan_at","*@DATETIME",,,"now()","",$FFFFFFFF,""
 Field="引当数量","quantity","*@QTY","NOT NULL",,"0","",$FFFFFFFF,""
@@ -1732,7 +1731,7 @@ Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260905222340
+ModifiedDateTime=20260918160946
 Position="トラザクション",5900,700
 ZOrder=202
 
@@ -4256,12 +4255,12 @@ TermPos2=R
 ZOrder=557
 
 [Relation]
-Entity1=trans_product_detail
+Entity1=trans_work_plan
 Entity2=trans_work_record
 RelationType1=1
 RelationType2=3
-Fields1=trans_product_detail_id
-Fields2=trans_product_detail_id
+Fields1=trans_work_plan_id
+Fields2=trans_work_plan_id
 Cardinarity1=
 Cardinarity2=
 Position="トラザクション",0,7027,2973,7373,R,R,""
@@ -4278,12 +4277,12 @@ TermPos2=R
 ZOrder=561
 
 [Relation]
-Entity1=trans_product_detail
+Entity1=trans_work_plan
 Entity2=trans_product_rez
 RelationType1=1
 RelationType2=3
-Fields1=trans_product_detail_id
-Fields2=trans_product_detail_id
+Fields1=trans_work_plan_id
+Fields2=trans_work_plan_id
 Cardinarity1=
 Cardinarity2=
 Position="トラザクション",0,6969,5661,826,R,R,""
@@ -10005,7 +10004,7 @@ ZOrder=-287
 
 [Relation]
 Entity1=history_info_staff
-Entity2=trans_product_detail
+Entity2=trans_work_plan
 RelationType1=1
 RelationType2=3
 Fields1=history_id,info_staff_id
@@ -10027,7 +10026,7 @@ ZOrder=-288
 
 [Relation]
 Entity1=history_info_staff
-Entity2=trans_product
+Entity2=trans_operations_plan
 RelationType1=1
 RelationType2=3
 Fields1=history_id,info_staff_id
@@ -17260,3 +17259,23 @@ BkColor=$FFFFFF
 ModifiedDateTime=20260917164430
 Position="共有",3650,800
 ZOrder=1099
+
+[Relation]
+Entity1=history_info_staff
+Entity2=shared_symbol_counter
+RelationType1=1
+RelationType2=3
+Fields1=history_id,info_staff_id
+Fields2=update_user_history_id,update_user_id
+Cardinarity1=
+Cardinarity2=
+Dependence=0
+Caption=auto create.
+PName=
+LineMode=0
+Bar1=500
+Bar2=500
+Bar3=500
+TermPos1=R
+TermPos2=R
+ZOrder=-513

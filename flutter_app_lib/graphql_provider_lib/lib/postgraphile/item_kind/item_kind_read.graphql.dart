@@ -583,6 +583,13 @@ const documentNodeQueryItemKindRead = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
+                        name: NameNode(value: 'symbol'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
                         name: NameNode(value: 'remarks'),
                         alias: null,
                         arguments: [],
@@ -1406,6 +1413,7 @@ class Query$ItemKindRead$allMstrItemKinds$nodes {
   Query$ItemKindRead$allMstrItemKinds$nodes({
     required this.mstrItemKindId,
     this.code,
+    this.symbol,
     this.remarks,
     this.updateAt,
     this.remove,
@@ -1419,6 +1427,7 @@ class Query$ItemKindRead$allMstrItemKinds$nodes {
   ) {
     final l$mstrItemKindId = json['mstrItemKindId'];
     final l$code = json['code'];
+    final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
@@ -1430,6 +1439,7 @@ class Query$ItemKindRead$allMstrItemKinds$nodes {
     return Query$ItemKindRead$allMstrItemKinds$nodes(
       mstrItemKindId: (l$mstrItemKindId as String),
       code: (l$code as String?),
+      symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
@@ -1455,6 +1465,8 @@ class Query$ItemKindRead$allMstrItemKinds$nodes {
 
   final String? code;
 
+  final String? symbol;
+
   final String? remarks;
 
   final String? updateAt;
@@ -1475,6 +1487,8 @@ class Query$ItemKindRead$allMstrItemKinds$nodes {
     _resultData['mstrItemKindId'] = l$mstrItemKindId;
     final l$code = code;
     _resultData['code'] = l$code;
+    final l$symbol = symbol;
+    _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
     final l$updateAt = updateAt;
@@ -1498,6 +1512,7 @@ class Query$ItemKindRead$allMstrItemKinds$nodes {
   int get hashCode {
     final l$mstrItemKindId = mstrItemKindId;
     final l$code = code;
+    final l$symbol = symbol;
     final l$remarks = remarks;
     final l$updateAt = updateAt;
     final l$remove = remove;
@@ -1509,6 +1524,7 @@ class Query$ItemKindRead$allMstrItemKinds$nodes {
     return Object.hashAll([
       l$mstrItemKindId,
       l$code,
+      l$symbol,
       l$remarks,
       l$updateAt,
       l$remove,
@@ -1535,6 +1551,11 @@ class Query$ItemKindRead$allMstrItemKinds$nodes {
     final l$code = code;
     final lOther$code = other.code;
     if (l$code != lOther$code) {
+      return false;
+    }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (l$symbol != lOther$symbol) {
       return false;
     }
     final l$remarks = remarks;
@@ -1598,6 +1619,7 @@ abstract class CopyWith$Query$ItemKindRead$allMstrItemKinds$nodes<TRes> {
   TRes call({
     String? mstrItemKindId,
     String? code,
+    String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
@@ -1633,6 +1655,7 @@ class _CopyWithImpl$Query$ItemKindRead$allMstrItemKinds$nodes<TRes>
   TRes call({
     Object? mstrItemKindId = _undefined,
     Object? code = _undefined,
+    Object? symbol = _undefined,
     Object? remarks = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
@@ -1645,6 +1668,7 @@ class _CopyWithImpl$Query$ItemKindRead$allMstrItemKinds$nodes<TRes>
           ? _instance.mstrItemKindId
           : (mstrItemKindId as String),
       code: code == _undefined ? _instance.code : (code as String?),
+      symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
@@ -1709,6 +1733,7 @@ class _CopyWithStubImpl$Query$ItemKindRead$allMstrItemKinds$nodes<TRes>
   call({
     String? mstrItemKindId,
     String? code,
+    String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
@@ -2655,7 +2680,7 @@ class Query$ItemKindRead$allMstrItemKinds$nodes$historyInfoStaffByUpdateUserHist
   Query$ItemKindRead$allMstrItemKinds$nodes$historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId({
     required this.historyId,
     required this.infoStaffId,
-    this.sharedAppellationsId,
+    required this.sharedAppellationsId,
     this.$__typename = 'HistoryInfoStaff',
   });
 
@@ -2669,7 +2694,7 @@ class Query$ItemKindRead$allMstrItemKinds$nodes$historyInfoStaffByUpdateUserHist
     return Query$ItemKindRead$allMstrItemKinds$nodes$historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      sharedAppellationsId: (l$sharedAppellationsId as String?),
+      sharedAppellationsId: (l$sharedAppellationsId as String),
       $__typename: (l$$__typename as String),
     );
   }
@@ -2678,7 +2703,7 @@ class Query$ItemKindRead$allMstrItemKinds$nodes$historyInfoStaffByUpdateUserHist
 
   final String infoStaffId;
 
-  final String? sharedAppellationsId;
+  final String sharedAppellationsId;
 
   final String $__typename;
 
@@ -2815,9 +2840,10 @@ class _CopyWithImpl$Query$ItemKindRead$allMstrItemKinds$nodes$historyInfoStaffBy
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      sharedAppellationsId: sharedAppellationsId == _undefined
+      sharedAppellationsId:
+          sharedAppellationsId == _undefined || sharedAppellationsId == null
           ? _instance.sharedAppellationsId
-          : (sharedAppellationsId as String?),
+          : (sharedAppellationsId as String),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),

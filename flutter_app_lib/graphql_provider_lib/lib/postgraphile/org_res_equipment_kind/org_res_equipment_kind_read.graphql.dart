@@ -610,6 +610,13 @@ const documentNodeQueryOrgResEquipmentKindRead = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
+                        name: NameNode(value: 'symbol'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
                         name: NameNode(value: 'remarks'),
                         alias: null,
                         arguments: [],
@@ -1507,6 +1514,7 @@ class Query$OrgResEquipmentKindRead$allMstrEquipmentKinds$nodes {
     required this.mstrEquipmentKindId,
     this.startAt,
     this.stopAt,
+    this.symbol,
     this.remarks,
     this.updateAt,
     this.remove,
@@ -1521,6 +1529,7 @@ class Query$OrgResEquipmentKindRead$allMstrEquipmentKinds$nodes {
     final l$mstrEquipmentKindId = json['mstrEquipmentKindId'];
     final l$startAt = json['startAt'];
     final l$stopAt = json['stopAt'];
+    final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
@@ -1533,6 +1542,7 @@ class Query$OrgResEquipmentKindRead$allMstrEquipmentKinds$nodes {
       mstrEquipmentKindId: (l$mstrEquipmentKindId as String),
       startAt: (l$startAt as String?),
       stopAt: (l$stopAt as String?),
+      symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
@@ -1560,6 +1570,8 @@ class Query$OrgResEquipmentKindRead$allMstrEquipmentKinds$nodes {
 
   final String? stopAt;
 
+  final String? symbol;
+
   final String? remarks;
 
   final String? updateAt;
@@ -1582,6 +1594,8 @@ class Query$OrgResEquipmentKindRead$allMstrEquipmentKinds$nodes {
     _resultData['startAt'] = l$startAt;
     final l$stopAt = stopAt;
     _resultData['stopAt'] = l$stopAt;
+    final l$symbol = symbol;
+    _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
     final l$updateAt = updateAt;
@@ -1606,6 +1620,7 @@ class Query$OrgResEquipmentKindRead$allMstrEquipmentKinds$nodes {
     final l$mstrEquipmentKindId = mstrEquipmentKindId;
     final l$startAt = startAt;
     final l$stopAt = stopAt;
+    final l$symbol = symbol;
     final l$remarks = remarks;
     final l$updateAt = updateAt;
     final l$remove = remove;
@@ -1618,6 +1633,7 @@ class Query$OrgResEquipmentKindRead$allMstrEquipmentKinds$nodes {
       l$mstrEquipmentKindId,
       l$startAt,
       l$stopAt,
+      l$symbol,
       l$remarks,
       l$updateAt,
       l$remove,
@@ -1649,6 +1665,11 @@ class Query$OrgResEquipmentKindRead$allMstrEquipmentKinds$nodes {
     final l$stopAt = stopAt;
     final lOther$stopAt = other.stopAt;
     if (l$stopAt != lOther$stopAt) {
+      return false;
+    }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (l$symbol != lOther$symbol) {
       return false;
     }
     final l$remarks = remarks;
@@ -1720,6 +1741,7 @@ abstract class CopyWith$Query$OrgResEquipmentKindRead$allMstrEquipmentKinds$node
     String? mstrEquipmentKindId,
     String? startAt,
     String? stopAt,
+    String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
@@ -1762,6 +1784,7 @@ class _CopyWithImpl$Query$OrgResEquipmentKindRead$allMstrEquipmentKinds$nodes<
     Object? mstrEquipmentKindId = _undefined,
     Object? startAt = _undefined,
     Object? stopAt = _undefined,
+    Object? symbol = _undefined,
     Object? remarks = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
@@ -1776,6 +1799,7 @@ class _CopyWithImpl$Query$OrgResEquipmentKindRead$allMstrEquipmentKinds$nodes<
           : (mstrEquipmentKindId as String),
       startAt: startAt == _undefined ? _instance.startAt : (startAt as String?),
       stopAt: stopAt == _undefined ? _instance.stopAt : (stopAt as String?),
+      symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
@@ -1848,6 +1872,7 @@ class _CopyWithStubImpl$Query$OrgResEquipmentKindRead$allMstrEquipmentKinds$node
     String? mstrEquipmentKindId,
     String? startAt,
     String? stopAt,
+    String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
@@ -2794,7 +2819,7 @@ class Query$OrgResEquipmentKindRead$allMstrEquipmentKinds$nodes$historyInfoStaff
   Query$OrgResEquipmentKindRead$allMstrEquipmentKinds$nodes$historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId({
     required this.historyId,
     required this.infoStaffId,
-    this.sharedAppellationsId,
+    required this.sharedAppellationsId,
     this.$__typename = 'HistoryInfoStaff',
   });
 
@@ -2808,7 +2833,7 @@ class Query$OrgResEquipmentKindRead$allMstrEquipmentKinds$nodes$historyInfoStaff
     return Query$OrgResEquipmentKindRead$allMstrEquipmentKinds$nodes$historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      sharedAppellationsId: (l$sharedAppellationsId as String?),
+      sharedAppellationsId: (l$sharedAppellationsId as String),
       $__typename: (l$$__typename as String),
     );
   }
@@ -2817,7 +2842,7 @@ class Query$OrgResEquipmentKindRead$allMstrEquipmentKinds$nodes$historyInfoStaff
 
   final String infoStaffId;
 
-  final String? sharedAppellationsId;
+  final String sharedAppellationsId;
 
   final String $__typename;
 
@@ -2954,9 +2979,10 @@ class _CopyWithImpl$Query$OrgResEquipmentKindRead$allMstrEquipmentKinds$nodes$hi
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      sharedAppellationsId: sharedAppellationsId == _undefined
+      sharedAppellationsId:
+          sharedAppellationsId == _undefined || sharedAppellationsId == null
           ? _instance.sharedAppellationsId
-          : (sharedAppellationsId as String?),
+          : (sharedAppellationsId as String),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),

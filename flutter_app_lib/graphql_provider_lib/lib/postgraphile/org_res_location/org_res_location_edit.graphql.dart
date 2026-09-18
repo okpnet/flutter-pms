@@ -11,6 +11,7 @@ class Variables$Mutation$OrgResLocationEdit {
     String? controlCode,
     String? infoDepartmentId,
     String? remarks,
+    String? symbol,
     required String sharedAppellationsId,
     required String nameSharedDictionaryId,
     String? nameJa,
@@ -34,6 +35,7 @@ class Variables$Mutation$OrgResLocationEdit {
     if (controlCode != null) r'controlCode': controlCode,
     if (infoDepartmentId != null) r'infoDepartmentId': infoDepartmentId,
     if (remarks != null) r'remarks': remarks,
+    if (symbol != null) r'symbol': symbol,
     r'sharedAppellationsId': sharedAppellationsId,
     r'nameSharedDictionaryId': nameSharedDictionaryId,
     if (nameJa != null) r'nameJa': nameJa,
@@ -76,6 +78,10 @@ class Variables$Mutation$OrgResLocationEdit {
     if (data.containsKey('remarks')) {
       final l$remarks = data['remarks'];
       result$data['remarks'] = (l$remarks as String?);
+    }
+    if (data.containsKey('symbol')) {
+      final l$symbol = data['symbol'];
+      result$data['symbol'] = (l$symbol as String?);
     }
     final l$sharedAppellationsId = data['sharedAppellationsId'];
     result$data['sharedAppellationsId'] = (l$sharedAppellationsId as String);
@@ -154,6 +160,8 @@ class Variables$Mutation$OrgResLocationEdit {
 
   String? get remarks => (_$data['remarks'] as String?);
 
+  String? get symbol => (_$data['symbol'] as String?);
+
   String get sharedAppellationsId => (_$data['sharedAppellationsId'] as String);
 
   String get nameSharedDictionaryId =>
@@ -210,6 +218,10 @@ class Variables$Mutation$OrgResLocationEdit {
     if (_$data.containsKey('remarks')) {
       final l$remarks = remarks;
       result$data['remarks'] = l$remarks;
+    }
+    if (_$data.containsKey('symbol')) {
+      final l$symbol = symbol;
+      result$data['symbol'] = l$symbol;
     }
     final l$sharedAppellationsId = sharedAppellationsId;
     result$data['sharedAppellationsId'] = l$sharedAppellationsId;
@@ -325,6 +337,14 @@ class Variables$Mutation$OrgResLocationEdit {
       return false;
     }
     if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (_$data.containsKey('symbol') != other._$data.containsKey('symbol')) {
+      return false;
+    }
+    if (l$symbol != lOther$symbol) {
       return false;
     }
     final l$sharedAppellationsId = sharedAppellationsId;
@@ -467,6 +487,7 @@ class Variables$Mutation$OrgResLocationEdit {
     final l$controlCode = controlCode;
     final l$infoDepartmentId = infoDepartmentId;
     final l$remarks = remarks;
+    final l$symbol = symbol;
     final l$sharedAppellationsId = sharedAppellationsId;
     final l$nameSharedDictionaryId = nameSharedDictionaryId;
     final l$nameJa = nameJa;
@@ -490,6 +511,7 @@ class Variables$Mutation$OrgResLocationEdit {
       _$data.containsKey('controlCode') ? l$controlCode : const {},
       _$data.containsKey('infoDepartmentId') ? l$infoDepartmentId : const {},
       _$data.containsKey('remarks') ? l$remarks : const {},
+      _$data.containsKey('symbol') ? l$symbol : const {},
       l$sharedAppellationsId,
       l$nameSharedDictionaryId,
       _$data.containsKey('nameJa') ? l$nameJa : const {},
@@ -526,6 +548,7 @@ abstract class CopyWith$Variables$Mutation$OrgResLocationEdit<TRes> {
     String? controlCode,
     String? infoDepartmentId,
     String? remarks,
+    String? symbol,
     String? sharedAppellationsId,
     String? nameSharedDictionaryId,
     String? nameJa,
@@ -565,6 +588,7 @@ class _CopyWithImpl$Variables$Mutation$OrgResLocationEdit<TRes>
     Object? controlCode = _undefined,
     Object? infoDepartmentId = _undefined,
     Object? remarks = _undefined,
+    Object? symbol = _undefined,
     Object? sharedAppellationsId = _undefined,
     Object? nameSharedDictionaryId = _undefined,
     Object? nameJa = _undefined,
@@ -592,6 +616,7 @@ class _CopyWithImpl$Variables$Mutation$OrgResLocationEdit<TRes>
       if (infoDepartmentId != _undefined)
         'infoDepartmentId': (infoDepartmentId as String?),
       if (remarks != _undefined) 'remarks': (remarks as String?),
+      if (symbol != _undefined) 'symbol': (symbol as String?),
       if (sharedAppellationsId != _undefined && sharedAppellationsId != null)
         'sharedAppellationsId': (sharedAppellationsId as String),
       if (nameSharedDictionaryId != _undefined &&
@@ -636,6 +661,7 @@ class _CopyWithStubImpl$Variables$Mutation$OrgResLocationEdit<TRes>
     String? controlCode,
     String? infoDepartmentId,
     String? remarks,
+    String? symbol,
     String? sharedAppellationsId,
     String? nameSharedDictionaryId,
     String? nameJa,
@@ -860,6 +886,15 @@ const documentNodeMutationOrgResLocationEdit = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'symbol')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'sharedAppellationsId')),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
@@ -1045,6 +1080,12 @@ const documentNodeMutationOrgResLocationEdit = DocumentNode(
                             name: NameNode(value: 'remarks'),
                             value: VariableNode(
                               name: NameNode(value: 'remarks'),
+                            ),
+                          ),
+                          ObjectFieldNode(
+                            name: NameNode(value: 'symbol'),
+                            value: VariableNode(
+                              name: NameNode(value: 'symbol'),
                             ),
                           ),
                           ObjectFieldNode(
@@ -1402,6 +1443,13 @@ const documentNodeMutationOrgResLocationEdit = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'symbol'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -2054,6 +2102,7 @@ class Mutation$OrgResLocationEdit$updateMstrLocationByMstrLocationId$mstrLocatio
     this.controlCode,
     this.infoDepartmentId,
     this.remarks,
+    this.symbol,
     this.sharedAppellationBySharedAppellationsId,
     this.infoAddressByInfoAddressId,
     this.$__typename = 'MstrLocation',
@@ -2067,6 +2116,7 @@ class Mutation$OrgResLocationEdit$updateMstrLocationByMstrLocationId$mstrLocatio
     final l$controlCode = json['controlCode'];
     final l$infoDepartmentId = json['infoDepartmentId'];
     final l$remarks = json['remarks'];
+    final l$symbol = json['symbol'];
     final l$sharedAppellationBySharedAppellationsId =
         json['sharedAppellationBySharedAppellationsId'];
     final l$infoAddressByInfoAddressId = json['infoAddressByInfoAddressId'];
@@ -2077,6 +2127,7 @@ class Mutation$OrgResLocationEdit$updateMstrLocationByMstrLocationId$mstrLocatio
       controlCode: (l$controlCode as String?),
       infoDepartmentId: (l$infoDepartmentId as String?),
       remarks: (l$remarks as String?),
+      symbol: (l$symbol as String?),
       sharedAppellationBySharedAppellationsId:
           l$sharedAppellationBySharedAppellationsId == null
           ? null
@@ -2103,6 +2154,8 @@ class Mutation$OrgResLocationEdit$updateMstrLocationByMstrLocationId$mstrLocatio
 
   final String? remarks;
 
+  final String? symbol;
+
   final Mutation$OrgResLocationEdit$updateMstrLocationByMstrLocationId$mstrLocation$sharedAppellationBySharedAppellationsId?
   sharedAppellationBySharedAppellationsId;
 
@@ -2123,6 +2176,8 @@ class Mutation$OrgResLocationEdit$updateMstrLocationByMstrLocationId$mstrLocatio
     _resultData['infoDepartmentId'] = l$infoDepartmentId;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$symbol = symbol;
+    _resultData['symbol'] = l$symbol;
     final l$sharedAppellationBySharedAppellationsId =
         sharedAppellationBySharedAppellationsId;
     _resultData['sharedAppellationBySharedAppellationsId'] =
@@ -2142,6 +2197,7 @@ class Mutation$OrgResLocationEdit$updateMstrLocationByMstrLocationId$mstrLocatio
     final l$controlCode = controlCode;
     final l$infoDepartmentId = infoDepartmentId;
     final l$remarks = remarks;
+    final l$symbol = symbol;
     final l$sharedAppellationBySharedAppellationsId =
         sharedAppellationBySharedAppellationsId;
     final l$infoAddressByInfoAddressId = infoAddressByInfoAddressId;
@@ -2152,6 +2208,7 @@ class Mutation$OrgResLocationEdit$updateMstrLocationByMstrLocationId$mstrLocatio
       l$controlCode,
       l$infoDepartmentId,
       l$remarks,
+      l$symbol,
       l$sharedAppellationBySharedAppellationsId,
       l$infoAddressByInfoAddressId,
       l$$__typename,
@@ -2191,6 +2248,11 @@ class Mutation$OrgResLocationEdit$updateMstrLocationByMstrLocationId$mstrLocatio
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (l$symbol != lOther$symbol) {
       return false;
     }
     final l$sharedAppellationBySharedAppellationsId =
@@ -2249,6 +2311,7 @@ abstract class CopyWith$Mutation$OrgResLocationEdit$updateMstrLocationByMstrLoca
     String? controlCode,
     String? infoDepartmentId,
     String? remarks,
+    String? symbol,
     Mutation$OrgResLocationEdit$updateMstrLocationByMstrLocationId$mstrLocation$sharedAppellationBySharedAppellationsId?
     sharedAppellationBySharedAppellationsId,
     Mutation$OrgResLocationEdit$updateMstrLocationByMstrLocationId$mstrLocation$infoAddressByInfoAddressId?
@@ -2293,6 +2356,7 @@ class _CopyWithImpl$Mutation$OrgResLocationEdit$updateMstrLocationByMstrLocation
     Object? controlCode = _undefined,
     Object? infoDepartmentId = _undefined,
     Object? remarks = _undefined,
+    Object? symbol = _undefined,
     Object? sharedAppellationBySharedAppellationsId = _undefined,
     Object? infoAddressByInfoAddressId = _undefined,
     Object? $__typename = _undefined,
@@ -2309,6 +2373,7 @@ class _CopyWithImpl$Mutation$OrgResLocationEdit$updateMstrLocationByMstrLocation
           ? _instance.infoDepartmentId
           : (infoDepartmentId as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       sharedAppellationBySharedAppellationsId:
           sharedAppellationBySharedAppellationsId == _undefined
           ? _instance.sharedAppellationBySharedAppellationsId
@@ -2376,6 +2441,7 @@ class _CopyWithStubImpl$Mutation$OrgResLocationEdit$updateMstrLocationByMstrLoca
     String? controlCode,
     String? infoDepartmentId,
     String? remarks,
+    String? symbol,
     Mutation$OrgResLocationEdit$updateMstrLocationByMstrLocationId$mstrLocation$sharedAppellationBySharedAppellationsId?
     sharedAppellationBySharedAppellationsId,
     Mutation$OrgResLocationEdit$updateMstrLocationByMstrLocationId$mstrLocation$infoAddressByInfoAddressId?

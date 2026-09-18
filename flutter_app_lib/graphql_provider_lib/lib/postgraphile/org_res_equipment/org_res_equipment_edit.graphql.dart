@@ -13,6 +13,7 @@ class Variables$Mutation$OrgResEquipmentEdit {
     String? labelCode,
     String? mstrLocationId,
     String? remarks,
+    String? symbol,
     required String mstrItemId,
     required String sharedAppellationsId,
     required String nameSharedDictionaryId,
@@ -33,6 +34,7 @@ class Variables$Mutation$OrgResEquipmentEdit {
     if (labelCode != null) r'labelCode': labelCode,
     if (mstrLocationId != null) r'mstrLocationId': mstrLocationId,
     if (remarks != null) r'remarks': remarks,
+    if (symbol != null) r'symbol': symbol,
     r'mstrItemId': mstrItemId,
     r'sharedAppellationsId': sharedAppellationsId,
     r'nameSharedDictionaryId': nameSharedDictionaryId,
@@ -78,6 +80,10 @@ class Variables$Mutation$OrgResEquipmentEdit {
     if (data.containsKey('remarks')) {
       final l$remarks = data['remarks'];
       result$data['remarks'] = (l$remarks as String?);
+    }
+    if (data.containsKey('symbol')) {
+      final l$symbol = data['symbol'];
+      result$data['symbol'] = (l$symbol as String?);
     }
     final l$mstrItemId = data['mstrItemId'];
     result$data['mstrItemId'] = (l$mstrItemId as String);
@@ -137,6 +143,8 @@ class Variables$Mutation$OrgResEquipmentEdit {
 
   String? get remarks => (_$data['remarks'] as String?);
 
+  String? get symbol => (_$data['symbol'] as String?);
+
   String get mstrItemId => (_$data['mstrItemId'] as String);
 
   String get sharedAppellationsId => (_$data['sharedAppellationsId'] as String);
@@ -189,6 +197,10 @@ class Variables$Mutation$OrgResEquipmentEdit {
     if (_$data.containsKey('remarks')) {
       final l$remarks = remarks;
       result$data['remarks'] = l$remarks;
+    }
+    if (_$data.containsKey('symbol')) {
+      final l$symbol = symbol;
+      result$data['symbol'] = l$symbol;
     }
     final l$mstrItemId = mstrItemId;
     result$data['mstrItemId'] = l$mstrItemId;
@@ -300,6 +312,14 @@ class Variables$Mutation$OrgResEquipmentEdit {
     if (l$remarks != lOther$remarks) {
       return false;
     }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (_$data.containsKey('symbol') != other._$data.containsKey('symbol')) {
+      return false;
+    }
+    if (l$symbol != lOther$symbol) {
+      return false;
+    }
     final l$mstrItemId = mstrItemId;
     final lOther$mstrItemId = other.mstrItemId;
     if (l$mstrItemId != lOther$mstrItemId) {
@@ -391,6 +411,7 @@ class Variables$Mutation$OrgResEquipmentEdit {
     final l$labelCode = labelCode;
     final l$mstrLocationId = mstrLocationId;
     final l$remarks = remarks;
+    final l$symbol = symbol;
     final l$mstrItemId = mstrItemId;
     final l$sharedAppellationsId = sharedAppellationsId;
     final l$nameSharedDictionaryId = nameSharedDictionaryId;
@@ -412,6 +433,7 @@ class Variables$Mutation$OrgResEquipmentEdit {
       _$data.containsKey('labelCode') ? l$labelCode : const {},
       _$data.containsKey('mstrLocationId') ? l$mstrLocationId : const {},
       _$data.containsKey('remarks') ? l$remarks : const {},
+      _$data.containsKey('symbol') ? l$symbol : const {},
       l$mstrItemId,
       l$sharedAppellationsId,
       l$nameSharedDictionaryId,
@@ -444,6 +466,7 @@ abstract class CopyWith$Variables$Mutation$OrgResEquipmentEdit<TRes> {
     String? labelCode,
     String? mstrLocationId,
     String? remarks,
+    String? symbol,
     String? mstrItemId,
     String? sharedAppellationsId,
     String? nameSharedDictionaryId,
@@ -479,6 +502,7 @@ class _CopyWithImpl$Variables$Mutation$OrgResEquipmentEdit<TRes>
     Object? labelCode = _undefined,
     Object? mstrLocationId = _undefined,
     Object? remarks = _undefined,
+    Object? symbol = _undefined,
     Object? mstrItemId = _undefined,
     Object? sharedAppellationsId = _undefined,
     Object? nameSharedDictionaryId = _undefined,
@@ -503,6 +527,7 @@ class _CopyWithImpl$Variables$Mutation$OrgResEquipmentEdit<TRes>
       if (mstrLocationId != _undefined)
         'mstrLocationId': (mstrLocationId as String?),
       if (remarks != _undefined) 'remarks': (remarks as String?),
+      if (symbol != _undefined) 'symbol': (symbol as String?),
       if (mstrItemId != _undefined && mstrItemId != null)
         'mstrItemId': (mstrItemId as String),
       if (sharedAppellationsId != _undefined && sharedAppellationsId != null)
@@ -543,6 +568,7 @@ class _CopyWithStubImpl$Variables$Mutation$OrgResEquipmentEdit<TRes>
     String? labelCode,
     String? mstrLocationId,
     String? remarks,
+    String? symbol,
     String? mstrItemId,
     String? sharedAppellationsId,
     String? nameSharedDictionaryId,
@@ -784,6 +810,15 @@ const documentNodeMutationOrgResEquipmentEdit = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'symbol')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'mstrItemId')),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
@@ -927,6 +962,12 @@ const documentNodeMutationOrgResEquipmentEdit = DocumentNode(
                             name: NameNode(value: 'remarks'),
                             value: VariableNode(
                               name: NameNode(value: 'remarks'),
+                            ),
+                          ),
+                          ObjectFieldNode(
+                            name: NameNode(value: 'symbol'),
+                            value: VariableNode(
+                              name: NameNode(value: 'symbol'),
                             ),
                           ),
                           ObjectFieldNode(
@@ -1236,6 +1277,13 @@ const documentNodeMutationOrgResEquipmentEdit = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'symbol'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -1858,6 +1906,7 @@ class Mutation$OrgResEquipmentEdit$updateMstrEquipmentByMstrEquipmentId$mstrEqui
     this.labelCode,
     this.mstrLocationId,
     this.remarks,
+    this.symbol,
     this.mstrItemByMstrItemId,
     this.$__typename = 'MstrEquipment',
   });
@@ -1872,6 +1921,7 @@ class Mutation$OrgResEquipmentEdit$updateMstrEquipmentByMstrEquipmentId$mstrEqui
     final l$labelCode = json['labelCode'];
     final l$mstrLocationId = json['mstrLocationId'];
     final l$remarks = json['remarks'];
+    final l$symbol = json['symbol'];
     final l$mstrItemByMstrItemId = json['mstrItemByMstrItemId'];
     final l$$__typename = json['__typename'];
     return Mutation$OrgResEquipmentEdit$updateMstrEquipmentByMstrEquipmentId$mstrEquipment(
@@ -1882,6 +1932,7 @@ class Mutation$OrgResEquipmentEdit$updateMstrEquipmentByMstrEquipmentId$mstrEqui
       labelCode: (l$labelCode as String?),
       mstrLocationId: (l$mstrLocationId as String?),
       remarks: (l$remarks as String?),
+      symbol: (l$symbol as String?),
       mstrItemByMstrItemId: l$mstrItemByMstrItemId == null
           ? null
           : Mutation$OrgResEquipmentEdit$updateMstrEquipmentByMstrEquipmentId$mstrEquipment$mstrItemByMstrItemId.fromJson(
@@ -1905,6 +1956,8 @@ class Mutation$OrgResEquipmentEdit$updateMstrEquipmentByMstrEquipmentId$mstrEqui
 
   final String? remarks;
 
+  final String? symbol;
+
   final Mutation$OrgResEquipmentEdit$updateMstrEquipmentByMstrEquipmentId$mstrEquipment$mstrItemByMstrItemId?
   mstrItemByMstrItemId;
 
@@ -1926,6 +1979,8 @@ class Mutation$OrgResEquipmentEdit$updateMstrEquipmentByMstrEquipmentId$mstrEqui
     _resultData['mstrLocationId'] = l$mstrLocationId;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$symbol = symbol;
+    _resultData['symbol'] = l$symbol;
     final l$mstrItemByMstrItemId = mstrItemByMstrItemId;
     _resultData['mstrItemByMstrItemId'] = l$mstrItemByMstrItemId?.toJson();
     final l$$__typename = $__typename;
@@ -1942,6 +1997,7 @@ class Mutation$OrgResEquipmentEdit$updateMstrEquipmentByMstrEquipmentId$mstrEqui
     final l$labelCode = labelCode;
     final l$mstrLocationId = mstrLocationId;
     final l$remarks = remarks;
+    final l$symbol = symbol;
     final l$mstrItemByMstrItemId = mstrItemByMstrItemId;
     final l$$__typename = $__typename;
     return Object.hashAll([
@@ -1952,6 +2008,7 @@ class Mutation$OrgResEquipmentEdit$updateMstrEquipmentByMstrEquipmentId$mstrEqui
       l$labelCode,
       l$mstrLocationId,
       l$remarks,
+      l$symbol,
       l$mstrItemByMstrItemId,
       l$$__typename,
     ]);
@@ -2000,6 +2057,11 @@ class Mutation$OrgResEquipmentEdit$updateMstrEquipmentByMstrEquipmentId$mstrEqui
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (l$symbol != lOther$symbol) {
       return false;
     }
     final l$mstrItemByMstrItemId = mstrItemByMstrItemId;
@@ -2053,6 +2115,7 @@ abstract class CopyWith$Mutation$OrgResEquipmentEdit$updateMstrEquipmentByMstrEq
     String? labelCode,
     String? mstrLocationId,
     String? remarks,
+    String? symbol,
     Mutation$OrgResEquipmentEdit$updateMstrEquipmentByMstrEquipmentId$mstrEquipment$mstrItemByMstrItemId?
     mstrItemByMstrItemId,
     String? $__typename,
@@ -2093,6 +2156,7 @@ class _CopyWithImpl$Mutation$OrgResEquipmentEdit$updateMstrEquipmentByMstrEquipm
     Object? labelCode = _undefined,
     Object? mstrLocationId = _undefined,
     Object? remarks = _undefined,
+    Object? symbol = _undefined,
     Object? mstrItemByMstrItemId = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
@@ -2116,6 +2180,7 @@ class _CopyWithImpl$Mutation$OrgResEquipmentEdit$updateMstrEquipmentByMstrEquipm
           ? _instance.mstrLocationId
           : (mstrLocationId as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       mstrItemByMstrItemId: mstrItemByMstrItemId == _undefined
           ? _instance.mstrItemByMstrItemId
           : (mstrItemByMstrItemId
@@ -2163,6 +2228,7 @@ class _CopyWithStubImpl$Mutation$OrgResEquipmentEdit$updateMstrEquipmentByMstrEq
     String? labelCode,
     String? mstrLocationId,
     String? remarks,
+    String? symbol,
     Mutation$OrgResEquipmentEdit$updateMstrEquipmentByMstrEquipmentId$mstrEquipment$mstrItemByMstrItemId?
     mstrItemByMstrItemId,
     String? $__typename,

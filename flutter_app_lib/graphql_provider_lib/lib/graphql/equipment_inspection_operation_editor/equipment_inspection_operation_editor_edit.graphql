@@ -19,6 +19,7 @@ mutation EquipmentInspectionOperationEditorEdit(
   $code: String
   $mstrEquipmentId: UUID
   $remarks: String
+  $symbol: String
   $sharedAppellationsId: UUID!
   $nameSharedDictionaryId: UUID!
   $nameJa: String
@@ -37,6 +38,7 @@ mutation EquipmentInspectionOperationEditorEdit(
         code: $code
         mstrEquipmentId: $mstrEquipmentId
         remarks: $remarks
+        symbol: $symbol
 
         # --- 点検運用名 / 読み / 略称(共通名前仕様、shared_appellations経由でshared_dictionaryへ入れ子更新) ---
         sharedAppellationToSharedAppellationsId: {
@@ -72,6 +74,7 @@ mutation EquipmentInspectionOperationEditorEdit(
       code
       mstrEquipmentId
       remarks
+      symbol
 
       # --- 点検項目(読み取り専用。編集は別ミューテーションで対応、⚠参照) -------------
       mstrInspectionOperationTasksByMstrInspectionOperationId {

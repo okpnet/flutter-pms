@@ -14,6 +14,7 @@ class Variables$Mutation$EquipmentInspectionPerationTaskEdit {
     String? commencementDate,
     Input$IntervalInput? timeInterval,
     String? remarks,
+    String? symbol,
   }) => Variables$Mutation$EquipmentInspectionPerationTaskEdit._({
     r'mstrInspectionOperationTaskId': mstrInspectionOperationTaskId,
     if (mstrInspectionOperationId != null)
@@ -23,6 +24,7 @@ class Variables$Mutation$EquipmentInspectionPerationTaskEdit {
     if (commencementDate != null) r'commencementDate': commencementDate,
     if (timeInterval != null) r'timeInterval': timeInterval,
     if (remarks != null) r'remarks': remarks,
+    if (symbol != null) r'symbol': symbol,
   });
 
   Variables$Mutation$EquipmentInspectionPerationTaskEdit._(this._$data);
@@ -64,6 +66,10 @@ class Variables$Mutation$EquipmentInspectionPerationTaskEdit {
       final l$remarks = data['remarks'];
       result$data['remarks'] = (l$remarks as String?);
     }
+    if (data.containsKey('symbol')) {
+      final l$symbol = data['symbol'];
+      result$data['symbol'] = (l$symbol as String?);
+    }
     return Variables$Mutation$EquipmentInspectionPerationTaskEdit._(
       result$data,
     );
@@ -87,6 +93,8 @@ class Variables$Mutation$EquipmentInspectionPerationTaskEdit {
       (_$data['timeInterval'] as Input$IntervalInput?);
 
   String? get remarks => (_$data['remarks'] as String?);
+
+  String? get symbol => (_$data['symbol'] as String?);
 
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
@@ -116,6 +124,10 @@ class Variables$Mutation$EquipmentInspectionPerationTaskEdit {
     if (_$data.containsKey('remarks')) {
       final l$remarks = remarks;
       result$data['remarks'] = l$remarks;
+    }
+    if (_$data.containsKey('symbol')) {
+      final l$symbol = symbol;
+      result$data['symbol'] = l$symbol;
     }
     return result$data;
   }
@@ -198,6 +210,14 @@ class Variables$Mutation$EquipmentInspectionPerationTaskEdit {
     if (l$remarks != lOther$remarks) {
       return false;
     }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (_$data.containsKey('symbol') != other._$data.containsKey('symbol')) {
+      return false;
+    }
+    if (l$symbol != lOther$symbol) {
+      return false;
+    }
     return true;
   }
 
@@ -210,6 +230,7 @@ class Variables$Mutation$EquipmentInspectionPerationTaskEdit {
     final l$commencementDate = commencementDate;
     final l$timeInterval = timeInterval;
     final l$remarks = remarks;
+    final l$symbol = symbol;
     return Object.hashAll([
       l$mstrInspectionOperationTaskId,
       _$data.containsKey('mstrInspectionOperationId')
@@ -220,6 +241,7 @@ class Variables$Mutation$EquipmentInspectionPerationTaskEdit {
       _$data.containsKey('commencementDate') ? l$commencementDate : const {},
       _$data.containsKey('timeInterval') ? l$timeInterval : const {},
       _$data.containsKey('remarks') ? l$remarks : const {},
+      _$data.containsKey('symbol') ? l$symbol : const {},
     ]);
   }
 }
@@ -244,6 +266,7 @@ abstract class CopyWith$Variables$Mutation$EquipmentInspectionPerationTaskEdit<
     String? commencementDate,
     Input$IntervalInput? timeInterval,
     String? remarks,
+    String? symbol,
   });
 }
 
@@ -270,6 +293,7 @@ class _CopyWithImpl$Variables$Mutation$EquipmentInspectionPerationTaskEdit<TRes>
     Object? commencementDate = _undefined,
     Object? timeInterval = _undefined,
     Object? remarks = _undefined,
+    Object? symbol = _undefined,
   }) => _then(
     Variables$Mutation$EquipmentInspectionPerationTaskEdit._({
       ..._instance._$data,
@@ -287,6 +311,7 @@ class _CopyWithImpl$Variables$Mutation$EquipmentInspectionPerationTaskEdit<TRes>
       if (timeInterval != _undefined)
         'timeInterval': (timeInterval as Input$IntervalInput?),
       if (remarks != _undefined) 'remarks': (remarks as String?),
+      if (symbol != _undefined) 'symbol': (symbol as String?),
     }),
   );
 }
@@ -310,6 +335,7 @@ class _CopyWithStubImpl$Variables$Mutation$EquipmentInspectionPerationTaskEdit<
     String? commencementDate,
     Input$IntervalInput? timeInterval,
     String? remarks,
+    String? symbol,
   }) => _res;
 }
 
@@ -557,6 +583,15 @@ const documentNodeMutationEquipmentInspectionPerationTaskEdit = DocumentNode(
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'symbol')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
       ],
       directives: [],
       selectionSet: SelectionSetNode(
@@ -618,6 +653,12 @@ const documentNodeMutationEquipmentInspectionPerationTaskEdit = DocumentNode(
                             name: NameNode(value: 'remarks'),
                             value: VariableNode(
                               name: NameNode(value: 'remarks'),
+                            ),
+                          ),
+                          ObjectFieldNode(
+                            name: NameNode(value: 'symbol'),
+                            value: VariableNode(
+                              name: NameNode(value: 'symbol'),
                             ),
                           ),
                         ],
@@ -733,6 +774,13 @@ const documentNodeMutationEquipmentInspectionPerationTaskEdit = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'symbol'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -1243,6 +1291,7 @@ class Mutation$EquipmentInspectionPerationTaskEdit$updateMstrInspectionOperation
     this.commencementDate,
     required this.timeInterval,
     this.remarks,
+    this.symbol,
     this.mstrInspectionByMstrInspectionId,
     this.$__typename = 'MstrInspectionOperationTask',
   });
@@ -1258,6 +1307,7 @@ class Mutation$EquipmentInspectionPerationTaskEdit$updateMstrInspectionOperation
     final l$commencementDate = json['commencementDate'];
     final l$timeInterval = json['timeInterval'];
     final l$remarks = json['remarks'];
+    final l$symbol = json['symbol'];
     final l$mstrInspectionByMstrInspectionId =
         json['mstrInspectionByMstrInspectionId'];
     final l$$__typename = json['__typename'];
@@ -1273,6 +1323,7 @@ class Mutation$EquipmentInspectionPerationTaskEdit$updateMstrInspectionOperation
             (l$timeInterval as Map<String, dynamic>),
           ),
       remarks: (l$remarks as String?),
+      symbol: (l$symbol as String?),
       mstrInspectionByMstrInspectionId:
           l$mstrInspectionByMstrInspectionId == null
           ? null
@@ -1298,6 +1349,8 @@ class Mutation$EquipmentInspectionPerationTaskEdit$updateMstrInspectionOperation
 
   final String? remarks;
 
+  final String? symbol;
+
   final Mutation$EquipmentInspectionPerationTaskEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$mstrInspectionByMstrInspectionId?
   mstrInspectionByMstrInspectionId;
 
@@ -1320,6 +1373,8 @@ class Mutation$EquipmentInspectionPerationTaskEdit$updateMstrInspectionOperation
     _resultData['timeInterval'] = l$timeInterval.toJson();
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$symbol = symbol;
+    _resultData['symbol'] = l$symbol;
     final l$mstrInspectionByMstrInspectionId = mstrInspectionByMstrInspectionId;
     _resultData['mstrInspectionByMstrInspectionId'] =
         l$mstrInspectionByMstrInspectionId?.toJson();
@@ -1337,6 +1392,7 @@ class Mutation$EquipmentInspectionPerationTaskEdit$updateMstrInspectionOperation
     final l$commencementDate = commencementDate;
     final l$timeInterval = timeInterval;
     final l$remarks = remarks;
+    final l$symbol = symbol;
     final l$mstrInspectionByMstrInspectionId = mstrInspectionByMstrInspectionId;
     final l$$__typename = $__typename;
     return Object.hashAll([
@@ -1347,6 +1403,7 @@ class Mutation$EquipmentInspectionPerationTaskEdit$updateMstrInspectionOperation
       l$commencementDate,
       l$timeInterval,
       l$remarks,
+      l$symbol,
       l$mstrInspectionByMstrInspectionId,
       l$$__typename,
     ]);
@@ -1397,6 +1454,11 @@ class Mutation$EquipmentInspectionPerationTaskEdit$updateMstrInspectionOperation
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (l$symbol != lOther$symbol) {
       return false;
     }
     final l$mstrInspectionByMstrInspectionId = mstrInspectionByMstrInspectionId;
@@ -1453,6 +1515,7 @@ abstract class CopyWith$Mutation$EquipmentInspectionPerationTaskEdit$updateMstrI
     Mutation$EquipmentInspectionPerationTaskEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$timeInterval?
     timeInterval,
     String? remarks,
+    String? symbol,
     Mutation$EquipmentInspectionPerationTaskEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$mstrInspectionByMstrInspectionId?
     mstrInspectionByMstrInspectionId,
     String? $__typename,
@@ -1497,6 +1560,7 @@ class _CopyWithImpl$Mutation$EquipmentInspectionPerationTaskEdit$updateMstrInspe
     Object? commencementDate = _undefined,
     Object? timeInterval = _undefined,
     Object? remarks = _undefined,
+    Object? symbol = _undefined,
     Object? mstrInspectionByMstrInspectionId = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
@@ -1526,6 +1590,7 @@ class _CopyWithImpl$Mutation$EquipmentInspectionPerationTaskEdit$updateMstrInspe
           : (timeInterval
                 as Mutation$EquipmentInspectionPerationTaskEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$timeInterval),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       mstrInspectionByMstrInspectionId:
           mstrInspectionByMstrInspectionId == _undefined
           ? _instance.mstrInspectionByMstrInspectionId
@@ -1587,6 +1652,7 @@ class _CopyWithStubImpl$Mutation$EquipmentInspectionPerationTaskEdit$updateMstrI
     Mutation$EquipmentInspectionPerationTaskEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$timeInterval?
     timeInterval,
     String? remarks,
+    String? symbol,
     Mutation$EquipmentInspectionPerationTaskEdit$updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId$mstrInspectionOperationTask$mstrInspectionByMstrInspectionId?
     mstrInspectionByMstrInspectionId,
     String? $__typename,

@@ -10,6 +10,7 @@ class Variables$Mutation$OeprationEditerEdit {
     String? controlCode,
     String? detail,
     String? remarks,
+    String? symbol,
     required String sharedAppellationsId,
     required String nameSharedDictionaryId,
     String? nameJa,
@@ -25,6 +26,7 @@ class Variables$Mutation$OeprationEditerEdit {
     if (controlCode != null) r'controlCode': controlCode,
     if (detail != null) r'detail': detail,
     if (remarks != null) r'remarks': remarks,
+    if (symbol != null) r'symbol': symbol,
     r'sharedAppellationsId': sharedAppellationsId,
     r'nameSharedDictionaryId': nameSharedDictionaryId,
     if (nameJa != null) r'nameJa': nameJa,
@@ -56,6 +58,10 @@ class Variables$Mutation$OeprationEditerEdit {
     if (data.containsKey('remarks')) {
       final l$remarks = data['remarks'];
       result$data['remarks'] = (l$remarks as String?);
+    }
+    if (data.containsKey('symbol')) {
+      final l$symbol = data['symbol'];
+      result$data['symbol'] = (l$symbol as String?);
     }
     final l$sharedAppellationsId = data['sharedAppellationsId'];
     result$data['sharedAppellationsId'] = (l$sharedAppellationsId as String);
@@ -106,6 +112,8 @@ class Variables$Mutation$OeprationEditerEdit {
 
   String? get remarks => (_$data['remarks'] as String?);
 
+  String? get symbol => (_$data['symbol'] as String?);
+
   String get sharedAppellationsId => (_$data['sharedAppellationsId'] as String);
 
   String get nameSharedDictionaryId =>
@@ -144,6 +152,10 @@ class Variables$Mutation$OeprationEditerEdit {
     if (_$data.containsKey('remarks')) {
       final l$remarks = remarks;
       result$data['remarks'] = l$remarks;
+    }
+    if (_$data.containsKey('symbol')) {
+      final l$symbol = symbol;
+      result$data['symbol'] = l$symbol;
     }
     final l$sharedAppellationsId = sharedAppellationsId;
     result$data['sharedAppellationsId'] = l$sharedAppellationsId;
@@ -224,6 +236,14 @@ class Variables$Mutation$OeprationEditerEdit {
       return false;
     }
     if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (_$data.containsKey('symbol') != other._$data.containsKey('symbol')) {
+      return false;
+    }
+    if (l$symbol != lOther$symbol) {
       return false;
     }
     final l$sharedAppellationsId = sharedAppellationsId;
@@ -309,6 +329,7 @@ class Variables$Mutation$OeprationEditerEdit {
     final l$controlCode = controlCode;
     final l$detail = detail;
     final l$remarks = remarks;
+    final l$symbol = symbol;
     final l$sharedAppellationsId = sharedAppellationsId;
     final l$nameSharedDictionaryId = nameSharedDictionaryId;
     final l$nameJa = nameJa;
@@ -324,6 +345,7 @@ class Variables$Mutation$OeprationEditerEdit {
       _$data.containsKey('controlCode') ? l$controlCode : const {},
       _$data.containsKey('detail') ? l$detail : const {},
       _$data.containsKey('remarks') ? l$remarks : const {},
+      _$data.containsKey('symbol') ? l$symbol : const {},
       l$sharedAppellationsId,
       l$nameSharedDictionaryId,
       _$data.containsKey('nameJa') ? l$nameJa : const {},
@@ -352,6 +374,7 @@ abstract class CopyWith$Variables$Mutation$OeprationEditerEdit<TRes> {
     String? controlCode,
     String? detail,
     String? remarks,
+    String? symbol,
     String? sharedAppellationsId,
     String? nameSharedDictionaryId,
     String? nameJa,
@@ -383,6 +406,7 @@ class _CopyWithImpl$Variables$Mutation$OeprationEditerEdit<TRes>
     Object? controlCode = _undefined,
     Object? detail = _undefined,
     Object? remarks = _undefined,
+    Object? symbol = _undefined,
     Object? sharedAppellationsId = _undefined,
     Object? nameSharedDictionaryId = _undefined,
     Object? nameJa = _undefined,
@@ -401,6 +425,7 @@ class _CopyWithImpl$Variables$Mutation$OeprationEditerEdit<TRes>
       if (controlCode != _undefined) 'controlCode': (controlCode as String?),
       if (detail != _undefined) 'detail': (detail as String?),
       if (remarks != _undefined) 'remarks': (remarks as String?),
+      if (symbol != _undefined) 'symbol': (symbol as String?),
       if (sharedAppellationsId != _undefined && sharedAppellationsId != null)
         'sharedAppellationsId': (sharedAppellationsId as String),
       if (nameSharedDictionaryId != _undefined &&
@@ -436,6 +461,7 @@ class _CopyWithStubImpl$Variables$Mutation$OeprationEditerEdit<TRes>
     String? controlCode,
     String? detail,
     String? remarks,
+    String? symbol,
     String? sharedAppellationsId,
     String? nameSharedDictionaryId,
     String? nameJa,
@@ -653,6 +679,15 @@ const documentNodeMutationOeprationEditerEdit = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'symbol')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'sharedAppellationsId')),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
@@ -774,6 +809,12 @@ const documentNodeMutationOeprationEditerEdit = DocumentNode(
                             name: NameNode(value: 'remarks'),
                             value: VariableNode(
                               name: NameNode(value: 'remarks'),
+                            ),
+                          ),
+                          ObjectFieldNode(
+                            name: NameNode(value: 'symbol'),
+                            value: VariableNode(
+                              name: NameNode(value: 'symbol'),
                             ),
                           ),
                           ObjectFieldNode(
@@ -1045,6 +1086,13 @@ const documentNodeMutationOeprationEditerEdit = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'symbol'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -1757,6 +1805,7 @@ class Mutation$OeprationEditerEdit$updateMstrOperationByMstrOperationId$mstrOper
     this.controlCode,
     this.detail,
     this.remarks,
+    this.symbol,
     required this.mstrOperationTasksByMstrOperationId,
     this.sharedAppellationBySharedAppellationsId,
     this.$__typename = 'MstrOperation',
@@ -1769,6 +1818,7 @@ class Mutation$OeprationEditerEdit$updateMstrOperationByMstrOperationId$mstrOper
     final l$controlCode = json['controlCode'];
     final l$detail = json['detail'];
     final l$remarks = json['remarks'];
+    final l$symbol = json['symbol'];
     final l$mstrOperationTasksByMstrOperationId =
         json['mstrOperationTasksByMstrOperationId'];
     final l$sharedAppellationBySharedAppellationsId =
@@ -1779,6 +1829,7 @@ class Mutation$OeprationEditerEdit$updateMstrOperationByMstrOperationId$mstrOper
       controlCode: (l$controlCode as String?),
       detail: (l$detail as String?),
       remarks: (l$remarks as String?),
+      symbol: (l$symbol as String?),
       mstrOperationTasksByMstrOperationId:
           Mutation$OeprationEditerEdit$updateMstrOperationByMstrOperationId$mstrOperation$mstrOperationTasksByMstrOperationId.fromJson(
             (l$mstrOperationTasksByMstrOperationId as Map<String, dynamic>),
@@ -1802,6 +1853,8 @@ class Mutation$OeprationEditerEdit$updateMstrOperationByMstrOperationId$mstrOper
 
   final String? remarks;
 
+  final String? symbol;
+
   final Mutation$OeprationEditerEdit$updateMstrOperationByMstrOperationId$mstrOperation$mstrOperationTasksByMstrOperationId
   mstrOperationTasksByMstrOperationId;
 
@@ -1820,6 +1873,8 @@ class Mutation$OeprationEditerEdit$updateMstrOperationByMstrOperationId$mstrOper
     _resultData['detail'] = l$detail;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$symbol = symbol;
+    _resultData['symbol'] = l$symbol;
     final l$mstrOperationTasksByMstrOperationId =
         mstrOperationTasksByMstrOperationId;
     _resultData['mstrOperationTasksByMstrOperationId'] =
@@ -1839,6 +1894,7 @@ class Mutation$OeprationEditerEdit$updateMstrOperationByMstrOperationId$mstrOper
     final l$controlCode = controlCode;
     final l$detail = detail;
     final l$remarks = remarks;
+    final l$symbol = symbol;
     final l$mstrOperationTasksByMstrOperationId =
         mstrOperationTasksByMstrOperationId;
     final l$sharedAppellationBySharedAppellationsId =
@@ -1849,6 +1905,7 @@ class Mutation$OeprationEditerEdit$updateMstrOperationByMstrOperationId$mstrOper
       l$controlCode,
       l$detail,
       l$remarks,
+      l$symbol,
       l$mstrOperationTasksByMstrOperationId,
       l$sharedAppellationBySharedAppellationsId,
       l$$__typename,
@@ -1883,6 +1940,11 @@ class Mutation$OeprationEditerEdit$updateMstrOperationByMstrOperationId$mstrOper
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (l$symbol != lOther$symbol) {
       return false;
     }
     final l$mstrOperationTasksByMstrOperationId =
@@ -1944,6 +2006,7 @@ abstract class CopyWith$Mutation$OeprationEditerEdit$updateMstrOperationByMstrOp
     String? controlCode,
     String? detail,
     String? remarks,
+    String? symbol,
     Mutation$OeprationEditerEdit$updateMstrOperationByMstrOperationId$mstrOperation$mstrOperationTasksByMstrOperationId?
     mstrOperationTasksByMstrOperationId,
     Mutation$OeprationEditerEdit$updateMstrOperationByMstrOperationId$mstrOperation$sharedAppellationBySharedAppellationsId?
@@ -1987,6 +2050,7 @@ class _CopyWithImpl$Mutation$OeprationEditerEdit$updateMstrOperationByMstrOperat
     Object? controlCode = _undefined,
     Object? detail = _undefined,
     Object? remarks = _undefined,
+    Object? symbol = _undefined,
     Object? mstrOperationTasksByMstrOperationId = _undefined,
     Object? sharedAppellationBySharedAppellationsId = _undefined,
     Object? $__typename = _undefined,
@@ -2000,6 +2064,7 @@ class _CopyWithImpl$Mutation$OeprationEditerEdit$updateMstrOperationByMstrOperat
           : (controlCode as String?),
       detail: detail == _undefined ? _instance.detail : (detail as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       mstrOperationTasksByMstrOperationId:
           mstrOperationTasksByMstrOperationId == _undefined ||
               mstrOperationTasksByMstrOperationId == null
@@ -2064,6 +2129,7 @@ class _CopyWithStubImpl$Mutation$OeprationEditerEdit$updateMstrOperationByMstrOp
     String? controlCode,
     String? detail,
     String? remarks,
+    String? symbol,
     Mutation$OeprationEditerEdit$updateMstrOperationByMstrOperationId$mstrOperation$mstrOperationTasksByMstrOperationId?
     mstrOperationTasksByMstrOperationId,
     Mutation$OeprationEditerEdit$updateMstrOperationByMstrOperationId$mstrOperation$sharedAppellationBySharedAppellationsId?
@@ -2792,7 +2858,7 @@ class _CopyWithStubImpl$Mutation$OeprationEditerEdit$updateMstrOperationByMstrOp
 class Mutation$OeprationEditerEdit$updateMstrOperationByMstrOperationId$mstrOperation$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes {
   Mutation$OeprationEditerEdit$updateMstrOperationByMstrOperationId$mstrOperation$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes({
     required this.mstrItemOperationTaskId,
-    this.mstrItemId,
+    required this.mstrItemId,
     this.sequence,
     this.$__typename = 'MstrItemOperationTask',
   });
@@ -2806,7 +2872,7 @@ class Mutation$OeprationEditerEdit$updateMstrOperationByMstrOperationId$mstrOper
     final l$$__typename = json['__typename'];
     return Mutation$OeprationEditerEdit$updateMstrOperationByMstrOperationId$mstrOperation$mstrOperationTasksByMstrOperationId$nodes$mstrItemOperationTasksByMstrOperationTaskId$nodes(
       mstrItemOperationTaskId: (l$mstrItemOperationTaskId as String),
-      mstrItemId: (l$mstrItemId as String?),
+      mstrItemId: (l$mstrItemId as String),
       sequence: (l$sequence as int?),
       $__typename: (l$$__typename as String),
     );
@@ -2814,7 +2880,7 @@ class Mutation$OeprationEditerEdit$updateMstrOperationByMstrOperationId$mstrOper
 
   final String mstrItemOperationTaskId;
 
-  final String? mstrItemId;
+  final String mstrItemId;
 
   final int? sequence;
 
@@ -2952,9 +3018,9 @@ class _CopyWithImpl$Mutation$OeprationEditerEdit$updateMstrOperationByMstrOperat
               mstrItemOperationTaskId == null
           ? _instance.mstrItemOperationTaskId
           : (mstrItemOperationTaskId as String),
-      mstrItemId: mstrItemId == _undefined
+      mstrItemId: mstrItemId == _undefined || mstrItemId == null
           ? _instance.mstrItemId
-          : (mstrItemId as String?),
+          : (mstrItemId as String),
       sequence: sequence == _undefined
           ? _instance.sequence
           : (sequence as int?),

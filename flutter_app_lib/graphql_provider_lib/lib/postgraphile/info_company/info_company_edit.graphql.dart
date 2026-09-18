@@ -10,6 +10,7 @@ class Variables$Mutation$InfoCompanyEdit {
     String? webPage,
     String? ceo,
     String? remarks,
+    String? symbol,
     required String sharedAppellationsId,
     required String nameSharedDictionaryId,
     String? nameJa,
@@ -29,6 +30,7 @@ class Variables$Mutation$InfoCompanyEdit {
     if (webPage != null) r'webPage': webPage,
     if (ceo != null) r'ceo': ceo,
     if (remarks != null) r'remarks': remarks,
+    if (symbol != null) r'symbol': symbol,
     r'sharedAppellationsId': sharedAppellationsId,
     r'nameSharedDictionaryId': nameSharedDictionaryId,
     if (nameJa != null) r'nameJa': nameJa,
@@ -64,6 +66,10 @@ class Variables$Mutation$InfoCompanyEdit {
     if (data.containsKey('remarks')) {
       final l$remarks = data['remarks'];
       result$data['remarks'] = (l$remarks as String?);
+    }
+    if (data.containsKey('symbol')) {
+      final l$symbol = data['symbol'];
+      result$data['symbol'] = (l$symbol as String?);
     }
     final l$sharedAppellationsId = data['sharedAppellationsId'];
     result$data['sharedAppellationsId'] = (l$sharedAppellationsId as String);
@@ -129,6 +135,8 @@ class Variables$Mutation$InfoCompanyEdit {
 
   String? get remarks => (_$data['remarks'] as String?);
 
+  String? get symbol => (_$data['symbol'] as String?);
+
   String get sharedAppellationsId => (_$data['sharedAppellationsId'] as String);
 
   String get nameSharedDictionaryId =>
@@ -174,6 +182,10 @@ class Variables$Mutation$InfoCompanyEdit {
     if (_$data.containsKey('remarks')) {
       final l$remarks = remarks;
       result$data['remarks'] = l$remarks;
+    }
+    if (_$data.containsKey('symbol')) {
+      final l$symbol = symbol;
+      result$data['symbol'] = l$symbol;
     }
     final l$sharedAppellationsId = sharedAppellationsId;
     result$data['sharedAppellationsId'] = l$sharedAppellationsId;
@@ -268,6 +280,14 @@ class Variables$Mutation$InfoCompanyEdit {
       return false;
     }
     if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (_$data.containsKey('symbol') != other._$data.containsKey('symbol')) {
+      return false;
+    }
+    if (l$symbol != lOther$symbol) {
       return false;
     }
     final l$sharedAppellationsId = sharedAppellationsId;
@@ -386,6 +406,7 @@ class Variables$Mutation$InfoCompanyEdit {
     final l$webPage = webPage;
     final l$ceo = ceo;
     final l$remarks = remarks;
+    final l$symbol = symbol;
     final l$sharedAppellationsId = sharedAppellationsId;
     final l$nameSharedDictionaryId = nameSharedDictionaryId;
     final l$nameJa = nameJa;
@@ -405,6 +426,7 @@ class Variables$Mutation$InfoCompanyEdit {
       _$data.containsKey('webPage') ? l$webPage : const {},
       _$data.containsKey('ceo') ? l$ceo : const {},
       _$data.containsKey('remarks') ? l$remarks : const {},
+      _$data.containsKey('symbol') ? l$symbol : const {},
       l$sharedAppellationsId,
       l$nameSharedDictionaryId,
       _$data.containsKey('nameJa') ? l$nameJa : const {},
@@ -437,6 +459,7 @@ abstract class CopyWith$Variables$Mutation$InfoCompanyEdit<TRes> {
     String? webPage,
     String? ceo,
     String? remarks,
+    String? symbol,
     String? sharedAppellationsId,
     String? nameSharedDictionaryId,
     String? nameJa,
@@ -469,6 +492,7 @@ class _CopyWithImpl$Variables$Mutation$InfoCompanyEdit<TRes>
     Object? webPage = _undefined,
     Object? ceo = _undefined,
     Object? remarks = _undefined,
+    Object? symbol = _undefined,
     Object? sharedAppellationsId = _undefined,
     Object? nameSharedDictionaryId = _undefined,
     Object? nameJa = _undefined,
@@ -491,6 +515,7 @@ class _CopyWithImpl$Variables$Mutation$InfoCompanyEdit<TRes>
       if (webPage != _undefined) 'webPage': (webPage as String?),
       if (ceo != _undefined) 'ceo': (ceo as String?),
       if (remarks != _undefined) 'remarks': (remarks as String?),
+      if (symbol != _undefined) 'symbol': (symbol as String?),
       if (sharedAppellationsId != _undefined && sharedAppellationsId != null)
         'sharedAppellationsId': (sharedAppellationsId as String),
       if (nameSharedDictionaryId != _undefined &&
@@ -529,6 +554,7 @@ class _CopyWithStubImpl$Variables$Mutation$InfoCompanyEdit<TRes>
     String? webPage,
     String? ceo,
     String? remarks,
+    String? symbol,
     String? sharedAppellationsId,
     String? nameSharedDictionaryId,
     String? nameJa,
@@ -738,6 +764,15 @@ const documentNodeMutationInfoCompanyEdit = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'symbol')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'sharedAppellationsId')),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
@@ -891,6 +926,12 @@ const documentNodeMutationInfoCompanyEdit = DocumentNode(
                             name: NameNode(value: 'remarks'),
                             value: VariableNode(
                               name: NameNode(value: 'remarks'),
+                            ),
+                          ),
+                          ObjectFieldNode(
+                            name: NameNode(value: 'symbol'),
+                            value: VariableNode(
+                              name: NameNode(value: 'symbol'),
                             ),
                           ),
                           ObjectFieldNode(
@@ -1177,6 +1218,13 @@ const documentNodeMutationInfoCompanyEdit = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'symbol'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -1773,6 +1821,7 @@ class Mutation$InfoCompanyEdit$updateInfoCompanyByInfoCompanyId$infoCompany {
     this.webPage,
     this.ceo,
     this.remarks,
+    this.symbol,
     this.sharedAppellationBySharedAppellationsId,
     this.infoAddressByInfoAddressId,
     this.$__typename = 'InfoCompany',
@@ -1785,6 +1834,7 @@ class Mutation$InfoCompanyEdit$updateInfoCompanyByInfoCompanyId$infoCompany {
     final l$webPage = json['webPage'];
     final l$ceo = json['ceo'];
     final l$remarks = json['remarks'];
+    final l$symbol = json['symbol'];
     final l$sharedAppellationBySharedAppellationsId =
         json['sharedAppellationBySharedAppellationsId'];
     final l$infoAddressByInfoAddressId = json['infoAddressByInfoAddressId'];
@@ -1794,6 +1844,7 @@ class Mutation$InfoCompanyEdit$updateInfoCompanyByInfoCompanyId$infoCompany {
       webPage: (l$webPage as String?),
       ceo: (l$ceo as String?),
       remarks: (l$remarks as String?),
+      symbol: (l$symbol as String?),
       sharedAppellationBySharedAppellationsId:
           l$sharedAppellationBySharedAppellationsId == null
           ? null
@@ -1818,6 +1869,8 @@ class Mutation$InfoCompanyEdit$updateInfoCompanyByInfoCompanyId$infoCompany {
 
   final String? remarks;
 
+  final String? symbol;
+
   final Mutation$InfoCompanyEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId?
   sharedAppellationBySharedAppellationsId;
 
@@ -1836,6 +1889,8 @@ class Mutation$InfoCompanyEdit$updateInfoCompanyByInfoCompanyId$infoCompany {
     _resultData['ceo'] = l$ceo;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$symbol = symbol;
+    _resultData['symbol'] = l$symbol;
     final l$sharedAppellationBySharedAppellationsId =
         sharedAppellationBySharedAppellationsId;
     _resultData['sharedAppellationBySharedAppellationsId'] =
@@ -1854,6 +1909,7 @@ class Mutation$InfoCompanyEdit$updateInfoCompanyByInfoCompanyId$infoCompany {
     final l$webPage = webPage;
     final l$ceo = ceo;
     final l$remarks = remarks;
+    final l$symbol = symbol;
     final l$sharedAppellationBySharedAppellationsId =
         sharedAppellationBySharedAppellationsId;
     final l$infoAddressByInfoAddressId = infoAddressByInfoAddressId;
@@ -1863,6 +1919,7 @@ class Mutation$InfoCompanyEdit$updateInfoCompanyByInfoCompanyId$infoCompany {
       l$webPage,
       l$ceo,
       l$remarks,
+      l$symbol,
       l$sharedAppellationBySharedAppellationsId,
       l$infoAddressByInfoAddressId,
       l$$__typename,
@@ -1897,6 +1954,11 @@ class Mutation$InfoCompanyEdit$updateInfoCompanyByInfoCompanyId$infoCompany {
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (l$symbol != lOther$symbol) {
       return false;
     }
     final l$sharedAppellationBySharedAppellationsId =
@@ -1954,6 +2016,7 @@ abstract class CopyWith$Mutation$InfoCompanyEdit$updateInfoCompanyByInfoCompanyI
     String? webPage,
     String? ceo,
     String? remarks,
+    String? symbol,
     Mutation$InfoCompanyEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId?
     sharedAppellationBySharedAppellationsId,
     Mutation$InfoCompanyEdit$updateInfoCompanyByInfoCompanyId$infoCompany$infoAddressByInfoAddressId?
@@ -1997,6 +2060,7 @@ class _CopyWithImpl$Mutation$InfoCompanyEdit$updateInfoCompanyByInfoCompanyId$in
     Object? webPage = _undefined,
     Object? ceo = _undefined,
     Object? remarks = _undefined,
+    Object? symbol = _undefined,
     Object? sharedAppellationBySharedAppellationsId = _undefined,
     Object? infoAddressByInfoAddressId = _undefined,
     Object? $__typename = _undefined,
@@ -2008,6 +2072,7 @@ class _CopyWithImpl$Mutation$InfoCompanyEdit$updateInfoCompanyByInfoCompanyId$in
       webPage: webPage == _undefined ? _instance.webPage : (webPage as String?),
       ceo: ceo == _undefined ? _instance.ceo : (ceo as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       sharedAppellationBySharedAppellationsId:
           sharedAppellationBySharedAppellationsId == _undefined
           ? _instance.sharedAppellationBySharedAppellationsId
@@ -2074,6 +2139,7 @@ class _CopyWithStubImpl$Mutation$InfoCompanyEdit$updateInfoCompanyByInfoCompanyI
     String? webPage,
     String? ceo,
     String? remarks,
+    String? symbol,
     Mutation$InfoCompanyEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId?
     sharedAppellationBySharedAppellationsId,
     Mutation$InfoCompanyEdit$updateInfoCompanyByInfoCompanyId$infoCompany$infoAddressByInfoAddressId?

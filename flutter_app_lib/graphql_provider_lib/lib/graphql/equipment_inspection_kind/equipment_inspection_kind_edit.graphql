@@ -11,6 +11,7 @@ mutation EquipmentInspectionKindEdit(
   $mstrInspectionKindId: UUID!
   $code: String
   $remarks: String
+  $symbol: String
   $sharedAppellationsId: UUID!
   $nameSharedDictionaryId: UUID!
   $nameJa: String
@@ -28,6 +29,7 @@ mutation EquipmentInspectionKindEdit(
       mstrInspectionKindPatch: {
         code: $code
         remarks: $remarks
+        symbol: $symbol
 
         # --- 点検整備区分名 / 読み / 略称(共通名前仕様、shared_appellations経由でshared_dictionaryへ入れ子更新) ---
         sharedAppellationToSharedAppellationsId: {
@@ -62,6 +64,7 @@ mutation EquipmentInspectionKindEdit(
       mstrInspectionKindId
       code
       remarks
+      symbol
       sharedAppellationBySharedAppellationsId {
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {

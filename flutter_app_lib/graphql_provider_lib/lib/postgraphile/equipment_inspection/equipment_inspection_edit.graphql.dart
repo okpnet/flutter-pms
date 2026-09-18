@@ -16,6 +16,7 @@ class Variables$Mutation$EquipmentInspectionEdit {
     String? inspectionFormulaId,
     String? mstrItemId,
     String? remarks,
+    String? symbol,
   }) => Variables$Mutation$EquipmentInspectionEdit._({
     r'mstrInspectionId': mstrInspectionId,
     if (code != null) r'code': code,
@@ -27,6 +28,7 @@ class Variables$Mutation$EquipmentInspectionEdit {
       r'inspectionFormulaId': inspectionFormulaId,
     if (mstrItemId != null) r'mstrItemId': mstrItemId,
     if (remarks != null) r'remarks': remarks,
+    if (symbol != null) r'symbol': symbol,
   });
 
   Variables$Mutation$EquipmentInspectionEdit._(this._$data);
@@ -73,6 +75,10 @@ class Variables$Mutation$EquipmentInspectionEdit {
       final l$remarks = data['remarks'];
       result$data['remarks'] = (l$remarks as String?);
     }
+    if (data.containsKey('symbol')) {
+      final l$symbol = data['symbol'];
+      result$data['symbol'] = (l$symbol as String?);
+    }
     return Variables$Mutation$EquipmentInspectionEdit._(result$data);
   }
 
@@ -96,6 +102,8 @@ class Variables$Mutation$EquipmentInspectionEdit {
   String? get mstrItemId => (_$data['mstrItemId'] as String?);
 
   String? get remarks => (_$data['remarks'] as String?);
+
+  String? get symbol => (_$data['symbol'] as String?);
 
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
@@ -132,6 +140,10 @@ class Variables$Mutation$EquipmentInspectionEdit {
     if (_$data.containsKey('remarks')) {
       final l$remarks = remarks;
       result$data['remarks'] = l$remarks;
+    }
+    if (_$data.containsKey('symbol')) {
+      final l$symbol = symbol;
+      result$data['symbol'] = l$symbol;
     }
     return result$data;
   }
@@ -226,6 +238,14 @@ class Variables$Mutation$EquipmentInspectionEdit {
     if (l$remarks != lOther$remarks) {
       return false;
     }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (_$data.containsKey('symbol') != other._$data.containsKey('symbol')) {
+      return false;
+    }
+    if (l$symbol != lOther$symbol) {
+      return false;
+    }
     return true;
   }
 
@@ -240,6 +260,7 @@ class Variables$Mutation$EquipmentInspectionEdit {
     final l$inspectionFormulaId = inspectionFormulaId;
     final l$mstrItemId = mstrItemId;
     final l$remarks = remarks;
+    final l$symbol = symbol;
     return Object.hashAll([
       l$mstrInspectionId,
       _$data.containsKey('code') ? l$code : const {},
@@ -254,6 +275,7 @@ class Variables$Mutation$EquipmentInspectionEdit {
           : const {},
       _$data.containsKey('mstrItemId') ? l$mstrItemId : const {},
       _$data.containsKey('remarks') ? l$remarks : const {},
+      _$data.containsKey('symbol') ? l$symbol : const {},
     ]);
   }
 }
@@ -277,6 +299,7 @@ abstract class CopyWith$Variables$Mutation$EquipmentInspectionEdit<TRes> {
     String? inspectionFormulaId,
     String? mstrItemId,
     String? remarks,
+    String? symbol,
   });
 }
 
@@ -303,6 +326,7 @@ class _CopyWithImpl$Variables$Mutation$EquipmentInspectionEdit<TRes>
     Object? inspectionFormulaId = _undefined,
     Object? mstrItemId = _undefined,
     Object? remarks = _undefined,
+    Object? symbol = _undefined,
   }) => _then(
     Variables$Mutation$EquipmentInspectionEdit._({
       ..._instance._$data,
@@ -320,6 +344,7 @@ class _CopyWithImpl$Variables$Mutation$EquipmentInspectionEdit<TRes>
         'inspectionFormulaId': (inspectionFormulaId as String?),
       if (mstrItemId != _undefined) 'mstrItemId': (mstrItemId as String?),
       if (remarks != _undefined) 'remarks': (remarks as String?),
+      if (symbol != _undefined) 'symbol': (symbol as String?),
     }),
   );
 }
@@ -340,6 +365,7 @@ class _CopyWithStubImpl$Variables$Mutation$EquipmentInspectionEdit<TRes>
     String? inspectionFormulaId,
     String? mstrItemId,
     String? remarks,
+    String? symbol,
   }) => _res;
 }
 
@@ -580,6 +606,15 @@ const documentNodeMutationEquipmentInspectionEdit = DocumentNode(
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'symbol')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
       ],
       directives: [],
       selectionSet: SelectionSetNode(
@@ -646,6 +681,12 @@ const documentNodeMutationEquipmentInspectionEdit = DocumentNode(
                             name: NameNode(value: 'remarks'),
                             value: VariableNode(
                               name: NameNode(value: 'remarks'),
+                            ),
+                          ),
+                          ObjectFieldNode(
+                            name: NameNode(value: 'symbol'),
+                            value: VariableNode(
+                              name: NameNode(value: 'symbol'),
                             ),
                           ),
                         ],
@@ -775,6 +816,13 @@ const documentNodeMutationEquipmentInspectionEdit = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'symbol'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -1221,6 +1269,7 @@ class Mutation$EquipmentInspectionEdit$updateMstrInspectionByMstrInspectionId$ms
     this.inspectionFormulaId,
     required this.mstrItemId,
     this.remarks,
+    this.symbol,
     this.$__typename = 'MstrInspection',
   });
 
@@ -1236,6 +1285,7 @@ class Mutation$EquipmentInspectionEdit$updateMstrInspectionByMstrInspectionId$ms
     final l$inspectionFormulaId = json['inspectionFormulaId'];
     final l$mstrItemId = json['mstrItemId'];
     final l$remarks = json['remarks'];
+    final l$symbol = json['symbol'];
     final l$$__typename = json['__typename'];
     return Mutation$EquipmentInspectionEdit$updateMstrInspectionByMstrInspectionId$mstrInspection(
       mstrInspectionId: (l$mstrInspectionId as String),
@@ -1251,6 +1301,7 @@ class Mutation$EquipmentInspectionEdit$updateMstrInspectionByMstrInspectionId$ms
       inspectionFormulaId: (l$inspectionFormulaId as String?),
       mstrItemId: (l$mstrItemId as String),
       remarks: (l$remarks as String?),
+      symbol: (l$symbol as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -1274,6 +1325,8 @@ class Mutation$EquipmentInspectionEdit$updateMstrInspectionByMstrInspectionId$ms
 
   final String? remarks;
 
+  final String? symbol;
+
   final String $__typename;
 
   Map<String, dynamic> toJson() {
@@ -1296,6 +1349,8 @@ class Mutation$EquipmentInspectionEdit$updateMstrInspectionByMstrInspectionId$ms
     _resultData['mstrItemId'] = l$mstrItemId;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$symbol = symbol;
+    _resultData['symbol'] = l$symbol;
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -1312,6 +1367,7 @@ class Mutation$EquipmentInspectionEdit$updateMstrInspectionByMstrInspectionId$ms
     final l$inspectionFormulaId = inspectionFormulaId;
     final l$mstrItemId = mstrItemId;
     final l$remarks = remarks;
+    final l$symbol = symbol;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$mstrInspectionId,
@@ -1323,6 +1379,7 @@ class Mutation$EquipmentInspectionEdit$updateMstrInspectionByMstrInspectionId$ms
       l$inspectionFormulaId,
       l$mstrItemId,
       l$remarks,
+      l$symbol,
       l$$__typename,
     ]);
   }
@@ -1382,6 +1439,11 @@ class Mutation$EquipmentInspectionEdit$updateMstrInspectionByMstrInspectionId$ms
     if (l$remarks != lOther$remarks) {
       return false;
     }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (l$symbol != lOther$symbol) {
+      return false;
+    }
     final l$$__typename = $__typename;
     final lOther$$__typename = other.$__typename;
     if (l$$__typename != lOther$$__typename) {
@@ -1431,6 +1493,7 @@ abstract class CopyWith$Mutation$EquipmentInspectionEdit$updateMstrInspectionByM
     String? inspectionFormulaId,
     String? mstrItemId,
     String? remarks,
+    String? symbol,
     String? $__typename,
   });
   CopyWith$Mutation$EquipmentInspectionEdit$updateMstrInspectionByMstrInspectionId$mstrInspection$timeInterval<
@@ -1471,6 +1534,7 @@ class _CopyWithImpl$Mutation$EquipmentInspectionEdit$updateMstrInspectionByMstrI
     Object? inspectionFormulaId = _undefined,
     Object? mstrItemId = _undefined,
     Object? remarks = _undefined,
+    Object? symbol = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Mutation$EquipmentInspectionEdit$updateMstrInspectionByMstrInspectionId$mstrInspection(
@@ -1501,6 +1565,7 @@ class _CopyWithImpl$Mutation$EquipmentInspectionEdit$updateMstrInspectionByMstrI
           ? _instance.mstrItemId
           : (mstrItemId as String),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -1547,6 +1612,7 @@ class _CopyWithStubImpl$Mutation$EquipmentInspectionEdit$updateMstrInspectionByM
     String? inspectionFormulaId,
     String? mstrItemId,
     String? remarks,
+    String? symbol,
     String? $__typename,
   }) => _res;
 

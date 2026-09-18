@@ -9,6 +9,7 @@ class Variables$Mutation$InfoPostionEdit {
     required String infoPositionId,
     int? priority,
     String? remarks,
+    String? symbol,
     required String sharedAppellationsId,
     required String nameSharedDictionaryId,
     String? nameJa,
@@ -23,6 +24,7 @@ class Variables$Mutation$InfoPostionEdit {
     r'infoPositionId': infoPositionId,
     if (priority != null) r'priority': priority,
     if (remarks != null) r'remarks': remarks,
+    if (symbol != null) r'symbol': symbol,
     r'sharedAppellationsId': sharedAppellationsId,
     r'nameSharedDictionaryId': nameSharedDictionaryId,
     if (nameJa != null) r'nameJa': nameJa,
@@ -50,6 +52,10 @@ class Variables$Mutation$InfoPostionEdit {
     if (data.containsKey('remarks')) {
       final l$remarks = data['remarks'];
       result$data['remarks'] = (l$remarks as String?);
+    }
+    if (data.containsKey('symbol')) {
+      final l$symbol = data['symbol'];
+      result$data['symbol'] = (l$symbol as String?);
     }
     final l$sharedAppellationsId = data['sharedAppellationsId'];
     result$data['sharedAppellationsId'] = (l$sharedAppellationsId as String);
@@ -98,6 +104,8 @@ class Variables$Mutation$InfoPostionEdit {
 
   String? get remarks => (_$data['remarks'] as String?);
 
+  String? get symbol => (_$data['symbol'] as String?);
+
   String get sharedAppellationsId => (_$data['sharedAppellationsId'] as String);
 
   String get nameSharedDictionaryId =>
@@ -132,6 +140,10 @@ class Variables$Mutation$InfoPostionEdit {
     if (_$data.containsKey('remarks')) {
       final l$remarks = remarks;
       result$data['remarks'] = l$remarks;
+    }
+    if (_$data.containsKey('symbol')) {
+      final l$symbol = symbol;
+      result$data['symbol'] = l$symbol;
     }
     final l$sharedAppellationsId = sharedAppellationsId;
     result$data['sharedAppellationsId'] = l$sharedAppellationsId;
@@ -203,6 +215,14 @@ class Variables$Mutation$InfoPostionEdit {
       return false;
     }
     if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (_$data.containsKey('symbol') != other._$data.containsKey('symbol')) {
+      return false;
+    }
+    if (l$symbol != lOther$symbol) {
       return false;
     }
     final l$sharedAppellationsId = sharedAppellationsId;
@@ -287,6 +307,7 @@ class Variables$Mutation$InfoPostionEdit {
     final l$infoPositionId = infoPositionId;
     final l$priority = priority;
     final l$remarks = remarks;
+    final l$symbol = symbol;
     final l$sharedAppellationsId = sharedAppellationsId;
     final l$nameSharedDictionaryId = nameSharedDictionaryId;
     final l$nameJa = nameJa;
@@ -301,6 +322,7 @@ class Variables$Mutation$InfoPostionEdit {
       l$infoPositionId,
       _$data.containsKey('priority') ? l$priority : const {},
       _$data.containsKey('remarks') ? l$remarks : const {},
+      _$data.containsKey('symbol') ? l$symbol : const {},
       l$sharedAppellationsId,
       l$nameSharedDictionaryId,
       _$data.containsKey('nameJa') ? l$nameJa : const {},
@@ -328,6 +350,7 @@ abstract class CopyWith$Variables$Mutation$InfoPostionEdit<TRes> {
     String? infoPositionId,
     int? priority,
     String? remarks,
+    String? symbol,
     String? sharedAppellationsId,
     String? nameSharedDictionaryId,
     String? nameJa,
@@ -355,6 +378,7 @@ class _CopyWithImpl$Variables$Mutation$InfoPostionEdit<TRes>
     Object? infoPositionId = _undefined,
     Object? priority = _undefined,
     Object? remarks = _undefined,
+    Object? symbol = _undefined,
     Object? sharedAppellationsId = _undefined,
     Object? nameSharedDictionaryId = _undefined,
     Object? nameJa = _undefined,
@@ -372,6 +396,7 @@ class _CopyWithImpl$Variables$Mutation$InfoPostionEdit<TRes>
         'infoPositionId': (infoPositionId as String),
       if (priority != _undefined) 'priority': (priority as int?),
       if (remarks != _undefined) 'remarks': (remarks as String?),
+      if (symbol != _undefined) 'symbol': (symbol as String?),
       if (sharedAppellationsId != _undefined && sharedAppellationsId != null)
         'sharedAppellationsId': (sharedAppellationsId as String),
       if (nameSharedDictionaryId != _undefined &&
@@ -406,6 +431,7 @@ class _CopyWithStubImpl$Variables$Mutation$InfoPostionEdit<TRes>
     String? infoPositionId,
     int? priority,
     String? remarks,
+    String? symbol,
     String? sharedAppellationsId,
     String? nameSharedDictionaryId,
     String? nameJa,
@@ -605,6 +631,15 @@ const documentNodeMutationInfoPostionEdit = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'symbol')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'sharedAppellationsId')),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
@@ -720,6 +755,12 @@ const documentNodeMutationInfoPostionEdit = DocumentNode(
                             name: NameNode(value: 'remarks'),
                             value: VariableNode(
                               name: NameNode(value: 'remarks'),
+                            ),
+                          ),
+                          ObjectFieldNode(
+                            name: NameNode(value: 'symbol'),
+                            value: VariableNode(
+                              name: NameNode(value: 'symbol'),
                             ),
                           ),
                           ObjectFieldNode(
@@ -984,6 +1025,13 @@ const documentNodeMutationInfoPostionEdit = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'symbol'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -1556,6 +1604,7 @@ class Mutation$InfoPostionEdit$updateInfoPositionByInfoPositionId$infoPosition {
     required this.infoPositionId,
     required this.priority,
     this.remarks,
+    this.symbol,
     this.sharedAppellationBySharedAppellationsId,
     this.$__typename = 'InfoPosition',
   });
@@ -1566,6 +1615,7 @@ class Mutation$InfoPostionEdit$updateInfoPositionByInfoPositionId$infoPosition {
     final l$infoPositionId = json['infoPositionId'];
     final l$priority = json['priority'];
     final l$remarks = json['remarks'];
+    final l$symbol = json['symbol'];
     final l$sharedAppellationBySharedAppellationsId =
         json['sharedAppellationBySharedAppellationsId'];
     final l$$__typename = json['__typename'];
@@ -1573,6 +1623,7 @@ class Mutation$InfoPostionEdit$updateInfoPositionByInfoPositionId$infoPosition {
       infoPositionId: (l$infoPositionId as String),
       priority: (l$priority as int),
       remarks: (l$remarks as String?),
+      symbol: (l$symbol as String?),
       sharedAppellationBySharedAppellationsId:
           l$sharedAppellationBySharedAppellationsId == null
           ? null
@@ -1590,6 +1641,8 @@ class Mutation$InfoPostionEdit$updateInfoPositionByInfoPositionId$infoPosition {
 
   final String? remarks;
 
+  final String? symbol;
+
   final Mutation$InfoPostionEdit$updateInfoPositionByInfoPositionId$infoPosition$sharedAppellationBySharedAppellationsId?
   sharedAppellationBySharedAppellationsId;
 
@@ -1603,6 +1656,8 @@ class Mutation$InfoPostionEdit$updateInfoPositionByInfoPositionId$infoPosition {
     _resultData['priority'] = l$priority;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$symbol = symbol;
+    _resultData['symbol'] = l$symbol;
     final l$sharedAppellationBySharedAppellationsId =
         sharedAppellationBySharedAppellationsId;
     _resultData['sharedAppellationBySharedAppellationsId'] =
@@ -1617,6 +1672,7 @@ class Mutation$InfoPostionEdit$updateInfoPositionByInfoPositionId$infoPosition {
     final l$infoPositionId = infoPositionId;
     final l$priority = priority;
     final l$remarks = remarks;
+    final l$symbol = symbol;
     final l$sharedAppellationBySharedAppellationsId =
         sharedAppellationBySharedAppellationsId;
     final l$$__typename = $__typename;
@@ -1624,6 +1680,7 @@ class Mutation$InfoPostionEdit$updateInfoPositionByInfoPositionId$infoPosition {
       l$infoPositionId,
       l$priority,
       l$remarks,
+      l$symbol,
       l$sharedAppellationBySharedAppellationsId,
       l$$__typename,
     ]);
@@ -1652,6 +1709,11 @@ class Mutation$InfoPostionEdit$updateInfoPositionByInfoPositionId$infoPosition {
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (l$symbol != lOther$symbol) {
       return false;
     }
     final l$sharedAppellationBySharedAppellationsId =
@@ -1703,6 +1765,7 @@ abstract class CopyWith$Mutation$InfoPostionEdit$updateInfoPositionByInfoPositio
     String? infoPositionId,
     int? priority,
     String? remarks,
+    String? symbol,
     Mutation$InfoPostionEdit$updateInfoPositionByInfoPositionId$infoPosition$sharedAppellationBySharedAppellationsId?
     sharedAppellationBySharedAppellationsId,
     String? $__typename,
@@ -1739,6 +1802,7 @@ class _CopyWithImpl$Mutation$InfoPostionEdit$updateInfoPositionByInfoPositionId$
     Object? infoPositionId = _undefined,
     Object? priority = _undefined,
     Object? remarks = _undefined,
+    Object? symbol = _undefined,
     Object? sharedAppellationBySharedAppellationsId = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
@@ -1750,6 +1814,7 @@ class _CopyWithImpl$Mutation$InfoPostionEdit$updateInfoPositionByInfoPositionId$
           ? _instance.priority
           : (priority as int),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       sharedAppellationBySharedAppellationsId:
           sharedAppellationBySharedAppellationsId == _undefined
           ? _instance.sharedAppellationBySharedAppellationsId
@@ -1795,6 +1860,7 @@ class _CopyWithStubImpl$Mutation$InfoPostionEdit$updateInfoPositionByInfoPositio
     String? infoPositionId,
     int? priority,
     String? remarks,
+    String? symbol,
     Mutation$InfoPostionEdit$updateInfoPositionByInfoPositionId$infoPosition$sharedAppellationBySharedAppellationsId?
     sharedAppellationBySharedAppellationsId,
     String? $__typename,

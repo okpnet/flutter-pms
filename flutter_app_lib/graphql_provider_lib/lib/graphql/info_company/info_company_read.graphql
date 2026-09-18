@@ -40,6 +40,8 @@ query InfoCompanyRead(
       webPage
       ceo
 
+      symbol
+
       # --- 共通項: remarks / update_at / remove ---------------------------------
       remarks
       updateAt

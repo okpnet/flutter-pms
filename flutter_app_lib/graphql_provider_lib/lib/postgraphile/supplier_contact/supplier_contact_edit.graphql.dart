@@ -12,6 +12,7 @@ class Variables$Mutation$SupplierContactEdit {
     String? mail,
     String? mstrShippingKindId,
     String? remarks,
+    String? symbol,
     required String officeAppellationsId,
     required String officeNameSharedDictionaryId,
     String? officeNameJa,
@@ -49,6 +50,7 @@ class Variables$Mutation$SupplierContactEdit {
     if (mail != null) r'mail': mail,
     if (mstrShippingKindId != null) r'mstrShippingKindId': mstrShippingKindId,
     if (remarks != null) r'remarks': remarks,
+    if (symbol != null) r'symbol': symbol,
     r'officeAppellationsId': officeAppellationsId,
     r'officeNameSharedDictionaryId': officeNameSharedDictionaryId,
     if (officeNameJa != null) r'officeNameJa': officeNameJa,
@@ -126,6 +128,10 @@ class Variables$Mutation$SupplierContactEdit {
     if (data.containsKey('remarks')) {
       final l$remarks = data['remarks'];
       result$data['remarks'] = (l$remarks as String?);
+    }
+    if (data.containsKey('symbol')) {
+      final l$symbol = data['symbol'];
+      result$data['symbol'] = (l$symbol as String?);
     }
     final l$officeAppellationsId = data['officeAppellationsId'];
     result$data['officeAppellationsId'] = (l$officeAppellationsId as String);
@@ -270,6 +276,8 @@ class Variables$Mutation$SupplierContactEdit {
 
   String? get remarks => (_$data['remarks'] as String?);
 
+  String? get symbol => (_$data['symbol'] as String?);
+
   String get officeAppellationsId => (_$data['officeAppellationsId'] as String);
 
   String get officeNameSharedDictionaryId =>
@@ -374,6 +382,10 @@ class Variables$Mutation$SupplierContactEdit {
     if (_$data.containsKey('remarks')) {
       final l$remarks = remarks;
       result$data['remarks'] = l$remarks;
+    }
+    if (_$data.containsKey('symbol')) {
+      final l$symbol = symbol;
+      result$data['symbol'] = l$symbol;
     }
     final l$officeAppellationsId = officeAppellationsId;
     result$data['officeAppellationsId'] = l$officeAppellationsId;
@@ -551,6 +563,14 @@ class Variables$Mutation$SupplierContactEdit {
       return false;
     }
     if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (_$data.containsKey('symbol') != other._$data.containsKey('symbol')) {
+      return false;
+    }
+    if (l$symbol != lOther$symbol) {
       return false;
     }
     final l$officeAppellationsId = officeAppellationsId;
@@ -812,6 +832,7 @@ class Variables$Mutation$SupplierContactEdit {
     final l$mail = mail;
     final l$mstrShippingKindId = mstrShippingKindId;
     final l$remarks = remarks;
+    final l$symbol = symbol;
     final l$officeAppellationsId = officeAppellationsId;
     final l$officeNameSharedDictionaryId = officeNameSharedDictionaryId;
     final l$officeNameJa = officeNameJa;
@@ -857,6 +878,7 @@ class Variables$Mutation$SupplierContactEdit {
           ? l$mstrShippingKindId
           : const {},
       _$data.containsKey('remarks') ? l$remarks : const {},
+      _$data.containsKey('symbol') ? l$symbol : const {},
       l$officeAppellationsId,
       l$officeNameSharedDictionaryId,
       _$data.containsKey('officeNameJa') ? l$officeNameJa : const {},
@@ -931,6 +953,7 @@ abstract class CopyWith$Variables$Mutation$SupplierContactEdit<TRes> {
     String? mail,
     String? mstrShippingKindId,
     String? remarks,
+    String? symbol,
     String? officeAppellationsId,
     String? officeNameSharedDictionaryId,
     String? officeNameJa,
@@ -984,6 +1007,7 @@ class _CopyWithImpl$Variables$Mutation$SupplierContactEdit<TRes>
     Object? mail = _undefined,
     Object? mstrShippingKindId = _undefined,
     Object? remarks = _undefined,
+    Object? symbol = _undefined,
     Object? officeAppellationsId = _undefined,
     Object? officeNameSharedDictionaryId = _undefined,
     Object? officeNameJa = _undefined,
@@ -1027,6 +1051,7 @@ class _CopyWithImpl$Variables$Mutation$SupplierContactEdit<TRes>
       if (mstrShippingKindId != _undefined)
         'mstrShippingKindId': (mstrShippingKindId as String?),
       if (remarks != _undefined) 'remarks': (remarks as String?),
+      if (symbol != _undefined) 'symbol': (symbol as String?),
       if (officeAppellationsId != _undefined && officeAppellationsId != null)
         'officeAppellationsId': (officeAppellationsId as String),
       if (officeNameSharedDictionaryId != _undefined &&
@@ -1124,6 +1149,7 @@ class _CopyWithStubImpl$Variables$Mutation$SupplierContactEdit<TRes>
     String? mail,
     String? mstrShippingKindId,
     String? remarks,
+    String? symbol,
     String? officeAppellationsId,
     String? officeNameSharedDictionaryId,
     String? officeNameJa,
@@ -1369,6 +1395,15 @@ const documentNodeMutationSupplierContactEdit = DocumentNode(
         ),
         VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'remarks')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'symbol')),
           type: NamedTypeNode(
             name: NameNode(value: 'String'),
             isNonNull: false,
@@ -1698,6 +1733,12 @@ const documentNodeMutationSupplierContactEdit = DocumentNode(
                             name: NameNode(value: 'remarks'),
                             value: VariableNode(
                               name: NameNode(value: 'remarks'),
+                            ),
+                          ),
+                          ObjectFieldNode(
+                            name: NameNode(value: 'symbol'),
+                            value: VariableNode(
+                              name: NameNode(value: 'symbol'),
                             ),
                           ),
                           ObjectFieldNode(
@@ -2444,6 +2485,13 @@ const documentNodeMutationSupplierContactEdit = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'symbol'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -3333,6 +3381,7 @@ class Mutation$SupplierContactEdit$updateMstrStakeholderContactByMstrStakeholder
     this.mail,
     this.mstrShippingKindId,
     this.remarks,
+    this.symbol,
     this.sharedAppellationByOfficeAppellationsId,
     this.sharedAppellationByDepartmentAppellationsId,
     this.sharedAppellationByContactPersonAppellationsId,
@@ -3348,6 +3397,7 @@ class Mutation$SupplierContactEdit$updateMstrStakeholderContactByMstrStakeholder
     final l$mail = json['mail'];
     final l$mstrShippingKindId = json['mstrShippingKindId'];
     final l$remarks = json['remarks'];
+    final l$symbol = json['symbol'];
     final l$sharedAppellationByOfficeAppellationsId =
         json['sharedAppellationByOfficeAppellationsId'];
     final l$sharedAppellationByDepartmentAppellationsId =
@@ -3362,6 +3412,7 @@ class Mutation$SupplierContactEdit$updateMstrStakeholderContactByMstrStakeholder
       mail: (l$mail as String?),
       mstrShippingKindId: (l$mstrShippingKindId as String?),
       remarks: (l$remarks as String?),
+      symbol: (l$symbol as String?),
       sharedAppellationByOfficeAppellationsId:
           l$sharedAppellationByOfficeAppellationsId == null
           ? null
@@ -3399,6 +3450,8 @@ class Mutation$SupplierContactEdit$updateMstrStakeholderContactByMstrStakeholder
 
   final String? remarks;
 
+  final String? symbol;
+
   final Mutation$SupplierContactEdit$updateMstrStakeholderContactByMstrStakeholderContactId$mstrStakeholderContact$sharedAppellationByOfficeAppellationsId?
   sharedAppellationByOfficeAppellationsId;
 
@@ -3424,6 +3477,8 @@ class Mutation$SupplierContactEdit$updateMstrStakeholderContactByMstrStakeholder
     _resultData['mstrShippingKindId'] = l$mstrShippingKindId;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$symbol = symbol;
+    _resultData['symbol'] = l$symbol;
     final l$sharedAppellationByOfficeAppellationsId =
         sharedAppellationByOfficeAppellationsId;
     _resultData['sharedAppellationByOfficeAppellationsId'] =
@@ -3449,6 +3504,7 @@ class Mutation$SupplierContactEdit$updateMstrStakeholderContactByMstrStakeholder
     final l$mail = mail;
     final l$mstrShippingKindId = mstrShippingKindId;
     final l$remarks = remarks;
+    final l$symbol = symbol;
     final l$sharedAppellationByOfficeAppellationsId =
         sharedAppellationByOfficeAppellationsId;
     final l$sharedAppellationByDepartmentAppellationsId =
@@ -3463,6 +3519,7 @@ class Mutation$SupplierContactEdit$updateMstrStakeholderContactByMstrStakeholder
       l$mail,
       l$mstrShippingKindId,
       l$remarks,
+      l$symbol,
       l$sharedAppellationByOfficeAppellationsId,
       l$sharedAppellationByDepartmentAppellationsId,
       l$sharedAppellationByContactPersonAppellationsId,
@@ -3508,6 +3565,11 @@ class Mutation$SupplierContactEdit$updateMstrStakeholderContactByMstrStakeholder
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (l$symbol != lOther$symbol) {
       return false;
     }
     final l$sharedAppellationByOfficeAppellationsId =
@@ -3579,6 +3641,7 @@ abstract class CopyWith$Mutation$SupplierContactEdit$updateMstrStakeholderContac
     String? mail,
     String? mstrShippingKindId,
     String? remarks,
+    String? symbol,
     Mutation$SupplierContactEdit$updateMstrStakeholderContactByMstrStakeholderContactId$mstrStakeholderContact$sharedAppellationByOfficeAppellationsId?
     sharedAppellationByOfficeAppellationsId,
     Mutation$SupplierContactEdit$updateMstrStakeholderContactByMstrStakeholderContactId$mstrStakeholderContact$sharedAppellationByDepartmentAppellationsId?
@@ -3630,6 +3693,7 @@ class _CopyWithImpl$Mutation$SupplierContactEdit$updateMstrStakeholderContactByM
     Object? mail = _undefined,
     Object? mstrShippingKindId = _undefined,
     Object? remarks = _undefined,
+    Object? symbol = _undefined,
     Object? sharedAppellationByOfficeAppellationsId = _undefined,
     Object? sharedAppellationByDepartmentAppellationsId = _undefined,
     Object? sharedAppellationByContactPersonAppellationsId = _undefined,
@@ -3653,6 +3717,7 @@ class _CopyWithImpl$Mutation$SupplierContactEdit$updateMstrStakeholderContactByM
           ? _instance.mstrShippingKindId
           : (mstrShippingKindId as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       sharedAppellationByOfficeAppellationsId:
           sharedAppellationByOfficeAppellationsId == _undefined
           ? _instance.sharedAppellationByOfficeAppellationsId
@@ -3743,6 +3808,7 @@ class _CopyWithStubImpl$Mutation$SupplierContactEdit$updateMstrStakeholderContac
     String? mail,
     String? mstrShippingKindId,
     String? remarks,
+    String? symbol,
     Mutation$SupplierContactEdit$updateMstrStakeholderContactByMstrStakeholderContactId$mstrStakeholderContact$sharedAppellationByOfficeAppellationsId?
     sharedAppellationByOfficeAppellationsId,
     Mutation$SupplierContactEdit$updateMstrStakeholderContactByMstrStakeholderContactId$mstrStakeholderContact$sharedAppellationByDepartmentAppellationsId?

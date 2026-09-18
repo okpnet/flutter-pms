@@ -590,6 +590,13 @@ const documentNodeQueryOperationRead = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
+                        name: NameNode(value: 'symbol'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
                         name: NameNode(value: 'remarks'),
                         alias: null,
                         arguments: [],
@@ -1562,6 +1569,7 @@ class Query$OperationRead$allMstrOperations$nodes {
     required this.mstrOperationId,
     this.controlCode,
     this.detail,
+    this.symbol,
     this.remarks,
     this.updateAt,
     this.remove,
@@ -1577,6 +1585,7 @@ class Query$OperationRead$allMstrOperations$nodes {
     final l$mstrOperationId = json['mstrOperationId'];
     final l$controlCode = json['controlCode'];
     final l$detail = json['detail'];
+    final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
@@ -1591,6 +1600,7 @@ class Query$OperationRead$allMstrOperations$nodes {
       mstrOperationId: (l$mstrOperationId as String),
       controlCode: (l$controlCode as String?),
       detail: (l$detail as String?),
+      symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
@@ -1622,6 +1632,8 @@ class Query$OperationRead$allMstrOperations$nodes {
 
   final String? detail;
 
+  final String? symbol;
+
   final String? remarks;
 
   final String? updateAt;
@@ -1647,6 +1659,8 @@ class Query$OperationRead$allMstrOperations$nodes {
     _resultData['controlCode'] = l$controlCode;
     final l$detail = detail;
     _resultData['detail'] = l$detail;
+    final l$symbol = symbol;
+    _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
     final l$updateAt = updateAt;
@@ -1675,6 +1689,7 @@ class Query$OperationRead$allMstrOperations$nodes {
     final l$mstrOperationId = mstrOperationId;
     final l$controlCode = controlCode;
     final l$detail = detail;
+    final l$symbol = symbol;
     final l$remarks = remarks;
     final l$updateAt = updateAt;
     final l$remove = remove;
@@ -1689,6 +1704,7 @@ class Query$OperationRead$allMstrOperations$nodes {
       l$mstrOperationId,
       l$controlCode,
       l$detail,
+      l$symbol,
       l$remarks,
       l$updateAt,
       l$remove,
@@ -1721,6 +1737,11 @@ class Query$OperationRead$allMstrOperations$nodes {
     final l$detail = detail;
     final lOther$detail = other.detail;
     if (l$detail != lOther$detail) {
+      return false;
+    }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (l$symbol != lOther$symbol) {
       return false;
     }
     final l$remarks = remarks;
@@ -1793,6 +1814,7 @@ abstract class CopyWith$Query$OperationRead$allMstrOperations$nodes<TRes> {
     String? mstrOperationId,
     String? controlCode,
     String? detail,
+    String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
@@ -1835,6 +1857,7 @@ class _CopyWithImpl$Query$OperationRead$allMstrOperations$nodes<TRes>
     Object? mstrOperationId = _undefined,
     Object? controlCode = _undefined,
     Object? detail = _undefined,
+    Object? symbol = _undefined,
     Object? remarks = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
@@ -1851,6 +1874,7 @@ class _CopyWithImpl$Query$OperationRead$allMstrOperations$nodes<TRes>
           ? _instance.controlCode
           : (controlCode as String?),
       detail: detail == _undefined ? _instance.detail : (detail as String?),
+      symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
@@ -1934,6 +1958,7 @@ class _CopyWithStubImpl$Query$OperationRead$allMstrOperations$nodes<TRes>
     String? mstrOperationId,
     String? controlCode,
     String? detail,
+    String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
@@ -3792,7 +3817,7 @@ class Query$OperationRead$allMstrOperations$nodes$historyInfoStaffByUpdateUserHi
   Query$OperationRead$allMstrOperations$nodes$historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId({
     required this.historyId,
     required this.infoStaffId,
-    this.sharedAppellationsId,
+    required this.sharedAppellationsId,
     this.$__typename = 'HistoryInfoStaff',
   });
 
@@ -3806,7 +3831,7 @@ class Query$OperationRead$allMstrOperations$nodes$historyInfoStaffByUpdateUserHi
     return Query$OperationRead$allMstrOperations$nodes$historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      sharedAppellationsId: (l$sharedAppellationsId as String?),
+      sharedAppellationsId: (l$sharedAppellationsId as String),
       $__typename: (l$$__typename as String),
     );
   }
@@ -3815,7 +3840,7 @@ class Query$OperationRead$allMstrOperations$nodes$historyInfoStaffByUpdateUserHi
 
   final String infoStaffId;
 
-  final String? sharedAppellationsId;
+  final String sharedAppellationsId;
 
   final String $__typename;
 
@@ -3952,9 +3977,10 @@ class _CopyWithImpl$Query$OperationRead$allMstrOperations$nodes$historyInfoStaff
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      sharedAppellationsId: sharedAppellationsId == _undefined
+      sharedAppellationsId:
+          sharedAppellationsId == _undefined || sharedAppellationsId == null
           ? _instance.sharedAppellationsId
-          : (sharedAppellationsId as String?),
+          : (sharedAppellationsId as String),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),

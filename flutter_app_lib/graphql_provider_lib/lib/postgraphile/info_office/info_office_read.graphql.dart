@@ -583,6 +583,13 @@ const documentNodeQueryInfoOfficeRead = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
+                        name: NameNode(value: 'symbol'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
                         name: NameNode(value: 'remarks'),
                         alias: null,
                         arguments: [],
@@ -1473,6 +1480,7 @@ class Query$InfoOfficeRead$allInfoOffices$nodes {
   Query$InfoOfficeRead$allInfoOffices$nodes({
     required this.infoOfficeId,
     required this.infoCompanyId,
+    this.symbol,
     this.remarks,
     this.updateAt,
     this.remove,
@@ -1487,6 +1495,7 @@ class Query$InfoOfficeRead$allInfoOffices$nodes {
   ) {
     final l$infoOfficeId = json['infoOfficeId'];
     final l$infoCompanyId = json['infoCompanyId'];
+    final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
@@ -1499,6 +1508,7 @@ class Query$InfoOfficeRead$allInfoOffices$nodes {
     return Query$InfoOfficeRead$allInfoOffices$nodes(
       infoOfficeId: (l$infoOfficeId as String),
       infoCompanyId: (l$infoCompanyId as String),
+      symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
@@ -1529,6 +1539,8 @@ class Query$InfoOfficeRead$allInfoOffices$nodes {
 
   final String infoCompanyId;
 
+  final String? symbol;
+
   final String? remarks;
 
   final String? updateAt;
@@ -1552,6 +1564,8 @@ class Query$InfoOfficeRead$allInfoOffices$nodes {
     _resultData['infoOfficeId'] = l$infoOfficeId;
     final l$infoCompanyId = infoCompanyId;
     _resultData['infoCompanyId'] = l$infoCompanyId;
+    final l$symbol = symbol;
+    _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
     final l$updateAt = updateAt;
@@ -1578,6 +1592,7 @@ class Query$InfoOfficeRead$allInfoOffices$nodes {
   int get hashCode {
     final l$infoOfficeId = infoOfficeId;
     final l$infoCompanyId = infoCompanyId;
+    final l$symbol = symbol;
     final l$remarks = remarks;
     final l$updateAt = updateAt;
     final l$remove = remove;
@@ -1590,6 +1605,7 @@ class Query$InfoOfficeRead$allInfoOffices$nodes {
     return Object.hashAll([
       l$infoOfficeId,
       l$infoCompanyId,
+      l$symbol,
       l$remarks,
       l$updateAt,
       l$remove,
@@ -1617,6 +1633,11 @@ class Query$InfoOfficeRead$allInfoOffices$nodes {
     final l$infoCompanyId = infoCompanyId;
     final lOther$infoCompanyId = other.infoCompanyId;
     if (l$infoCompanyId != lOther$infoCompanyId) {
+      return false;
+    }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (l$symbol != lOther$symbol) {
       return false;
     }
     final l$remarks = remarks;
@@ -1685,6 +1706,7 @@ abstract class CopyWith$Query$InfoOfficeRead$allInfoOffices$nodes<TRes> {
   TRes call({
     String? infoOfficeId,
     String? infoCompanyId,
+    String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
@@ -1726,6 +1748,7 @@ class _CopyWithImpl$Query$InfoOfficeRead$allInfoOffices$nodes<TRes>
   TRes call({
     Object? infoOfficeId = _undefined,
     Object? infoCompanyId = _undefined,
+    Object? symbol = _undefined,
     Object? remarks = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
@@ -1741,6 +1764,7 @@ class _CopyWithImpl$Query$InfoOfficeRead$allInfoOffices$nodes<TRes>
       infoCompanyId: infoCompanyId == _undefined || infoCompanyId == null
           ? _instance.infoCompanyId
           : (infoCompanyId as String),
+      symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
@@ -1825,6 +1849,7 @@ class _CopyWithStubImpl$Query$InfoOfficeRead$allInfoOffices$nodes<TRes>
   call({
     String? infoOfficeId,
     String? infoCompanyId,
+    String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
@@ -3049,7 +3074,7 @@ class Query$InfoOfficeRead$allInfoOffices$nodes$historyInfoStaffByUpdateUserHist
   Query$InfoOfficeRead$allInfoOffices$nodes$historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId({
     required this.historyId,
     required this.infoStaffId,
-    this.sharedAppellationsId,
+    required this.sharedAppellationsId,
     this.$__typename = 'HistoryInfoStaff',
   });
 
@@ -3063,7 +3088,7 @@ class Query$InfoOfficeRead$allInfoOffices$nodes$historyInfoStaffByUpdateUserHist
     return Query$InfoOfficeRead$allInfoOffices$nodes$historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      sharedAppellationsId: (l$sharedAppellationsId as String?),
+      sharedAppellationsId: (l$sharedAppellationsId as String),
       $__typename: (l$$__typename as String),
     );
   }
@@ -3072,7 +3097,7 @@ class Query$InfoOfficeRead$allInfoOffices$nodes$historyInfoStaffByUpdateUserHist
 
   final String infoStaffId;
 
-  final String? sharedAppellationsId;
+  final String sharedAppellationsId;
 
   final String $__typename;
 
@@ -3209,9 +3234,10 @@ class _CopyWithImpl$Query$InfoOfficeRead$allInfoOffices$nodes$historyInfoStaffBy
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      sharedAppellationsId: sharedAppellationsId == _undefined
+      sharedAppellationsId:
+          sharedAppellationsId == _undefined || sharedAppellationsId == null
           ? _instance.sharedAppellationsId
-          : (sharedAppellationsId as String?),
+          : (sharedAppellationsId as String),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),

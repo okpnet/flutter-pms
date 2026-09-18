@@ -11,6 +11,7 @@ mutation InfoPostionEdit(
   $infoPositionId: UUID!
   $priority: Int
   $remarks: String
+  $symbol: String
   $sharedAppellationsId: UUID!
   $nameSharedDictionaryId: UUID!
   $nameJa: String
@@ -28,6 +29,7 @@ mutation InfoPostionEdit(
       infoPositionPatch: {
         priority: $priority
         remarks: $remarks
+        symbol: $symbol
 
         # --- ポジション名 / 読み / 略称(共通名前仕様、shared_appellations経由でshared_dictionaryへ入れ子更新) ---
         sharedAppellationToSharedAppellationsId: {
@@ -62,6 +64,7 @@ mutation InfoPostionEdit(
       infoPositionId
       priority
       remarks
+      symbol
       sharedAppellationBySharedAppellationsId {
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {

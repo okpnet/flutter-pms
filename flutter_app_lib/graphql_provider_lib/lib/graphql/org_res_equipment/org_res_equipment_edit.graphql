@@ -26,6 +26,7 @@ mutation OrgResEquipmentEdit(
   $labelCode: String
   $mstrLocationId: UUID
   $remarks: String
+  $symbol: String
   $mstrItemId: UUID!
   $sharedAppellationsId: UUID!
   $nameSharedDictionaryId: UUID!
@@ -48,6 +49,7 @@ mutation OrgResEquipmentEdit(
         labelCode: $labelCode
         mstrLocationId: $mstrLocationId
         remarks: $remarks
+        symbol: $symbol
 
         # --- 設備名 / 読み / 略称(共通名前仕様、mstr_item経由でshared_appellationsへ入れ子更新) ---
         mstrItemToMstrItemId: {
@@ -96,6 +98,7 @@ mutation OrgResEquipmentEdit(
       labelCode
       mstrLocationId
       remarks
+      symbol
       mstrItemByMstrItemId {
         mstrItemId
         sharedAppellationBySharedAppellationsId {

@@ -9,6 +9,7 @@ class Variables$Mutation$EquipmentInspectionKindEdit {
     required String mstrInspectionKindId,
     String? code,
     String? remarks,
+    String? symbol,
     required String sharedAppellationsId,
     required String nameSharedDictionaryId,
     String? nameJa,
@@ -23,6 +24,7 @@ class Variables$Mutation$EquipmentInspectionKindEdit {
     r'mstrInspectionKindId': mstrInspectionKindId,
     if (code != null) r'code': code,
     if (remarks != null) r'remarks': remarks,
+    if (symbol != null) r'symbol': symbol,
     r'sharedAppellationsId': sharedAppellationsId,
     r'nameSharedDictionaryId': nameSharedDictionaryId,
     if (nameJa != null) r'nameJa': nameJa,
@@ -50,6 +52,10 @@ class Variables$Mutation$EquipmentInspectionKindEdit {
     if (data.containsKey('remarks')) {
       final l$remarks = data['remarks'];
       result$data['remarks'] = (l$remarks as String?);
+    }
+    if (data.containsKey('symbol')) {
+      final l$symbol = data['symbol'];
+      result$data['symbol'] = (l$symbol as String?);
     }
     final l$sharedAppellationsId = data['sharedAppellationsId'];
     result$data['sharedAppellationsId'] = (l$sharedAppellationsId as String);
@@ -98,6 +104,8 @@ class Variables$Mutation$EquipmentInspectionKindEdit {
 
   String? get remarks => (_$data['remarks'] as String?);
 
+  String? get symbol => (_$data['symbol'] as String?);
+
   String get sharedAppellationsId => (_$data['sharedAppellationsId'] as String);
 
   String get nameSharedDictionaryId =>
@@ -132,6 +140,10 @@ class Variables$Mutation$EquipmentInspectionKindEdit {
     if (_$data.containsKey('remarks')) {
       final l$remarks = remarks;
       result$data['remarks'] = l$remarks;
+    }
+    if (_$data.containsKey('symbol')) {
+      final l$symbol = symbol;
+      result$data['symbol'] = l$symbol;
     }
     final l$sharedAppellationsId = sharedAppellationsId;
     result$data['sharedAppellationsId'] = l$sharedAppellationsId;
@@ -203,6 +215,14 @@ class Variables$Mutation$EquipmentInspectionKindEdit {
       return false;
     }
     if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (_$data.containsKey('symbol') != other._$data.containsKey('symbol')) {
+      return false;
+    }
+    if (l$symbol != lOther$symbol) {
       return false;
     }
     final l$sharedAppellationsId = sharedAppellationsId;
@@ -287,6 +307,7 @@ class Variables$Mutation$EquipmentInspectionKindEdit {
     final l$mstrInspectionKindId = mstrInspectionKindId;
     final l$code = code;
     final l$remarks = remarks;
+    final l$symbol = symbol;
     final l$sharedAppellationsId = sharedAppellationsId;
     final l$nameSharedDictionaryId = nameSharedDictionaryId;
     final l$nameJa = nameJa;
@@ -301,6 +322,7 @@ class Variables$Mutation$EquipmentInspectionKindEdit {
       l$mstrInspectionKindId,
       _$data.containsKey('code') ? l$code : const {},
       _$data.containsKey('remarks') ? l$remarks : const {},
+      _$data.containsKey('symbol') ? l$symbol : const {},
       l$sharedAppellationsId,
       l$nameSharedDictionaryId,
       _$data.containsKey('nameJa') ? l$nameJa : const {},
@@ -329,6 +351,7 @@ abstract class CopyWith$Variables$Mutation$EquipmentInspectionKindEdit<TRes> {
     String? mstrInspectionKindId,
     String? code,
     String? remarks,
+    String? symbol,
     String? sharedAppellationsId,
     String? nameSharedDictionaryId,
     String? nameJa,
@@ -359,6 +382,7 @@ class _CopyWithImpl$Variables$Mutation$EquipmentInspectionKindEdit<TRes>
     Object? mstrInspectionKindId = _undefined,
     Object? code = _undefined,
     Object? remarks = _undefined,
+    Object? symbol = _undefined,
     Object? sharedAppellationsId = _undefined,
     Object? nameSharedDictionaryId = _undefined,
     Object? nameJa = _undefined,
@@ -376,6 +400,7 @@ class _CopyWithImpl$Variables$Mutation$EquipmentInspectionKindEdit<TRes>
         'mstrInspectionKindId': (mstrInspectionKindId as String),
       if (code != _undefined) 'code': (code as String?),
       if (remarks != _undefined) 'remarks': (remarks as String?),
+      if (symbol != _undefined) 'symbol': (symbol as String?),
       if (sharedAppellationsId != _undefined && sharedAppellationsId != null)
         'sharedAppellationsId': (sharedAppellationsId as String),
       if (nameSharedDictionaryId != _undefined &&
@@ -410,6 +435,7 @@ class _CopyWithStubImpl$Variables$Mutation$EquipmentInspectionKindEdit<TRes>
     String? mstrInspectionKindId,
     String? code,
     String? remarks,
+    String? symbol,
     String? sharedAppellationsId,
     String? nameSharedDictionaryId,
     String? nameJa,
@@ -626,6 +652,15 @@ const documentNodeMutationEquipmentInspectionKindEdit = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'symbol')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'sharedAppellationsId')),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
@@ -741,6 +776,12 @@ const documentNodeMutationEquipmentInspectionKindEdit = DocumentNode(
                             name: NameNode(value: 'remarks'),
                             value: VariableNode(
                               name: NameNode(value: 'remarks'),
+                            ),
+                          ),
+                          ObjectFieldNode(
+                            name: NameNode(value: 'symbol'),
+                            value: VariableNode(
+                              name: NameNode(value: 'symbol'),
                             ),
                           ),
                           ObjectFieldNode(
@@ -1005,6 +1046,13 @@ const documentNodeMutationEquipmentInspectionKindEdit = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'symbol'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -1599,6 +1647,7 @@ class Mutation$EquipmentInspectionKindEdit$updateMstrInspectionKindByMstrInspect
     required this.mstrInspectionKindId,
     required this.code,
     this.remarks,
+    this.symbol,
     this.sharedAppellationBySharedAppellationsId,
     this.$__typename = 'MstrInspectionKind',
   });
@@ -1609,6 +1658,7 @@ class Mutation$EquipmentInspectionKindEdit$updateMstrInspectionKindByMstrInspect
     final l$mstrInspectionKindId = json['mstrInspectionKindId'];
     final l$code = json['code'];
     final l$remarks = json['remarks'];
+    final l$symbol = json['symbol'];
     final l$sharedAppellationBySharedAppellationsId =
         json['sharedAppellationBySharedAppellationsId'];
     final l$$__typename = json['__typename'];
@@ -1616,6 +1666,7 @@ class Mutation$EquipmentInspectionKindEdit$updateMstrInspectionKindByMstrInspect
       mstrInspectionKindId: (l$mstrInspectionKindId as String),
       code: (l$code as String),
       remarks: (l$remarks as String?),
+      symbol: (l$symbol as String?),
       sharedAppellationBySharedAppellationsId:
           l$sharedAppellationBySharedAppellationsId == null
           ? null
@@ -1633,6 +1684,8 @@ class Mutation$EquipmentInspectionKindEdit$updateMstrInspectionKindByMstrInspect
 
   final String? remarks;
 
+  final String? symbol;
+
   final Mutation$EquipmentInspectionKindEdit$updateMstrInspectionKindByMstrInspectionKindId$mstrInspectionKind$sharedAppellationBySharedAppellationsId?
   sharedAppellationBySharedAppellationsId;
 
@@ -1646,6 +1699,8 @@ class Mutation$EquipmentInspectionKindEdit$updateMstrInspectionKindByMstrInspect
     _resultData['code'] = l$code;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$symbol = symbol;
+    _resultData['symbol'] = l$symbol;
     final l$sharedAppellationBySharedAppellationsId =
         sharedAppellationBySharedAppellationsId;
     _resultData['sharedAppellationBySharedAppellationsId'] =
@@ -1660,6 +1715,7 @@ class Mutation$EquipmentInspectionKindEdit$updateMstrInspectionKindByMstrInspect
     final l$mstrInspectionKindId = mstrInspectionKindId;
     final l$code = code;
     final l$remarks = remarks;
+    final l$symbol = symbol;
     final l$sharedAppellationBySharedAppellationsId =
         sharedAppellationBySharedAppellationsId;
     final l$$__typename = $__typename;
@@ -1667,6 +1723,7 @@ class Mutation$EquipmentInspectionKindEdit$updateMstrInspectionKindByMstrInspect
       l$mstrInspectionKindId,
       l$code,
       l$remarks,
+      l$symbol,
       l$sharedAppellationBySharedAppellationsId,
       l$$__typename,
     ]);
@@ -1695,6 +1752,11 @@ class Mutation$EquipmentInspectionKindEdit$updateMstrInspectionKindByMstrInspect
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (l$symbol != lOther$symbol) {
       return false;
     }
     final l$sharedAppellationBySharedAppellationsId =
@@ -1747,6 +1809,7 @@ abstract class CopyWith$Mutation$EquipmentInspectionKindEdit$updateMstrInspectio
     String? mstrInspectionKindId,
     String? code,
     String? remarks,
+    String? symbol,
     Mutation$EquipmentInspectionKindEdit$updateMstrInspectionKindByMstrInspectionKindId$mstrInspectionKind$sharedAppellationBySharedAppellationsId?
     sharedAppellationBySharedAppellationsId,
     String? $__typename,
@@ -1783,6 +1846,7 @@ class _CopyWithImpl$Mutation$EquipmentInspectionKindEdit$updateMstrInspectionKin
     Object? mstrInspectionKindId = _undefined,
     Object? code = _undefined,
     Object? remarks = _undefined,
+    Object? symbol = _undefined,
     Object? sharedAppellationBySharedAppellationsId = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
@@ -1795,6 +1859,7 @@ class _CopyWithImpl$Mutation$EquipmentInspectionKindEdit$updateMstrInspectionKin
           ? _instance.code
           : (code as String),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       sharedAppellationBySharedAppellationsId:
           sharedAppellationBySharedAppellationsId == _undefined
           ? _instance.sharedAppellationBySharedAppellationsId
@@ -1840,6 +1905,7 @@ class _CopyWithStubImpl$Mutation$EquipmentInspectionKindEdit$updateMstrInspectio
     String? mstrInspectionKindId,
     String? code,
     String? remarks,
+    String? symbol,
     Mutation$EquipmentInspectionKindEdit$updateMstrInspectionKindByMstrInspectionKindId$mstrInspectionKind$sharedAppellationBySharedAppellationsId?
     sharedAppellationBySharedAppellationsId,
     String? $__typename,

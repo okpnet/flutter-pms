@@ -1,0 +1,60 @@
+# ship_order画面 - Edit(ミューテーション)
+#
+# 画面仕様: source/views.md #ship_order / edit
+# 作成ルール: CLAUDE.md 要件0006・0011・0017・0018・0021・0025・0027・0028・0030
+# 配置場所: lib/graphql/ship_order/ship_order_edit.graphql
+#
+# ⚠ 実スキーマの型名は"TransShipOrder"(PKは"transShippingId")。
+# ⚠ 「利害関係者履歴」はスカラーID(履歴id・利害関係者idの組)のみ設定(orderと同じ方針)。
+# ⚠ 「出荷オーダー明細」は1対多のため、配列の入れ子ミューテーションは本バージョンでは未対応。
+#   読み取り専用として出力にのみ含める(明細自体は別画面で編集する想定)。
+# ⚠ 更新者id/更新者履歴id/削除は0019の既定方針により変数から除外している。
+
+mutation ShipOrderEdit(
+  $transShippingId: UUID!
+  $transOrderId: UUID
+  $edtimatedShippingDate: Datetime
+  $code: String
+  $estimatedArrivalDate: Date
+  $historyMstrStakeholderId: UUID
+  $mstrStakeholderId: UUID
+  $remarks: String
+  $symbol: String
+) {
+  updateTransShipOrderByTransShippingId(
+    input: {
+      transShippingId: $transShippingId
+      transShipOrderPatch: {
+        transOrderId: $transOrderId
+        edtimatedShippingDate: $edtimatedShippingDate
+        code: $code
+        estimatedArrivalDate: $estimatedArrivalDate
+        historyMstrStakeholderId: $historyMstrStakeholderId
+        mstrStakeholderId: $mstrStakeholderId
+        remarks: $remarks
+        symbol: $symbol
+      }
+    }
+  ) {
+    transShipOrder {
+      transShippingId
+      transOrderId
+      edtimatedShippingDate
+      code
+      estimatedArrivalDate
+      historyMstrStakeholderId
+      mstrStakeholderId
+      remarks
+      symbol
+
+      # --- 出荷オーダー明細(読み取り専用) ------------------------------------------
+      transShippingOrderDetailsByTransShippingId {
+        nodes {
+          transShippingOrderDetailId
+          transOrderDetailId
+          shippingQuantity
+        }
+      }
+    }
+  }
+}

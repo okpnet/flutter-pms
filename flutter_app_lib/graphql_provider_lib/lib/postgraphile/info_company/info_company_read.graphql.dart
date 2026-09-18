@@ -590,6 +590,13 @@ const documentNodeQueryInfoCompanyRead = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
+                        name: NameNode(value: 'symbol'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
                         name: NameNode(value: 'remarks'),
                         alias: null,
                         arguments: [],
@@ -1562,6 +1569,7 @@ class Query$InfoCompanyRead$allInfoCompanies$nodes {
     required this.infoCompanyId,
     this.webPage,
     this.ceo,
+    this.symbol,
     this.remarks,
     this.updateAt,
     this.remove,
@@ -1579,6 +1587,7 @@ class Query$InfoCompanyRead$allInfoCompanies$nodes {
     final l$infoCompanyId = json['infoCompanyId'];
     final l$webPage = json['webPage'];
     final l$ceo = json['ceo'];
+    final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
@@ -1594,6 +1603,7 @@ class Query$InfoCompanyRead$allInfoCompanies$nodes {
       infoCompanyId: (l$infoCompanyId as String),
       webPage: (l$webPage as String?),
       ceo: (l$ceo as String?),
+      symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
@@ -1634,6 +1644,8 @@ class Query$InfoCompanyRead$allInfoCompanies$nodes {
 
   final String? ceo;
 
+  final String? symbol;
+
   final String? remarks;
 
   final String? updateAt;
@@ -1665,6 +1677,8 @@ class Query$InfoCompanyRead$allInfoCompanies$nodes {
     _resultData['webPage'] = l$webPage;
     final l$ceo = ceo;
     _resultData['ceo'] = l$ceo;
+    final l$symbol = symbol;
+    _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
     final l$updateAt = updateAt;
@@ -1698,6 +1712,7 @@ class Query$InfoCompanyRead$allInfoCompanies$nodes {
     final l$infoCompanyId = infoCompanyId;
     final l$webPage = webPage;
     final l$ceo = ceo;
+    final l$symbol = symbol;
     final l$remarks = remarks;
     final l$updateAt = updateAt;
     final l$remove = remove;
@@ -1713,6 +1728,7 @@ class Query$InfoCompanyRead$allInfoCompanies$nodes {
       l$infoCompanyId,
       l$webPage,
       l$ceo,
+      l$symbol,
       l$remarks,
       l$updateAt,
       l$remove,
@@ -1747,6 +1763,11 @@ class Query$InfoCompanyRead$allInfoCompanies$nodes {
     final l$ceo = ceo;
     final lOther$ceo = other.ceo;
     if (l$ceo != lOther$ceo) {
+      return false;
+    }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (l$symbol != lOther$symbol) {
       return false;
     }
     final l$remarks = remarks;
@@ -1826,6 +1847,7 @@ abstract class CopyWith$Query$InfoCompanyRead$allInfoCompanies$nodes<TRes> {
     String? infoCompanyId,
     String? webPage,
     String? ceo,
+    String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
@@ -1880,6 +1902,7 @@ class _CopyWithImpl$Query$InfoCompanyRead$allInfoCompanies$nodes<TRes>
     Object? infoCompanyId = _undefined,
     Object? webPage = _undefined,
     Object? ceo = _undefined,
+    Object? symbol = _undefined,
     Object? remarks = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
@@ -1896,6 +1919,7 @@ class _CopyWithImpl$Query$InfoCompanyRead$allInfoCompanies$nodes<TRes>
           : (infoCompanyId as String),
       webPage: webPage == _undefined ? _instance.webPage : (webPage as String?),
       ceo: ceo == _undefined ? _instance.ceo : (ceo as String?),
+      symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
@@ -2016,6 +2040,7 @@ class _CopyWithStubImpl$Query$InfoCompanyRead$allInfoCompanies$nodes<TRes>
     String? infoCompanyId,
     String? webPage,
     String? ceo,
+    String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
@@ -3897,7 +3922,7 @@ class Query$InfoCompanyRead$allInfoCompanies$nodes$historyInfoStaffByUpdateUserH
   Query$InfoCompanyRead$allInfoCompanies$nodes$historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId({
     required this.historyId,
     required this.infoStaffId,
-    this.sharedAppellationsId,
+    required this.sharedAppellationsId,
     this.$__typename = 'HistoryInfoStaff',
   });
 
@@ -3911,7 +3936,7 @@ class Query$InfoCompanyRead$allInfoCompanies$nodes$historyInfoStaffByUpdateUserH
     return Query$InfoCompanyRead$allInfoCompanies$nodes$historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      sharedAppellationsId: (l$sharedAppellationsId as String?),
+      sharedAppellationsId: (l$sharedAppellationsId as String),
       $__typename: (l$$__typename as String),
     );
   }
@@ -3920,7 +3945,7 @@ class Query$InfoCompanyRead$allInfoCompanies$nodes$historyInfoStaffByUpdateUserH
 
   final String infoStaffId;
 
-  final String? sharedAppellationsId;
+  final String sharedAppellationsId;
 
   final String $__typename;
 
@@ -4057,9 +4082,10 @@ class _CopyWithImpl$Query$InfoCompanyRead$allInfoCompanies$nodes$historyInfoStaf
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      sharedAppellationsId: sharedAppellationsId == _undefined
+      sharedAppellationsId:
+          sharedAppellationsId == _undefined || sharedAppellationsId == null
           ? _instance.sharedAppellationsId
-          : (sharedAppellationsId as String?),
+          : (sharedAppellationsId as String),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),

@@ -12,6 +12,7 @@ mutation TaskGroupEdit(
   $code: String
   $details: String
   $remarks: String
+  $symbol: String
   $sharedAppellationsId: UUID!
   $nameSharedDictionaryId: UUID!
   $nameJa: String
@@ -30,6 +31,7 @@ mutation TaskGroupEdit(
         code: $code
         details: $details
         remarks: $remarks
+        symbol: $symbol
 
         # --- グループ名 / 読み / 略称(共通名前仕様、shared_appellations経由でshared_dictionaryへ入れ子更新) ---
         sharedAppellationToSharedAppellationsId: {
@@ -65,6 +67,7 @@ mutation TaskGroupEdit(
       code
       details
       remarks
+      symbol
       sharedAppellationBySharedAppellationsId {
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {

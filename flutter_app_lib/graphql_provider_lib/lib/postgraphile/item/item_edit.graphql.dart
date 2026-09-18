@@ -18,6 +18,7 @@ class Variables$Mutation$ItemEdit {
     String? stockQuantity,
     String? sharedUnitId,
     String? remarks,
+    String? symbol,
     required String sharedAppellationsId,
     required String nameSharedDictionaryId,
     String? nameJa,
@@ -41,6 +42,7 @@ class Variables$Mutation$ItemEdit {
     if (stockQuantity != null) r'stockQuantity': stockQuantity,
     if (sharedUnitId != null) r'sharedUnitId': sharedUnitId,
     if (remarks != null) r'remarks': remarks,
+    if (symbol != null) r'symbol': symbol,
     r'sharedAppellationsId': sharedAppellationsId,
     r'nameSharedDictionaryId': nameSharedDictionaryId,
     if (nameJa != null) r'nameJa': nameJa,
@@ -102,6 +104,10 @@ class Variables$Mutation$ItemEdit {
     if (data.containsKey('remarks')) {
       final l$remarks = data['remarks'];
       result$data['remarks'] = (l$remarks as String?);
+    }
+    if (data.containsKey('symbol')) {
+      final l$symbol = data['symbol'];
+      result$data['symbol'] = (l$symbol as String?);
     }
     final l$sharedAppellationsId = data['sharedAppellationsId'];
     result$data['sharedAppellationsId'] = (l$sharedAppellationsId as String);
@@ -167,6 +173,8 @@ class Variables$Mutation$ItemEdit {
   String? get sharedUnitId => (_$data['sharedUnitId'] as String?);
 
   String? get remarks => (_$data['remarks'] as String?);
+
+  String? get symbol => (_$data['symbol'] as String?);
 
   String get sharedAppellationsId => (_$data['sharedAppellationsId'] as String);
 
@@ -238,6 +246,10 @@ class Variables$Mutation$ItemEdit {
     if (_$data.containsKey('remarks')) {
       final l$remarks = remarks;
       result$data['remarks'] = l$remarks;
+    }
+    if (_$data.containsKey('symbol')) {
+      final l$symbol = symbol;
+      result$data['symbol'] = l$symbol;
     }
     final l$sharedAppellationsId = sharedAppellationsId;
     result$data['sharedAppellationsId'] = l$sharedAppellationsId;
@@ -388,6 +400,14 @@ class Variables$Mutation$ItemEdit {
     if (l$remarks != lOther$remarks) {
       return false;
     }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (_$data.containsKey('symbol') != other._$data.containsKey('symbol')) {
+      return false;
+    }
+    if (l$symbol != lOther$symbol) {
+      return false;
+    }
     final l$sharedAppellationsId = sharedAppellationsId;
     final lOther$sharedAppellationsId = other.sharedAppellationsId;
     if (l$sharedAppellationsId != lOther$sharedAppellationsId) {
@@ -479,6 +499,7 @@ class Variables$Mutation$ItemEdit {
     final l$stockQuantity = stockQuantity;
     final l$sharedUnitId = sharedUnitId;
     final l$remarks = remarks;
+    final l$symbol = symbol;
     final l$sharedAppellationsId = sharedAppellationsId;
     final l$nameSharedDictionaryId = nameSharedDictionaryId;
     final l$nameJa = nameJa;
@@ -504,6 +525,7 @@ class Variables$Mutation$ItemEdit {
       _$data.containsKey('stockQuantity') ? l$stockQuantity : const {},
       _$data.containsKey('sharedUnitId') ? l$sharedUnitId : const {},
       _$data.containsKey('remarks') ? l$remarks : const {},
+      _$data.containsKey('symbol') ? l$symbol : const {},
       l$sharedAppellationsId,
       l$nameSharedDictionaryId,
       _$data.containsKey('nameJa') ? l$nameJa : const {},
@@ -540,6 +562,7 @@ abstract class CopyWith$Variables$Mutation$ItemEdit<TRes> {
     String? stockQuantity,
     String? sharedUnitId,
     String? remarks,
+    String? symbol,
     String? sharedAppellationsId,
     String? nameSharedDictionaryId,
     String? nameJa,
@@ -576,6 +599,7 @@ class _CopyWithImpl$Variables$Mutation$ItemEdit<TRes>
     Object? stockQuantity = _undefined,
     Object? sharedUnitId = _undefined,
     Object? remarks = _undefined,
+    Object? symbol = _undefined,
     Object? sharedAppellationsId = _undefined,
     Object? nameSharedDictionaryId = _undefined,
     Object? nameJa = _undefined,
@@ -606,6 +630,7 @@ class _CopyWithImpl$Variables$Mutation$ItemEdit<TRes>
         'stockQuantity': (stockQuantity as String?),
       if (sharedUnitId != _undefined) 'sharedUnitId': (sharedUnitId as String?),
       if (remarks != _undefined) 'remarks': (remarks as String?),
+      if (symbol != _undefined) 'symbol': (symbol as String?),
       if (sharedAppellationsId != _undefined && sharedAppellationsId != null)
         'sharedAppellationsId': (sharedAppellationsId as String),
       if (nameSharedDictionaryId != _undefined &&
@@ -649,6 +674,7 @@ class _CopyWithStubImpl$Variables$Mutation$ItemEdit<TRes>
     String? stockQuantity,
     String? sharedUnitId,
     String? remarks,
+    String? symbol,
     String? sharedAppellationsId,
     String? nameSharedDictionaryId,
     String? nameJa,
@@ -906,6 +932,15 @@ const documentNodeMutationItemEdit = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'symbol')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'sharedAppellationsId')),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
@@ -1069,6 +1104,12 @@ const documentNodeMutationItemEdit = DocumentNode(
                             name: NameNode(value: 'remarks'),
                             value: VariableNode(
                               name: NameNode(value: 'remarks'),
+                            ),
+                          ),
+                          ObjectFieldNode(
+                            name: NameNode(value: 'symbol'),
+                            value: VariableNode(
+                              name: NameNode(value: 'symbol'),
                             ),
                           ),
                           ObjectFieldNode(
@@ -1396,6 +1437,13 @@ const documentNodeMutationItemEdit = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'symbol'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -1980,7 +2028,7 @@ class _CopyWithStubImpl$Mutation$ItemEdit$updateMstrItemByMstrItemId<TRes>
 class Mutation$ItemEdit$updateMstrItemByMstrItemId$mstrItem {
   Mutation$ItemEdit$updateMstrItemByMstrItemId$mstrItem({
     required this.mstrItemId,
-    this.mstrItemKindId,
+    required this.mstrItemKindId,
     required this.code,
     this.identification,
     this.controlCode,
@@ -1991,6 +2039,7 @@ class Mutation$ItemEdit$updateMstrItemByMstrItemId$mstrItem {
     this.stockQuantity,
     this.sharedUnitId,
     this.remarks,
+    this.symbol,
     required this.mstrItemProvisionsByMstrItemId,
     this.sharedAppellationBySharedAppellationsId,
     this.$__typename = 'MstrItem',
@@ -2011,6 +2060,7 @@ class Mutation$ItemEdit$updateMstrItemByMstrItemId$mstrItem {
     final l$stockQuantity = json['stockQuantity'];
     final l$sharedUnitId = json['sharedUnitId'];
     final l$remarks = json['remarks'];
+    final l$symbol = json['symbol'];
     final l$mstrItemProvisionsByMstrItemId =
         json['mstrItemProvisionsByMstrItemId'];
     final l$sharedAppellationBySharedAppellationsId =
@@ -2018,7 +2068,7 @@ class Mutation$ItemEdit$updateMstrItemByMstrItemId$mstrItem {
     final l$$__typename = json['__typename'];
     return Mutation$ItemEdit$updateMstrItemByMstrItemId$mstrItem(
       mstrItemId: (l$mstrItemId as String),
-      mstrItemKindId: (l$mstrItemKindId as String?),
+      mstrItemKindId: (l$mstrItemKindId as String),
       code: (l$code as String),
       identification: (l$identification as String?),
       controlCode: (l$controlCode as String?),
@@ -2029,6 +2079,7 @@ class Mutation$ItemEdit$updateMstrItemByMstrItemId$mstrItem {
       stockQuantity: (l$stockQuantity as String?),
       sharedUnitId: (l$sharedUnitId as String?),
       remarks: (l$remarks as String?),
+      symbol: (l$symbol as String?),
       mstrItemProvisionsByMstrItemId:
           Mutation$ItemEdit$updateMstrItemByMstrItemId$mstrItem$mstrItemProvisionsByMstrItemId.fromJson(
             (l$mstrItemProvisionsByMstrItemId as Map<String, dynamic>),
@@ -2046,7 +2097,7 @@ class Mutation$ItemEdit$updateMstrItemByMstrItemId$mstrItem {
 
   final String mstrItemId;
 
-  final String? mstrItemKindId;
+  final String mstrItemKindId;
 
   final String code;
 
@@ -2067,6 +2118,8 @@ class Mutation$ItemEdit$updateMstrItemByMstrItemId$mstrItem {
   final String? sharedUnitId;
 
   final String? remarks;
+
+  final String? symbol;
 
   final Mutation$ItemEdit$updateMstrItemByMstrItemId$mstrItem$mstrItemProvisionsByMstrItemId
   mstrItemProvisionsByMstrItemId;
@@ -2102,6 +2155,8 @@ class Mutation$ItemEdit$updateMstrItemByMstrItemId$mstrItem {
     _resultData['sharedUnitId'] = l$sharedUnitId;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$symbol = symbol;
+    _resultData['symbol'] = l$symbol;
     final l$mstrItemProvisionsByMstrItemId = mstrItemProvisionsByMstrItemId;
     _resultData['mstrItemProvisionsByMstrItemId'] =
         l$mstrItemProvisionsByMstrItemId.toJson();
@@ -2128,6 +2183,7 @@ class Mutation$ItemEdit$updateMstrItemByMstrItemId$mstrItem {
     final l$stockQuantity = stockQuantity;
     final l$sharedUnitId = sharedUnitId;
     final l$remarks = remarks;
+    final l$symbol = symbol;
     final l$mstrItemProvisionsByMstrItemId = mstrItemProvisionsByMstrItemId;
     final l$sharedAppellationBySharedAppellationsId =
         sharedAppellationBySharedAppellationsId;
@@ -2145,6 +2201,7 @@ class Mutation$ItemEdit$updateMstrItemByMstrItemId$mstrItem {
       l$stockQuantity,
       l$sharedUnitId,
       l$remarks,
+      l$symbol,
       l$mstrItemProvisionsByMstrItemId,
       l$sharedAppellationBySharedAppellationsId,
       l$$__typename,
@@ -2220,6 +2277,11 @@ class Mutation$ItemEdit$updateMstrItemByMstrItemId$mstrItem {
     if (l$remarks != lOther$remarks) {
       return false;
     }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (l$symbol != lOther$symbol) {
+      return false;
+    }
     final l$mstrItemProvisionsByMstrItemId = mstrItemProvisionsByMstrItemId;
     final lOther$mstrItemProvisionsByMstrItemId =
         other.mstrItemProvisionsByMstrItemId;
@@ -2281,6 +2343,7 @@ abstract class CopyWith$Mutation$ItemEdit$updateMstrItemByMstrItemId$mstrItem<
     String? stockQuantity,
     String? sharedUnitId,
     String? remarks,
+    String? symbol,
     Mutation$ItemEdit$updateMstrItemByMstrItemId$mstrItem$mstrItemProvisionsByMstrItemId?
     mstrItemProvisionsByMstrItemId,
     Mutation$ItemEdit$updateMstrItemByMstrItemId$mstrItem$sharedAppellationBySharedAppellationsId?
@@ -2325,6 +2388,7 @@ class _CopyWithImpl$Mutation$ItemEdit$updateMstrItemByMstrItemId$mstrItem<TRes>
     Object? stockQuantity = _undefined,
     Object? sharedUnitId = _undefined,
     Object? remarks = _undefined,
+    Object? symbol = _undefined,
     Object? mstrItemProvisionsByMstrItemId = _undefined,
     Object? sharedAppellationBySharedAppellationsId = _undefined,
     Object? $__typename = _undefined,
@@ -2333,9 +2397,9 @@ class _CopyWithImpl$Mutation$ItemEdit$updateMstrItemByMstrItemId$mstrItem<TRes>
       mstrItemId: mstrItemId == _undefined || mstrItemId == null
           ? _instance.mstrItemId
           : (mstrItemId as String),
-      mstrItemKindId: mstrItemKindId == _undefined
+      mstrItemKindId: mstrItemKindId == _undefined || mstrItemKindId == null
           ? _instance.mstrItemKindId
-          : (mstrItemKindId as String?),
+          : (mstrItemKindId as String),
       code: code == _undefined || code == null
           ? _instance.code
           : (code as String),
@@ -2362,6 +2426,7 @@ class _CopyWithImpl$Mutation$ItemEdit$updateMstrItemByMstrItemId$mstrItem<TRes>
           ? _instance.sharedUnitId
           : (sharedUnitId as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       mstrItemProvisionsByMstrItemId:
           mstrItemProvisionsByMstrItemId == _undefined ||
               mstrItemProvisionsByMstrItemId == null
@@ -2432,6 +2497,7 @@ class _CopyWithStubImpl$Mutation$ItemEdit$updateMstrItemByMstrItemId$mstrItem<
     String? stockQuantity,
     String? sharedUnitId,
     String? remarks,
+    String? symbol,
     Mutation$ItemEdit$updateMstrItemByMstrItemId$mstrItem$mstrItemProvisionsByMstrItemId?
     mstrItemProvisionsByMstrItemId,
     Mutation$ItemEdit$updateMstrItemByMstrItemId$mstrItem$sharedAppellationBySharedAppellationsId?

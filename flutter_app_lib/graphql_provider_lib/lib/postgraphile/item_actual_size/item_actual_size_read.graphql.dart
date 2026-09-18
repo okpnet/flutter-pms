@@ -612,6 +612,13 @@ const documentNodeQueryItemActualSizeRead = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
+                        name: NameNode(value: 'symbol'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
                         name: NameNode(value: 'remarks'),
                         alias: null,
                         arguments: [],
@@ -1525,6 +1532,7 @@ class Query$ItemActualSizeRead$allMstrItemActualSizes$nodes {
     required this.mstrItemId,
     this.sizeValue,
     this.detail,
+    this.symbol,
     this.remarks,
     this.updateAt,
     this.remove,
@@ -1540,6 +1548,7 @@ class Query$ItemActualSizeRead$allMstrItemActualSizes$nodes {
     final l$mstrItemId = json['mstrItemId'];
     final l$sizeValue = json['sizeValue'];
     final l$detail = json['detail'];
+    final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
@@ -1553,6 +1562,7 @@ class Query$ItemActualSizeRead$allMstrItemActualSizes$nodes {
       mstrItemId: (l$mstrItemId as String),
       sizeValue: (l$sizeValue as String?),
       detail: (l$detail as String?),
+      symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
@@ -1581,6 +1591,8 @@ class Query$ItemActualSizeRead$allMstrItemActualSizes$nodes {
 
   final String? detail;
 
+  final String? symbol;
+
   final String? remarks;
 
   final String? updateAt;
@@ -1605,6 +1617,8 @@ class Query$ItemActualSizeRead$allMstrItemActualSizes$nodes {
     _resultData['sizeValue'] = l$sizeValue;
     final l$detail = detail;
     _resultData['detail'] = l$detail;
+    final l$symbol = symbol;
+    _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
     final l$updateAt = updateAt;
@@ -1630,6 +1644,7 @@ class Query$ItemActualSizeRead$allMstrItemActualSizes$nodes {
     final l$mstrItemId = mstrItemId;
     final l$sizeValue = sizeValue;
     final l$detail = detail;
+    final l$symbol = symbol;
     final l$remarks = remarks;
     final l$updateAt = updateAt;
     final l$remove = remove;
@@ -1643,6 +1658,7 @@ class Query$ItemActualSizeRead$allMstrItemActualSizes$nodes {
       l$mstrItemId,
       l$sizeValue,
       l$detail,
+      l$symbol,
       l$remarks,
       l$updateAt,
       l$remove,
@@ -1679,6 +1695,11 @@ class Query$ItemActualSizeRead$allMstrItemActualSizes$nodes {
     final l$detail = detail;
     final lOther$detail = other.detail;
     if (l$detail != lOther$detail) {
+      return false;
+    }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (l$symbol != lOther$symbol) {
       return false;
     }
     final l$remarks = remarks;
@@ -1750,6 +1771,7 @@ abstract class CopyWith$Query$ItemActualSizeRead$allMstrItemActualSizes$nodes<
     String? mstrItemId,
     String? sizeValue,
     String? detail,
+    String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
@@ -1789,6 +1811,7 @@ class _CopyWithImpl$Query$ItemActualSizeRead$allMstrItemActualSizes$nodes<TRes>
     Object? mstrItemId = _undefined,
     Object? sizeValue = _undefined,
     Object? detail = _undefined,
+    Object? symbol = _undefined,
     Object? remarks = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
@@ -1808,6 +1831,7 @@ class _CopyWithImpl$Query$ItemActualSizeRead$allMstrItemActualSizes$nodes<TRes>
           ? _instance.sizeValue
           : (sizeValue as String?),
       detail: detail == _undefined ? _instance.detail : (detail as String?),
+      symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
@@ -1879,6 +1903,7 @@ class _CopyWithStubImpl$Query$ItemActualSizeRead$allMstrItemActualSizes$nodes<
     String? mstrItemId,
     String? sizeValue,
     String? detail,
+    String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
@@ -3067,7 +3092,7 @@ class Query$ItemActualSizeRead$allMstrItemActualSizes$nodes$historyInfoStaffByUp
   Query$ItemActualSizeRead$allMstrItemActualSizes$nodes$historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId({
     required this.historyId,
     required this.infoStaffId,
-    this.sharedAppellationsId,
+    required this.sharedAppellationsId,
     this.$__typename = 'HistoryInfoStaff',
   });
 
@@ -3081,7 +3106,7 @@ class Query$ItemActualSizeRead$allMstrItemActualSizes$nodes$historyInfoStaffByUp
     return Query$ItemActualSizeRead$allMstrItemActualSizes$nodes$historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      sharedAppellationsId: (l$sharedAppellationsId as String?),
+      sharedAppellationsId: (l$sharedAppellationsId as String),
       $__typename: (l$$__typename as String),
     );
   }
@@ -3090,7 +3115,7 @@ class Query$ItemActualSizeRead$allMstrItemActualSizes$nodes$historyInfoStaffByUp
 
   final String infoStaffId;
 
-  final String? sharedAppellationsId;
+  final String sharedAppellationsId;
 
   final String $__typename;
 
@@ -3227,9 +3252,10 @@ class _CopyWithImpl$Query$ItemActualSizeRead$allMstrItemActualSizes$nodes$histor
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      sharedAppellationsId: sharedAppellationsId == _undefined
+      sharedAppellationsId:
+          sharedAppellationsId == _undefined || sharedAppellationsId == null
           ? _instance.sharedAppellationsId
-          : (sharedAppellationsId as String?),
+          : (sharedAppellationsId as String),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),

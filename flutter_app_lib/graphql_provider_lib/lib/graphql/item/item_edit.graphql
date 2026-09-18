@@ -26,6 +26,7 @@ mutation ItemEdit(
   $stockQuantity: BigFloat
   $sharedUnitId: UUID
   $remarks: String
+  $symbol: String
   $sharedAppellationsId: UUID!
   $nameSharedDictionaryId: UUID!
   $nameJa: String
@@ -52,6 +53,7 @@ mutation ItemEdit(
         stockQuantity: $stockQuantity
         sharedUnitId: $sharedUnitId
         remarks: $remarks
+        symbol: $symbol
 
         # --- 品目名 / 読み / 略称(共通名前仕様、shared_appellations経由でshared_dictionaryへ入れ子更新) ---
         sharedAppellationToSharedAppellationsId: {
@@ -95,6 +97,7 @@ mutation ItemEdit(
       stockQuantity
       sharedUnitId
       remarks
+      symbol
 
       # --- 品目提供(読み取り専用。編集は別ミューテーションで対応、⚠参照) -------------
       mstrItemProvisionsByMstrItemId {

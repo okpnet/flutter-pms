@@ -20,6 +20,7 @@ mutation CustomerEdit(
   $controlCode: String
   $mstrShippingKindId: UUID
   $remarks: String
+  $symbol: String
   $sharedAppellationsId: UUID!
   $nameSharedDictionaryId: UUID!
   $nameJa: String
@@ -46,6 +47,7 @@ mutation CustomerEdit(
         controlCode: $controlCode
         mstrShippingKindId: $mstrShippingKindId
         remarks: $remarks
+        symbol: $symbol
 
         # --- 顧客名 / 読み / 略称(共通名前仕様、shared_appellations経由でshared_dictionaryへ入れ子更新) ---
         sharedAppellationToSharedAppellationsId: {
@@ -97,6 +99,7 @@ mutation CustomerEdit(
       controlCode
       mstrShippingKindId
       remarks
+      symbol
 
       # --- 提供(読み取り専用。編集は別ミューテーションで対応、⚠参照) -----------------
       mstrStakeholderProvisionsByMstrStakeholderId {

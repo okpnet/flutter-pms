@@ -15,6 +15,7 @@ mutation InfoDepartmentEdit(
   $infoCompanyId: UUID!
   $code: String
   $remarks: String
+  $symbol: String
   $sharedAppellationsId: UUID!
   $nameSharedDictionaryId: UUID!
   $nameJa: String
@@ -40,6 +41,7 @@ mutation InfoDepartmentEdit(
         infoCompanyId: $infoCompanyId
         code: $code
         remarks: $remarks
+        symbol: $symbol
 
         # --- 組織名 / 読み / 略称(共通名前仕様、shared_appellations経由でshared_dictionaryへ入れ子更新) ---
         sharedAppellationToSharedAppellationsId: {
@@ -90,6 +92,7 @@ mutation InfoDepartmentEdit(
       infoCompanyId
       code
       remarks
+      symbol
       sharedAppellationBySharedAppellationsId {
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {

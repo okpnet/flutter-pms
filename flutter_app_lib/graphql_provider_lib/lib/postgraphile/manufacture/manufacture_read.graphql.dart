@@ -592,6 +592,13 @@ const documentNodeQueryManufactureRead = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
+                        name: NameNode(value: 'symbol'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
                         name: NameNode(value: 'remarks'),
                         alias: null,
                         arguments: [],
@@ -1440,6 +1447,7 @@ class Query$ManufactureRead$allMstrManufacturers$nodes {
   Query$ManufactureRead$allMstrManufacturers$nodes({
     required this.mstrManufacturerId,
     this.code,
+    this.symbol,
     this.remarks,
     this.updateAt,
     this.remove,
@@ -1453,6 +1461,7 @@ class Query$ManufactureRead$allMstrManufacturers$nodes {
   ) {
     final l$mstrManufacturerId = json['mstrManufacturerId'];
     final l$code = json['code'];
+    final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
@@ -1464,6 +1473,7 @@ class Query$ManufactureRead$allMstrManufacturers$nodes {
     return Query$ManufactureRead$allMstrManufacturers$nodes(
       mstrManufacturerId: (l$mstrManufacturerId as String),
       code: (l$code as String?),
+      symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
@@ -1489,6 +1499,8 @@ class Query$ManufactureRead$allMstrManufacturers$nodes {
 
   final String? code;
 
+  final String? symbol;
+
   final String? remarks;
 
   final String? updateAt;
@@ -1509,6 +1521,8 @@ class Query$ManufactureRead$allMstrManufacturers$nodes {
     _resultData['mstrManufacturerId'] = l$mstrManufacturerId;
     final l$code = code;
     _resultData['code'] = l$code;
+    final l$symbol = symbol;
+    _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
     final l$updateAt = updateAt;
@@ -1532,6 +1546,7 @@ class Query$ManufactureRead$allMstrManufacturers$nodes {
   int get hashCode {
     final l$mstrManufacturerId = mstrManufacturerId;
     final l$code = code;
+    final l$symbol = symbol;
     final l$remarks = remarks;
     final l$updateAt = updateAt;
     final l$remove = remove;
@@ -1543,6 +1558,7 @@ class Query$ManufactureRead$allMstrManufacturers$nodes {
     return Object.hashAll([
       l$mstrManufacturerId,
       l$code,
+      l$symbol,
       l$remarks,
       l$updateAt,
       l$remove,
@@ -1569,6 +1585,11 @@ class Query$ManufactureRead$allMstrManufacturers$nodes {
     final l$code = code;
     final lOther$code = other.code;
     if (l$code != lOther$code) {
+      return false;
+    }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (l$symbol != lOther$symbol) {
       return false;
     }
     final l$remarks = remarks;
@@ -1633,6 +1654,7 @@ abstract class CopyWith$Query$ManufactureRead$allMstrManufacturers$nodes<TRes> {
   TRes call({
     String? mstrManufacturerId,
     String? code,
+    String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
@@ -1668,6 +1690,7 @@ class _CopyWithImpl$Query$ManufactureRead$allMstrManufacturers$nodes<TRes>
   TRes call({
     Object? mstrManufacturerId = _undefined,
     Object? code = _undefined,
+    Object? symbol = _undefined,
     Object? remarks = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
@@ -1681,6 +1704,7 @@ class _CopyWithImpl$Query$ManufactureRead$allMstrManufacturers$nodes<TRes>
           ? _instance.mstrManufacturerId
           : (mstrManufacturerId as String),
       code: code == _undefined ? _instance.code : (code as String?),
+      symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
@@ -1745,6 +1769,7 @@ class _CopyWithStubImpl$Query$ManufactureRead$allMstrManufacturers$nodes<TRes>
   call({
     String? mstrManufacturerId,
     String? code,
+    String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
@@ -2691,7 +2716,7 @@ class Query$ManufactureRead$allMstrManufacturers$nodes$historyInfoStaffByUpdateU
   Query$ManufactureRead$allMstrManufacturers$nodes$historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId({
     required this.historyId,
     required this.infoStaffId,
-    this.sharedAppellationsId,
+    required this.sharedAppellationsId,
     this.$__typename = 'HistoryInfoStaff',
   });
 
@@ -2705,7 +2730,7 @@ class Query$ManufactureRead$allMstrManufacturers$nodes$historyInfoStaffByUpdateU
     return Query$ManufactureRead$allMstrManufacturers$nodes$historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      sharedAppellationsId: (l$sharedAppellationsId as String?),
+      sharedAppellationsId: (l$sharedAppellationsId as String),
       $__typename: (l$$__typename as String),
     );
   }
@@ -2714,7 +2739,7 @@ class Query$ManufactureRead$allMstrManufacturers$nodes$historyInfoStaffByUpdateU
 
   final String infoStaffId;
 
-  final String? sharedAppellationsId;
+  final String sharedAppellationsId;
 
   final String $__typename;
 
@@ -2851,9 +2876,10 @@ class _CopyWithImpl$Query$ManufactureRead$allMstrManufacturers$nodes$historyInfo
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      sharedAppellationsId: sharedAppellationsId == _undefined
+      sharedAppellationsId:
+          sharedAppellationsId == _undefined || sharedAppellationsId == null
           ? _instance.sharedAppellationsId
-          : (sharedAppellationsId as String?),
+          : (sharedAppellationsId as String),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),

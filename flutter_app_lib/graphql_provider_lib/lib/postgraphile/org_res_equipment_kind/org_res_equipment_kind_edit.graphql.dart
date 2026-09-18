@@ -10,6 +10,7 @@ class Variables$Mutation$OrgResEquipmentKindEdit {
     String? startAt,
     String? stopAt,
     String? remarks,
+    String? symbol,
     required String sharedAppellationsId,
     required String nameSharedDictionaryId,
     String? nameJa,
@@ -25,6 +26,7 @@ class Variables$Mutation$OrgResEquipmentKindEdit {
     if (startAt != null) r'startAt': startAt,
     if (stopAt != null) r'stopAt': stopAt,
     if (remarks != null) r'remarks': remarks,
+    if (symbol != null) r'symbol': symbol,
     r'sharedAppellationsId': sharedAppellationsId,
     r'nameSharedDictionaryId': nameSharedDictionaryId,
     if (nameJa != null) r'nameJa': nameJa,
@@ -56,6 +58,10 @@ class Variables$Mutation$OrgResEquipmentKindEdit {
     if (data.containsKey('remarks')) {
       final l$remarks = data['remarks'];
       result$data['remarks'] = (l$remarks as String?);
+    }
+    if (data.containsKey('symbol')) {
+      final l$symbol = data['symbol'];
+      result$data['symbol'] = (l$symbol as String?);
     }
     final l$sharedAppellationsId = data['sharedAppellationsId'];
     result$data['sharedAppellationsId'] = (l$sharedAppellationsId as String);
@@ -106,6 +112,8 @@ class Variables$Mutation$OrgResEquipmentKindEdit {
 
   String? get remarks => (_$data['remarks'] as String?);
 
+  String? get symbol => (_$data['symbol'] as String?);
+
   String get sharedAppellationsId => (_$data['sharedAppellationsId'] as String);
 
   String get nameSharedDictionaryId =>
@@ -144,6 +152,10 @@ class Variables$Mutation$OrgResEquipmentKindEdit {
     if (_$data.containsKey('remarks')) {
       final l$remarks = remarks;
       result$data['remarks'] = l$remarks;
+    }
+    if (_$data.containsKey('symbol')) {
+      final l$symbol = symbol;
+      result$data['symbol'] = l$symbol;
     }
     final l$sharedAppellationsId = sharedAppellationsId;
     result$data['sharedAppellationsId'] = l$sharedAppellationsId;
@@ -223,6 +235,14 @@ class Variables$Mutation$OrgResEquipmentKindEdit {
       return false;
     }
     if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (_$data.containsKey('symbol') != other._$data.containsKey('symbol')) {
+      return false;
+    }
+    if (l$symbol != lOther$symbol) {
       return false;
     }
     final l$sharedAppellationsId = sharedAppellationsId;
@@ -308,6 +328,7 @@ class Variables$Mutation$OrgResEquipmentKindEdit {
     final l$startAt = startAt;
     final l$stopAt = stopAt;
     final l$remarks = remarks;
+    final l$symbol = symbol;
     final l$sharedAppellationsId = sharedAppellationsId;
     final l$nameSharedDictionaryId = nameSharedDictionaryId;
     final l$nameJa = nameJa;
@@ -323,6 +344,7 @@ class Variables$Mutation$OrgResEquipmentKindEdit {
       _$data.containsKey('startAt') ? l$startAt : const {},
       _$data.containsKey('stopAt') ? l$stopAt : const {},
       _$data.containsKey('remarks') ? l$remarks : const {},
+      _$data.containsKey('symbol') ? l$symbol : const {},
       l$sharedAppellationsId,
       l$nameSharedDictionaryId,
       _$data.containsKey('nameJa') ? l$nameJa : const {},
@@ -351,6 +373,7 @@ abstract class CopyWith$Variables$Mutation$OrgResEquipmentKindEdit<TRes> {
     String? startAt,
     String? stopAt,
     String? remarks,
+    String? symbol,
     String? sharedAppellationsId,
     String? nameSharedDictionaryId,
     String? nameJa,
@@ -382,6 +405,7 @@ class _CopyWithImpl$Variables$Mutation$OrgResEquipmentKindEdit<TRes>
     Object? startAt = _undefined,
     Object? stopAt = _undefined,
     Object? remarks = _undefined,
+    Object? symbol = _undefined,
     Object? sharedAppellationsId = _undefined,
     Object? nameSharedDictionaryId = _undefined,
     Object? nameJa = _undefined,
@@ -400,6 +424,7 @@ class _CopyWithImpl$Variables$Mutation$OrgResEquipmentKindEdit<TRes>
       if (startAt != _undefined) 'startAt': (startAt as String?),
       if (stopAt != _undefined) 'stopAt': (stopAt as String?),
       if (remarks != _undefined) 'remarks': (remarks as String?),
+      if (symbol != _undefined) 'symbol': (symbol as String?),
       if (sharedAppellationsId != _undefined && sharedAppellationsId != null)
         'sharedAppellationsId': (sharedAppellationsId as String),
       if (nameSharedDictionaryId != _undefined &&
@@ -435,6 +460,7 @@ class _CopyWithStubImpl$Variables$Mutation$OrgResEquipmentKindEdit<TRes>
     String? startAt,
     String? stopAt,
     String? remarks,
+    String? symbol,
     String? sharedAppellationsId,
     String? nameSharedDictionaryId,
     String? nameJa,
@@ -653,6 +679,15 @@ const documentNodeMutationOrgResEquipmentKindEdit = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'symbol')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'sharedAppellationsId')),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
@@ -776,6 +811,12 @@ const documentNodeMutationOrgResEquipmentKindEdit = DocumentNode(
                             name: NameNode(value: 'remarks'),
                             value: VariableNode(
                               name: NameNode(value: 'remarks'),
+                            ),
+                          ),
+                          ObjectFieldNode(
+                            name: NameNode(value: 'symbol'),
+                            value: VariableNode(
+                              name: NameNode(value: 'symbol'),
                             ),
                           ),
                           ObjectFieldNode(
@@ -1047,6 +1088,13 @@ const documentNodeMutationOrgResEquipmentKindEdit = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'symbol'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -1637,6 +1685,7 @@ class Mutation$OrgResEquipmentKindEdit$updateMstrEquipmentKindByMstrEquipmentKin
     this.startAt,
     this.stopAt,
     this.remarks,
+    this.symbol,
     this.sharedAppellationBySharedAppellationsId,
     this.$__typename = 'MstrEquipmentKind',
   });
@@ -1648,6 +1697,7 @@ class Mutation$OrgResEquipmentKindEdit$updateMstrEquipmentKindByMstrEquipmentKin
     final l$startAt = json['startAt'];
     final l$stopAt = json['stopAt'];
     final l$remarks = json['remarks'];
+    final l$symbol = json['symbol'];
     final l$sharedAppellationBySharedAppellationsId =
         json['sharedAppellationBySharedAppellationsId'];
     final l$$__typename = json['__typename'];
@@ -1656,6 +1706,7 @@ class Mutation$OrgResEquipmentKindEdit$updateMstrEquipmentKindByMstrEquipmentKin
       startAt: (l$startAt as String?),
       stopAt: (l$stopAt as String?),
       remarks: (l$remarks as String?),
+      symbol: (l$symbol as String?),
       sharedAppellationBySharedAppellationsId:
           l$sharedAppellationBySharedAppellationsId == null
           ? null
@@ -1675,6 +1726,8 @@ class Mutation$OrgResEquipmentKindEdit$updateMstrEquipmentKindByMstrEquipmentKin
 
   final String? remarks;
 
+  final String? symbol;
+
   final Mutation$OrgResEquipmentKindEdit$updateMstrEquipmentKindByMstrEquipmentKindId$mstrEquipmentKind$sharedAppellationBySharedAppellationsId?
   sharedAppellationBySharedAppellationsId;
 
@@ -1690,6 +1743,8 @@ class Mutation$OrgResEquipmentKindEdit$updateMstrEquipmentKindByMstrEquipmentKin
     _resultData['stopAt'] = l$stopAt;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$symbol = symbol;
+    _resultData['symbol'] = l$symbol;
     final l$sharedAppellationBySharedAppellationsId =
         sharedAppellationBySharedAppellationsId;
     _resultData['sharedAppellationBySharedAppellationsId'] =
@@ -1705,6 +1760,7 @@ class Mutation$OrgResEquipmentKindEdit$updateMstrEquipmentKindByMstrEquipmentKin
     final l$startAt = startAt;
     final l$stopAt = stopAt;
     final l$remarks = remarks;
+    final l$symbol = symbol;
     final l$sharedAppellationBySharedAppellationsId =
         sharedAppellationBySharedAppellationsId;
     final l$$__typename = $__typename;
@@ -1713,6 +1769,7 @@ class Mutation$OrgResEquipmentKindEdit$updateMstrEquipmentKindByMstrEquipmentKin
       l$startAt,
       l$stopAt,
       l$remarks,
+      l$symbol,
       l$sharedAppellationBySharedAppellationsId,
       l$$__typename,
     ]);
@@ -1746,6 +1803,11 @@ class Mutation$OrgResEquipmentKindEdit$updateMstrEquipmentKindByMstrEquipmentKin
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (l$symbol != lOther$symbol) {
       return false;
     }
     final l$sharedAppellationBySharedAppellationsId =
@@ -1799,6 +1861,7 @@ abstract class CopyWith$Mutation$OrgResEquipmentKindEdit$updateMstrEquipmentKind
     String? startAt,
     String? stopAt,
     String? remarks,
+    String? symbol,
     Mutation$OrgResEquipmentKindEdit$updateMstrEquipmentKindByMstrEquipmentKindId$mstrEquipmentKind$sharedAppellationBySharedAppellationsId?
     sharedAppellationBySharedAppellationsId,
     String? $__typename,
@@ -1836,6 +1899,7 @@ class _CopyWithImpl$Mutation$OrgResEquipmentKindEdit$updateMstrEquipmentKindByMs
     Object? startAt = _undefined,
     Object? stopAt = _undefined,
     Object? remarks = _undefined,
+    Object? symbol = _undefined,
     Object? sharedAppellationBySharedAppellationsId = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
@@ -1847,6 +1911,7 @@ class _CopyWithImpl$Mutation$OrgResEquipmentKindEdit$updateMstrEquipmentKindByMs
       startAt: startAt == _undefined ? _instance.startAt : (startAt as String?),
       stopAt: stopAt == _undefined ? _instance.stopAt : (stopAt as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       sharedAppellationBySharedAppellationsId:
           sharedAppellationBySharedAppellationsId == _undefined
           ? _instance.sharedAppellationBySharedAppellationsId
@@ -1893,6 +1958,7 @@ class _CopyWithStubImpl$Mutation$OrgResEquipmentKindEdit$updateMstrEquipmentKind
     String? startAt,
     String? stopAt,
     String? remarks,
+    String? symbol,
     Mutation$OrgResEquipmentKindEdit$updateMstrEquipmentKindByMstrEquipmentKindId$mstrEquipmentKind$sharedAppellationBySharedAppellationsId?
     sharedAppellationBySharedAppellationsId,
     String? $__typename,

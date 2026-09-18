@@ -619,6 +619,13 @@ const documentNodeQuerySupplierContactRead = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
+                        name: NameNode(value: 'symbol'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
                         name: NameNode(value: 'remarks'),
                         alias: null,
                         arguments: [],
@@ -2062,6 +2069,7 @@ class Query$SupplierContactRead$allMstrStakeholderContacts$nodes {
     required this.mstrStakeholderId,
     required this.code,
     this.mail,
+    this.symbol,
     this.remarks,
     this.updateAt,
     this.remove,
@@ -2081,6 +2089,7 @@ class Query$SupplierContactRead$allMstrStakeholderContacts$nodes {
     final l$mstrStakeholderId = json['mstrStakeholderId'];
     final l$code = json['code'];
     final l$mail = json['mail'];
+    final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
@@ -2101,6 +2110,7 @@ class Query$SupplierContactRead$allMstrStakeholderContacts$nodes {
       mstrStakeholderId: (l$mstrStakeholderId as String),
       code: (l$code as String),
       mail: (l$mail as String?),
+      symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
@@ -2151,6 +2161,8 @@ class Query$SupplierContactRead$allMstrStakeholderContacts$nodes {
 
   final String? mail;
 
+  final String? symbol;
+
   final String? remarks;
 
   final String? updateAt;
@@ -2186,6 +2198,8 @@ class Query$SupplierContactRead$allMstrStakeholderContacts$nodes {
     _resultData['code'] = l$code;
     final l$mail = mail;
     _resultData['mail'] = l$mail;
+    final l$symbol = symbol;
+    _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
     final l$updateAt = updateAt;
@@ -2225,6 +2239,7 @@ class Query$SupplierContactRead$allMstrStakeholderContacts$nodes {
     final l$mstrStakeholderId = mstrStakeholderId;
     final l$code = code;
     final l$mail = mail;
+    final l$symbol = symbol;
     final l$remarks = remarks;
     final l$updateAt = updateAt;
     final l$remove = remove;
@@ -2245,6 +2260,7 @@ class Query$SupplierContactRead$allMstrStakeholderContacts$nodes {
       l$mstrStakeholderId,
       l$code,
       l$mail,
+      l$symbol,
       l$remarks,
       l$updateAt,
       l$remove,
@@ -2285,6 +2301,11 @@ class Query$SupplierContactRead$allMstrStakeholderContacts$nodes {
     final l$mail = mail;
     final lOther$mail = other.mail;
     if (l$mail != lOther$mail) {
+      return false;
+    }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (l$symbol != lOther$symbol) {
       return false;
     }
     final l$remarks = remarks;
@@ -2386,6 +2407,7 @@ abstract class CopyWith$Query$SupplierContactRead$allMstrStakeholderContacts$nod
     String? mstrStakeholderId,
     String? code,
     String? mail,
+    String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
@@ -2450,6 +2472,7 @@ class _CopyWithImpl$Query$SupplierContactRead$allMstrStakeholderContacts$nodes<
     Object? mstrStakeholderId = _undefined,
     Object? code = _undefined,
     Object? mail = _undefined,
+    Object? symbol = _undefined,
     Object? remarks = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
@@ -2475,6 +2498,7 @@ class _CopyWithImpl$Query$SupplierContactRead$allMstrStakeholderContacts$nodes<
           ? _instance.code
           : (code as String),
       mail: mail == _undefined ? _instance.mail : (mail as String?),
+      symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
@@ -2614,6 +2638,7 @@ class _CopyWithStubImpl$Query$SupplierContactRead$allMstrStakeholderContacts$nod
     String? mstrStakeholderId,
     String? code,
     String? mail,
+    String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
@@ -6003,7 +6028,7 @@ class Query$SupplierContactRead$allMstrStakeholderContacts$nodes$historyInfoStaf
   Query$SupplierContactRead$allMstrStakeholderContacts$nodes$historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId({
     required this.historyId,
     required this.infoStaffId,
-    this.sharedAppellationsId,
+    required this.sharedAppellationsId,
     this.$__typename = 'HistoryInfoStaff',
   });
 
@@ -6017,7 +6042,7 @@ class Query$SupplierContactRead$allMstrStakeholderContacts$nodes$historyInfoStaf
     return Query$SupplierContactRead$allMstrStakeholderContacts$nodes$historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      sharedAppellationsId: (l$sharedAppellationsId as String?),
+      sharedAppellationsId: (l$sharedAppellationsId as String),
       $__typename: (l$$__typename as String),
     );
   }
@@ -6026,7 +6051,7 @@ class Query$SupplierContactRead$allMstrStakeholderContacts$nodes$historyInfoStaf
 
   final String infoStaffId;
 
-  final String? sharedAppellationsId;
+  final String sharedAppellationsId;
 
   final String $__typename;
 
@@ -6163,9 +6188,10 @@ class _CopyWithImpl$Query$SupplierContactRead$allMstrStakeholderContacts$nodes$h
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      sharedAppellationsId: sharedAppellationsId == _undefined
+      sharedAppellationsId:
+          sharedAppellationsId == _undefined || sharedAppellationsId == null
           ? _instance.sharedAppellationsId
-          : (sharedAppellationsId as String?),
+          : (sharedAppellationsId as String),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),

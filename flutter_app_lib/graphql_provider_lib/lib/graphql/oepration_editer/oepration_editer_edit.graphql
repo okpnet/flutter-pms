@@ -14,6 +14,7 @@ mutation OeprationEditerEdit(
   $controlCode: String
   $detail: String
   $remarks: String
+  $symbol: String
   $sharedAppellationsId: UUID!
   $nameSharedDictionaryId: UUID!
   $nameJa: String
@@ -32,6 +33,7 @@ mutation OeprationEditerEdit(
         controlCode: $controlCode
         detail: $detail
         remarks: $remarks
+        symbol: $symbol
 
         # --- 呼称セット(共通名前仕様、shared_appellations経由でshared_dictionaryへ入れ子更新) ---
         sharedAppellationToSharedAppellationsId: {
@@ -67,6 +69,7 @@ mutation OeprationEditerEdit(
       controlCode
       detail
       remarks
+      symbol
 
       # --- 工程運用課題(読み取り専用。編集は別ミューテーションで対応、⚠参照) ---------
       mstrOperationTasksByMstrOperationId {

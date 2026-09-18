@@ -14,6 +14,7 @@ class Variables$Mutation$TaskEdit {
     int? $class,
     Input$IntervalInput? defaultTime,
     String? remarks,
+    String? symbol,
     String? mstrTaskTreeId,
     String? parentMstrTaskId,
     required String sharedAppellationsId,
@@ -34,6 +35,7 @@ class Variables$Mutation$TaskEdit {
     if ($class != null) r'class': $class,
     if (defaultTime != null) r'defaultTime': defaultTime,
     if (remarks != null) r'remarks': remarks,
+    if (symbol != null) r'symbol': symbol,
     if (mstrTaskTreeId != null) r'mstrTaskTreeId': mstrTaskTreeId,
     if (parentMstrTaskId != null) r'parentMstrTaskId': parentMstrTaskId,
     r'sharedAppellationsId': sharedAppellationsId,
@@ -81,6 +83,10 @@ class Variables$Mutation$TaskEdit {
     if (data.containsKey('remarks')) {
       final l$remarks = data['remarks'];
       result$data['remarks'] = (l$remarks as String?);
+    }
+    if (data.containsKey('symbol')) {
+      final l$symbol = data['symbol'];
+      result$data['symbol'] = (l$symbol as String?);
     }
     if (data.containsKey('mstrTaskTreeId')) {
       final l$mstrTaskTreeId = data['mstrTaskTreeId'];
@@ -146,6 +152,8 @@ class Variables$Mutation$TaskEdit {
 
   String? get remarks => (_$data['remarks'] as String?);
 
+  String? get symbol => (_$data['symbol'] as String?);
+
   String? get mstrTaskTreeId => (_$data['mstrTaskTreeId'] as String?);
 
   String? get parentMstrTaskId => (_$data['parentMstrTaskId'] as String?);
@@ -200,6 +208,10 @@ class Variables$Mutation$TaskEdit {
     if (_$data.containsKey('remarks')) {
       final l$remarks = remarks;
       result$data['remarks'] = l$remarks;
+    }
+    if (_$data.containsKey('symbol')) {
+      final l$symbol = symbol;
+      result$data['symbol'] = l$symbol;
     }
     if (_$data.containsKey('mstrTaskTreeId')) {
       final l$mstrTaskTreeId = mstrTaskTreeId;
@@ -312,6 +324,14 @@ class Variables$Mutation$TaskEdit {
     if (l$remarks != lOther$remarks) {
       return false;
     }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (_$data.containsKey('symbol') != other._$data.containsKey('symbol')) {
+      return false;
+    }
+    if (l$symbol != lOther$symbol) {
+      return false;
+    }
     final l$mstrTaskTreeId = mstrTaskTreeId;
     final lOther$mstrTaskTreeId = other.mstrTaskTreeId;
     if (_$data.containsKey('mstrTaskTreeId') !=
@@ -416,6 +436,7 @@ class Variables$Mutation$TaskEdit {
     final l$$class = $class;
     final l$defaultTime = defaultTime;
     final l$remarks = remarks;
+    final l$symbol = symbol;
     final l$mstrTaskTreeId = mstrTaskTreeId;
     final l$parentMstrTaskId = parentMstrTaskId;
     final l$sharedAppellationsId = sharedAppellationsId;
@@ -436,6 +457,7 @@ class Variables$Mutation$TaskEdit {
       _$data.containsKey('class') ? l$$class : const {},
       _$data.containsKey('defaultTime') ? l$defaultTime : const {},
       _$data.containsKey('remarks') ? l$remarks : const {},
+      _$data.containsKey('symbol') ? l$symbol : const {},
       _$data.containsKey('mstrTaskTreeId') ? l$mstrTaskTreeId : const {},
       _$data.containsKey('parentMstrTaskId') ? l$parentMstrTaskId : const {},
       l$sharedAppellationsId,
@@ -469,6 +491,7 @@ abstract class CopyWith$Variables$Mutation$TaskEdit<TRes> {
     int? $class,
     Input$IntervalInput? defaultTime,
     String? remarks,
+    String? symbol,
     String? mstrTaskTreeId,
     String? parentMstrTaskId,
     String? sharedAppellationsId,
@@ -502,6 +525,7 @@ class _CopyWithImpl$Variables$Mutation$TaskEdit<TRes>
     Object? $class = _undefined,
     Object? defaultTime = _undefined,
     Object? remarks = _undefined,
+    Object? symbol = _undefined,
     Object? mstrTaskTreeId = _undefined,
     Object? parentMstrTaskId = _undefined,
     Object? sharedAppellationsId = _undefined,
@@ -527,6 +551,7 @@ class _CopyWithImpl$Variables$Mutation$TaskEdit<TRes>
       if (defaultTime != _undefined)
         'defaultTime': (defaultTime as Input$IntervalInput?),
       if (remarks != _undefined) 'remarks': (remarks as String?),
+      if (symbol != _undefined) 'symbol': (symbol as String?),
       if (mstrTaskTreeId != _undefined)
         'mstrTaskTreeId': (mstrTaskTreeId as String?),
       if (parentMstrTaskId != _undefined)
@@ -569,6 +594,7 @@ class _CopyWithStubImpl$Variables$Mutation$TaskEdit<TRes>
     int? $class,
     Input$IntervalInput? defaultTime,
     String? remarks,
+    String? symbol,
     String? mstrTaskTreeId,
     String? parentMstrTaskId,
     String? sharedAppellationsId,
@@ -786,6 +812,15 @@ const documentNodeMutationTaskEdit = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'symbol')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'mstrTaskTreeId')),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: false),
           defaultValue: DefaultValueNode(value: null),
@@ -931,6 +966,12 @@ const documentNodeMutationTaskEdit = DocumentNode(
                             name: NameNode(value: 'remarks'),
                             value: VariableNode(
                               name: NameNode(value: 'remarks'),
+                            ),
+                          ),
+                          ObjectFieldNode(
+                            name: NameNode(value: 'symbol'),
+                            value: VariableNode(
+                              name: NameNode(value: 'symbol'),
                             ),
                           ),
                           ObjectFieldNode(
@@ -1326,6 +1367,13 @@ const documentNodeMutationTaskEdit = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'symbol'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -1981,6 +2029,7 @@ class Mutation$TaskEdit$updateMstrTaskByMstrTaskId$mstrTask {
     this.$class,
     this.defaultTime,
     this.remarks,
+    this.symbol,
     required this.mstrTaskTreesByMstrTaskId,
     required this.mstrTaskLocationsByMstrTaskId,
     this.sharedAppellationBySharedAppellationsId,
@@ -1997,6 +2046,7 @@ class Mutation$TaskEdit$updateMstrTaskByMstrTaskId$mstrTask {
     final l$$class = json['class'];
     final l$defaultTime = json['defaultTime'];
     final l$remarks = json['remarks'];
+    final l$symbol = json['symbol'];
     final l$mstrTaskTreesByMstrTaskId = json['mstrTaskTreesByMstrTaskId'];
     final l$mstrTaskLocationsByMstrTaskId =
         json['mstrTaskLocationsByMstrTaskId'];
@@ -2015,6 +2065,7 @@ class Mutation$TaskEdit$updateMstrTaskByMstrTaskId$mstrTask {
               (l$defaultTime as Map<String, dynamic>),
             ),
       remarks: (l$remarks as String?),
+      symbol: (l$symbol as String?),
       mstrTaskTreesByMstrTaskId:
           Mutation$TaskEdit$updateMstrTaskByMstrTaskId$mstrTask$mstrTaskTreesByMstrTaskId.fromJson(
             (l$mstrTaskTreesByMstrTaskId as Map<String, dynamic>),
@@ -2049,6 +2100,8 @@ class Mutation$TaskEdit$updateMstrTaskByMstrTaskId$mstrTask {
 
   final String? remarks;
 
+  final String? symbol;
+
   final Mutation$TaskEdit$updateMstrTaskByMstrTaskId$mstrTask$mstrTaskTreesByMstrTaskId
   mstrTaskTreesByMstrTaskId;
 
@@ -2076,6 +2129,8 @@ class Mutation$TaskEdit$updateMstrTaskByMstrTaskId$mstrTask {
     _resultData['defaultTime'] = l$defaultTime?.toJson();
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$symbol = symbol;
+    _resultData['symbol'] = l$symbol;
     final l$mstrTaskTreesByMstrTaskId = mstrTaskTreesByMstrTaskId;
     _resultData['mstrTaskTreesByMstrTaskId'] = l$mstrTaskTreesByMstrTaskId
         .toJson();
@@ -2100,6 +2155,7 @@ class Mutation$TaskEdit$updateMstrTaskByMstrTaskId$mstrTask {
     final l$$class = $class;
     final l$defaultTime = defaultTime;
     final l$remarks = remarks;
+    final l$symbol = symbol;
     final l$mstrTaskTreesByMstrTaskId = mstrTaskTreesByMstrTaskId;
     final l$mstrTaskLocationsByMstrTaskId = mstrTaskLocationsByMstrTaskId;
     final l$sharedAppellationBySharedAppellationsId =
@@ -2113,6 +2169,7 @@ class Mutation$TaskEdit$updateMstrTaskByMstrTaskId$mstrTask {
       l$$class,
       l$defaultTime,
       l$remarks,
+      l$symbol,
       l$mstrTaskTreesByMstrTaskId,
       l$mstrTaskLocationsByMstrTaskId,
       l$sharedAppellationBySharedAppellationsId,
@@ -2162,6 +2219,11 @@ class Mutation$TaskEdit$updateMstrTaskByMstrTaskId$mstrTask {
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (l$symbol != lOther$symbol) {
       return false;
     }
     final l$mstrTaskTreesByMstrTaskId = mstrTaskTreesByMstrTaskId;
@@ -2226,6 +2288,7 @@ abstract class CopyWith$Mutation$TaskEdit$updateMstrTaskByMstrTaskId$mstrTask<
     Mutation$TaskEdit$updateMstrTaskByMstrTaskId$mstrTask$defaultTime?
     defaultTime,
     String? remarks,
+    String? symbol,
     Mutation$TaskEdit$updateMstrTaskByMstrTaskId$mstrTask$mstrTaskTreesByMstrTaskId?
     mstrTaskTreesByMstrTaskId,
     Mutation$TaskEdit$updateMstrTaskByMstrTaskId$mstrTask$mstrTaskLocationsByMstrTaskId?
@@ -2275,6 +2338,7 @@ class _CopyWithImpl$Mutation$TaskEdit$updateMstrTaskByMstrTaskId$mstrTask<TRes>
     Object? $class = _undefined,
     Object? defaultTime = _undefined,
     Object? remarks = _undefined,
+    Object? symbol = _undefined,
     Object? mstrTaskTreesByMstrTaskId = _undefined,
     Object? mstrTaskLocationsByMstrTaskId = _undefined,
     Object? sharedAppellationBySharedAppellationsId = _undefined,
@@ -2297,6 +2361,7 @@ class _CopyWithImpl$Mutation$TaskEdit$updateMstrTaskByMstrTaskId$mstrTask<TRes>
           : (defaultTime
                 as Mutation$TaskEdit$updateMstrTaskByMstrTaskId$mstrTask$defaultTime?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       mstrTaskTreesByMstrTaskId:
           mstrTaskTreesByMstrTaskId == _undefined ||
               mstrTaskTreesByMstrTaskId == null
@@ -2395,6 +2460,7 @@ class _CopyWithStubImpl$Mutation$TaskEdit$updateMstrTaskByMstrTaskId$mstrTask<
     Mutation$TaskEdit$updateMstrTaskByMstrTaskId$mstrTask$defaultTime?
     defaultTime,
     String? remarks,
+    String? symbol,
     Mutation$TaskEdit$updateMstrTaskByMstrTaskId$mstrTask$mstrTaskTreesByMstrTaskId?
     mstrTaskTreesByMstrTaskId,
     Mutation$TaskEdit$updateMstrTaskByMstrTaskId$mstrTask$mstrTaskLocationsByMstrTaskId?

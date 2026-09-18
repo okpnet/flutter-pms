@@ -32,6 +32,7 @@ mutation TaskEdit(
   $class: Int
   $defaultTime: IntervalInput
   $remarks: String
+  $symbol: String
   $mstrTaskTreeId: UUID
   $parentMstrTaskId: UUID
   $sharedAppellationsId: UUID!
@@ -55,6 +56,7 @@ mutation TaskEdit(
         class: $class
         defaultTime: $defaultTime
         remarks: $remarks
+        symbol: $symbol
 
         # --- 親id(工程体系マスタのうち自分自身を表す行のparentMstrTaskIdのみを入れ子更新) ---
         # ⚠ $mstrTaskTreeIdはread(TaskRead)の`mstrTaskTreesByMstrTaskId`の先頭ノードから
@@ -114,6 +116,7 @@ mutation TaskEdit(
         years
       }
       remarks
+      symbol
 
       # --- 親id(更新後の値を確認するため再取得) -----------------------------------
       mstrTaskTreesByMstrTaskId(first: 1) {

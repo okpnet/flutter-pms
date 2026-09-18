@@ -15,6 +15,7 @@ mutation OrgResLocationEdit(
   $controlCode: String
   $infoDepartmentId: UUID
   $remarks: String
+  $symbol: String
   $sharedAppellationsId: UUID!
   $nameSharedDictionaryId: UUID!
   $nameJa: String
@@ -41,6 +42,7 @@ mutation OrgResLocationEdit(
         controlCode: $controlCode
         infoDepartmentId: $infoDepartmentId
         remarks: $remarks
+        symbol: $symbol
 
         # --- 場所名 / 読み / 略称(共通名前仕様、shared_appellations経由でshared_dictionaryへ入れ子更新) ---
         sharedAppellationToSharedAppellationsId: {
@@ -92,6 +94,7 @@ mutation OrgResLocationEdit(
       controlCode
       infoDepartmentId
       remarks
+      symbol
       sharedAppellationBySharedAppellationsId {
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {

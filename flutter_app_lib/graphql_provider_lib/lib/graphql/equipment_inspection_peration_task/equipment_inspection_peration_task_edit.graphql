@@ -21,6 +21,7 @@ mutation EquipmentInspectionPerationTaskEdit(
   $commencementDate: Datetime
   $timeInterval: IntervalInput
   $remarks: String
+  $symbol: String
 ) {
   updateMstrInspectionOperationTaskByMstrInspectionOperationTaskId(
     input: {
@@ -32,6 +33,7 @@ mutation EquipmentInspectionPerationTaskEdit(
         commencementDate: $commencementDate
         timeInterval: $timeInterval
         remarks: $remarks
+        symbol: $symbol
       }
     }
   ) {
@@ -50,6 +52,7 @@ mutation EquipmentInspectionPerationTaskEdit(
         years
       }
       remarks
+      symbol
 
       # --- 外部点検整備 / 点検整備サービス品目(⚠表示のための参照。編集対象外) -----
       mstrInspectionByMstrInspectionId {

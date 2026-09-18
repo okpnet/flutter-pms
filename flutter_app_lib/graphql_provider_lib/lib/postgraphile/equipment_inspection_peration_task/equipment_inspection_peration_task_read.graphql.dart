@@ -723,6 +723,13 @@ const documentNodeQueryEquipmentInspectionPerationTaskRead = DocumentNode(
                         ),
                       ),
                       FieldNode(
+                        name: NameNode(value: 'symbol'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
                         name: NameNode(value: 'remarks'),
                         alias: null,
                         arguments: [],
@@ -2459,6 +2466,7 @@ class Query$EquipmentInspectionPerationTaskRead$allMstrInspectionOperationTasks$
     required this.mstrInspectionId,
     this.commencementDate,
     required this.timeInterval,
+    this.symbol,
     this.remarks,
     this.updateAt,
     this.remove,
@@ -2478,6 +2486,7 @@ class Query$EquipmentInspectionPerationTaskRead$allMstrInspectionOperationTasks$
     final l$mstrInspectionId = json['mstrInspectionId'];
     final l$commencementDate = json['commencementDate'];
     final l$timeInterval = json['timeInterval'];
+    final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
@@ -2499,6 +2508,7 @@ class Query$EquipmentInspectionPerationTaskRead$allMstrInspectionOperationTasks$
           Query$EquipmentInspectionPerationTaskRead$allMstrInspectionOperationTasks$nodes$timeInterval.fromJson(
             (l$timeInterval as Map<String, dynamic>),
           ),
+      symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
@@ -2539,6 +2549,8 @@ class Query$EquipmentInspectionPerationTaskRead$allMstrInspectionOperationTasks$
   final Query$EquipmentInspectionPerationTaskRead$allMstrInspectionOperationTasks$nodes$timeInterval
   timeInterval;
 
+  final String? symbol;
+
   final String? remarks;
 
   final String? updateAt;
@@ -2571,6 +2583,8 @@ class Query$EquipmentInspectionPerationTaskRead$allMstrInspectionOperationTasks$
     _resultData['commencementDate'] = l$commencementDate;
     final l$timeInterval = timeInterval;
     _resultData['timeInterval'] = l$timeInterval.toJson();
+    final l$symbol = symbol;
+    _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
     final l$updateAt = updateAt;
@@ -2601,6 +2615,7 @@ class Query$EquipmentInspectionPerationTaskRead$allMstrInspectionOperationTasks$
     final l$mstrInspectionId = mstrInspectionId;
     final l$commencementDate = commencementDate;
     final l$timeInterval = timeInterval;
+    final l$symbol = symbol;
     final l$remarks = remarks;
     final l$updateAt = updateAt;
     final l$remove = remove;
@@ -2617,6 +2632,7 @@ class Query$EquipmentInspectionPerationTaskRead$allMstrInspectionOperationTasks$
       l$mstrInspectionId,
       l$commencementDate,
       l$timeInterval,
+      l$symbol,
       l$remarks,
       l$updateAt,
       l$remove,
@@ -2667,6 +2683,11 @@ class Query$EquipmentInspectionPerationTaskRead$allMstrInspectionOperationTasks$
     final l$timeInterval = timeInterval;
     final lOther$timeInterval = other.timeInterval;
     if (l$timeInterval != lOther$timeInterval) {
+      return false;
+    }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (l$symbol != lOther$symbol) {
       return false;
     }
     final l$remarks = remarks;
@@ -2753,6 +2774,7 @@ abstract class CopyWith$Query$EquipmentInspectionPerationTaskRead$allMstrInspect
     String? commencementDate,
     Query$EquipmentInspectionPerationTaskRead$allMstrInspectionOperationTasks$nodes$timeInterval?
     timeInterval,
+    String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
@@ -2811,6 +2833,7 @@ class _CopyWithImpl$Query$EquipmentInspectionPerationTaskRead$allMstrInspectionO
     Object? mstrInspectionId = _undefined,
     Object? commencementDate = _undefined,
     Object? timeInterval = _undefined,
+    Object? symbol = _undefined,
     Object? remarks = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
@@ -2844,6 +2867,7 @@ class _CopyWithImpl$Query$EquipmentInspectionPerationTaskRead$allMstrInspectionO
           ? _instance.timeInterval
           : (timeInterval
                 as Query$EquipmentInspectionPerationTaskRead$allMstrInspectionOperationTasks$nodes$timeInterval),
+      symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
@@ -2952,6 +2976,7 @@ class _CopyWithStubImpl$Query$EquipmentInspectionPerationTaskRead$allMstrInspect
     String? commencementDate,
     Query$EquipmentInspectionPerationTaskRead$allMstrInspectionOperationTasks$nodes$timeInterval?
     timeInterval,
+    String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
@@ -7612,7 +7637,7 @@ class Query$EquipmentInspectionPerationTaskRead$allMstrInspectionOperationTasks$
   Query$EquipmentInspectionPerationTaskRead$allMstrInspectionOperationTasks$nodes$historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId({
     required this.historyId,
     required this.infoStaffId,
-    this.sharedAppellationsId,
+    required this.sharedAppellationsId,
     this.$__typename = 'HistoryInfoStaff',
   });
 
@@ -7626,7 +7651,7 @@ class Query$EquipmentInspectionPerationTaskRead$allMstrInspectionOperationTasks$
     return Query$EquipmentInspectionPerationTaskRead$allMstrInspectionOperationTasks$nodes$historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      sharedAppellationsId: (l$sharedAppellationsId as String?),
+      sharedAppellationsId: (l$sharedAppellationsId as String),
       $__typename: (l$$__typename as String),
     );
   }
@@ -7635,7 +7660,7 @@ class Query$EquipmentInspectionPerationTaskRead$allMstrInspectionOperationTasks$
 
   final String infoStaffId;
 
-  final String? sharedAppellationsId;
+  final String sharedAppellationsId;
 
   final String $__typename;
 
@@ -7772,9 +7797,10 @@ class _CopyWithImpl$Query$EquipmentInspectionPerationTaskRead$allMstrInspectionO
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      sharedAppellationsId: sharedAppellationsId == _undefined
+      sharedAppellationsId:
+          sharedAppellationsId == _undefined || sharedAppellationsId == null
           ? _instance.sharedAppellationsId
-          : (sharedAppellationsId as String?),
+          : (sharedAppellationsId as String),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),

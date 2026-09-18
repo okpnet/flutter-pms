@@ -12,6 +12,7 @@ class Variables$Mutation$ItemActualSizeEdit {
     String? sizeValue,
     String? detail,
     String? remarks,
+    String? symbol,
   }) => Variables$Mutation$ItemActualSizeEdit._({
     r'mstrItemActualSizeId': mstrItemActualSizeId,
     if (mstrItemId != null) r'mstrItemId': mstrItemId,
@@ -19,6 +20,7 @@ class Variables$Mutation$ItemActualSizeEdit {
     if (sizeValue != null) r'sizeValue': sizeValue,
     if (detail != null) r'detail': detail,
     if (remarks != null) r'remarks': remarks,
+    if (symbol != null) r'symbol': symbol,
   });
 
   Variables$Mutation$ItemActualSizeEdit._(this._$data);
@@ -49,6 +51,10 @@ class Variables$Mutation$ItemActualSizeEdit {
       final l$remarks = data['remarks'];
       result$data['remarks'] = (l$remarks as String?);
     }
+    if (data.containsKey('symbol')) {
+      final l$symbol = data['symbol'];
+      result$data['symbol'] = (l$symbol as String?);
+    }
     return Variables$Mutation$ItemActualSizeEdit._(result$data);
   }
 
@@ -65,6 +71,8 @@ class Variables$Mutation$ItemActualSizeEdit {
   String? get detail => (_$data['detail'] as String?);
 
   String? get remarks => (_$data['remarks'] as String?);
+
+  String? get symbol => (_$data['symbol'] as String?);
 
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
@@ -89,6 +97,10 @@ class Variables$Mutation$ItemActualSizeEdit {
     if (_$data.containsKey('remarks')) {
       final l$remarks = remarks;
       result$data['remarks'] = l$remarks;
+    }
+    if (_$data.containsKey('symbol')) {
+      final l$symbol = symbol;
+      result$data['symbol'] = l$symbol;
     }
     return result$data;
   }
@@ -156,6 +168,14 @@ class Variables$Mutation$ItemActualSizeEdit {
     if (l$remarks != lOther$remarks) {
       return false;
     }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (_$data.containsKey('symbol') != other._$data.containsKey('symbol')) {
+      return false;
+    }
+    if (l$symbol != lOther$symbol) {
+      return false;
+    }
     return true;
   }
 
@@ -167,6 +187,7 @@ class Variables$Mutation$ItemActualSizeEdit {
     final l$sizeValue = sizeValue;
     final l$detail = detail;
     final l$remarks = remarks;
+    final l$symbol = symbol;
     return Object.hashAll([
       l$mstrItemActualSizeId,
       _$data.containsKey('mstrItemId') ? l$mstrItemId : const {},
@@ -176,6 +197,7 @@ class Variables$Mutation$ItemActualSizeEdit {
       _$data.containsKey('sizeValue') ? l$sizeValue : const {},
       _$data.containsKey('detail') ? l$detail : const {},
       _$data.containsKey('remarks') ? l$remarks : const {},
+      _$data.containsKey('symbol') ? l$symbol : const {},
     ]);
   }
 }
@@ -196,6 +218,7 @@ abstract class CopyWith$Variables$Mutation$ItemActualSizeEdit<TRes> {
     String? sizeValue,
     String? detail,
     String? remarks,
+    String? symbol,
   });
 }
 
@@ -219,6 +242,7 @@ class _CopyWithImpl$Variables$Mutation$ItemActualSizeEdit<TRes>
     Object? sizeValue = _undefined,
     Object? detail = _undefined,
     Object? remarks = _undefined,
+    Object? symbol = _undefined,
   }) => _then(
     Variables$Mutation$ItemActualSizeEdit._({
       ..._instance._$data,
@@ -230,6 +254,7 @@ class _CopyWithImpl$Variables$Mutation$ItemActualSizeEdit<TRes>
       if (sizeValue != _undefined) 'sizeValue': (sizeValue as String?),
       if (detail != _undefined) 'detail': (detail as String?),
       if (remarks != _undefined) 'remarks': (remarks as String?),
+      if (symbol != _undefined) 'symbol': (symbol as String?),
     }),
   );
 }
@@ -247,6 +272,7 @@ class _CopyWithStubImpl$Variables$Mutation$ItemActualSizeEdit<TRes>
     String? sizeValue,
     String? detail,
     String? remarks,
+    String? symbol,
   }) => _res;
 }
 
@@ -466,6 +492,15 @@ const documentNodeMutationItemActualSizeEdit = DocumentNode(
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'symbol')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
       ],
       directives: [],
       selectionSet: SelectionSetNode(
@@ -518,6 +553,12 @@ const documentNodeMutationItemActualSizeEdit = DocumentNode(
                             name: NameNode(value: 'remarks'),
                             value: VariableNode(
                               name: NameNode(value: 'remarks'),
+                            ),
+                          ),
+                          ObjectFieldNode(
+                            name: NameNode(value: 'symbol'),
+                            value: VariableNode(
+                              name: NameNode(value: 'symbol'),
                             ),
                           ),
                         ],
@@ -574,6 +615,13 @@ const documentNodeMutationItemActualSizeEdit = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'symbol'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -1013,6 +1061,7 @@ class Mutation$ItemActualSizeEdit$updateMstrItemActualSizeByMstrItemActualSizeId
     this.sizeValue,
     this.detail,
     this.remarks,
+    this.symbol,
     this.$__typename = 'MstrItemActualSize',
   });
 
@@ -1025,6 +1074,7 @@ class Mutation$ItemActualSizeEdit$updateMstrItemActualSizeByMstrItemActualSizeId
     final l$sizeValue = json['sizeValue'];
     final l$detail = json['detail'];
     final l$remarks = json['remarks'];
+    final l$symbol = json['symbol'];
     final l$$__typename = json['__typename'];
     return Mutation$ItemActualSizeEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize(
       mstrItemActualSizeId: (l$mstrItemActualSizeId as String),
@@ -1033,6 +1083,7 @@ class Mutation$ItemActualSizeEdit$updateMstrItemActualSizeByMstrItemActualSizeId
       sizeValue: (l$sizeValue as String?),
       detail: (l$detail as String?),
       remarks: (l$remarks as String?),
+      symbol: (l$symbol as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -1048,6 +1099,8 @@ class Mutation$ItemActualSizeEdit$updateMstrItemActualSizeByMstrItemActualSizeId
   final String? detail;
 
   final String? remarks;
+
+  final String? symbol;
 
   final String $__typename;
 
@@ -1065,6 +1118,8 @@ class Mutation$ItemActualSizeEdit$updateMstrItemActualSizeByMstrItemActualSizeId
     _resultData['detail'] = l$detail;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
+    final l$symbol = symbol;
+    _resultData['symbol'] = l$symbol;
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -1078,6 +1133,7 @@ class Mutation$ItemActualSizeEdit$updateMstrItemActualSizeByMstrItemActualSizeId
     final l$sizeValue = sizeValue;
     final l$detail = detail;
     final l$remarks = remarks;
+    final l$symbol = symbol;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$mstrItemActualSizeId,
@@ -1086,6 +1142,7 @@ class Mutation$ItemActualSizeEdit$updateMstrItemActualSizeByMstrItemActualSizeId
       l$sizeValue,
       l$detail,
       l$remarks,
+      l$symbol,
       l$$__typename,
     ]);
   }
@@ -1128,6 +1185,11 @@ class Mutation$ItemActualSizeEdit$updateMstrItemActualSizeByMstrItemActualSizeId
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (l$symbol != lOther$symbol) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -1175,6 +1237,7 @@ abstract class CopyWith$Mutation$ItemActualSizeEdit$updateMstrItemActualSizeByMs
     String? sizeValue,
     String? detail,
     String? remarks,
+    String? symbol,
     String? $__typename,
   });
 }
@@ -1208,6 +1271,7 @@ class _CopyWithImpl$Mutation$ItemActualSizeEdit$updateMstrItemActualSizeByMstrIt
     Object? sizeValue = _undefined,
     Object? detail = _undefined,
     Object? remarks = _undefined,
+    Object? symbol = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Mutation$ItemActualSizeEdit$updateMstrItemActualSizeByMstrItemActualSizeId$mstrItemActualSize(
@@ -1227,6 +1291,7 @@ class _CopyWithImpl$Mutation$ItemActualSizeEdit$updateMstrItemActualSizeByMstrIt
           : (sizeValue as String?),
       detail: detail == _undefined ? _instance.detail : (detail as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -1254,6 +1319,7 @@ class _CopyWithStubImpl$Mutation$ItemActualSizeEdit$updateMstrItemActualSizeByMs
     String? sizeValue,
     String? detail,
     String? remarks,
+    String? symbol,
     String? $__typename,
   }) => _res;
 }
