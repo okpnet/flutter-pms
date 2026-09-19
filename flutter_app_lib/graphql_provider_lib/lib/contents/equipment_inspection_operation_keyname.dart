@@ -11,77 +11,164 @@
 //   モレ修正で追加(mstrEquipmentIdが必須列のため)。
 //
 // 対象画面: source/views.md #equipment_inspection_operation (read)
+import 'content_variable.dart';
+
 abstract class EquipmentInspectionOperationKeyName {
   /// 点検整備運用ID
-  static const String mstrInspectionOperationId = 'mstrInspectionOperationId';
+  static const ContentVariable mstrInspectionOperationId = ContentVariable(
+    'mstrInspectionOperationId',
+    GraphQLTypeKind.uuid,
+  );
 
   /// 点検整備運用コード
-  static const String code = 'code';
+  static const ContentVariable code = ContentVariable(
+    'code',
+    GraphQLTypeKind.string,
+  );
 
   /// 設備ID(既存マスタへの付け替え、スカラーID)
-  static const String mstrEquipmentId = 'mstrEquipmentId';
+  static const ContentVariable mstrEquipmentId = ContentVariable(
+    'mstrEquipmentId',
+    GraphQLTypeKind.uuid,
+  );
 
   /// 備考(mstr_inspection_operation)
-  static const String remarks = 'remarks';
+  static const ContentVariable remarks = ContentVariable(
+    'remarks',
+    GraphQLTypeKind.string,
+  );
 
   /// 共通項: 更新日時
-  static const String updateAt = 'updateAt';
+  static const ContentVariable updateAt = ContentVariable(
+    'updateAt',
+    GraphQLTypeKind.datetime,
+  );
 
   /// 共通項: 削除
-  static const String remove = 'remove';
+  static const ContentVariable remove = ContentVariable(
+    'remove',
+    GraphQLTypeKind.boolean,
+  );
 
   // --- 点検運用名 / 読み / 略称(共通名前仕様) ---------------------------------
-  static const String sharedAppellationBySharedAppellationsId_sharedAppellationsId =
-      'sharedAppellationBySharedAppellationsId||sharedAppellationsId';
+  static const ContentVariable
+  sharedAppellationBySharedAppellationsId_sharedAppellationsId =
+      ContentVariable(
+        'sharedAppellationBySharedAppellationsId||sharedAppellationsId',
+        GraphQLTypeKind.uuid,
+      );
 
-  static const String sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_sharedDictionaryId =
-      'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||sharedDictionaryId';
+  static const ContentVariable
+  sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_sharedDictionaryId =
+      ContentVariable(
+        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||sharedDictionaryId',
+        GraphQLTypeKind.uuid,
+      );
 
-  static const String sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_ja =
-      'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||ja';
+  static const ContentVariable
+  sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_ja =
+      ContentVariable(
+        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||ja',
+        GraphQLTypeKind.string,
+      );
 
-  static const String sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_en =
-      'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||en';
+  static const ContentVariable
+  sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_en =
+      ContentVariable(
+        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||en',
+        GraphQLTypeKind.string,
+      );
 
-  static const String sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryPronunciationId_sharedDictionaryId =
-      'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryPronunciationId||sharedDictionaryId';
+  static const ContentVariable
+  sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryPronunciationId_sharedDictionaryId =
+      ContentVariable(
+        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryPronunciationId||sharedDictionaryId',
+        GraphQLTypeKind.uuid,
+      );
 
-  static const String sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryPronunciationId_ja =
-      'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryPronunciationId||ja';
+  static const ContentVariable
+  sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryPronunciationId_ja =
+      ContentVariable(
+        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryPronunciationId||ja',
+        GraphQLTypeKind.string,
+      );
 
-  static const String sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryPronunciationId_en =
-      'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryPronunciationId||en';
+  static const ContentVariable
+  sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryPronunciationId_en =
+      ContentVariable(
+        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryPronunciationId||en',
+        GraphQLTypeKind.string,
+      );
 
-  static const String sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNicknameId_sharedDictionaryId =
-      'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNicknameId||sharedDictionaryId';
+  static const ContentVariable
+  sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNicknameId_sharedDictionaryId =
+      ContentVariable(
+        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNicknameId||sharedDictionaryId',
+        GraphQLTypeKind.uuid,
+      );
 
-  static const String sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNicknameId_ja =
-      'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNicknameId||ja';
+  static const ContentVariable
+  sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNicknameId_ja =
+      ContentVariable(
+        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNicknameId||ja',
+        GraphQLTypeKind.string,
+      );
 
-  static const String sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNicknameId_en =
-      'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNicknameId||en';
+  static const ContentVariable
+  sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNicknameId_en =
+      ContentVariable(
+        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNicknameId||en',
+        GraphQLTypeKind.string,
+      );
 
   // --- read専用: 設備名(参照のみ、mstr_item経由) -------------------------------
-  static const String mstrEquipmentByMstrEquipmentId_mstrEquipmentId =
-      'mstrEquipmentByMstrEquipmentId||mstrEquipmentId';
+  static const ContentVariable mstrEquipmentByMstrEquipmentId_mstrEquipmentId =
+      ContentVariable(
+        'mstrEquipmentByMstrEquipmentId||mstrEquipmentId',
+        GraphQLTypeKind.uuid,
+      );
 
-  static const String mstrEquipmentByMstrEquipmentId_mstrItemByMstrItemId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_ja =
-      'mstrEquipmentByMstrEquipmentId||mstrItemByMstrItemId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||ja';
+  static const ContentVariable
+  mstrEquipmentByMstrEquipmentId_mstrItemByMstrItemId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_ja =
+      ContentVariable(
+        'mstrEquipmentByMstrEquipmentId||mstrItemByMstrItemId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||ja',
+        GraphQLTypeKind.string,
+      );
 
-  static const String mstrEquipmentByMstrEquipmentId_mstrItemByMstrItemId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_en =
-      'mstrEquipmentByMstrEquipmentId||mstrItemByMstrItemId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||en';
+  static const ContentVariable
+  mstrEquipmentByMstrEquipmentId_mstrItemByMstrItemId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_en =
+      ContentVariable(
+        'mstrEquipmentByMstrEquipmentId||mstrItemByMstrItemId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||en',
+        GraphQLTypeKind.string,
+      );
 
   // --- read専用: 点検項目数(totalCount) -----------------------------------------
-  static const String mstrInspectionOperationTasksByMstrInspectionOperationId_totalCount =
-      'mstrInspectionOperationTasksByMstrInspectionOperationId||totalCount';
+  static const ContentVariable
+  mstrInspectionOperationTasksByMstrInspectionOperationId_totalCount =
+      ContentVariable(
+        'mstrInspectionOperationTasksByMstrInspectionOperationId||totalCount',
+        GraphQLTypeKind.int,
+      );
 
   // --- read専用: 共通項: 更新者名(共通名前仕様)の呼称セットID -----------------
-  static const String historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId_historyId =
-      'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId||historyId';
+  static const ContentVariable
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId_historyId =
+      ContentVariable(
+        'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId||historyId',
+        GraphQLTypeKind.uuid,
+      );
 
-  static const String historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId_infoStaffId =
-      'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId||infoStaffId';
+  static const ContentVariable
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId_infoStaffId =
+      ContentVariable(
+        'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId||infoStaffId',
+        GraphQLTypeKind.uuid,
+      );
 
-  static const String historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId_sharedAppellationsId =
-      'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId||sharedAppellationsId';
+  static const ContentVariable
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId_sharedAppellationsId =
+      ContentVariable(
+        'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId||sharedAppellationsId',
+        GraphQLTypeKind.uuid,
+      );
 }

@@ -13,99 +13,206 @@
 //   Relay Connection形状のリストとして扱う)。
 //
 // 対象画面: source/views.md #org_res_equipment (read / edit)
+import 'content_variable.dart';
+
 abstract class OrgResEquipmentKeyName {
   /// 設備ID
-  static const String mstrEquipmentId = 'mstrEquipmentId';
+  static const ContentVariable mstrEquipmentId = ContentVariable(
+    'mstrEquipmentId',
+    GraphQLTypeKind.uuid,
+  );
 
   /// 設備コード
-  static const String code = 'code';
+  static const ContentVariable code = ContentVariable(
+    'code',
+    GraphQLTypeKind.string,
+  );
 
   /// 管理コード
-  static const String controlCode = 'controlCode';
+  static const ContentVariable controlCode = ContentVariable(
+    'controlCode',
+    GraphQLTypeKind.string,
+  );
 
   /// 表示コード
-  static const String labelCode = 'labelCode';
+  static const ContentVariable labelCode = ContentVariable(
+    'labelCode',
+    GraphQLTypeKind.string,
+  );
 
   /// 備考(mstr_equipment)
-  static const String remarks = 'remarks';
+  static const ContentVariable remarks = ContentVariable(
+    'remarks',
+    GraphQLTypeKind.string,
+  );
 
   /// 共通項: 更新日時
-  static const String updateAt = 'updateAt';
+  static const ContentVariable updateAt = ContentVariable(
+    'updateAt',
+    GraphQLTypeKind.datetime,
+  );
 
   /// 共通項: 削除
-  static const String remove = 'remove';
+  static const ContentVariable remove = ContentVariable(
+    'remove',
+    GraphQLTypeKind.boolean,
+  );
 
   // --- 設備区分名(参照のみ、⚠ #10) -------------------------------------------
-  static const String mstrEquipmentKindByMstrEquipmentCategoryId_mstrEquipmentKindId =
-      'mstrEquipmentKindByMstrEquipmentCategoryId||mstrEquipmentKindId';
+  static const ContentVariable
+  mstrEquipmentKindByMstrEquipmentCategoryId_mstrEquipmentKindId =
+      ContentVariable(
+        'mstrEquipmentKindByMstrEquipmentCategoryId||mstrEquipmentKindId',
+        GraphQLTypeKind.uuid,
+      );
 
-  static const String mstrEquipmentKindByMstrEquipmentCategoryId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_ja =
-      'mstrEquipmentKindByMstrEquipmentCategoryId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||ja';
+  static const ContentVariable
+  mstrEquipmentKindByMstrEquipmentCategoryId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_ja =
+      ContentVariable(
+        'mstrEquipmentKindByMstrEquipmentCategoryId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||ja',
+        GraphQLTypeKind.string,
+      );
 
-  static const String mstrEquipmentKindByMstrEquipmentCategoryId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_en =
-      'mstrEquipmentKindByMstrEquipmentCategoryId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||en';
+  static const ContentVariable
+  mstrEquipmentKindByMstrEquipmentCategoryId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_en =
+      ContentVariable(
+        'mstrEquipmentKindByMstrEquipmentCategoryId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||en',
+        GraphQLTypeKind.string,
+      );
 
   // --- 設備名 / 読み / 略称(共通名前仕様、mstr_item経由・⚠ #10で入れ子編集対象) -----
-  static const String mstrItemByMstrItemId_mstrItemId =
-      'mstrItemByMstrItemId||mstrItemId';
+  static const ContentVariable mstrItemByMstrItemId_mstrItemId =
+      ContentVariable('mstrItemByMstrItemId||mstrItemId', GraphQLTypeKind.uuid);
 
-  static const String mstrItemByMstrItemId_sharedAppellationBySharedAppellationsId_sharedAppellationsId =
-      'mstrItemByMstrItemId||sharedAppellationBySharedAppellationsId||sharedAppellationsId';
+  static const ContentVariable
+  mstrItemByMstrItemId_sharedAppellationBySharedAppellationsId_sharedAppellationsId =
+      ContentVariable(
+        'mstrItemByMstrItemId||sharedAppellationBySharedAppellationsId||sharedAppellationsId',
+        GraphQLTypeKind.uuid,
+      );
 
-  static const String mstrItemByMstrItemId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_sharedDictionaryId =
-      'mstrItemByMstrItemId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||sharedDictionaryId';
+  static const ContentVariable
+  mstrItemByMstrItemId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_sharedDictionaryId =
+      ContentVariable(
+        'mstrItemByMstrItemId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||sharedDictionaryId',
+        GraphQLTypeKind.uuid,
+      );
 
-  static const String mstrItemByMstrItemId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_ja =
-      'mstrItemByMstrItemId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||ja';
+  static const ContentVariable
+  mstrItemByMstrItemId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_ja =
+      ContentVariable(
+        'mstrItemByMstrItemId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||ja',
+        GraphQLTypeKind.string,
+      );
 
-  static const String mstrItemByMstrItemId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_en =
-      'mstrItemByMstrItemId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||en';
+  static const ContentVariable
+  mstrItemByMstrItemId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_en =
+      ContentVariable(
+        'mstrItemByMstrItemId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||en',
+        GraphQLTypeKind.string,
+      );
 
-  static const String mstrItemByMstrItemId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryPronunciationId_sharedDictionaryId =
-      'mstrItemByMstrItemId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryPronunciationId||sharedDictionaryId';
+  static const ContentVariable
+  mstrItemByMstrItemId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryPronunciationId_sharedDictionaryId =
+      ContentVariable(
+        'mstrItemByMstrItemId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryPronunciationId||sharedDictionaryId',
+        GraphQLTypeKind.uuid,
+      );
 
-  static const String mstrItemByMstrItemId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryPronunciationId_ja =
-      'mstrItemByMstrItemId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryPronunciationId||ja';
+  static const ContentVariable
+  mstrItemByMstrItemId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryPronunciationId_ja =
+      ContentVariable(
+        'mstrItemByMstrItemId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryPronunciationId||ja',
+        GraphQLTypeKind.string,
+      );
 
-  static const String mstrItemByMstrItemId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryPronunciationId_en =
-      'mstrItemByMstrItemId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryPronunciationId||en';
+  static const ContentVariable
+  mstrItemByMstrItemId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryPronunciationId_en =
+      ContentVariable(
+        'mstrItemByMstrItemId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryPronunciationId||en',
+        GraphQLTypeKind.string,
+      );
 
-  static const String mstrItemByMstrItemId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNicknameId_sharedDictionaryId =
-      'mstrItemByMstrItemId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNicknameId||sharedDictionaryId';
+  static const ContentVariable
+  mstrItemByMstrItemId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNicknameId_sharedDictionaryId =
+      ContentVariable(
+        'mstrItemByMstrItemId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNicknameId||sharedDictionaryId',
+        GraphQLTypeKind.uuid,
+      );
 
-  static const String mstrItemByMstrItemId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNicknameId_ja =
-      'mstrItemByMstrItemId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNicknameId||ja';
+  static const ContentVariable
+  mstrItemByMstrItemId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNicknameId_ja =
+      ContentVariable(
+        'mstrItemByMstrItemId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNicknameId||ja',
+        GraphQLTypeKind.string,
+      );
 
-  static const String mstrItemByMstrItemId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNicknameId_en =
-      'mstrItemByMstrItemId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNicknameId||en';
+  static const ContentVariable
+  mstrItemByMstrItemId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNicknameId_en =
+      ContentVariable(
+        'mstrItemByMstrItemId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNicknameId||en',
+        GraphQLTypeKind.string,
+      );
 
   // --- read専用: サイズ幅/奥行き/高さ(⚠ #9、Relay Connection形状のためこれ以上は平坦化しない) ---
   // 2026/09/11のschema.graphql更新でmstrItemSizesByMstrItemId→mstrItemActualSizesByMstrItemId
   // に改称(docs/0021_view_graphql_log.mdの追記を参照)。
-  static const String mstrItemByMstrItemId_mstrItemActualSizesByMstrItemId =
-      'mstrItemByMstrItemId||mstrItemActualSizesByMstrItemId';
+  static const ContentVariable
+  mstrItemByMstrItemId_mstrItemActualSizesByMstrItemId = ContentVariable(
+    'mstrItemByMstrItemId||mstrItemActualSizesByMstrItemId',
+    GraphQLTypeKind.connection,
+  );
 
   // --- read専用: 場所名(参照のみ) --------------------------------------------
-  static const String mstrLocationByMstrLocationId_mstrLocationId =
-      'mstrLocationByMstrLocationId||mstrLocationId';
+  static const ContentVariable mstrLocationByMstrLocationId_mstrLocationId =
+      ContentVariable(
+        'mstrLocationByMstrLocationId||mstrLocationId',
+        GraphQLTypeKind.uuid,
+      );
 
-  static const String mstrLocationByMstrLocationId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_ja =
-      'mstrLocationByMstrLocationId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||ja';
+  static const ContentVariable
+  mstrLocationByMstrLocationId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_ja =
+      ContentVariable(
+        'mstrLocationByMstrLocationId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||ja',
+        GraphQLTypeKind.string,
+      );
 
-  static const String mstrLocationByMstrLocationId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_en =
-      'mstrLocationByMstrLocationId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||en';
+  static const ContentVariable
+  mstrLocationByMstrLocationId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_en =
+      ContentVariable(
+        'mstrLocationByMstrLocationId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||en',
+        GraphQLTypeKind.string,
+      );
 
   // --- read専用: 共通項: 更新者名(共通名前仕様)の呼称セットID -----------------
-  static const String historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId_historyId =
-      'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId||historyId';
+  static const ContentVariable
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId_historyId =
+      ContentVariable(
+        'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId||historyId',
+        GraphQLTypeKind.uuid,
+      );
 
-  static const String historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId_infoStaffId =
-      'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId||infoStaffId';
+  static const ContentVariable
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId_infoStaffId =
+      ContentVariable(
+        'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId||infoStaffId',
+        GraphQLTypeKind.uuid,
+      );
 
-  static const String historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId_sharedAppellationsId =
-      'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId||sharedAppellationsId';
+  static const ContentVariable
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId_sharedAppellationsId =
+      ContentVariable(
+        'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId||sharedAppellationsId',
+        GraphQLTypeKind.uuid,
+      );
 
   // --- edit専用: 設備区分 / 場所(スカラーFK付け替え、⚠ #10) --------------------
-  static const String mstrEquipmentCategoryId = 'mstrEquipmentCategoryId';
-  static const String mstrLocationId = 'mstrLocationId';
+  static const ContentVariable mstrEquipmentCategoryId = ContentVariable(
+    'mstrEquipmentCategoryId',
+    GraphQLTypeKind.uuid,
+  );
+  static const ContentVariable mstrLocationId = ContentVariable(
+    'mstrLocationId',
+    GraphQLTypeKind.uuid,
+  );
 }

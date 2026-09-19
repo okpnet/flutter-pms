@@ -170,75 +170,87 @@ void main() {
       final nodeMap = node.toJson();
 
       final columnFields = <String>[
-        InfoCompanyKeyName.infoCompanyId,
-        InfoCompanyKeyName.webPage,
+        InfoCompanyKeyName.infoCompanyId.name,
+        InfoCompanyKeyName.webPage.name,
         InfoCompanyKeyName
-            .sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_ja,
-        InfoCompanyKeyName.infoAddressByInfoAddressId_zipCode,
-        InfoCompanyKeyName.infoStaffsByInfoCompanyId_totalCount,
+            .sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_ja
+            .name,
+        InfoCompanyKeyName.infoAddressByInfoAddressId_zipCode.name,
+        InfoCompanyKeyName.infoStaffsByInfoCompanyId_totalCount.name,
       ];
 
       final flatColumns = nodeMap.flattenForColumns(columnFields);
 
-      expect(flatColumns[InfoCompanyKeyName.infoCompanyId], node.infoCompanyId);
-      expect(flatColumns[InfoCompanyKeyName.webPage], node.webPage);
+      expect(
+        flatColumns[InfoCompanyKeyName.infoCompanyId.name],
+        node.infoCompanyId,
+      );
+      expect(flatColumns[InfoCompanyKeyName.webPage.name], node.webPage);
       expect(
         flatColumns[InfoCompanyKeyName
-            .sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_ja],
+            .sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_ja
+            .name],
         node
             .sharedAppellationBySharedAppellationsId!
             .sharedDictionaryBySharedDictionaryNameId!
             .ja,
       );
       expect(
-        flatColumns[InfoCompanyKeyName.infoAddressByInfoAddressId_zipCode],
+        flatColumns[InfoCompanyKeyName.infoAddressByInfoAddressId_zipCode.name],
         node.infoAddressByInfoAddressId!.zipCode,
       );
       expect(
-        flatColumns[InfoCompanyKeyName.infoStaffsByInfoCompanyId_totalCount],
+        flatColumns[InfoCompanyKeyName
+            .infoStaffsByInfoCompanyId_totalCount
+            .name],
         node.infoStaffsByInfoCompanyId.totalCount,
       );
     });
   });
 
   group('要件0019: 生成モデル(Mutation\$InfoCompanyEdit) <-> Map 往復変換', () {
-    test('モデル -> Map -> flatten -> unflatten -> Map -> モデル が元と一致する(建物/電話番号/FAX番号を含む)', () {
-      final rawJson = _buildRawInfoCompanyEditJson();
+    test(
+      'モデル -> Map -> flatten -> unflatten -> Map -> モデル が元と一致する(建物/電話番号/FAX番号を含む)',
+      () {
+        final rawJson = _buildRawInfoCompanyEditJson();
 
-      final model = Mutation$InfoCompanyEdit.fromJson(rawJson);
-      final infoCompany = model.updateInfoCompanyByInfoCompanyId!.infoCompany!;
+        final model = Mutation$InfoCompanyEdit.fromJson(rawJson);
+        final infoCompany =
+            model.updateInfoCompanyByInfoCompanyId!.infoCompany!;
 
-      final companyMap = infoCompany.toJson();
-      final flatMap = companyMap.flatten();
-      final restoredMap = flatMap.unflatten();
-      final restoredModel =
-          Mutation$InfoCompanyEdit$updateInfoCompanyByInfoCompanyId$infoCompany
-              .fromJson(restoredMap);
+        final companyMap = infoCompany.toJson();
+        final flatMap = companyMap.flatten();
+        final restoredMap = flatMap.unflatten();
+        final restoredModel =
+            Mutation$InfoCompanyEdit$updateInfoCompanyByInfoCompanyId$infoCompany.fromJson(
+              restoredMap,
+            );
 
-      expect(restoredMap, equals(companyMap));
-      expect(restoredModel, equals(infoCompany));
+        expect(restoredMap, equals(companyMap));
+        expect(restoredModel, equals(infoCompany));
 
-      // 建物/電話番号/FAX番号が平坦化キーとして正しく復元できることを確認する。
-      expect(
-        flatMap[InfoCompanyKeyName.infoAddressByInfoAddressId_bill],
-        infoCompany.infoAddressByInfoAddressId!.bill,
-      );
-      expect(
-        flatMap[InfoCompanyKeyName.infoAddressByInfoAddressId_phone],
-        infoCompany.infoAddressByInfoAddressId!.phone,
-      );
-      expect(
-        flatMap[InfoCompanyKeyName.infoAddressByInfoAddressId_faxNumber],
-        infoCompany.infoAddressByInfoAddressId!.faxNumber,
-      );
+        // 建物/電話番号/FAX番号が平坦化キーとして正しく復元できることを確認する。
+        expect(
+          flatMap[InfoCompanyKeyName.infoAddressByInfoAddressId_bill.name],
+          infoCompany.infoAddressByInfoAddressId!.bill,
+        );
+        expect(
+          flatMap[InfoCompanyKeyName.infoAddressByInfoAddressId_phone.name],
+          infoCompany.infoAddressByInfoAddressId!.phone,
+        );
+        expect(
+          flatMap[InfoCompanyKeyName.infoAddressByInfoAddressId_faxNumber.name],
+          infoCompany.infoAddressByInfoAddressId!.faxNumber,
+        );
 
-      // ログ記録用
-      // ignore: avoid_print
-      print('INFO_COMPANY_EDIT_FLAT_MAP_JSON=${jsonEncode(flatMap)}');
-      // ignore: avoid_print
-      print(
-        'INFO_COMPANY_EDIT_RESTORED_MODEL_JSON=${jsonEncode(restoredModel.toJson())}',
-      );
-    });
+        // ログ記録用
+        // ignore: avoid_print
+        print('INFO_COMPANY_EDIT_FLAT_MAP_JSON=${jsonEncode(flatMap)}');
+        // ignore: avoid_print
+        print(
+          'INFO_COMPANY_EDIT_RESTORED_MODEL_JSON=${jsonEncode(restoredModel.toJson())}',
+        );
+      },
+    );
   });
 }

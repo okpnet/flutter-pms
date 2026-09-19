@@ -373,3 +373,130 @@ order/order_detail/ship_order/purchase/purchase_detail/unrecognized)には実質
 
 `transProductDetailId`列の削除に伴うviews.md側の対応は、要件0025として続けて実施する
 (docs/0025_container_and_visiter_evaluation_log.md の続報を参照)。
+
+## 追記7: 0026再実行(2026/09/19、「0026の実行。product_rezを除き、0025を実行。」の指示)
+
+### 接続・取得・差分判定
+
+`curl -m 10 http://192.168.1.100:5000/graphql` で疎通確認(`HTTP 405`、変化なし)後、
+`get-graphql-schema`で再取得したところ445,222行(直前の`lib/graphql/schema.graphql`は
+438,850行、+6,372行)の差分を検出した。`type X implements Node`の一覧差分は無く(新規・削除
+テーブルなし)。
+
+`@graphql-inspector/cli diff`は6,965件を報告した。従来からのFk#番号ズレノイズに加え、今回は
+**`HistoryInfoStaffXxxCreateInput`/`updateHistoryInfoStaffOnXxxForXxxFkNPatch`系の型が持つ
+「`transConveysUsingHistoryIdAndInfoStaffId`」「`transInventoryAppliesUsingHistoryIdAndInfoStaffId`」
+「`transInventoryRequestsUsingHistoryIdAndInfoStaffId`」「`transProductRezsUsingHistoryIdAndInfoStaffId`」
+「`transPurchaseRezsUsingHistoryIdAndInfoStaffId`」という5種の逆参照ネスト入力フィールドが、
+ほぼ全テーブル(`TransContainer`・`TransInspectRecord`・`TransInspectSch`・
+`TransInspectSchDetail`・`TransOperationsPlan`・`TransPurchaseRec`・`TransPurchaseRecVisiter`・
+`TransResorcePlan`・`TransUnrecognized`・`TransUnrecognizedDetail`・`TransWorkRecord`・
+`TransWorkRecordCertificate`・`TransWorkRecordVisiter`等)の`HistoryInfoStaff`系Create/Patch入力
+から一斉に消える」という、Fk#番号ズレと同種の副作用的ノイズが大半を占めた。
+
+この副作用の発生元を確認したところ、`TransConvey`・`TransInventoryApply`・
+`TransInventoryRequest`・`TransProductRez`・`TransPurchaseRez`の5テーブル自身に、
+`historyInfoStaffToStaffHistoryIdAndInfoStaffId`(担当者)という新しい複合外部キー参照が
+追加されたことが原因と判明した(該当5テーブル向けの`Update`系入力型が95件新規追加、
+`staffHistoryId`の説明文「作業担当履歴ID」→「作業担当者履歴ID」の訂正が4件、等)。
+
+`TransPurchaseRez`は`purchase_rec`見出しが対応する`TransPurchaseRec`(cで終わる、別テーブル)
+とは名称が似ているが別物であり、views.mdのどの見出しにも対応しない。`TransProductRez`は
+`product_rez`見出し(今回の指示で評価対象外)に対応する。`TransConvey`・
+`TransInventoryApply`・`TransInventoryRequest`はviews.mdに見出しが存在しない。
+
+上記5テーブルを名乗り元とする副作用ノイズを除いた残り(views.mdの対象見出しの物理型
+`TransUnrecognized`・`TransResorcePlan`・`TransInspectSch`・`TransInspectSchDetail`・
+`TransInspectRecord`・`TransPurchaseRec`・`TransOperationsPlan`・`TransWorkRecord`・
+`TransWorkRecordVisiter`・`TransPurchaseRecVisiter`・`TransContainer`・`TransContainerTree`)
+自身の列・フィールドが変更対象になっている行は**1件も無い**ことを`grep`で確認した
+(いずれも「〜Fk#HistoryInfoStaffCreateInput」等の器としてしか登場しない)。
+
+要件0026の指示は差分の有無のみを条件にしているため、要件0020のスキップ対象にはあたらないと
+判断し、前回までと同様に**置き換えを実行した**。
+
+### 置き換え・要件0024の実行・影響確認
+
+`lib/graphql/schema.graphql`を置き換え(438,850行 → 445,222行)、
+`dart run build_runner build --build-filter="lib/postgraphile/schema.graphql.dart"`を実行した。
+
+結果: `Built with build_runner/aot in 249s; wrote 1 output.`(警告は既知のスカラー代替のみ)。
+
+- `git status`で`lib/graphql/schema.graphql`以外の生成済みファイル(`*.graphql`/`*.graphql.dart`)
+  に変更が無いことを確認(既存31画面は再生成されていない)。
+- `dart analyze lib test`: error・warning 0件(info 13,848件、いずれも既存生成コードの
+  スタイル指摘)。
+- `flutter test`: 既存分すべて成功。
+
+### 結論
+
+`TransConvey`・`TransInventoryApply`・`TransInventoryRequest`・`TransProductRez`・
+`TransPurchaseRez`(いずれもviews.md対象外、`TransProductRez`は今回の指示で評価対象外と
+指定された`product_rez`見出しに対応)への「担当者」参照追加に伴う今回のschema変更は、
+views.mdが対象とする既存31画面・評価済み11見出し(unrecognized〜container_tree)の
+いずれにも影響しない。生成物の再作成は不要と判断し、実施していない。
+
+要件0025の実行(product_rez除く)については
+[docs/0025_purchase_convey_staff_reference_evaluation_log.md](0025_purchase_convey_staff_reference_evaluation_log.md)
+に記録した。
+
+## 追記8: 0026再実行(2026/09/19、「trans_purchase_rezとtrans_product_rez、中間テーブル
+trans_inventory_requestを変更した。0026を実行。」の指示)
+
+### 接続・取得・差分判定
+
+`curl -m 10 http://192.168.1.100:5000/graphql` で疎通確認(`HTTP 405`、変化なし)後、
+`get-graphql-schema`で再取得したところ442,976行(直前の`lib/graphql/schema.graphql`は
+445,222行、-2,246行)を検出した。`type X implements Node`の一覧差分は無く
+(新規・削除テーブルなし)。
+
+`@graphql-inspector/cli diff`は3,381件を報告した。Fk#番号ズレノイズを除いた実質差分を
+`TransProductRez`・`TransPurchaseRez`・`TransInventoryRequest`自身のフィールド変更に
+絞り込んで確認したところ、以下のとおりだった。
+
+1.  **`TransProductRez`から`registerAt`(引当予約日)・`registerPlanAt`(引当予定日)・
+    `staffHistoryId`(作業担当者履歴ID)・`infoStaffId`(作業担当者ID)の4列
+    (および導出される`historyInfoStaffByStaffHistoryIdAndInfoStaffId`参照)が削除された**
+    (要件0026追記7で新規追加を確認した「担当者」参照が、指示どおり変更・削除された)。
+2.  **`TransPurchaseRez`から`historyId`(作業担当者履歴ID)・`infoStaffId`(作業担当者ID)の
+    2列(および導出される`historyInfoStaffByHistoryIdAndInfoStaffId`参照)が削除された**
+    (同上)。
+3.  `TransInventoryRequest`自身のフィールド構成(`historyId`・`infoStaffId`を含む)は
+    旧スキーマと完全に一致しており、差分は検出されなかった。指示にある「中間テーブル
+    trans_inventory_requestを変更した」に対応する実質差分はスキーマ上には現れなかった
+    (列以外の制約・トリガー等の変更、または`TransProductRez`/`TransPurchaseRez`側からの
+    参照関係の変更に留まる可能性がある)。
+
+このほか、views.mdに対応する見出しを持たない`TransComplaintOrderAdapter`に
+`transOrderByTransOrderId`(新規列`trans_order_id`)が追加されたことも検出したが、
+既存の`order`見出しが対応する`TransOrder`自身のフィールドには変更が無く
+(`TransOrder`側に追加されたのは`transComplaintOrderAdaptersByTransOrderId`という
+逆参照フィールドのみで、生成済み`order_read.graphql`/`order_edit.graphql`はこのフィールドを
+選択していない)、影響は無いと判断した。
+
+`TransProductRez`は`product_rez`見出し(要件0025で継続して評価対象外としている空スタブ)に、
+`TransPurchaseRez`・`TransComplaintOrderAdapter`・`TransInventoryRequest`はいずれもviews.mdの
+どの見出しにも対応しないため、既存31画面・評価済み11見出しのいずれにも影響しないことを
+`grep`で確認した(0026追記7と同じ確認方法)。
+
+要件0026の指示は差分の有無のみを条件にしているため、要件0020のスキップ対象にはあたらないと
+判断し、**置き換えを実行した**。
+
+### 置き換え・要件0024の実行・影響確認
+
+`lib/graphql/schema.graphql`を置き換え(445,222行 → 442,976行)、
+`dart run build_runner build --build-filter="lib/postgraphile/schema.graphql.dart"`を実行した。
+
+結果: `Built with build_runner/aot in 311s; wrote 1 output.`(警告は既知のスカラー代替のみ)。
+
+- `git status`で`lib/graphql/schema.graphql`以外の生成済みファイル(`*.graphql`/`*.graphql.dart`)
+  に変更が無いことを確認(既存31画面は再生成されていない)。
+- `dart analyze lib test`: error・warning 0件(info 13,848件、既存生成コードのスタイル指摘のみ)。
+- `flutter test`: 60件すべて成功。
+
+### 結論
+
+`trans_purchase_rez`・`trans_product_rez`の「担当者」参照削除は、views.md対象外
+(`product_rez`は評価対象外、`TransPurchaseRez`は対応見出し無し)のため、views.mdへの
+反映・GraphQL再生成は不要と判断した。`trans_inventory_request`自体の実質差分はスキーマ上
+検出されなかった。生成物の再作成は行っていない。

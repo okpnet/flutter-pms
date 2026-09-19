@@ -2498,10 +2498,10 @@ create table tests.trans_inventory_request (
     register_plan_at timestamp default now(),
     trans_purchase_rez_id uuid default null,
     trans_product_rez_id uuid default null,
-    trans_product_detail_id uuid default null,
-    trans_product_id uuid default null,
     quantity decimal(10,2) default 0,
     symbol varchar(16) default '',
+    history_id uuid not null,
+    info_staff_id uuid not null,
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2511,11 +2511,7 @@ create table tests.trans_inventory_request (
 create table tests.trans_product_rez (
     trans_product_rez_id uuid default gen_random_uuid(),
     trans_work_plan_id uuid not null,
-    register_at timestamp default now(),
-    register_plan_at timestamp default now(),
     quantity decimal(10,2) default 0,
-    staff_history_id uuid not null,
-    info_staff_id uuid not null,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -5425,10 +5421,10 @@ comment on column tests.trans_inventory_request.register_at is '引当予約日'
 comment on column tests.trans_inventory_request.register_plan_at is '引当予定日';
 comment on column tests.trans_inventory_request.trans_purchase_rez_id is '購買引き当てID';
 comment on column tests.trans_inventory_request.trans_product_rez_id is '生産引き当てID';
-comment on column tests.trans_inventory_request.trans_product_detail_id is '生産計画詳細ID';
-comment on column tests.trans_inventory_request.trans_product_id is '生産計画ID';
 comment on column tests.trans_inventory_request.quantity is '引当数量';
 comment on column tests.trans_inventory_request.symbol is 'リニアシンボル';
+comment on column tests.trans_inventory_request.history_id is '作業担当者履歴ID';
+comment on column tests.trans_inventory_request.info_staff_id is '作業担当者ID';
 comment on column tests.trans_inventory_request.remarks is '備考';
 comment on column tests.trans_inventory_request.update_at is '更新日時';
 comment on column tests.trans_inventory_request.update_user_id is '更新者ID';
@@ -5437,11 +5433,7 @@ comment on column tests.trans_inventory_request.remove is '削除';
 comment on table tests.trans_product_rez is '生産引き当て予約';
 comment on column tests.trans_product_rez.trans_product_rez_id is '生産引当ID';
 comment on column tests.trans_product_rez.trans_work_plan_id is '生産計画詳細ID';
-comment on column tests.trans_product_rez.register_at is '引当予約日';
-comment on column tests.trans_product_rez.register_plan_at is '引当予定日';
 comment on column tests.trans_product_rez.quantity is '引当数量';
-comment on column tests.trans_product_rez.staff_history_id is '作業担当者履歴ID';
-comment on column tests.trans_product_rez.info_staff_id is '作業担当者ID';
 comment on column tests.trans_product_rez.symbol is 'リニアシンボル';
 comment on column tests.trans_product_rez.remarks is '備考';
 comment on column tests.trans_product_rez.update_at is '更新日時';
@@ -5683,7 +5675,7 @@ comment on column tests.trans_inventory_apply.trans_inventory_apply_id is '引�
 comment on column tests.trans_inventory_apply.register_at is '引当日';
 comment on column tests.trans_inventory_apply.trans_inventory_request_id is '引当予約ID';
 comment on column tests.trans_inventory_apply.convey_id is '受払実績ID';
-comment on column tests.trans_inventory_apply.staff_history_id is '作業担当履歴ID';
+comment on column tests.trans_inventory_apply.staff_history_id is '作業担当者履歴ID';
 comment on column tests.trans_inventory_apply.info_staff_id is '作業担当者ID';
 comment on column tests.trans_inventory_apply.symbol is 'リニアシンボル';
 comment on column tests.trans_inventory_apply.remarks is '備考';
@@ -7676,8 +7668,9 @@ alter table tests.trans_complaint_equipment_adapter add constraint trans_complai
 alter table tests.trans_complaint_process_adapter add constraint trans_complaint_process_adapter_FK1 foreign key (mstr_task_id) references tests.mstr_task (mstr_task_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_complaint_process_adapter add constraint trans_complaint_process_adapter_FK2 foreign key (trans_complaint_id) references tests.trans_complaint (trans_complaint_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_complaint_process_adapter add constraint trans_complaint_process_adapter_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_complaint_order_adapter add constraint trans_complaint_order_adapter_FK1 foreign key (trans_complaint_id) references tests.trans_complaint (trans_complaint_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_complaint_order_adapter add constraint trans_complaint_order_adapter_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint_order_adapter add constraint trans_complaint_order_adapter_FK1 foreign key (trans_order_id) references tests.trans_order (trans_order_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint_order_adapter add constraint trans_complaint_order_adapter_FK2 foreign key (trans_complaint_id) references tests.trans_complaint (trans_complaint_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint_order_adapter add constraint trans_complaint_order_adapter_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_disposal add constraint trans_disposal_FK1 foreign key (trans_complaint_id) references tests.trans_complaint (trans_complaint_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_disposal add constraint trans_disposal_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_recurrence_prevention add constraint trans_recurrence_prevention_FK1 foreign key (trans_disposal_id,trans_complaint_id) references tests.trans_disposal (trans_disposal_id,trans_complaint_id) DEFERRABLE INITIALLY DEFERRED;
@@ -7713,9 +7706,10 @@ alter table tests.info_app add constraint info_app_FK1 foreign key (info_company
 alter table tests.info_app add constraint info_app_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_access_path add constraint info_access_path_FK1 foreign key (info_app_id) references tests.info_app (info_app_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_access_path add constraint info_access_path_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_inventory_request add constraint trans_inventory_request_FK1 foreign key (trans_product_rez_id) references tests.trans_product_rez (trans_product_rez_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_inventory_request add constraint trans_inventory_request_FK2 foreign key (trans_purchase_rez_id) references tests.trans_purchase_rez (trans_purchase_rez_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_inventory_request add constraint trans_inventory_request_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_inventory_request add constraint trans_inventory_request_FK1 foreign key (history_id,info_staff_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_inventory_request add constraint trans_inventory_request_FK2 foreign key (trans_product_rez_id) references tests.trans_product_rez (trans_product_rez_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_inventory_request add constraint trans_inventory_request_FK3 foreign key (trans_purchase_rez_id) references tests.trans_purchase_rez (trans_purchase_rez_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_inventory_request add constraint trans_inventory_request_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_product_rez add constraint trans_product_rez_FK1 foreign key (trans_work_plan_id) references tests.trans_work_plan (trans_work_plan_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_product_rez add constraint trans_product_rez_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_work_record_visiter add constraint trans_work_record_visiter_FK1 foreign key (trans_visiter_id) references tests.trans_visiter (trans_visiter_id) DEFERRABLE INITIALLY DEFERRED;
@@ -7736,9 +7730,10 @@ alter table tests.mstr_operation_task add constraint mstr_operation_task_FK3 for
 alter table tests.mstr_operation_task add constraint mstr_operation_task_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_operation add constraint mstr_operation_FK1 foreign key (shared_appellations_id) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_operation add constraint mstr_operation_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_convey add constraint trans_convey_FK1 foreign key (history_id,mstr_location_id) references tests.history_mstr_location (history_id,mstr_location_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_convey add constraint trans_convey_FK2 foreign key (trans_visiter_id) references tests.trans_visiter (trans_visiter_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_convey add constraint trans_convey_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_convey add constraint trans_convey_FK1 foreign key (staff_history_id,info_staff_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_convey add constraint trans_convey_FK2 foreign key (history_id,mstr_location_id) references tests.history_mstr_location (history_id,mstr_location_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_convey add constraint trans_convey_FK3 foreign key (trans_visiter_id) references tests.trans_visiter (trans_visiter_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_convey add constraint trans_convey_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_work_record_certificate add constraint trans_work_record_certificate_FK1 foreign key (trans_work_record_id) references tests.trans_work_record (trans_work_record_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_work_record_certificate add constraint trans_work_record_certificate_FK2 foreign key (trans_certificate_id) references tests.trans_certificate (trans_certificate_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_work_record_certificate add constraint trans_work_record_certificate_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
@@ -7766,9 +7761,10 @@ alter table tests.trans_ship_order add constraint trans_ship_order_FK2 foreign k
 alter table tests.trans_ship_order add constraint trans_ship_order_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_work_record add constraint trans_work_record_FK1 foreign key (trans_work_plan_id) references tests.trans_work_plan (trans_work_plan_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_work_record add constraint trans_work_record_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_inventory_apply add constraint trans_inventory_apply_FK1 foreign key (trans_inventory_request_id) references tests.trans_inventory_request (trans_inventory_request_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_inventory_apply add constraint trans_inventory_apply_FK2 foreign key (convey_id) references tests.trans_convey (trans_convey_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_inventory_apply add constraint trans_inventory_apply_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_inventory_apply add constraint trans_inventory_apply_FK1 foreign key (staff_history_id,info_staff_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_inventory_apply add constraint trans_inventory_apply_FK2 foreign key (trans_inventory_request_id) references tests.trans_inventory_request (trans_inventory_request_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_inventory_apply add constraint trans_inventory_apply_FK3 foreign key (convey_id) references tests.trans_convey (trans_convey_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_inventory_apply add constraint trans_inventory_apply_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_work_plan add constraint trans_work_plan_FK1 foreign key (mstr_task_id) references tests.mstr_task (mstr_task_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_work_plan add constraint trans_work_plan_FK2 foreign key (trans_operations_plan_id) references tests.trans_operations_plan (trans_operations_plan_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_work_plan add constraint trans_work_plan_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;

@@ -11,75 +11,159 @@
 // 本テーブル自身はshared_appellationsを持たない(大きさ区分名等は品目大きさ区分マスタ経由の参照)。
 //
 // 対象画面: source/views.md #item_actual_size (read / edit)
+import 'content_variable.dart';
+
 abstract class ItemActualSizeKeyName {
   /// 大きさID
-  static const String mstrItemActualSizeId = 'mstrItemActualSizeId';
+  static const ContentVariable mstrItemActualSizeId = ContentVariable(
+    'mstrItemActualSizeId',
+    GraphQLTypeKind.uuid,
+  );
 
   /// 品目ID(既存マスタへの付け替え、スカラーID)
-  static const String mstrItemId = 'mstrItemId';
+  static const ContentVariable mstrItemId = ContentVariable(
+    'mstrItemId',
+    GraphQLTypeKind.uuid,
+  );
 
   /// 大きさ
-  static const String sizeValue = 'sizeValue';
+  static const ContentVariable sizeValue = ContentVariable(
+    'sizeValue',
+    GraphQLTypeKind.bigFloat,
+  );
 
   /// 詳細
-  static const String detail = 'detail';
+  static const ContentVariable detail = ContentVariable(
+    'detail',
+    GraphQLTypeKind.string,
+  );
 
   /// 備考(mstr_item_actual_size)
-  static const String remarks = 'remarks';
+  static const ContentVariable remarks = ContentVariable(
+    'remarks',
+    GraphQLTypeKind.string,
+  );
 
   /// 共通項: 更新日時
-  static const String updateAt = 'updateAt';
+  static const ContentVariable updateAt = ContentVariable(
+    'updateAt',
+    GraphQLTypeKind.datetime,
+  );
 
   /// 共通項: 削除
-  static const String remove = 'remove';
+  static const ContentVariable remove = ContentVariable(
+    'remove',
+    GraphQLTypeKind.boolean,
+  );
 
   // --- read専用: 品目大きさ区分マスタ参照(コード / 呼称セット) -------------------
-  static const String mstrItemSizeKindByMstrItemSizeKindId_mstrItemSizeKindId =
-      'mstrItemSizeKindByMstrItemSizeKindId||mstrItemSizeKindId';
+  static const ContentVariable
+  mstrItemSizeKindByMstrItemSizeKindId_mstrItemSizeKindId = ContentVariable(
+    'mstrItemSizeKindByMstrItemSizeKindId||mstrItemSizeKindId',
+    GraphQLTypeKind.uuid,
+  );
 
   /// edit専用: 品目大きさ区分(既存マスタへの付け替え、スカラーID)
-  static const String mstrItemSizeKindId = 'mstrItemSizeKindId';
+  static const ContentVariable mstrItemSizeKindId = ContentVariable(
+    'mstrItemSizeKindId',
+    GraphQLTypeKind.uuid,
+  );
 
-  static const String mstrItemSizeKindByMstrItemSizeKindId_code =
-      'mstrItemSizeKindByMstrItemSizeKindId||code';
+  static const ContentVariable mstrItemSizeKindByMstrItemSizeKindId_code =
+      ContentVariable(
+        'mstrItemSizeKindByMstrItemSizeKindId||code',
+        GraphQLTypeKind.string,
+      );
 
-  static const String mstrItemSizeKindByMstrItemSizeKindId_sharedAppellationBySharedAppellationsId_sharedAppellationsId =
-      'mstrItemSizeKindByMstrItemSizeKindId||sharedAppellationBySharedAppellationsId||sharedAppellationsId';
+  static const ContentVariable
+  mstrItemSizeKindByMstrItemSizeKindId_sharedAppellationBySharedAppellationsId_sharedAppellationsId =
+      ContentVariable(
+        'mstrItemSizeKindByMstrItemSizeKindId||sharedAppellationBySharedAppellationsId||sharedAppellationsId',
+        GraphQLTypeKind.uuid,
+      );
 
-  static const String mstrItemSizeKindByMstrItemSizeKindId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_sharedDictionaryId =
-      'mstrItemSizeKindByMstrItemSizeKindId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||sharedDictionaryId';
+  static const ContentVariable
+  mstrItemSizeKindByMstrItemSizeKindId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_sharedDictionaryId =
+      ContentVariable(
+        'mstrItemSizeKindByMstrItemSizeKindId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||sharedDictionaryId',
+        GraphQLTypeKind.uuid,
+      );
 
-  static const String mstrItemSizeKindByMstrItemSizeKindId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_ja =
-      'mstrItemSizeKindByMstrItemSizeKindId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||ja';
+  static const ContentVariable
+  mstrItemSizeKindByMstrItemSizeKindId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_ja =
+      ContentVariable(
+        'mstrItemSizeKindByMstrItemSizeKindId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||ja',
+        GraphQLTypeKind.string,
+      );
 
-  static const String mstrItemSizeKindByMstrItemSizeKindId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_en =
-      'mstrItemSizeKindByMstrItemSizeKindId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||en';
+  static const ContentVariable
+  mstrItemSizeKindByMstrItemSizeKindId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_en =
+      ContentVariable(
+        'mstrItemSizeKindByMstrItemSizeKindId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||en',
+        GraphQLTypeKind.string,
+      );
 
-  static const String mstrItemSizeKindByMstrItemSizeKindId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryPronunciationId_sharedDictionaryId =
-      'mstrItemSizeKindByMstrItemSizeKindId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryPronunciationId||sharedDictionaryId';
+  static const ContentVariable
+  mstrItemSizeKindByMstrItemSizeKindId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryPronunciationId_sharedDictionaryId =
+      ContentVariable(
+        'mstrItemSizeKindByMstrItemSizeKindId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryPronunciationId||sharedDictionaryId',
+        GraphQLTypeKind.uuid,
+      );
 
-  static const String mstrItemSizeKindByMstrItemSizeKindId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryPronunciationId_ja =
-      'mstrItemSizeKindByMstrItemSizeKindId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryPronunciationId||ja';
+  static const ContentVariable
+  mstrItemSizeKindByMstrItemSizeKindId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryPronunciationId_ja =
+      ContentVariable(
+        'mstrItemSizeKindByMstrItemSizeKindId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryPronunciationId||ja',
+        GraphQLTypeKind.string,
+      );
 
-  static const String mstrItemSizeKindByMstrItemSizeKindId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryPronunciationId_en =
-      'mstrItemSizeKindByMstrItemSizeKindId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryPronunciationId||en';
+  static const ContentVariable
+  mstrItemSizeKindByMstrItemSizeKindId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryPronunciationId_en =
+      ContentVariable(
+        'mstrItemSizeKindByMstrItemSizeKindId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryPronunciationId||en',
+        GraphQLTypeKind.string,
+      );
 
-  static const String mstrItemSizeKindByMstrItemSizeKindId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNicknameId_sharedDictionaryId =
-      'mstrItemSizeKindByMstrItemSizeKindId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNicknameId||sharedDictionaryId';
+  static const ContentVariable
+  mstrItemSizeKindByMstrItemSizeKindId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNicknameId_sharedDictionaryId =
+      ContentVariable(
+        'mstrItemSizeKindByMstrItemSizeKindId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNicknameId||sharedDictionaryId',
+        GraphQLTypeKind.uuid,
+      );
 
-  static const String mstrItemSizeKindByMstrItemSizeKindId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNicknameId_ja =
-      'mstrItemSizeKindByMstrItemSizeKindId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNicknameId||ja';
+  static const ContentVariable
+  mstrItemSizeKindByMstrItemSizeKindId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNicknameId_ja =
+      ContentVariable(
+        'mstrItemSizeKindByMstrItemSizeKindId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNicknameId||ja',
+        GraphQLTypeKind.string,
+      );
 
-  static const String mstrItemSizeKindByMstrItemSizeKindId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNicknameId_en =
-      'mstrItemSizeKindByMstrItemSizeKindId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNicknameId||en';
+  static const ContentVariable
+  mstrItemSizeKindByMstrItemSizeKindId_sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNicknameId_en =
+      ContentVariable(
+        'mstrItemSizeKindByMstrItemSizeKindId||sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNicknameId||en',
+        GraphQLTypeKind.string,
+      );
 
   // --- read専用: 共通項: 更新者名(共通名前仕様)の呼称セットID -----------------
-  static const String historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId_historyId =
-      'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId||historyId';
+  static const ContentVariable
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId_historyId =
+      ContentVariable(
+        'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId||historyId',
+        GraphQLTypeKind.uuid,
+      );
 
-  static const String historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId_infoStaffId =
-      'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId||infoStaffId';
+  static const ContentVariable
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId_infoStaffId =
+      ContentVariable(
+        'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId||infoStaffId',
+        GraphQLTypeKind.uuid,
+      );
 
-  static const String historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId_sharedAppellationsId =
-      'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId||sharedAppellationsId';
+  static const ContentVariable
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId_sharedAppellationsId =
+      ContentVariable(
+        'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId||sharedAppellationsId',
+        GraphQLTypeKind.uuid,
+      );
 }
