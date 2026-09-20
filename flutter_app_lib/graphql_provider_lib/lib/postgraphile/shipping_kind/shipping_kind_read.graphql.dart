@@ -13,6 +13,8 @@ class Variables$Query$ShippingKindRead {
     List<Enum$MstrShippingKindsOrderBy>? orderBy,
     required bool ja,
     required bool en,
+    String? jaLanguageCodeId,
+    String? enLanguageCodeId,
     bool? removed,
   }) => Variables$Query$ShippingKindRead._({
     r'first': first,
@@ -21,6 +23,8 @@ class Variables$Query$ShippingKindRead {
     if (orderBy != null) r'orderBy': orderBy,
     r'ja': ja,
     r'en': en,
+    if (jaLanguageCodeId != null) r'jaLanguageCodeId': jaLanguageCodeId,
+    if (enLanguageCodeId != null) r'enLanguageCodeId': enLanguageCodeId,
     if (removed != null) r'removed': removed,
   });
 
@@ -52,6 +56,14 @@ class Variables$Query$ShippingKindRead {
     result$data['ja'] = (l$ja as bool);
     final l$en = data['en'];
     result$data['en'] = (l$en as bool);
+    if (data.containsKey('jaLanguageCodeId')) {
+      final l$jaLanguageCodeId = data['jaLanguageCodeId'];
+      result$data['jaLanguageCodeId'] = (l$jaLanguageCodeId as String?);
+    }
+    if (data.containsKey('enLanguageCodeId')) {
+      final l$enLanguageCodeId = data['enLanguageCodeId'];
+      result$data['enLanguageCodeId'] = (l$enLanguageCodeId as String?);
+    }
     if (data.containsKey('removed')) {
       final l$removed = data['removed'];
       result$data['removed'] = (l$removed as bool?);
@@ -74,6 +86,10 @@ class Variables$Query$ShippingKindRead {
   bool get ja => (_$data['ja'] as bool);
 
   bool get en => (_$data['en'] as bool);
+
+  String? get jaLanguageCodeId => (_$data['jaLanguageCodeId'] as String?);
+
+  String? get enLanguageCodeId => (_$data['enLanguageCodeId'] as String?);
 
   bool? get removed => (_$data['removed'] as bool?);
 
@@ -99,6 +115,14 @@ class Variables$Query$ShippingKindRead {
     result$data['ja'] = l$ja;
     final l$en = en;
     result$data['en'] = l$en;
+    if (_$data.containsKey('jaLanguageCodeId')) {
+      final l$jaLanguageCodeId = jaLanguageCodeId;
+      result$data['jaLanguageCodeId'] = l$jaLanguageCodeId;
+    }
+    if (_$data.containsKey('enLanguageCodeId')) {
+      final l$enLanguageCodeId = enLanguageCodeId;
+      result$data['enLanguageCodeId'] = l$enLanguageCodeId;
+    }
     if (_$data.containsKey('removed')) {
       final l$removed = removed;
       result$data['removed'] = l$removed;
@@ -169,6 +193,24 @@ class Variables$Query$ShippingKindRead {
     if (l$en != lOther$en) {
       return false;
     }
+    final l$jaLanguageCodeId = jaLanguageCodeId;
+    final lOther$jaLanguageCodeId = other.jaLanguageCodeId;
+    if (_$data.containsKey('jaLanguageCodeId') !=
+        other._$data.containsKey('jaLanguageCodeId')) {
+      return false;
+    }
+    if (l$jaLanguageCodeId != lOther$jaLanguageCodeId) {
+      return false;
+    }
+    final l$enLanguageCodeId = enLanguageCodeId;
+    final lOther$enLanguageCodeId = other.enLanguageCodeId;
+    if (_$data.containsKey('enLanguageCodeId') !=
+        other._$data.containsKey('enLanguageCodeId')) {
+      return false;
+    }
+    if (l$enLanguageCodeId != lOther$enLanguageCodeId) {
+      return false;
+    }
     final l$removed = removed;
     final lOther$removed = other.removed;
     if (_$data.containsKey('removed') != other._$data.containsKey('removed')) {
@@ -188,6 +230,8 @@ class Variables$Query$ShippingKindRead {
     final l$orderBy = orderBy;
     final l$ja = ja;
     final l$en = en;
+    final l$jaLanguageCodeId = jaLanguageCodeId;
+    final l$enLanguageCodeId = enLanguageCodeId;
     final l$removed = removed;
     return Object.hashAll([
       l$first,
@@ -200,6 +244,8 @@ class Variables$Query$ShippingKindRead {
           : const {},
       l$ja,
       l$en,
+      _$data.containsKey('jaLanguageCodeId') ? l$jaLanguageCodeId : const {},
+      _$data.containsKey('enLanguageCodeId') ? l$enLanguageCodeId : const {},
       _$data.containsKey('removed') ? l$removed : const {},
     ]);
   }
@@ -221,6 +267,8 @@ abstract class CopyWith$Variables$Query$ShippingKindRead<TRes> {
     List<Enum$MstrShippingKindsOrderBy>? orderBy,
     bool? ja,
     bool? en,
+    String? jaLanguageCodeId,
+    String? enLanguageCodeId,
     bool? removed,
   });
 }
@@ -242,6 +290,8 @@ class _CopyWithImpl$Variables$Query$ShippingKindRead<TRes>
     Object? orderBy = _undefined,
     Object? ja = _undefined,
     Object? en = _undefined,
+    Object? jaLanguageCodeId = _undefined,
+    Object? enLanguageCodeId = _undefined,
     Object? removed = _undefined,
   }) => _then(
     Variables$Query$ShippingKindRead._({
@@ -254,6 +304,10 @@ class _CopyWithImpl$Variables$Query$ShippingKindRead<TRes>
         'orderBy': (orderBy as List<Enum$MstrShippingKindsOrderBy>?),
       if (ja != _undefined && ja != null) 'ja': (ja as bool),
       if (en != _undefined && en != null) 'en': (en as bool),
+      if (jaLanguageCodeId != _undefined)
+        'jaLanguageCodeId': (jaLanguageCodeId as String?),
+      if (enLanguageCodeId != _undefined)
+        'enLanguageCodeId': (enLanguageCodeId as String?),
       if (removed != _undefined) 'removed': (removed as bool?),
     }),
   );
@@ -272,6 +326,8 @@ class _CopyWithStubImpl$Variables$Query$ShippingKindRead<TRes>
     List<Enum$MstrShippingKindsOrderBy>? orderBy,
     bool? ja,
     bool? en,
+    String? jaLanguageCodeId,
+    String? enLanguageCodeId,
     bool? removed,
   }) => _res;
 }
@@ -476,6 +532,18 @@ const documentNodeQueryShippingKindRead = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'jaLanguageCodeId')),
+          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: false),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'enLanguageCodeId')),
+          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: false),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'removed')),
           type: NamedTypeNode(
             name: NameNode(value: 'Boolean'),
@@ -653,9 +721,30 @@ const documentNodeQueryShippingKindRead = DocumentNode(
                                     selectionSet: null,
                                   ),
                                   FieldNode(
-                                    name: NameNode(value: 'ja'),
-                                    alias: null,
-                                    arguments: [],
+                                    name: NameNode(
+                                      value:
+                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                    ),
+                                    alias: NameNode(value: 'ja'),
+                                    arguments: [
+                                      ArgumentNode(
+                                        name: NameNode(value: 'condition'),
+                                        value: ObjectValueNode(
+                                          fields: [
+                                            ObjectFieldNode(
+                                              name: NameNode(
+                                                value: 'sharedLanguageCodeId',
+                                              ),
+                                              value: VariableNode(
+                                                name: NameNode(
+                                                  value: 'jaLanguageCodeId',
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                     directives: [
                                       DirectiveNode(
                                         name: NameNode(value: 'include'),
@@ -669,12 +758,71 @@ const documentNodeQueryShippingKindRead = DocumentNode(
                                         ],
                                       ),
                                     ],
-                                    selectionSet: null,
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'nodes'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'dictionaryValue',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   FieldNode(
-                                    name: NameNode(value: 'en'),
-                                    alias: null,
-                                    arguments: [],
+                                    name: NameNode(
+                                      value:
+                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                    ),
+                                    alias: NameNode(value: 'en'),
+                                    arguments: [
+                                      ArgumentNode(
+                                        name: NameNode(value: 'condition'),
+                                        value: ObjectValueNode(
+                                          fields: [
+                                            ObjectFieldNode(
+                                              name: NameNode(
+                                                value: 'sharedLanguageCodeId',
+                                              ),
+                                              value: VariableNode(
+                                                name: NameNode(
+                                                  value: 'enLanguageCodeId',
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                     directives: [
                                       DirectiveNode(
                                         name: NameNode(value: 'include'),
@@ -688,7 +836,45 @@ const documentNodeQueryShippingKindRead = DocumentNode(
                                         ],
                                       ),
                                     ],
-                                    selectionSet: null,
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'nodes'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'dictionaryValue',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   FieldNode(
                                     name: NameNode(value: '__typename'),
@@ -718,9 +904,30 @@ const documentNodeQueryShippingKindRead = DocumentNode(
                                     selectionSet: null,
                                   ),
                                   FieldNode(
-                                    name: NameNode(value: 'ja'),
-                                    alias: null,
-                                    arguments: [],
+                                    name: NameNode(
+                                      value:
+                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                    ),
+                                    alias: NameNode(value: 'ja'),
+                                    arguments: [
+                                      ArgumentNode(
+                                        name: NameNode(value: 'condition'),
+                                        value: ObjectValueNode(
+                                          fields: [
+                                            ObjectFieldNode(
+                                              name: NameNode(
+                                                value: 'sharedLanguageCodeId',
+                                              ),
+                                              value: VariableNode(
+                                                name: NameNode(
+                                                  value: 'jaLanguageCodeId',
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                     directives: [
                                       DirectiveNode(
                                         name: NameNode(value: 'include'),
@@ -734,12 +941,71 @@ const documentNodeQueryShippingKindRead = DocumentNode(
                                         ],
                                       ),
                                     ],
-                                    selectionSet: null,
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'nodes'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'dictionaryValue',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   FieldNode(
-                                    name: NameNode(value: 'en'),
-                                    alias: null,
-                                    arguments: [],
+                                    name: NameNode(
+                                      value:
+                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                    ),
+                                    alias: NameNode(value: 'en'),
+                                    arguments: [
+                                      ArgumentNode(
+                                        name: NameNode(value: 'condition'),
+                                        value: ObjectValueNode(
+                                          fields: [
+                                            ObjectFieldNode(
+                                              name: NameNode(
+                                                value: 'sharedLanguageCodeId',
+                                              ),
+                                              value: VariableNode(
+                                                name: NameNode(
+                                                  value: 'enLanguageCodeId',
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                     directives: [
                                       DirectiveNode(
                                         name: NameNode(value: 'include'),
@@ -753,7 +1019,45 @@ const documentNodeQueryShippingKindRead = DocumentNode(
                                         ],
                                       ),
                                     ],
-                                    selectionSet: null,
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'nodes'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'dictionaryValue',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   FieldNode(
                                     name: NameNode(value: '__typename'),
@@ -783,9 +1087,30 @@ const documentNodeQueryShippingKindRead = DocumentNode(
                                     selectionSet: null,
                                   ),
                                   FieldNode(
-                                    name: NameNode(value: 'ja'),
-                                    alias: null,
-                                    arguments: [],
+                                    name: NameNode(
+                                      value:
+                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                    ),
+                                    alias: NameNode(value: 'ja'),
+                                    arguments: [
+                                      ArgumentNode(
+                                        name: NameNode(value: 'condition'),
+                                        value: ObjectValueNode(
+                                          fields: [
+                                            ObjectFieldNode(
+                                              name: NameNode(
+                                                value: 'sharedLanguageCodeId',
+                                              ),
+                                              value: VariableNode(
+                                                name: NameNode(
+                                                  value: 'jaLanguageCodeId',
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                     directives: [
                                       DirectiveNode(
                                         name: NameNode(value: 'include'),
@@ -799,12 +1124,71 @@ const documentNodeQueryShippingKindRead = DocumentNode(
                                         ],
                                       ),
                                     ],
-                                    selectionSet: null,
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'nodes'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'dictionaryValue',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   FieldNode(
-                                    name: NameNode(value: 'en'),
-                                    alias: null,
-                                    arguments: [],
+                                    name: NameNode(
+                                      value:
+                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                    ),
+                                    alias: NameNode(value: 'en'),
+                                    arguments: [
+                                      ArgumentNode(
+                                        name: NameNode(value: 'condition'),
+                                        value: ObjectValueNode(
+                                          fields: [
+                                            ObjectFieldNode(
+                                              name: NameNode(
+                                                value: 'sharedLanguageCodeId',
+                                              ),
+                                              value: VariableNode(
+                                                name: NameNode(
+                                                  value: 'enLanguageCodeId',
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                     directives: [
                                       DirectiveNode(
                                         name: NameNode(value: 'include'),
@@ -818,7 +1202,45 @@ const documentNodeQueryShippingKindRead = DocumentNode(
                                         ],
                                       ),
                                     ],
-                                    selectionSet: null,
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'nodes'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'dictionaryValue',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   FieldNode(
                                     name: NameNode(value: '__typename'),
@@ -2178,17 +2600,27 @@ class Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationByShare
     final l$$__typename = json['__typename'];
     return Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: (l$ja as String?),
-      en: (l$en as String?),
+      ja: l$ja == null
+          ? null
+          : Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
+              (l$ja as Map<String, dynamic>),
+            ),
+      en: l$en == null
+          ? null
+          : Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
+              (l$en as Map<String, dynamic>),
+            ),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String sharedDictionaryId;
 
-  final String? ja;
+  final Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja?
+  ja;
 
-  final String? en;
+  final Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en?
+  en;
 
   final String $__typename;
 
@@ -2197,9 +2629,9 @@ class Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationByShare
     final l$sharedDictionaryId = sharedDictionaryId;
     _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
     final l$ja = ja;
-    _resultData['ja'] = l$ja;
+    _resultData['ja'] = l$ja?.toJson();
     final l$en = en;
-    _resultData['en'] = l$en;
+    _resultData['en'] = l$en?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -2279,10 +2711,20 @@ abstract class CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$shared
 
   TRes call({
     String? sharedDictionaryId,
-    String? ja,
-    String? en,
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja?
+    ja,
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en?
+    en,
     String? $__typename,
   });
+  CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+    TRes
+  >
+  get ja;
+  CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+    TRes
+  >
+  get en;
 }
 
 class _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
@@ -2318,13 +2760,49 @@ class _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppe
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
           : (sharedDictionaryId as String),
-      ja: ja == _undefined ? _instance.ja : (ja as String?),
-      en: en == _undefined ? _instance.en : (en as String?),
+      ja: ja == _undefined
+          ? _instance.ja
+          : (ja
+                as Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja?),
+      en: en == _undefined
+          ? _instance.en
+          : (en
+                as Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
+
+  CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+    TRes
+  >
+  get ja {
+    final local$ja = _instance.ja;
+    return local$ja == null
+        ? CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja(
+            local$ja,
+            (e) => call(ja: e),
+          );
+  }
+
+  CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+    TRes
+  >
+  get en {
+    final local$en = _instance.en;
+    return local$en == null
+        ? CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en(
+            local$en,
+            (e) => call(en: e),
+          );
+  }
 }
 
 class _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
@@ -2342,10 +2820,764 @@ class _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$shared
 
   call({
     String? sharedDictionaryId,
-    String? ja,
-    String? en,
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja?
+    ja,
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en?
+    en,
     String? $__typename,
   }) => _res;
+
+  CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+    TRes
+  >
+  get ja =>
+      CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja.stub(
+        _res,
+      );
+
+  CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+    TRes
+  >
+  get en =>
+      CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en.stub(
+        _res,
+      );
+}
+
+class Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja {
+  Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja
+    on
+        Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja {
+  CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja
+  >
+  get copyWith =>
+      CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+  TRes
+> {
+  factory CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja
+    instance,
+    TRes Function(
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja,
+    )
+    then,
+  ) = _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja;
+
+  factory CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja;
+
+  TRes call({
+    List<
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+          Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+          TRes
+        > {
+  _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja
+  _instance;
+
+  final TRes Function(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+          Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
+  Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+    on
+        Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
+  CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+  TRes
+> {
+  factory CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+    instance,
+    TRes Function(
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
+
+  factory CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+  _instance;
+
+  final TRes Function(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en {
+  Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en
+    on
+        Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en {
+  CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en
+  >
+  get copyWith =>
+      CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+  TRes
+> {
+  factory CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en
+    instance,
+    TRes Function(
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en,
+    )
+    then,
+  ) = _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en;
+
+  factory CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en;
+
+  TRes call({
+    List<
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+          Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+          TRes
+        > {
+  _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en
+  _instance;
+
+  final TRes Function(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+          Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes {
+  Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes
+    on
+        Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes {
+  CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+  TRes
+> {
+  factory CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes
+    instance,
+    TRes Function(
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes;
+
+  factory CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes
+  _instance;
+
+  final TRes Function(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
 class Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId {
@@ -2365,17 +3597,27 @@ class Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationByShare
     final l$$__typename = json['__typename'];
     return Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: (l$ja as String?),
-      en: (l$en as String?),
+      ja: l$ja == null
+          ? null
+          : Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
+              (l$ja as Map<String, dynamic>),
+            ),
+      en: l$en == null
+          ? null
+          : Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
+              (l$en as Map<String, dynamic>),
+            ),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String sharedDictionaryId;
 
-  final String? ja;
+  final Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja?
+  ja;
 
-  final String? en;
+  final Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en?
+  en;
 
   final String $__typename;
 
@@ -2384,9 +3626,9 @@ class Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationByShare
     final l$sharedDictionaryId = sharedDictionaryId;
     _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
     final l$ja = ja;
-    _resultData['ja'] = l$ja;
+    _resultData['ja'] = l$ja?.toJson();
     final l$en = en;
-    _resultData['en'] = l$en;
+    _resultData['en'] = l$en?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -2466,10 +3708,20 @@ abstract class CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$shared
 
   TRes call({
     String? sharedDictionaryId,
-    String? ja,
-    String? en,
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja?
+    ja,
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en?
+    en,
     String? $__typename,
   });
+  CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+    TRes
+  >
+  get ja;
+  CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+    TRes
+  >
+  get en;
 }
 
 class _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId<
@@ -2505,13 +3757,49 @@ class _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppe
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
           : (sharedDictionaryId as String),
-      ja: ja == _undefined ? _instance.ja : (ja as String?),
-      en: en == _undefined ? _instance.en : (en as String?),
+      ja: ja == _undefined
+          ? _instance.ja
+          : (ja
+                as Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja?),
+      en: en == _undefined
+          ? _instance.en
+          : (en
+                as Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
+
+  CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+    TRes
+  >
+  get ja {
+    final local$ja = _instance.ja;
+    return local$ja == null
+        ? CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+            local$ja,
+            (e) => call(ja: e),
+          );
+  }
+
+  CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+    TRes
+  >
+  get en {
+    final local$en = _instance.en;
+    return local$en == null
+        ? CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en(
+            local$en,
+            (e) => call(en: e),
+          );
+  }
 }
 
 class _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId<
@@ -2529,10 +3817,764 @@ class _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$shared
 
   call({
     String? sharedDictionaryId,
-    String? ja,
-    String? en,
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja?
+    ja,
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en?
+    en,
     String? $__typename,
   }) => _res;
+
+  CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+    TRes
+  >
+  get ja =>
+      CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
+        _res,
+      );
+
+  CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+    TRes
+  >
+  get en =>
+      CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
+        _res,
+      );
+}
+
+class Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja {
+  Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja
+    on
+        Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja {
+  CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja
+  >
+  get copyWith =>
+      CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+  TRes
+> {
+  factory CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja
+    instance,
+    TRes Function(
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja,
+    )
+    then,
+  ) = _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja;
+
+  factory CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja;
+
+  TRes call({
+    List<
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+          Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+          TRes
+        > {
+  _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja
+  _instance;
+
+  final TRes Function(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+          Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
+  Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+    on
+        Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
+  CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+  TRes
+> {
+  factory CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+    instance,
+    TRes Function(
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
+
+  factory CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+  _instance;
+
+  final TRes Function(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en {
+  Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en
+    on
+        Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en {
+  CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en
+  >
+  get copyWith =>
+      CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+  TRes
+> {
+  factory CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en
+    instance,
+    TRes Function(
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en,
+    )
+    then,
+  ) = _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en;
+
+  factory CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en;
+
+  TRes call({
+    List<
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+          Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+          TRes
+        > {
+  _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en
+  _instance;
+
+  final TRes Function(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+          Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
+  Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+    on
+        Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
+  CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+  TRes
+> {
+  factory CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+    instance,
+    TRes Function(
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
+
+  factory CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+  _instance;
+
+  final TRes Function(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
 class Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId {
@@ -2552,17 +4594,27 @@ class Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationByShare
     final l$$__typename = json['__typename'];
     return Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: (l$ja as String?),
-      en: (l$en as String?),
+      ja: l$ja == null
+          ? null
+          : Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
+              (l$ja as Map<String, dynamic>),
+            ),
+      en: l$en == null
+          ? null
+          : Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
+              (l$en as Map<String, dynamic>),
+            ),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String sharedDictionaryId;
 
-  final String? ja;
+  final Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja?
+  ja;
 
-  final String? en;
+  final Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en?
+  en;
 
   final String $__typename;
 
@@ -2571,9 +4623,9 @@ class Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationByShare
     final l$sharedDictionaryId = sharedDictionaryId;
     _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
     final l$ja = ja;
-    _resultData['ja'] = l$ja;
+    _resultData['ja'] = l$ja?.toJson();
     final l$en = en;
-    _resultData['en'] = l$en;
+    _resultData['en'] = l$en?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -2653,10 +4705,20 @@ abstract class CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$shared
 
   TRes call({
     String? sharedDictionaryId,
-    String? ja,
-    String? en,
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja?
+    ja,
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en?
+    en,
     String? $__typename,
   });
+  CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja<
+    TRes
+  >
+  get ja;
+  CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en<
+    TRes
+  >
+  get en;
 }
 
 class _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId<
@@ -2692,13 +4754,49 @@ class _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppe
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
           : (sharedDictionaryId as String),
-      ja: ja == _undefined ? _instance.ja : (ja as String?),
-      en: en == _undefined ? _instance.en : (en as String?),
+      ja: ja == _undefined
+          ? _instance.ja
+          : (ja
+                as Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja?),
+      en: en == _undefined
+          ? _instance.en
+          : (en
+                as Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
+
+  CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja<
+    TRes
+  >
+  get ja {
+    final local$ja = _instance.ja;
+    return local$ja == null
+        ? CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja(
+            local$ja,
+            (e) => call(ja: e),
+          );
+  }
+
+  CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en<
+    TRes
+  >
+  get en {
+    final local$en = _instance.en;
+    return local$en == null
+        ? CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en(
+            local$en,
+            (e) => call(en: e),
+          );
+  }
 }
 
 class _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId<
@@ -2716,10 +4814,764 @@ class _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$shared
 
   call({
     String? sharedDictionaryId,
-    String? ja,
-    String? en,
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja?
+    ja,
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en?
+    en,
     String? $__typename,
   }) => _res;
+
+  CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja<
+    TRes
+  >
+  get ja =>
+      CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
+        _res,
+      );
+
+  CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en<
+    TRes
+  >
+  get en =>
+      CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
+        _res,
+      );
+}
+
+class Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja {
+  Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja
+    on
+        Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja {
+  CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja<
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja
+  >
+  get copyWith =>
+      CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja<
+  TRes
+> {
+  factory CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja
+    instance,
+    TRes Function(
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja,
+    )
+    then,
+  ) = _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja;
+
+  factory CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja;
+
+  TRes call({
+    List<
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+          Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja<
+          TRes
+        > {
+  _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja
+  _instance;
+
+  final TRes Function(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+          Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes {
+  Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+    on
+        Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes {
+  CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+  TRes
+> {
+  factory CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+    instance,
+    TRes Function(
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes;
+
+  factory CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+  _instance;
+
+  final TRes Function(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en {
+  Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en
+    on
+        Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en {
+  CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en<
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en
+  >
+  get copyWith =>
+      CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en<
+  TRes
+> {
+  factory CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en
+    instance,
+    TRes Function(
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en,
+    )
+    then,
+  ) = _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en;
+
+  factory CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en;
+
+  TRes call({
+    List<
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+          Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en<
+          TRes
+        > {
+  _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en
+  _instance;
+
+  final TRes Function(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+          Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes {
+  Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+    on
+        Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes {
+  CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+  TRes
+> {
+  factory CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+    instance,
+    TRes Function(
+      Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes;
+
+  factory CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+  _instance;
+
+  final TRes Function(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
 class Query$ShippingKindRead$allMstrShippingKinds$nodes$historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
@@ -2921,8 +5773,12 @@ class _CopyWithStubImpl$Query$ShippingKindRead$allMstrShippingKinds$nodes$histor
 class Variables$Query$ShippingKindReadUpdaterAppellation {
   factory Variables$Query$ShippingKindReadUpdaterAppellation({
     required String sharedAppellationsId,
+    required String jaLanguageCodeId,
+    required String enLanguageCodeId,
   }) => Variables$Query$ShippingKindReadUpdaterAppellation._({
     r'sharedAppellationsId': sharedAppellationsId,
+    r'jaLanguageCodeId': jaLanguageCodeId,
+    r'enLanguageCodeId': enLanguageCodeId,
   });
 
   Variables$Query$ShippingKindReadUpdaterAppellation._(this._$data);
@@ -2933,6 +5789,10 @@ class Variables$Query$ShippingKindReadUpdaterAppellation {
     final result$data = <String, dynamic>{};
     final l$sharedAppellationsId = data['sharedAppellationsId'];
     result$data['sharedAppellationsId'] = (l$sharedAppellationsId as String);
+    final l$jaLanguageCodeId = data['jaLanguageCodeId'];
+    result$data['jaLanguageCodeId'] = (l$jaLanguageCodeId as String);
+    final l$enLanguageCodeId = data['enLanguageCodeId'];
+    result$data['enLanguageCodeId'] = (l$enLanguageCodeId as String);
     return Variables$Query$ShippingKindReadUpdaterAppellation._(result$data);
   }
 
@@ -2940,10 +5800,18 @@ class Variables$Query$ShippingKindReadUpdaterAppellation {
 
   String get sharedAppellationsId => (_$data['sharedAppellationsId'] as String);
 
+  String get jaLanguageCodeId => (_$data['jaLanguageCodeId'] as String);
+
+  String get enLanguageCodeId => (_$data['enLanguageCodeId'] as String);
+
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
     final l$sharedAppellationsId = sharedAppellationsId;
     result$data['sharedAppellationsId'] = l$sharedAppellationsId;
+    final l$jaLanguageCodeId = jaLanguageCodeId;
+    result$data['jaLanguageCodeId'] = l$jaLanguageCodeId;
+    final l$enLanguageCodeId = enLanguageCodeId;
+    result$data['enLanguageCodeId'] = l$enLanguageCodeId;
     return result$data;
   }
 
@@ -2969,13 +5837,29 @@ class Variables$Query$ShippingKindReadUpdaterAppellation {
     if (l$sharedAppellationsId != lOther$sharedAppellationsId) {
       return false;
     }
+    final l$jaLanguageCodeId = jaLanguageCodeId;
+    final lOther$jaLanguageCodeId = other.jaLanguageCodeId;
+    if (l$jaLanguageCodeId != lOther$jaLanguageCodeId) {
+      return false;
+    }
+    final l$enLanguageCodeId = enLanguageCodeId;
+    final lOther$enLanguageCodeId = other.enLanguageCodeId;
+    if (l$enLanguageCodeId != lOther$enLanguageCodeId) {
+      return false;
+    }
     return true;
   }
 
   @override
   int get hashCode {
     final l$sharedAppellationsId = sharedAppellationsId;
-    return Object.hashAll([l$sharedAppellationsId]);
+    final l$jaLanguageCodeId = jaLanguageCodeId;
+    final l$enLanguageCodeId = enLanguageCodeId;
+    return Object.hashAll([
+      l$sharedAppellationsId,
+      l$jaLanguageCodeId,
+      l$enLanguageCodeId,
+    ]);
   }
 }
 
@@ -2991,7 +5875,11 @@ abstract class CopyWith$Variables$Query$ShippingKindReadUpdaterAppellation<
     TRes res,
   ) = _CopyWithStubImpl$Variables$Query$ShippingKindReadUpdaterAppellation;
 
-  TRes call({String? sharedAppellationsId});
+  TRes call({
+    String? sharedAppellationsId,
+    String? jaLanguageCodeId,
+    String? enLanguageCodeId,
+  });
 }
 
 class _CopyWithImpl$Variables$Query$ShippingKindReadUpdaterAppellation<TRes>
@@ -3008,11 +5896,19 @@ class _CopyWithImpl$Variables$Query$ShippingKindReadUpdaterAppellation<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  TRes call({Object? sharedAppellationsId = _undefined}) => _then(
+  TRes call({
+    Object? sharedAppellationsId = _undefined,
+    Object? jaLanguageCodeId = _undefined,
+    Object? enLanguageCodeId = _undefined,
+  }) => _then(
     Variables$Query$ShippingKindReadUpdaterAppellation._({
       ..._instance._$data,
       if (sharedAppellationsId != _undefined && sharedAppellationsId != null)
         'sharedAppellationsId': (sharedAppellationsId as String),
+      if (jaLanguageCodeId != _undefined && jaLanguageCodeId != null)
+        'jaLanguageCodeId': (jaLanguageCodeId as String),
+      if (enLanguageCodeId != _undefined && enLanguageCodeId != null)
+        'enLanguageCodeId': (enLanguageCodeId as String),
     }),
   );
 }
@@ -3026,7 +5922,11 @@ class _CopyWithStubImpl$Variables$Query$ShippingKindReadUpdaterAppellation<TRes>
 
   TRes _res;
 
-  call({String? sharedAppellationsId}) => _res;
+  call({
+    String? sharedAppellationsId,
+    String? jaLanguageCodeId,
+    String? enLanguageCodeId,
+  }) => _res;
 }
 
 class Query$ShippingKindReadUpdaterAppellation {
@@ -3214,6 +6114,18 @@ const documentNodeQueryShippingKindReadUpdaterAppellation = DocumentNode(
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'jaLanguageCodeId')),
+          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'enLanguageCodeId')),
+          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
       ],
       directives: [],
       selectionSet: SelectionSetNode(
@@ -3249,18 +6161,118 @@ const documentNodeQueryShippingKindReadUpdaterAppellation = DocumentNode(
                   selectionSet: SelectionSetNode(
                     selections: [
                       FieldNode(
-                        name: NameNode(value: 'ja'),
-                        alias: null,
-                        arguments: [],
+                        name: NameNode(
+                          value: 'sharedDictionaryValuesBySharedDictionaryId',
+                        ),
+                        alias: NameNode(value: 'ja'),
+                        arguments: [
+                          ArgumentNode(
+                            name: NameNode(value: 'condition'),
+                            value: ObjectValueNode(
+                              fields: [
+                                ObjectFieldNode(
+                                  name: NameNode(value: 'sharedLanguageCodeId'),
+                                  value: VariableNode(
+                                    name: NameNode(value: 'jaLanguageCodeId'),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                         directives: [],
-                        selectionSet: null,
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'nodes'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: SelectionSetNode(
+                                selections: [
+                                  FieldNode(
+                                    name: NameNode(value: 'dictionaryValue'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: '__typename'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
                       ),
                       FieldNode(
-                        name: NameNode(value: 'en'),
-                        alias: null,
-                        arguments: [],
+                        name: NameNode(
+                          value: 'sharedDictionaryValuesBySharedDictionaryId',
+                        ),
+                        alias: NameNode(value: 'en'),
+                        arguments: [
+                          ArgumentNode(
+                            name: NameNode(value: 'condition'),
+                            value: ObjectValueNode(
+                              fields: [
+                                ObjectFieldNode(
+                                  name: NameNode(value: 'sharedLanguageCodeId'),
+                                  value: VariableNode(
+                                    name: NameNode(value: 'enLanguageCodeId'),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                         directives: [],
-                        selectionSet: null,
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'nodes'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: SelectionSetNode(
+                                selections: [
+                                  FieldNode(
+                                    name: NameNode(value: 'dictionaryValue'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: '__typename'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
                       ),
                       FieldNode(
                         name: NameNode(value: '__typename'),
@@ -3282,18 +6294,118 @@ const documentNodeQueryShippingKindReadUpdaterAppellation = DocumentNode(
                   selectionSet: SelectionSetNode(
                     selections: [
                       FieldNode(
-                        name: NameNode(value: 'ja'),
-                        alias: null,
-                        arguments: [],
+                        name: NameNode(
+                          value: 'sharedDictionaryValuesBySharedDictionaryId',
+                        ),
+                        alias: NameNode(value: 'ja'),
+                        arguments: [
+                          ArgumentNode(
+                            name: NameNode(value: 'condition'),
+                            value: ObjectValueNode(
+                              fields: [
+                                ObjectFieldNode(
+                                  name: NameNode(value: 'sharedLanguageCodeId'),
+                                  value: VariableNode(
+                                    name: NameNode(value: 'jaLanguageCodeId'),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                         directives: [],
-                        selectionSet: null,
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'nodes'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: SelectionSetNode(
+                                selections: [
+                                  FieldNode(
+                                    name: NameNode(value: 'dictionaryValue'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: '__typename'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
                       ),
                       FieldNode(
-                        name: NameNode(value: 'en'),
-                        alias: null,
-                        arguments: [],
+                        name: NameNode(
+                          value: 'sharedDictionaryValuesBySharedDictionaryId',
+                        ),
+                        alias: NameNode(value: 'en'),
+                        arguments: [
+                          ArgumentNode(
+                            name: NameNode(value: 'condition'),
+                            value: ObjectValueNode(
+                              fields: [
+                                ObjectFieldNode(
+                                  name: NameNode(value: 'sharedLanguageCodeId'),
+                                  value: VariableNode(
+                                    name: NameNode(value: 'enLanguageCodeId'),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                         directives: [],
-                        selectionSet: null,
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'nodes'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: SelectionSetNode(
+                                selections: [
+                                  FieldNode(
+                                    name: NameNode(value: 'dictionaryValue'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: '__typename'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
                       ),
                       FieldNode(
                         name: NameNode(value: '__typename'),
@@ -3788,8 +6900,8 @@ class _CopyWithStubImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellati
 
 class Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId {
   Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId({
-    this.ja,
-    this.en,
+    required this.ja,
+    required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
@@ -3800,24 +6912,30 @@ class Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellat
     final l$en = json['en'];
     final l$$__typename = json['__typename'];
     return Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
-      ja: (l$ja as String?),
-      en: (l$en as String?),
+      ja: Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
       $__typename: (l$$__typename as String),
     );
   }
 
-  final String? ja;
+  final Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja
+  ja;
 
-  final String? en;
+  final Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en
+  en;
 
   final String $__typename;
 
   Map<String, dynamic> toJson() {
     final _resultData = <String, dynamic>{};
     final l$ja = ja;
-    _resultData['ja'] = l$ja;
+    _resultData['ja'] = l$ja.toJson();
     final l$en = en;
-    _resultData['en'] = l$en;
+    _resultData['en'] = l$en.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -3889,7 +7007,21 @@ abstract class CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellati
     TRes res,
   ) = _CopyWithStubImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId;
 
-  TRes call({String? ja, String? en, String? $__typename});
+  TRes call({
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja?
+    ja,
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en?
+    en,
+    String? $__typename,
+  });
+  CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+    TRes
+  >
+  get ja;
+  CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+    TRes
+  >
+  get en;
 }
 
 class _CopyWithImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
@@ -3920,13 +7052,41 @@ class _CopyWithImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBy
     Object? $__typename = _undefined,
   }) => _then(
     Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
-      ja: ja == _undefined ? _instance.ja : (ja as String?),
-      en: en == _undefined ? _instance.en : (en as String?),
+      ja: ja == _undefined || ja == null
+          ? _instance.ja
+          : (ja
+                as Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja),
+      en: en == _undefined || en == null
+          ? _instance.en
+          : (en
+                as Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
+
+  CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+    TRes
+  >
+  get ja {
+    final local$ja = _instance.ja;
+    return CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
+  }
+
+  CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+    TRes
+  >
+  get en {
+    final local$en = _instance.en;
+    return CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en(
+      local$en,
+      (e) => call(en: e),
+    );
+  }
 }
 
 class _CopyWithStubImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
@@ -3942,13 +7102,771 @@ class _CopyWithStubImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellati
 
   TRes _res;
 
-  call({String? ja, String? en, String? $__typename}) => _res;
+  call({
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja?
+    ja,
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en?
+    en,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+    TRes
+  >
+  get ja =>
+      CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja.stub(
+        _res,
+      );
+
+  CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+    TRes
+  >
+  get en =>
+      CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en.stub(
+        _res,
+      );
+}
+
+class Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja {
+  Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja
+    on
+        Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja {
+  CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja
+  >
+  get copyWith =>
+      CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+  TRes
+> {
+  factory CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja(
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja
+    instance,
+    TRes Function(
+      Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja,
+    )
+    then,
+  ) = _CopyWithImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja;
+
+  factory CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja;
+
+  TRes call({
+    List<
+      Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+          Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+          TRes
+        > {
+  _CopyWithImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja
+  _instance;
+
+  final TRes Function(
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+          Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
+  Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+    on
+        Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
+  CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+  TRes
+> {
+  factory CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+    instance,
+    TRes Function(
+      Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
+
+  factory CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+  _instance;
+
+  final TRes Function(
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en {
+  Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en
+    on
+        Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en {
+  CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en
+  >
+  get copyWith =>
+      CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+  TRes
+> {
+  factory CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en(
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en
+    instance,
+    TRes Function(
+      Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en,
+    )
+    then,
+  ) = _CopyWithImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en;
+
+  factory CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en;
+
+  TRes call({
+    List<
+      Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+          Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+          TRes
+        > {
+  _CopyWithImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en
+  _instance;
+
+  final TRes Function(
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+          Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes {
+  Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes
+    on
+        Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes {
+  CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+  TRes
+> {
+  factory CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes
+    instance,
+    TRes Function(
+      Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes;
+
+  factory CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes
+  _instance;
+
+  final TRes Function(
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
 class Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId {
   Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId({
-    this.ja,
-    this.en,
+    required this.ja,
+    required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
@@ -3959,24 +7877,30 @@ class Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellat
     final l$en = json['en'];
     final l$$__typename = json['__typename'];
     return Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId(
-      ja: (l$ja as String?),
-      en: (l$en as String?),
+      ja: Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
       $__typename: (l$$__typename as String),
     );
   }
 
-  final String? ja;
+  final Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja
+  ja;
 
-  final String? en;
+  final Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en
+  en;
 
   final String $__typename;
 
   Map<String, dynamic> toJson() {
     final _resultData = <String, dynamic>{};
     final l$ja = ja;
-    _resultData['ja'] = l$ja;
+    _resultData['ja'] = l$ja.toJson();
     final l$en = en;
-    _resultData['en'] = l$en;
+    _resultData['en'] = l$en.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -4048,7 +7972,21 @@ abstract class CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellati
     TRes res,
   ) = _CopyWithStubImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId;
 
-  TRes call({String? ja, String? en, String? $__typename});
+  TRes call({
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja?
+    ja,
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en?
+    en,
+    String? $__typename,
+  });
+  CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+    TRes
+  >
+  get ja;
+  CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+    TRes
+  >
+  get en;
 }
 
 class _CopyWithImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId<
@@ -4079,13 +8017,41 @@ class _CopyWithImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBy
     Object? $__typename = _undefined,
   }) => _then(
     Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId(
-      ja: ja == _undefined ? _instance.ja : (ja as String?),
-      en: en == _undefined ? _instance.en : (en as String?),
+      ja: ja == _undefined || ja == null
+          ? _instance.ja
+          : (ja
+                as Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+      en: en == _undefined || en == null
+          ? _instance.en
+          : (en
+                as Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
+
+  CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+    TRes
+  >
+  get ja {
+    final local$ja = _instance.ja;
+    return CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
+  }
+
+  CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+    TRes
+  >
+  get en {
+    final local$en = _instance.en;
+    return CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en(
+      local$en,
+      (e) => call(en: e),
+    );
+  }
 }
 
 class _CopyWithStubImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId<
@@ -4101,5 +8067,763 @@ class _CopyWithStubImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellati
 
   TRes _res;
 
-  call({String? ja, String? en, String? $__typename}) => _res;
+  call({
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja?
+    ja,
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en?
+    en,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+    TRes
+  >
+  get ja =>
+      CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
+        _res,
+      );
+
+  CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+    TRes
+  >
+  get en =>
+      CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
+        _res,
+      );
+}
+
+class Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja {
+  Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja
+    on
+        Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja {
+  CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja
+  >
+  get copyWith =>
+      CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+  TRes
+> {
+  factory CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja
+    instance,
+    TRes Function(
+      Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja,
+    )
+    then,
+  ) = _CopyWithImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja;
+
+  factory CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja;
+
+  TRes call({
+    List<
+      Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+          Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+          TRes
+        > {
+  _CopyWithImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja
+  _instance;
+
+  final TRes Function(
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+          Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
+  Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+    on
+        Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
+  CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+  TRes
+> {
+  factory CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+    instance,
+    TRes Function(
+      Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
+
+  factory CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+  _instance;
+
+  final TRes Function(
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en {
+  Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en
+    on
+        Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en {
+  CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en
+  >
+  get copyWith =>
+      CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+  TRes
+> {
+  factory CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en
+    instance,
+    TRes Function(
+      Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en,
+    )
+    then,
+  ) = _CopyWithImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en;
+
+  factory CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en;
+
+  TRes call({
+    List<
+      Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+          Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+          TRes
+        > {
+  _CopyWithImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en
+  _instance;
+
+  final TRes Function(
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+          Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
+  Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+    on
+        Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
+  CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+  TRes
+> {
+  factory CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+    instance,
+    TRes Function(
+      Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
+
+  factory CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+  _instance;
+
+  final TRes Function(
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$ShippingKindReadUpdaterAppellation$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
 }

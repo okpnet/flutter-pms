@@ -7,6 +7,15 @@
 # ⚠ docs/0025_view_graphql_evaluation_log.md: 画面仕様の見出しに対応する実スキーマの型名は
 #   "MstrShippingKind"(配送区分マスタ)。org_res_equipment_kind等と同じ、id + 呼称セット +
 #   remarks/update_at/removeのみの単純な構成。
+#
+# ⚠ 要件0026(2026/09/20実施分、docs/0026_schema_fetch_log.md追記9・
+#   docs/0033_shared_dictionary_language_redesign_log.md参照): "SharedDictionary.ja/en"
+#   スカラー列が廃止され、"SharedLanguageCode"(言語コードマスタ)経由の子テーブル
+#   "SharedDictionaryValue"(1言語1行、shared_language_code_id+shared_dictionary_idで
+#   一意)に置き換わったことを受けて、"ja"/"en"はエイリアス付きのConnectionフィールドとして
+#   取得する(collapseSingleRecordPathsで先頭1件展開が前提。一意制約により常に0〜1件)。
+#   $jaLanguageCodeId・$enLanguageCodeIdは、アプリケーションが別途
+#   "SharedLanguageCode"を"code"(例:'ja'/'en')で解決して渡す想定(要件0026追記9)。
 
 query ShippingKindRead(
   $first: Int!
@@ -15,6 +24,8 @@ query ShippingKindRead(
   $orderBy: [MstrShippingKindsOrderBy!] = [PRIMARY_KEY_ASC]
   $ja: Boolean!
   $en: Boolean!
+  $jaLanguageCodeId: UUID
+  $enLanguageCodeId: UUID
   $removed: Boolean = false
 ) {
   allMstrShippingKinds(
@@ -45,18 +56,54 @@ query ShippingKindRead(
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {
           sharedDictionaryId
-          ja @include(if: $ja)
-          en @include(if: $en)
+          ja: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) @include(if: $ja) {
+            nodes {
+              dictionaryValue
+            }
+          }
+          en: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) @include(if: $en) {
+            nodes {
+              dictionaryValue
+            }
+          }
         }
         sharedDictionaryBySharedDictionaryPronunciationId {
           sharedDictionaryId
-          ja @include(if: $ja)
-          en @include(if: $en)
+          ja: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) @include(if: $ja) {
+            nodes {
+              dictionaryValue
+            }
+          }
+          en: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) @include(if: $en) {
+            nodes {
+              dictionaryValue
+            }
+          }
         }
         sharedDictionaryBySharedDictionaryNicknameId {
           sharedDictionaryId
-          ja @include(if: $ja)
-          en @include(if: $en)
+          ja: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) @include(if: $ja) {
+            nodes {
+              dictionaryValue
+            }
+          }
+          en: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) @include(if: $en) {
+            nodes {
+              dictionaryValue
+            }
+          }
         }
       }
 
@@ -72,18 +119,46 @@ query ShippingKindRead(
 }
 
 # --- 更新者の呼称(shared_appellations)・名前解決 --------------------------------
-query ShippingKindReadUpdaterAppellation($sharedAppellationsId: UUID!) {
+query ShippingKindReadUpdaterAppellation(
+  $sharedAppellationsId: UUID!
+  $jaLanguageCodeId: UUID!
+  $enLanguageCodeId: UUID!
+) {
   sharedAppellationBySharedAppellationsId(
     sharedAppellationsId: $sharedAppellationsId
   ) {
     sharedAppellationsId
     sharedDictionaryBySharedDictionaryNameId {
-      ja
-      en
+      ja: sharedDictionaryValuesBySharedDictionaryId(
+        condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+      ) {
+        nodes {
+          dictionaryValue
+        }
+      }
+      en: sharedDictionaryValuesBySharedDictionaryId(
+        condition: { sharedLanguageCodeId: $enLanguageCodeId }
+      ) {
+        nodes {
+          dictionaryValue
+        }
+      }
     }
     sharedDictionaryBySharedDictionaryPronunciationId {
-      ja
-      en
+      ja: sharedDictionaryValuesBySharedDictionaryId(
+        condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+      ) {
+        nodes {
+          dictionaryValue
+        }
+      }
+      en: sharedDictionaryValuesBySharedDictionaryId(
+        condition: { sharedLanguageCodeId: $enLanguageCodeId }
+      ) {
+        nodes {
+          dictionaryValue
+        }
+      }
     }
   }
 }

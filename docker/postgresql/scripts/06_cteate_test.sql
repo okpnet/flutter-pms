@@ -66,7 +66,30 @@ END;
 $BODY$
 LANGUAGE plpgsql;
 
---212.create tables
+--214.create tables
+create table tests.shared_dictionary_value (
+    shared_dictionary_value_id uuid default gen_random_uuid(),
+    shared_language_code_id uuid not null,
+    shared_dictionary_id uuid not null,
+    dictionary_value varchar(255) not null,
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
+create table tests.shared_language_code (
+    shared_language_code_id uuid default gen_random_uuid(),
+    code varchar(16) not null,
+    label varchar(255) not null,
+    priority smallint not null,
+    is_default boolean default 'f',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
 create table tests.shared_symbol_counter (
     table_name  varchar(255) not null,
     yy integer not null,
@@ -337,8 +360,6 @@ create table tests.history_shared_dictionary (
 );
 create table tests.shared_dictionary (
     shared_dictionary_id uuid default gen_random_uuid(),
-    ja varchar(1024) default null,
-    en varchar(1024) default null,
     revision integer default 1,
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -3157,7 +3178,28 @@ create table tests.info_office (
     update_user_history_id uuid default null,
     remove boolean default 'f'
 );
---212.add table comments
+--214.add table comments
+comment on table tests.shared_dictionary_value is '共有辞書バリュー';
+comment on column tests.shared_dictionary_value.shared_dictionary_value_id is '共有辞書バリューID';
+comment on column tests.shared_dictionary_value.shared_language_code_id is '言語コードID';
+comment on column tests.shared_dictionary_value.shared_dictionary_id is '共有辞書ID';
+comment on column tests.shared_dictionary_value.dictionary_value is '値';
+comment on column tests.shared_dictionary_value.remarks is '備考';
+comment on column tests.shared_dictionary_value.update_at is '更新日時';
+comment on column tests.shared_dictionary_value.update_user_id is '更新者ID';
+comment on column tests.shared_dictionary_value.update_user_history_id is '更新者履歴ID';
+comment on column tests.shared_dictionary_value.remove is '削除';
+comment on table tests.shared_language_code is '言語コード';
+comment on column tests.shared_language_code.shared_language_code_id is '言語コードID';
+comment on column tests.shared_language_code.code is '言語コード';
+comment on column tests.shared_language_code.label is 'ラベル';
+comment on column tests.shared_language_code.priority is '優先順位';
+comment on column tests.shared_language_code.is_default is '標準';
+comment on column tests.shared_language_code.remarks is '備考';
+comment on column tests.shared_language_code.update_at is '更新日時';
+comment on column tests.shared_language_code.update_user_id is '更新者ID';
+comment on column tests.shared_language_code.update_user_history_id is '更新者履歴ID';
+comment on column tests.shared_language_code.remove is '削除';
 comment on table tests.shared_symbol_counter is 'リニアシンボルカウンタ';
 comment on column tests.shared_symbol_counter.table_name  is 'テーブル名';
 comment on column tests.shared_symbol_counter.yy is '年';
@@ -3407,8 +3449,6 @@ comment on column tests.history_shared_dictionary.update_user_history_id is '更
 comment on column tests.history_shared_dictionary.remove is '削除';
 comment on table tests.shared_dictionary is '共有辞書';
 comment on column tests.shared_dictionary.shared_dictionary_id is '共有辞書ID';
-comment on column tests.shared_dictionary.ja is 'ja';
-comment on column tests.shared_dictionary.en is 'en';
 comment on column tests.shared_dictionary.revision is 'レビジョン';
 comment on column tests.shared_dictionary.remarks is '備考';
 comment on column tests.shared_dictionary.update_at is '更新日時';
@@ -6036,7 +6076,19 @@ comment on column tests.info_office.update_at is '更新日時';
 comment on column tests.info_office.update_user_id is '更新者ID';
 comment on column tests.info_office.update_user_history_id is '更新者履歴ID';
 comment on column tests.info_office.remove is '削除';
---212.add table primary key and index
+--214.add table primary key and index
+create unique index shared_dictionary_value_PKI
+    on tests.shared_dictionary_value(shared_dictionary_value_id);
+alter table tests.shared_dictionary_value
+    add constraint shared_dictionary_value_PKC primary key (shared_dictionary_value_id);
+alter table tests.shared_dictionary_value
+     add constraint shared_dictionary_value_IX1 unique (shared_language_code_id,shared_dictionary_id);
+create unique index shared_language_code_PKI
+    on tests.shared_language_code(shared_language_code_id);
+alter table tests.shared_language_code
+    add constraint shared_language_code_PKC primary key (shared_language_code_id);
+alter table tests.shared_language_code
+     add constraint shared_language_code_IX1 unique (code);
 create unique index shared_symbol_counter_PKI
     on tests.shared_symbol_counter(table_name ,yy,mm);
 alter table tests.shared_symbol_counter
@@ -6166,8 +6218,6 @@ create unique index shared_dictionary_PKI
     on tests.shared_dictionary(shared_dictionary_id);
 alter table tests.shared_dictionary
     add constraint shared_dictionary_PKC primary key (shared_dictionary_id);
-alter table tests.shared_dictionary
-     add constraint shared_dictionary_IX1 unique (ja,en);
 create unique index history_mstr_equipment_PKI
     on tests.history_mstr_equipment(history_id,mstr_equipment_id);
 alter table tests.history_mstr_equipment
@@ -7320,7 +7370,11 @@ alter table tests.info_office
     add constraint info_office_PKC primary key (info_office_id);
 alter table tests.info_office
      add constraint info_office_IX1 unique (symbol);
---212.add table foreign key
+--214.add table foreign key
+alter table tests.shared_dictionary_value add constraint shared_dictionary_value_FK1 foreign key (shared_dictionary_id) references tests.shared_dictionary (shared_dictionary_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.shared_dictionary_value add constraint shared_dictionary_value_FK2 foreign key (shared_language_code_id) references tests.shared_language_code (shared_language_code_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.shared_dictionary_value add constraint shared_dictionary_value_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.shared_language_code add constraint shared_language_code_FK1 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.shared_symbol_counter add constraint shared_symbol_counter_FK1 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_inspection_kind add constraint history_mstr_inspection_kind_FK1 foreign key (mstr_inspection_kind_id) references tests.mstr_inspection_kind (mstr_inspection_kind_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_inspection_kind add constraint history_mstr_inspection_kind_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
@@ -7844,7 +7898,53 @@ alter table tests.info_office add constraint info_office_FK1 foreign key (shared
 alter table tests.info_office add constraint info_office_FK2 foreign key (info_company_id) references tests.info_company (info_company_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_office add constraint info_office_FK3 foreign key (info_address_id) references tests.info_address (info_address_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_office add constraint info_office_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
---212.add table trigger
+--214.add table trigger
+-- shared_dictionary_value update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_shared_dictionary_value() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.shared_dictionary_value_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_shared_dictionary_value BEFORE INSERT OR UPDATE OR DELETE ON tests.shared_dictionary_value FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_shared_dictionary_value();
+
+
+-- shared_language_code update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_shared_language_code() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.shared_language_code_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_shared_language_code BEFORE INSERT OR UPDATE OR DELETE ON tests.shared_language_code FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_shared_language_code();
+
+
 -- shared_symbol_counter update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_shared_symbol_counter() RETURNS trigger AS
 $BODY$
@@ -9003,14 +9103,10 @@ BEGIN
         IF (revisions >= 0) THEN
             IF (
                 NEW.shared_dictionary_id,
-                NEW.ja,
-                NEW.en,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.shared_dictionary_id,
-                OLD.ja,
-                OLD.en,
                 OLD.remarks,
                 OLD.remove
             )
@@ -9023,8 +9119,6 @@ BEGIN
         END IF;
         INSERT INTO tests.history_shared_dictionary (
             shared_dictionary_id,
-            ja,
-            en,
             revision,
             remarks,
             update_at,
@@ -9035,8 +9129,6 @@ BEGIN
         VALUES
         (
             NEW.shared_dictionary_id,
-            NEW.ja,
-            NEW.en,
             NEW.revision,
             NEW.remarks,
             NEW.update_at,

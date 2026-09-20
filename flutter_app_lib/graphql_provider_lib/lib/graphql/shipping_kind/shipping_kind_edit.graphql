@@ -6,6 +6,17 @@
 #
 # ⚠ 実スキーマの型名は"MstrShippingKind"。
 # ⚠ 更新者id/更新者履歴id/削除は0019の既定方針により変数から除外している。
+#
+# ⚠ 要件0026(2026/09/20実施分、docs/0026_schema_fetch_log.md追記9・
+#   docs/0033_shared_dictionary_language_redesign_log.md参照): "SharedDictionary.ja/en"
+#   スカラー列の廃止に伴い、"sharedDictionaryPatch: { ja: ..., en: ... }"は
+#   使用できない。代わりに子テーブル"SharedDictionaryValue"を
+#   "sharedDictionaryValuesUsingSharedDictionaryId: { deleteOthers: true, create: [...] }"
+#   でja/enの2行に毎回まるごと置き換える(deleteOthers+createによる完全置換方式を採用)。
+#   "dictionaryValue"はNOT NULLのため、翻訳が無い言語は空文字列('')で表現する
+#   (呼び出し側が事前にnull→''変換を行う想定。要件0026追記9で決定)。
+#   $jaLanguageCodeId・$enLanguageCodeIdは、アプリケーションが別途
+#   "SharedLanguageCode"を"code"で解決して渡す想定。
 
 mutation ShippingKindEdit(
   $mstrShippingKindId: UUID!
@@ -13,15 +24,17 @@ mutation ShippingKindEdit(
   $remarks: String
   $symbol: String
   $sharedAppellationsId: UUID!
+  $jaLanguageCodeId: UUID!
+  $enLanguageCodeId: UUID!
   $nameSharedDictionaryId: UUID!
-  $nameJa: String
-  $nameEn: String
+  $nameJa: String!
+  $nameEn: String!
   $pronunciationSharedDictionaryId: UUID!
-  $pronunciationJa: String
-  $pronunciationEn: String
+  $pronunciationJa: String!
+  $pronunciationEn: String!
   $nicknameSharedDictionaryId: UUID!
-  $nicknameJa: String
-  $nicknameEn: String
+  $nicknameJa: String!
+  $nicknameEn: String!
 ) {
   updateMstrShippingKindByMstrShippingKindId(
     input: {
@@ -39,19 +52,43 @@ mutation ShippingKindEdit(
               sharedDictionaryToSharedDictionaryNameId: {
                 updateBySharedDictionaryId: {
                   sharedDictionaryId: $nameSharedDictionaryId
-                  sharedDictionaryPatch: { ja: $nameJa, en: $nameEn }
+                  sharedDictionaryPatch: {
+                    sharedDictionaryValuesUsingSharedDictionaryId: {
+                      deleteOthers: true
+                      create: [
+                        { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $nameJa }
+                        { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $nameEn }
+                      ]
+                    }
+                  }
                 }
               }
               sharedDictionaryToSharedDictionaryPronunciationId: {
                 updateBySharedDictionaryId: {
                   sharedDictionaryId: $pronunciationSharedDictionaryId
-                  sharedDictionaryPatch: { ja: $pronunciationJa, en: $pronunciationEn }
+                  sharedDictionaryPatch: {
+                    sharedDictionaryValuesUsingSharedDictionaryId: {
+                      deleteOthers: true
+                      create: [
+                        { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $pronunciationJa }
+                        { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $pronunciationEn }
+                      ]
+                    }
+                  }
                 }
               }
               sharedDictionaryToSharedDictionaryNicknameId: {
                 updateBySharedDictionaryId: {
                   sharedDictionaryId: $nicknameSharedDictionaryId
-                  sharedDictionaryPatch: { ja: $nicknameJa, en: $nicknameEn }
+                  sharedDictionaryPatch: {
+                    sharedDictionaryValuesUsingSharedDictionaryId: {
+                      deleteOthers: true
+                      create: [
+                        { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $nicknameJa }
+                        { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $nicknameEn }
+                      ]
+                    }
+                  }
                 }
               }
             }
@@ -69,18 +106,54 @@ mutation ShippingKindEdit(
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {
           sharedDictionaryId
-          ja
-          en
+          ja: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+          en: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
         }
         sharedDictionaryBySharedDictionaryPronunciationId {
           sharedDictionaryId
-          ja
-          en
+          ja: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+          en: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
         }
         sharedDictionaryBySharedDictionaryNicknameId {
           sharedDictionaryId
-          ja
-          en
+          ja: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+          en: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
         }
       }
     }

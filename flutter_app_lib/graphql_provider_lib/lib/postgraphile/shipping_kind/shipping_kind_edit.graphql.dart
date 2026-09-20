@@ -11,30 +11,34 @@ class Variables$Mutation$ShippingKindEdit {
     String? remarks,
     String? symbol,
     required String sharedAppellationsId,
+    required String jaLanguageCodeId,
+    required String enLanguageCodeId,
     required String nameSharedDictionaryId,
-    String? nameJa,
-    String? nameEn,
+    required String nameJa,
+    required String nameEn,
     required String pronunciationSharedDictionaryId,
-    String? pronunciationJa,
-    String? pronunciationEn,
+    required String pronunciationJa,
+    required String pronunciationEn,
     required String nicknameSharedDictionaryId,
-    String? nicknameJa,
-    String? nicknameEn,
+    required String nicknameJa,
+    required String nicknameEn,
   }) => Variables$Mutation$ShippingKindEdit._({
     r'mstrShippingKindId': mstrShippingKindId,
     if (code != null) r'code': code,
     if (remarks != null) r'remarks': remarks,
     if (symbol != null) r'symbol': symbol,
     r'sharedAppellationsId': sharedAppellationsId,
+    r'jaLanguageCodeId': jaLanguageCodeId,
+    r'enLanguageCodeId': enLanguageCodeId,
     r'nameSharedDictionaryId': nameSharedDictionaryId,
-    if (nameJa != null) r'nameJa': nameJa,
-    if (nameEn != null) r'nameEn': nameEn,
+    r'nameJa': nameJa,
+    r'nameEn': nameEn,
     r'pronunciationSharedDictionaryId': pronunciationSharedDictionaryId,
-    if (pronunciationJa != null) r'pronunciationJa': pronunciationJa,
-    if (pronunciationEn != null) r'pronunciationEn': pronunciationEn,
+    r'pronunciationJa': pronunciationJa,
+    r'pronunciationEn': pronunciationEn,
     r'nicknameSharedDictionaryId': nicknameSharedDictionaryId,
-    if (nicknameJa != null) r'nicknameJa': nicknameJa,
-    if (nicknameEn != null) r'nicknameEn': nicknameEn,
+    r'nicknameJa': nicknameJa,
+    r'nicknameEn': nicknameEn,
   });
 
   Variables$Mutation$ShippingKindEdit._(this._$data);
@@ -59,40 +63,32 @@ class Variables$Mutation$ShippingKindEdit {
     }
     final l$sharedAppellationsId = data['sharedAppellationsId'];
     result$data['sharedAppellationsId'] = (l$sharedAppellationsId as String);
+    final l$jaLanguageCodeId = data['jaLanguageCodeId'];
+    result$data['jaLanguageCodeId'] = (l$jaLanguageCodeId as String);
+    final l$enLanguageCodeId = data['enLanguageCodeId'];
+    result$data['enLanguageCodeId'] = (l$enLanguageCodeId as String);
     final l$nameSharedDictionaryId = data['nameSharedDictionaryId'];
     result$data['nameSharedDictionaryId'] =
         (l$nameSharedDictionaryId as String);
-    if (data.containsKey('nameJa')) {
-      final l$nameJa = data['nameJa'];
-      result$data['nameJa'] = (l$nameJa as String?);
-    }
-    if (data.containsKey('nameEn')) {
-      final l$nameEn = data['nameEn'];
-      result$data['nameEn'] = (l$nameEn as String?);
-    }
+    final l$nameJa = data['nameJa'];
+    result$data['nameJa'] = (l$nameJa as String);
+    final l$nameEn = data['nameEn'];
+    result$data['nameEn'] = (l$nameEn as String);
     final l$pronunciationSharedDictionaryId =
         data['pronunciationSharedDictionaryId'];
     result$data['pronunciationSharedDictionaryId'] =
         (l$pronunciationSharedDictionaryId as String);
-    if (data.containsKey('pronunciationJa')) {
-      final l$pronunciationJa = data['pronunciationJa'];
-      result$data['pronunciationJa'] = (l$pronunciationJa as String?);
-    }
-    if (data.containsKey('pronunciationEn')) {
-      final l$pronunciationEn = data['pronunciationEn'];
-      result$data['pronunciationEn'] = (l$pronunciationEn as String?);
-    }
+    final l$pronunciationJa = data['pronunciationJa'];
+    result$data['pronunciationJa'] = (l$pronunciationJa as String);
+    final l$pronunciationEn = data['pronunciationEn'];
+    result$data['pronunciationEn'] = (l$pronunciationEn as String);
     final l$nicknameSharedDictionaryId = data['nicknameSharedDictionaryId'];
     result$data['nicknameSharedDictionaryId'] =
         (l$nicknameSharedDictionaryId as String);
-    if (data.containsKey('nicknameJa')) {
-      final l$nicknameJa = data['nicknameJa'];
-      result$data['nicknameJa'] = (l$nicknameJa as String?);
-    }
-    if (data.containsKey('nicknameEn')) {
-      final l$nicknameEn = data['nicknameEn'];
-      result$data['nicknameEn'] = (l$nicknameEn as String?);
-    }
+    final l$nicknameJa = data['nicknameJa'];
+    result$data['nicknameJa'] = (l$nicknameJa as String);
+    final l$nicknameEn = data['nicknameEn'];
+    result$data['nicknameEn'] = (l$nicknameEn as String);
     return Variables$Mutation$ShippingKindEdit._(result$data);
   }
 
@@ -108,26 +104,30 @@ class Variables$Mutation$ShippingKindEdit {
 
   String get sharedAppellationsId => (_$data['sharedAppellationsId'] as String);
 
+  String get jaLanguageCodeId => (_$data['jaLanguageCodeId'] as String);
+
+  String get enLanguageCodeId => (_$data['enLanguageCodeId'] as String);
+
   String get nameSharedDictionaryId =>
       (_$data['nameSharedDictionaryId'] as String);
 
-  String? get nameJa => (_$data['nameJa'] as String?);
+  String get nameJa => (_$data['nameJa'] as String);
 
-  String? get nameEn => (_$data['nameEn'] as String?);
+  String get nameEn => (_$data['nameEn'] as String);
 
   String get pronunciationSharedDictionaryId =>
       (_$data['pronunciationSharedDictionaryId'] as String);
 
-  String? get pronunciationJa => (_$data['pronunciationJa'] as String?);
+  String get pronunciationJa => (_$data['pronunciationJa'] as String);
 
-  String? get pronunciationEn => (_$data['pronunciationEn'] as String?);
+  String get pronunciationEn => (_$data['pronunciationEn'] as String);
 
   String get nicknameSharedDictionaryId =>
       (_$data['nicknameSharedDictionaryId'] as String);
 
-  String? get nicknameJa => (_$data['nicknameJa'] as String?);
+  String get nicknameJa => (_$data['nicknameJa'] as String);
 
-  String? get nicknameEn => (_$data['nicknameEn'] as String?);
+  String get nicknameEn => (_$data['nicknameEn'] as String);
 
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
@@ -147,37 +147,29 @@ class Variables$Mutation$ShippingKindEdit {
     }
     final l$sharedAppellationsId = sharedAppellationsId;
     result$data['sharedAppellationsId'] = l$sharedAppellationsId;
+    final l$jaLanguageCodeId = jaLanguageCodeId;
+    result$data['jaLanguageCodeId'] = l$jaLanguageCodeId;
+    final l$enLanguageCodeId = enLanguageCodeId;
+    result$data['enLanguageCodeId'] = l$enLanguageCodeId;
     final l$nameSharedDictionaryId = nameSharedDictionaryId;
     result$data['nameSharedDictionaryId'] = l$nameSharedDictionaryId;
-    if (_$data.containsKey('nameJa')) {
-      final l$nameJa = nameJa;
-      result$data['nameJa'] = l$nameJa;
-    }
-    if (_$data.containsKey('nameEn')) {
-      final l$nameEn = nameEn;
-      result$data['nameEn'] = l$nameEn;
-    }
+    final l$nameJa = nameJa;
+    result$data['nameJa'] = l$nameJa;
+    final l$nameEn = nameEn;
+    result$data['nameEn'] = l$nameEn;
     final l$pronunciationSharedDictionaryId = pronunciationSharedDictionaryId;
     result$data['pronunciationSharedDictionaryId'] =
         l$pronunciationSharedDictionaryId;
-    if (_$data.containsKey('pronunciationJa')) {
-      final l$pronunciationJa = pronunciationJa;
-      result$data['pronunciationJa'] = l$pronunciationJa;
-    }
-    if (_$data.containsKey('pronunciationEn')) {
-      final l$pronunciationEn = pronunciationEn;
-      result$data['pronunciationEn'] = l$pronunciationEn;
-    }
+    final l$pronunciationJa = pronunciationJa;
+    result$data['pronunciationJa'] = l$pronunciationJa;
+    final l$pronunciationEn = pronunciationEn;
+    result$data['pronunciationEn'] = l$pronunciationEn;
     final l$nicknameSharedDictionaryId = nicknameSharedDictionaryId;
     result$data['nicknameSharedDictionaryId'] = l$nicknameSharedDictionaryId;
-    if (_$data.containsKey('nicknameJa')) {
-      final l$nicknameJa = nicknameJa;
-      result$data['nicknameJa'] = l$nicknameJa;
-    }
-    if (_$data.containsKey('nicknameEn')) {
-      final l$nicknameEn = nicknameEn;
-      result$data['nicknameEn'] = l$nicknameEn;
-    }
+    final l$nicknameJa = nicknameJa;
+    result$data['nicknameJa'] = l$nicknameJa;
+    final l$nicknameEn = nicknameEn;
+    result$data['nicknameEn'] = l$nicknameEn;
     return result$data;
   }
 
@@ -229,6 +221,16 @@ class Variables$Mutation$ShippingKindEdit {
     if (l$sharedAppellationsId != lOther$sharedAppellationsId) {
       return false;
     }
+    final l$jaLanguageCodeId = jaLanguageCodeId;
+    final lOther$jaLanguageCodeId = other.jaLanguageCodeId;
+    if (l$jaLanguageCodeId != lOther$jaLanguageCodeId) {
+      return false;
+    }
+    final l$enLanguageCodeId = enLanguageCodeId;
+    final lOther$enLanguageCodeId = other.enLanguageCodeId;
+    if (l$enLanguageCodeId != lOther$enLanguageCodeId) {
+      return false;
+    }
     final l$nameSharedDictionaryId = nameSharedDictionaryId;
     final lOther$nameSharedDictionaryId = other.nameSharedDictionaryId;
     if (l$nameSharedDictionaryId != lOther$nameSharedDictionaryId) {
@@ -236,17 +238,11 @@ class Variables$Mutation$ShippingKindEdit {
     }
     final l$nameJa = nameJa;
     final lOther$nameJa = other.nameJa;
-    if (_$data.containsKey('nameJa') != other._$data.containsKey('nameJa')) {
-      return false;
-    }
     if (l$nameJa != lOther$nameJa) {
       return false;
     }
     final l$nameEn = nameEn;
     final lOther$nameEn = other.nameEn;
-    if (_$data.containsKey('nameEn') != other._$data.containsKey('nameEn')) {
-      return false;
-    }
     if (l$nameEn != lOther$nameEn) {
       return false;
     }
@@ -259,19 +255,11 @@ class Variables$Mutation$ShippingKindEdit {
     }
     final l$pronunciationJa = pronunciationJa;
     final lOther$pronunciationJa = other.pronunciationJa;
-    if (_$data.containsKey('pronunciationJa') !=
-        other._$data.containsKey('pronunciationJa')) {
-      return false;
-    }
     if (l$pronunciationJa != lOther$pronunciationJa) {
       return false;
     }
     final l$pronunciationEn = pronunciationEn;
     final lOther$pronunciationEn = other.pronunciationEn;
-    if (_$data.containsKey('pronunciationEn') !=
-        other._$data.containsKey('pronunciationEn')) {
-      return false;
-    }
     if (l$pronunciationEn != lOther$pronunciationEn) {
       return false;
     }
@@ -282,19 +270,11 @@ class Variables$Mutation$ShippingKindEdit {
     }
     final l$nicknameJa = nicknameJa;
     final lOther$nicknameJa = other.nicknameJa;
-    if (_$data.containsKey('nicknameJa') !=
-        other._$data.containsKey('nicknameJa')) {
-      return false;
-    }
     if (l$nicknameJa != lOther$nicknameJa) {
       return false;
     }
     final l$nicknameEn = nicknameEn;
     final lOther$nicknameEn = other.nicknameEn;
-    if (_$data.containsKey('nicknameEn') !=
-        other._$data.containsKey('nicknameEn')) {
-      return false;
-    }
     if (l$nicknameEn != lOther$nicknameEn) {
       return false;
     }
@@ -308,6 +288,8 @@ class Variables$Mutation$ShippingKindEdit {
     final l$remarks = remarks;
     final l$symbol = symbol;
     final l$sharedAppellationsId = sharedAppellationsId;
+    final l$jaLanguageCodeId = jaLanguageCodeId;
+    final l$enLanguageCodeId = enLanguageCodeId;
     final l$nameSharedDictionaryId = nameSharedDictionaryId;
     final l$nameJa = nameJa;
     final l$nameEn = nameEn;
@@ -323,15 +305,17 @@ class Variables$Mutation$ShippingKindEdit {
       _$data.containsKey('remarks') ? l$remarks : const {},
       _$data.containsKey('symbol') ? l$symbol : const {},
       l$sharedAppellationsId,
+      l$jaLanguageCodeId,
+      l$enLanguageCodeId,
       l$nameSharedDictionaryId,
-      _$data.containsKey('nameJa') ? l$nameJa : const {},
-      _$data.containsKey('nameEn') ? l$nameEn : const {},
+      l$nameJa,
+      l$nameEn,
       l$pronunciationSharedDictionaryId,
-      _$data.containsKey('pronunciationJa') ? l$pronunciationJa : const {},
-      _$data.containsKey('pronunciationEn') ? l$pronunciationEn : const {},
+      l$pronunciationJa,
+      l$pronunciationEn,
       l$nicknameSharedDictionaryId,
-      _$data.containsKey('nicknameJa') ? l$nicknameJa : const {},
-      _$data.containsKey('nicknameEn') ? l$nicknameEn : const {},
+      l$nicknameJa,
+      l$nicknameEn,
     ]);
   }
 }
@@ -351,6 +335,8 @@ abstract class CopyWith$Variables$Mutation$ShippingKindEdit<TRes> {
     String? remarks,
     String? symbol,
     String? sharedAppellationsId,
+    String? jaLanguageCodeId,
+    String? enLanguageCodeId,
     String? nameSharedDictionaryId,
     String? nameJa,
     String? nameEn,
@@ -379,6 +365,8 @@ class _CopyWithImpl$Variables$Mutation$ShippingKindEdit<TRes>
     Object? remarks = _undefined,
     Object? symbol = _undefined,
     Object? sharedAppellationsId = _undefined,
+    Object? jaLanguageCodeId = _undefined,
+    Object? enLanguageCodeId = _undefined,
     Object? nameSharedDictionaryId = _undefined,
     Object? nameJa = _undefined,
     Object? nameEn = _undefined,
@@ -398,24 +386,30 @@ class _CopyWithImpl$Variables$Mutation$ShippingKindEdit<TRes>
       if (symbol != _undefined) 'symbol': (symbol as String?),
       if (sharedAppellationsId != _undefined && sharedAppellationsId != null)
         'sharedAppellationsId': (sharedAppellationsId as String),
+      if (jaLanguageCodeId != _undefined && jaLanguageCodeId != null)
+        'jaLanguageCodeId': (jaLanguageCodeId as String),
+      if (enLanguageCodeId != _undefined && enLanguageCodeId != null)
+        'enLanguageCodeId': (enLanguageCodeId as String),
       if (nameSharedDictionaryId != _undefined &&
           nameSharedDictionaryId != null)
         'nameSharedDictionaryId': (nameSharedDictionaryId as String),
-      if (nameJa != _undefined) 'nameJa': (nameJa as String?),
-      if (nameEn != _undefined) 'nameEn': (nameEn as String?),
+      if (nameJa != _undefined && nameJa != null) 'nameJa': (nameJa as String),
+      if (nameEn != _undefined && nameEn != null) 'nameEn': (nameEn as String),
       if (pronunciationSharedDictionaryId != _undefined &&
           pronunciationSharedDictionaryId != null)
         'pronunciationSharedDictionaryId':
             (pronunciationSharedDictionaryId as String),
-      if (pronunciationJa != _undefined)
-        'pronunciationJa': (pronunciationJa as String?),
-      if (pronunciationEn != _undefined)
-        'pronunciationEn': (pronunciationEn as String?),
+      if (pronunciationJa != _undefined && pronunciationJa != null)
+        'pronunciationJa': (pronunciationJa as String),
+      if (pronunciationEn != _undefined && pronunciationEn != null)
+        'pronunciationEn': (pronunciationEn as String),
       if (nicknameSharedDictionaryId != _undefined &&
           nicknameSharedDictionaryId != null)
         'nicknameSharedDictionaryId': (nicknameSharedDictionaryId as String),
-      if (nicknameJa != _undefined) 'nicknameJa': (nicknameJa as String?),
-      if (nicknameEn != _undefined) 'nicknameEn': (nicknameEn as String?),
+      if (nicknameJa != _undefined && nicknameJa != null)
+        'nicknameJa': (nicknameJa as String),
+      if (nicknameEn != _undefined && nicknameEn != null)
+        'nicknameEn': (nicknameEn as String),
     }),
   );
 }
@@ -432,6 +426,8 @@ class _CopyWithStubImpl$Variables$Mutation$ShippingKindEdit<TRes>
     String? remarks,
     String? symbol,
     String? sharedAppellationsId,
+    String? jaLanguageCodeId,
+    String? enLanguageCodeId,
     String? nameSharedDictionaryId,
     String? nameJa,
     String? nameEn,
@@ -655,6 +651,18 @@ const documentNodeMutationShippingKindEdit = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'jaLanguageCodeId')),
+          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'enLanguageCodeId')),
+          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
           variable: VariableNode(
             name: NameNode(value: 'nameSharedDictionaryId'),
           ),
@@ -664,19 +672,13 @@ const documentNodeMutationShippingKindEdit = DocumentNode(
         ),
         VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'nameJa')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'String'),
-            isNonNull: false,
-          ),
+          type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
         VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'nameEn')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'String'),
-            isNonNull: false,
-          ),
+          type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
@@ -690,19 +692,13 @@ const documentNodeMutationShippingKindEdit = DocumentNode(
         ),
         VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'pronunciationJa')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'String'),
-            isNonNull: false,
-          ),
+          type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
         VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'pronunciationEn')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'String'),
-            isNonNull: false,
-          ),
+          type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
@@ -716,19 +712,13 @@ const documentNodeMutationShippingKindEdit = DocumentNode(
         ),
         VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'nicknameJa')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'String'),
-            isNonNull: false,
-          ),
+          type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
         VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'nicknameEn')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'String'),
-            isNonNull: false,
-          ),
+          type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
@@ -833,24 +823,80 @@ const documentNodeMutationShippingKindEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value: 'ja',
+                                                                  value:
+                                                                      'sharedDictionaryValuesUsingSharedDictionaryId',
                                                                 ),
-                                                                value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'nameJa',
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              ObjectFieldNode(
-                                                                name: NameNode(
-                                                                  value: 'en',
-                                                                ),
-                                                                value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'nameEn',
-                                                                  ),
+                                                                value: ObjectValueNode(
+                                                                  fields: [
+                                                                    ObjectFieldNode(
+                                                                      name: NameNode(
+                                                                        value:
+                                                                            'deleteOthers',
+                                                                      ),
+                                                                      value: BooleanValueNode(
+                                                                        value:
+                                                                            true,
+                                                                      ),
+                                                                    ),
+                                                                    ObjectFieldNode(
+                                                                      name: NameNode(
+                                                                        value:
+                                                                            'create',
+                                                                      ),
+                                                                      value: ListValueNode(
+                                                                        values: [
+                                                                          ObjectValueNode(
+                                                                            fields: [
+                                                                              ObjectFieldNode(
+                                                                                name: NameNode(
+                                                                                  value: 'sharedLanguageCodeId',
+                                                                                ),
+                                                                                value: VariableNode(
+                                                                                  name: NameNode(
+                                                                                    value: 'jaLanguageCodeId',
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                              ObjectFieldNode(
+                                                                                name: NameNode(
+                                                                                  value: 'dictionaryValue',
+                                                                                ),
+                                                                                value: VariableNode(
+                                                                                  name: NameNode(
+                                                                                    value: 'nameJa',
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                          ObjectValueNode(
+                                                                            fields: [
+                                                                              ObjectFieldNode(
+                                                                                name: NameNode(
+                                                                                  value: 'sharedLanguageCodeId',
+                                                                                ),
+                                                                                value: VariableNode(
+                                                                                  name: NameNode(
+                                                                                    value: 'enLanguageCodeId',
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                              ObjectFieldNode(
+                                                                                name: NameNode(
+                                                                                  value: 'dictionaryValue',
+                                                                                ),
+                                                                                value: VariableNode(
+                                                                                  name: NameNode(
+                                                                                    value: 'nameEn',
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ],
                                                                 ),
                                                               ),
                                                             ],
@@ -897,24 +943,80 @@ const documentNodeMutationShippingKindEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value: 'ja',
+                                                                  value:
+                                                                      'sharedDictionaryValuesUsingSharedDictionaryId',
                                                                 ),
-                                                                value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'pronunciationJa',
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              ObjectFieldNode(
-                                                                name: NameNode(
-                                                                  value: 'en',
-                                                                ),
-                                                                value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'pronunciationEn',
-                                                                  ),
+                                                                value: ObjectValueNode(
+                                                                  fields: [
+                                                                    ObjectFieldNode(
+                                                                      name: NameNode(
+                                                                        value:
+                                                                            'deleteOthers',
+                                                                      ),
+                                                                      value: BooleanValueNode(
+                                                                        value:
+                                                                            true,
+                                                                      ),
+                                                                    ),
+                                                                    ObjectFieldNode(
+                                                                      name: NameNode(
+                                                                        value:
+                                                                            'create',
+                                                                      ),
+                                                                      value: ListValueNode(
+                                                                        values: [
+                                                                          ObjectValueNode(
+                                                                            fields: [
+                                                                              ObjectFieldNode(
+                                                                                name: NameNode(
+                                                                                  value: 'sharedLanguageCodeId',
+                                                                                ),
+                                                                                value: VariableNode(
+                                                                                  name: NameNode(
+                                                                                    value: 'jaLanguageCodeId',
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                              ObjectFieldNode(
+                                                                                name: NameNode(
+                                                                                  value: 'dictionaryValue',
+                                                                                ),
+                                                                                value: VariableNode(
+                                                                                  name: NameNode(
+                                                                                    value: 'pronunciationJa',
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                          ObjectValueNode(
+                                                                            fields: [
+                                                                              ObjectFieldNode(
+                                                                                name: NameNode(
+                                                                                  value: 'sharedLanguageCodeId',
+                                                                                ),
+                                                                                value: VariableNode(
+                                                                                  name: NameNode(
+                                                                                    value: 'enLanguageCodeId',
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                              ObjectFieldNode(
+                                                                                name: NameNode(
+                                                                                  value: 'dictionaryValue',
+                                                                                ),
+                                                                                value: VariableNode(
+                                                                                  name: NameNode(
+                                                                                    value: 'pronunciationEn',
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ],
                                                                 ),
                                                               ),
                                                             ],
@@ -961,24 +1063,80 @@ const documentNodeMutationShippingKindEdit = DocumentNode(
                                                             fields: [
                                                               ObjectFieldNode(
                                                                 name: NameNode(
-                                                                  value: 'ja',
+                                                                  value:
+                                                                      'sharedDictionaryValuesUsingSharedDictionaryId',
                                                                 ),
-                                                                value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'nicknameJa',
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              ObjectFieldNode(
-                                                                name: NameNode(
-                                                                  value: 'en',
-                                                                ),
-                                                                value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'nicknameEn',
-                                                                  ),
+                                                                value: ObjectValueNode(
+                                                                  fields: [
+                                                                    ObjectFieldNode(
+                                                                      name: NameNode(
+                                                                        value:
+                                                                            'deleteOthers',
+                                                                      ),
+                                                                      value: BooleanValueNode(
+                                                                        value:
+                                                                            true,
+                                                                      ),
+                                                                    ),
+                                                                    ObjectFieldNode(
+                                                                      name: NameNode(
+                                                                        value:
+                                                                            'create',
+                                                                      ),
+                                                                      value: ListValueNode(
+                                                                        values: [
+                                                                          ObjectValueNode(
+                                                                            fields: [
+                                                                              ObjectFieldNode(
+                                                                                name: NameNode(
+                                                                                  value: 'sharedLanguageCodeId',
+                                                                                ),
+                                                                                value: VariableNode(
+                                                                                  name: NameNode(
+                                                                                    value: 'jaLanguageCodeId',
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                              ObjectFieldNode(
+                                                                                name: NameNode(
+                                                                                  value: 'dictionaryValue',
+                                                                                ),
+                                                                                value: VariableNode(
+                                                                                  name: NameNode(
+                                                                                    value: 'nicknameJa',
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                          ObjectValueNode(
+                                                                            fields: [
+                                                                              ObjectFieldNode(
+                                                                                name: NameNode(
+                                                                                  value: 'sharedLanguageCodeId',
+                                                                                ),
+                                                                                value: VariableNode(
+                                                                                  name: NameNode(
+                                                                                    value: 'enLanguageCodeId',
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                              ObjectFieldNode(
+                                                                                name: NameNode(
+                                                                                  value: 'dictionaryValue',
+                                                                                ),
+                                                                                value: VariableNode(
+                                                                                  name: NameNode(
+                                                                                    value: 'nicknameEn',
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ],
                                                                 ),
                                                               ),
                                                             ],
@@ -1078,18 +1236,136 @@ const documentNodeMutationShippingKindEdit = DocumentNode(
                                     selectionSet: null,
                                   ),
                                   FieldNode(
-                                    name: NameNode(value: 'ja'),
-                                    alias: null,
-                                    arguments: [],
+                                    name: NameNode(
+                                      value:
+                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                    ),
+                                    alias: NameNode(value: 'ja'),
+                                    arguments: [
+                                      ArgumentNode(
+                                        name: NameNode(value: 'condition'),
+                                        value: ObjectValueNode(
+                                          fields: [
+                                            ObjectFieldNode(
+                                              name: NameNode(
+                                                value: 'sharedLanguageCodeId',
+                                              ),
+                                              value: VariableNode(
+                                                name: NameNode(
+                                                  value: 'jaLanguageCodeId',
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                     directives: [],
-                                    selectionSet: null,
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'nodes'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'dictionaryValue',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   FieldNode(
-                                    name: NameNode(value: 'en'),
-                                    alias: null,
-                                    arguments: [],
+                                    name: NameNode(
+                                      value:
+                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                    ),
+                                    alias: NameNode(value: 'en'),
+                                    arguments: [
+                                      ArgumentNode(
+                                        name: NameNode(value: 'condition'),
+                                        value: ObjectValueNode(
+                                          fields: [
+                                            ObjectFieldNode(
+                                              name: NameNode(
+                                                value: 'sharedLanguageCodeId',
+                                              ),
+                                              value: VariableNode(
+                                                name: NameNode(
+                                                  value: 'enLanguageCodeId',
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                     directives: [],
-                                    selectionSet: null,
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'nodes'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'dictionaryValue',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   FieldNode(
                                     name: NameNode(value: '__typename'),
@@ -1119,18 +1395,136 @@ const documentNodeMutationShippingKindEdit = DocumentNode(
                                     selectionSet: null,
                                   ),
                                   FieldNode(
-                                    name: NameNode(value: 'ja'),
-                                    alias: null,
-                                    arguments: [],
+                                    name: NameNode(
+                                      value:
+                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                    ),
+                                    alias: NameNode(value: 'ja'),
+                                    arguments: [
+                                      ArgumentNode(
+                                        name: NameNode(value: 'condition'),
+                                        value: ObjectValueNode(
+                                          fields: [
+                                            ObjectFieldNode(
+                                              name: NameNode(
+                                                value: 'sharedLanguageCodeId',
+                                              ),
+                                              value: VariableNode(
+                                                name: NameNode(
+                                                  value: 'jaLanguageCodeId',
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                     directives: [],
-                                    selectionSet: null,
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'nodes'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'dictionaryValue',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   FieldNode(
-                                    name: NameNode(value: 'en'),
-                                    alias: null,
-                                    arguments: [],
+                                    name: NameNode(
+                                      value:
+                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                    ),
+                                    alias: NameNode(value: 'en'),
+                                    arguments: [
+                                      ArgumentNode(
+                                        name: NameNode(value: 'condition'),
+                                        value: ObjectValueNode(
+                                          fields: [
+                                            ObjectFieldNode(
+                                              name: NameNode(
+                                                value: 'sharedLanguageCodeId',
+                                              ),
+                                              value: VariableNode(
+                                                name: NameNode(
+                                                  value: 'enLanguageCodeId',
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                     directives: [],
-                                    selectionSet: null,
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'nodes'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'dictionaryValue',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   FieldNode(
                                     name: NameNode(value: '__typename'),
@@ -1160,18 +1554,136 @@ const documentNodeMutationShippingKindEdit = DocumentNode(
                                     selectionSet: null,
                                   ),
                                   FieldNode(
-                                    name: NameNode(value: 'ja'),
-                                    alias: null,
-                                    arguments: [],
+                                    name: NameNode(
+                                      value:
+                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                    ),
+                                    alias: NameNode(value: 'ja'),
+                                    arguments: [
+                                      ArgumentNode(
+                                        name: NameNode(value: 'condition'),
+                                        value: ObjectValueNode(
+                                          fields: [
+                                            ObjectFieldNode(
+                                              name: NameNode(
+                                                value: 'sharedLanguageCodeId',
+                                              ),
+                                              value: VariableNode(
+                                                name: NameNode(
+                                                  value: 'jaLanguageCodeId',
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                     directives: [],
-                                    selectionSet: null,
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'nodes'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'dictionaryValue',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   FieldNode(
-                                    name: NameNode(value: 'en'),
-                                    alias: null,
-                                    arguments: [],
+                                    name: NameNode(
+                                      value:
+                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                    ),
+                                    alias: NameNode(value: 'en'),
+                                    arguments: [
+                                      ArgumentNode(
+                                        name: NameNode(value: 'condition'),
+                                        value: ObjectValueNode(
+                                          fields: [
+                                            ObjectFieldNode(
+                                              name: NameNode(
+                                                value: 'sharedLanguageCodeId',
+                                              ),
+                                              value: VariableNode(
+                                                name: NameNode(
+                                                  value: 'enLanguageCodeId',
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                     directives: [],
-                                    selectionSet: null,
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'nodes'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'dictionaryValue',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   FieldNode(
                                     name: NameNode(value: '__typename'),
@@ -2250,8 +2762,8 @@ class _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrSh
 class Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId {
   Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId({
     required this.sharedDictionaryId,
-    this.ja,
-    this.en,
+    required this.ja,
+    required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
@@ -2264,17 +2776,23 @@ class Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrS
     final l$$__typename = json['__typename'];
     return Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: (l$ja as String?),
-      en: (l$en as String?),
+      ja: Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String sharedDictionaryId;
 
-  final String? ja;
+  final Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja
+  ja;
 
-  final String? en;
+  final Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en
+  en;
 
   final String $__typename;
 
@@ -2283,9 +2801,9 @@ class Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrS
     final l$sharedDictionaryId = sharedDictionaryId;
     _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
     final l$ja = ja;
-    _resultData['ja'] = l$ja;
+    _resultData['ja'] = l$ja.toJson();
     final l$en = en;
-    _resultData['en'] = l$en;
+    _resultData['en'] = l$en.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -2365,10 +2883,20 @@ abstract class CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrSh
 
   TRes call({
     String? sharedDictionaryId,
-    String? ja,
-    String? en,
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja?
+    ja,
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en?
+    en,
     String? $__typename,
   });
+  CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+    TRes
+  >
+  get ja;
+  CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+    TRes
+  >
+  get en;
 }
 
 class _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
@@ -2404,13 +2932,41 @@ class _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippi
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
           : (sharedDictionaryId as String),
-      ja: ja == _undefined ? _instance.ja : (ja as String?),
-      en: en == _undefined ? _instance.en : (en as String?),
+      ja: ja == _undefined || ja == null
+          ? _instance.ja
+          : (ja
+                as Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja),
+      en: en == _undefined || en == null
+          ? _instance.en
+          : (en
+                as Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
+
+  CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+    TRes
+  >
+  get ja {
+    final local$ja = _instance.ja;
+    return CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
+  }
+
+  CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+    TRes
+  >
+  get en {
+    final local$en = _instance.en;
+    return CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en(
+      local$en,
+      (e) => call(en: e),
+    );
+  }
 }
 
 class _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
@@ -2428,17 +2984,771 @@ class _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrSh
 
   call({
     String? sharedDictionaryId,
-    String? ja,
-    String? en,
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja?
+    ja,
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en?
+    en,
     String? $__typename,
   }) => _res;
+
+  CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+    TRes
+  >
+  get ja =>
+      CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja.stub(
+        _res,
+      );
+
+  CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+    TRes
+  >
+  get en =>
+      CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en.stub(
+        _res,
+      );
+}
+
+class Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja {
+  Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja
+    on
+        Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja {
+  CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja
+  >
+  get copyWith =>
+      CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+  TRes
+> {
+  factory CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja
+    instance,
+    TRes Function(
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja;
+
+  factory CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja;
+
+  TRes call({
+    List<
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+          Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+  TRes
+>
+    implements
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja
+  _instance;
+
+  final TRes Function(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+          Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+  TRes
+>
+    implements
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
+  Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+    on
+        Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
+  CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+  >
+  get copyWith =>
+      CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+  TRes
+> {
+  factory CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+    instance,
+    TRes Function(
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
+
+  factory CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+  _instance;
+
+  final TRes Function(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en {
+  Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en
+    on
+        Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en {
+  CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en
+  >
+  get copyWith =>
+      CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+  TRes
+> {
+  factory CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en
+    instance,
+    TRes Function(
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en;
+
+  factory CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en;
+
+  TRes call({
+    List<
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+          Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+  TRes
+>
+    implements
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en
+  _instance;
+
+  final TRes Function(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+          Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+  TRes
+>
+    implements
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes {
+  Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes
+    on
+        Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes {
+  CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes
+  >
+  get copyWith =>
+      CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+  TRes
+> {
+  factory CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes
+    instance,
+    TRes Function(
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes;
+
+  factory CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes
+  _instance;
+
+  final TRes Function(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
 class Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId {
   Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId({
     required this.sharedDictionaryId,
-    this.ja,
-    this.en,
+    required this.ja,
+    required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
@@ -2451,17 +3761,23 @@ class Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrS
     final l$$__typename = json['__typename'];
     return Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: (l$ja as String?),
-      en: (l$en as String?),
+      ja: Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String sharedDictionaryId;
 
-  final String? ja;
+  final Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja
+  ja;
 
-  final String? en;
+  final Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en
+  en;
 
   final String $__typename;
 
@@ -2470,9 +3786,9 @@ class Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrS
     final l$sharedDictionaryId = sharedDictionaryId;
     _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
     final l$ja = ja;
-    _resultData['ja'] = l$ja;
+    _resultData['ja'] = l$ja.toJson();
     final l$en = en;
-    _resultData['en'] = l$en;
+    _resultData['en'] = l$en.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -2552,10 +3868,20 @@ abstract class CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrSh
 
   TRes call({
     String? sharedDictionaryId,
-    String? ja,
-    String? en,
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja?
+    ja,
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en?
+    en,
     String? $__typename,
   });
+  CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+    TRes
+  >
+  get ja;
+  CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+    TRes
+  >
+  get en;
 }
 
 class _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId<
@@ -2591,13 +3917,41 @@ class _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippi
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
           : (sharedDictionaryId as String),
-      ja: ja == _undefined ? _instance.ja : (ja as String?),
-      en: en == _undefined ? _instance.en : (en as String?),
+      ja: ja == _undefined || ja == null
+          ? _instance.ja
+          : (ja
+                as Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+      en: en == _undefined || en == null
+          ? _instance.en
+          : (en
+                as Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
+
+  CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+    TRes
+  >
+  get ja {
+    final local$ja = _instance.ja;
+    return CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
+  }
+
+  CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+    TRes
+  >
+  get en {
+    final local$en = _instance.en;
+    return CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en(
+      local$en,
+      (e) => call(en: e),
+    );
+  }
 }
 
 class _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId<
@@ -2615,17 +3969,771 @@ class _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrSh
 
   call({
     String? sharedDictionaryId,
-    String? ja,
-    String? en,
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja?
+    ja,
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en?
+    en,
     String? $__typename,
   }) => _res;
+
+  CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+    TRes
+  >
+  get ja =>
+      CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
+        _res,
+      );
+
+  CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+    TRes
+  >
+  get en =>
+      CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
+        _res,
+      );
+}
+
+class Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja {
+  Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja
+    on
+        Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja {
+  CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja
+  >
+  get copyWith =>
+      CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+  TRes
+> {
+  factory CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja
+    instance,
+    TRes Function(
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja;
+
+  factory CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja;
+
+  TRes call({
+    List<
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+          Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+  TRes
+>
+    implements
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja
+  _instance;
+
+  final TRes Function(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+          Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+  TRes
+>
+    implements
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
+  Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+    on
+        Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
+  CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+  >
+  get copyWith =>
+      CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+  TRes
+> {
+  factory CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+    instance,
+    TRes Function(
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
+
+  factory CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+  _instance;
+
+  final TRes Function(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en {
+  Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en
+    on
+        Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en {
+  CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en
+  >
+  get copyWith =>
+      CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+  TRes
+> {
+  factory CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en
+    instance,
+    TRes Function(
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en;
+
+  factory CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en;
+
+  TRes call({
+    List<
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+          Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+  TRes
+>
+    implements
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en
+  _instance;
+
+  final TRes Function(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+          Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+  TRes
+>
+    implements
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
+  Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+    on
+        Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
+  CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+  >
+  get copyWith =>
+      CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+  TRes
+> {
+  factory CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+    instance,
+    TRes Function(
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
+
+  factory CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+  _instance;
+
+  final TRes Function(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
 class Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId {
   Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId({
     required this.sharedDictionaryId,
-    this.ja,
-    this.en,
+    required this.ja,
+    required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
@@ -2638,17 +4746,23 @@ class Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrS
     final l$$__typename = json['__typename'];
     return Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: (l$ja as String?),
-      en: (l$en as String?),
+      ja: Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String sharedDictionaryId;
 
-  final String? ja;
+  final Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja
+  ja;
 
-  final String? en;
+  final Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en
+  en;
 
   final String $__typename;
 
@@ -2657,9 +4771,9 @@ class Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrS
     final l$sharedDictionaryId = sharedDictionaryId;
     _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
     final l$ja = ja;
-    _resultData['ja'] = l$ja;
+    _resultData['ja'] = l$ja.toJson();
     final l$en = en;
-    _resultData['en'] = l$en;
+    _resultData['en'] = l$en.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -2739,10 +4853,20 @@ abstract class CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrSh
 
   TRes call({
     String? sharedDictionaryId,
-    String? ja,
-    String? en,
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja?
+    ja,
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en?
+    en,
     String? $__typename,
   });
+  CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja<
+    TRes
+  >
+  get ja;
+  CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en<
+    TRes
+  >
+  get en;
 }
 
 class _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId<
@@ -2778,13 +4902,41 @@ class _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippi
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
           : (sharedDictionaryId as String),
-      ja: ja == _undefined ? _instance.ja : (ja as String?),
-      en: en == _undefined ? _instance.en : (en as String?),
+      ja: ja == _undefined || ja == null
+          ? _instance.ja
+          : (ja
+                as Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja),
+      en: en == _undefined || en == null
+          ? _instance.en
+          : (en
+                as Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
+
+  CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja<
+    TRes
+  >
+  get ja {
+    final local$ja = _instance.ja;
+    return CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
+  }
+
+  CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en<
+    TRes
+  >
+  get en {
+    final local$en = _instance.en;
+    return CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en(
+      local$en,
+      (e) => call(en: e),
+    );
+  }
 }
 
 class _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId<
@@ -2802,8 +4954,762 @@ class _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrSh
 
   call({
     String? sharedDictionaryId,
-    String? ja,
-    String? en,
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja?
+    ja,
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en?
+    en,
     String? $__typename,
   }) => _res;
+
+  CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja<
+    TRes
+  >
+  get ja =>
+      CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
+        _res,
+      );
+
+  CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en<
+    TRes
+  >
+  get en =>
+      CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
+        _res,
+      );
+}
+
+class Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja {
+  Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja
+    on
+        Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja {
+  CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja<
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja
+  >
+  get copyWith =>
+      CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja<
+  TRes
+> {
+  factory CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja
+    instance,
+    TRes Function(
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja;
+
+  factory CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja;
+
+  TRes call({
+    List<
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+          Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja<
+  TRes
+>
+    implements
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja
+  _instance;
+
+  final TRes Function(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+          Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja<
+  TRes
+>
+    implements
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes {
+  Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+    on
+        Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes {
+  CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+  >
+  get copyWith =>
+      CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+  TRes
+> {
+  factory CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+    instance,
+    TRes Function(
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes;
+
+  factory CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+  _instance;
+
+  final TRes Function(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en {
+  Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en
+    on
+        Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en {
+  CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en<
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en
+  >
+  get copyWith =>
+      CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en<
+  TRes
+> {
+  factory CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en
+    instance,
+    TRes Function(
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en;
+
+  factory CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en;
+
+  TRes call({
+    List<
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+          Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en<
+  TRes
+>
+    implements
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en
+  _instance;
+
+  final TRes Function(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+          Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en<
+  TRes
+>
+    implements
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes {
+  Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+    on
+        Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes {
+  CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+  >
+  get copyWith =>
+      CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+  TRes
+> {
+  factory CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+    instance,
+    TRes Function(
+      Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes;
+
+  factory CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+  _instance;
+
+  final TRes Function(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$ShippingKindEdit$updateMstrShippingKindByMstrShippingKindId$mstrShippingKind$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
 }

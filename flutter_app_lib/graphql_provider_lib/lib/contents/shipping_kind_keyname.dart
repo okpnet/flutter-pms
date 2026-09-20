@@ -59,16 +59,16 @@ abstract class ShippingKindKeyName {
       );
 
   static const ContentVariable
-  sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_ja =
+  sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_ja_dictionaryValue =
       ContentVariable(
-        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||ja',
+        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||ja||dictionaryValue',
         GraphQLTypeKind.string,
       );
 
   static const ContentVariable
-  sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_en =
+  sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_en_dictionaryValue =
       ContentVariable(
-        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||en',
+        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||en||dictionaryValue',
         GraphQLTypeKind.string,
       );
 
@@ -80,16 +80,16 @@ abstract class ShippingKindKeyName {
       );
 
   static const ContentVariable
-  sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryPronunciationId_ja =
+  sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryPronunciationId_ja_dictionaryValue =
       ContentVariable(
-        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryPronunciationId||ja',
+        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryPronunciationId||ja||dictionaryValue',
         GraphQLTypeKind.string,
       );
 
   static const ContentVariable
-  sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryPronunciationId_en =
+  sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryPronunciationId_en_dictionaryValue =
       ContentVariable(
-        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryPronunciationId||en',
+        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryPronunciationId||en||dictionaryValue',
         GraphQLTypeKind.string,
       );
 
@@ -101,16 +101,16 @@ abstract class ShippingKindKeyName {
       );
 
   static const ContentVariable
-  sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNicknameId_ja =
+  sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNicknameId_ja_dictionaryValue =
       ContentVariable(
-        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNicknameId||ja',
+        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNicknameId||ja||dictionaryValue',
         GraphQLTypeKind.string,
       );
 
   static const ContentVariable
-  sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNicknameId_en =
+  sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNicknameId_en_dictionaryValue =
       ContentVariable(
-        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNicknameId||en',
+        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNicknameId||en||dictionaryValue',
         GraphQLTypeKind.string,
       );
 

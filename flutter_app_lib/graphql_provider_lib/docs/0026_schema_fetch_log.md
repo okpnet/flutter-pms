@@ -500,3 +500,80 @@ trans_inventory_requestを変更した。0026を実行。」の指示)
 (`product_rez`は評価対象外、`TransPurchaseRez`は対応見出し無し)のため、views.mdへの
 反映・GraphQL再生成は不要と判断した。`trans_inventory_request`自体の実質差分はスキーマ上
 検出されなかった。生成物の再作成は行っていない。
+
+## 追記9: 0026再実行(2026/09/20、「0026を実行」の指示)【重大】共通名前仕様の破壊的変更を検出
+
+### 接続・取得・差分判定
+
+`curl -m 10 http://192.168.1.100:5000/graphql` で疎通確認(`HTTP 405`、変化なし)後、
+`get-graphql-schema`で再取得したところ446,975行(直前の`lib/graphql/schema.graphql`は
+442,976行、+3,999行)を検出した。`type X implements Node`の一覧差分を取ったところ、
+**新規テーブル`SharedDictionaryValue`・`SharedLanguageCode`が追加された**。
+
+`@graphql-inspector/cli diff`は1,033件(うち61件が"breaking changes")を報告した。今回は
+従来のFk#番号ズレノイズが発生しておらず、`grep -ivE "shareddictionary|sharedlanguagecode"`で
+除外すると残るのは17行のみ(`SharedAppellationsFkNInput`の`connect/delete/updateByJaAndEn`
+複合キー入力の削除、`SharedDictionariesOrderBy`の`JA_ASC/JA_DESC/EN_ASC/EN_DESC`列挙値の削除)で、
+これも同じ変更の副作用であることを確認した。つまり**今回の1,033件はすべて単一の変更に由来する**。
+
+### 変更内容(要件0005の[共通名前仕様](../CLAUDE.md#共通名前仕様)そのものに関わる破壊的変更)
+
+1.  **`SharedDictionary`型から`ja`・`en`のスカラー列(String)が削除**され、代わりに
+    `sharedDictionaryValuesBySharedDictionaryId`(Relay Connection、新規`SharedDictionaryValue`
+    型)が追加された。
+2.  **新規テーブル`SharedLanguageCode`**(言語コードマスタ): `sharedLanguageCodeId`・
+    `code`(言語コード、`String!`)・`label`(ラベル、`String!`)・`priority`(優先順位、`Int!`)・
+    `isDefault`(標準、`Boolean`)・共通項(`remarks`/`updateAt`/`updateUserId`/
+    `updateUserHistoryId`/`remove`)を持つ。
+3.  **新規テーブル`SharedDictionaryValue`**(辞書値、`SharedDictionary`×`SharedLanguageCode`の
+    多対多相当): `sharedDictionaryValueId`・`sharedLanguageCodeId`・`sharedDictionaryId`・
+    `dictionaryValue`(値、`String!`)・共通項を持つ。
+4.  `SharedDictionaryInput`/`SharedDictionaryPatch`(ミューテーション入力)からも`ja`/`en`が
+    削除され、代わりに`sharedDictionaryValuesUsingSharedDictionaryId`(ネストしたcreate/connect
+    入力)が追加された。
+
+つまり、固定2言語(ja/en)をスカラー列として持つ設計から、**言語マスタ(`SharedLanguageCode`)
+経由で任意の言語数を子テーブル(`SharedDictionaryValue`)の行として持つ設計**へ全面的に
+再設計された。
+
+### 影響範囲(重大・全画面規模)
+
+[CLAUDE.md 共通名前仕様](../CLAUDE.md#共通名前仕様)は「`shared_dictionary`の列`ja`,`en`は
+アプリケーションがローカライズを基に引数として与える」という、今回削除された旧構造を前提に
+記述されている。この前提のもとで生成された成果物すべてが影響を受ける。
+
+- `grep -rlE "^\s+ja$|^\s+en$" lib/graphql --include="*.graphql"` → **48ファイル**
+  (既存31画面の read/edit GraphQLファイルほぼすべて)が`ja`/`en`をフィールド選択している。
+- `lib/contents/*_keyname.dart`の`_ja`/`_en`サフィックス定数(要件0005の共通名前仕様に基づく
+  ものすべて、要件0032で`ContentVariable`化した706定数のうち相当数)も、参照先のスカラー列が
+  無くなるため、現行のクエリ構造のままでは意味を失う。
+- 現時点では`--build-filter="lib/postgraphile/schema.graphql.dart"`で対象を限定しているため、
+  既存31画面の`*.graphql.dart`は再生成されておらず、`dart analyze`・`flutter test`は
+  影響を受けず成功する(下記4節)。ただし**次回、いずれかの画面のGraphQLファイルに手を入れて
+  build_runnerを実行した瞬間、その画面のコード生成が失敗する**(schema上に`ja`/`en`
+  フィールドが存在しないため)。
+
+### 置き換え・要件0024の実行・影響確認
+
+`lib/graphql/schema.graphql`を置き換え(442,976行 → 446,975行)、
+`dart run build_runner build --build-filter="lib/postgraphile/schema.graphql.dart"`を実行した。
+
+結果: `Built with build_runner/aot in 259s; wrote 1 output.`(警告は既知のスカラー代替のみ)。
+
+- `git status`で`lib/graphql/schema.graphql`以外の生成済みファイルに変更が無いことを確認
+  (既存31画面は再生成されていない)。
+- `dart analyze lib test`: error・warning 0件。
+- `flutter test`: 既存分すべて成功(`*.graphql`ファイル自体はまだ古いschemaのまま
+  codegenされた`*.graphql.dart`を参照しているため、今回の置き換えの影響を受けていない)。
+
+### 結論・次のアクション(要件0003のリスク顕在化)
+
+要件0003で抽出すべきとされていた「大幅な変更が予測される領域」のうち、**共通名前仕様
+(shared_appellations/shared_dictionary経由のローカライズ)そのものの構造変更**が実際に
+発生した。これは低減処置(データベース構成の一部変更等)で吸収できる範囲を超えており、
+要件0003の言う「仕様そのものの変更としてコミット」する対象に該当すると判断する。
+
+対応方針(新しい`ja`/`en`の取得クエリ形状、`KeyName`定数の再設計、`nested_map_flattener.dart`
+側の対応、[共通名前仕様](../CLAUDE.md#共通名前仕様)本文の書き換え、既存31画面GraphQLの
+一斉改修の要否・範囲)は業務・設計判断を要するため、本ログでは現状の記録に留め、
+schema.graphql自体の置き換え以外の対応(views.md・GraphQL・KeyNameの修正)は実施していない。
