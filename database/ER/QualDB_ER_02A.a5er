@@ -1,7 +1,7 @@
 ﻿# A5:ER FORMAT:18
 # A5:ER ENCODING:UTF8
 # A5:ER Mk-1 Copyright © 2007 m.matsubara
-# A5:SQL Mk-2 Version 2.20.0 beta 20 Copyright © 1997 - 2024 m.matsubara
+# A5:SQL Mk-2 Version 2.20.0 beta 24 Copyright © 1997 - 2024 m.matsubara
 #  https://a5m2.mmatsubara.com
 
 [Manager]
@@ -17265,7 +17265,6 @@ Position="インフォメーションー人",0,5000,5000,5000,R,R,""
 Position="マスタ人的資源",0,5000,5000,5000,R,R,""
 Position="マスタ設備",0,5000,5000,5000,R,R,""
 Position="マスタ資源",0,5000,5000,5000,R,R,""
-Position="ビュー",0,5000,5000,5000,R,R,""
 Dependence=0
 Caption=auto create.
 PName=
@@ -17518,3 +17517,17 @@ Bar3=50
 TermPos1=R
 TermPos2=R
 ZOrder=-515
+
+[View]
+PName=dictionary_values
+LName=ラベル辞書
+Comment=
+Query=SELECT\n    tests.shared_language_code.code\n    , tests.shared_language_code.is_default\n    , tests.shared_dictionary_value.dictionary_value\n    , tests.shared_dictionary.shared_dictionary_id\n    , tests.shared_language_code.priority\n    , tests.shared_language_code.label \nFROM\n    tests.shared_dictionary_value \n    INNER JOIN tests.shared_language_code \n        ON tests.shared_dictionary_value.shared_language_code_id = tests.shared_language_code.shared_language_code_id\n    INNER JOIN tests.shared_dictionary \n        ON tests.shared_dictionary.shared_dictionary_id = tests.shared_dictionary_value.shared_dictionary_id\nWHERE\n    tests.shared_language_code.remove = \qf\q \n    AND tests.shared_dictionary_value.remove = \qf\q \n    AND tests.shared_dictionary.remove = \qf\q
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="ビュー",750,650
+ZOrder=1111
+Page=ビュー
+Left=750
+Top=650

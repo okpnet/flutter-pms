@@ -441,7 +441,7 @@ class Entity{
 
         }else if(entity.objectType=="View"){
             IsView=true;
-            ViewQury=entity.query;
+            ViewQuery=entity.query;
         }
 //        println('donee');
     }
@@ -539,7 +539,7 @@ class Entity{
     }
     //テーブル生成クエリ
     function GetQuery(schema){
-        if(IsView)return "";
+        if(IsView)return  GetViewQuery(schema);
         var result = "create table " + schema + "." + Name + " (" + CR;
         for(var index in Columns){
             result+=Columns[index].GetQuery(schema);
@@ -549,6 +549,14 @@ class Entity{
         result+=");"+CR;
         return result;
     }
+    
+    function GetViewQuery(schema){
+        var result =CR+ "drop view if exists " + schema + "." + Name + CR;
+        result += "create view  " + schema + "." + Name +  "as" + CR;
+        result += ViewQuery + ";" + CR;
+        return result;
+    }
+    
     //トリガークエリ
     function GetTriggerQuery(schema,entities){
         if(IsView || IsTrigger==null)return "";
@@ -893,6 +901,8 @@ class GeneratManager{
             entityArray.add(new Entity(e,relArray));
         });
         
+        //View
+        viewArray=ext.toWhere(entityArray,function(e){return e.IsView;});
 		
         //hierarchyテーブルセット
         
@@ -999,7 +1009,7 @@ class GeneratManager{
             prg.up();
             query+=e.GetQuery(IsSchema);
         });
-
+    
         max=ext.count(viewArray);
         query +="--" +max+ ".create view"+CR;
         query +=CreateView();
@@ -1051,9 +1061,8 @@ class GeneratManager{
     //ビュー生成
     function CreateView(){
         var query="";
-        var views=ext.toWhere(entityArray,function(e){return e.IsView;});
-        for(var index in views){
-            query+=views[index].GetQuery(IsSchema);
+        for(var index in viewArray){
+            query+=viewArray[index].GetQuery(IsSchema);
         }
         return query;
     }
