@@ -1,0 +1,301 @@
+# yaml-language-server: $schema=schema.json
+
+# 共有(参照)定義: 住所情報 (点8) — info_address由来。company以外からも参照されうるため独立定義し、
+# 実際の利用箇所ではYAMLエイリアス(*addressFields)で共有参照する。
+addressFields: &addressFields
+  kind: read
+  from: info_address
+  columns:
+    - iso3166_3
+    - zip_code
+    - name: address1 
+      as: address1_name 
+      arrayType: toFirstOne
+      <<: &nameLabel
+    - name: address1 
+      as: address1_pronunciationLabel
+      arrayType: toFirstOne
+      <<: &pronunciationLabelLabel
+    - name: address1 
+      as: address1_nicname 
+      arrayType: toFirstOne
+      <<: &nicknameLabelLabelLabel
+    - name: address2
+      as: address2_name 
+      arrayType: toFirstOne
+      <<: &nameLabel
+    - name: address2 
+      as: address2_pronunciationLabel
+      arrayType: toFirstOne
+      <<: &pronunciationLabelLabel
+    - name: address2 
+      as: address2_nicname 
+      arrayType: toFirstOne
+      <<: &nicknameLabelLabelLabel
+    - name: bill 
+      as: bill_name 
+      arrayType: toFirstOne
+      <<: &nameLabel
+    - name: bill 
+      as: bill_pronunciationLabel
+      arrayType: toFirstOne
+      <<: &pronunciationLabelLabel
+    - name: bill 
+      as: bill_nicname 
+      arrayType: toFirstOne
+      <<: &nicknameLabelLabelLabel
+    - phone
+    - fax_number
+
+nameLabel: &nameLabel
+  kind: read
+  from: shared_appellations
+  where:
+    - shared_language_code.code
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - shared_appellations_id
+    # shared_appellations : shared_dictionary = 1対1(shared_dictionary_name_id経由の順方向FK)
+    # shared_appellationsはshared_dictionaryへのFKを3本(name/pronunciation/nickname)持つため、
+    # usingで結合元(shared_appellations)側のFK列名を明示し、結合経路を一意にする。
+    - name: name
+      arrayType: toFirstOne
+      from: shared_dictionary
+      using: shared_dictionary_name_id
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+      columns:
+        # shared_dictionary : shared_dictionary_value = 1対1
+        - name: value
+          arrayType: toFirstOne
+          from: shared_dictionary_value
+          defaultWhere:
+            - column: remove
+              operator: "="
+              value: false
+          columns:
+            - dictionary_value
+            # shared_language_code は絞り込み専用のJOIN。出力列は無い(code='JA'で1件に絞るだけ)。
+            - name: language
+              arrayType: toFirstOne
+              from: shared_language_code
+              defaultWhere:
+                - column: remove
+                  operator: "="
+                  value: false
+
+pronunciationLabel: &pronunciationLabel
+  kind: read
+  from: shared_appellations
+  where:
+    - shared_language_code.code
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - shared_appellations_id
+    # shared_appellations : shared_dictionary = 1対1(shared_dictionary_name_id経由の順方向FK)
+    # shared_appellationsはshared_dictionaryへのFKを3本(name/pronunciation/nickname)持つため、
+    # usingで結合元(shared_appellations)側のFK列名を明示し、結合経路を一意にする。
+    - name: name
+      arrayType: toFirstOne
+      from: shared_dictionary
+      using: shared_dictionary_pronunciation_id
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+      columns:
+        # shared_dictionary : shared_dictionary_value = 1対1
+        - name: value
+          arrayType: toFirstOne
+          from: shared_dictionary_value
+          defaultWhere:
+            - column: remove
+              operator: "="
+              value: false
+          columns:
+            - dictionary_value
+            # shared_language_code は絞り込み専用のJOIN。出力列は無い(code='JA'で1件に絞るだけ)。
+            - name: language
+              arrayType: toFirstOne
+              from: shared_language_code
+              defaultWhere:
+                - column: remove
+                  operator: "="
+                  value: false
+
+nicknameLabel: &nicknameLabel
+  kind: read
+  from: shared_appellations
+  where:
+    - shared_language_code.code
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - shared_appellations_id
+    # shared_appellations : shared_dictionary = 1対1(shared_dictionary_name_id経由の順方向FK)
+    # shared_appellationsはshared_dictionaryへのFKを3本(name/pronunciation/nickname)持つため、
+    # usingで結合元(shared_appellations)側のFK列名を明示し、結合経路を一意にする。
+    - name: name
+      arrayType: toFirstOne
+      from: shared_dictionary
+      using: shared_dictionary_nickname_id
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+      columns:
+        # shared_dictionary : shared_dictionary_value = 1対1
+        - name: value
+          arrayType: toFirstOne
+          from: shared_dictionary_value
+          defaultWhere:
+            - column: remove
+              operator: "="
+              value: false
+          columns:
+            - dictionary_value
+            # shared_language_code は絞り込み専用のJOIN。出力列は無い(code='JA'で1件に絞るだけ)。
+            - name: language
+              arrayType: toFirstOne
+              from: shared_language_code
+              defaultWhere:
+                - column: remove
+                  operator: "="
+                  value: false
+
+languageCodeEdit: &languageCodeEdit
+  kind: edit
+  from: shared_language_code
+  columns:
+    - shared_language_code_id
+    - code
+    - label
+    - priority
+    - is_default
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+dictionaryEdit: &dictionaryEdit
+  kind: edit
+  from: shared_dictionary
+  columns: #editの専用のcolumnsを準備した方がよいか=>editColumns
+    - name: shared_dictionary_id #リレーションシップがあっても編集不要であれば、通常どおり列だけ指定すれば良いと思う。
+      from: shared_dictionary_value #name属性とリレーションシップがあるテーブル.この指定方法が"kind:Read"と同じであれば、"kind:RFE"は"<< &..."で参照すれば良い。
+      arrayType: toFirstOne #配列を渡すときはtoMany
+      columns: #編集する列。<<&..の参照もできたら良いと思う。
+        - shared_dictionary_value_id
+        - shared_language_code_id
+        - shared_dictionary_id
+        - dictionary_value
+        - remarks
+        - update_user_id
+        - update_user_history_id
+        - remove 
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove 
+
+dictionaryRFE: &dictionaryRFE
+  kind: RFE
+  <<: &dictionaryEdit
+
+addressEditFields: &addressEditFields
+  kind: edit
+  from: info_address
+  columns:
+    - info_address_id
+    - iso3166_3
+    - zip_code
+    - name: address1
+    - name: address2
+    - bill
+    - phone
+    - fax_number
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove 
+
+# --- read: 会社情報(info_company) 詳細画面 ---
+CompanyPage:
+  kind: read
+  from: info_company
+  requiredWhere:
+    - remove
+  columns:
+    - info_company_id
+    - web_page
+    - name: ceo
+      arrayType: toFirstOne
+      <<: *addressFields
+    - symbol
+    - remarks
+    # info_company.info_address_id 経由の参照(company:address = 1対1)。
+    # 生成側の実装が配列生成の仕組み(json_agg/LATERAL等)を使う前提でarrayType: trueとし、
+    # 1対1に該当するためarrayFirst: trueで先頭要素のみを採用する。
+    - name: address
+      arrayType: toFirstOne
+      <<: *addressFields
+    # info_department.info_company_id 経由の子コレクション(company:departments = 1対N)。
+    - name: offices
+      arrayType: toMany
+      from: info_office
+      limit: 50
+      kind: read
+      columns:
+        - info_office_id
+        - info_company_id
+        - code
+        - name: shared_appellations_id
+          arrayType: toFirstOne
+          <<: *addressFields
+        - info_address_id
+        - symbol
+        - remarks
+        - update_at
+        - update_user_id
+        - update_user_history_id
+        - remove 
+
+
+
+# --- edit: 会社情報(info_company) 更新/新規作成 ---
+CompanyPageEdit:
+  kind: edit
+  from: info_company
+  columns:
+    - info_company_id
+    - shared_appellations_id
+    - name: info_address_id
+      editTables:
+        - table: info_address #ここで
+    - web_page
+    - ceo
+    - symbol
+    - revision
+    - remarks
+    - update_at
+    - update_user_id
+    - update_user_history_id
+    - remove 
+  editTables:
+    - table: info_company
+      editTable: 
+        - table: shared_dictionary
+          editTables:
+            - table: shared_dictionary_value
+            editTable: 
+              - table: shared_language_code

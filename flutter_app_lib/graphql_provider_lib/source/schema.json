@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/query-mutation.schema.json",
+  "title": "Query/Mutation Definition Schema (YAML用)",
+  "description": "PostGraphile向けにread(クエリ)/edit(ミューテーション)/RFE(クエリ・ミューテーション相互変換可能な読み込み)をYAMLでまとめて表記するためのスキーマ。read/edit/RFEはすべて同一のnode構造(kindはenumとして持つのみ)を共有し、kindによるプロパティの出し分けはスキーマ側では強制しない(どのプロパティを使うかは生成側の解釈に委ねる)。read/edit/RFEを他の定義から共有(参照)する場合はYAMLのアンカー(&name)/エイリアス(*name)を前提とし、本スキーマには参照専用のキーワードを設けていない。列・子テーブルの外部キー整合性チェックは本スキーマの検証範囲外とし、コード生成時にエラーとする方針とする(構造の妥当性のみを検証する)。",
+  "type": "object",
+  "minProperties": 1,
+  "additionalProperties": {
+    "$ref": "#/$defs/node"
+  },
+  "$defs": {
+    "kind": {
+      "type": "string",
+      "enum": ["read", "edit", "RFE"],
+      "description": "read=クエリ, edit=ミューテーション, RFE=クエリ/ミューテーション相互変換可能な読み込み"
+    },
+    "from": {
+      "type": "string",
+      "minLength": 1,
+      "description": "この定義が対象とする主たるテーブル名。editTables[].tableや列名との一致はここでは検証しない(生成時エラー、点10と同じ方針)。任意項目。"
+    },
+    "operator": {
+      "type": "string",
+      "enum": ["=", ">", "<", ">=", "<=", "IN", "NOT IN", "LIKE", "NOT LIKE", "EXISTS", "NOT EXISTS"],
+      "description": "defaultWhereで使う比較演算子"
+    },
+    "whereValue": {
+      "description": "defaultWhereのvalue。対象列の型に従うため具体的な型は限定せず、スカラー値または配列(IN/NOT IN用)のみを構造として許容する。operatorがEXISTS/NOT EXISTSのときはdefaultWhereEntry側でさらに文字列型に限定する。",
+      "anyOf": [
+        { "type": ["string", "number", "boolean", "null"] },
+        {
+          "type": "array",
+          "items": { "type": ["string", "number", "boolean", "null"] },
+          "minItems": 1
+        }
+      ]
+    },
+    "defaultWhereEntry": {
+      "type": "object",
+      "description": "デフォルトで適用される条件。column(列名)・operator(演算子)・value(値)を持つ。列名のFK/実在性はここでは検証しない(生成時エラー)。operatorがEXISTS/NOT EXISTSのときはvalueをSELECT文を表す文字列として受け取る。",
+      "properties": {
+        "column": { "type": "string", "minLength": 1 },
+        "operator": { "$ref": "#/$defs/operator" },
+        "value": { "$ref": "#/$defs/whereValue" }
+      },
+      "required": ["column", "operator", "value"],
+      "additionalProperties": false,
+      "if": {
+        "properties": { "operator": { "enum": ["EXISTS", "NOT EXISTS"] } },
+        "required": ["operator"]
+      },
+      "then": {
+        "properties": {
+          "value": {
+            "type": "string",
+            "minLength": 1,
+            "description": "EXISTS/NOT EXISTSのときはSELECT文そのものを文字列で指定する"
+          }
+        }
+      }
+    },
+    "defaultWhereList": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/defaultWhereEntry" },
+      "minItems": 1
+    },
+    "condition": true,
+    "limit": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "取得数。columnsの要素がarrayType(配列)のとき特に意味を持つ"
+    },
+    "whereList": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "uniqueItems": true,
+      "description": "引数として使う列名の配列(requiredWhere/whereで共通利用)"
+    },
+    "columnsList": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/columnEntry" },
+      "minItems": 1
+    },
+    "editTablesList": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/editTableEntry" },
+      "minItems": 1
+    },
+    "node": {
+      "type": "object",
+      "description": "read/edit/RFE共通のノード。kindに関わらず同じプロパティ群を許容する(汎用フィールド共存型)。",
+      "properties": {
+        "kind": { "$ref": "#/$defs/kind" },
+        "from": { "$ref": "#/$defs/from" },
+        "requiredWhere": { "$ref": "#/$defs/whereList" },
+        "where": { "$ref": "#/$defs/whereList" },
+        "defaultWhere": { "$ref": "#/$defs/defaultWhereList" },
+        "condition": {
+          "$ref": "#/$defs/condition",
+          "description": "GraphQLへMapとして渡す固定キー'condition'。値の内部構造(Mapかどうか)は検証しない。"
+        },
+        "columns": { "$ref": "#/$defs/columnsList" },
+        "limit": { "$ref": "#/$defs/limit" },
+        "editTables": { "$ref": "#/$defs/editTablesList" }
+      },
+      "additionalProperties": false
+    },
+    "arrayType": {
+      "type": "string",
+      "enum": ["toMany", "toFirstOne"],
+      "description": "このcolumnがネストした関係(from)を持つとき、生成される配列(json_agg/LATERAL等)をそのままコレクションとして返すか(toMany)、先頭要素のみを採用して単一オブジェクトとして返すか(toFirstOne)を指定する。1対1相当かどうかの実際の制約(FK/UNIQUE)はここでは検証しない(生成時エラー、点10と同じ方針。toFirstOneを指定してもtoManyが実際には成立する場合の指摘・強制配列化は生成側の責務とする)。"
+    },
+    "columnEntry": {
+      "description": "columnsの要素。(a)単純な列名の文字列、または(b) name + arrayType(ネストした関係の返し方: toMany/toFirstOne)と、arrayType指定時のネストした定義(columns/where/requiredWhere/limit/kind等、node相当のプロパティ)を持つオブジェクト。ネスト内容をread/edit/RFEの共有定義から流用する場合はYAMLエイリアス(*name)で解決する想定で、本スキーマ上は同じnode形状として扱う。列名のFK整合性は検証しない(生成時エラー)。",
+      "oneOf": [
+        { "type": "string", "minLength": 1 },
+        {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string", "minLength": 1 },
+            "as": {
+              "type": "string",
+              "minLength": 1,
+              "description": "出力時のエイリアス(別名)。省略時はnameがそのまま出力フィールド名として使われる(従来通り)。nameは結合・マージ元の識別に使う識別子としての役割を保ち、実際にGraphQL出力へ現れるフィールド名だけをasで上書きしたい場合に使う。"
+            },
+            "arrayType": { "$ref": "#/$defs/arrayType" },
+            "kind": { "$ref": "#/$defs/kind" },
+            "from": { "$ref": "#/$defs/from" },
+            "using": {
+              "type": "string",
+              "minLength": 1,
+              "description": "結合元(このcolumnEntryを含む側のテーブル)が持つ、fromへの結合に使うFK列名。1つのテーブル間に複数のFKが存在する場合(例: shared_appellationsからshared_dictionaryへのshared_dictionary_name_id/shared_dictionary_pronunciation_id/shared_dictionary_nickname_id)の結合経路を一意にするための任意項目。FKの実在性はここでは検証しない(生成時エラー、点10と同じ方針)。"
+            },
+            "requiredWhere": { "$ref": "#/$defs/whereList" },
+            "where": { "$ref": "#/$defs/whereList" },
+            "defaultWhere": { "$ref": "#/$defs/defaultWhereList" },
+            "condition": { "$ref": "#/$defs/condition" },
+            "columns": { "$ref": "#/$defs/columnsList" },
+            "limit": { "$ref": "#/$defs/limit" },
+            "editTables": { "$ref": "#/$defs/editTablesList" }
+          },
+          "required": ["name"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "editTableEntry": {
+      "type": "object",
+      "description": "editTablesの要素。1テーブルへの書き込み単位を表す。子テーブル(1件または複数件)を持つ場合はeditTableで指定する(単体オブジェクトまたは配列)。列・FKの整合性チェックは行わない(生成時エラー)。",
+      "properties": {
+        "table": {
+          "type": "string",
+          "minLength": 1,
+          "description": "書き込み対象テーブル名"
+        },
+        "using": {
+          "type": "string",
+          "minLength": 1,
+          "description": "このeditTableEntryを親のeditTables/editTableに結び付けるFK列名。親子間のFKがどちら側にあるか(子が親を参照する場合・親が子を参照する場合のいずれも有り得る)は区別せず、関係するFK列名を示すだけの任意項目。1組のテーブル間に複数のFKが存在する場合(例: shared_appellationsからshared_dictionaryへのshared_dictionary_name_id/shared_dictionary_pronunciation_id/shared_dictionary_nickname_id)の結合経路を一意にする。FKの実在性はここでは検証しない(生成時エラー、点10と同じ方針)。"
+        },
+        "editTable": {
+          "description": "ネストする子テーブル定義。1件のみのときはオブジェクト単体、複数件のときは配列で指定する。",
+          "oneOf": [
+            { "$ref": "#/$defs/editTableEntry" },
+            {
+              "type": "array",
+              "items": { "$ref": "#/$defs/editTableEntry" },
+              "minItems": 1
+            }
+          ]
+        }
+      },
+      "required": ["table"],
+      "additionalProperties": false
+    }
+  }
+}

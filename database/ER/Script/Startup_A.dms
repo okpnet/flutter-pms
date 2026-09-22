@@ -551,8 +551,8 @@ class Entity{
     }
     
     function GetViewQuery(schema){
-        var result =CR+ "drop view if exists " + schema + "." + Name + CR;
-        result += "create view  " + schema + "." + Name +  "as" + CR;
+        var result =CR+ "drop view if exists " + schema + "." + Name + ";" + CR;
+        result += "create view  " + schema + "." + Name +  " as" + CR;
         result += ViewQuery + ";" + CR;
         return result;
     }
