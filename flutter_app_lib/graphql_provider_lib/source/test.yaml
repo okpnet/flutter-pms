@@ -1,10 +1,6 @@
 # yaml-language-server: $schema=schema.json
 
 # --- Read用アーム: JA表示名のみを解決する(既存のshared_appellations_ja_label.yamlと同型) ---
-# shared_appellationsが持つ3本のFK(shared_dictionary_name_id / _pronunciation_id / _nickname_id)は
-# いずれも「shared_dictionaryへのFK1本を辿ってJA表示名を得る」という同じ形をしている。
-# using(どのFK列を使うか)だけを変えて使い回せるよう、shared_dictionary以下を1本の
-# 共有アームとして定義する(test.yamlのdictionaryLabelと同型)。
 dictionaryLabel: &dictionaryLabel
   kind: read
   from: shared_dictionary
@@ -23,13 +19,11 @@ dictionaryLabel: &dictionaryLabel
       columns:
         - dictionary_value
         # shared_language_code は絞り込み専用のJOIN。出力列は無い。
-        # codeは呼び出し側が必ず指定する引数(requiredWhere)であり、ハードコードしない。
-        # output: false … 常に出力から除外する。where/requiredWhere/defaultWhereはpickと違い
-        # 除外されず、親(value)のLATERALサブクエリのJOIN/WHERE句の構築には使われ続ける。
+        # (修正: codeを"JA"にハードコードしていたが、これはGraphQL呼び出し時に
+        #  必ず値を受け取る引数にすべき条件なので、defaultWhereではなくrequiredWhereに列名を渡す)
         - name: language
           arrayType: toFirstOne
           from: shared_language_code
-          output: false
           requiredWhere:
             - code
           defaultWhere:
@@ -146,7 +140,7 @@ addressFields: &addressFields
         - name 
         - pronunciatione
         - nickname
-      <<: &appellationLabels
+      <<: *appellationLabels
     - name: address2
       as: address2
       arrayType: toFirstOne
@@ -154,7 +148,7 @@ addressFields: &addressFields
         - name 
         - pronunciatione
         - nickname
-      <<: &appellationLabels
+      <<: *appellationLabels
     - name: bill 
       as: bill_name 
       arrayType: toFirstOne
@@ -162,7 +156,7 @@ addressFields: &addressFields
         - name 
         - pronunciatione
         - nickname
-      <<: &appellationLabels
+      <<: *appellationLabels
     - phone
     - fax_number
 
@@ -207,7 +201,6 @@ CompanyPage:
     - web_page
     - name: ceo
       arrayType: toFirstOne
-      using: ceo
       pick:
         - name 
         - pronunciatione
@@ -217,7 +210,6 @@ CompanyPage:
     - remarks
     - name: address
       arrayType: toFirstOne
-      using: info_address_id
       <<: *addressFields
     - name: offices
       arrayType: toMany #Q1:toManyであれば展開されず配列になる?
@@ -242,37 +234,3 @@ CompanyPage:
         - update_user_id
         - update_user_history_id
         - remove 
-
-# --- edit: 会社情報(info_company) 更新/新規作成 ---
-CompanyPageEdit:
-  kind: edit
-  from: info_company
-  columns:
-    - info_company_id
-    - shared_appellations_id
-    - name: info_address_id
-      editTables:
-        - table: info_address #ここで
-    - web_page
-    - ceo
-    - symbol
-    - revision
-    - remarks
-    - update_at
-    - update_user_id
-    - update_user_history_id
-    - remove 
-  editTables:
-    - table: info_company
-      editTable: 
-        - table: shared_dictionary
-          editTables:
-            - table: shared_dictionary_value
-            editTable: 
-              - table: shared_language_code
-
-OfficePage:
-  kind: read
-  from: info_office
-  columns:
-    - 

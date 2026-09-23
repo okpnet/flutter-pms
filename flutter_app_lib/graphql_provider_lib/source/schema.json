@@ -64,7 +64,10 @@
       "items": { "$ref": "#/$defs/defaultWhereEntry" },
       "minItems": 1
     },
-    "condition": true,
+    "condition": {
+      "type": "boolean",
+      "description": "trueのとき、GraphQL変換時にこのクエリ/ミューテーションへPostGraphile標準のNull許容'condition'引数を追加する(値の中身はYAML側では一切表現しない。既にwhere/requiredWhere/defaultWhereで条件を表現できるため、conditionはあくまで生成されるGraphQLの引数シグネチャにcondition引数を持たせるかどうかだけのフラグ)。省略時(falseと同義)は'condition'引数自体を生成しない。"
+    },
     "limit": {
       "type": "integer",
       "minimum": 1,
@@ -82,10 +85,21 @@
       "items": { "$ref": "#/$defs/columnEntry" },
       "minItems": 1
     },
+    "pick": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "uniqueItems": true,
+      "description": "このnode/columnEntryが持つcolumns(このプロパティ自身のcolumnsが無ければ、YAMLアンカー/マージで継承したcolumnsを含む)のうち、出力名(asの値。as省略時はname)がこの配列に含まれる要素だけを残す絞り込み。共有(参照)定義をYAMLエイリアス/マージで丸ごと取り込んだ上で、その一部だけを使いたい場合に使う(取り込んだcolumnsを手作業で作り直す必要がなくなる)。pickはcolumnsそのものの継承・マージ(YAML側の処理)の後段で、生成時に適用するフィルタであり、YAML側では列を選び出す特別な処理はしない。pickが指す出力名の実在性はここでは検証しない(生成時エラー、点10と同じ方針)。省略時はcolumns全体がそのまま使われる(従来通り)。pickは「表示するかどうかを選べる、それ自体で完結した関係」の絞り込み専用(除外された要素はwhere/requiredWhere含め丸ごと不要という前提)であり、「親を絞り込むためだけに存在し常に処理が必要な関係」を隠したい場合はpickではなくoutput(columnEntry)を使うこと。output: falseの要素はpickの内容に関わらず常に出力対象から除外される(pickとoutputは独立に働く)。"
+    },
     "editTablesList": {
       "type": "array",
       "items": { "$ref": "#/$defs/editTableEntry" },
       "minItems": 1
+    },
+    "output": {
+      "type": "boolean",
+      "description": "falseのとき、このcolumnEntryを出力(選択セット/SELECT句)の対象から常に除外する。pickの指定内容に関わらず優先される(pickの配列にこのエントリの出力名を含めても無視される)。一方でwhere/requiredWhere/defaultWhere(およびさらにネストした構造)は除外されず、常に処理されて親の絞り込み条件(JOIN/WHERE)として使われる。効果の範囲は常に、このcolumnEntryが属する直近のcolumns(=対応するSELECT句。ルート直下ならクエリ全体、ネストしたcolumnEntry配下ならそのLATERALサブクエリ等)に限定され、他の階層には影響しない。典型例: shared_dictionary_valueから見たshared_language_code(表示言語で絞り込むためだけのJOINで、それ自体は出力しない)。省略時(trueと同義)は通常通り出力対象になる(従来通り)。"
     },
     "node": {
       "type": "object",
@@ -96,11 +110,9 @@
         "requiredWhere": { "$ref": "#/$defs/whereList" },
         "where": { "$ref": "#/$defs/whereList" },
         "defaultWhere": { "$ref": "#/$defs/defaultWhereList" },
-        "condition": {
-          "$ref": "#/$defs/condition",
-          "description": "GraphQLへMapとして渡す固定キー'condition'。値の内部構造(Mapかどうか)は検証しない。"
-        },
+        "condition": { "$ref": "#/$defs/condition" },
         "columns": { "$ref": "#/$defs/columnsList" },
+        "pick": { "$ref": "#/$defs/pick" },
         "limit": { "$ref": "#/$defs/limit" },
         "editTables": { "$ref": "#/$defs/editTablesList" }
       },
@@ -137,6 +149,8 @@
             "defaultWhere": { "$ref": "#/$defs/defaultWhereList" },
             "condition": { "$ref": "#/$defs/condition" },
             "columns": { "$ref": "#/$defs/columnsList" },
+            "pick": { "$ref": "#/$defs/pick" },
+            "output": { "$ref": "#/$defs/output" },
             "limit": { "$ref": "#/$defs/limit" },
             "editTables": { "$ref": "#/$defs/editTablesList" }
           },
