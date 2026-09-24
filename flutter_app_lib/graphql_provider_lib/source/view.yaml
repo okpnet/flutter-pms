@@ -120,12 +120,12 @@ appellationLabels: &appellationLabels
       using: shared_dictionary_name_id 
       arrayType: toFirstOne
       <<: *dictionaryLabel
-    - name: name
+    - name: npronunciatione
       as: pronunciation
       using: shared_dictionary_pronunciation_id
       arrayType: toFirstOne
       <<: *dictionaryLabel
-    - name: name
+    - name: nickname
       as: nickname
       using: shared_dictionary_nickname_id
       arrayType: toFirstOne
@@ -146,7 +146,7 @@ addressFields: &addressFields
         - name 
         - pronunciatione
         - nickname
-      <<: &appellationLabels
+      <<: *appellationLabels
     - name: address2
       as: address2
       arrayType: toFirstOne
@@ -154,7 +154,7 @@ addressFields: &addressFields
         - name 
         - pronunciatione
         - nickname
-      <<: &appellationLabels
+      <<: *appellationLabels
     - name: bill 
       as: bill_name 
       arrayType: toFirstOne
@@ -162,9 +162,29 @@ addressFields: &addressFields
         - name 
         - pronunciatione
         - nickname
-      <<: &appellationLabels
+      <<: *appellationLabels
     - phone
     - fax_number
+
+addressEditFields: &addressEditFields
+  kind: edit
+  from: info_address
+  columns:
+    - info_address_id
+    - iso3166_3
+    - zip_code
+    - name: address1
+      using: shared_dictionary_name_id 
+      arrayType: toFirstOne
+      <<: *dictionaryLabel
+    - name: address2
+    - bill
+    - phone
+    - fax_number
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove 
 
 languageCodeEdit: &languageCodeEdit
   kind: edit
@@ -180,22 +200,6 @@ languageCodeEdit: &languageCodeEdit
     - update_user_history_id
     - remove
 
-addressEditFields: &addressEditFields
-  kind: edit
-  from: info_address
-  columns:
-    - info_address_id
-    - iso3166_3
-    - zip_code
-    - name: address1
-    - name: address2
-    - bill
-    - phone
-    - fax_number
-    - remarks
-    - update_user_id
-    - update_user_history_id
-    - remove 
 
 # --- read: 会社情報(info_company) 詳細画面 ---
 CompanyPage:
@@ -251,28 +255,21 @@ CompanyPageEdit:
     - info_company_id
     - shared_appellations_id
     - name: info_address_id
-      editTables:
-        - table: info_address #ここで
+      arrayType: toFirstOne
+      using: info_address_id
+      <<: *addressEditFields
     - web_page
-    - ceo
-    - symbol
-    - revision
+    - name: ceo
+      arrayType: toFirstOne
+      using: ceo
+      <<: *appellationLabelsEdit
     - remarks
     - update_at
     - update_user_id
     - update_user_history_id
     - remove 
-  editTables:
-    - table: info_company
-      editTable: 
-        - table: shared_dictionary
-          editTables:
-            - table: shared_dictionary_value
-            editTable: 
-              - table: shared_language_code
 
-OfficePage:
-  kind: read
-  from: info_office
-  columns:
-    - 
+CompanyPageRFE: 
+  kind: RFE
+  <<: *dictionaryEdit
+

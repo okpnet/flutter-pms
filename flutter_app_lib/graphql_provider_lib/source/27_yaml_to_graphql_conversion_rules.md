@@ -14,6 +14,7 @@ YAMLの各プロパティは「GraphQLの引数として呼び出し側に公開
 |---|---|
 | `where` / `requiredWhere`(任意/必須の引数) | `defaultWhere`(常に適用される固定条件) |
 | `condition`(trueのときNull許容の`condition`引数を追加するフラグ) | — |
+| `pagination`(trueのとき`first`/`offset`等のページネーション引数を追加するフラグ) | `limit`/`offset`(呼び出し側が指定しなかった場合のデフォルト値。paginationが無ければ完全固定) |
 
 `defaultWhere`に列挙した条件(例: `remove = false`)はSQL/GraphQLリゾルバ側に直接埋め込まれ、呼び出し側からは変更できない。逆に`where`/`requiredWhere`に列挙した列名は、呼び出し側が値を指定できる引数になる。**同じ列に対して`defaultWhere`と`where`/`requiredWhere`を同時に指定することはしない**(用途が矛盾するため)。
 
@@ -133,7 +134,7 @@ appellationLabels: &appellationLabels
 
 **`pick`が対象とするのは「表示するかどうかを選べる、それ自体で完結した関係」に限る**(例: pronunciation/nicknameは、表示しないならそのFK自体をJOINする必要が無い独立した関係)。pickで除外された要素は、`where`/`requiredWhere`を含めて丸ごと処理対象から外れる、という前提で設計されている。「親を絞り込むためだけに存在し、常に処理が必要な関係」(9-3節、6-5節参照)を隠したい場合は`pick`ではなく`output`(6-5節)を使うこと。両者は独立して働く(`output: false`は`pick`の内容に関わらず常に優先される)。
 
-### 6-5. `output` → 出力からの除外(常に処理はする)(2026-09-26 6回目追加)
+### 6-5. `output` → 出力からの除外(常に処理はする)
 
 `columnEntry`に`output`(真偽値)を追加した。`output: false`のとき、そのエントリは**出力(選択セット/SELECT句)から常に除外**される。`pick`の内容に関わらず優先される(`pick`の配列にこのエントリの出力名を含めても無視される)。
 
@@ -176,6 +177,38 @@ LEFT JOIN LATERAL (
 ```
 
 なぜ`pick`だけでは解決できないか: `pick`は「除外された要素は丸ごと不要」という前提(6-4節)であり、この前提を`language`にも適用すると`requiredWhere: [code]`ごと失われ、上記SQLのJOIN/WHERE句自体が生成できなくなる(言語の絞り込みが効かなくなり、`toFirstOne`が不定の1件を返す)。逆に「pickは出力にのみ影響し、除外されても常に処理する」という規則に統一すると、今度はpronunciation/nicknameのような本来不要な独立リレーションの引数まで無駄に生成されてしまう。この2つの要求(「除外＝丸ごと不要」と「除外しても処理は必要」)を1つの`pick`だけで両立できないため、`output`を別プロパティとして追加した。
+
+### 6-6. `limit` / `offset` / `pagination` → ページネーション(2026-09-27追加)
+
+`limit`は既存プロパティ(取得数)、`offset`(取得開始位置)を新規追加した。いずれも`node`/`columnEntry`の両方に持たせる。`pagination`(真偽値、新規)は`condition`と同じパターンのフラグで、`true`のときPostGraphile標準のページネーション引数(`first`/`offset`、またはRelay形式の`first`/`last`/`before`/`after`)をそのコネクションフィールドの引数シグネチャに追加する。
+
+- `pagination`を指定しない(省略/false): `limit`/`offset`はYAML定義時点で固定される値として使われ、GraphQL引数としては公開されない(`defaultWhere`と同じ「呼び出し側に公開しない」扱い)。従来通り。
+- `pagination: true`: `first`/`offset`(または`first`/`last`/`before`/`after`)が呼び出し側の引数として生成される。`limit`/`offset`に値を指定していれば、呼び出し側が引数を省略した場合のデフォルト値として使われる(値そのものを上限として強制するかどうかは生成側の実装方針、点10と同じく検証しない)。
+
+PostGraphileでは`arrayType: toMany`に対応するコネクション型フィールドには元々`first`/`last`/`offset`/`before`/`after`が標準で自動生成される(`condition`のようにプラグイン依存の追加引数とは異なり、コネクション型であれば常に存在する)。`pagination`フラグはこれを「YAML側で明示的に使う意図がある」ことを示す役割であり、生成ツールに対して「この引数を実際にクエリのシグネチャへ配線せよ」という指示として機能する。
+
+`pagination`は`kind`(read/edit/RFE)を問わず、`arrayType: toMany`を持つ`node`/`columnEntry`であればどこにでも指定できる。したがって、RFE/editの操作全体が`requiredWhere`で1件を対象にしている場合でも、その内部にネストした`toMany`関係(例: 1件の`shared_dictionary`を編集する際の、複数言語行を持つ`shared_dictionary_value`)だけを独立してページネーション対象にできる。操作全体のkindとは無関係に、「この関係がtoManyかどうか」だけに紐づく性質として扱う設計である。
+
+```yaml
+- name: offices
+  arrayType: toMany
+  from: info_office
+  pagination: true   # first/offsetを呼び出し側の引数にする
+  limit: 50           # 呼び出し側が省略した場合のデフォルト
+  offset: 0
+  columns:
+    - info_office_id
+    # ...
+```
+
+```graphql
+offices: infoOfficesByInfoCompanyId(
+  first: $officesFirst    # デフォルト 50
+  offset: $officesOffset  # デフォルト 0
+) {
+  nodes { infoOfficeId }
+}
+```
 
 ## 7. `edit`/`RFE`での書き込み対象の表現
 
@@ -241,3 +274,4 @@ second occurrence
 - 2026-09-26(4回目): 9節の5論点について暫定方針を検討。3-1節に多段ネストでのプレフィックス命名ルールを追記(後に撤回、5回目参照)。
 - 2026-09-26(5回目): 3-1節の自動プレフィックス命名案を撤回し、引数名は列名をそのまま使う・衝突は生成時エラーとするシンプルな方針に変更。「絞り込み専用・出力列なし」は`pick`を共有アーム定義自身に付けることで解決とした(後に撤回、6回目参照)。単数リレーション上の`defaultWhere`はGraphQL引数化不要・ハードコードで問題無しと確定。
 - 2026-09-26(6回目): 5回目の`pick`ベースの解決策を撤回。`pick`は「除外された要素は丸ごと不要」という前提のため、`language`のような「絞り込み専用・出力列なしだが常に処理が必要な関係」に適用すると`requiredWhere`ごと失われ、PostGraphileが生成するJOIN LATERAL内のJOIN/WHERE句が構築できなくなるというリスクが判明したため。新しいプロパティ`output`(6-5節、`columnEntry`のみ)を追加し、`pick`とは独立に「出力からの除外」と「where/requiredWhere/defaultWhereの処理継続」を両立できるようにした。`schema.json`(`$defs/output`追加)、および`test.yaml`・`info_company.yaml`・`shared_dictionary_ja_label.yaml`・`shared_dictionary_ja_label_with_name_id.yaml`・`shared_appellations_ja_label.yaml`の`language`エントリに反映、schema.json検証・シミュレーション確認済み。
+- 2026-09-27(7回目): ページネーション対応。`offset`(新規、`node`/`columnEntry`)、`pagination`(新規、真偽値、`node`/`columnEntry`)を追加(6-6節)。`condition`と同じパターンのフラグで、`true`のときPostGraphile標準のページネーション引数(`first`/`offset`等)を呼び出し側の引数として公開する。`limit`/`offset`は呼び出し側が引数を省略した場合のデフォルト値として機能する。kindを問わず`arrayType: toMany`を持つnode/columnEntryならどこにでも指定できるため、RFE/editが1件編集を対象としていても、内部のネストしたtoMany関係だけを独立してページネーション対象にできる。`test.yaml`の`CompanyPage.offices`、`CompanyPage.graphql`に反映済み。

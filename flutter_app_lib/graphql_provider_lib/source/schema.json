@@ -71,7 +71,16 @@
     "limit": {
       "type": "integer",
       "minimum": 1,
-      "description": "取得数。columnsの要素がarrayType(配列)のとき特に意味を持つ"
+      "description": "取得数。columnsの要素がarrayType(配列)のとき特に意味を持つ。既定ではYAML定義時点で固定される値(呼び出し側には公開されない)。paginationがtrueのときは、呼び出し側がfirst/limit相当の引数を指定しなかった場合のデフォルト値として使われる(値そのものを上限として強制するかどうかは生成側の実装方針、点10と同じく検証しない)。"
+    },
+    "offset": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "取得開始位置(スキップする件数)。limitと対になる、YAML定義時点で固定されるデフォルト値。paginationがtrueのときは、呼び出し側がoffset相当の引数を指定しなかった場合のデフォルト値として使われる。columnsの要素がarrayType(配列)のとき特に意味を持つ。"
+    },
+    "pagination": {
+      "type": "boolean",
+      "description": "trueのとき、GraphQL変換時にPostGraphile標準のページネーション引数(first/offset、またはfirst/last/before/after)をこのクエリ/コネクションの引数シグネチャに追加する(conditionと同じ、値の中身はYAML側では表現しないフラグ)。呼び出し側がこれらの引数を指定しなかった場合、limit/offsetに指定した値がデフォルトとして使われる。kind(read/edit/RFE)を問わず、arrayType: toManyを持つnode/columnEntryであればどこにでも指定できる(例: 1件編集が対象のRFE/editの内部で、ネストしたtoMany関係だけをページネーション対象にする)。省略時(falseと同義)はページネーション引数自体を生成しない(limit/offsetを固定値のまま使う、従来通り)。"
     },
     "whereList": {
       "type": "array",
@@ -114,6 +123,8 @@
         "columns": { "$ref": "#/$defs/columnsList" },
         "pick": { "$ref": "#/$defs/pick" },
         "limit": { "$ref": "#/$defs/limit" },
+        "offset": { "$ref": "#/$defs/offset" },
+        "pagination": { "$ref": "#/$defs/pagination" },
         "editTables": { "$ref": "#/$defs/editTablesList" }
       },
       "additionalProperties": false
@@ -152,6 +163,8 @@
             "pick": { "$ref": "#/$defs/pick" },
             "output": { "$ref": "#/$defs/output" },
             "limit": { "$ref": "#/$defs/limit" },
+            "offset": { "$ref": "#/$defs/offset" },
+            "pagination": { "$ref": "#/$defs/pagination" },
             "editTables": { "$ref": "#/$defs/editTablesList" }
           },
           "required": ["name"],
