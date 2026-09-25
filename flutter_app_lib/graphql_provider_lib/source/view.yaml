@@ -44,6 +44,7 @@ dictionaryEdit: &dictionaryEdit
   kind: edit
   from: shared_dictionary
   columns:
+    - shared_dictionary_id
     - name: value
       arrayType: toMany
       from: shared_dictionary_value
@@ -139,28 +140,31 @@ addressFields: &addressFields
   columns:
     - iso3166_3
     - zip_code
-    - name: address1 
+    - name: address1
       as: address1
+      using: address1
       arrayType: toFirstOne
       pick:
-        - name 
-        - pronunciatione
+        - name
+        - pronunciation
         - nickname
       <<: *appellationLabels
     - name: address2
       as: address2
+      using: address2
       arrayType: toFirstOne
       pick:
-        - name 
-        - pronunciatione
+        - name
+        - pronunciation
         - nickname
       <<: *appellationLabels
-    - name: bill 
-      as: bill_name 
+    - name: bill
+      as: bill_name
+      using: bill
       arrayType: toFirstOne
       pick:
-        - name 
-        - pronunciatione
+        - name
+        - pronunciation
         - nickname
       <<: *appellationLabels
     - phone
@@ -174,11 +178,18 @@ addressEditFields: &addressEditFields
     - iso3166_3
     - zip_code
     - name: address1
-      using: shared_dictionary_name_id 
+      using: address1
       arrayType: toFirstOne
-      <<: *dictionaryLabel
+      <<: *appellationLabelsEdit
     - name: address2
-    - bill
+      using: address2
+      arrayType: toFirstOne
+      <<: *appellationLabelsEdit
+    - name: bill
+      as: bill_name
+      using: bill
+      arrayType: toFirstOne
+      <<: *appellationLabelsEdit
     - phone
     - fax_number
     - remarks
@@ -213,8 +224,8 @@ CompanyPage:
       arrayType: toFirstOne
       using: ceo
       pick:
-        - name 
-        - pronunciatione
+        - name
+        - pronunciation
         - nickname
       <<: *appellationLabels
     - symbol
@@ -271,5 +282,22 @@ CompanyPageEdit:
 
 CompanyPageRFE: 
   kind: RFE
-  <<: *dictionaryEdit
+  from: info_company
+  columns:
+    - info_company_id
+    - shared_appellations_id
+    - name: info_address_id
+      arrayType: toFirstOne
+      using: info_address_id
+      <<: *addressEditFields
+    - web_page
+    - name: ceo
+      arrayType: toFirstOne
+      using: ceo
+      <<: *appellationLabelsEdit
+    - remarks
+    - update_at
+    - update_user_id
+    - update_user_history_id
+    - remove 
 

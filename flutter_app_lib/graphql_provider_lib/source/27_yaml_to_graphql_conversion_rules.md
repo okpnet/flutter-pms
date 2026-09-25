@@ -58,6 +58,20 @@ YAMLの各プロパティは「GraphQLの引数として呼び出し側に公開
 
 `defaultWhere`が「単数(1対1相当)の外部キーリレーション」(例: `info_company.ceo → shared_appellations`)上にある場合、stock PostGraphileの単数リレーションフィールドには絞り込み引数(`condition`/`filter`)自体が存在しないため、そのままではGraphQL引数として表現できないが、これは問題ではなく想定通りの挙動である。`defaultWhere`は元々「呼び出し側に公開しない」ものなので、GraphQL引数として再現できる必要はなく、生成されるSQL/リゾルバ側にそのままハードコードされれば良い。
 
+### 4-1. `arrayType: toFirstOne`上の`where`/`requiredWhere`/`defaultWhere`(2026-09-25追加)
+
+4節末尾の「単数リレーション上には`condition`/`filter`引数が存在しない」という制約は、`defaultWhere`固有の話ではなく、**`arrayType: toFirstOne`を持つ`columnEntry`全般**(`where`/`requiredWhere`を含む)に等しく当てはまる。stock PostGraphileの単数リレーションフィールド(例: `sharedLanguageCodeBySharedLanguageCodeId`)には`condition`/`filter`引数がそもそも存在しないため、`where`/`requiredWhere`をそのノード自身に対する標準のGraphQL引数として実現することもできない(4節が`defaultWhere`について述べた事情と全く同じ)。
+
+このため、`arrayType: toFirstOne`な`columnEntry`が持つ`where`/`requiredWhere`/`defaultWhere`は、**その`columnEntry`自身を実際にJOINして絞り込むための条件ではなく、「このリレーションが指す1件を、`from`テーブルに対して外部で(=生成されるGraphQLクエリの外で)一意に検索するためのWHERE句一式」**として扱う。この検索によって得られた対象1件のPK(または一意キー)の値を、`using`(6-2節。省略時は一意なFK制約からの自動推論)が指す**親(このcolumnEntryを含む側)の列**への条件として適用する。
+
+- `where`/`requiredWhere`に列挙した列は、この外部検索のうち呼び出し側が値を指定する条件になる(3節の役割はそのまま)。
+- `defaultWhere`に列挙した条件は、この外部検索のうち常に固定で適用される条件になる(4節の役割はそのまま)。
+- 両者は同じ外部検索のWHERE句を構成する対等な要素であり、`requiredWhere`だから/`defaultWhere`だから区別して一方だけを親へ引き継ぐ、といった扱いの違いは無い。
+
+典型例(`dictionaryLabel.value.language`): `from: shared_language_code`、`requiredWhere: [code]`、`defaultWhere: [remove = false]`は、「`shared_language_code`から`code = $code AND remove = false`を満たす1件を外部で検索し、そのIDを親(`shared_dictionary_value`)の`shared_language_code_id`列への条件として使う」という意味になる。呼び出し側(またはその手前の解決処理)は`$code`(例:`"ja"`)を受け取り、`shared_language_code_id`(UUID)を解決してから本体のGraphQLクエリに渡す(要件0033の`$jaLanguageCodeId`/`$enLanguageCodeId`と同じ方式)。この解決処理自体は生成されるGraphQL/`view.yaml`の表現範囲外である。
+
+この規則が成立するのは、6-1節(a)の「外向きの関係」(このcolumnEntryを含む側のテーブルが`from`への実在するFK列を持つ)の場合に限られる。6-1節(b)の「内向きの関係」(参照先テーブルがFK列を持つ)では親側に対応する列が存在しないため、この方式では解決できない(未対応のまま)。
+
 ## 5. `condition` → GraphQL引数の追加フラグ(再設計)
 
 **(2026-09-26改訂)** `condition`はYAML上ではMap等の構造を一切表現しない、単純な真偽値フラグに変更した。
@@ -275,3 +289,4 @@ second occurrence
 - 2026-09-26(5回目): 3-1節の自動プレフィックス命名案を撤回し、引数名は列名をそのまま使う・衝突は生成時エラーとするシンプルな方針に変更。「絞り込み専用・出力列なし」は`pick`を共有アーム定義自身に付けることで解決とした(後に撤回、6回目参照)。単数リレーション上の`defaultWhere`はGraphQL引数化不要・ハードコードで問題無しと確定。
 - 2026-09-26(6回目): 5回目の`pick`ベースの解決策を撤回。`pick`は「除外された要素は丸ごと不要」という前提のため、`language`のような「絞り込み専用・出力列なしだが常に処理が必要な関係」に適用すると`requiredWhere`ごと失われ、PostGraphileが生成するJOIN LATERAL内のJOIN/WHERE句が構築できなくなるというリスクが判明したため。新しいプロパティ`output`(6-5節、`columnEntry`のみ)を追加し、`pick`とは独立に「出力からの除外」と「where/requiredWhere/defaultWhereの処理継続」を両立できるようにした。`schema.json`(`$defs/output`追加)、および`test.yaml`・`info_company.yaml`・`shared_dictionary_ja_label.yaml`・`shared_dictionary_ja_label_with_name_id.yaml`・`shared_appellations_ja_label.yaml`の`language`エントリに反映、schema.json検証・シミュレーション確認済み。
 - 2026-09-27(7回目): ページネーション対応。`offset`(新規、`node`/`columnEntry`)、`pagination`(新規、真偽値、`node`/`columnEntry`)を追加(6-6節)。`condition`と同じパターンのフラグで、`true`のときPostGraphile標準のページネーション引数(`first`/`offset`等)を呼び出し側の引数として公開する。`limit`/`offset`は呼び出し側が引数を省略した場合のデフォルト値として機能する。kindを問わず`arrayType: toMany`を持つnode/columnEntryならどこにでも指定できるため、RFE/editが1件編集を対象としていても、内部のネストしたtoMany関係だけを独立してページネーション対象にできる。`test.yaml`の`CompanyPage.offices`、`CompanyPage.graphql`に反映済み。
+- 2026-09-25(要件0034評価を受けて): `dictionaryLabel.value.language`(`requiredWhere: [code]`)がPostGraphileの標準`condition`/`filter`では実現できない問題(要件0033・0026で発覚)への対応を検討し、4-1節を追加。当初は新プロパティ(`resolvedWhere`→`viaParent`)の追加を検討したが、4節が既に述べていた「単数リレーションに`condition`/`filter`引数が存在しない」という制約が`defaultWhere`だけでなく`where`/`requiredWhere`にも等しく当てはまることに気付き、新プロパティ無しで説明できると判明したため撤回。`arrayType: toFirstOne`上の`where`/`requiredWhere`/`defaultWhere`はすべて「`using`が指す親の列の値を、`from`に対して外部で一意に検索するためのWHERE句一式」として統一的に扱うことを4-1節として明文化した。`schema.json`・`view.yaml`(`dictionaryLabel`)への変更は不要(現状の記述のままで正しい)。

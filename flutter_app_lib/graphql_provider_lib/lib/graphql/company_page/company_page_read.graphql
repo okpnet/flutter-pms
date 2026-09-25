@@ -1,0 +1,445 @@
+# company_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: source/view.yaml #CompanyPage
+# 命名規則: CLAUDE.md 画面仕様命名規則(要件0033)により、view.yamlのトップノード名
+#   `CompanyPage`のスネークケース(`company_page`)をディレクトリ名・ファイル名にする
+#   (要件0033時点は暫定的にテーブル名`info_company`を使っていたが、要件0035で
+#   `company_page`へ統一・リネームした。旧`lib/graphql/info_company/`は廃止)。
+#
+# 要件0026(2026-09-25、schema.graphql再取得)により、`InfoCompany.ceo`・
+# `InfoAddress.address1`/`address2`/`bill`が単純な`String`から`shared_appellations`への
+# 直接FK(UUID)へ変更された。view.yamlが元々想定していた設計(`using: ceo`等で
+# `appellationLabels`へマージ)がそのまま実現できるようになったため、要件0033時点の
+# 暫定対応(プレーンな文字列として取得)を廃止し、会社名・事業所名と同じ
+# `shared_appellations`経由(呼称セット、name/pronunciation/nickname)の構造に揃えた
+# (docs/0034_view_yaml_graphql_evaluation_log.md参照)。
+#
+# `shared_language_code.code`による絞り込みは標準PostGraphileの`condition`/`filter`では
+# 実現できないため(27_yaml_to_graphql_conversion_rules.md 4-1節)、呼び出し側が`code`
+# (+`remove = false`)から`shared_language_code_id`を事前解決し、`$jaLanguageCodeId`/
+# `$enLanguageCodeId`として渡す(要件0033・shipping_kind試作と同じ方式)。
+#
+# view.yamlの`CompanyPage`は会社自身の名前(`shared_appellations_id`)・住所の
+# `infoAddressId`・住所の共通項(remarks/updateAt/remove)を明示していないが、
+# [共通名前仕様](../../../CLAUDE.md#共通名前仕様)により会社名の解決は必須であり、
+# `infoAddressId`・共通項も編集画面との整合・実務上必要なため、要件0033の実装を踏襲して
+# 含めている。
+#
+# view.yamlの`CompanyPage.offices`(`shared_appellations_id`)には`pick`指定が無いため、
+# name/pronunciation/nicknameすべてを取得する(要件0033時点のGraphQLコメントは
+# 「view.yamlのpick: [name]に合わせ」としていたが、現行のview.yamlにその`pick`は
+# 存在しないため、要件0035では現行view.yamlの記述どおりに修正した)。
+
+query CompanyPageRead(
+  $first: Int!
+  $offset: Int
+  $condition: InfoCompanyCondition
+  $orderBy: [InfoCompaniesOrderBy!] = [PRIMARY_KEY_ASC]
+  $ja: Boolean!
+  $en: Boolean!
+  $jaLanguageCodeId: UUID
+  $enLanguageCodeId: UUID
+  $officesFirst: Int = 50
+  $officesOffset: Int = 0
+  $removed: Boolean = false
+) {
+  allInfoCompanies(
+    first: $first
+    offset: $offset
+    condition: $condition
+    orderBy: $orderBy
+    filter: { remove: { equalTo: $removed } }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      infoCompanyId
+      webPage
+      symbol
+
+      # --- 共通項: remarks / update_at / remove ---------------------------------
+      remarks
+      updateAt
+      remove
+
+      # --- 会社名(共通名前仕様: shared_appellations経由) ------------------------
+      sharedAppellationBySharedAppellationsId {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          ja: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) @include(if: $ja) {
+            nodes {
+              dictionaryValue
+            }
+          }
+          en: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) @include(if: $en) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+        sharedDictionaryBySharedDictionaryPronunciationId {
+          sharedDictionaryId
+          ja: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) @include(if: $ja) {
+            nodes {
+              dictionaryValue
+            }
+          }
+          en: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) @include(if: $en) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+        sharedDictionaryBySharedDictionaryNicknameId {
+          sharedDictionaryId
+          ja: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) @include(if: $ja) {
+            nodes {
+              dictionaryValue
+            }
+          }
+          en: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) @include(if: $en) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+      }
+
+      # --- 代表(ceo、要件0026でshared_appellations経由のFKに変更) -----------------
+      ceo: sharedAppellationByCeo {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          ja: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) @include(if: $ja) {
+            nodes {
+              dictionaryValue
+            }
+          }
+          en: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) @include(if: $en) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+        sharedDictionaryBySharedDictionaryPronunciationId {
+          sharedDictionaryId
+          ja: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) @include(if: $ja) {
+            nodes {
+              dictionaryValue
+            }
+          }
+          en: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) @include(if: $en) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+        sharedDictionaryBySharedDictionaryNicknameId {
+          sharedDictionaryId
+          ja: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) @include(if: $ja) {
+            nodes {
+              dictionaryValue
+            }
+          }
+          en: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) @include(if: $en) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+      }
+
+      # --- 住所(要件0026でaddress1/address2/billがshared_appellations経由のFKに変更) ---
+      infoAddressByInfoAddressId {
+        infoAddressId
+        iso31663
+        zipCode
+
+        address1: sharedAppellationByAddress1 {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) @include(if: $ja) {
+              nodes {
+                dictionaryValue
+              }
+            }
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) @include(if: $en) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+          sharedDictionaryBySharedDictionaryPronunciationId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) @include(if: $ja) {
+              nodes {
+                dictionaryValue
+              }
+            }
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) @include(if: $en) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+          sharedDictionaryBySharedDictionaryNicknameId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) @include(if: $ja) {
+              nodes {
+                dictionaryValue
+              }
+            }
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) @include(if: $en) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+
+        address2: sharedAppellationByAddress2 {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) @include(if: $ja) {
+              nodes {
+                dictionaryValue
+              }
+            }
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) @include(if: $en) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+          sharedDictionaryBySharedDictionaryPronunciationId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) @include(if: $ja) {
+              nodes {
+                dictionaryValue
+              }
+            }
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) @include(if: $en) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+          sharedDictionaryBySharedDictionaryNicknameId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) @include(if: $ja) {
+              nodes {
+                dictionaryValue
+              }
+            }
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) @include(if: $en) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+
+        billName: sharedAppellationByBill {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) @include(if: $ja) {
+              nodes {
+                dictionaryValue
+              }
+            }
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) @include(if: $en) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+          sharedDictionaryBySharedDictionaryPronunciationId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) @include(if: $ja) {
+              nodes {
+                dictionaryValue
+              }
+            }
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) @include(if: $en) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+          sharedDictionaryBySharedDictionaryNicknameId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) @include(if: $ja) {
+              nodes {
+                dictionaryValue
+              }
+            }
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) @include(if: $en) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+
+        phone
+        faxNumber
+        remarks
+        updateAt
+        remove
+      }
+
+      # --- 事業所一覧(1対多、ページネーション対応) -------------------------------
+      infoOfficesByInfoCompanyId(
+        first: $officesFirst
+        offset: $officesOffset
+        filter: { remove: { equalTo: $removed } }
+      ) {
+        totalCount
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+        nodes {
+          infoOfficeId
+          infoCompanyId
+          code
+          infoAddressId
+          symbol
+          remarks
+          updateAt
+          remove
+
+          # --- 事業所名(view.yamlに`pick`指定が無いため、name/pronunciation/nicknameすべて) ---
+          sharedAppellationBySharedAppellationsId {
+            sharedAppellationsId
+            sharedDictionaryBySharedDictionaryNameId {
+              sharedDictionaryId
+              ja: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+              ) @include(if: $ja) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+              en: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $enLanguageCodeId }
+              ) @include(if: $en) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+            }
+            sharedDictionaryBySharedDictionaryPronunciationId {
+              sharedDictionaryId
+              ja: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+              ) @include(if: $ja) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+              en: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $enLanguageCodeId }
+              ) @include(if: $en) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+            }
+            sharedDictionaryBySharedDictionaryNicknameId {
+              sharedDictionaryId
+              ja: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+              ) @include(if: $ja) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+              en: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $enLanguageCodeId }
+              ) @include(if: $en) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+            }
+          }
+        }
+      }
+
+      # --- 共通項: 更新者(共通名前仕様の呼称セットID解決に必要なidのみ) -------------
+      historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+        historyId
+        infoStaffId
+        sharedAppellationsId
+      }
+    }
+  }
+}

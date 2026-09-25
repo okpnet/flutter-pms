@@ -577,3 +577,102 @@ trans_inventory_requestを変更した。0026を実行。」の指示)
 側の対応、[共通名前仕様](../CLAUDE.md#共通名前仕様)本文の書き換え、既存31画面GraphQLの
 一斉改修の要否・範囲)は業務・設計判断を要するため、本ログでは現状の記録に留め、
 schema.graphql自体の置き換え以外の対応(views.md・GraphQL・KeyNameの修正)は実施していない。
+
+## 追記10: 0026再実行(2026/09/25、「0026の実行」の指示)【info_company(要件0033)に直結する変更を検出】
+
+要件0033で画面仕様がview.yaml方式に移行し、現時点ではinfo_companyのみ実装済み(他画面は
+一旦削除・保留中)であるため、本追記の影響確認は`lib/graphql/info_company/`と
+`lib/postgraphile/info_company/`(要件0033の生成物)を対象に行った。
+
+### 接続・取得・差分判定
+
+`curl -m 10 http://192.168.1.100:5000/graphql` で疎通確認(`HTTP 405`、変化なし)後、
+`get-graphql-schema`で再取得したところ454,142行(直前の`lib/graphql/schema.graphql`は
+446,975行、+7,167行)を検出した。`type X implements Node`の一覧差分を取ったところ、
+**新規テーブルは`HistorySharedDictionaryValue`・`HistorySharedLanguageCode`のみ**
+(要件0026追記9で追加された`SharedDictionaryValue`・`SharedLanguageCode`本体の履歴テーブルが
+今回追加された。views.md/view.yamlの対象見出しには存在しない)。
+
+`@graphql-inspector/cli diff`は2,844件を報告した。Fk#番号ズレノイズ(`XxxFkNInput`/
+`XxxFkNInverseInput`/`XxxFkNCreateInput`の番号ズレ)を除外すると141件が残り、その実質は
+以下の1点に集約される。
+
+### 重大な検出事項:`InfoCompany.ceo`・`InfoAddress.address1`/`address2`/`bill`が
+### `String`から`UUID`(shared_appellations参照)へ変更された
+
+- `InfoCompany.ceo`: `String` → `UUID`。新規に`sharedAppellationByCeo: SharedAppellation`
+  (単一参照)フィールドが追加された。
+- `InfoAddress.address1`/`address2`/`bill`: いずれも`String` → `UUID`。同様に
+  `sharedAppellationByAddress1`等の参照フィールドが追加された(`InfoAddress`型自体の
+  差分は`grep`で確認済み)。
+- 副次影響として、`SharedAppellationInput`等の入れ子ミューテーション入力で、
+  `InfoCompany`向けの逆参照フィールドが`infoCompaniesUsingSharedAppellationsId`
+  (1本のFK時の命名)から`infoCompaniesToSharedAppellationsIdUsingSharedAppellationsId`
+  (名前用)・`infoCompaniesToCeoUsingSharedAppellationsId`(代表者用)の2本に分岐した。
+  `InfoAddress`側も同様に`infoAddressesToAddress1UsingSharedAppellationsId`・
+  `infoAddressesToAddress2UsingSharedAppellationsId`・
+  `infoAddressesToBillUsingSharedAppellationsId`の3本に分岐した。これは要件0026追記7・8で
+  確認済みの「同一参照先への複合FKが増えるとpostgraphile-plugin-nested-mutationsが
+  `XxxToYUsingZ`形式に命名を分岐させる」という既知の副作用パターンと同種であり、
+  inspectorが報告した141件中の残り(約120件)はすべてこの命名分岐に伴う型名変更・
+  フィールド追加/削除であることを確認した。実質的な業務ロジック上の破壊的変更は
+  上記の型変更(String→UUID)のみ。
+
+**この変更は本ライブラリにとって既知の想定内の変更である。** 要件0033で作成した
+[lib/graphql/info_company/info_company_read.graphql](../lib/graphql/info_company/info_company_read.graphql)・
+[info_company_edit.graphql](../lib/graphql/info_company/info_company_edit.graphql)の
+冒頭コメントには「view.yamlは`ceo`・`address1`/`address2`/`bill`を`shared_appellations`経由
+(呼称セット)として定義しているが、実スキーマは単純な`String`だったため、実スキーマに
+合わせてプレーンな文字列として補正した」という暫定対応が明記されている
+([docs/0033_view_yaml_regeneration_test_log.md](0033_view_yaml_regeneration_test_log.md)参照)。
+今回の変更は、まさにこの乖離(view.yamlの設計 = shared_appellations経由)を実スキーマ側が
+追いついて解消したものであり、view.yamlの記述を修正する必要はない。
+
+### 置き換え・要件0024の実行・影響確認
+
+`lib/graphql/schema.graphql`を置き換え(446,975行 → 454,142行)、
+`dart run build_runner build --build-filter="lib/postgraphile/schema.graphql.dart"`を実行した。
+
+結果: `Built with build_runner/aot in 287s; wrote 1 output.`(警告は既知のスカラー代替
+(BigFloat/BigInt/Date/Datetime/UUID/JSON)のみ)。
+
+- `git status`で`lib/graphql/schema.graphql`以外の生成済みファイルに変更が無いことを確認
+  (`--build-filter`により`lib/postgraphile/info_company/*.graphql.dart`は再生成されて
+  いない。`schema.graphql.dart`自体は要件0015により`.gitignore`対象のため`git status`には
+  現れない)。
+- `dart analyze lib test`: 906件はすべて`info`(既存生成コードのスタイル指摘)。
+  `error`・`warning`は0件。
+- `flutter test`: 既存3件すべて成功。ただしこれは`info_company_read.graphql.dart`/
+  `info_company_edit.graphql.dart`が旧schema(`ceo`/`address1`等が`String`)でcodegen
+  されたままのモデルに対するテストであり、今回のUUID化の影響はまだコード上に反映されて
+  いない(`--build-filter`で対象を限定したための想定どおりの結果)。
+
+### 結論・次のアクション
+
+`InfoCompany.ceo`・`InfoAddress.address1`/`address2`/`bill`のUUID化(shared_appellations
+参照化)は、要件0033で「実スキーマ側の追随待ち」として記録していた暫定対応の解消であり、
+`schema.graphql`の置き換えは正しく完了した。
+
+ただし、次に`info_company`画面のGraphQL/モデルを再生成する際は、以下の改修が必要になる
+(GraphQLファイルそのものの実質改修であり、要件0025相当のスコープと判断し、本ログでは
+記録のみに留め、修正は実施していない)。
+
+1.  `info_company_read.graphql`・`info_company_edit.graphql`の`ceo`・`address1`/`address2`/
+    `bill`を、プレーンな`String`スカラー取得/更新から、[共通名前仕様](../CLAUDE.md#共通名前仕様)
+    どおりの`shared_appellations`経由(呼称セット、ja/en取得)のネスト構造へ書き換える
+    (view.yamlの元々の`using: shared_appellations`定義をそのまま採用できる状態になった)。
+2.  `lib/contents/info_company_keyname.dart`の`ceo`・
+    `infoAddressByInfoAddressId_address1`/`_address2`/`_bill`系の`ContentVariable`定義
+    (現状`String`型のGraphQL型を指定)を、名前系の定数と同様の`shared_appellations`経由
+    キー構成(`||sharedDictionaryBySharedDictionaryNameId||ja`等)に合わせて再設計する。
+3.  上記1・2の変更後、`nested_map_flattener.dart`の平坦化・復元と
+    `test/info_company_flatten_roundtrip_test.dart`のテストデータ・アサーションを
+    再作成する(要件0032・0033の「再生成のときはテストもレビューする」に該当)。
+4.  ミューテーション側では、`ceo`/`address1`/`address2`/`bill`それぞれに対応する
+    `SharedAppellation`(呼称セット)の新規作成/更新をネストしたミューテーションで
+    行う必要があり、`InfoCompanyInput`/`InfoCompanyPatch`・`InfoAddressInput`/
+    `InfoAddressPatch`側の`ceo`/`address1`/`address2`/`bill`(UUID)には、既存の
+    `sharedAppellationsId`(名前)と同様に呼称セットのIDを渡す設計になる。
+
+新規テーブル`HistorySharedDictionaryValue`・`HistorySharedLanguageCode`はview.yamlの対象外
+のため対応不要。
