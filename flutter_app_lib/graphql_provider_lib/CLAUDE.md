@@ -63,12 +63,13 @@ graphqlの生成指示は、共通項として必ず"remarks"、"update_at"、"r
 1.  ~~source/views.md~~"27_yaml_to_graphql_conversion_rules.md"、及び"schema.json"をもとに変換を行う。変換する対象は"view.yaml"による。//0033
 1. kindによって異なる//0033
     1.  readは読み込み用クエリ、editはミューテーション
-    1.  RFEはミューテーションを生成するための読み込み用クエリ//0033
+    1.  ~~RFEはミューテーションを生成するための読み込み用クエリ//0033~~独立したkindとしてのRFEは廃止した。editのノードに"generateRfe: true"を指定すると、そのeditと全く同一のcolumnsツリーから、書き込み対象ではなく単純なSELECT対象として解釈した読み込み専用クエリ(旧RFE相当)を自動導出する。手書きの別ノード(旧"kind: RFE")を維持する必要が無くなり、editと読み込み専用クエリが構造的に乖離するリスクを排除する//0037
 ####　画面仕様命名規則
 1.  ディリクトリ名、ファイル名はどちらもスネークケース
 1.  ~~「見出し2"##"」~~トップノードをディリクトリ名とする//0033
 1.  「~~見出し2"##"+"_"+見出し3"###"~~"トップノードのスネークケース"+"_"+"トップノード以下のkind"」をGraphQLのファイル名とする//0033
     1.  ~~ただし、後述の"read for editng"のファイル名は「見出し2"##"+"\_"+見出し3"###"+"_"+"rfe"」とする~~
+    1.  "generateRfe: true"により自動導出される読み込み専用クエリ(旧RFE相当)のファイル名は「トップノードのスネークケース」+"_"+"rfe"とする(kindの値自体は"edit"のままだが、自動導出ぶんは別ファイルとして出力する)//0037
 
 #### GraphQL変換ルール
 1.  GraphQLの出力はbuild.ymlに従う
@@ -199,3 +200,11 @@ Enumのルールを追加した。
 GraphQLへの変換できないエラーは変換できない理由をログへ記録し、評価後、エラーが無い状態になったときにGraphQLを作成し、GraphQLからモデル生成を実行する。変更を含んでいる"##"を評価、生成の対象とする。
 
 2026/09/25_0035:[画面仕様](#画面仕様)に従いGraphQLの再生成のテストを行い、GraphQLを作成するための評価を実施。エラーが無い状態になったときにGraphQLを作成し、GraphQLからモデル生成を実行する。
+
+2026/09/26_0036:出力されたGraphQLの引数に古い列指定パターンが含まれていたので生成パターンを修正する。"$ja: Boolean!,$en: Boolean!"->"$languageCode: String"のように言語コード("JA"や"EN")で受け取る。schema.jsonの変更が必要であれば修正する。
+
+2026/09/26_0037:readとeditのキー構造の非対称性(0036で発見)はkind:RFEの存在に起因し、RFEはeditのために読み込むデータをeditと相互変換する目的である以上、editがread相当のクエリになれば冗長性を回避できると判断した。独立したkind:RFEを廃止し、editのノードに"generateRfe: true"を指定すると、そのeditと全く同一のcolumnsツリーから読み込み専用クエリ(旧RFE相当)を自動導出する方式(案A)を採択した。[画面仕様](#画面仕様)・[画面仕様命名規則](#画面仕様命名規則)を訂正し、schema.jsonの"kind"enumから"RFE"を削除、"generateRfe"プロパティを新設した。
+
+2026/09/26_0038:test.yamlのCompanyPage.offices.update_user(history_info_staffへの複合FK、update_user_id+update_user_history_id)で"using"に配列を渡そうとしていたが、schema.jsonの"using"は単一文字列のみ対応でこの用法に未対応だった。加えて指定順が実スキーマのフィールド名(historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId、列順はupdate_user_history_id→update_user_id)と逆になっていた。schema.jsonの"using"を文字列または文字列配列に対応するよう修正し、27_yaml_to_graphql_conversion_rules.mdに複合FKの列順に関する注意を追記。test.yamlの列順を修正した。
+
+

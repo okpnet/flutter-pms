@@ -1,7 +1,7 @@
 # YAML → GraphQL 変換ルール
 
 **作成日**: 2026-09-26
-**対象**: `schema.json`に準拠したYAML定義(read/edit/RFE)を、PostGraphile向けのGraphQLクエリ/ミューテーションへ変換する際のルール。
+**対象**: `schema.json`に準拠したYAML定義(read/edit)を、PostGraphile向けのGraphQLクエリ/ミューテーションへ変換する際のルール。要件0037により、独立したkind:RFEは廃止し、editの`generateRfe: true`から読み込み専用クエリ(旧RFE相当)を自動導出する方式に変更した(8章参照)。
 **位置づけ**: `24_yaml_schema_design_conditions.md`がスキーマの「構造」の決定事項を整理したものであるのに対し、本ドキュメントはその構造を実際にGraphQLへ変換する際の「振る舞い」を定める。特に`condition`の再設計(引数はGraphQL変換時にのみ意味を持ち、YAML側にMapとしての意味を持たせない)と、`where`/`requiredWhere`(引数)と`defaultWhere`(ハードコード条件)の役割分担を明確にすることが目的。
 
 ---
@@ -27,12 +27,11 @@ YAMLの各プロパティは「GraphQLの引数として呼び出し側に公開
 | kind | GraphQL操作 |
 |---|---|
 | `read` | `query` |
-| `edit` | `mutation` |
-| `RFE` | 生成側の利用文脈に応じて`query`/`mutation`どちらにもなり得る(同一定義をkind差し替えのみで両方に使い回すための種別。プロパティの出し分けはスキーマ上は強制しない) |
+| `edit` | `mutation`。`generateRfe: true`のとき、同一の`columns`ツリーをSELECT用に解釈した読み込み専用`query`(旧RFE相当)も追加で生成する(8章参照) |
 
 ## 2. `from` → ルート型/テーブル
 
-その定義が対象とする主たるテーブル名。`read`/`RFE`ではSELECT対象、`edit`ではUPDATE/INSERT対象のテーブルを表す(nullの場合は生成側で文脈から推測、または`editTables`側の`table`を正とする)。`editTables[].table`との一致検証は行わない(独立したラベル)。
+その定義が対象とする主たるテーブル名。`read`ではSELECT対象、`edit`ではUPDATE/INSERT対象のテーブルを表す(`generateRfe`による読み込み専用クエリでは、`edit`と同じ`from`をSELECT対象として解釈する)。nullの場合は生成側で文脈から推測、または`editTables`側の`table`を正とする。`editTables[].table`との一致検証は行わない(独立したラベル)。
 
 ## 3. `where` / `requiredWhere` → GraphQL引数
 
@@ -100,6 +99,8 @@ YAMLの各プロパティは「GraphQLの引数として呼び出し側に公開
 ### 6-2. `using` → 結合経路の一意化
 
 `columnEntry`を含む側のテーブルが持つ、`from`への結合に使うFK列名。1つのテーブル間に複数のFKが存在する場合(例: `shared_appellations`→`shared_dictionary`への`shared_dictionary_name_id`/`_pronunciation_id`/`_nickname_id`)に、どのFKを使って結合するかを一意にする。省略時は生成側がFK制約から一意に決定できる場合のみ許容され、決定できない場合は生成時エラーとする。
+
+**複合(2列以上)FK(要件0038で追加)**: `using`は単一列のFKなら文字列、複合FKなら文字列の配列で指定する。典型例は共通名前仕様の更新者解決(`update_user_id`+`update_user_history_id` → `history_info_staff`)で、実スキーマ上は`historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId`という1つのフィールドになる。PostGraphileは複合FKのフィールド名を`<related型>By<列1>And<列2>...`という形にするが、**列の並び順はDBのFK制約定義に依存し、アルファベット順や記述順ではない**(この例では`update_user_history_id`が先、`update_user_id`が後)。`using`を配列で指定する場合、要素の並び順はこの実際のフィールド名の列順と一致させる必要がある。本スキーマ・本変換ルールでは列順の正しさを検証しないため(点10と同じ方針)、`lib/graphql/schema.graphql`の実際のフィールド名と必ず突き合わせて確認すること。
 
 ### 6-3. `as` → 出力フィールド名の上書き
 
@@ -201,7 +202,7 @@ LEFT JOIN LATERAL (
 
 PostGraphileでは`arrayType: toMany`に対応するコネクション型フィールドには元々`first`/`last`/`offset`/`before`/`after`が標準で自動生成される(`condition`のようにプラグイン依存の追加引数とは異なり、コネクション型であれば常に存在する)。`pagination`フラグはこれを「YAML側で明示的に使う意図がある」ことを示す役割であり、生成ツールに対して「この引数を実際にクエリのシグネチャへ配線せよ」という指示として機能する。
 
-`pagination`は`kind`(read/edit/RFE)を問わず、`arrayType: toMany`を持つ`node`/`columnEntry`であればどこにでも指定できる。したがって、RFE/editの操作全体が`requiredWhere`で1件を対象にしている場合でも、その内部にネストした`toMany`関係(例: 1件の`shared_dictionary`を編集する際の、複数言語行を持つ`shared_dictionary_value`)だけを独立してページネーション対象にできる。操作全体のkindとは無関係に、「この関係がtoManyかどうか」だけに紐づく性質として扱う設計である。
+`pagination`は`kind`(read/edit)を問わず、`arrayType: toMany`を持つ`node`/`columnEntry`であればどこにでも指定できる。したがって、editの操作全体が`requiredWhere`で1件を対象にしている場合でも、その内部にネストした`toMany`関係(例: 1件の`shared_dictionary`を編集する際の、複数言語行を持つ`shared_dictionary_value`)だけを独立してページネーション対象にできる。操作全体のkindとは無関係に、「この関係がtoManyかどうか」だけに紐づく性質として扱う設計である(`generateRfe`による読み込み専用クエリにもそのまま引き継がれる)。
 
 ```yaml
 - name: offices
@@ -224,18 +225,67 @@ offices: infoOfficesByInfoCompanyId(
 }
 ```
 
-## 7. `edit`/`RFE`での書き込み対象の表現
+### 6-7. トップレベルのnode(画面)を、別の画面の`columnEntry`として再利用する(要件0038で確認)
+
+`columnEntry`は`node`とほぼ同じプロパティ(`kind`/`from`/`condition`/`columns`等)を持てる
+「汎用フィールド共存型」であるため、独立した画面(トップレベルの`node`、例:一覧画面
+`OfficePage`)をYAMLアンカーで定義しておけば、別の画面の`columns`内から
+`<<: *OfficePage`でそのまま`columnEntry`として merge できる。ローカルで指定する
+`name`(必須)・`arrayType`・`limit`等と、mergeされる`kind`/`from`/`condition`/`columns`は
+プロパティ名が重複しないため衝突しない。
+
+これにより、「単独の一覧画面」と「親画面に埋め込むtoManyの子リスト」で同じ列構成を
+2箇所に書く必要がなくなる(`shared_appellations`/`shared_dictionary`のような共有アーム専用
+定義(`appellationLabels`等)と同じ考え方を、`Page`単位の定義にも適用したもの)。
+
+```yaml
+OfficePage: &OfficePage
+  kind: read
+  from: info_office
+  condition: true
+  columns:
+    - info_office_id
+    # ...
+
+CompanyPage:
+  kind: read
+  from: info_company
+  columns:
+    - name: offices
+      arrayType: toMany
+      limit: 50
+      <<: *OfficePage
+```
+
+**注意**: merge元・merge先の`kind`が一致しない場合(例: `kind: read`の画面へ`kind: edit`の
+アームを紛れ込ませる)、生成側は`kind`を区別せず同じ構造として解釈するため、
+構文エラーにはならないが**意味的に誤った変換になる**(read画面にedit用の入れ子書き込み
+構造が混入する等)。共有アーム(`appellationLabels`/`appellationLabelsEdit`、
+`addressFields`/`addressEditFields`)を参照する際は、常に参照元と同じkind(read↔read、
+edit↔edit)のアームを選ぶこと。この不整合は本スキーマでは検証しない(点10と同じ方針、
+生成時・レビュー時に人手で確認する)。
+
+## 7. `edit`での書き込み対象の表現
 
 書き込み対象は次の2通りの表現が併存する。生成側はどちらの形式にも対応する前提とし、1つの`node`内で混在させることも構造上は可能だが、可読性のため通常はどちらか一方に統一することを推奨する。
 
 1. **`editTables`/`editTableEntry`**: `table`(テーブル名)・`using`(結合FK列名)・`editTable`(子テーブル、単体または配列で再帰)のみを持つ。列単位の書き込み対象は表現しない、テーブル単位の列挙に特化した形式。
-2. **`columns`/`from`(readと同形式)**: `node`は「汎用フィールド共存型」によりkindに関わらず同じプロパティを持てるため、`edit`/`RFE`でも`read`と全く同じ`columns`/`from`/`arrayType`/`using`構造を書き込み対象列の表現として使ってよい。ネストした`columnEntry`(`from`+`arrayType`持ち)は関連テーブルへの入れ子書き込みを表す。この形式の利点は、`read`用定義と`edit`用定義の構造が同じになるため、**`RFE`は`kind`を差し替えるだけで成立する**こと(`test.yaml`の`dictionaryRFE`/`appellationLabelsRFE`を参照)。
+2. **`columns`/`from`(readと同形式)**: `node`は「汎用フィールド共存型」によりkindに関わらず同じプロパティを持てるため、`edit`でも`read`と全く同じ`columns`/`from`/`arrayType`/`using`構造を書き込み対象列の表現として使ってよい。ネストした`columnEntry`(`from`+`arrayType`持ち)は関連テーブルへの入れ子書き込みを表す。この形式の利点は、`read`用定義と`edit`用定義の構造が同じになるため、**`generateRfe: true`による読み込み専用クエリの自動導出が、追加の記法無しで成立する**こと(8章参照)。
 
 `create`(新規作成)/`connect`(既存レコードへの関連付け)の区別を表すプロパティはまだ無い(未解決、`24_yaml_schema_design_conditions.md`未確定事項を参照)。
 
-## 8. `RFE`の生成方針
+## 8. `generateRfe`による読み込み専用クエリの自動導出方針(要件0037、旧`RFE`の後継)
 
-`RFE`ノードは読み込み(`query`)としても書き込み(`mutation`)としても使われうる、同一定義。生成側はコンテキスト(呼び出し元の画面が「表示」目的か「編集」目的か)に応じて、同じ`columns`/`from`構造をSELECT用の選択セットとして解釈するか、書き込み対象の列として解釈するかを切り替える。スキーマ側でkindごとのプロパティ出し分けを強制しないのはこのため。
+**背景**: 当初は`kind: "RFE"`という独立したkindを設け、`edit`と同じ`columns`ツリーを持つノードを別途YAMLへ手書きし、`<<: *〇〇Edit`で丸ごと参照する設計だった(旧8章)。しかし実装(`company_page`)を通じて、この方式には「`RFE`ノードが対応する`edit`と無関係な定義を誤って参照してしまう」という構造的リスクがあることが判明した(`CompanyPageRFE`が`CompanyPageEdit`ではなく無関係な`dictionaryEdit`を参照していた事故。`0034_view_yaml_graphql_evaluation_log.md`参照)。根本原因は、`edit`と`RFE`という**同一であるべき定義が、YAML上は独立した2箇所に書けてしまう**ことにあった。
+
+**方針**: `kind: "RFE"`を廃止し、`kind: "edit"`のノードに`generateRfe: true`を指定する方式に変更した。これにより「読み込み専用クエリ」は独立したYAMLノードとして存在せず、**対応する`edit`ノードの`columns`ツリーを、生成時に2通りに解釈した副産物**として扱われる。定義が1箇所に集約されるため、構造的に乖離しようがない。
+
+**生成規則**:
+- `generateRfe: true`を持つ`edit`ノードごとに、GraphQLの`query`ドキュメントを1つ追加生成する(ファイル名は「トップノードのスネークケース」+`_rfe`、CLAUDE.md画面仕様命名規則参照)。
+- ルートの絞り込みは、その`edit`ノードの`requiredWhere`(通常は主キー1列)をそのまま必須引数として使う。
+- `columns`ツリーの各要素は、「書き込み対象の列」としてではなく「SELECT対象の列」として解釈し直す。具体的には、`sharedAppellationToXxx: { updateBySharedAppellationsId: { ... } }`のような入れ子ミューテーション記法は、対応する`using`/`from`が指す関連先を辿る通常のSELECT(`sharedAppellationByXxx { ... }`)に読み替える。`deleteOthers`+`create`のような書き込み専用の入れ子(`sharedDictionaryValuesUsingSharedDictionaryId`等)は、読み込み側では対応する取得用フィールド(`sharedDictionaryValuesBySharedDictionaryId`、ja/en等必要な言語ぶん)に読み替える。この対応関係は`company_page_edit.graphql`/`company_page_rfe.graphql`の実例を参照。
+- `arrayType`/`using`/`pick`/`output`/`defaultWhere`/`where`/`requiredWhere`の解釈規則(3〜6章)は、書き込み対象・SELECT対象のどちらとして読むかに関わらず共通(生成側が列挙する対象が変わるだけ)。
+- 表示用の`read`(一覧・詳細表示)と`generateRfe`による読み込み専用クエリは**別物**であり、統合しない(要件0036参照)。前者は一覧表示のためページネーション・1言語のみの取得を基本とするのに対し、後者は編集フォームへのプリロードのため単一レコード・編集に必要な全ての言語・id一式の取得を必要とする。この要件の違いはkindの統一だけでは吸収できないため、意図的に別ドキュメントのままとする。
 
 ## 9. 実際に変換を試行して見つかった論点(2026-09-26 3〜6回目、すべて解決済み)
 
@@ -290,3 +340,18 @@ second occurrence
 - 2026-09-26(6回目): 5回目の`pick`ベースの解決策を撤回。`pick`は「除外された要素は丸ごと不要」という前提のため、`language`のような「絞り込み専用・出力列なしだが常に処理が必要な関係」に適用すると`requiredWhere`ごと失われ、PostGraphileが生成するJOIN LATERAL内のJOIN/WHERE句が構築できなくなるというリスクが判明したため。新しいプロパティ`output`(6-5節、`columnEntry`のみ)を追加し、`pick`とは独立に「出力からの除外」と「where/requiredWhere/defaultWhereの処理継続」を両立できるようにした。`schema.json`(`$defs/output`追加)、および`test.yaml`・`info_company.yaml`・`shared_dictionary_ja_label.yaml`・`shared_dictionary_ja_label_with_name_id.yaml`・`shared_appellations_ja_label.yaml`の`language`エントリに反映、schema.json検証・シミュレーション確認済み。
 - 2026-09-27(7回目): ページネーション対応。`offset`(新規、`node`/`columnEntry`)、`pagination`(新規、真偽値、`node`/`columnEntry`)を追加(6-6節)。`condition`と同じパターンのフラグで、`true`のときPostGraphile標準のページネーション引数(`first`/`offset`等)を呼び出し側の引数として公開する。`limit`/`offset`は呼び出し側が引数を省略した場合のデフォルト値として機能する。kindを問わず`arrayType: toMany`を持つnode/columnEntryならどこにでも指定できるため、RFE/editが1件編集を対象としていても、内部のネストしたtoMany関係だけを独立してページネーション対象にできる。`test.yaml`の`CompanyPage.offices`、`CompanyPage.graphql`に反映済み。
 - 2026-09-25(要件0034評価を受けて): `dictionaryLabel.value.language`(`requiredWhere: [code]`)がPostGraphileの標準`condition`/`filter`では実現できない問題(要件0033・0026で発覚)への対応を検討し、4-1節を追加。当初は新プロパティ(`resolvedWhere`→`viaParent`)の追加を検討したが、4節が既に述べていた「単数リレーションに`condition`/`filter`引数が存在しない」という制約が`defaultWhere`だけでなく`where`/`requiredWhere`にも等しく当てはまることに気付き、新プロパティ無しで説明できると判明したため撤回。`arrayType: toFirstOne`上の`where`/`requiredWhere`/`defaultWhere`はすべて「`using`が指す親の列の値を、`from`に対して外部で一意に検索するためのWHERE句一式」として統一的に扱うことを4-1節として明文化した。`schema.json`・`view.yaml`(`dictionaryLabel`)への変更は不要(現状の記述のままで正しい)。
+- 2026-09-26(要件0038、2回目): `test.yaml`の`CompanyPage.offices`が`OfficePage`(独立した
+  一覧画面のnode)を`<<: *OfficePage`で丸ごとmergeして再利用する書き方を確認し、6-7節として
+  追加した。仕組み自体はスキーマ変更不要で成立するが、`OfficePage`(`kind: read`)内で
+  `labels`/`info_address_id`が誤ってedit用アーム(`appellationLabelsEdit`/
+  `addressEditFields`)を参照していたため、read用アーム(`appellationLabels`/
+  `addressFields`)に修正した。
+- 2026-09-26(要件0038): `using`が複合(2列以上)FKに未対応だった問題を修正。`test.yaml`の
+  `CompanyPage.offices.update_user`(`history_info_staff`への2列FK、`update_user_id`+
+  `update_user_history_id`)で`using`に配列を渡そうとしていたが、`schema.json`の`using`は
+  単一文字列のみを許容していたため未対応だった。加えて指定順も実スキーマのフィールド名
+  (`historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId`、列順は
+  `update_user_history_id`→`update_user_id`)と逆になっていた。`schema.json`の`using`を
+  文字列または文字列配列(`$defs/using`に集約)に拡張し、6-2節に複合FKの列順に関する
+  注意を追記。`test.yaml`の列順を修正した。
+- 2026-09-26(要件0037): 独立した`kind: "RFE"`を廃止した。`company_page`の実装で「`CompanyPageRFE`が対応する`CompanyPageEdit`ではなく無関係な`dictionaryEdit`を誤って参照する」という事故(0034ログ)が発生し、根本原因が「同一であるべきedit/RFE定義がYAML上2箇所に独立して書けてしまうこと」にあると判明したため。`kind: "edit"`のノードに`generateRfe: true`を指定すると、そのeditと全く同一の`columns`ツリーから読み込み専用クエリ(旧RFE相当)を自動導出する方式に変更した(1章・2章・7章を修正、8章を全面書き換え)。`schema.json`の`kind`enumから`"RFE"`を削除し、新規プロパティ`generateRfe`(`node`のみ)を追加。`view.yaml`から`dictionaryRFE`・`appellationLabelsRFE`・`CompanyPageRFE`ノードを削除し、`CompanyPageEdit`に`requiredWhere: [info_company_id]`・`generateRfe: true`を追加した。

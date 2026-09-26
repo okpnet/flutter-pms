@@ -4,6 +4,12 @@
 // String列として扱っていた)を、要件0026のスキーマ変更(shared_appellations経由のFKに
 // 変更)・要件0034の評価・命名規則(トップノード基準の`company_page`)にあわせて
 // 全面的に書き直したもの。結果はdocs/0035_company_page_generation_log.md に記録する。
+//
+// 要件0036(2026-09-26): company_page_read.graphql / company_page_rfe.graphqlから
+// 「$ja: Boolean!/$en: Boolean!」を撤廃した。read側は1回の呼び出しで言語1つのみ
+// (エイリアス`value`)を取得する形になったため、read用のモックJSONはja/enペアではなく
+// 単一の`value`を持つ形に変更した(edit/RFEは引き続きja/enペアのまま)。
+// 結果はdocs/0036_language_argument_simplification_log.md に記録する。
 
 import 'dart:convert';
 
@@ -14,8 +20,8 @@ import 'package:gqlprvlib/postgraphile/company_page/company_page_edit.graphql.da
 import 'package:gqlprvlib/postgraphile/company_page/company_page_read.graphql.dart';
 import 'package:gqlprvlib/postgraphile/company_page/company_page_rfe.graphql.dart';
 
-/// [ja]/[en]をSharedDictionaryValueのConnection形状(nodes)にラップする。
-/// 値が無い言語は空配列(0件)にする。
+/// [value]をSharedDictionaryValueのConnection形状(nodes)にラップする。
+/// 値が無い場合は空配列(0件)にする。
 Map<String, dynamic> _dictionaryValueConnection(String? value) => {
   'nodes': value == null
       ? <dynamic>[]
@@ -24,6 +30,146 @@ Map<String, dynamic> _dictionaryValueConnection(String? value) => {
         ],
   '__typename': 'SharedDictionaryValuesConnection',
 };
+
+// --- read用: 1言語(`value`エイリアス)のみを持つ形状 --------------------------
+
+Map<String, dynamic> _sharedDictionaryValueOnlyJson(
+  String sharedDictionaryId,
+  String? value,
+) => {
+  'sharedDictionaryId': sharedDictionaryId,
+  'value': _dictionaryValueConnection(value),
+  '__typename': 'SharedDictionary',
+};
+
+/// name/pronunciation/nicknameの3本(いずれもshared_dictionary経由)を持つ
+/// shared_appellationsのread用JSON(要件0036、`value`単一エイリアス形状)。
+/// 会社名・ceo・address1・address2・billの5箇所で同型のため共通化する。
+Map<String, dynamic> _sharedAppellationReadJson({
+  required String appellationsId,
+  required String nameDictionaryId,
+  String? nameValue,
+  required String pronunciationDictionaryId,
+  String? pronunciationValue,
+  required String nicknameDictionaryId,
+  String? nicknameValue,
+}) => {
+  'sharedAppellationsId': appellationsId,
+  'sharedDictionaryBySharedDictionaryNameId': _sharedDictionaryValueOnlyJson(
+    nameDictionaryId,
+    nameValue,
+  ),
+  'sharedDictionaryBySharedDictionaryPronunciationId':
+      _sharedDictionaryValueOnlyJson(pronunciationDictionaryId, pronunciationValue),
+  'sharedDictionaryBySharedDictionaryNicknameId': _sharedDictionaryValueOnlyJson(
+    nicknameDictionaryId,
+    nicknameValue,
+  ),
+  '__typename': 'SharedAppellation',
+};
+
+Map<String, dynamic> _companyNameReadJson() => _sharedAppellationReadJson(
+  appellationsId: 'a1111111-1111-1111-1111-111111111111',
+  nameDictionaryId: 'd1111111-1111-1111-1111-111111111111',
+  nameValue: '株式会社テスト',
+  pronunciationDictionaryId: 'd2222222-2222-2222-2222-222222222222',
+  pronunciationValue: 'カブシキガイシャテスト',
+  nicknameDictionaryId: 'd3333333-3333-3333-3333-333333333333',
+  nicknameValue: 'テスト',
+);
+
+Map<String, dynamic> _ceoReadJson() => _sharedAppellationReadJson(
+  appellationsId: 'a4444444-4444-4444-4444-444444444444',
+  nameDictionaryId: 'd4444444-4444-4444-4444-444444444444',
+  nameValue: '代表 太郎',
+  pronunciationDictionaryId: 'd5555555-5555-5555-5555-555555555555',
+  pronunciationValue: 'ダイヒョウ タロウ',
+  nicknameDictionaryId: 'd6666666-6666-6666-6666-666666666666',
+);
+
+Map<String, dynamic> _address1ReadJson() => _sharedAppellationReadJson(
+  appellationsId: 'a7777777-7777-7777-7777-777777777777',
+  nameDictionaryId: 'd7777777-7777-7777-7777-777777777777',
+  nameValue: '東京都千代田区千代田1-1',
+  pronunciationDictionaryId: 'd8888888-8888-8888-8888-888888888888',
+  nicknameDictionaryId: 'd9999999-9999-9999-9999-999999999999',
+);
+
+Map<String, dynamic> _address2ReadJson() => _sharedAppellationReadJson(
+  appellationsId: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+  nameDictionaryId: 'dbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
+  nameValue: 'テストビル10F',
+  pronunciationDictionaryId: 'dcccccc1-cccc-cccc-cccc-cccccccccccc',
+  nicknameDictionaryId: 'dcccccc2-cccc-cccc-cccc-cccccccccccc',
+);
+
+Map<String, dynamic> _billReadJson() => _sharedAppellationReadJson(
+  appellationsId: 'adddddd1-dddd-dddd-dddd-dddddddddddd',
+  nameDictionaryId: 'deeeeee1-eeee-eeee-eeee-eeeeeeeeeeee',
+  nameValue: 'テストビル',
+  pronunciationDictionaryId: 'deeeeee2-eeee-eeee-eeee-eeeeeeeeeeee',
+  nicknameDictionaryId: 'deeeeee3-eeee-eeee-eeee-eeeeeeeeeeee',
+);
+
+Map<String, dynamic> _infoAddressReadJson() => {
+  'infoAddressId': 'ad111111-1111-1111-1111-111111111111',
+  'iso31663': 'JPN',
+  'zipCode': '100-0001',
+  'address1': _address1ReadJson(),
+  'address2': _address2ReadJson(),
+  'billName': _billReadJson(),
+  'phone': '03-1234-5678',
+  'faxNumber': '03-1234-5679',
+  'remarks': null,
+  'updateAt': '2026-09-25T00:00:00',
+  'remove': false,
+  '__typename': 'InfoAddress',
+};
+
+Map<String, dynamic> _buildRawReadJson() => {
+  'allInfoCompanies': {
+    'totalCount': 1,
+    'pageInfo': {
+      'hasNextPage': false,
+      'endCursor': null,
+      '__typename': 'PageInfo',
+    },
+    'nodes': [
+      {
+        'infoCompanyId': 'c1111111-1111-1111-1111-111111111111',
+        'webPage': 'https://example.com',
+        'symbol': 'CO001',
+        'remarks': '備考テキスト',
+        'updateAt': '2026-09-25T00:00:00',
+        'remove': false,
+        'sharedAppellationBySharedAppellationsId': _companyNameReadJson(),
+        'ceo': _ceoReadJson(),
+        'infoAddressByInfoAddressId': _infoAddressReadJson(),
+        'infoOfficesByInfoCompanyId': {
+          'totalCount': 0,
+          'pageInfo': {
+            'hasNextPage': false,
+            'endCursor': null,
+            '__typename': 'PageInfo',
+          },
+          'nodes': <dynamic>[],
+          '__typename': 'InfoOfficesConnection',
+        },
+        'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId': {
+          'historyId': 'h1111111-1111-1111-1111-111111111111',
+          'infoStaffId': 's1111111-1111-1111-1111-111111111111',
+          'sharedAppellationsId': 'a2222222-2222-2222-2222-222222222222',
+          '__typename': 'HistoryInfoStaff',
+        },
+        '__typename': 'InfoCompany',
+      },
+    ],
+    '__typename': 'InfoCompaniesConnection',
+  },
+  '__typename': 'Query',
+};
+
+// --- edit/RFE用: 引き続きja/en両方を持つ形状(編集フォームは常に両方が必要) --------
 
 Map<String, dynamic> _sharedDictionaryJson(
   String sharedDictionaryId,
@@ -36,9 +182,6 @@ Map<String, dynamic> _sharedDictionaryJson(
   '__typename': 'SharedDictionary',
 };
 
-/// name/pronunciation/nicknameの3本(いずれもshared_dictionary経由)を持つ
-/// shared_appellationsのJSON。会社名・ceo・address1・address2・billの5箇所で
-/// 同型のため共通化する。
 Map<String, dynamic> _sharedAppellationJson({
   required String appellationsId,
   required String nameDictionaryId,
@@ -130,49 +273,6 @@ Map<String, dynamic> _infoAddressJson() => {
   '__typename': 'InfoAddress',
 };
 
-Map<String, dynamic> _buildRawReadJson() => {
-  'allInfoCompanies': {
-    'totalCount': 1,
-    'pageInfo': {
-      'hasNextPage': false,
-      'endCursor': null,
-      '__typename': 'PageInfo',
-    },
-    'nodes': [
-      {
-        'infoCompanyId': 'c1111111-1111-1111-1111-111111111111',
-        'webPage': 'https://example.com',
-        'symbol': 'CO001',
-        'remarks': '備考テキスト',
-        'updateAt': '2026-09-25T00:00:00',
-        'remove': false,
-        'sharedAppellationBySharedAppellationsId': _companyNameJson(),
-        'ceo': _ceoJson(),
-        'infoAddressByInfoAddressId': _infoAddressJson(),
-        'infoOfficesByInfoCompanyId': {
-          'totalCount': 0,
-          'pageInfo': {
-            'hasNextPage': false,
-            'endCursor': null,
-            '__typename': 'PageInfo',
-          },
-          'nodes': <dynamic>[],
-          '__typename': 'InfoOfficesConnection',
-        },
-        'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId': {
-          'historyId': 'h1111111-1111-1111-1111-111111111111',
-          'infoStaffId': 's1111111-1111-1111-1111-111111111111',
-          'sharedAppellationsId': 'a2222222-2222-2222-2222-222222222222',
-          '__typename': 'HistoryInfoStaff',
-        },
-        '__typename': 'InfoCompany',
-      },
-    ],
-    '__typename': 'InfoCompaniesConnection',
-  },
-  '__typename': 'Query',
-};
-
 Map<String, dynamic> _buildRawEditJson() => {
   'updateInfoCompanyByInfoCompanyId': {
     'infoCompany': {
@@ -229,56 +329,51 @@ void main() {
   });
 
   test(
-    '要件0035: CompanyPageKeyName + collapseSingleRecordPathsでja/en(会社名・ceo・住所)を解決できる',
+    '要件0036: CompanyPageKeyName(value単一エイリアス) + collapseSingleRecordPathsで'
+    '1言語ぶんの会社名・ceo・住所を解決できる',
     () {
       final model = Query$CompanyPageRead.fromJson(_buildRawReadJson());
       final node = model.allInfoCompanies!.nodes.single!;
       final nodeMap = node.toJson();
 
-      const nameJa = CompanyPageKeyName
-          .sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_ja_dictionaryValue;
-      const nameEn = CompanyPageKeyName
-          .sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_en_dictionaryValue;
-      const pronunciationEn = CompanyPageKeyName
-          .sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryPronunciationId_en_dictionaryValue;
-      const ceoNameJa = CompanyPageKeyName
-          .ceo_sharedDictionaryBySharedDictionaryNameId_ja_dictionaryValue;
-      const ceoNicknameJa = CompanyPageKeyName
-          .ceo_sharedDictionaryBySharedDictionaryNicknameId_ja_dictionaryValue;
-      const address1NameJa = CompanyPageKeyName
-          .infoAddressByInfoAddressId_address1_sharedDictionaryBySharedDictionaryNameId_ja_dictionaryValue;
-      const billNameJa = CompanyPageKeyName
-          .infoAddressByInfoAddressId_billName_sharedDictionaryBySharedDictionaryNameId_ja_dictionaryValue;
+      const nameValue = CompanyPageKeyName
+          .sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue;
+      const pronunciationValue = CompanyPageKeyName
+          .sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryPronunciationId_value_dictionaryValue;
+      const ceoNameValue = CompanyPageKeyName
+          .ceo_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue;
+      const ceoNicknameValue = CompanyPageKeyName
+          .ceo_sharedDictionaryBySharedDictionaryNicknameId_value_dictionaryValue;
+      const address1NameValue = CompanyPageKeyName
+          .infoAddressByInfoAddressId_address1_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue;
+      const billNameValue = CompanyPageKeyName
+          .infoAddressByInfoAddressId_billName_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue;
 
       const collapsePaths = {
-        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||ja',
-        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||en',
-        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryPronunciationId||ja',
-        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryPronunciationId||en',
-        'ceo||sharedDictionaryBySharedDictionaryNameId||ja',
-        'ceo||sharedDictionaryBySharedDictionaryNicknameId||ja',
-        'infoAddressByInfoAddressId||address1||sharedDictionaryBySharedDictionaryNameId||ja',
-        'infoAddressByInfoAddressId||billName||sharedDictionaryBySharedDictionaryNameId||ja',
+        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||value',
+        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryPronunciationId||value',
+        'ceo||sharedDictionaryBySharedDictionaryNameId||value',
+        'ceo||sharedDictionaryBySharedDictionaryNicknameId||value',
+        'infoAddressByInfoAddressId||address1||sharedDictionaryBySharedDictionaryNameId||value',
+        'infoAddressByInfoAddressId||billName||sharedDictionaryBySharedDictionaryNameId||value',
       };
 
       final flatColumns = nodeMap.flattenForColumns([
-        nameJa.name,
-        nameEn.name,
-        pronunciationEn.name,
-        ceoNameJa.name,
-        ceoNicknameJa.name,
-        address1NameJa.name,
-        billNameJa.name,
+        nameValue.name,
+        pronunciationValue.name,
+        ceoNameValue.name,
+        ceoNicknameValue.name,
+        address1NameValue.name,
+        billNameValue.name,
       ], collapseSingleRecordPaths: collapsePaths);
 
-      expect(flatColumns[nameJa.name], '株式会社テスト');
-      expect(flatColumns[nameEn.name], 'Test Co., Ltd.');
-      expect(flatColumns[pronunciationEn.name], isNull);
-      expect(flatColumns[ceoNameJa.name], '代表 太郎');
+      expect(flatColumns[nameValue.name], '株式会社テスト');
+      expect(flatColumns[pronunciationValue.name], 'カブシキガイシャテスト');
+      expect(flatColumns[ceoNameValue.name], '代表 太郎');
       // ceoのnicknameは値を与えていない(0件)ため null になる。
-      expect(flatColumns[ceoNicknameJa.name], isNull);
-      expect(flatColumns[address1NameJa.name], '東京都千代田区千代田1-1');
-      expect(flatColumns[billNameJa.name], 'テストビル');
+      expect(flatColumns[ceoNicknameValue.name], isNull);
+      expect(flatColumns[address1NameValue.name], '東京都千代田区千代田1-1');
+      expect(flatColumns[billNameValue.name], 'テストビル');
     },
   );
 

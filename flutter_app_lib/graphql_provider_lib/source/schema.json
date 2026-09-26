@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://example.com/schemas/query-mutation.schema.json",
   "title": "Query/Mutation Definition Schema (YAML用)",
-  "description": "PostGraphile向けにread(クエリ)/edit(ミューテーション)/RFE(クエリ・ミューテーション相互変換可能な読み込み)をYAMLでまとめて表記するためのスキーマ。read/edit/RFEはすべて同一のnode構造(kindはenumとして持つのみ)を共有し、kindによるプロパティの出し分けはスキーマ側では強制しない(どのプロパティを使うかは生成側の解釈に委ねる)。read/edit/RFEを他の定義から共有(参照)する場合はYAMLのアンカー(&name)/エイリアス(*name)を前提とし、本スキーマには参照専用のキーワードを設けていない。列・子テーブルの外部キー整合性チェックは本スキーマの検証範囲外とし、コード生成時にエラーとする方針とする(構造の妥当性のみを検証する)。",
+  "description": "PostGraphile向けにread(クエリ)/edit(ミューテーション)をYAMLでまとめて表記するためのスキーマ。read/editは同一のnode構造(kindはenumとして持つのみ)を共有し、kindによるプロパティの出し分けはスキーマ側では強制しない(どのプロパティを使うかは生成側の解釈に委ねる)。read/editを他の定義から共有(参照)する場合はYAMLのアンカー(&name)/エイリアス(*name)を前提とし、本スキーマには参照専用のキーワードを設けていない。列・子テーブルの外部キー整合性チェックは本スキーマの検証範囲外とし、コード生成時にエラーとする方針とする(構造の妥当性のみを検証する)。要件0037により、独立したkind:RFEは廃止した。編集画面のプリロード用クエリ(旧RFE)は、kind:editのノードにgenerateRfe:trueを指定することで、同一のcolumnsツリーから自動導出する(手書きの別ノードを維持する必要が無くなり、editとRFEが構造的に乖離するリスクを排除する)。",
   "type": "object",
   "minProperties": 1,
   "additionalProperties": {
@@ -11,8 +11,8 @@
   "$defs": {
     "kind": {
       "type": "string",
-      "enum": ["read", "edit", "RFE"],
-      "description": "read=クエリ, edit=ミューテーション, RFE=クエリ/ミューテーション相互変換可能な読み込み"
+      "enum": ["read", "edit"],
+      "description": "read=クエリ, edit=ミューテーション。要件0037により独立したRFE(クエリ・ミューテーション相互変換可能な読み込み)は廃止した。編集画面のプリロード用クエリが必要な場合は、kind:editのノードにgenerateRfe:trueを指定する(#/$defs/generateRfe参照)。"
     },
     "from": {
       "type": "string",
@@ -80,7 +80,11 @@
     },
     "pagination": {
       "type": "boolean",
-      "description": "trueのとき、GraphQL変換時にPostGraphile標準のページネーション引数(first/offset、またはfirst/last/before/after)をこのクエリ/コネクションの引数シグネチャに追加する(conditionと同じ、値の中身はYAML側では表現しないフラグ)。呼び出し側がこれらの引数を指定しなかった場合、limit/offsetに指定した値がデフォルトとして使われる。kind(read/edit/RFE)を問わず、arrayType: toManyを持つnode/columnEntryであればどこにでも指定できる(例: 1件編集が対象のRFE/editの内部で、ネストしたtoMany関係だけをページネーション対象にする)。省略時(falseと同義)はページネーション引数自体を生成しない(limit/offsetを固定値のまま使う、従来通り)。"
+      "description": "trueのとき、GraphQL変換時にPostGraphile標準のページネーション引数(first/offset、またはfirst/last/before/after)をこのクエリ/コネクションの引数シグネチャに追加する(conditionと同じ、値の中身はYAML側では表現しないフラグ)。呼び出し側がこれらの引数を指定しなかった場合、limit/offsetに指定した値がデフォルトとして使われる。kind(read/edit)を問わず、arrayType: toManyを持つnode/columnEntryであればどこにでも指定できる(例: 1件編集が対象のeditの内部で、ネストしたtoMany関係だけをページネーション対象にする。generateRfe:trueで自動導出される読み込み側にもそのまま引き継がれる)。省略時(falseと同義)はページネーション引数自体を生成しない(limit/offsetを固定値のまま使う、従来通り)。"
+    },
+    "generateRfe": {
+      "type": "boolean",
+      "description": "kind:editのノードにのみ意味を持つ(read、および対応するcolumnEntryでは無視する。生成時に警告としてもよいが検証はしない、点10と同じ方針)。trueのとき、このeditノードとまったく同じcolumnsツリーを、書き込み対象としてではなく単純なSELECT対象として解釈した「read for editing(旧RFE)」クエリを追加生成する。requiredWhereで指定した列(通常は主キー)を必須引数として1件取得する読み込み専用クエリになり、nested mutation記法(using経由の入れ子更新等)はSELECT用の入れ子(using経由の関連先を辿るだけ)に読み替える。この変換規則の詳細は27_yaml_to_graphql_conversion_rulesを参照。editとread for editingは常に同一のcolumnsツリーから導出されるため、両者が構造的に乖離することはない(要件0037、旧kind:RFEノードの手書き維持による乖離リスクの解消)。省略時(falseと同義)はread for editing用クエリを生成しない。"
     },
     "whereList": {
       "type": "array",
@@ -112,7 +116,7 @@
     },
     "node": {
       "type": "object",
-      "description": "read/edit/RFE共通のノード。kindに関わらず同じプロパティ群を許容する(汎用フィールド共存型)。",
+      "description": "read/edit共通のノード。kindに関わらず同じプロパティ群を許容する(汎用フィールド共存型)。generateRfeはkind:editのノードでのみ意味を持つ(#/$defs/generateRfe参照)。",
       "properties": {
         "kind": { "$ref": "#/$defs/kind" },
         "from": { "$ref": "#/$defs/from" },
@@ -125,7 +129,8 @@
         "limit": { "$ref": "#/$defs/limit" },
         "offset": { "$ref": "#/$defs/offset" },
         "pagination": { "$ref": "#/$defs/pagination" },
-        "editTables": { "$ref": "#/$defs/editTablesList" }
+        "editTables": { "$ref": "#/$defs/editTablesList" },
+        "generateRfe": { "$ref": "#/$defs/generateRfe" }
       },
       "additionalProperties": false
     },
@@ -134,8 +139,20 @@
       "enum": ["toMany", "toFirstOne"],
       "description": "このcolumnがネストした関係(from)を持つとき、生成される配列(json_agg/LATERAL等)をそのままコレクションとして返すか(toMany)、先頭要素のみを採用して単一オブジェクトとして返すか(toFirstOne)を指定する。1対1相当かどうかの実際の制約(FK/UNIQUE)はここでは検証しない(生成時エラー、点10と同じ方針。toFirstOneを指定してもtoManyが実際には成立する場合の指摘・強制配列化は生成側の責務とする)。"
     },
+    "using": {
+      "description": "結合元(このcolumnEntry/editTableEntryを含む側のテーブル)が持つ、fromへの結合に使うFK列名。単一列のFKなら文字列、複合(2列以上)FKなら文字列の配列で指定する。1つのテーブル間に複数のFKが存在する場合(例: shared_appellationsからshared_dictionaryへのshared_dictionary_name_id/shared_dictionary_pronunciation_id/shared_dictionary_nickname_id)の結合経路を一意にするための任意項目。省略時は生成側がFK制約から一意に決定できる場合のみ許容され、決定できない場合は生成時エラーとする。配列で指定する場合、要素の並び順は実スキーマ(lib/graphql/schema.graphql)が生成する複合FKのGraphQLフィールド名の列順と一致させること(例: update_user_id + update_user_history_idの複合FKは、実スキーマ上`historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId`という並び=[update_user_history_id, update_user_id]になる。この列順はテーブルごとの実際のFK制約定義に依存し、本スキーマでは検証しないため、生成のたびに実スキーマのフィールド名と突き合わせて確認すること)。FKの実在性・列順の正しさはここでは検証しない(生成時エラー、点10と同じ方針)。",
+      "oneOf": [
+        { "type": "string", "minLength": 1 },
+        {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 2,
+          "uniqueItems": true
+        }
+      ]
+    },
     "columnEntry": {
-      "description": "columnsの要素。(a)単純な列名の文字列、または(b) name + arrayType(ネストした関係の返し方: toMany/toFirstOne)と、arrayType指定時のネストした定義(columns/where/requiredWhere/limit/kind等、node相当のプロパティ)を持つオブジェクト。ネスト内容をread/edit/RFEの共有定義から流用する場合はYAMLエイリアス(*name)で解決する想定で、本スキーマ上は同じnode形状として扱う。列名のFK整合性は検証しない(生成時エラー)。",
+      "description": "columnsの要素。(a)単純な列名の文字列、または(b) name + arrayType(ネストした関係の返し方: toMany/toFirstOne)と、arrayType指定時のネストした定義(columns/where/requiredWhere/limit/kind等、node相当のプロパティ)を持つオブジェクト。ネスト内容をread/editの共有定義から流用する場合はYAMLエイリアス(*name)で解決する想定で、本スキーマ上は同じnode形状として扱う。列名のFK整合性は検証しない(生成時エラー)。generateRfeはトップレベルのnode(1画面=1操作ドキュメント)にのみ意味を持つため、columnEntryには含めていない。",
       "oneOf": [
         { "type": "string", "minLength": 1 },
         {
@@ -150,11 +167,7 @@
             "arrayType": { "$ref": "#/$defs/arrayType" },
             "kind": { "$ref": "#/$defs/kind" },
             "from": { "$ref": "#/$defs/from" },
-            "using": {
-              "type": "string",
-              "minLength": 1,
-              "description": "結合元(このcolumnEntryを含む側のテーブル)が持つ、fromへの結合に使うFK列名。1つのテーブル間に複数のFKが存在する場合(例: shared_appellationsからshared_dictionaryへのshared_dictionary_name_id/shared_dictionary_pronunciation_id/shared_dictionary_nickname_id)の結合経路を一意にするための任意項目。FKの実在性はここでは検証しない(生成時エラー、点10と同じ方針)。"
-            },
+            "using": { "$ref": "#/$defs/using" },
             "requiredWhere": { "$ref": "#/$defs/whereList" },
             "where": { "$ref": "#/$defs/whereList" },
             "defaultWhere": { "$ref": "#/$defs/defaultWhereList" },
@@ -181,11 +194,7 @@
           "minLength": 1,
           "description": "書き込み対象テーブル名"
         },
-        "using": {
-          "type": "string",
-          "minLength": 1,
-          "description": "このeditTableEntryを親のeditTables/editTableに結び付けるFK列名。親子間のFKがどちら側にあるか(子が親を参照する場合・親が子を参照する場合のいずれも有り得る)は区別せず、関係するFK列名を示すだけの任意項目。1組のテーブル間に複数のFKが存在する場合(例: shared_appellationsからshared_dictionaryへのshared_dictionary_name_id/shared_dictionary_pronunciation_id/shared_dictionary_nickname_id)の結合経路を一意にする。FKの実在性はここでは検証しない(生成時エラー、点10と同じ方針)。"
-        },
+        "using": { "$ref": "#/$defs/using" },
         "editTable": {
           "description": "ネストする子テーブル定義。1件のみのときはオブジェクト単体、複数件のときは配列で指定する。",
           "oneOf": [

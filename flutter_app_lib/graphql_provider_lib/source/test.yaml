@@ -1,224 +1,15 @@
-# yaml-language-server: $schema=schema.json
-
-# --- Read用アーム: JA表示名のみを解決する(既存のshared_appellations_ja_label.yamlと同型) ---
-dictionaryLabel: &dictionaryLabel
-  kind: read
-  from: shared_dictionary
-  defaultWhere:
-    - column: remove
-      operator: "="
-      value: false
-  columns:
-    - name: value
-      arrayType: toFirstOne
-      from: shared_dictionary_value
-      defaultWhere:
-        - column: remove
-          operator: "="
-          value: false
-      columns:
-        - dictionary_value
-        # shared_language_code は絞り込み専用のJOIN。出力列は無い。
-        # (修正: codeを"JA"にハードコードしていたが、これはGraphQL呼び出し時に
-        #  必ず値を受け取る引数にすべき条件なので、defaultWhereではなくrequiredWhereに列名を渡す)
-        # output: false … 常に出力から除外する。where/requiredWhere/defaultWhereはpickと違い
-        # 除外されず、親(value)のLATERALサブクエリのJOIN/WHERE句の構築には使われ続ける。
-        - name: language
-          arrayType: toFirstOne
-          from: shared_language_code
-          output: false
-          requiredWhere:
-            - code
-          defaultWhere:
-            - column: remove
-              operator: "="
-              value: false
-
-# --- Edit用アーム: shared_dictionary配下の言語別値(shared_dictionary_value)をまとめて編集する。
-#     1辞書エントリは言語の数だけ行を持つ(1対N)ため、ReadのdictionaryLabelとは異なりarrayType: toMany(複数件)にする。
-#     (下書きではtoFirstOneになっていたが、複数言語を同時に編集できなくなるため修正)
-dictionaryEdit: &dictionaryEdit
-  kind: edit
-  from: shared_dictionary
-  columns:
-    - name: value
-      arrayType: toMany
-      from: shared_dictionary_value
-      columns:
-        - shared_dictionary_value_id
-        - shared_language_code_id
-        - dictionary_value
-        - remarks
-        - update_user_id
-        - update_user_history_id
-        - remove
-    - remarks
-    - update_user_id
-    - update_user_history_id
-    - remove
-
-# --- RFE: dictionaryEditと全く同じ形をkindだけ変えて使い回す例。
-#     read用/edit用でcolumns/fromの構造を揃えておくと、RFEはkindの上書きだけで成立する。
-#     ("<<: *dictionaryEdit" = 既に定義済みのdictionaryEditを参照。正しい書き方)
-dictionaryRFE: &dictionaryRFE
-  kind: RFE
-  <<: *dictionaryEdit
-
-# --- edit: shared_appellations 更新/新規作成。name/pronunciation/nicknameそれぞれの
-#     shared_dictionary(と配下のshared_dictionary_value)も同時に編集する。 ---
-appellationLabelsEdit: &appellationLabelsEdit
-  kind: edit
-  from: shared_appellations
-  requiredWhere:
-    - shared_appellations_id
-  defaultWhere:
-    - column: remove
-      operator: "="
-      value: false
-  columns:
-    - name: name #Q1:識別であれば、別々にすればアクセスできないか?
-      as: name
-      using: shared_dictionary_name_id
-      arrayType: toFirstOne
-      <<: *dictionaryEdit
-    - name: npronunciatione
-      as: pronunciation
-      using: shared_dictionary_pronunciation_id
-      arrayType: toFirstOne
-      <<: *dictionaryEdit
-    - name: nicknam
-      as: nickname
-      using: shared_dictionary_nickname_id
-      arrayType: toFirstOne
-      <<: *dictionaryEdit
-    - remarks
-    - update_user_id
-    - update_user_history_id
-    - remove
-
-# --- RFE: appellationLabelsEditと同じ形をkindだけ変えて使い回す ---
-appellationLabelsRFE: &appellationLabelsRFE
-  kind: RFE
-  <<: *appellationLabelsEdit
-
-# --- read: shared_appellations 詳細(name/pronunciation/nicknameのJA表示名を取得) ---
-appellationLabels: &appellationLabels
-  kind: read
-  from: shared_appellations
-  defaultWhere:
-    - column: remove
-      operator: "="
-      value: false
-  columns:
-    - shared_appellations_id
-    - name: name
-      as: name
-      using: shared_dictionary_name_id
-      arrayType: toFirstOne
-      <<: *dictionaryLabel
-    - name: name
-      as: pronunciation
-      using: shared_dictionary_pronunciation_id
-      arrayType: toFirstOne
-      <<: *dictionaryLabel
-    - name: name
-      as: nickname
-      using: shared_dictionary_nickname_id
-      arrayType: toFirstOne
-      <<: *dictionaryLabel
-
-# 共有(参照)定義: 住所情報 (点8) — info_address由来。company以外からも参照されうるため独立定義し、
-# 実際の利用箇所ではYAMLエイリアス(*addressFields)で共有参照する。
-# address1/address2/billはいずれもshared_appellationsへのFK(UUID)であり、info_addressだけで
-# 3本のFKが同じ参照先を持つため、それぞれ using: address1/address2/bill で結合経路を一意にする。
-# (修正: "<<: &appellationLabels" は新規アンカーの再定義になってしまい、PyYAMLでは
-#  「found duplicate anchor 'appellationLabels'」という致命的なパースエラーになる。
-#  既に定義済みのappellationLabelsを参照したいので "<<: *appellationLabels" が正しい)
-addressFields: &addressFields
-  kind: read
-  from: info_address
-  columns:
-    - iso3166_3
-    - zip_code
-    - name: address1
-      as: address1
-      using: address1
-      arrayType: toFirstOne
-      pick:
-        - name
-        - pronunciation
-        - nickname
-      <<: *appellationLabels
-    - name: address2
-      as: address2
-      using: address2
-      arrayType: toFirstOne
-      pick:
-        - name
-        - pronunciation
-        - nickname
-      <<: *appellationLabels
-    - name: bill
-      as: bill_name
-      using: bill
-      arrayType: toFirstOne
-      pick:
-        - name
-        - pronunciation
-        - nickname
-      <<: *appellationLabels
-    - phone
-    - fax_number
-
-languageCodeEdit: &languageCodeEdit
-  kind: edit
-  from: shared_language_code
-  requiredWhere:
-    - shared_language_code_id
-  columns:
-    - shared_language_code_id
-    - code
-    - label
-    - priority
-    - is_default
-    - remarks
-    - update_user_id
-    - update_user_history_id
-    - remove
-
-addressEditFields: &addressEditFields
-  kind: edit
-  from: info_address
-  columns:
-    - info_address_id
-    - iso3166_3
-    - zip_code
-    - name: address1
-    - name: address2
-    - bill
-    - phone
-    - fax_number
-    - remarks
-    - update_user_id
-    - update_user_history_id
-    - remove
-
 # --- read: 会社情報(info_company) 詳細画面 ---
 CompanyPage:
   kind: read
   from: info_company
-  # 会社1件を指定する必須引数。
-  requiredWhere:
-    - info_company_id
   condition: true
   columns:
     - info_company_id
     - web_page
-    # info_company.ceo 経由の参照。info_companyはshared_appellationsへのFKを
-    # 2本(shared_appellations_id/ceo)持つため、using: ceo で結合元FK列名を明示する。
     - name: ceo
-      using: ceo
+      as: ceo_labels
       arrayType: toFirstOne
+      using: ceo
       pick:
         - name
         - pronunciation
@@ -228,35 +19,43 @@ CompanyPage:
     - remarks
     - name: address
       arrayType: toFirstOne
+      using: info_address_id
       <<: *addressFields
+      defaultWhere:
+      - column: remove
+        operator: "="
+        value: false
     - name: offices
       arrayType: toMany #Q1:toManyであれば展開されず配列になる?
-      from: info_office
-      # pagination: true … 呼び出し側がfirst/offset相当の引数でページ送りできるようにする。
-      # limit/offsetは呼び出し側が指定しなかった場合のデフォルト値。
-      pagination: true
       limit: 50
-      offset: 0
-      kind: read
+      <<: *OfficePage 
+
+OfficePage: &OfficePage
+  kind: read
+  from: info_office
+  condition: true
+  columns:
+    - info_office_id
+    - info_company_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: shared_appellations_id
+      <<: *appellationLabels
+    - name: info_address_id
+      arrayType: toFirstOne
+      using: info_address_id
+      <<: *addressFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *updateStaff
       defaultWhere:
-        - column: remove
-          operator: "="
-          value: false
-      columns:
-        - info_office_id
-        - info_company_id
-        - code
-        # info_office.shared_appellations_id はinfo_office側でshared_appellationsへの
-        # FKが1本だけなのでusingを省略しても一意に解決できるが、他の呼び出し箇所との
-        # 書き方をそろえるため明示しておく。
-        - name: shared_appellations_id
-          using: shared_appellations_id
-          arrayType: toFirstOne
-          <<: *appellationLabels
-        - info_address_id
-        - symbol
-        - remarks
-        - update_at
-        - update_user_id
-        - update_user_history_id
-        - remove
+      - column: remove
+        operator: "="
+        value: false

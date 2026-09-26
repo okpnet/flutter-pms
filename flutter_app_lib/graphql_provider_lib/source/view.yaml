@@ -61,14 +61,6 @@ dictionaryEdit: &dictionaryEdit
     - update_user_history_id
     - remove
 
-# --- RFE: dictionaryEditと全く同じ形をkindだけ変えて使い回す例。
-#     read用/edit用でcolumns/fromの構造を揃えておくと、RFEはkindの上書きだけで成立する。
-#     (下書きは"<<: &dictionaryEdit"だったが、これは新規アンカーを定義してしまう書き方。
-#      既に定義済みのdictionaryEditを参照したいので"<<: *dictionaryEdit"が正しい)
-dictionaryRFE: &dictionaryRFE
-  kind: RFE
-  <<: *dictionaryEdit
-
 # --- edit: shared_appellations 更新/新規作成。name/pronunciation/nicknameそれぞれの
 #     shared_dictionary(と配下のshared_dictionary_value)も同時に編集する。 ---
 appellationLabelsEdit: &appellationLabelsEdit
@@ -100,11 +92,6 @@ appellationLabelsEdit: &appellationLabelsEdit
     - update_user_id
     - update_user_history_id
     - remove
-
-# --- RFE: sharedAppellationsEditと同じ形をkindだけ変えて使い回す ---
-appellationLabelsRFE: &appellationLabelsRFE
-  kind: RFE
-  <<: *appellationLabelsEdit
 
 # --- read: shared_appellations 詳細(name/pronunciation/nicknameのJA表示名を取得) ---
 appellationLabels: &appellationLabels
@@ -211,6 +198,25 @@ languageCodeEdit: &languageCodeEdit
     - update_user_history_id
     - remove
 
+# スタッフ履歴
+# update_userに使用
+updateStaff: &updateStaff
+  kind: read
+  from: history_info_staff
+  columns:
+    - history_id
+    - info_staff_id
+    - info_company_id
+    - code
+    - name: name
+      as: name
+      using: shared_appellations_id
+      arrayType: toFirstOne
+      <<: *appellationLabelsEdit
+    - sex
+    - phone
+    - symbol
+    - private_phone 
 
 # --- read: 会社情報(info_company) 詳細画面 ---
 CompanyPage:
@@ -221,6 +227,7 @@ CompanyPage:
     - info_company_id
     - web_page
     - name: ceo
+      as: ceo_labels
       arrayType: toFirstOne
       using: ceo
       pick:
@@ -231,37 +238,29 @@ CompanyPage:
     - symbol
     - remarks
     - name: address
+      as: address
       arrayType: toFirstOne
       using: info_address_id
       <<: *addressFields
-    - name: offices
-      arrayType: toMany #Q1:toManyであれば展開されず配列になる?
-      from: info_office
-      limit: 50
-      kind: read
       defaultWhere:
       - column: remove
         operator: "="
         value: false
-      columns:
-        - info_office_id
-        - info_company_id
-        - code
-        - name: shared_appellations_id
-          arrayType: toFirstOne
-          <<: *appellationLabels
-        - info_address_id
-        - symbol
-        - remarks
-        - update_at
-        - update_user_id
-        - update_user_history_id
-        - remove 
+    - name: offices
+      arrayType: toMany #Q1:toManyであれば展開されず配列になる?
+      limit: 50
+      <<: *OfficePage
 
-# --- edit: 会社情報(info_company) 更新/新規作成 ---
+# --- edit: 会社情報(info_company) 更新/新規作成
+#     要件0037: generateRfe: trueにより、このcolumnsツリーから読み込み専用の
+#     「read for editing」クエリを自動導出する(旧CompanyPageRFEノードは廃止)。
+#     requiredWhereは、read for editing側が1件取得する際の必須引数(通常は主キー)。 ---
 CompanyPageEdit:
   kind: edit
   from: info_company
+  requiredWhere:
+    - info_company_id
+  generateRfe: true
   columns:
     - info_company_id
     - shared_appellations_id
@@ -275,29 +274,132 @@ CompanyPageEdit:
       using: ceo
       <<: *appellationLabelsEdit
     - remarks
-    - update_at
     - update_user_id
     - update_user_history_id
-    - remove 
+    - remove
 
-CompanyPageRFE: 
-  kind: RFE
-  from: info_company
+# 事業所の読み込み
+OfficePage: &OfficePage
+  kind: read
+  from: info_office
+  condition: true
   columns:
+    - info_office_id
     - info_company_id
-    - shared_appellations_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: shared_appellations_id
+      <<: *appellationLabels
+    - name: info_address_id
+      as: address
+      arrayType: toFirstOne
+      using: info_address_id
+      <<: *addressFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *updateStaff
+      defaultWhere:
+      - column: remove
+        operator: "="
+        value: false
+
+OfficePageEdit:
+  kind: edit
+  from: info_office
+  requiredWhere:
+    - info_office_id
+    - info_company_id
+  generateRfe: true
+  columns:
+    - info_office_id
+    - info_company_id
+    - code
+    - name: labels
+      arrayType: toFirstOne
+      using: shared_appellations_id
+      <<: *appellationLabels
     - name: info_address_id
       arrayType: toFirstOne
       using: info_address_id
-      <<: *addressEditFields
-    - web_page
-    - name: ceo
-      arrayType: toFirstOne
-      using: ceo
-      <<: *appellationLabelsEdit
+      <<: *addressFields
     - remarks
-    - update_at
     - update_user_id
     - update_user_history_id
-    - remove 
+    - remove
 
+StaffPage:
+  kind: read
+  from: info_staff
+  condition: true
+  columns:
+    - info_staff_id
+    - info_company_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: shared_appellations_id
+      <<: *appellationLabels
+    - sex
+    - phone
+    - private_phone
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *updateStaff
+      defaultWhere:
+      - column: remove
+        operator: "="
+        value: false
+
+StaffpageEdit:
+  kind: edit
+  from: info_staff
+  requiredWhere:
+    - info_staff_id
+  generateRfe: true
+  columns:
+    - info_staff_id
+    - info_company_id
+    - code
+    - name: labels
+      arrayType: toFirstOne
+      using: shared_appellations_id
+      <<: *appellationLabels
+    - sex
+    - phone
+    - private_phone
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+DepartmentPage:
+  kind: read
+  from: info_department
+  condition: true
+  columns:
+    
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *updateStaff
+      defaultWhere:
+      - column: remove
+        operator: "="
+        value: false

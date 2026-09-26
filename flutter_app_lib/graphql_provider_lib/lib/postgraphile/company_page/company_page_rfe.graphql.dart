@@ -7,16 +7,12 @@ import 'package:graphql_flutter/graphql_flutter.dart' as graphql_flutter;
 class Variables$Query$CompanyPageRfe {
   factory Variables$Query$CompanyPageRfe({
     required String infoCompanyId,
-    required bool ja,
-    required bool en,
-    String? jaLanguageCodeId,
-    String? enLanguageCodeId,
+    required String jaLanguageCodeId,
+    required String enLanguageCodeId,
   }) => Variables$Query$CompanyPageRfe._({
     r'infoCompanyId': infoCompanyId,
-    r'ja': ja,
-    r'en': en,
-    if (jaLanguageCodeId != null) r'jaLanguageCodeId': jaLanguageCodeId,
-    if (enLanguageCodeId != null) r'enLanguageCodeId': enLanguageCodeId,
+    r'jaLanguageCodeId': jaLanguageCodeId,
+    r'enLanguageCodeId': enLanguageCodeId,
   });
 
   Variables$Query$CompanyPageRfe._(this._$data);
@@ -25,18 +21,10 @@ class Variables$Query$CompanyPageRfe {
     final result$data = <String, dynamic>{};
     final l$infoCompanyId = data['infoCompanyId'];
     result$data['infoCompanyId'] = (l$infoCompanyId as String);
-    final l$ja = data['ja'];
-    result$data['ja'] = (l$ja as bool);
-    final l$en = data['en'];
-    result$data['en'] = (l$en as bool);
-    if (data.containsKey('jaLanguageCodeId')) {
-      final l$jaLanguageCodeId = data['jaLanguageCodeId'];
-      result$data['jaLanguageCodeId'] = (l$jaLanguageCodeId as String?);
-    }
-    if (data.containsKey('enLanguageCodeId')) {
-      final l$enLanguageCodeId = data['enLanguageCodeId'];
-      result$data['enLanguageCodeId'] = (l$enLanguageCodeId as String?);
-    }
+    final l$jaLanguageCodeId = data['jaLanguageCodeId'];
+    result$data['jaLanguageCodeId'] = (l$jaLanguageCodeId as String);
+    final l$enLanguageCodeId = data['enLanguageCodeId'];
+    result$data['enLanguageCodeId'] = (l$enLanguageCodeId as String);
     return Variables$Query$CompanyPageRfe._(result$data);
   }
 
@@ -44,30 +32,18 @@ class Variables$Query$CompanyPageRfe {
 
   String get infoCompanyId => (_$data['infoCompanyId'] as String);
 
-  bool get ja => (_$data['ja'] as bool);
+  String get jaLanguageCodeId => (_$data['jaLanguageCodeId'] as String);
 
-  bool get en => (_$data['en'] as bool);
-
-  String? get jaLanguageCodeId => (_$data['jaLanguageCodeId'] as String?);
-
-  String? get enLanguageCodeId => (_$data['enLanguageCodeId'] as String?);
+  String get enLanguageCodeId => (_$data['enLanguageCodeId'] as String);
 
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
     final l$infoCompanyId = infoCompanyId;
     result$data['infoCompanyId'] = l$infoCompanyId;
-    final l$ja = ja;
-    result$data['ja'] = l$ja;
-    final l$en = en;
-    result$data['en'] = l$en;
-    if (_$data.containsKey('jaLanguageCodeId')) {
-      final l$jaLanguageCodeId = jaLanguageCodeId;
-      result$data['jaLanguageCodeId'] = l$jaLanguageCodeId;
-    }
-    if (_$data.containsKey('enLanguageCodeId')) {
-      final l$enLanguageCodeId = enLanguageCodeId;
-      result$data['enLanguageCodeId'] = l$enLanguageCodeId;
-    }
+    final l$jaLanguageCodeId = jaLanguageCodeId;
+    result$data['jaLanguageCodeId'] = l$jaLanguageCodeId;
+    final l$enLanguageCodeId = enLanguageCodeId;
+    result$data['enLanguageCodeId'] = l$enLanguageCodeId;
     return result$data;
   }
 
@@ -88,31 +64,13 @@ class Variables$Query$CompanyPageRfe {
     if (l$infoCompanyId != lOther$infoCompanyId) {
       return false;
     }
-    final l$ja = ja;
-    final lOther$ja = other.ja;
-    if (l$ja != lOther$ja) {
-      return false;
-    }
-    final l$en = en;
-    final lOther$en = other.en;
-    if (l$en != lOther$en) {
-      return false;
-    }
     final l$jaLanguageCodeId = jaLanguageCodeId;
     final lOther$jaLanguageCodeId = other.jaLanguageCodeId;
-    if (_$data.containsKey('jaLanguageCodeId') !=
-        other._$data.containsKey('jaLanguageCodeId')) {
-      return false;
-    }
     if (l$jaLanguageCodeId != lOther$jaLanguageCodeId) {
       return false;
     }
     final l$enLanguageCodeId = enLanguageCodeId;
     final lOther$enLanguageCodeId = other.enLanguageCodeId;
-    if (_$data.containsKey('enLanguageCodeId') !=
-        other._$data.containsKey('enLanguageCodeId')) {
-      return false;
-    }
     if (l$enLanguageCodeId != lOther$enLanguageCodeId) {
       return false;
     }
@@ -122,16 +80,12 @@ class Variables$Query$CompanyPageRfe {
   @override
   int get hashCode {
     final l$infoCompanyId = infoCompanyId;
-    final l$ja = ja;
-    final l$en = en;
     final l$jaLanguageCodeId = jaLanguageCodeId;
     final l$enLanguageCodeId = enLanguageCodeId;
     return Object.hashAll([
       l$infoCompanyId,
-      l$ja,
-      l$en,
-      _$data.containsKey('jaLanguageCodeId') ? l$jaLanguageCodeId : const {},
-      _$data.containsKey('enLanguageCodeId') ? l$enLanguageCodeId : const {},
+      l$jaLanguageCodeId,
+      l$enLanguageCodeId,
     ]);
   }
 }
@@ -147,8 +101,6 @@ abstract class CopyWith$Variables$Query$CompanyPageRfe<TRes> {
 
   TRes call({
     String? infoCompanyId,
-    bool? ja,
-    bool? en,
     String? jaLanguageCodeId,
     String? enLanguageCodeId,
   });
@@ -166,8 +118,6 @@ class _CopyWithImpl$Variables$Query$CompanyPageRfe<TRes>
 
   TRes call({
     Object? infoCompanyId = _undefined,
-    Object? ja = _undefined,
-    Object? en = _undefined,
     Object? jaLanguageCodeId = _undefined,
     Object? enLanguageCodeId = _undefined,
   }) => _then(
@@ -175,12 +125,10 @@ class _CopyWithImpl$Variables$Query$CompanyPageRfe<TRes>
       ..._instance._$data,
       if (infoCompanyId != _undefined && infoCompanyId != null)
         'infoCompanyId': (infoCompanyId as String),
-      if (ja != _undefined && ja != null) 'ja': (ja as bool),
-      if (en != _undefined && en != null) 'en': (en as bool),
-      if (jaLanguageCodeId != _undefined)
-        'jaLanguageCodeId': (jaLanguageCodeId as String?),
-      if (enLanguageCodeId != _undefined)
-        'enLanguageCodeId': (enLanguageCodeId as String?),
+      if (jaLanguageCodeId != _undefined && jaLanguageCodeId != null)
+        'jaLanguageCodeId': (jaLanguageCodeId as String),
+      if (enLanguageCodeId != _undefined && enLanguageCodeId != null)
+        'enLanguageCodeId': (enLanguageCodeId as String),
     }),
   );
 }
@@ -193,8 +141,6 @@ class _CopyWithStubImpl$Variables$Query$CompanyPageRfe<TRes>
 
   call({
     String? infoCompanyId,
-    bool? ja,
-    bool? en,
     String? jaLanguageCodeId,
     String? enLanguageCodeId,
   }) => _res;
@@ -354,32 +300,14 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'ja')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'Boolean'),
-            isNonNull: true,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'en')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'Boolean'),
-            isNonNull: true,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'jaLanguageCodeId')),
-          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: false),
+          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
         VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'enLanguageCodeId')),
-          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: false),
+          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
@@ -512,19 +440,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                   ),
                                 ),
                               ],
-                              directives: [
-                                DirectiveNode(
-                                  name: NameNode(value: 'include'),
-                                  arguments: [
-                                    ArgumentNode(
-                                      name: NameNode(value: 'if'),
-                                      value: VariableNode(
-                                        name: NameNode(value: 'ja'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              directives: [],
                               selectionSet: SelectionSetNode(
                                 selections: [
                                   FieldNode(
@@ -588,19 +504,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                   ),
                                 ),
                               ],
-                              directives: [
-                                DirectiveNode(
-                                  name: NameNode(value: 'include'),
-                                  arguments: [
-                                    ArgumentNode(
-                                      name: NameNode(value: 'if'),
-                                      value: VariableNode(
-                                        name: NameNode(value: 'en'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              directives: [],
                               selectionSet: SelectionSetNode(
                                 selections: [
                                   FieldNode(
@@ -691,19 +595,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                   ),
                                 ),
                               ],
-                              directives: [
-                                DirectiveNode(
-                                  name: NameNode(value: 'include'),
-                                  arguments: [
-                                    ArgumentNode(
-                                      name: NameNode(value: 'if'),
-                                      value: VariableNode(
-                                        name: NameNode(value: 'ja'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              directives: [],
                               selectionSet: SelectionSetNode(
                                 selections: [
                                   FieldNode(
@@ -767,19 +659,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                   ),
                                 ),
                               ],
-                              directives: [
-                                DirectiveNode(
-                                  name: NameNode(value: 'include'),
-                                  arguments: [
-                                    ArgumentNode(
-                                      name: NameNode(value: 'if'),
-                                      value: VariableNode(
-                                        name: NameNode(value: 'en'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              directives: [],
                               selectionSet: SelectionSetNode(
                                 selections: [
                                   FieldNode(
@@ -869,19 +749,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                   ),
                                 ),
                               ],
-                              directives: [
-                                DirectiveNode(
-                                  name: NameNode(value: 'include'),
-                                  arguments: [
-                                    ArgumentNode(
-                                      name: NameNode(value: 'if'),
-                                      value: VariableNode(
-                                        name: NameNode(value: 'ja'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              directives: [],
                               selectionSet: SelectionSetNode(
                                 selections: [
                                   FieldNode(
@@ -945,19 +813,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                   ),
                                 ),
                               ],
-                              directives: [
-                                DirectiveNode(
-                                  name: NameNode(value: 'include'),
-                                  arguments: [
-                                    ArgumentNode(
-                                      name: NameNode(value: 'if'),
-                                      value: VariableNode(
-                                        name: NameNode(value: 'en'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              directives: [],
                               selectionSet: SelectionSetNode(
                                 selections: [
                                   FieldNode(
@@ -1071,19 +927,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                   ),
                                 ),
                               ],
-                              directives: [
-                                DirectiveNode(
-                                  name: NameNode(value: 'include'),
-                                  arguments: [
-                                    ArgumentNode(
-                                      name: NameNode(value: 'if'),
-                                      value: VariableNode(
-                                        name: NameNode(value: 'ja'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              directives: [],
                               selectionSet: SelectionSetNode(
                                 selections: [
                                   FieldNode(
@@ -1147,19 +991,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                   ),
                                 ),
                               ],
-                              directives: [
-                                DirectiveNode(
-                                  name: NameNode(value: 'include'),
-                                  arguments: [
-                                    ArgumentNode(
-                                      name: NameNode(value: 'if'),
-                                      value: VariableNode(
-                                        name: NameNode(value: 'en'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              directives: [],
                               selectionSet: SelectionSetNode(
                                 selections: [
                                   FieldNode(
@@ -1250,19 +1082,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                   ),
                                 ),
                               ],
-                              directives: [
-                                DirectiveNode(
-                                  name: NameNode(value: 'include'),
-                                  arguments: [
-                                    ArgumentNode(
-                                      name: NameNode(value: 'if'),
-                                      value: VariableNode(
-                                        name: NameNode(value: 'ja'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              directives: [],
                               selectionSet: SelectionSetNode(
                                 selections: [
                                   FieldNode(
@@ -1326,19 +1146,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                   ),
                                 ),
                               ],
-                              directives: [
-                                DirectiveNode(
-                                  name: NameNode(value: 'include'),
-                                  arguments: [
-                                    ArgumentNode(
-                                      name: NameNode(value: 'if'),
-                                      value: VariableNode(
-                                        name: NameNode(value: 'en'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              directives: [],
                               selectionSet: SelectionSetNode(
                                 selections: [
                                   FieldNode(
@@ -1428,19 +1236,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                   ),
                                 ),
                               ],
-                              directives: [
-                                DirectiveNode(
-                                  name: NameNode(value: 'include'),
-                                  arguments: [
-                                    ArgumentNode(
-                                      name: NameNode(value: 'if'),
-                                      value: VariableNode(
-                                        name: NameNode(value: 'ja'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              directives: [],
                               selectionSet: SelectionSetNode(
                                 selections: [
                                   FieldNode(
@@ -1504,19 +1300,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                   ),
                                 ),
                               ],
-                              directives: [
-                                DirectiveNode(
-                                  name: NameNode(value: 'include'),
-                                  arguments: [
-                                    ArgumentNode(
-                                      name: NameNode(value: 'if'),
-                                      value: VariableNode(
-                                        name: NameNode(value: 'en'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              directives: [],
                               selectionSet: SelectionSetNode(
                                 selections: [
                                   FieldNode(
@@ -1673,19 +1457,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                         ),
                                       ),
                                     ],
-                                    directives: [
-                                      DirectiveNode(
-                                        name: NameNode(value: 'include'),
-                                        arguments: [
-                                          ArgumentNode(
-                                            name: NameNode(value: 'if'),
-                                            value: VariableNode(
-                                              name: NameNode(value: 'ja'),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                    directives: [],
                                     selectionSet: SelectionSetNode(
                                       selections: [
                                         FieldNode(
@@ -1751,19 +1523,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                         ),
                                       ),
                                     ],
-                                    directives: [
-                                      DirectiveNode(
-                                        name: NameNode(value: 'include'),
-                                        arguments: [
-                                          ArgumentNode(
-                                            name: NameNode(value: 'if'),
-                                            value: VariableNode(
-                                              name: NameNode(value: 'en'),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                    directives: [],
                                     selectionSet: SelectionSetNode(
                                       selections: [
                                         FieldNode(
@@ -1856,19 +1616,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                         ),
                                       ),
                                     ],
-                                    directives: [
-                                      DirectiveNode(
-                                        name: NameNode(value: 'include'),
-                                        arguments: [
-                                          ArgumentNode(
-                                            name: NameNode(value: 'if'),
-                                            value: VariableNode(
-                                              name: NameNode(value: 'ja'),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                    directives: [],
                                     selectionSet: SelectionSetNode(
                                       selections: [
                                         FieldNode(
@@ -1934,19 +1682,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                         ),
                                       ),
                                     ],
-                                    directives: [
-                                      DirectiveNode(
-                                        name: NameNode(value: 'include'),
-                                        arguments: [
-                                          ArgumentNode(
-                                            name: NameNode(value: 'if'),
-                                            value: VariableNode(
-                                              name: NameNode(value: 'en'),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                    directives: [],
                                     selectionSet: SelectionSetNode(
                                       selections: [
                                         FieldNode(
@@ -2039,19 +1775,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                         ),
                                       ),
                                     ],
-                                    directives: [
-                                      DirectiveNode(
-                                        name: NameNode(value: 'include'),
-                                        arguments: [
-                                          ArgumentNode(
-                                            name: NameNode(value: 'if'),
-                                            value: VariableNode(
-                                              name: NameNode(value: 'ja'),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                    directives: [],
                                     selectionSet: SelectionSetNode(
                                       selections: [
                                         FieldNode(
@@ -2117,19 +1841,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                         ),
                                       ),
                                     ],
-                                    directives: [
-                                      DirectiveNode(
-                                        name: NameNode(value: 'include'),
-                                        arguments: [
-                                          ArgumentNode(
-                                            name: NameNode(value: 'if'),
-                                            value: VariableNode(
-                                              name: NameNode(value: 'en'),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                    directives: [],
                                     selectionSet: SelectionSetNode(
                                       selections: [
                                         FieldNode(
@@ -2246,19 +1958,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                         ),
                                       ),
                                     ],
-                                    directives: [
-                                      DirectiveNode(
-                                        name: NameNode(value: 'include'),
-                                        arguments: [
-                                          ArgumentNode(
-                                            name: NameNode(value: 'if'),
-                                            value: VariableNode(
-                                              name: NameNode(value: 'ja'),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                    directives: [],
                                     selectionSet: SelectionSetNode(
                                       selections: [
                                         FieldNode(
@@ -2324,19 +2024,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                         ),
                                       ),
                                     ],
-                                    directives: [
-                                      DirectiveNode(
-                                        name: NameNode(value: 'include'),
-                                        arguments: [
-                                          ArgumentNode(
-                                            name: NameNode(value: 'if'),
-                                            value: VariableNode(
-                                              name: NameNode(value: 'en'),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                    directives: [],
                                     selectionSet: SelectionSetNode(
                                       selections: [
                                         FieldNode(
@@ -2429,19 +2117,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                         ),
                                       ),
                                     ],
-                                    directives: [
-                                      DirectiveNode(
-                                        name: NameNode(value: 'include'),
-                                        arguments: [
-                                          ArgumentNode(
-                                            name: NameNode(value: 'if'),
-                                            value: VariableNode(
-                                              name: NameNode(value: 'ja'),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                    directives: [],
                                     selectionSet: SelectionSetNode(
                                       selections: [
                                         FieldNode(
@@ -2507,19 +2183,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                         ),
                                       ),
                                     ],
-                                    directives: [
-                                      DirectiveNode(
-                                        name: NameNode(value: 'include'),
-                                        arguments: [
-                                          ArgumentNode(
-                                            name: NameNode(value: 'if'),
-                                            value: VariableNode(
-                                              name: NameNode(value: 'en'),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                    directives: [],
                                     selectionSet: SelectionSetNode(
                                       selections: [
                                         FieldNode(
@@ -2612,19 +2276,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                         ),
                                       ),
                                     ],
-                                    directives: [
-                                      DirectiveNode(
-                                        name: NameNode(value: 'include'),
-                                        arguments: [
-                                          ArgumentNode(
-                                            name: NameNode(value: 'if'),
-                                            value: VariableNode(
-                                              name: NameNode(value: 'ja'),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                    directives: [],
                                     selectionSet: SelectionSetNode(
                                       selections: [
                                         FieldNode(
@@ -2690,19 +2342,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                         ),
                                       ),
                                     ],
-                                    directives: [
-                                      DirectiveNode(
-                                        name: NameNode(value: 'include'),
-                                        arguments: [
-                                          ArgumentNode(
-                                            name: NameNode(value: 'if'),
-                                            value: VariableNode(
-                                              name: NameNode(value: 'en'),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                    directives: [],
                                     selectionSet: SelectionSetNode(
                                       selections: [
                                         FieldNode(
@@ -2819,19 +2459,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                         ),
                                       ),
                                     ],
-                                    directives: [
-                                      DirectiveNode(
-                                        name: NameNode(value: 'include'),
-                                        arguments: [
-                                          ArgumentNode(
-                                            name: NameNode(value: 'if'),
-                                            value: VariableNode(
-                                              name: NameNode(value: 'ja'),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                    directives: [],
                                     selectionSet: SelectionSetNode(
                                       selections: [
                                         FieldNode(
@@ -2897,19 +2525,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                         ),
                                       ),
                                     ],
-                                    directives: [
-                                      DirectiveNode(
-                                        name: NameNode(value: 'include'),
-                                        arguments: [
-                                          ArgumentNode(
-                                            name: NameNode(value: 'if'),
-                                            value: VariableNode(
-                                              name: NameNode(value: 'en'),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                    directives: [],
                                     selectionSet: SelectionSetNode(
                                       selections: [
                                         FieldNode(
@@ -3002,19 +2618,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                         ),
                                       ),
                                     ],
-                                    directives: [
-                                      DirectiveNode(
-                                        name: NameNode(value: 'include'),
-                                        arguments: [
-                                          ArgumentNode(
-                                            name: NameNode(value: 'if'),
-                                            value: VariableNode(
-                                              name: NameNode(value: 'ja'),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                    directives: [],
                                     selectionSet: SelectionSetNode(
                                       selections: [
                                         FieldNode(
@@ -3080,19 +2684,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                         ),
                                       ),
                                     ],
-                                    directives: [
-                                      DirectiveNode(
-                                        name: NameNode(value: 'include'),
-                                        arguments: [
-                                          ArgumentNode(
-                                            name: NameNode(value: 'if'),
-                                            value: VariableNode(
-                                              name: NameNode(value: 'en'),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                    directives: [],
                                     selectionSet: SelectionSetNode(
                                       selections: [
                                         FieldNode(
@@ -3185,19 +2777,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                         ),
                                       ),
                                     ],
-                                    directives: [
-                                      DirectiveNode(
-                                        name: NameNode(value: 'include'),
-                                        arguments: [
-                                          ArgumentNode(
-                                            name: NameNode(value: 'if'),
-                                            value: VariableNode(
-                                              name: NameNode(value: 'ja'),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                    directives: [],
                                     selectionSet: SelectionSetNode(
                                       selections: [
                                         FieldNode(
@@ -3263,19 +2843,7 @@ const documentNodeQueryCompanyPageRfe = DocumentNode(
                                         ),
                                       ),
                                     ],
-                                    directives: [
-                                      DirectiveNode(
-                                        name: NameNode(value: 'include'),
-                                        arguments: [
-                                          ArgumentNode(
-                                            name: NameNode(value: 'if'),
-                                            value: VariableNode(
-                                              name: NameNode(value: 'en'),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                    directives: [],
                                     selectionSet: SelectionSetNode(
                                       selections: [
                                         FieldNode(
@@ -4296,8 +3864,8 @@ class _CopyWithStubImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAp
 class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId {
   Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId({
     required this.sharedDictionaryId,
-    this.ja,
-    this.en,
+    required this.ja,
+    required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
@@ -4310,26 +3878,22 @@ class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedA
     final l$$__typename = json['__typename'];
     return Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: l$ja == null
-          ? null
-          : Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
-              (l$ja as Map<String, dynamic>),
-            ),
-      en: l$en == null
-          ? null
-          : Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
-              (l$en as Map<String, dynamic>),
-            ),
+      ja: Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String sharedDictionaryId;
 
-  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja?
+  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja
   ja;
 
-  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en?
+  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en
   en;
 
   final String $__typename;
@@ -4339,9 +3903,9 @@ class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedA
     final l$sharedDictionaryId = sharedDictionaryId;
     _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
     final l$ja = ja;
-    _resultData['ja'] = l$ja?.toJson();
+    _resultData['ja'] = l$ja.toJson();
     final l$en = en;
-    _resultData['en'] = l$en?.toJson();
+    _resultData['en'] = l$en.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -4470,14 +4034,14 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppell
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
           : (sharedDictionaryId as String),
-      ja: ja == _undefined
+      ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja?),
-      en: en == _undefined
+                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja),
+      en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en?),
+                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -4489,14 +4053,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppell
   >
   get ja {
     final local$ja = _instance.ja;
-    return local$ja == null
-        ? CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja(
-            local$ja,
-            (e) => call(ja: e),
-          );
+    return CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
   }
 
   CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
@@ -4504,14 +4064,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppell
   >
   get en {
     final local$en = _instance.en;
-    return local$en == null
-        ? CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en(
-            local$en,
-            (e) => call(en: e),
-          );
+    return CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en(
+      local$en,
+      (e) => call(en: e),
+    );
   }
 }
 
@@ -5293,8 +4849,8 @@ class _CopyWithStubImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAp
 class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId {
   Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId({
     required this.sharedDictionaryId,
-    this.ja,
-    this.en,
+    required this.ja,
+    required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
@@ -5307,26 +4863,22 @@ class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedA
     final l$$__typename = json['__typename'];
     return Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: l$ja == null
-          ? null
-          : Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
-              (l$ja as Map<String, dynamic>),
-            ),
-      en: l$en == null
-          ? null
-          : Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
-              (l$en as Map<String, dynamic>),
-            ),
+      ja: Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String sharedDictionaryId;
 
-  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja?
+  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja
   ja;
 
-  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en?
+  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en
   en;
 
   final String $__typename;
@@ -5336,9 +4888,9 @@ class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedA
     final l$sharedDictionaryId = sharedDictionaryId;
     _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
     final l$ja = ja;
-    _resultData['ja'] = l$ja?.toJson();
+    _resultData['ja'] = l$ja.toJson();
     final l$en = en;
-    _resultData['en'] = l$en?.toJson();
+    _resultData['en'] = l$en.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -5467,14 +5019,14 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppell
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
           : (sharedDictionaryId as String),
-      ja: ja == _undefined
+      ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja?),
-      en: en == _undefined
+                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+      en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en?),
+                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -5486,14 +5038,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppell
   >
   get ja {
     final local$ja = _instance.ja;
-    return local$ja == null
-        ? CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja(
-            local$ja,
-            (e) => call(ja: e),
-          );
+    return CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
   }
 
   CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
@@ -5501,14 +5049,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppell
   >
   get en {
     final local$en = _instance.en;
-    return local$en == null
-        ? CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en(
-            local$en,
-            (e) => call(en: e),
-          );
+    return CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en(
+      local$en,
+      (e) => call(en: e),
+    );
   }
 }
 
@@ -6290,8 +5834,8 @@ class _CopyWithStubImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAp
 class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId {
   Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId({
     required this.sharedDictionaryId,
-    this.ja,
-    this.en,
+    required this.ja,
+    required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
@@ -6304,26 +5848,22 @@ class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedA
     final l$$__typename = json['__typename'];
     return Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: l$ja == null
-          ? null
-          : Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
-              (l$ja as Map<String, dynamic>),
-            ),
-      en: l$en == null
-          ? null
-          : Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
-              (l$en as Map<String, dynamic>),
-            ),
+      ja: Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String sharedDictionaryId;
 
-  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja?
+  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja
   ja;
 
-  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en?
+  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en
   en;
 
   final String $__typename;
@@ -6333,9 +5873,9 @@ class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedA
     final l$sharedDictionaryId = sharedDictionaryId;
     _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
     final l$ja = ja;
-    _resultData['ja'] = l$ja?.toJson();
+    _resultData['ja'] = l$ja.toJson();
     final l$en = en;
-    _resultData['en'] = l$en?.toJson();
+    _resultData['en'] = l$en.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -6464,14 +6004,14 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppell
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
           : (sharedDictionaryId as String),
-      ja: ja == _undefined
+      ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja?),
-      en: en == _undefined
+                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja),
+      en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en?),
+                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -6483,14 +6023,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppell
   >
   get ja {
     final local$ja = _instance.ja;
-    return local$ja == null
-        ? CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja(
-            local$ja,
-            (e) => call(ja: e),
-          );
+    return CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
   }
 
   CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en<
@@ -6498,14 +6034,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppell
   >
   get en {
     final local$en = _instance.en;
-    return local$en == null
-        ? CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en(
-            local$en,
-            (e) => call(en: e),
-          );
+    return CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en(
+      local$en,
+      (e) => call(en: e),
+    );
   }
 }
 
@@ -7625,8 +7157,8 @@ class _CopyWithStubImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo<
 class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNameId {
   Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNameId({
     required this.sharedDictionaryId,
-    this.ja,
-    this.en,
+    required this.ja,
+    required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
@@ -7639,26 +7171,22 @@ class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryByShar
     final l$$__typename = json['__typename'];
     return Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: l$ja == null
-          ? null
-          : Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
-              (l$ja as Map<String, dynamic>),
-            ),
-      en: l$en == null
-          ? null
-          : Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
-              (l$en as Map<String, dynamic>),
-            ),
+      ja: Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String sharedDictionaryId;
 
-  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNameId$ja?
+  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNameId$ja
   ja;
 
-  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNameId$en?
+  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNameId$en
   en;
 
   final String $__typename;
@@ -7668,9 +7196,9 @@ class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryByShar
     final l$sharedDictionaryId = sharedDictionaryId;
     _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
     final l$ja = ja;
-    _resultData['ja'] = l$ja?.toJson();
+    _resultData['ja'] = l$ja.toJson();
     final l$en = en;
-    _resultData['en'] = l$en?.toJson();
+    _resultData['en'] = l$en.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -7799,14 +7327,14 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDi
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
           : (sharedDictionaryId as String),
-      ja: ja == _undefined
+      ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNameId$ja?),
-      en: en == _undefined
+                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNameId$ja),
+      en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNameId$en?),
+                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -7818,14 +7346,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDi
   >
   get ja {
     final local$ja = _instance.ja;
-    return local$ja == null
-        ? CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNameId$ja.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNameId$ja(
-            local$ja,
-            (e) => call(ja: e),
-          );
+    return CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNameId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
   }
 
   CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNameId$en<
@@ -7833,14 +7357,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDi
   >
   get en {
     final local$en = _instance.en;
-    return local$en == null
-        ? CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNameId$en.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNameId$en(
-            local$en,
-            (e) => call(en: e),
-          );
+    return CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNameId$en(
+      local$en,
+      (e) => call(en: e),
+    );
   }
 }
 
@@ -8622,8 +8142,8 @@ class _CopyWithStubImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$shar
 class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryPronunciationId {
   Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryPronunciationId({
     required this.sharedDictionaryId,
-    this.ja,
-    this.en,
+    required this.ja,
+    required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
@@ -8636,26 +8156,22 @@ class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryByShar
     final l$$__typename = json['__typename'];
     return Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: l$ja == null
-          ? null
-          : Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
-              (l$ja as Map<String, dynamic>),
-            ),
-      en: l$en == null
-          ? null
-          : Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
-              (l$en as Map<String, dynamic>),
-            ),
+      ja: Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String sharedDictionaryId;
 
-  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja?
+  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja
   ja;
 
-  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en?
+  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en
   en;
 
   final String $__typename;
@@ -8665,9 +8181,9 @@ class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryByShar
     final l$sharedDictionaryId = sharedDictionaryId;
     _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
     final l$ja = ja;
-    _resultData['ja'] = l$ja?.toJson();
+    _resultData['ja'] = l$ja.toJson();
     final l$en = en;
-    _resultData['en'] = l$en?.toJson();
+    _resultData['en'] = l$en.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -8796,14 +8312,14 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDi
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
           : (sharedDictionaryId as String),
-      ja: ja == _undefined
+      ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja?),
-      en: en == _undefined
+                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+      en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en?),
+                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -8815,14 +8331,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDi
   >
   get ja {
     final local$ja = _instance.ja;
-    return local$ja == null
-        ? CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja(
-            local$ja,
-            (e) => call(ja: e),
-          );
+    return CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
   }
 
   CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en<
@@ -8830,14 +8342,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDi
   >
   get en {
     final local$en = _instance.en;
-    return local$en == null
-        ? CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en(
-            local$en,
-            (e) => call(en: e),
-          );
+    return CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryPronunciationId$en(
+      local$en,
+      (e) => call(en: e),
+    );
   }
 }
 
@@ -9619,8 +9127,8 @@ class _CopyWithStubImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$shar
 class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNicknameId {
   Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNicknameId({
     required this.sharedDictionaryId,
-    this.ja,
-    this.en,
+    required this.ja,
+    required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
@@ -9633,26 +9141,22 @@ class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryByShar
     final l$$__typename = json['__typename'];
     return Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: l$ja == null
-          ? null
-          : Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
-              (l$ja as Map<String, dynamic>),
-            ),
-      en: l$en == null
-          ? null
-          : Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
-              (l$en as Map<String, dynamic>),
-            ),
+      ja: Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String sharedDictionaryId;
 
-  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja?
+  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja
   ja;
 
-  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNicknameId$en?
+  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNicknameId$en
   en;
 
   final String $__typename;
@@ -9662,9 +9166,9 @@ class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryByShar
     final l$sharedDictionaryId = sharedDictionaryId;
     _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
     final l$ja = ja;
-    _resultData['ja'] = l$ja?.toJson();
+    _resultData['ja'] = l$ja.toJson();
     final l$en = en;
-    _resultData['en'] = l$en?.toJson();
+    _resultData['en'] = l$en.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -9793,14 +9297,14 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDi
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
           : (sharedDictionaryId as String),
-      ja: ja == _undefined
+      ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja?),
-      en: en == _undefined
+                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja),
+      en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNicknameId$en?),
+                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -9812,14 +9316,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDi
   >
   get ja {
     final local$ja = _instance.ja;
-    return local$ja == null
-        ? CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja(
-            local$ja,
-            (e) => call(ja: e),
-          );
+    return CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNicknameId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
   }
 
   CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNicknameId$en<
@@ -9827,14 +9327,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDi
   >
   get en {
     final local$en = _instance.en;
-    return local$en == null
-        ? CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNicknameId$en(
-            local$en,
-            (e) => call(en: e),
-          );
+    return CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$ceo$sharedDictionaryBySharedDictionaryNicknameId$en(
+      local$en,
+      (e) => call(en: e),
+    );
   }
 }
 
@@ -11365,8 +10861,8 @@ class _CopyWithStubImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddr
 class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNameId {
   Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNameId({
     required this.sharedDictionaryId,
-    this.ja,
-    this.en,
+    required this.ja,
+    required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
@@ -11379,26 +10875,22 @@ class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId
     final l$$__typename = json['__typename'];
     return Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: l$ja == null
-          ? null
-          : Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
-              (l$ja as Map<String, dynamic>),
-            ),
-      en: l$en == null
-          ? null
-          : Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
-              (l$en as Map<String, dynamic>),
-            ),
+      ja: Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String sharedDictionaryId;
 
-  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNameId$ja?
+  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNameId$ja
   ja;
 
-  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNameId$en?
+  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNameId$en
   en;
 
   final String $__typename;
@@ -11408,9 +10900,9 @@ class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId
     final l$sharedDictionaryId = sharedDictionaryId;
     _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
     final l$ja = ja;
-    _resultData['ja'] = l$ja?.toJson();
+    _resultData['ja'] = l$ja.toJson();
     final l$en = en;
-    _resultData['en'] = l$en?.toJson();
+    _resultData['en'] = l$en.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -11539,14 +11031,14 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressB
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
           : (sharedDictionaryId as String),
-      ja: ja == _undefined
+      ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNameId$ja?),
-      en: en == _undefined
+                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNameId$ja),
+      en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNameId$en?),
+                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -11558,14 +11050,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressB
   >
   get ja {
     final local$ja = _instance.ja;
-    return local$ja == null
-        ? CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNameId$ja.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNameId$ja(
-            local$ja,
-            (e) => call(ja: e),
-          );
+    return CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNameId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
   }
 
   CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNameId$en<
@@ -11573,14 +11061,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressB
   >
   get en {
     final local$en = _instance.en;
-    return local$en == null
-        ? CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNameId$en.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNameId$en(
-            local$en,
-            (e) => call(en: e),
-          );
+    return CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNameId$en(
+      local$en,
+      (e) => call(en: e),
+    );
   }
 }
 
@@ -12362,8 +11846,8 @@ class _CopyWithStubImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddr
 class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryPronunciationId {
   Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryPronunciationId({
     required this.sharedDictionaryId,
-    this.ja,
-    this.en,
+    required this.ja,
+    required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
@@ -12376,26 +11860,22 @@ class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId
     final l$$__typename = json['__typename'];
     return Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: l$ja == null
-          ? null
-          : Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
-              (l$ja as Map<String, dynamic>),
-            ),
-      en: l$en == null
-          ? null
-          : Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
-              (l$en as Map<String, dynamic>),
-            ),
+      ja: Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String sharedDictionaryId;
 
-  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryPronunciationId$ja?
+  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryPronunciationId$ja
   ja;
 
-  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryPronunciationId$en?
+  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryPronunciationId$en
   en;
 
   final String $__typename;
@@ -12405,9 +11885,9 @@ class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId
     final l$sharedDictionaryId = sharedDictionaryId;
     _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
     final l$ja = ja;
-    _resultData['ja'] = l$ja?.toJson();
+    _resultData['ja'] = l$ja.toJson();
     final l$en = en;
-    _resultData['en'] = l$en?.toJson();
+    _resultData['en'] = l$en.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -12536,14 +12016,14 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressB
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
           : (sharedDictionaryId as String),
-      ja: ja == _undefined
+      ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryPronunciationId$ja?),
-      en: en == _undefined
+                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+      en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryPronunciationId$en?),
+                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -12555,14 +12035,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressB
   >
   get ja {
     final local$ja = _instance.ja;
-    return local$ja == null
-        ? CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryPronunciationId$ja(
-            local$ja,
-            (e) => call(ja: e),
-          );
+    return CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
   }
 
   CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryPronunciationId$en<
@@ -12570,14 +12046,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressB
   >
   get en {
     final local$en = _instance.en;
-    return local$en == null
-        ? CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryPronunciationId$en(
-            local$en,
-            (e) => call(en: e),
-          );
+    return CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryPronunciationId$en(
+      local$en,
+      (e) => call(en: e),
+    );
   }
 }
 
@@ -13359,8 +12831,8 @@ class _CopyWithStubImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddr
 class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNicknameId {
   Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNicknameId({
     required this.sharedDictionaryId,
-    this.ja,
-    this.en,
+    required this.ja,
+    required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
@@ -13373,26 +12845,22 @@ class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId
     final l$$__typename = json['__typename'];
     return Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: l$ja == null
-          ? null
-          : Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
-              (l$ja as Map<String, dynamic>),
-            ),
-      en: l$en == null
-          ? null
-          : Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
-              (l$en as Map<String, dynamic>),
-            ),
+      ja: Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String sharedDictionaryId;
 
-  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNicknameId$ja?
+  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNicknameId$ja
   ja;
 
-  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNicknameId$en?
+  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNicknameId$en
   en;
 
   final String $__typename;
@@ -13402,9 +12870,9 @@ class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId
     final l$sharedDictionaryId = sharedDictionaryId;
     _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
     final l$ja = ja;
-    _resultData['ja'] = l$ja?.toJson();
+    _resultData['ja'] = l$ja.toJson();
     final l$en = en;
-    _resultData['en'] = l$en?.toJson();
+    _resultData['en'] = l$en.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -13533,14 +13001,14 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressB
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
           : (sharedDictionaryId as String),
-      ja: ja == _undefined
+      ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNicknameId$ja?),
-      en: en == _undefined
+                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNicknameId$ja),
+      en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNicknameId$en?),
+                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -13552,14 +13020,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressB
   >
   get ja {
     final local$ja = _instance.ja;
-    return local$ja == null
-        ? CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNicknameId$ja(
-            local$ja,
-            (e) => call(ja: e),
-          );
+    return CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNicknameId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
   }
 
   CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNicknameId$en<
@@ -13567,14 +13031,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressB
   >
   get en {
     final local$en = _instance.en;
-    return local$en == null
-        ? CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNicknameId$en(
-            local$en,
-            (e) => call(en: e),
-          );
+    return CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address1$sharedDictionaryBySharedDictionaryNicknameId$en(
+      local$en,
+      (e) => call(en: e),
+    );
   }
 }
 
@@ -14710,8 +14170,8 @@ class _CopyWithStubImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddr
 class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNameId {
   Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNameId({
     required this.sharedDictionaryId,
-    this.ja,
-    this.en,
+    required this.ja,
+    required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
@@ -14724,26 +14184,22 @@ class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId
     final l$$__typename = json['__typename'];
     return Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: l$ja == null
-          ? null
-          : Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
-              (l$ja as Map<String, dynamic>),
-            ),
-      en: l$en == null
-          ? null
-          : Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
-              (l$en as Map<String, dynamic>),
-            ),
+      ja: Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String sharedDictionaryId;
 
-  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNameId$ja?
+  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNameId$ja
   ja;
 
-  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNameId$en?
+  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNameId$en
   en;
 
   final String $__typename;
@@ -14753,9 +14209,9 @@ class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId
     final l$sharedDictionaryId = sharedDictionaryId;
     _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
     final l$ja = ja;
-    _resultData['ja'] = l$ja?.toJson();
+    _resultData['ja'] = l$ja.toJson();
     final l$en = en;
-    _resultData['en'] = l$en?.toJson();
+    _resultData['en'] = l$en.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -14884,14 +14340,14 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressB
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
           : (sharedDictionaryId as String),
-      ja: ja == _undefined
+      ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNameId$ja?),
-      en: en == _undefined
+                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNameId$ja),
+      en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNameId$en?),
+                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -14903,14 +14359,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressB
   >
   get ja {
     final local$ja = _instance.ja;
-    return local$ja == null
-        ? CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNameId$ja.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNameId$ja(
-            local$ja,
-            (e) => call(ja: e),
-          );
+    return CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNameId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
   }
 
   CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNameId$en<
@@ -14918,14 +14370,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressB
   >
   get en {
     final local$en = _instance.en;
-    return local$en == null
-        ? CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNameId$en.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNameId$en(
-            local$en,
-            (e) => call(en: e),
-          );
+    return CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNameId$en(
+      local$en,
+      (e) => call(en: e),
+    );
   }
 }
 
@@ -15707,8 +15155,8 @@ class _CopyWithStubImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddr
 class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryPronunciationId {
   Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryPronunciationId({
     required this.sharedDictionaryId,
-    this.ja,
-    this.en,
+    required this.ja,
+    required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
@@ -15721,26 +15169,22 @@ class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId
     final l$$__typename = json['__typename'];
     return Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: l$ja == null
-          ? null
-          : Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
-              (l$ja as Map<String, dynamic>),
-            ),
-      en: l$en == null
-          ? null
-          : Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
-              (l$en as Map<String, dynamic>),
-            ),
+      ja: Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String sharedDictionaryId;
 
-  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryPronunciationId$ja?
+  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryPronunciationId$ja
   ja;
 
-  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryPronunciationId$en?
+  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryPronunciationId$en
   en;
 
   final String $__typename;
@@ -15750,9 +15194,9 @@ class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId
     final l$sharedDictionaryId = sharedDictionaryId;
     _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
     final l$ja = ja;
-    _resultData['ja'] = l$ja?.toJson();
+    _resultData['ja'] = l$ja.toJson();
     final l$en = en;
-    _resultData['en'] = l$en?.toJson();
+    _resultData['en'] = l$en.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -15881,14 +15325,14 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressB
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
           : (sharedDictionaryId as String),
-      ja: ja == _undefined
+      ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryPronunciationId$ja?),
-      en: en == _undefined
+                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+      en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryPronunciationId$en?),
+                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -15900,14 +15344,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressB
   >
   get ja {
     final local$ja = _instance.ja;
-    return local$ja == null
-        ? CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryPronunciationId$ja(
-            local$ja,
-            (e) => call(ja: e),
-          );
+    return CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
   }
 
   CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryPronunciationId$en<
@@ -15915,14 +15355,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressB
   >
   get en {
     final local$en = _instance.en;
-    return local$en == null
-        ? CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryPronunciationId$en(
-            local$en,
-            (e) => call(en: e),
-          );
+    return CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryPronunciationId$en(
+      local$en,
+      (e) => call(en: e),
+    );
   }
 }
 
@@ -16704,8 +16140,8 @@ class _CopyWithStubImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddr
 class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNicknameId {
   Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNicknameId({
     required this.sharedDictionaryId,
-    this.ja,
-    this.en,
+    required this.ja,
+    required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
@@ -16718,26 +16154,22 @@ class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId
     final l$$__typename = json['__typename'];
     return Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: l$ja == null
-          ? null
-          : Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
-              (l$ja as Map<String, dynamic>),
-            ),
-      en: l$en == null
-          ? null
-          : Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
-              (l$en as Map<String, dynamic>),
-            ),
+      ja: Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String sharedDictionaryId;
 
-  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNicknameId$ja?
+  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNicknameId$ja
   ja;
 
-  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNicknameId$en?
+  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNicknameId$en
   en;
 
   final String $__typename;
@@ -16747,9 +16179,9 @@ class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId
     final l$sharedDictionaryId = sharedDictionaryId;
     _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
     final l$ja = ja;
-    _resultData['ja'] = l$ja?.toJson();
+    _resultData['ja'] = l$ja.toJson();
     final l$en = en;
-    _resultData['en'] = l$en?.toJson();
+    _resultData['en'] = l$en.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -16878,14 +16310,14 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressB
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
           : (sharedDictionaryId as String),
-      ja: ja == _undefined
+      ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNicknameId$ja?),
-      en: en == _undefined
+                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNicknameId$ja),
+      en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNicknameId$en?),
+                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -16897,14 +16329,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressB
   >
   get ja {
     final local$ja = _instance.ja;
-    return local$ja == null
-        ? CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNicknameId$ja(
-            local$ja,
-            (e) => call(ja: e),
-          );
+    return CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNicknameId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
   }
 
   CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNicknameId$en<
@@ -16912,14 +16340,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressB
   >
   get en {
     final local$en = _instance.en;
-    return local$en == null
-        ? CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNicknameId$en(
-            local$en,
-            (e) => call(en: e),
-          );
+    return CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$address2$sharedDictionaryBySharedDictionaryNicknameId$en(
+      local$en,
+      (e) => call(en: e),
+    );
   }
 }
 
@@ -18055,8 +17479,8 @@ class _CopyWithStubImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddr
 class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNameId {
   Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNameId({
     required this.sharedDictionaryId,
-    this.ja,
-    this.en,
+    required this.ja,
+    required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
@@ -18069,26 +17493,22 @@ class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId
     final l$$__typename = json['__typename'];
     return Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: l$ja == null
-          ? null
-          : Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
-              (l$ja as Map<String, dynamic>),
-            ),
-      en: l$en == null
-          ? null
-          : Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
-              (l$en as Map<String, dynamic>),
-            ),
+      ja: Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String sharedDictionaryId;
 
-  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNameId$ja?
+  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNameId$ja
   ja;
 
-  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNameId$en?
+  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNameId$en
   en;
 
   final String $__typename;
@@ -18098,9 +17518,9 @@ class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId
     final l$sharedDictionaryId = sharedDictionaryId;
     _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
     final l$ja = ja;
-    _resultData['ja'] = l$ja?.toJson();
+    _resultData['ja'] = l$ja.toJson();
     final l$en = en;
-    _resultData['en'] = l$en?.toJson();
+    _resultData['en'] = l$en.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -18229,14 +17649,14 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressB
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
           : (sharedDictionaryId as String),
-      ja: ja == _undefined
+      ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNameId$ja?),
-      en: en == _undefined
+                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNameId$ja),
+      en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNameId$en?),
+                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -18248,14 +17668,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressB
   >
   get ja {
     final local$ja = _instance.ja;
-    return local$ja == null
-        ? CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNameId$ja.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNameId$ja(
-            local$ja,
-            (e) => call(ja: e),
-          );
+    return CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNameId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
   }
 
   CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNameId$en<
@@ -18263,14 +17679,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressB
   >
   get en {
     final local$en = _instance.en;
-    return local$en == null
-        ? CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNameId$en.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNameId$en(
-            local$en,
-            (e) => call(en: e),
-          );
+    return CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNameId$en(
+      local$en,
+      (e) => call(en: e),
+    );
   }
 }
 
@@ -19052,8 +18464,8 @@ class _CopyWithStubImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddr
 class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryPronunciationId {
   Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryPronunciationId({
     required this.sharedDictionaryId,
-    this.ja,
-    this.en,
+    required this.ja,
+    required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
@@ -19066,26 +18478,22 @@ class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId
     final l$$__typename = json['__typename'];
     return Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: l$ja == null
-          ? null
-          : Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
-              (l$ja as Map<String, dynamic>),
-            ),
-      en: l$en == null
-          ? null
-          : Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
-              (l$en as Map<String, dynamic>),
-            ),
+      ja: Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String sharedDictionaryId;
 
-  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja?
+  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja
   ja;
 
-  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryPronunciationId$en?
+  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryPronunciationId$en
   en;
 
   final String $__typename;
@@ -19095,9 +18503,9 @@ class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId
     final l$sharedDictionaryId = sharedDictionaryId;
     _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
     final l$ja = ja;
-    _resultData['ja'] = l$ja?.toJson();
+    _resultData['ja'] = l$ja.toJson();
     final l$en = en;
-    _resultData['en'] = l$en?.toJson();
+    _resultData['en'] = l$en.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -19226,14 +18634,14 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressB
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
           : (sharedDictionaryId as String),
-      ja: ja == _undefined
+      ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja?),
-      en: en == _undefined
+                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+      en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryPronunciationId$en?),
+                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -19245,14 +18653,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressB
   >
   get ja {
     final local$ja = _instance.ja;
-    return local$ja == null
-        ? CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja(
-            local$ja,
-            (e) => call(ja: e),
-          );
+    return CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
   }
 
   CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryPronunciationId$en<
@@ -19260,14 +18664,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressB
   >
   get en {
     final local$en = _instance.en;
-    return local$en == null
-        ? CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryPronunciationId$en(
-            local$en,
-            (e) => call(en: e),
-          );
+    return CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryPronunciationId$en(
+      local$en,
+      (e) => call(en: e),
+    );
   }
 }
 
@@ -20049,8 +19449,8 @@ class _CopyWithStubImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddr
 class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNicknameId {
   Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNicknameId({
     required this.sharedDictionaryId,
-    this.ja,
-    this.en,
+    required this.ja,
+    required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
@@ -20063,26 +19463,22 @@ class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId
     final l$$__typename = json['__typename'];
     return Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: l$ja == null
-          ? null
-          : Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
-              (l$ja as Map<String, dynamic>),
-            ),
-      en: l$en == null
-          ? null
-          : Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
-              (l$en as Map<String, dynamic>),
-            ),
+      ja: Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String sharedDictionaryId;
 
-  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNicknameId$ja?
+  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNicknameId$ja
   ja;
 
-  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNicknameId$en?
+  final Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNicknameId$en
   en;
 
   final String $__typename;
@@ -20092,9 +19488,9 @@ class Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId
     final l$sharedDictionaryId = sharedDictionaryId;
     _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
     final l$ja = ja;
-    _resultData['ja'] = l$ja?.toJson();
+    _resultData['ja'] = l$ja.toJson();
     final l$en = en;
-    _resultData['en'] = l$en?.toJson();
+    _resultData['en'] = l$en.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -20223,14 +19619,14 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressB
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
           : (sharedDictionaryId as String),
-      ja: ja == _undefined
+      ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNicknameId$ja?),
-      en: en == _undefined
+                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNicknameId$ja),
+      en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNicknameId$en?),
+                as Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -20242,14 +19638,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressB
   >
   get ja {
     final local$ja = _instance.ja;
-    return local$ja == null
-        ? CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNicknameId$ja(
-            local$ja,
-            (e) => call(ja: e),
-          );
+    return CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNicknameId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
   }
 
   CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNicknameId$en<
@@ -20257,14 +19649,10 @@ class _CopyWithImpl$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressB
   >
   get en {
     final local$en = _instance.en;
-    return local$en == null
-        ? CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNicknameId$en(
-            local$en,
-            (e) => call(en: e),
-          );
+    return CopyWith$Query$CompanyPageRfe$infoCompanyByInfoCompanyId$infoAddressByInfoAddressId$billName$sharedDictionaryBySharedDictionaryNicknameId$en(
+      local$en,
+      (e) => call(en: e),
+    );
   }
 }
 

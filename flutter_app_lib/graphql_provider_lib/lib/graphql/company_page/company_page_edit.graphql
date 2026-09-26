@@ -18,6 +18,10 @@
 # `code`で解決して渡す(要件0033・shipping_kind試作と同じ方式)。`dictionaryValue`は
 # `String!`のため、翻訳が無い言語は呼び出し側で空文字列('')に変換してから渡す想定
 # (要件0026追記9・27_yaml_to_graphql_conversion_rules.md参照)。
+#
+# 要件0037: `view.yaml`の`CompanyPageEdit`は`generateRfe: true`を持つ。編集フォームへの
+# プリロード用クエリ(旧RFE)は、独立したYAMLノードとしてではなく、本ノードと全く同じ
+# `columns`ツリーから自動導出される(company_page_rfe.graphql参照)。
 
 mutation CompanyPageEdit(
   $infoCompanyId: UUID!

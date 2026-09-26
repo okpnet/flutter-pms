@@ -16,8 +16,19 @@
 #
 # `shared_language_code.code`による絞り込みは標準PostGraphileの`condition`/`filter`では
 # 実現できないため(27_yaml_to_graphql_conversion_rules.md 4-1節)、呼び出し側が`code`
-# (+`remove = false`)から`shared_language_code_id`を事前解決し、`$jaLanguageCodeId`/
-# `$enLanguageCodeId`として渡す(要件0033・shipping_kind試作と同じ方式)。
+# (+`remove = false`)から`shared_language_code_id`を事前解決し、`$languageCodeId`として
+# 渡す(要件0033・shipping_kind試作と同じ方式)。
+#
+# 要件0036(2026-09-26): 従来は`$ja: Boolean!`/`$en: Boolean!`の2つのbooleanで
+# ja/en両方を常に取得可能にしていたが(1回の呼び出しで2言語ぶんの`sharedDictionaryValuesBySharedDictionaryId`
+# を毎回問い合わせる冗長な形だった)、実際のUIは1回に1言語(現在の表示言語)しか
+# 必要としないため、1回の呼び出しで言語1つのみ取得する形に変更した。
+# `$ja`/`$en`/`$jaLanguageCodeId`/`$enLanguageCodeId`(計4変数)を廃止し、
+# 呼び出し側が表示したい言語の`shared_language_code_id`を事前解決して渡す
+# `$languageCodeId: UUID!`(1変数)に統一した。各辞書値は`ja`/`en`のエイリアスではなく
+# `value`という単一のエイリアスで取得する(view.yamlの`dictionaryLabel.columns[].name: value`
+# にならう)。表示言語を切り替える場合は、呼び出し側が`$languageCodeId`を差し替えて
+# 再度クエリを呼び出す想定。
 #
 # view.yamlの`CompanyPage`は会社自身の名前(`shared_appellations_id`)・住所の
 # `infoAddressId`・住所の共通項(remarks/updateAt/remove)を明示していないが、
@@ -26,19 +37,14 @@
 # 含めている。
 #
 # view.yamlの`CompanyPage.offices`(`shared_appellations_id`)には`pick`指定が無いため、
-# name/pronunciation/nicknameすべてを取得する(要件0033時点のGraphQLコメントは
-# 「view.yamlのpick: [name]に合わせ」としていたが、現行のview.yamlにその`pick`は
-# 存在しないため、要件0035では現行view.yamlの記述どおりに修正した)。
+# name/pronunciation/nicknameすべてを取得する(要件0035で現行view.yamlの記述どおりに修正)。
 
 query CompanyPageRead(
   $first: Int!
   $offset: Int
   $condition: InfoCompanyCondition
   $orderBy: [InfoCompaniesOrderBy!] = [PRIMARY_KEY_ASC]
-  $ja: Boolean!
-  $en: Boolean!
-  $jaLanguageCodeId: UUID
-  $enLanguageCodeId: UUID
+  $languageCodeId: UUID!
   $officesFirst: Int = 50
   $officesOffset: Int = 0
   $removed: Boolean = false
@@ -70,16 +76,9 @@ query CompanyPageRead(
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {
           sharedDictionaryId
-          ja: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-          ) @include(if: $ja) {
-            nodes {
-              dictionaryValue
-            }
-          }
-          en: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $enLanguageCodeId }
-          ) @include(if: $en) {
+          value: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $languageCodeId }
+          ) {
             nodes {
               dictionaryValue
             }
@@ -87,16 +86,9 @@ query CompanyPageRead(
         }
         sharedDictionaryBySharedDictionaryPronunciationId {
           sharedDictionaryId
-          ja: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-          ) @include(if: $ja) {
-            nodes {
-              dictionaryValue
-            }
-          }
-          en: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $enLanguageCodeId }
-          ) @include(if: $en) {
+          value: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $languageCodeId }
+          ) {
             nodes {
               dictionaryValue
             }
@@ -104,16 +96,9 @@ query CompanyPageRead(
         }
         sharedDictionaryBySharedDictionaryNicknameId {
           sharedDictionaryId
-          ja: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-          ) @include(if: $ja) {
-            nodes {
-              dictionaryValue
-            }
-          }
-          en: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $enLanguageCodeId }
-          ) @include(if: $en) {
+          value: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $languageCodeId }
+          ) {
             nodes {
               dictionaryValue
             }
@@ -126,16 +111,9 @@ query CompanyPageRead(
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {
           sharedDictionaryId
-          ja: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-          ) @include(if: $ja) {
-            nodes {
-              dictionaryValue
-            }
-          }
-          en: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $enLanguageCodeId }
-          ) @include(if: $en) {
+          value: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $languageCodeId }
+          ) {
             nodes {
               dictionaryValue
             }
@@ -143,16 +121,9 @@ query CompanyPageRead(
         }
         sharedDictionaryBySharedDictionaryPronunciationId {
           sharedDictionaryId
-          ja: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-          ) @include(if: $ja) {
-            nodes {
-              dictionaryValue
-            }
-          }
-          en: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $enLanguageCodeId }
-          ) @include(if: $en) {
+          value: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $languageCodeId }
+          ) {
             nodes {
               dictionaryValue
             }
@@ -160,16 +131,9 @@ query CompanyPageRead(
         }
         sharedDictionaryBySharedDictionaryNicknameId {
           sharedDictionaryId
-          ja: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-          ) @include(if: $ja) {
-            nodes {
-              dictionaryValue
-            }
-          }
-          en: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $enLanguageCodeId }
-          ) @include(if: $en) {
+          value: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $languageCodeId }
+          ) {
             nodes {
               dictionaryValue
             }
@@ -187,16 +151,9 @@ query CompanyPageRead(
           sharedAppellationsId
           sharedDictionaryBySharedDictionaryNameId {
             sharedDictionaryId
-            ja: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-            ) @include(if: $ja) {
-              nodes {
-                dictionaryValue
-              }
-            }
-            en: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $enLanguageCodeId }
-            ) @include(if: $en) {
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
               nodes {
                 dictionaryValue
               }
@@ -204,16 +161,9 @@ query CompanyPageRead(
           }
           sharedDictionaryBySharedDictionaryPronunciationId {
             sharedDictionaryId
-            ja: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-            ) @include(if: $ja) {
-              nodes {
-                dictionaryValue
-              }
-            }
-            en: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $enLanguageCodeId }
-            ) @include(if: $en) {
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
               nodes {
                 dictionaryValue
               }
@@ -221,16 +171,9 @@ query CompanyPageRead(
           }
           sharedDictionaryBySharedDictionaryNicknameId {
             sharedDictionaryId
-            ja: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-            ) @include(if: $ja) {
-              nodes {
-                dictionaryValue
-              }
-            }
-            en: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $enLanguageCodeId }
-            ) @include(if: $en) {
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
               nodes {
                 dictionaryValue
               }
@@ -242,16 +185,9 @@ query CompanyPageRead(
           sharedAppellationsId
           sharedDictionaryBySharedDictionaryNameId {
             sharedDictionaryId
-            ja: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-            ) @include(if: $ja) {
-              nodes {
-                dictionaryValue
-              }
-            }
-            en: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $enLanguageCodeId }
-            ) @include(if: $en) {
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
               nodes {
                 dictionaryValue
               }
@@ -259,16 +195,9 @@ query CompanyPageRead(
           }
           sharedDictionaryBySharedDictionaryPronunciationId {
             sharedDictionaryId
-            ja: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-            ) @include(if: $ja) {
-              nodes {
-                dictionaryValue
-              }
-            }
-            en: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $enLanguageCodeId }
-            ) @include(if: $en) {
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
               nodes {
                 dictionaryValue
               }
@@ -276,16 +205,9 @@ query CompanyPageRead(
           }
           sharedDictionaryBySharedDictionaryNicknameId {
             sharedDictionaryId
-            ja: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-            ) @include(if: $ja) {
-              nodes {
-                dictionaryValue
-              }
-            }
-            en: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $enLanguageCodeId }
-            ) @include(if: $en) {
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
               nodes {
                 dictionaryValue
               }
@@ -297,16 +219,9 @@ query CompanyPageRead(
           sharedAppellationsId
           sharedDictionaryBySharedDictionaryNameId {
             sharedDictionaryId
-            ja: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-            ) @include(if: $ja) {
-              nodes {
-                dictionaryValue
-              }
-            }
-            en: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $enLanguageCodeId }
-            ) @include(if: $en) {
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
               nodes {
                 dictionaryValue
               }
@@ -314,16 +229,9 @@ query CompanyPageRead(
           }
           sharedDictionaryBySharedDictionaryPronunciationId {
             sharedDictionaryId
-            ja: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-            ) @include(if: $ja) {
-              nodes {
-                dictionaryValue
-              }
-            }
-            en: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $enLanguageCodeId }
-            ) @include(if: $en) {
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
               nodes {
                 dictionaryValue
               }
@@ -331,16 +239,9 @@ query CompanyPageRead(
           }
           sharedDictionaryBySharedDictionaryNicknameId {
             sharedDictionaryId
-            ja: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-            ) @include(if: $ja) {
-              nodes {
-                dictionaryValue
-              }
-            }
-            en: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $enLanguageCodeId }
-            ) @include(if: $en) {
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
               nodes {
                 dictionaryValue
               }
@@ -381,16 +282,9 @@ query CompanyPageRead(
             sharedAppellationsId
             sharedDictionaryBySharedDictionaryNameId {
               sharedDictionaryId
-              ja: sharedDictionaryValuesBySharedDictionaryId(
-                condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-              ) @include(if: $ja) {
-                nodes {
-                  dictionaryValue
-                }
-              }
-              en: sharedDictionaryValuesBySharedDictionaryId(
-                condition: { sharedLanguageCodeId: $enLanguageCodeId }
-              ) @include(if: $en) {
+              value: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $languageCodeId }
+              ) {
                 nodes {
                   dictionaryValue
                 }
@@ -398,16 +292,9 @@ query CompanyPageRead(
             }
             sharedDictionaryBySharedDictionaryPronunciationId {
               sharedDictionaryId
-              ja: sharedDictionaryValuesBySharedDictionaryId(
-                condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-              ) @include(if: $ja) {
-                nodes {
-                  dictionaryValue
-                }
-              }
-              en: sharedDictionaryValuesBySharedDictionaryId(
-                condition: { sharedLanguageCodeId: $enLanguageCodeId }
-              ) @include(if: $en) {
+              value: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $languageCodeId }
+              ) {
                 nodes {
                   dictionaryValue
                 }
@@ -415,16 +302,9 @@ query CompanyPageRead(
             }
             sharedDictionaryBySharedDictionaryNicknameId {
               sharedDictionaryId
-              ja: sharedDictionaryValuesBySharedDictionaryId(
-                condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-              ) @include(if: $ja) {
-                nodes {
-                  dictionaryValue
-                }
-              }
-              en: sharedDictionaryValuesBySharedDictionaryId(
-                condition: { sharedLanguageCodeId: $enLanguageCodeId }
-              ) @include(if: $en) {
+              value: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $languageCodeId }
+              ) {
                 nodes {
                   dictionaryValue
                 }
