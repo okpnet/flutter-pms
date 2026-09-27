@@ -134,3 +134,95 @@ GraphQL作成・モデル生成・往復変換テストまで完了した。命�
 
 `languageCodeEdit`(未使用の孤立定義)は生成対象を持たないため今回は対象外。対応する
 `read`定義・`Page`単位への組み込みが必要になった場合は別途要件として扱う。
+
+## 追記1: 0035再実行(2026/09/26、「0035の実行」の指示)
+
+前回(要件0034)以降、`view.yaml`に要件0036(言語引数を`$ja`/`$en`から`$languageCodeId`へ
+統一)・要件0037(独立した`kind: RFE`を廃止し`generateRfe: true`方式へ移行)・要件0038
+(`using`の複合FK配列対応)を反映した`OfficePage`/`OfficePageEdit`・`StaffPage`/
+`StaffPageEdit`・`DepatmentCategoryPage`/`DepatmentCategoryEdit`・`DepartmentPage`・
+共有アーム`updateStaff`が新たに追加されていた。これらを実スキーマ
+(`lib/graphql/schema.graphql`)と突き合わせて評価したところ、**新規追加分はすべて
+エラーがあり生成不可**だった。
+
+### 1. 発見したエラー・修正(ユーザー確認のうえ適用)
+
+1.  **`updateStaff`が`<<: *appellationLabelsEdit`(編集アーム)を誤って参照**
+    (`updateStaff`自体は`kind: read`)。`appellationLabelsEdit`は
+    `requiredWhere: [shared_appellations_id]`を持つため、`update_user`列を持つ
+    全画面(`OfficePage`/`StaffPage`/`DepartmentPage`等)に不要な必須引数が
+    漏れ出す不具合だった。`<<: *appellationLabels`(読み込みアーム)に修正した。
+2.  **`OfficePageEdit`/`StaffPageEdit`/`DepartmentCategoryEdit`の`labels`
+    (`OfficePageEdit`はさらに`address`も)が読み込みアーム(`appellationLabels`/
+    `addressFields`)を参照**しており、編集(入れ子ミューテーション)ができない状態
+    だった。編集アーム(`appellationLabelsEdit`/`addressEditFields`)に修正した。
+3.  **`OfficePageEdit.requiredWhere`が`[info_office_id, info_company_id]`の2列**
+    だったが、実スキーマの`updateInfoOfficeByInfoOfficeId`ミューテーションは
+    `info_office_id`(PK)しか識別引数に取れない。ユーザーに確認し、
+    `info_office_id`のみに絞った。
+4.  **`DepartmentPage.kinds[].value`が`arrayType: toMany`・`using: info_department_id`・
+    `from`省略**だったが、実スキーマを確認したところ`info_department_kind`は
+    `info_department_kind_value_id`という単一FKを持つのみで、toMany(複数件)の
+    関係は存在しなかった。ユーザーに確認し、`arrayType: toFirstOne`・
+    `using: info_department_kind_value_id`・`from: info_department_kind_value`に
+    修正した(JSON配列化の対象は`kinds`自身に変更。3節参照)。
+5.  `DepatmentCategoryPage`/`DepatmentCategoryEdit`は隣接する`DepartmentPage`との
+    比較から「Department」の誤字と判断し、`DepartmentCategoryPage`/
+    `DepartmentCategoryEdit`に修正した。
+
+修正後、`CompanyPage.address`の`defaultWhere`(単数リレーション上、4-1節と同じ理由で
+実現不可)・`DepartmentPage.office`(`<<: *OfficePage`経由で継承する`condition: true`、
+単数リレーション上のため無効)は、要件0034で確立した「単数リレーション上の
+`condition`/`defaultWhere`は実現不可だが想定通り・ブロッキングではない」という
+既存の判断基準により、生成をブロックしないと判断した。
+
+### 2. 生成したGraphQL(新規4画面+company_pageの追随更新)
+
+view.yamlが`CompanyPage.offices`を独自のcolumns列挙から`<<: *OfficePage`(共有アーム)
+参照に変更していたため、`company_page_read.graphql`の事業所ブロックに`address`・
+`update_user`を追加した(office_page_read.graphqlと同型)。
+
+新規作成したGraphQL(いずれも要件0036の`$languageCodeId: UUID!`方式、要件0037の
+`generateRfe: true`によるread for editing自動導出に対応、要件0033の命名規則
+(トップノードのスネークケース)に従う):
+
+- `lib/graphql/staff_page/`(staff_page_read/edit/rfe.graphql)
+- `lib/graphql/department_category/`(department_category_read/edit/rfe.graphql)
+- `lib/graphql/office_page/`(office_page_read/edit/rfe.graphql)
+- `lib/graphql/department_page/`(department_page_read.graphql、read専用画面。
+  `office`(OfficePage全体を入れ子)・`kinds`(toMany、各行のvalueはtoFirstOne)を含む)
+
+### 3. KeyName・テスト
+
+各画面に`lib/contents/*_keyname.dart`・`test/*_flatten_roundtrip_test.dart`を作成した。
+`department_page`のテストでは、`kinds`(1対多)の各レコードからlabelsの表示名だけを
+取り出しJSON配列文字列にする例を、要件0035と並行して追加した
+`ConnectionRecordsX.extractFromEachRecord`(`lib/extensions/nested_map_flattener.dart`、
+暫定実装としてマーク済み)を使って確認した。
+
+### 4. build_runner実行・検証結果
+
+```
+dart run build_runner build \
+  --build-filter="lib/postgraphile/company_page/**" \
+  --build-filter="lib/postgraphile/office_page/**" \
+  --build-filter="lib/postgraphile/staff_page/**" \
+  --build-filter="lib/postgraphile/department_category/**" \
+  --build-filter="lib/postgraphile/department_page/**"
+```
+結果: `Built with build_runner/aot in 14s; wrote 13 outputs.`(警告は既知のスカラー
+代替のみ)。生成物のサイズはいずれも要件0015の閾値(5000KB)を大きく下回るため
+(最大`department_page_read.graphql.dart`の約1.4MB)、追加の除外設定は不要だった。
+
+- `dart analyze lib test`: 13,048件、すべて`info`(生成コードのスタイル指摘)。
+  `error`・`warning`は0件。
+- `flutter test`: 18件すべて成功(`company_page`4件・`staff_page`3件・
+  `department_category`3件・`office_page`3件・`department_page`1件・
+  `nested_map_flattener`(拡張のテスト)4件)。
+
+### 5. 結論
+
+要件0035の対象を`view.yaml`全体に拡大して再実行し、新規4画面(office_page・
+staff_page・department_category・department_page)のGraphQL作成・モデル生成・
+往復変換テストまで完了した。`company_page`も`OfficePage`共有アームの変更に
+追随させた。`languageCodeEdit`(未使用の孤立定義)は引き続き対象外。

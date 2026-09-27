@@ -2425,13 +2425,6 @@ const documentNodeQueryCompanyPageRead = DocumentNode(
                                     selectionSet: null,
                                   ),
                                   FieldNode(
-                                    name: NameNode(value: 'infoAddressId'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
                                     name: NameNode(value: 'symbol'),
                                     alias: null,
                                     arguments: [],
@@ -2464,7 +2457,7 @@ const documentNodeQueryCompanyPageRead = DocumentNode(
                                       value:
                                           'sharedAppellationBySharedAppellationsId',
                                     ),
-                                    alias: null,
+                                    alias: NameNode(value: 'labels'),
                                     arguments: [],
                                     directives: [],
                                     selectionSet: SelectionSetNode(
@@ -2761,6 +2754,1664 @@ const documentNodeQueryCompanyPageRead = DocumentNode(
                                                             arguments: [],
                                                             directives: [],
                                                             selectionSet: null,
+                                                          ),
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  '__typename',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: null,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: '__typename',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(
+                                      value: 'infoAddressByInfoAddressId',
+                                    ),
+                                    alias: NameNode(value: 'address'),
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(
+                                            value: 'infoAddressId',
+                                          ),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: 'iso31663'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: 'zipCode'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(
+                                            value:
+                                                'sharedAppellationByAddress1',
+                                          ),
+                                          alias: NameNode(value: 'address1'),
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'sharedAppellationsId',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value:
+                                                      'sharedDictionaryBySharedDictionaryNameId',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: SelectionSetNode(
+                                                  selections: [
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryId',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                      ),
+                                                      alias: NameNode(
+                                                        value: 'value',
+                                                      ),
+                                                      arguments: [
+                                                        ArgumentNode(
+                                                          name: NameNode(
+                                                            value: 'condition',
+                                                          ),
+                                                          value: ObjectValueNode(
+                                                            fields: [
+                                                              ObjectFieldNode(
+                                                                name: NameNode(
+                                                                  value:
+                                                                      'sharedLanguageCodeId',
+                                                                ),
+                                                                value: VariableNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'languageCodeId',
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                      directives: [],
+                                                      selectionSet: SelectionSetNode(
+                                                        selections: [
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value: 'nodes',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: SelectionSetNode(
+                                                              selections: [
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'dictionaryValue',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        '__typename',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  '__typename',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: null,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: '__typename',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value:
+                                                      'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: SelectionSetNode(
+                                                  selections: [
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryId',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                      ),
+                                                      alias: NameNode(
+                                                        value: 'value',
+                                                      ),
+                                                      arguments: [
+                                                        ArgumentNode(
+                                                          name: NameNode(
+                                                            value: 'condition',
+                                                          ),
+                                                          value: ObjectValueNode(
+                                                            fields: [
+                                                              ObjectFieldNode(
+                                                                name: NameNode(
+                                                                  value:
+                                                                      'sharedLanguageCodeId',
+                                                                ),
+                                                                value: VariableNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'languageCodeId',
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                      directives: [],
+                                                      selectionSet: SelectionSetNode(
+                                                        selections: [
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value: 'nodes',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: SelectionSetNode(
+                                                              selections: [
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'dictionaryValue',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        '__typename',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  '__typename',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: null,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: '__typename',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value:
+                                                      'sharedDictionaryBySharedDictionaryNicknameId',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: SelectionSetNode(
+                                                  selections: [
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryId',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                      ),
+                                                      alias: NameNode(
+                                                        value: 'value',
+                                                      ),
+                                                      arguments: [
+                                                        ArgumentNode(
+                                                          name: NameNode(
+                                                            value: 'condition',
+                                                          ),
+                                                          value: ObjectValueNode(
+                                                            fields: [
+                                                              ObjectFieldNode(
+                                                                name: NameNode(
+                                                                  value:
+                                                                      'sharedLanguageCodeId',
+                                                                ),
+                                                                value: VariableNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'languageCodeId',
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                      directives: [],
+                                                      selectionSet: SelectionSetNode(
+                                                        selections: [
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value: 'nodes',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: SelectionSetNode(
+                                                              selections: [
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'dictionaryValue',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        '__typename',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  '__typename',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: null,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: '__typename',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(
+                                            value:
+                                                'sharedAppellationByAddress2',
+                                          ),
+                                          alias: NameNode(value: 'address2'),
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'sharedAppellationsId',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value:
+                                                      'sharedDictionaryBySharedDictionaryNameId',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: SelectionSetNode(
+                                                  selections: [
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryId',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                      ),
+                                                      alias: NameNode(
+                                                        value: 'value',
+                                                      ),
+                                                      arguments: [
+                                                        ArgumentNode(
+                                                          name: NameNode(
+                                                            value: 'condition',
+                                                          ),
+                                                          value: ObjectValueNode(
+                                                            fields: [
+                                                              ObjectFieldNode(
+                                                                name: NameNode(
+                                                                  value:
+                                                                      'sharedLanguageCodeId',
+                                                                ),
+                                                                value: VariableNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'languageCodeId',
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                      directives: [],
+                                                      selectionSet: SelectionSetNode(
+                                                        selections: [
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value: 'nodes',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: SelectionSetNode(
+                                                              selections: [
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'dictionaryValue',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        '__typename',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  '__typename',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: null,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: '__typename',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value:
+                                                      'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: SelectionSetNode(
+                                                  selections: [
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryId',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                      ),
+                                                      alias: NameNode(
+                                                        value: 'value',
+                                                      ),
+                                                      arguments: [
+                                                        ArgumentNode(
+                                                          name: NameNode(
+                                                            value: 'condition',
+                                                          ),
+                                                          value: ObjectValueNode(
+                                                            fields: [
+                                                              ObjectFieldNode(
+                                                                name: NameNode(
+                                                                  value:
+                                                                      'sharedLanguageCodeId',
+                                                                ),
+                                                                value: VariableNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'languageCodeId',
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                      directives: [],
+                                                      selectionSet: SelectionSetNode(
+                                                        selections: [
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value: 'nodes',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: SelectionSetNode(
+                                                              selections: [
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'dictionaryValue',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        '__typename',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  '__typename',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: null,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: '__typename',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value:
+                                                      'sharedDictionaryBySharedDictionaryNicknameId',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: SelectionSetNode(
+                                                  selections: [
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryId',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                      ),
+                                                      alias: NameNode(
+                                                        value: 'value',
+                                                      ),
+                                                      arguments: [
+                                                        ArgumentNode(
+                                                          name: NameNode(
+                                                            value: 'condition',
+                                                          ),
+                                                          value: ObjectValueNode(
+                                                            fields: [
+                                                              ObjectFieldNode(
+                                                                name: NameNode(
+                                                                  value:
+                                                                      'sharedLanguageCodeId',
+                                                                ),
+                                                                value: VariableNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'languageCodeId',
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                      directives: [],
+                                                      selectionSet: SelectionSetNode(
+                                                        selections: [
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value: 'nodes',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: SelectionSetNode(
+                                                              selections: [
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'dictionaryValue',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        '__typename',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  '__typename',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: null,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: '__typename',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(
+                                            value: 'sharedAppellationByBill',
+                                          ),
+                                          alias: NameNode(value: 'billName'),
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'sharedAppellationsId',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value:
+                                                      'sharedDictionaryBySharedDictionaryNameId',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: SelectionSetNode(
+                                                  selections: [
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryId',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                      ),
+                                                      alias: NameNode(
+                                                        value: 'value',
+                                                      ),
+                                                      arguments: [
+                                                        ArgumentNode(
+                                                          name: NameNode(
+                                                            value: 'condition',
+                                                          ),
+                                                          value: ObjectValueNode(
+                                                            fields: [
+                                                              ObjectFieldNode(
+                                                                name: NameNode(
+                                                                  value:
+                                                                      'sharedLanguageCodeId',
+                                                                ),
+                                                                value: VariableNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'languageCodeId',
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                      directives: [],
+                                                      selectionSet: SelectionSetNode(
+                                                        selections: [
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value: 'nodes',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: SelectionSetNode(
+                                                              selections: [
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'dictionaryValue',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        '__typename',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  '__typename',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: null,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: '__typename',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value:
+                                                      'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: SelectionSetNode(
+                                                  selections: [
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryId',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                      ),
+                                                      alias: NameNode(
+                                                        value: 'value',
+                                                      ),
+                                                      arguments: [
+                                                        ArgumentNode(
+                                                          name: NameNode(
+                                                            value: 'condition',
+                                                          ),
+                                                          value: ObjectValueNode(
+                                                            fields: [
+                                                              ObjectFieldNode(
+                                                                name: NameNode(
+                                                                  value:
+                                                                      'sharedLanguageCodeId',
+                                                                ),
+                                                                value: VariableNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'languageCodeId',
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                      directives: [],
+                                                      selectionSet: SelectionSetNode(
+                                                        selections: [
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value: 'nodes',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: SelectionSetNode(
+                                                              selections: [
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'dictionaryValue',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        '__typename',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  '__typename',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: null,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: '__typename',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value:
+                                                      'sharedDictionaryBySharedDictionaryNicknameId',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: SelectionSetNode(
+                                                  selections: [
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryId',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                      ),
+                                                      alias: NameNode(
+                                                        value: 'value',
+                                                      ),
+                                                      arguments: [
+                                                        ArgumentNode(
+                                                          name: NameNode(
+                                                            value: 'condition',
+                                                          ),
+                                                          value: ObjectValueNode(
+                                                            fields: [
+                                                              ObjectFieldNode(
+                                                                name: NameNode(
+                                                                  value:
+                                                                      'sharedLanguageCodeId',
+                                                                ),
+                                                                value: VariableNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'languageCodeId',
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                      directives: [],
+                                                      selectionSet: SelectionSetNode(
+                                                        selections: [
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value: 'nodes',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: SelectionSetNode(
+                                                              selections: [
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'dictionaryValue',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        '__typename',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  '__typename',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: null,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: '__typename',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: 'phone'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: 'faxNumber'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: 'remarks'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: 'updateAt'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: 'remove'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(
+                                      value:
+                                          'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
+                                    ),
+                                    alias: NameNode(value: 'update_user'),
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'historyId'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: 'infoStaffId'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(
+                                            value: 'infoCompanyId',
+                                          ),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: 'code'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: 'sex'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: 'phone'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: 'symbol'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: 'privatePhone'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(
+                                            value:
+                                                'sharedAppellationBySharedAppellationsId',
+                                          ),
+                                          alias: NameNode(value: 'name'),
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'sharedAppellationsId',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value:
+                                                      'sharedDictionaryBySharedDictionaryNameId',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: SelectionSetNode(
+                                                  selections: [
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryId',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                      ),
+                                                      alias: NameNode(
+                                                        value: 'value',
+                                                      ),
+                                                      arguments: [
+                                                        ArgumentNode(
+                                                          name: NameNode(
+                                                            value: 'condition',
+                                                          ),
+                                                          value: ObjectValueNode(
+                                                            fields: [
+                                                              ObjectFieldNode(
+                                                                name: NameNode(
+                                                                  value:
+                                                                      'sharedLanguageCodeId',
+                                                                ),
+                                                                value: VariableNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'languageCodeId',
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                      directives: [],
+                                                      selectionSet: SelectionSetNode(
+                                                        selections: [
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value: 'nodes',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: SelectionSetNode(
+                                                              selections: [
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'dictionaryValue',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        '__typename',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  '__typename',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: null,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: '__typename',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value:
+                                                      'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: SelectionSetNode(
+                                                  selections: [
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryId',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                      ),
+                                                      alias: NameNode(
+                                                        value: 'value',
+                                                      ),
+                                                      arguments: [
+                                                        ArgumentNode(
+                                                          name: NameNode(
+                                                            value: 'condition',
+                                                          ),
+                                                          value: ObjectValueNode(
+                                                            fields: [
+                                                              ObjectFieldNode(
+                                                                name: NameNode(
+                                                                  value:
+                                                                      'sharedLanguageCodeId',
+                                                                ),
+                                                                value: VariableNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'languageCodeId',
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                      directives: [],
+                                                      selectionSet: SelectionSetNode(
+                                                        selections: [
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value: 'nodes',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: SelectionSetNode(
+                                                              selections: [
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'dictionaryValue',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        '__typename',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  '__typename',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: null,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: '__typename',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value:
+                                                      'sharedDictionaryBySharedDictionaryNicknameId',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: SelectionSetNode(
+                                                  selections: [
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryId',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                      ),
+                                                      alias: NameNode(
+                                                        value: 'value',
+                                                      ),
+                                                      arguments: [
+                                                        ArgumentNode(
+                                                          name: NameNode(
+                                                            value: 'condition',
+                                                          ),
+                                                          value: ObjectValueNode(
+                                                            fields: [
+                                                              ObjectFieldNode(
+                                                                name: NameNode(
+                                                                  value:
+                                                                      'sharedLanguageCodeId',
+                                                                ),
+                                                                value: VariableNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'languageCodeId',
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                      directives: [],
+                                                      selectionSet: SelectionSetNode(
+                                                        selections: [
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value: 'nodes',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: SelectionSetNode(
+                                                              selections: [
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'dictionaryValue',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        '__typename',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                              ],
+                                                            ),
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
@@ -15124,12 +16775,13 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
     required this.infoOfficeId,
     required this.infoCompanyId,
     required this.code,
-    this.infoAddressId,
     this.symbol,
     this.remarks,
     this.updateAt,
     this.remove,
-    this.sharedAppellationBySharedAppellationsId,
+    this.labels,
+    this.address,
+    this.update_user,
     this.$__typename = 'InfoOffice',
   });
 
@@ -15139,29 +16791,36 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
     final l$infoOfficeId = json['infoOfficeId'];
     final l$infoCompanyId = json['infoCompanyId'];
     final l$code = json['code'];
-    final l$infoAddressId = json['infoAddressId'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
-    final l$sharedAppellationBySharedAppellationsId =
-        json['sharedAppellationBySharedAppellationsId'];
+    final l$labels = json['labels'];
+    final l$address = json['address'];
+    final l$update_user = json['update_user'];
     final l$$__typename = json['__typename'];
     return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes(
       infoOfficeId: (l$infoOfficeId as String),
       infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String),
-      infoAddressId: (l$infoAddressId as String?),
       symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
-      sharedAppellationBySharedAppellationsId:
-          l$sharedAppellationBySharedAppellationsId == null
+      labels: l$labels == null
           ? null
-          : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId.fromJson(
-              (l$sharedAppellationBySharedAppellationsId
-                  as Map<String, dynamic>),
+          : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels.fromJson(
+              (l$labels as Map<String, dynamic>),
+            ),
+      address: l$address == null
+          ? null
+          : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address.fromJson(
+              (l$address as Map<String, dynamic>),
+            ),
+      update_user: l$update_user == null
+          ? null
+          : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user.fromJson(
+              (l$update_user as Map<String, dynamic>),
             ),
       $__typename: (l$$__typename as String),
     );
@@ -15173,8 +16832,6 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
 
   final String code;
 
-  final String? infoAddressId;
-
   final String? symbol;
 
   final String? remarks;
@@ -15183,8 +16840,14 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
 
   final bool? remove;
 
-  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId?
-  sharedAppellationBySharedAppellationsId;
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels?
+  labels;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address?
+  address;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user?
+  update_user;
 
   final String $__typename;
 
@@ -15196,8 +16859,6 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
     _resultData['infoCompanyId'] = l$infoCompanyId;
     final l$code = code;
     _resultData['code'] = l$code;
-    final l$infoAddressId = infoAddressId;
-    _resultData['infoAddressId'] = l$infoAddressId;
     final l$symbol = symbol;
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
@@ -15206,10 +16867,12 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
     _resultData['remove'] = l$remove;
-    final l$sharedAppellationBySharedAppellationsId =
-        sharedAppellationBySharedAppellationsId;
-    _resultData['sharedAppellationBySharedAppellationsId'] =
-        l$sharedAppellationBySharedAppellationsId?.toJson();
+    final l$labels = labels;
+    _resultData['labels'] = l$labels?.toJson();
+    final l$address = address;
+    _resultData['address'] = l$address?.toJson();
+    final l$update_user = update_user;
+    _resultData['update_user'] = l$update_user?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -15220,24 +16883,25 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
     final l$infoOfficeId = infoOfficeId;
     final l$infoCompanyId = infoCompanyId;
     final l$code = code;
-    final l$infoAddressId = infoAddressId;
     final l$symbol = symbol;
     final l$remarks = remarks;
     final l$updateAt = updateAt;
     final l$remove = remove;
-    final l$sharedAppellationBySharedAppellationsId =
-        sharedAppellationBySharedAppellationsId;
+    final l$labels = labels;
+    final l$address = address;
+    final l$update_user = update_user;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoOfficeId,
       l$infoCompanyId,
       l$code,
-      l$infoAddressId,
       l$symbol,
       l$remarks,
       l$updateAt,
       l$remove,
-      l$sharedAppellationBySharedAppellationsId,
+      l$labels,
+      l$address,
+      l$update_user,
       l$$__typename,
     ]);
   }
@@ -15267,11 +16931,6 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
     if (l$code != lOther$code) {
       return false;
     }
-    final l$infoAddressId = infoAddressId;
-    final lOther$infoAddressId = other.infoAddressId;
-    if (l$infoAddressId != lOther$infoAddressId) {
-      return false;
-    }
     final l$symbol = symbol;
     final lOther$symbol = other.symbol;
     if (l$symbol != lOther$symbol) {
@@ -15292,12 +16951,19 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
     if (l$remove != lOther$remove) {
       return false;
     }
-    final l$sharedAppellationBySharedAppellationsId =
-        sharedAppellationBySharedAppellationsId;
-    final lOther$sharedAppellationBySharedAppellationsId =
-        other.sharedAppellationBySharedAppellationsId;
-    if (l$sharedAppellationBySharedAppellationsId !=
-        lOther$sharedAppellationBySharedAppellationsId) {
+    final l$labels = labels;
+    final lOther$labels = other.labels;
+    if (l$labels != lOther$labels) {
+      return false;
+    }
+    final l$address = address;
+    final lOther$address = other.address;
+    if (l$address != lOther$address) {
+      return false;
+    }
+    final l$update_user = update_user;
+    final lOther$update_user = other.update_user;
+    if (l$update_user != lOther$update_user) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -15341,19 +17007,30 @@ abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOffices
     String? infoOfficeId,
     String? infoCompanyId,
     String? code,
-    String? infoAddressId,
     String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId?
-    sharedAppellationBySharedAppellationsId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels?
+    labels,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address?
+    address,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user?
+    update_user,
     String? $__typename,
   });
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels<
     TRes
   >
-  get sharedAppellationBySharedAppellationsId;
+  get labels;
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address<
+    TRes
+  >
+  get address;
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user<
+    TRes
+  >
+  get update_user;
 }
 
 class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes<
@@ -15382,12 +17059,13 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByIn
     Object? infoOfficeId = _undefined,
     Object? infoCompanyId = _undefined,
     Object? code = _undefined,
-    Object? infoAddressId = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
-    Object? sharedAppellationBySharedAppellationsId = _undefined,
+    Object? labels = _undefined,
+    Object? address = _undefined,
+    Object? update_user = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes(
@@ -15400,39 +17078,72 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByIn
       code: code == _undefined || code == null
           ? _instance.code
           : (code as String),
-      infoAddressId: infoAddressId == _undefined
-          ? _instance.infoAddressId
-          : (infoAddressId as String?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
           : (updateAt as String?),
       remove: remove == _undefined ? _instance.remove : (remove as bool?),
-      sharedAppellationBySharedAppellationsId:
-          sharedAppellationBySharedAppellationsId == _undefined
-          ? _instance.sharedAppellationBySharedAppellationsId
-          : (sharedAppellationBySharedAppellationsId
-                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId?),
+      labels: labels == _undefined
+          ? _instance.labels
+          : (labels
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels?),
+      address: address == _undefined
+          ? _instance.address
+          : (address
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address?),
+      update_user: update_user == _undefined
+          ? _instance.update_user
+          : (update_user
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels<
     TRes
   >
-  get sharedAppellationBySharedAppellationsId {
-    final local$sharedAppellationBySharedAppellationsId =
-        _instance.sharedAppellationBySharedAppellationsId;
-    return local$sharedAppellationBySharedAppellationsId == null
-        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId.stub(
+  get labels {
+    final local$labels = _instance.labels;
+    return local$labels == null
+        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels.stub(
             _then(_instance),
           )
-        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId(
-            local$sharedAppellationBySharedAppellationsId,
-            (e) => call(sharedAppellationBySharedAppellationsId: e),
+        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels(
+            local$labels,
+            (e) => call(labels: e),
+          );
+  }
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address<
+    TRes
+  >
+  get address {
+    final local$address = _instance.address;
+    return local$address == null
+        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address(
+            local$address,
+            (e) => call(address: e),
+          );
+  }
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user<
+    TRes
+  >
+  get update_user {
+    final local$update_user = _instance.update_user;
+    return local$update_user == null
+        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user(
+            local$update_user,
+            (e) => call(update_user: e),
           );
   }
 }
@@ -15454,27 +17165,46 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOffices
     String? infoOfficeId,
     String? infoCompanyId,
     String? code,
-    String? infoAddressId,
     String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId?
-    sharedAppellationBySharedAppellationsId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels?
+    labels,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address?
+    address,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user?
+    update_user,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels<
     TRes
   >
-  get sharedAppellationBySharedAppellationsId =>
-      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId.stub(
+  get labels =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels.stub(
+        _res,
+      );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address<
+    TRes
+  >
+  get address =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address.stub(
+        _res,
+      );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user<
+    TRes
+  >
+  get update_user =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user.stub(
         _res,
       );
 }
 
-class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId {
-  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId({
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels({
     required this.sharedAppellationsId,
     this.sharedDictionaryBySharedDictionaryNameId,
     this.sharedDictionaryBySharedDictionaryPronunciationId,
@@ -15482,7 +17212,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
     this.$__typename = 'SharedAppellation',
   });
 
-  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId.fromJson(
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedAppellationsId = json['sharedAppellationsId'];
@@ -15493,26 +17223,26 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
     final l$sharedDictionaryBySharedDictionaryNicknameId =
         json['sharedDictionaryBySharedDictionaryNicknameId'];
     final l$$__typename = json['__typename'];
-    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId(
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels(
       sharedAppellationsId: (l$sharedAppellationsId as String),
       sharedDictionaryBySharedDictionaryNameId:
           l$sharedDictionaryBySharedDictionaryNameId == null
           ? null
-          : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId.fromJson(
+          : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNameId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryPronunciationId:
           l$sharedDictionaryBySharedDictionaryPronunciationId == null
           ? null
-          : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+          : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
               (l$sharedDictionaryBySharedDictionaryPronunciationId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryNicknameId:
           l$sharedDictionaryBySharedDictionaryNicknameId == null
           ? null
-          : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+          : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNicknameId
                   as Map<String, dynamic>),
             ),
@@ -15522,13 +17252,13 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
 
   final String sharedAppellationsId;
 
-  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId?
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId?
   sharedDictionaryBySharedDictionaryNameId;
 
-  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId?
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId?
   sharedDictionaryBySharedDictionaryPronunciationId;
 
-  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId?
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId?
   sharedDictionaryBySharedDictionaryNicknameId;
 
   final String $__typename;
@@ -15579,7 +17309,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
       return true;
     }
     if (other
-            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId ||
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -15621,76 +17351,76 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
   }
 }
 
-extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels
     on
-        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId {
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId<
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels
   >
   get copyWith =>
-      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId(
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId<
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels<
   TRes
 > {
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId(
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels
     instance,
     TRes Function(
-      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId,
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels,
     )
     then,
-  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId;
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels;
 
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId.stub(
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId;
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels;
 
   TRes call({
     String? sharedAppellationsId,
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId?
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId?
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId?
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   });
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId;
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId;
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId;
 }
 
-class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId<
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels<
           TRes
         > {
-  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId(
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels(
     this._instance,
     this._then,
   );
 
-  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels
   _instance;
 
   final TRes Function(
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels,
   )
   _then;
 
@@ -15703,7 +17433,7 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByIn
     Object? sharedDictionaryBySharedDictionaryNicknameId = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels(
       sharedAppellationsId:
           sharedAppellationsId == _undefined || sharedAppellationsId == null
           ? _instance.sharedAppellationsId
@@ -15712,80 +17442,80 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByIn
           sharedDictionaryBySharedDictionaryNameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNameId
           : (sharedDictionaryBySharedDictionaryNameId
-                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId?),
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId?),
       sharedDictionaryBySharedDictionaryPronunciationId:
           sharedDictionaryBySharedDictionaryPronunciationId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryPronunciationId
           : (sharedDictionaryBySharedDictionaryPronunciationId
-                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId?),
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId?),
       sharedDictionaryBySharedDictionaryNicknameId:
           sharedDictionaryBySharedDictionaryNicknameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNicknameId
           : (sharedDictionaryBySharedDictionaryNicknameId
-                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId?),
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId {
     final local$sharedDictionaryBySharedDictionaryNameId =
         _instance.sharedDictionaryBySharedDictionaryNameId;
     return local$sharedDictionaryBySharedDictionaryNameId == null
-        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId.stub(
+        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
+        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
             local$sharedDictionaryBySharedDictionaryNameId,
             (e) => call(sharedDictionaryBySharedDictionaryNameId: e),
           );
   }
 
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId {
     final local$sharedDictionaryBySharedDictionaryPronunciationId =
         _instance.sharedDictionaryBySharedDictionaryPronunciationId;
     return local$sharedDictionaryBySharedDictionaryPronunciationId == null
-        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId(
+        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
             local$sharedDictionaryBySharedDictionaryPronunciationId,
             (e) => call(sharedDictionaryBySharedDictionaryPronunciationId: e),
           );
   }
 
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId {
     final local$sharedDictionaryBySharedDictionaryNicknameId =
         _instance.sharedDictionaryBySharedDictionaryNicknameId;
     return local$sharedDictionaryBySharedDictionaryNicknameId == null
-        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId.stub(
+        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId(
+        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
             local$sharedDictionaryBySharedDictionaryNicknameId,
             (e) => call(sharedDictionaryBySharedDictionaryNicknameId: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId<
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels<
           TRes
         > {
-  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId(
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels(
     this._res,
   );
 
@@ -15793,57 +17523,57 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOffices
 
   call({
     String? sharedAppellationsId,
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId?
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId?
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId?
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId =>
-      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId.stub(
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId.stub(
         _res,
       );
 
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId =>
-      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId.stub(
         _res,
       );
 
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId =>
-      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId.stub(
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId.stub(
         _res,
       );
 }
 
-class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId {
-  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId({
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId.fromJson(
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -15852,7 +17582,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
 
   final String sharedDictionaryId;
 
-  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value
   value;
 
   final String $__typename;
@@ -15882,7 +17612,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
       return true;
     }
     if (other
-            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId ||
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -15905,64 +17635,64 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
   }
 }
 
-extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId
     on
-        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId {
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId
   >
   get copyWith =>
-      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
   TRes
 > {
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId
     instance,
     TRes Function(
-      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId,
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId,
     )
     then,
-  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId;
 
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId.stub(
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value?
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
     this._instance,
     this._then,
   );
 
-  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId
   _instance;
 
   final TRes Function(
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId,
   )
   _then;
 
@@ -15973,7 +17703,7 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByIn
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -15981,33 +17711,33 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByIn
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value),
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value(
+    return CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
     this._res,
   );
 
@@ -16015,37 +17745,37 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOffices
 
   call({
     String? sharedDictionaryId,
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value?
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value.stub(
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value.stub(
         _res,
       );
 }
 
-class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value {
-  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value({
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value(
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
+                : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -16055,7 +17785,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
   }
 
   final List<
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
   >
   nodes;
 
@@ -16086,7 +17816,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
       return true;
     }
     if (other
-            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value ||
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -16111,50 +17841,50 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
   }
 }
 
-extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value
     on
-        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value {
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value<
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value
   >
   get copyWith =>
-      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value(
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value<
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 > {
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value(
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value
     instance,
     TRes Function(
-      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value,
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value;
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value;
 
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value.stub(
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value;
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value;
 
   TRes call({
     List<
-      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
         >?
       >,
     )
@@ -16162,23 +17892,23 @@ abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOffices
   );
 }
 
-class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value<
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
           TRes
         > {
-  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value(
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
     this._instance,
     this._then,
   );
 
-  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value
   _instance;
 
   final TRes Function(
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value,
   )
   _then;
 
@@ -16188,12 +17918,12 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByIn
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+                  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -16203,12 +17933,12 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByIn
 
   TRes nodes(
     Iterable<
-      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
         >?
       >,
     )
@@ -16218,7 +17948,7 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByIn
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+            : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -16227,14 +17957,14 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByIn
   );
 }
 
-class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value<
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value(
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
     this._res,
   );
 
@@ -16242,7 +17972,7 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOffices
 
   call({
     List<
-      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -16251,18 +17981,18 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOffices
   nodes(_fn) => _res;
 }
 
-class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes {
-  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes({
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -16294,7 +18024,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
       return true;
     }
     if (other
-            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes ||
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -16312,55 +18042,55 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
   }
 }
 
-extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
     on
-        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes {
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes(
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
     instance,
     TRes Function(
-      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes,
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes;
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes;
 
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes.stub(
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes;
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes,
   )
   _then;
 
@@ -16370,7 +18100,7 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByIn
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -16381,14 +18111,14 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByIn
   );
 }
 
-class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
     this._res,
   );
 
@@ -16397,23 +18127,23 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOffices
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId {
-  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId({
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId(
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -16422,7 +18152,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
 
   final String sharedDictionaryId;
 
-  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
   value;
 
   final String $__typename;
@@ -16452,7 +18182,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
       return true;
     }
     if (other
-            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId ||
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -16475,64 +18205,64 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
   }
 }
 
-extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId
     on
-        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId {
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId<
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId
   >
   get copyWith =>
-      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId(
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId<
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 > {
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId(
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId
     instance,
     TRes Function(
-      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId,
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId,
     )
     then,
-  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId;
 
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value?
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
     this._instance,
     this._then,
   );
 
-  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId
   _instance;
 
   final TRes Function(
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId,
   )
   _then;
 
@@ -16543,7 +18273,7 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByIn
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -16551,33 +18281,33 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByIn
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value),
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    return CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
     this._res,
   );
 
@@ -16585,37 +18315,37 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOffices
 
   call({
     String? sharedDictionaryId,
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value?
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
         _res,
       );
 }
 
-class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value {
-  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value({
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
+                : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -16625,7 +18355,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
   }
 
   final List<
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
   >
   nodes;
 
@@ -16656,7 +18386,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
       return true;
     }
     if (other
-            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value ||
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -16681,50 +18411,50 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
   }
 }
 
-extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
     on
-        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value {
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value<
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
   >
   get copyWith =>
-      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value(
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value<
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 > {
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value(
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
     instance,
     TRes Function(
-      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value,
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value;
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value;
 
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value;
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value;
 
   TRes call({
     List<
-      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
         >?
       >,
     )
@@ -16732,23 +18462,23 @@ abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOffices
   );
 }
 
-class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value<
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
           TRes
         > {
-  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value(
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
     this._instance,
     this._then,
   );
 
-  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
   _instance;
 
   final TRes Function(
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value,
   )
   _then;
 
@@ -16758,12 +18488,12 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByIn
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+                  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -16773,12 +18503,12 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByIn
 
   TRes nodes(
     Iterable<
-      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
         >?
       >,
     )
@@ -16788,7 +18518,7 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByIn
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+            : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -16797,14 +18527,14 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByIn
   );
 }
 
-class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value<
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value(
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
     this._res,
   );
 
@@ -16812,7 +18542,7 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOffices
 
   call({
     List<
-      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -16821,18 +18551,18 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOffices
   nodes(_fn) => _res;
 }
 
-class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
-  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes({
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -16864,7 +18594,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
       return true;
     }
     if (other
-            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes ||
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -16882,55 +18612,55 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
   }
 }
 
-extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
     on
-        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
     instance,
     TRes Function(
-      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
 
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.stub(
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
   )
   _then;
 
@@ -16940,7 +18670,7 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByIn
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -16951,14 +18681,14 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByIn
   );
 }
 
-class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
     this._res,
   );
 
@@ -16967,23 +18697,23 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOffices
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId {
-  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId({
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId(
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -16992,7 +18722,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
 
   final String sharedDictionaryId;
 
-  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value
   value;
 
   final String $__typename;
@@ -17022,7 +18752,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
       return true;
     }
     if (other
-            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId ||
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -17045,64 +18775,64 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
   }
 }
 
-extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId
     on
-        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId {
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId<
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId
   >
   get copyWith =>
-      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId(
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId<
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 > {
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId(
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId
     instance,
     TRes Function(
-      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId,
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId,
     )
     then,
-  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId;
 
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId.stub(
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value?
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
     this._instance,
     this._then,
   );
 
-  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId
   _instance;
 
   final TRes Function(
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId,
   )
   _then;
 
@@ -17113,7 +18843,7 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByIn
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -17121,33 +18851,33 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByIn
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value),
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value(
+    return CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
     this._res,
   );
 
@@ -17155,37 +18885,37 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOffices
 
   call({
     String? sharedDictionaryId,
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value?
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
         _res,
       );
 }
 
-class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value {
-  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value({
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value(
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
+                : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -17195,7 +18925,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
   }
 
   final List<
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
   >
   nodes;
 
@@ -17226,7 +18956,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
       return true;
     }
     if (other
-            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value ||
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -17251,50 +18981,50 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
   }
 }
 
-extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value
     on
-        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value {
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value<
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value
   >
   get copyWith =>
-      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value(
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value<
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 > {
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value(
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value
     instance,
     TRes Function(
-      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value,
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value;
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value;
 
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value;
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value;
 
   TRes call({
     List<
-      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
         >?
       >,
     )
@@ -17302,23 +19032,23 @@ abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOffices
   );
 }
 
-class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value<
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
           TRes
         > {
-  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value(
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
     this._instance,
     this._then,
   );
 
-  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value
   _instance;
 
   final TRes Function(
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value,
   )
   _then;
 
@@ -17328,12 +19058,12 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByIn
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+                  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -17343,12 +19073,12 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByIn
 
   TRes nodes(
     Iterable<
-      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
         >?
       >,
     )
@@ -17358,7 +19088,7 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByIn
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+            : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -17367,14 +19097,14 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByIn
   );
 }
 
-class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value<
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value(
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
     this._res,
   );
 
@@ -17382,7 +19112,7 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOffices
 
   call({
     List<
-      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -17391,18 +19121,18 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOffices
   nodes(_fn) => _res;
 }
 
-class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
-  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes({
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -17434,7 +19164,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
       return true;
     }
     if (other
-            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes ||
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -17452,55 +19182,55 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$no
   }
 }
 
-extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
     on
-        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
     instance,
     TRes Function(
-      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
 
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.stub(
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
   )
   _then;
 
@@ -17510,7 +19240,7 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByIn
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -17521,14 +19251,9064 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByIn
   );
 }
 
-class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address({
+    required this.infoAddressId,
+    this.iso31663,
+    this.zipCode,
+    this.address1,
+    this.address2,
+    this.billName,
+    this.phone,
+    this.faxNumber,
+    this.remarks,
+    this.updateAt,
+    this.remove,
+    this.$__typename = 'InfoAddress',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$infoAddressId = json['infoAddressId'];
+    final l$iso31663 = json['iso31663'];
+    final l$zipCode = json['zipCode'];
+    final l$address1 = json['address1'];
+    final l$address2 = json['address2'];
+    final l$billName = json['billName'];
+    final l$phone = json['phone'];
+    final l$faxNumber = json['faxNumber'];
+    final l$remarks = json['remarks'];
+    final l$updateAt = json['updateAt'];
+    final l$remove = json['remove'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address(
+      infoAddressId: (l$infoAddressId as String),
+      iso31663: (l$iso31663 as String?),
+      zipCode: (l$zipCode as String?),
+      address1: l$address1 == null
+          ? null
+          : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1.fromJson(
+              (l$address1 as Map<String, dynamic>),
+            ),
+      address2: l$address2 == null
+          ? null
+          : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2.fromJson(
+              (l$address2 as Map<String, dynamic>),
+            ),
+      billName: l$billName == null
+          ? null
+          : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName.fromJson(
+              (l$billName as Map<String, dynamic>),
+            ),
+      phone: (l$phone as String?),
+      faxNumber: (l$faxNumber as String?),
+      remarks: (l$remarks as String?),
+      updateAt: (l$updateAt as String?),
+      remove: (l$remove as bool?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String infoAddressId;
+
+  final String? iso31663;
+
+  final String? zipCode;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1?
+  address1;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2?
+  address2;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName?
+  billName;
+
+  final String? phone;
+
+  final String? faxNumber;
+
+  final String? remarks;
+
+  final String? updateAt;
+
+  final bool? remove;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$infoAddressId = infoAddressId;
+    _resultData['infoAddressId'] = l$infoAddressId;
+    final l$iso31663 = iso31663;
+    _resultData['iso31663'] = l$iso31663;
+    final l$zipCode = zipCode;
+    _resultData['zipCode'] = l$zipCode;
+    final l$address1 = address1;
+    _resultData['address1'] = l$address1?.toJson();
+    final l$address2 = address2;
+    _resultData['address2'] = l$address2?.toJson();
+    final l$billName = billName;
+    _resultData['billName'] = l$billName?.toJson();
+    final l$phone = phone;
+    _resultData['phone'] = l$phone;
+    final l$faxNumber = faxNumber;
+    _resultData['faxNumber'] = l$faxNumber;
+    final l$remarks = remarks;
+    _resultData['remarks'] = l$remarks;
+    final l$updateAt = updateAt;
+    _resultData['updateAt'] = l$updateAt;
+    final l$remove = remove;
+    _resultData['remove'] = l$remove;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$infoAddressId = infoAddressId;
+    final l$iso31663 = iso31663;
+    final l$zipCode = zipCode;
+    final l$address1 = address1;
+    final l$address2 = address2;
+    final l$billName = billName;
+    final l$phone = phone;
+    final l$faxNumber = faxNumber;
+    final l$remarks = remarks;
+    final l$updateAt = updateAt;
+    final l$remove = remove;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$infoAddressId,
+      l$iso31663,
+      l$zipCode,
+      l$address1,
+      l$address2,
+      l$billName,
+      l$phone,
+      l$faxNumber,
+      l$remarks,
+      l$updateAt,
+      l$remove,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$infoAddressId = infoAddressId;
+    final lOther$infoAddressId = other.infoAddressId;
+    if (l$infoAddressId != lOther$infoAddressId) {
+      return false;
+    }
+    final l$iso31663 = iso31663;
+    final lOther$iso31663 = other.iso31663;
+    if (l$iso31663 != lOther$iso31663) {
+      return false;
+    }
+    final l$zipCode = zipCode;
+    final lOther$zipCode = other.zipCode;
+    if (l$zipCode != lOther$zipCode) {
+      return false;
+    }
+    final l$address1 = address1;
+    final lOther$address1 = other.address1;
+    if (l$address1 != lOther$address1) {
+      return false;
+    }
+    final l$address2 = address2;
+    final lOther$address2 = other.address2;
+    if (l$address2 != lOther$address2) {
+      return false;
+    }
+    final l$billName = billName;
+    final lOther$billName = other.billName;
+    if (l$billName != lOther$billName) {
+      return false;
+    }
+    final l$phone = phone;
+    final lOther$phone = other.phone;
+    if (l$phone != lOther$phone) {
+      return false;
+    }
+    final l$faxNumber = faxNumber;
+    final lOther$faxNumber = other.faxNumber;
+    if (l$faxNumber != lOther$faxNumber) {
+      return false;
+    }
+    final l$remarks = remarks;
+    final lOther$remarks = other.remarks;
+    if (l$remarks != lOther$remarks) {
+      return false;
+    }
+    final l$updateAt = updateAt;
+    final lOther$updateAt = other.updateAt;
+    if (l$updateAt != lOther$updateAt) {
+      return false;
+    }
+    final l$remove = remove;
+    final lOther$remove = other.remove;
+    if (l$remove != lOther$remove) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address;
+
+  TRes call({
+    String? infoAddressId,
+    String? iso31663,
+    String? zipCode,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1?
+    address1,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2?
+    address2,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName?
+    billName,
+    String? phone,
+    String? faxNumber,
+    String? remarks,
+    String? updateAt,
+    bool? remove,
+    String? $__typename,
+  });
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1<
+    TRes
+  >
+  get address1;
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2<
+    TRes
+  >
+  get address2;
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName<
+    TRes
+  >
+  get billName;
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? infoAddressId = _undefined,
+    Object? iso31663 = _undefined,
+    Object? zipCode = _undefined,
+    Object? address1 = _undefined,
+    Object? address2 = _undefined,
+    Object? billName = _undefined,
+    Object? phone = _undefined,
+    Object? faxNumber = _undefined,
+    Object? remarks = _undefined,
+    Object? updateAt = _undefined,
+    Object? remove = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address(
+      infoAddressId: infoAddressId == _undefined || infoAddressId == null
+          ? _instance.infoAddressId
+          : (infoAddressId as String),
+      iso31663: iso31663 == _undefined
+          ? _instance.iso31663
+          : (iso31663 as String?),
+      zipCode: zipCode == _undefined ? _instance.zipCode : (zipCode as String?),
+      address1: address1 == _undefined
+          ? _instance.address1
+          : (address1
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1?),
+      address2: address2 == _undefined
+          ? _instance.address2
+          : (address2
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2?),
+      billName: billName == _undefined
+          ? _instance.billName
+          : (billName
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName?),
+      phone: phone == _undefined ? _instance.phone : (phone as String?),
+      faxNumber: faxNumber == _undefined
+          ? _instance.faxNumber
+          : (faxNumber as String?),
+      remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
+      updateAt: updateAt == _undefined
+          ? _instance.updateAt
+          : (updateAt as String?),
+      remove: remove == _undefined ? _instance.remove : (remove as bool?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1<
+    TRes
+  >
+  get address1 {
+    final local$address1 = _instance.address1;
+    return local$address1 == null
+        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1(
+            local$address1,
+            (e) => call(address1: e),
+          );
+  }
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2<
+    TRes
+  >
+  get address2 {
+    final local$address2 = _instance.address2;
+    return local$address2 == null
+        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2(
+            local$address2,
+            (e) => call(address2: e),
+          );
+  }
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName<
+    TRes
+  >
+  get billName {
+    final local$billName = _instance.billName;
+    return local$billName == null
+        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName(
+            local$billName,
+            (e) => call(billName: e),
+          );
+  }
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? infoAddressId,
+    String? iso31663,
+    String? zipCode,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1?
+    address1,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2?
+    address2,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName?
+    billName,
+    String? phone,
+    String? faxNumber,
+    String? remarks,
+    String? updateAt,
+    bool? remove,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1<
+    TRes
+  >
+  get address1 =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1.stub(
+        _res,
+      );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2<
+    TRes
+  >
+  get address2 =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2.stub(
+        _res,
+      );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName<
+    TRes
+  >
+  get billName =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName.stub(
+        _res,
+      );
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1 {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1({
+    required this.sharedAppellationsId,
+    this.sharedDictionaryBySharedDictionaryNameId,
+    this.sharedDictionaryBySharedDictionaryPronunciationId,
+    this.sharedDictionaryBySharedDictionaryNicknameId,
+    this.$__typename = 'SharedAppellation',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedAppellationsId = json['sharedAppellationsId'];
+    final l$sharedDictionaryBySharedDictionaryNameId =
+        json['sharedDictionaryBySharedDictionaryNameId'];
+    final l$sharedDictionaryBySharedDictionaryPronunciationId =
+        json['sharedDictionaryBySharedDictionaryPronunciationId'];
+    final l$sharedDictionaryBySharedDictionaryNicknameId =
+        json['sharedDictionaryBySharedDictionaryNicknameId'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1(
+      sharedAppellationsId: (l$sharedAppellationsId as String),
+      sharedDictionaryBySharedDictionaryNameId:
+          l$sharedDictionaryBySharedDictionaryNameId == null
+          ? null
+          : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId.fromJson(
+              (l$sharedDictionaryBySharedDictionaryNameId
+                  as Map<String, dynamic>),
+            ),
+      sharedDictionaryBySharedDictionaryPronunciationId:
+          l$sharedDictionaryBySharedDictionaryPronunciationId == null
+          ? null
+          : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+              (l$sharedDictionaryBySharedDictionaryPronunciationId
+                  as Map<String, dynamic>),
+            ),
+      sharedDictionaryBySharedDictionaryNicknameId:
+          l$sharedDictionaryBySharedDictionaryNicknameId == null
+          ? null
+          : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+              (l$sharedDictionaryBySharedDictionaryNicknameId
+                  as Map<String, dynamic>),
+            ),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String sharedAppellationsId;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId?
+  sharedDictionaryBySharedDictionaryNameId;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId?
+  sharedDictionaryBySharedDictionaryPronunciationId;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId?
+  sharedDictionaryBySharedDictionaryNicknameId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedAppellationsId = sharedAppellationsId;
+    _resultData['sharedAppellationsId'] = l$sharedAppellationsId;
+    final l$sharedDictionaryBySharedDictionaryNameId =
+        sharedDictionaryBySharedDictionaryNameId;
+    _resultData['sharedDictionaryBySharedDictionaryNameId'] =
+        l$sharedDictionaryBySharedDictionaryNameId?.toJson();
+    final l$sharedDictionaryBySharedDictionaryPronunciationId =
+        sharedDictionaryBySharedDictionaryPronunciationId;
+    _resultData['sharedDictionaryBySharedDictionaryPronunciationId'] =
+        l$sharedDictionaryBySharedDictionaryPronunciationId?.toJson();
+    final l$sharedDictionaryBySharedDictionaryNicknameId =
+        sharedDictionaryBySharedDictionaryNicknameId;
+    _resultData['sharedDictionaryBySharedDictionaryNicknameId'] =
+        l$sharedDictionaryBySharedDictionaryNicknameId?.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedAppellationsId = sharedAppellationsId;
+    final l$sharedDictionaryBySharedDictionaryNameId =
+        sharedDictionaryBySharedDictionaryNameId;
+    final l$sharedDictionaryBySharedDictionaryPronunciationId =
+        sharedDictionaryBySharedDictionaryPronunciationId;
+    final l$sharedDictionaryBySharedDictionaryNicknameId =
+        sharedDictionaryBySharedDictionaryNicknameId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$sharedAppellationsId,
+      l$sharedDictionaryBySharedDictionaryNameId,
+      l$sharedDictionaryBySharedDictionaryPronunciationId,
+      l$sharedDictionaryBySharedDictionaryNicknameId,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1 ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedAppellationsId = sharedAppellationsId;
+    final lOther$sharedAppellationsId = other.sharedAppellationsId;
+    if (l$sharedAppellationsId != lOther$sharedAppellationsId) {
+      return false;
+    }
+    final l$sharedDictionaryBySharedDictionaryNameId =
+        sharedDictionaryBySharedDictionaryNameId;
+    final lOther$sharedDictionaryBySharedDictionaryNameId =
+        other.sharedDictionaryBySharedDictionaryNameId;
+    if (l$sharedDictionaryBySharedDictionaryNameId !=
+        lOther$sharedDictionaryBySharedDictionaryNameId) {
+      return false;
+    }
+    final l$sharedDictionaryBySharedDictionaryPronunciationId =
+        sharedDictionaryBySharedDictionaryPronunciationId;
+    final lOther$sharedDictionaryBySharedDictionaryPronunciationId =
+        other.sharedDictionaryBySharedDictionaryPronunciationId;
+    if (l$sharedDictionaryBySharedDictionaryPronunciationId !=
+        lOther$sharedDictionaryBySharedDictionaryPronunciationId) {
+      return false;
+    }
+    final l$sharedDictionaryBySharedDictionaryNicknameId =
+        sharedDictionaryBySharedDictionaryNicknameId;
+    final lOther$sharedDictionaryBySharedDictionaryNicknameId =
+        other.sharedDictionaryBySharedDictionaryNicknameId;
+    if (l$sharedDictionaryBySharedDictionaryNicknameId !=
+        lOther$sharedDictionaryBySharedDictionaryNicknameId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1 {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1;
+
+  TRes call({
+    String? sharedAppellationsId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId?
+    sharedDictionaryBySharedDictionaryNameId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId?
+    sharedDictionaryBySharedDictionaryPronunciationId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId?
+    sharedDictionaryBySharedDictionaryNicknameId,
+    String? $__typename,
+  });
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryNameId;
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryPronunciationId;
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryNicknameId;
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedAppellationsId = _undefined,
+    Object? sharedDictionaryBySharedDictionaryNameId = _undefined,
+    Object? sharedDictionaryBySharedDictionaryPronunciationId = _undefined,
+    Object? sharedDictionaryBySharedDictionaryNicknameId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1(
+      sharedAppellationsId:
+          sharedAppellationsId == _undefined || sharedAppellationsId == null
+          ? _instance.sharedAppellationsId
+          : (sharedAppellationsId as String),
+      sharedDictionaryBySharedDictionaryNameId:
+          sharedDictionaryBySharedDictionaryNameId == _undefined
+          ? _instance.sharedDictionaryBySharedDictionaryNameId
+          : (sharedDictionaryBySharedDictionaryNameId
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId?),
+      sharedDictionaryBySharedDictionaryPronunciationId:
+          sharedDictionaryBySharedDictionaryPronunciationId == _undefined
+          ? _instance.sharedDictionaryBySharedDictionaryPronunciationId
+          : (sharedDictionaryBySharedDictionaryPronunciationId
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId?),
+      sharedDictionaryBySharedDictionaryNicknameId:
+          sharedDictionaryBySharedDictionaryNicknameId == _undefined
+          ? _instance.sharedDictionaryBySharedDictionaryNicknameId
+          : (sharedDictionaryBySharedDictionaryNicknameId
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryNameId {
+    final local$sharedDictionaryBySharedDictionaryNameId =
+        _instance.sharedDictionaryBySharedDictionaryNameId;
+    return local$sharedDictionaryBySharedDictionaryNameId == null
+        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId(
+            local$sharedDictionaryBySharedDictionaryNameId,
+            (e) => call(sharedDictionaryBySharedDictionaryNameId: e),
+          );
+  }
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryPronunciationId {
+    final local$sharedDictionaryBySharedDictionaryPronunciationId =
+        _instance.sharedDictionaryBySharedDictionaryPronunciationId;
+    return local$sharedDictionaryBySharedDictionaryPronunciationId == null
+        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId(
+            local$sharedDictionaryBySharedDictionaryPronunciationId,
+            (e) => call(sharedDictionaryBySharedDictionaryPronunciationId: e),
+          );
+  }
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryNicknameId {
+    final local$sharedDictionaryBySharedDictionaryNicknameId =
+        _instance.sharedDictionaryBySharedDictionaryNicknameId;
+    return local$sharedDictionaryBySharedDictionaryNicknameId == null
+        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId(
+            local$sharedDictionaryBySharedDictionaryNicknameId,
+            (e) => call(sharedDictionaryBySharedDictionaryNicknameId: e),
+          );
+  }
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? sharedAppellationsId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId?
+    sharedDictionaryBySharedDictionaryNameId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId?
+    sharedDictionaryBySharedDictionaryPronunciationId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId?
+    sharedDictionaryBySharedDictionaryNicknameId,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryNameId =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId.stub(
+        _res,
+      );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryPronunciationId =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+        _res,
+      );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryNicknameId =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId.stub(
+        _res,
+      );
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId({
+    required this.sharedDictionaryId,
+    required this.value,
+    this.$__typename = 'SharedDictionary',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedDictionaryId = json['sharedDictionaryId'];
+    final l$value = json['value'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId(
+      sharedDictionaryId: (l$sharedDictionaryId as String),
+      value:
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
+            (l$value as Map<String, dynamic>),
+          ),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String sharedDictionaryId;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value
+  value;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedDictionaryId = sharedDictionaryId;
+    _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
+    final l$value = value;
+    _resultData['value'] = l$value.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedDictionaryId = sharedDictionaryId;
+    final l$value = value;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$sharedDictionaryId, l$value, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedDictionaryId = sharedDictionaryId;
+    final lOther$sharedDictionaryId = other.sharedDictionaryId;
+    if (l$sharedDictionaryId != lOther$sharedDictionaryId) {
+      return false;
+    }
+    final l$value = value;
+    final lOther$value = other.value;
+    if (l$value != lOther$value) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId;
+
+  TRes call({
+    String? sharedDictionaryId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value?
+    value,
+    String? $__typename,
+  });
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value<
+    TRes
+  >
+  get value;
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedDictionaryId = _undefined,
+    Object? value = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId(
+      sharedDictionaryId:
+          sharedDictionaryId == _undefined || sharedDictionaryId == null
+          ? _instance.sharedDictionaryId
+          : (sharedDictionaryId as String),
+      value: value == _undefined || value == null
+          ? _instance.value
+          : (value
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value<
+    TRes
+  >
+  get value {
+    final local$value = _instance.value;
+    return CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value(
+      local$value,
+      (e) => call(value: e),
+    );
+  }
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? sharedDictionaryId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value?
+    value,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value<
+    TRes
+  >
+  get value =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value.stub(
+        _res,
+      );
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value;
+
+  TRes call({
+    List<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId({
+    required this.sharedDictionaryId,
+    required this.value,
+    this.$__typename = 'SharedDictionary',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedDictionaryId = json['sharedDictionaryId'];
+    final l$value = json['value'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId(
+      sharedDictionaryId: (l$sharedDictionaryId as String),
+      value:
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
+            (l$value as Map<String, dynamic>),
+          ),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String sharedDictionaryId;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value
+  value;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedDictionaryId = sharedDictionaryId;
+    _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
+    final l$value = value;
+    _resultData['value'] = l$value.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedDictionaryId = sharedDictionaryId;
+    final l$value = value;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$sharedDictionaryId, l$value, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedDictionaryId = sharedDictionaryId;
+    final lOther$sharedDictionaryId = other.sharedDictionaryId;
+    if (l$sharedDictionaryId != lOther$sharedDictionaryId) {
+      return false;
+    }
+    final l$value = value;
+    final lOther$value = other.value;
+    if (l$value != lOther$value) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId;
+
+  TRes call({
+    String? sharedDictionaryId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value?
+    value,
+    String? $__typename,
+  });
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value<
+    TRes
+  >
+  get value;
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedDictionaryId = _undefined,
+    Object? value = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId(
+      sharedDictionaryId:
+          sharedDictionaryId == _undefined || sharedDictionaryId == null
+          ? _instance.sharedDictionaryId
+          : (sharedDictionaryId as String),
+      value: value == _undefined || value == null
+          ? _instance.value
+          : (value
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value<
+    TRes
+  >
+  get value {
+    final local$value = _instance.value;
+    return CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value(
+      local$value,
+      (e) => call(value: e),
+    );
+  }
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? sharedDictionaryId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value?
+    value,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value<
+    TRes
+  >
+  get value =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
+        _res,
+      );
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value;
+
+  TRes call({
+    List<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId({
+    required this.sharedDictionaryId,
+    required this.value,
+    this.$__typename = 'SharedDictionary',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedDictionaryId = json['sharedDictionaryId'];
+    final l$value = json['value'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId(
+      sharedDictionaryId: (l$sharedDictionaryId as String),
+      value:
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
+            (l$value as Map<String, dynamic>),
+          ),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String sharedDictionaryId;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value
+  value;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedDictionaryId = sharedDictionaryId;
+    _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
+    final l$value = value;
+    _resultData['value'] = l$value.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedDictionaryId = sharedDictionaryId;
+    final l$value = value;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$sharedDictionaryId, l$value, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedDictionaryId = sharedDictionaryId;
+    final lOther$sharedDictionaryId = other.sharedDictionaryId;
+    if (l$sharedDictionaryId != lOther$sharedDictionaryId) {
+      return false;
+    }
+    final l$value = value;
+    final lOther$value = other.value;
+    if (l$value != lOther$value) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId;
+
+  TRes call({
+    String? sharedDictionaryId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value?
+    value,
+    String? $__typename,
+  });
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value<
+    TRes
+  >
+  get value;
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedDictionaryId = _undefined,
+    Object? value = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId(
+      sharedDictionaryId:
+          sharedDictionaryId == _undefined || sharedDictionaryId == null
+          ? _instance.sharedDictionaryId
+          : (sharedDictionaryId as String),
+      value: value == _undefined || value == null
+          ? _instance.value
+          : (value
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value<
+    TRes
+  >
+  get value {
+    final local$value = _instance.value;
+    return CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value(
+      local$value,
+      (e) => call(value: e),
+    );
+  }
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? sharedDictionaryId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value?
+    value,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value<
+    TRes
+  >
+  get value =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
+        _res,
+      );
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value;
+
+  TRes call({
+    List<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address1$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2 {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2({
+    required this.sharedAppellationsId,
+    this.sharedDictionaryBySharedDictionaryNameId,
+    this.sharedDictionaryBySharedDictionaryPronunciationId,
+    this.sharedDictionaryBySharedDictionaryNicknameId,
+    this.$__typename = 'SharedAppellation',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedAppellationsId = json['sharedAppellationsId'];
+    final l$sharedDictionaryBySharedDictionaryNameId =
+        json['sharedDictionaryBySharedDictionaryNameId'];
+    final l$sharedDictionaryBySharedDictionaryPronunciationId =
+        json['sharedDictionaryBySharedDictionaryPronunciationId'];
+    final l$sharedDictionaryBySharedDictionaryNicknameId =
+        json['sharedDictionaryBySharedDictionaryNicknameId'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2(
+      sharedAppellationsId: (l$sharedAppellationsId as String),
+      sharedDictionaryBySharedDictionaryNameId:
+          l$sharedDictionaryBySharedDictionaryNameId == null
+          ? null
+          : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId.fromJson(
+              (l$sharedDictionaryBySharedDictionaryNameId
+                  as Map<String, dynamic>),
+            ),
+      sharedDictionaryBySharedDictionaryPronunciationId:
+          l$sharedDictionaryBySharedDictionaryPronunciationId == null
+          ? null
+          : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+              (l$sharedDictionaryBySharedDictionaryPronunciationId
+                  as Map<String, dynamic>),
+            ),
+      sharedDictionaryBySharedDictionaryNicknameId:
+          l$sharedDictionaryBySharedDictionaryNicknameId == null
+          ? null
+          : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+              (l$sharedDictionaryBySharedDictionaryNicknameId
+                  as Map<String, dynamic>),
+            ),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String sharedAppellationsId;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId?
+  sharedDictionaryBySharedDictionaryNameId;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId?
+  sharedDictionaryBySharedDictionaryPronunciationId;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId?
+  sharedDictionaryBySharedDictionaryNicknameId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedAppellationsId = sharedAppellationsId;
+    _resultData['sharedAppellationsId'] = l$sharedAppellationsId;
+    final l$sharedDictionaryBySharedDictionaryNameId =
+        sharedDictionaryBySharedDictionaryNameId;
+    _resultData['sharedDictionaryBySharedDictionaryNameId'] =
+        l$sharedDictionaryBySharedDictionaryNameId?.toJson();
+    final l$sharedDictionaryBySharedDictionaryPronunciationId =
+        sharedDictionaryBySharedDictionaryPronunciationId;
+    _resultData['sharedDictionaryBySharedDictionaryPronunciationId'] =
+        l$sharedDictionaryBySharedDictionaryPronunciationId?.toJson();
+    final l$sharedDictionaryBySharedDictionaryNicknameId =
+        sharedDictionaryBySharedDictionaryNicknameId;
+    _resultData['sharedDictionaryBySharedDictionaryNicknameId'] =
+        l$sharedDictionaryBySharedDictionaryNicknameId?.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedAppellationsId = sharedAppellationsId;
+    final l$sharedDictionaryBySharedDictionaryNameId =
+        sharedDictionaryBySharedDictionaryNameId;
+    final l$sharedDictionaryBySharedDictionaryPronunciationId =
+        sharedDictionaryBySharedDictionaryPronunciationId;
+    final l$sharedDictionaryBySharedDictionaryNicknameId =
+        sharedDictionaryBySharedDictionaryNicknameId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$sharedAppellationsId,
+      l$sharedDictionaryBySharedDictionaryNameId,
+      l$sharedDictionaryBySharedDictionaryPronunciationId,
+      l$sharedDictionaryBySharedDictionaryNicknameId,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2 ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedAppellationsId = sharedAppellationsId;
+    final lOther$sharedAppellationsId = other.sharedAppellationsId;
+    if (l$sharedAppellationsId != lOther$sharedAppellationsId) {
+      return false;
+    }
+    final l$sharedDictionaryBySharedDictionaryNameId =
+        sharedDictionaryBySharedDictionaryNameId;
+    final lOther$sharedDictionaryBySharedDictionaryNameId =
+        other.sharedDictionaryBySharedDictionaryNameId;
+    if (l$sharedDictionaryBySharedDictionaryNameId !=
+        lOther$sharedDictionaryBySharedDictionaryNameId) {
+      return false;
+    }
+    final l$sharedDictionaryBySharedDictionaryPronunciationId =
+        sharedDictionaryBySharedDictionaryPronunciationId;
+    final lOther$sharedDictionaryBySharedDictionaryPronunciationId =
+        other.sharedDictionaryBySharedDictionaryPronunciationId;
+    if (l$sharedDictionaryBySharedDictionaryPronunciationId !=
+        lOther$sharedDictionaryBySharedDictionaryPronunciationId) {
+      return false;
+    }
+    final l$sharedDictionaryBySharedDictionaryNicknameId =
+        sharedDictionaryBySharedDictionaryNicknameId;
+    final lOther$sharedDictionaryBySharedDictionaryNicknameId =
+        other.sharedDictionaryBySharedDictionaryNicknameId;
+    if (l$sharedDictionaryBySharedDictionaryNicknameId !=
+        lOther$sharedDictionaryBySharedDictionaryNicknameId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2 {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2;
+
+  TRes call({
+    String? sharedAppellationsId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId?
+    sharedDictionaryBySharedDictionaryNameId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId?
+    sharedDictionaryBySharedDictionaryPronunciationId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId?
+    sharedDictionaryBySharedDictionaryNicknameId,
+    String? $__typename,
+  });
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryNameId;
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryPronunciationId;
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryNicknameId;
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedAppellationsId = _undefined,
+    Object? sharedDictionaryBySharedDictionaryNameId = _undefined,
+    Object? sharedDictionaryBySharedDictionaryPronunciationId = _undefined,
+    Object? sharedDictionaryBySharedDictionaryNicknameId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2(
+      sharedAppellationsId:
+          sharedAppellationsId == _undefined || sharedAppellationsId == null
+          ? _instance.sharedAppellationsId
+          : (sharedAppellationsId as String),
+      sharedDictionaryBySharedDictionaryNameId:
+          sharedDictionaryBySharedDictionaryNameId == _undefined
+          ? _instance.sharedDictionaryBySharedDictionaryNameId
+          : (sharedDictionaryBySharedDictionaryNameId
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId?),
+      sharedDictionaryBySharedDictionaryPronunciationId:
+          sharedDictionaryBySharedDictionaryPronunciationId == _undefined
+          ? _instance.sharedDictionaryBySharedDictionaryPronunciationId
+          : (sharedDictionaryBySharedDictionaryPronunciationId
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId?),
+      sharedDictionaryBySharedDictionaryNicknameId:
+          sharedDictionaryBySharedDictionaryNicknameId == _undefined
+          ? _instance.sharedDictionaryBySharedDictionaryNicknameId
+          : (sharedDictionaryBySharedDictionaryNicknameId
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryNameId {
+    final local$sharedDictionaryBySharedDictionaryNameId =
+        _instance.sharedDictionaryBySharedDictionaryNameId;
+    return local$sharedDictionaryBySharedDictionaryNameId == null
+        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId(
+            local$sharedDictionaryBySharedDictionaryNameId,
+            (e) => call(sharedDictionaryBySharedDictionaryNameId: e),
+          );
+  }
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryPronunciationId {
+    final local$sharedDictionaryBySharedDictionaryPronunciationId =
+        _instance.sharedDictionaryBySharedDictionaryPronunciationId;
+    return local$sharedDictionaryBySharedDictionaryPronunciationId == null
+        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId(
+            local$sharedDictionaryBySharedDictionaryPronunciationId,
+            (e) => call(sharedDictionaryBySharedDictionaryPronunciationId: e),
+          );
+  }
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryNicknameId {
+    final local$sharedDictionaryBySharedDictionaryNicknameId =
+        _instance.sharedDictionaryBySharedDictionaryNicknameId;
+    return local$sharedDictionaryBySharedDictionaryNicknameId == null
+        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId(
+            local$sharedDictionaryBySharedDictionaryNicknameId,
+            (e) => call(sharedDictionaryBySharedDictionaryNicknameId: e),
+          );
+  }
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? sharedAppellationsId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId?
+    sharedDictionaryBySharedDictionaryNameId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId?
+    sharedDictionaryBySharedDictionaryPronunciationId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId?
+    sharedDictionaryBySharedDictionaryNicknameId,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryNameId =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId.stub(
+        _res,
+      );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryPronunciationId =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+        _res,
+      );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryNicknameId =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId.stub(
+        _res,
+      );
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId({
+    required this.sharedDictionaryId,
+    required this.value,
+    this.$__typename = 'SharedDictionary',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedDictionaryId = json['sharedDictionaryId'];
+    final l$value = json['value'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId(
+      sharedDictionaryId: (l$sharedDictionaryId as String),
+      value:
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
+            (l$value as Map<String, dynamic>),
+          ),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String sharedDictionaryId;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value
+  value;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedDictionaryId = sharedDictionaryId;
+    _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
+    final l$value = value;
+    _resultData['value'] = l$value.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedDictionaryId = sharedDictionaryId;
+    final l$value = value;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$sharedDictionaryId, l$value, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedDictionaryId = sharedDictionaryId;
+    final lOther$sharedDictionaryId = other.sharedDictionaryId;
+    if (l$sharedDictionaryId != lOther$sharedDictionaryId) {
+      return false;
+    }
+    final l$value = value;
+    final lOther$value = other.value;
+    if (l$value != lOther$value) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId;
+
+  TRes call({
+    String? sharedDictionaryId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value?
+    value,
+    String? $__typename,
+  });
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value<
+    TRes
+  >
+  get value;
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedDictionaryId = _undefined,
+    Object? value = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId(
+      sharedDictionaryId:
+          sharedDictionaryId == _undefined || sharedDictionaryId == null
+          ? _instance.sharedDictionaryId
+          : (sharedDictionaryId as String),
+      value: value == _undefined || value == null
+          ? _instance.value
+          : (value
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value<
+    TRes
+  >
+  get value {
+    final local$value = _instance.value;
+    return CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value(
+      local$value,
+      (e) => call(value: e),
+    );
+  }
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? sharedDictionaryId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value?
+    value,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value<
+    TRes
+  >
+  get value =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value.stub(
+        _res,
+      );
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value;
+
+  TRes call({
+    List<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId({
+    required this.sharedDictionaryId,
+    required this.value,
+    this.$__typename = 'SharedDictionary',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedDictionaryId = json['sharedDictionaryId'];
+    final l$value = json['value'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId(
+      sharedDictionaryId: (l$sharedDictionaryId as String),
+      value:
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
+            (l$value as Map<String, dynamic>),
+          ),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String sharedDictionaryId;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value
+  value;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedDictionaryId = sharedDictionaryId;
+    _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
+    final l$value = value;
+    _resultData['value'] = l$value.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedDictionaryId = sharedDictionaryId;
+    final l$value = value;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$sharedDictionaryId, l$value, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedDictionaryId = sharedDictionaryId;
+    final lOther$sharedDictionaryId = other.sharedDictionaryId;
+    if (l$sharedDictionaryId != lOther$sharedDictionaryId) {
+      return false;
+    }
+    final l$value = value;
+    final lOther$value = other.value;
+    if (l$value != lOther$value) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId;
+
+  TRes call({
+    String? sharedDictionaryId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value?
+    value,
+    String? $__typename,
+  });
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value<
+    TRes
+  >
+  get value;
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedDictionaryId = _undefined,
+    Object? value = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId(
+      sharedDictionaryId:
+          sharedDictionaryId == _undefined || sharedDictionaryId == null
+          ? _instance.sharedDictionaryId
+          : (sharedDictionaryId as String),
+      value: value == _undefined || value == null
+          ? _instance.value
+          : (value
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value<
+    TRes
+  >
+  get value {
+    final local$value = _instance.value;
+    return CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value(
+      local$value,
+      (e) => call(value: e),
+    );
+  }
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? sharedDictionaryId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value?
+    value,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value<
+    TRes
+  >
+  get value =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
+        _res,
+      );
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value;
+
+  TRes call({
+    List<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId({
+    required this.sharedDictionaryId,
+    required this.value,
+    this.$__typename = 'SharedDictionary',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedDictionaryId = json['sharedDictionaryId'];
+    final l$value = json['value'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId(
+      sharedDictionaryId: (l$sharedDictionaryId as String),
+      value:
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
+            (l$value as Map<String, dynamic>),
+          ),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String sharedDictionaryId;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value
+  value;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedDictionaryId = sharedDictionaryId;
+    _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
+    final l$value = value;
+    _resultData['value'] = l$value.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedDictionaryId = sharedDictionaryId;
+    final l$value = value;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$sharedDictionaryId, l$value, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedDictionaryId = sharedDictionaryId;
+    final lOther$sharedDictionaryId = other.sharedDictionaryId;
+    if (l$sharedDictionaryId != lOther$sharedDictionaryId) {
+      return false;
+    }
+    final l$value = value;
+    final lOther$value = other.value;
+    if (l$value != lOther$value) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId;
+
+  TRes call({
+    String? sharedDictionaryId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value?
+    value,
+    String? $__typename,
+  });
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value<
+    TRes
+  >
+  get value;
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedDictionaryId = _undefined,
+    Object? value = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId(
+      sharedDictionaryId:
+          sharedDictionaryId == _undefined || sharedDictionaryId == null
+          ? _instance.sharedDictionaryId
+          : (sharedDictionaryId as String),
+      value: value == _undefined || value == null
+          ? _instance.value
+          : (value
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value<
+    TRes
+  >
+  get value {
+    final local$value = _instance.value;
+    return CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value(
+      local$value,
+      (e) => call(value: e),
+    );
+  }
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? sharedDictionaryId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value?
+    value,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value<
+    TRes
+  >
+  get value =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
+        _res,
+      );
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value;
+
+  TRes call({
+    List<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$address2$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName({
+    required this.sharedAppellationsId,
+    this.sharedDictionaryBySharedDictionaryNameId,
+    this.sharedDictionaryBySharedDictionaryPronunciationId,
+    this.sharedDictionaryBySharedDictionaryNicknameId,
+    this.$__typename = 'SharedAppellation',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedAppellationsId = json['sharedAppellationsId'];
+    final l$sharedDictionaryBySharedDictionaryNameId =
+        json['sharedDictionaryBySharedDictionaryNameId'];
+    final l$sharedDictionaryBySharedDictionaryPronunciationId =
+        json['sharedDictionaryBySharedDictionaryPronunciationId'];
+    final l$sharedDictionaryBySharedDictionaryNicknameId =
+        json['sharedDictionaryBySharedDictionaryNicknameId'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName(
+      sharedAppellationsId: (l$sharedAppellationsId as String),
+      sharedDictionaryBySharedDictionaryNameId:
+          l$sharedDictionaryBySharedDictionaryNameId == null
+          ? null
+          : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId.fromJson(
+              (l$sharedDictionaryBySharedDictionaryNameId
+                  as Map<String, dynamic>),
+            ),
+      sharedDictionaryBySharedDictionaryPronunciationId:
+          l$sharedDictionaryBySharedDictionaryPronunciationId == null
+          ? null
+          : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+              (l$sharedDictionaryBySharedDictionaryPronunciationId
+                  as Map<String, dynamic>),
+            ),
+      sharedDictionaryBySharedDictionaryNicknameId:
+          l$sharedDictionaryBySharedDictionaryNicknameId == null
+          ? null
+          : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+              (l$sharedDictionaryBySharedDictionaryNicknameId
+                  as Map<String, dynamic>),
+            ),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String sharedAppellationsId;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId?
+  sharedDictionaryBySharedDictionaryNameId;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId?
+  sharedDictionaryBySharedDictionaryPronunciationId;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId?
+  sharedDictionaryBySharedDictionaryNicknameId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedAppellationsId = sharedAppellationsId;
+    _resultData['sharedAppellationsId'] = l$sharedAppellationsId;
+    final l$sharedDictionaryBySharedDictionaryNameId =
+        sharedDictionaryBySharedDictionaryNameId;
+    _resultData['sharedDictionaryBySharedDictionaryNameId'] =
+        l$sharedDictionaryBySharedDictionaryNameId?.toJson();
+    final l$sharedDictionaryBySharedDictionaryPronunciationId =
+        sharedDictionaryBySharedDictionaryPronunciationId;
+    _resultData['sharedDictionaryBySharedDictionaryPronunciationId'] =
+        l$sharedDictionaryBySharedDictionaryPronunciationId?.toJson();
+    final l$sharedDictionaryBySharedDictionaryNicknameId =
+        sharedDictionaryBySharedDictionaryNicknameId;
+    _resultData['sharedDictionaryBySharedDictionaryNicknameId'] =
+        l$sharedDictionaryBySharedDictionaryNicknameId?.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedAppellationsId = sharedAppellationsId;
+    final l$sharedDictionaryBySharedDictionaryNameId =
+        sharedDictionaryBySharedDictionaryNameId;
+    final l$sharedDictionaryBySharedDictionaryPronunciationId =
+        sharedDictionaryBySharedDictionaryPronunciationId;
+    final l$sharedDictionaryBySharedDictionaryNicknameId =
+        sharedDictionaryBySharedDictionaryNicknameId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$sharedAppellationsId,
+      l$sharedDictionaryBySharedDictionaryNameId,
+      l$sharedDictionaryBySharedDictionaryPronunciationId,
+      l$sharedDictionaryBySharedDictionaryNicknameId,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedAppellationsId = sharedAppellationsId;
+    final lOther$sharedAppellationsId = other.sharedAppellationsId;
+    if (l$sharedAppellationsId != lOther$sharedAppellationsId) {
+      return false;
+    }
+    final l$sharedDictionaryBySharedDictionaryNameId =
+        sharedDictionaryBySharedDictionaryNameId;
+    final lOther$sharedDictionaryBySharedDictionaryNameId =
+        other.sharedDictionaryBySharedDictionaryNameId;
+    if (l$sharedDictionaryBySharedDictionaryNameId !=
+        lOther$sharedDictionaryBySharedDictionaryNameId) {
+      return false;
+    }
+    final l$sharedDictionaryBySharedDictionaryPronunciationId =
+        sharedDictionaryBySharedDictionaryPronunciationId;
+    final lOther$sharedDictionaryBySharedDictionaryPronunciationId =
+        other.sharedDictionaryBySharedDictionaryPronunciationId;
+    if (l$sharedDictionaryBySharedDictionaryPronunciationId !=
+        lOther$sharedDictionaryBySharedDictionaryPronunciationId) {
+      return false;
+    }
+    final l$sharedDictionaryBySharedDictionaryNicknameId =
+        sharedDictionaryBySharedDictionaryNicknameId;
+    final lOther$sharedDictionaryBySharedDictionaryNicknameId =
+        other.sharedDictionaryBySharedDictionaryNicknameId;
+    if (l$sharedDictionaryBySharedDictionaryNicknameId !=
+        lOther$sharedDictionaryBySharedDictionaryNicknameId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName;
+
+  TRes call({
+    String? sharedAppellationsId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId?
+    sharedDictionaryBySharedDictionaryNameId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId?
+    sharedDictionaryBySharedDictionaryPronunciationId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId?
+    sharedDictionaryBySharedDictionaryNicknameId,
+    String? $__typename,
+  });
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryNameId;
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryPronunciationId;
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryNicknameId;
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedAppellationsId = _undefined,
+    Object? sharedDictionaryBySharedDictionaryNameId = _undefined,
+    Object? sharedDictionaryBySharedDictionaryPronunciationId = _undefined,
+    Object? sharedDictionaryBySharedDictionaryNicknameId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName(
+      sharedAppellationsId:
+          sharedAppellationsId == _undefined || sharedAppellationsId == null
+          ? _instance.sharedAppellationsId
+          : (sharedAppellationsId as String),
+      sharedDictionaryBySharedDictionaryNameId:
+          sharedDictionaryBySharedDictionaryNameId == _undefined
+          ? _instance.sharedDictionaryBySharedDictionaryNameId
+          : (sharedDictionaryBySharedDictionaryNameId
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId?),
+      sharedDictionaryBySharedDictionaryPronunciationId:
+          sharedDictionaryBySharedDictionaryPronunciationId == _undefined
+          ? _instance.sharedDictionaryBySharedDictionaryPronunciationId
+          : (sharedDictionaryBySharedDictionaryPronunciationId
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId?),
+      sharedDictionaryBySharedDictionaryNicknameId:
+          sharedDictionaryBySharedDictionaryNicknameId == _undefined
+          ? _instance.sharedDictionaryBySharedDictionaryNicknameId
+          : (sharedDictionaryBySharedDictionaryNicknameId
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryNameId {
+    final local$sharedDictionaryBySharedDictionaryNameId =
+        _instance.sharedDictionaryBySharedDictionaryNameId;
+    return local$sharedDictionaryBySharedDictionaryNameId == null
+        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId(
+            local$sharedDictionaryBySharedDictionaryNameId,
+            (e) => call(sharedDictionaryBySharedDictionaryNameId: e),
+          );
+  }
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryPronunciationId {
+    final local$sharedDictionaryBySharedDictionaryPronunciationId =
+        _instance.sharedDictionaryBySharedDictionaryPronunciationId;
+    return local$sharedDictionaryBySharedDictionaryPronunciationId == null
+        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+            local$sharedDictionaryBySharedDictionaryPronunciationId,
+            (e) => call(sharedDictionaryBySharedDictionaryPronunciationId: e),
+          );
+  }
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryNicknameId {
+    final local$sharedDictionaryBySharedDictionaryNicknameId =
+        _instance.sharedDictionaryBySharedDictionaryNicknameId;
+    return local$sharedDictionaryBySharedDictionaryNicknameId == null
+        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+            local$sharedDictionaryBySharedDictionaryNicknameId,
+            (e) => call(sharedDictionaryBySharedDictionaryNicknameId: e),
+          );
+  }
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? sharedAppellationsId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId?
+    sharedDictionaryBySharedDictionaryNameId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId?
+    sharedDictionaryBySharedDictionaryPronunciationId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId?
+    sharedDictionaryBySharedDictionaryNicknameId,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryNameId =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId.stub(
+        _res,
+      );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryPronunciationId =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+        _res,
+      );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryNicknameId =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId.stub(
+        _res,
+      );
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId({
+    required this.sharedDictionaryId,
+    required this.value,
+    this.$__typename = 'SharedDictionary',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedDictionaryId = json['sharedDictionaryId'];
+    final l$value = json['value'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId(
+      sharedDictionaryId: (l$sharedDictionaryId as String),
+      value:
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
+            (l$value as Map<String, dynamic>),
+          ),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String sharedDictionaryId;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value
+  value;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedDictionaryId = sharedDictionaryId;
+    _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
+    final l$value = value;
+    _resultData['value'] = l$value.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedDictionaryId = sharedDictionaryId;
+    final l$value = value;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$sharedDictionaryId, l$value, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedDictionaryId = sharedDictionaryId;
+    final lOther$sharedDictionaryId = other.sharedDictionaryId;
+    if (l$sharedDictionaryId != lOther$sharedDictionaryId) {
+      return false;
+    }
+    final l$value = value;
+    final lOther$value = other.value;
+    if (l$value != lOther$value) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId;
+
+  TRes call({
+    String? sharedDictionaryId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value?
+    value,
+    String? $__typename,
+  });
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value<
+    TRes
+  >
+  get value;
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedDictionaryId = _undefined,
+    Object? value = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId(
+      sharedDictionaryId:
+          sharedDictionaryId == _undefined || sharedDictionaryId == null
+          ? _instance.sharedDictionaryId
+          : (sharedDictionaryId as String),
+      value: value == _undefined || value == null
+          ? _instance.value
+          : (value
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value<
+    TRes
+  >
+  get value {
+    final local$value = _instance.value;
+    return CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value(
+      local$value,
+      (e) => call(value: e),
+    );
+  }
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? sharedDictionaryId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value?
+    value,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value<
+    TRes
+  >
+  get value =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value.stub(
+        _res,
+      );
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value;
+
+  TRes call({
+    List<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId({
+    required this.sharedDictionaryId,
+    required this.value,
+    this.$__typename = 'SharedDictionary',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedDictionaryId = json['sharedDictionaryId'];
+    final l$value = json['value'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+      sharedDictionaryId: (l$sharedDictionaryId as String),
+      value:
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
+            (l$value as Map<String, dynamic>),
+          ),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String sharedDictionaryId;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value
+  value;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedDictionaryId = sharedDictionaryId;
+    _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
+    final l$value = value;
+    _resultData['value'] = l$value.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedDictionaryId = sharedDictionaryId;
+    final l$value = value;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$sharedDictionaryId, l$value, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedDictionaryId = sharedDictionaryId;
+    final lOther$sharedDictionaryId = other.sharedDictionaryId;
+    if (l$sharedDictionaryId != lOther$sharedDictionaryId) {
+      return false;
+    }
+    final l$value = value;
+    final lOther$value = other.value;
+    if (l$value != lOther$value) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId;
+
+  TRes call({
+    String? sharedDictionaryId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value?
+    value,
+    String? $__typename,
+  });
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value<
+    TRes
+  >
+  get value;
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedDictionaryId = _undefined,
+    Object? value = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+      sharedDictionaryId:
+          sharedDictionaryId == _undefined || sharedDictionaryId == null
+          ? _instance.sharedDictionaryId
+          : (sharedDictionaryId as String),
+      value: value == _undefined || value == null
+          ? _instance.value
+          : (value
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value<
+    TRes
+  >
+  get value {
+    final local$value = _instance.value;
+    return CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value(
+      local$value,
+      (e) => call(value: e),
+    );
+  }
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? sharedDictionaryId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value?
+    value,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value<
+    TRes
+  >
+  get value =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
+        _res,
+      );
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value;
+
+  TRes call({
+    List<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId({
+    required this.sharedDictionaryId,
+    required this.value,
+    this.$__typename = 'SharedDictionary',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedDictionaryId = json['sharedDictionaryId'];
+    final l$value = json['value'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+      sharedDictionaryId: (l$sharedDictionaryId as String),
+      value:
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
+            (l$value as Map<String, dynamic>),
+          ),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String sharedDictionaryId;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value
+  value;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedDictionaryId = sharedDictionaryId;
+    _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
+    final l$value = value;
+    _resultData['value'] = l$value.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedDictionaryId = sharedDictionaryId;
+    final l$value = value;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$sharedDictionaryId, l$value, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedDictionaryId = sharedDictionaryId;
+    final lOther$sharedDictionaryId = other.sharedDictionaryId;
+    if (l$sharedDictionaryId != lOther$sharedDictionaryId) {
+      return false;
+    }
+    final l$value = value;
+    final lOther$value = other.value;
+    if (l$value != lOther$value) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId;
+
+  TRes call({
+    String? sharedDictionaryId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value?
+    value,
+    String? $__typename,
+  });
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value<
+    TRes
+  >
+  get value;
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedDictionaryId = _undefined,
+    Object? value = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+      sharedDictionaryId:
+          sharedDictionaryId == _undefined || sharedDictionaryId == null
+          ? _instance.sharedDictionaryId
+          : (sharedDictionaryId as String),
+      value: value == _undefined || value == null
+          ? _instance.value
+          : (value
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value<
+    TRes
+  >
+  get value {
+    final local$value = _instance.value;
+    return CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value(
+      local$value,
+      (e) => call(value: e),
+    );
+  }
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? sharedDictionaryId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value?
+    value,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value<
+    TRes
+  >
+  get value =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
+        _res,
+      );
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value;
+
+  TRes call({
+    List<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$address$billName$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user({
+    required this.historyId,
+    required this.infoStaffId,
+    this.infoCompanyId,
+    this.code,
+    this.sex,
+    this.phone,
+    this.symbol,
+    this.privatePhone,
+    this.name,
+    this.$__typename = 'HistoryInfoStaff',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$historyId = json['historyId'];
+    final l$infoStaffId = json['infoStaffId'];
+    final l$infoCompanyId = json['infoCompanyId'];
+    final l$code = json['code'];
+    final l$sex = json['sex'];
+    final l$phone = json['phone'];
+    final l$symbol = json['symbol'];
+    final l$privatePhone = json['privatePhone'];
+    final l$name = json['name'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user(
+      historyId: (l$historyId as String),
+      infoStaffId: (l$infoStaffId as String),
+      infoCompanyId: (l$infoCompanyId as String?),
+      code: (l$code as String?),
+      sex: (l$sex as String?),
+      phone: (l$phone as String?),
+      symbol: (l$symbol as String?),
+      privatePhone: (l$privatePhone as String?),
+      name: l$name == null
+          ? null
+          : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name.fromJson(
+              (l$name as Map<String, dynamic>),
+            ),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String historyId;
+
+  final String infoStaffId;
+
+  final String? infoCompanyId;
+
+  final String? code;
+
+  final String? sex;
+
+  final String? phone;
+
+  final String? symbol;
+
+  final String? privatePhone;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name?
+  name;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$historyId = historyId;
+    _resultData['historyId'] = l$historyId;
+    final l$infoStaffId = infoStaffId;
+    _resultData['infoStaffId'] = l$infoStaffId;
+    final l$infoCompanyId = infoCompanyId;
+    _resultData['infoCompanyId'] = l$infoCompanyId;
+    final l$code = code;
+    _resultData['code'] = l$code;
+    final l$sex = sex;
+    _resultData['sex'] = l$sex;
+    final l$phone = phone;
+    _resultData['phone'] = l$phone;
+    final l$symbol = symbol;
+    _resultData['symbol'] = l$symbol;
+    final l$privatePhone = privatePhone;
+    _resultData['privatePhone'] = l$privatePhone;
+    final l$name = name;
+    _resultData['name'] = l$name?.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$historyId = historyId;
+    final l$infoStaffId = infoStaffId;
+    final l$infoCompanyId = infoCompanyId;
+    final l$code = code;
+    final l$sex = sex;
+    final l$phone = phone;
+    final l$symbol = symbol;
+    final l$privatePhone = privatePhone;
+    final l$name = name;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$historyId,
+      l$infoStaffId,
+      l$infoCompanyId,
+      l$code,
+      l$sex,
+      l$phone,
+      l$symbol,
+      l$privatePhone,
+      l$name,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$historyId = historyId;
+    final lOther$historyId = other.historyId;
+    if (l$historyId != lOther$historyId) {
+      return false;
+    }
+    final l$infoStaffId = infoStaffId;
+    final lOther$infoStaffId = other.infoStaffId;
+    if (l$infoStaffId != lOther$infoStaffId) {
+      return false;
+    }
+    final l$infoCompanyId = infoCompanyId;
+    final lOther$infoCompanyId = other.infoCompanyId;
+    if (l$infoCompanyId != lOther$infoCompanyId) {
+      return false;
+    }
+    final l$code = code;
+    final lOther$code = other.code;
+    if (l$code != lOther$code) {
+      return false;
+    }
+    final l$sex = sex;
+    final lOther$sex = other.sex;
+    if (l$sex != lOther$sex) {
+      return false;
+    }
+    final l$phone = phone;
+    final lOther$phone = other.phone;
+    if (l$phone != lOther$phone) {
+      return false;
+    }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (l$symbol != lOther$symbol) {
+      return false;
+    }
+    final l$privatePhone = privatePhone;
+    final lOther$privatePhone = other.privatePhone;
+    if (l$privatePhone != lOther$privatePhone) {
+      return false;
+    }
+    final l$name = name;
+    final lOther$name = other.name;
+    if (l$name != lOther$name) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user;
+
+  TRes call({
+    String? historyId,
+    String? infoStaffId,
+    String? infoCompanyId,
+    String? code,
+    String? sex,
+    String? phone,
+    String? symbol,
+    String? privatePhone,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name?
+    name,
+    String? $__typename,
+  });
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name<
+    TRes
+  >
+  get name;
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? historyId = _undefined,
+    Object? infoStaffId = _undefined,
+    Object? infoCompanyId = _undefined,
+    Object? code = _undefined,
+    Object? sex = _undefined,
+    Object? phone = _undefined,
+    Object? symbol = _undefined,
+    Object? privatePhone = _undefined,
+    Object? name = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user(
+      historyId: historyId == _undefined || historyId == null
+          ? _instance.historyId
+          : (historyId as String),
+      infoStaffId: infoStaffId == _undefined || infoStaffId == null
+          ? _instance.infoStaffId
+          : (infoStaffId as String),
+      infoCompanyId: infoCompanyId == _undefined
+          ? _instance.infoCompanyId
+          : (infoCompanyId as String?),
+      code: code == _undefined ? _instance.code : (code as String?),
+      sex: sex == _undefined ? _instance.sex : (sex as String?),
+      phone: phone == _undefined ? _instance.phone : (phone as String?),
+      symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
+      privatePhone: privatePhone == _undefined
+          ? _instance.privatePhone
+          : (privatePhone as String?),
+      name: name == _undefined
+          ? _instance.name
+          : (name
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name<
+    TRes
+  >
+  get name {
+    final local$name = _instance.name;
+    return local$name == null
+        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name(
+            local$name,
+            (e) => call(name: e),
+          );
+  }
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? historyId,
+    String? infoStaffId,
+    String? infoCompanyId,
+    String? code,
+    String? sex,
+    String? phone,
+    String? symbol,
+    String? privatePhone,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name?
+    name,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name<
+    TRes
+  >
+  get name =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name.stub(
+        _res,
+      );
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name({
+    required this.sharedAppellationsId,
+    this.sharedDictionaryBySharedDictionaryNameId,
+    this.sharedDictionaryBySharedDictionaryPronunciationId,
+    this.sharedDictionaryBySharedDictionaryNicknameId,
+    this.$__typename = 'SharedAppellation',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedAppellationsId = json['sharedAppellationsId'];
+    final l$sharedDictionaryBySharedDictionaryNameId =
+        json['sharedDictionaryBySharedDictionaryNameId'];
+    final l$sharedDictionaryBySharedDictionaryPronunciationId =
+        json['sharedDictionaryBySharedDictionaryPronunciationId'];
+    final l$sharedDictionaryBySharedDictionaryNicknameId =
+        json['sharedDictionaryBySharedDictionaryNicknameId'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name(
+      sharedAppellationsId: (l$sharedAppellationsId as String),
+      sharedDictionaryBySharedDictionaryNameId:
+          l$sharedDictionaryBySharedDictionaryNameId == null
+          ? null
+          : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId.fromJson(
+              (l$sharedDictionaryBySharedDictionaryNameId
+                  as Map<String, dynamic>),
+            ),
+      sharedDictionaryBySharedDictionaryPronunciationId:
+          l$sharedDictionaryBySharedDictionaryPronunciationId == null
+          ? null
+          : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+              (l$sharedDictionaryBySharedDictionaryPronunciationId
+                  as Map<String, dynamic>),
+            ),
+      sharedDictionaryBySharedDictionaryNicknameId:
+          l$sharedDictionaryBySharedDictionaryNicknameId == null
+          ? null
+          : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+              (l$sharedDictionaryBySharedDictionaryNicknameId
+                  as Map<String, dynamic>),
+            ),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String sharedAppellationsId;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId?
+  sharedDictionaryBySharedDictionaryNameId;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?
+  sharedDictionaryBySharedDictionaryPronunciationId;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?
+  sharedDictionaryBySharedDictionaryNicknameId;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedAppellationsId = sharedAppellationsId;
+    _resultData['sharedAppellationsId'] = l$sharedAppellationsId;
+    final l$sharedDictionaryBySharedDictionaryNameId =
+        sharedDictionaryBySharedDictionaryNameId;
+    _resultData['sharedDictionaryBySharedDictionaryNameId'] =
+        l$sharedDictionaryBySharedDictionaryNameId?.toJson();
+    final l$sharedDictionaryBySharedDictionaryPronunciationId =
+        sharedDictionaryBySharedDictionaryPronunciationId;
+    _resultData['sharedDictionaryBySharedDictionaryPronunciationId'] =
+        l$sharedDictionaryBySharedDictionaryPronunciationId?.toJson();
+    final l$sharedDictionaryBySharedDictionaryNicknameId =
+        sharedDictionaryBySharedDictionaryNicknameId;
+    _resultData['sharedDictionaryBySharedDictionaryNicknameId'] =
+        l$sharedDictionaryBySharedDictionaryNicknameId?.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedAppellationsId = sharedAppellationsId;
+    final l$sharedDictionaryBySharedDictionaryNameId =
+        sharedDictionaryBySharedDictionaryNameId;
+    final l$sharedDictionaryBySharedDictionaryPronunciationId =
+        sharedDictionaryBySharedDictionaryPronunciationId;
+    final l$sharedDictionaryBySharedDictionaryNicknameId =
+        sharedDictionaryBySharedDictionaryNicknameId;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$sharedAppellationsId,
+      l$sharedDictionaryBySharedDictionaryNameId,
+      l$sharedDictionaryBySharedDictionaryPronunciationId,
+      l$sharedDictionaryBySharedDictionaryNicknameId,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedAppellationsId = sharedAppellationsId;
+    final lOther$sharedAppellationsId = other.sharedAppellationsId;
+    if (l$sharedAppellationsId != lOther$sharedAppellationsId) {
+      return false;
+    }
+    final l$sharedDictionaryBySharedDictionaryNameId =
+        sharedDictionaryBySharedDictionaryNameId;
+    final lOther$sharedDictionaryBySharedDictionaryNameId =
+        other.sharedDictionaryBySharedDictionaryNameId;
+    if (l$sharedDictionaryBySharedDictionaryNameId !=
+        lOther$sharedDictionaryBySharedDictionaryNameId) {
+      return false;
+    }
+    final l$sharedDictionaryBySharedDictionaryPronunciationId =
+        sharedDictionaryBySharedDictionaryPronunciationId;
+    final lOther$sharedDictionaryBySharedDictionaryPronunciationId =
+        other.sharedDictionaryBySharedDictionaryPronunciationId;
+    if (l$sharedDictionaryBySharedDictionaryPronunciationId !=
+        lOther$sharedDictionaryBySharedDictionaryPronunciationId) {
+      return false;
+    }
+    final l$sharedDictionaryBySharedDictionaryNicknameId =
+        sharedDictionaryBySharedDictionaryNicknameId;
+    final lOther$sharedDictionaryBySharedDictionaryNicknameId =
+        other.sharedDictionaryBySharedDictionaryNicknameId;
+    if (l$sharedDictionaryBySharedDictionaryNicknameId !=
+        lOther$sharedDictionaryBySharedDictionaryNicknameId) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name;
+
+  TRes call({
+    String? sharedAppellationsId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId?
+    sharedDictionaryBySharedDictionaryNameId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?
+    sharedDictionaryBySharedDictionaryPronunciationId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?
+    sharedDictionaryBySharedDictionaryNicknameId,
+    String? $__typename,
+  });
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryNameId;
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryPronunciationId;
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryNicknameId;
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedAppellationsId = _undefined,
+    Object? sharedDictionaryBySharedDictionaryNameId = _undefined,
+    Object? sharedDictionaryBySharedDictionaryPronunciationId = _undefined,
+    Object? sharedDictionaryBySharedDictionaryNicknameId = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name(
+      sharedAppellationsId:
+          sharedAppellationsId == _undefined || sharedAppellationsId == null
+          ? _instance.sharedAppellationsId
+          : (sharedAppellationsId as String),
+      sharedDictionaryBySharedDictionaryNameId:
+          sharedDictionaryBySharedDictionaryNameId == _undefined
+          ? _instance.sharedDictionaryBySharedDictionaryNameId
+          : (sharedDictionaryBySharedDictionaryNameId
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId?),
+      sharedDictionaryBySharedDictionaryPronunciationId:
+          sharedDictionaryBySharedDictionaryPronunciationId == _undefined
+          ? _instance.sharedDictionaryBySharedDictionaryPronunciationId
+          : (sharedDictionaryBySharedDictionaryPronunciationId
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?),
+      sharedDictionaryBySharedDictionaryNicknameId:
+          sharedDictionaryBySharedDictionaryNicknameId == _undefined
+          ? _instance.sharedDictionaryBySharedDictionaryNicknameId
+          : (sharedDictionaryBySharedDictionaryNicknameId
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryNameId {
+    final local$sharedDictionaryBySharedDictionaryNameId =
+        _instance.sharedDictionaryBySharedDictionaryNameId;
+    return local$sharedDictionaryBySharedDictionaryNameId == null
+        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+            local$sharedDictionaryBySharedDictionaryNameId,
+            (e) => call(sharedDictionaryBySharedDictionaryNameId: e),
+          );
+  }
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryPronunciationId {
+    final local$sharedDictionaryBySharedDictionaryPronunciationId =
+        _instance.sharedDictionaryBySharedDictionaryPronunciationId;
+    return local$sharedDictionaryBySharedDictionaryPronunciationId == null
+        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+            local$sharedDictionaryBySharedDictionaryPronunciationId,
+            (e) => call(sharedDictionaryBySharedDictionaryPronunciationId: e),
+          );
+  }
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryNicknameId {
+    final local$sharedDictionaryBySharedDictionaryNicknameId =
+        _instance.sharedDictionaryBySharedDictionaryNicknameId;
+    return local$sharedDictionaryBySharedDictionaryNicknameId == null
+        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+            local$sharedDictionaryBySharedDictionaryNicknameId,
+            (e) => call(sharedDictionaryBySharedDictionaryNicknameId: e),
+          );
+  }
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? sharedAppellationsId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId?
+    sharedDictionaryBySharedDictionaryNameId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?
+    sharedDictionaryBySharedDictionaryPronunciationId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?
+    sharedDictionaryBySharedDictionaryNicknameId,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryNameId =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId.stub(
+        _res,
+      );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryPronunciationId =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+        _res,
+      );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+    TRes
+  >
+  get sharedDictionaryBySharedDictionaryNicknameId =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.stub(
+        _res,
+      );
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId({
+    required this.sharedDictionaryId,
+    required this.value,
+    this.$__typename = 'SharedDictionary',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedDictionaryId = json['sharedDictionaryId'];
+    final l$value = json['value'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+      sharedDictionaryId: (l$sharedDictionaryId as String),
+      value:
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
+            (l$value as Map<String, dynamic>),
+          ),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String sharedDictionaryId;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
+  value;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedDictionaryId = sharedDictionaryId;
+    _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
+    final l$value = value;
+    _resultData['value'] = l$value.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedDictionaryId = sharedDictionaryId;
+    final l$value = value;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$sharedDictionaryId, l$value, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedDictionaryId = sharedDictionaryId;
+    final lOther$sharedDictionaryId = other.sharedDictionaryId;
+    if (l$sharedDictionaryId != lOther$sharedDictionaryId) {
+      return false;
+    }
+    final l$value = value;
+    final lOther$value = other.value;
+    if (l$value != lOther$value) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId;
+
+  TRes call({
+    String? sharedDictionaryId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value?
+    value,
+    String? $__typename,
+  });
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+    TRes
+  >
+  get value;
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedDictionaryId = _undefined,
+    Object? value = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+      sharedDictionaryId:
+          sharedDictionaryId == _undefined || sharedDictionaryId == null
+          ? _instance.sharedDictionaryId
+          : (sharedDictionaryId as String),
+      value: value == _undefined || value == null
+          ? _instance.value
+          : (value
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+    TRes
+  >
+  get value {
+    final local$value = _instance.value;
+    return CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+      local$value,
+      (e) => call(value: e),
+    );
+  }
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? sharedDictionaryId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value?
+    value,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+    TRes
+  >
+  get value =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.stub(
+        _res,
+      );
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value;
+
+  TRes call({
+    List<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId({
+    required this.sharedDictionaryId,
+    required this.value,
+    this.$__typename = 'SharedDictionary',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedDictionaryId = json['sharedDictionaryId'];
+    final l$value = json['value'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+      sharedDictionaryId: (l$sharedDictionaryId as String),
+      value:
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
+            (l$value as Map<String, dynamic>),
+          ),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String sharedDictionaryId;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
+  value;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedDictionaryId = sharedDictionaryId;
+    _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
+    final l$value = value;
+    _resultData['value'] = l$value.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedDictionaryId = sharedDictionaryId;
+    final l$value = value;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$sharedDictionaryId, l$value, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedDictionaryId = sharedDictionaryId;
+    final lOther$sharedDictionaryId = other.sharedDictionaryId;
+    if (l$sharedDictionaryId != lOther$sharedDictionaryId) {
+      return false;
+    }
+    final l$value = value;
+    final lOther$value = other.value;
+    if (l$value != lOther$value) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId;
+
+  TRes call({
+    String? sharedDictionaryId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value?
+    value,
+    String? $__typename,
+  });
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+    TRes
+  >
+  get value;
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedDictionaryId = _undefined,
+    Object? value = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+      sharedDictionaryId:
+          sharedDictionaryId == _undefined || sharedDictionaryId == null
+          ? _instance.sharedDictionaryId
+          : (sharedDictionaryId as String),
+      value: value == _undefined || value == null
+          ? _instance.value
+          : (value
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+    TRes
+  >
+  get value {
+    final local$value = _instance.value;
+    return CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+      local$value,
+      (e) => call(value: e),
+    );
+  }
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? sharedDictionaryId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value?
+    value,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+    TRes
+  >
+  get value =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
+        _res,
+      );
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value;
+
+  TRes call({
+    List<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId({
+    required this.sharedDictionaryId,
+    required this.value,
+    this.$__typename = 'SharedDictionary',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedDictionaryId = json['sharedDictionaryId'];
+    final l$value = json['value'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+      sharedDictionaryId: (l$sharedDictionaryId as String),
+      value:
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
+            (l$value as Map<String, dynamic>),
+          ),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String sharedDictionaryId;
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
+  value;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedDictionaryId = sharedDictionaryId;
+    _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
+    final l$value = value;
+    _resultData['value'] = l$value.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedDictionaryId = sharedDictionaryId;
+    final l$value = value;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$sharedDictionaryId, l$value, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedDictionaryId = sharedDictionaryId;
+    final lOther$sharedDictionaryId = other.sharedDictionaryId;
+    if (l$sharedDictionaryId != lOther$sharedDictionaryId) {
+      return false;
+    }
+    final l$value = value;
+    final lOther$value = other.value;
+    if (l$value != lOther$value) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId;
+
+  TRes call({
+    String? sharedDictionaryId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value?
+    value,
+    String? $__typename,
+  });
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+    TRes
+  >
+  get value;
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedDictionaryId = _undefined,
+    Object? value = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+      sharedDictionaryId:
+          sharedDictionaryId == _undefined || sharedDictionaryId == null
+          ? _instance.sharedDictionaryId
+          : (sharedDictionaryId as String),
+      value: value == _undefined || value == null
+          ? _instance.value
+          : (value
+                as Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+    TRes
+  >
+  get value {
+    final local$value = _instance.value;
+    return CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+      local$value,
+      (e) => call(value: e),
+    );
+  }
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? sharedDictionaryId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value?
+    value,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+    TRes
+  >
+  get value =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
+        _res,
+      );
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value({
+    required this.nodes,
+    this.$__typename = 'SharedDictionaryValuesConnection',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value;
+
+  TRes call({
+    List<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
+  Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes({
+    required this.dictionaryValue,
+    this.$__typename = 'SharedDictionaryValue',
+  });
+
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$dictionaryValue = json['dictionaryValue'];
+    final l$$__typename = json['__typename'];
+    return Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+      dictionaryValue: (l$dictionaryValue as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String dictionaryValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$dictionaryValue = dictionaryValue;
+    _resultData['dictionaryValue'] = l$dictionaryValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$dictionaryValue = dictionaryValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$dictionaryValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$dictionaryValue = dictionaryValue;
+    final lOther$dictionaryValue = other.dictionaryValue;
+    if (l$dictionaryValue != lOther$dictionaryValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+    on
+        Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+  TRes
+> {
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+    instance,
+    TRes Function(
+      Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
+
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
+
+  TRes call({String? dictionaryValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+  _instance;
+
+  final TRes Function(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? dictionaryValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+      dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
+          ? _instance.dictionaryValue
+          : (dictionaryValue as String),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$infoOfficesByInfoCompanyId$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
     this._res,
   );
 

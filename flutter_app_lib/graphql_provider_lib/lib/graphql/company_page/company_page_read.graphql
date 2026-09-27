@@ -38,6 +38,10 @@
 #
 # view.yamlの`CompanyPage.offices`(`shared_appellations_id`)には`pick`指定が無いため、
 # name/pronunciation/nicknameすべてを取得する(要件0035で現行view.yamlの記述どおりに修正)。
+#
+# 要件0035再実行(view.yamlがofficesを`<<: *OfficePage`(共有アーム)へ変更): OfficePage
+# 自身が持つ`address`(shared_appellations経由のaddress1/address2/bill)・`update_user`
+# (history_info_staff経由)を、office_page_read.graphqlと同型で追加した。
 
 query CompanyPageRead(
   $first: Int!
@@ -271,14 +275,13 @@ query CompanyPageRead(
           infoOfficeId
           infoCompanyId
           code
-          infoAddressId
           symbol
           remarks
           updateAt
           remove
 
           # --- 事業所名(view.yamlに`pick`指定が無いため、name/pronunciation/nicknameすべて) ---
-          sharedAppellationBySharedAppellationsId {
+          labels: sharedAppellationBySharedAppellationsId {
             sharedAppellationsId
             sharedDictionaryBySharedDictionaryNameId {
               sharedDictionaryId
@@ -307,6 +310,166 @@ query CompanyPageRead(
               ) {
                 nodes {
                   dictionaryValue
+                }
+              }
+            }
+          }
+
+          # --- 事業所の住所(要件0035再実行: OfficePage共有アームに合わせて追加) --------
+          address: infoAddressByInfoAddressId {
+            infoAddressId
+            iso31663
+            zipCode
+
+            address1: sharedAppellationByAddress1 {
+              sharedAppellationsId
+              sharedDictionaryBySharedDictionaryNameId {
+                sharedDictionaryId
+                value: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $languageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+              }
+              sharedDictionaryBySharedDictionaryPronunciationId {
+                sharedDictionaryId
+                value: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $languageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+              }
+              sharedDictionaryBySharedDictionaryNicknameId {
+                sharedDictionaryId
+                value: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $languageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+              }
+            }
+
+            address2: sharedAppellationByAddress2 {
+              sharedAppellationsId
+              sharedDictionaryBySharedDictionaryNameId {
+                sharedDictionaryId
+                value: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $languageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+              }
+              sharedDictionaryBySharedDictionaryPronunciationId {
+                sharedDictionaryId
+                value: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $languageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+              }
+              sharedDictionaryBySharedDictionaryNicknameId {
+                sharedDictionaryId
+                value: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $languageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+              }
+            }
+
+            billName: sharedAppellationByBill {
+              sharedAppellationsId
+              sharedDictionaryBySharedDictionaryNameId {
+                sharedDictionaryId
+                value: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $languageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+              }
+              sharedDictionaryBySharedDictionaryPronunciationId {
+                sharedDictionaryId
+                value: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $languageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+              }
+              sharedDictionaryBySharedDictionaryNicknameId {
+                sharedDictionaryId
+                value: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $languageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+              }
+            }
+
+            phone
+            faxNumber
+            remarks
+            updateAt
+            remove
+          }
+
+          # --- 事業所の更新者(要件0035再実行: OfficePage共有アームに合わせて追加) ------
+          update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+            historyId
+            infoStaffId
+            infoCompanyId
+            code
+            sex
+            phone
+            symbol
+            privatePhone
+            name: sharedAppellationBySharedAppellationsId {
+              sharedAppellationsId
+              sharedDictionaryBySharedDictionaryNameId {
+                sharedDictionaryId
+                value: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $languageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+              }
+              sharedDictionaryBySharedDictionaryPronunciationId {
+                sharedDictionaryId
+                value: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $languageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+              }
+              sharedDictionaryBySharedDictionaryNicknameId {
+                sharedDictionaryId
+                value: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $languageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
                 }
               }
             }

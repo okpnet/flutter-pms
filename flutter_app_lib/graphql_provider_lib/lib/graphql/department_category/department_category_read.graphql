@@ -1,0 +1,115 @@
+# department_category画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: source/view.yaml #DepartmentCategoryPage(組織区分、info_department_kind_value)
+# 命名規則: CLAUDE.md 画面仕様命名規則(要件0033)により`department_category`をファイル名にする
+#   (view.yamlのトップノード名は誤字修正後の`DepartmentCategoryPage`のスネークケース)。
+#
+# 言語解決はcompany_page_read.graphqlと同じ方式(要件0036、$languageCodeId: UUID!)。
+
+query DepartmentCategoryRead(
+  $first: Int!
+  $offset: Int
+  $condition: InfoDepartmentKindValueCondition
+  $orderBy: [InfoDepartmentKindValuesOrderBy!] = [PRIMARY_KEY_ASC]
+  $languageCodeId: UUID!
+  $removed: Boolean = false
+) {
+  allInfoDepartmentKindValues(
+    first: $first
+    offset: $offset
+    condition: $condition
+    orderBy: $orderBy
+    filter: { remove: { equalTo: $removed } }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      infoDepartmentKindValueId
+      symbol
+      remarks
+      updateAt
+      remove
+
+      labels: sharedAppellationBySharedAppellationsId {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          value: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $languageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+        sharedDictionaryBySharedDictionaryPronunciationId {
+          sharedDictionaryId
+          value: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $languageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+        sharedDictionaryBySharedDictionaryNicknameId {
+          sharedDictionaryId
+          value: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $languageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+      }
+
+      update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+        historyId
+        infoStaffId
+        infoCompanyId
+        code
+        sex
+        phone
+        symbol
+        privatePhone
+        name: sharedAppellationBySharedAppellationsId {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+          sharedDictionaryBySharedDictionaryPronunciationId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+          sharedDictionaryBySharedDictionaryNicknameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

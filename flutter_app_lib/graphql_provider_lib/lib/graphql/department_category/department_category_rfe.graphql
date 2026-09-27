@@ -1,0 +1,76 @@
+# department_category画面 - RFE(read for editing、要件0037:
+#   DepartmentCategoryEditのgenerateRfe: trueから導出)
+
+query DepartmentCategoryRfe(
+  $infoDepartmentKindValueId: UUID!
+  $ja: Boolean!
+  $en: Boolean!
+  $jaLanguageCodeId: UUID
+  $enLanguageCodeId: UUID
+) {
+  infoDepartmentKindValueByInfoDepartmentKindValueId(
+    infoDepartmentKindValueId: $infoDepartmentKindValueId
+  ) {
+    infoDepartmentKindValueId
+    remarks
+    updateAt
+    updateUserId
+    updateUserHistoryId
+    remove
+
+    labels: sharedAppellationBySharedAppellationsId {
+      sharedAppellationsId
+      sharedDictionaryBySharedDictionaryNameId {
+        sharedDictionaryId
+        ja: sharedDictionaryValuesBySharedDictionaryId(
+          condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+        ) @include(if: $ja) {
+          nodes {
+            dictionaryValue
+          }
+        }
+        en: sharedDictionaryValuesBySharedDictionaryId(
+          condition: { sharedLanguageCodeId: $enLanguageCodeId }
+        ) @include(if: $en) {
+          nodes {
+            dictionaryValue
+          }
+        }
+      }
+      sharedDictionaryBySharedDictionaryPronunciationId {
+        sharedDictionaryId
+        ja: sharedDictionaryValuesBySharedDictionaryId(
+          condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+        ) @include(if: $ja) {
+          nodes {
+            dictionaryValue
+          }
+        }
+        en: sharedDictionaryValuesBySharedDictionaryId(
+          condition: { sharedLanguageCodeId: $enLanguageCodeId }
+        ) @include(if: $en) {
+          nodes {
+            dictionaryValue
+          }
+        }
+      }
+      sharedDictionaryBySharedDictionaryNicknameId {
+        sharedDictionaryId
+        ja: sharedDictionaryValuesBySharedDictionaryId(
+          condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+        ) @include(if: $ja) {
+          nodes {
+            dictionaryValue
+          }
+        }
+        en: sharedDictionaryValuesBySharedDictionaryId(
+          condition: { sharedLanguageCodeId: $enLanguageCodeId }
+        ) @include(if: $en) {
+          nodes {
+            dictionaryValue
+          }
+        }
+      }
+    }
+  }
+}

@@ -609,3 +609,146 @@ schema.json上の具体的な定義案は1-3節のとおり(`resolvedWhereEntry`
 残る❌はすべて1-2節(`addressEditFields`)・1-3節(`dictionaryLabel`)の2件に集約された。
 この2件は提案の提示に留め、view.yaml・schema.jsonへの適用はユーザーの判断を待って
 別途実施する。
+
+## 追記4: 0034再実行(2026/09/27、「0034の実行」の指示)
+
+前回(要件0035・0026)以降、`view.yaml`の`DepartmentPage`に`requiredWhere: [parent]`・
+`parent.defaultWhere`が追加され、新規に`DepartmentPageEdit`(`generateRfe: true`)が
+追加されていた。この差分を実スキーマ(`lib/graphql/schema.graphql`、要件0026本日
+までの状態)と突き合わせて評価した。既存の`dictionaryLabel`〜`DepartmentCategoryEdit`
+までは無変更のため再評価していない。この段階ではGraphQLは作成していない
+(要件0034の指示どおり)。
+
+### 4-1. `DepartmentPageEdit`の`office`/`labels`/`address`/`kinds[].value.labels`が
+### 読み込みアーム(`OfficePage`/`appellationLabels`/`addressFields`)を参照 ❌→修正済み
+
+`OfficePageEdit`・`StaffPageEdit`・`DepartmentCategoryEdit`で要件0035評価時に発見した
+のと同種の不具合(edit系ノードが読み込みアームを参照し、書き込みができない状態)を
+新規の`DepartmentPageEdit`でも発見した。
+
+- `office`: `<<: *OfficePage`(`kind: read`)を参照していた。`OfficePage`には
+  `&OfficePageEdit`のようなedit版のアンカーが存在しない(`OfficePageEdit:`は
+  アンカー無し)ため、単純なアンカー差し替えができない。`OfficePageEdit`と同じ
+  構成(`info_office_id`・`code`・`labels`(`appellationLabelsEdit`)・
+  `address`(`addressEditFields`)・共通項)をインラインで書き下ろす形に修正した。
+- `labels`: `<<: *appellationLabels`(read)→`<<: *appellationLabelsEdit`(edit)に修正。
+- `address`: `<<: *addressFields`(read)→`<<: *addressEditFields`(edit)に修正。
+- `kinds[].value.labels`: 同じく`appellationLabels`→`appellationLabelsEdit`に修正。
+
+この修正にあわせ、`kinds`配下の`symbol`/`update_at`/`update_user`(表示専用)は
+他のすべての`*Edit`ノード(`CompanyPageEdit`・`OfficePageEdit`・`StaffPageEdit`・
+`DepartmentCategoryEdit`)の既存の慣習(編集フォームには表示専用の更新者情報や
+`symbol`/`update_at`を含めない)に合わせて除いた。`update_user_id`/
+`update_user_history_id`(書き込み可能な生スカラー)は他ノードと同様に残している。
+
+以上はview.yaml側の記述ミスとして確定的に判断できる(構造上・既存の統一パターン上
+明らかに誤り)ため、要件0034の評価と合わせてその場で修正した(要件0035評価時の
+`addressEditFields`修正等と同じ扱い)。
+
+### 4-2. `DepartmentPage.requiredWhere: [parent]`が構造的に無効 ❌(未修正、方針確認が必要)
+
+```yaml
+DepartmentPage:
+  kind: read
+  from: info_department
+  condition: true
+  requiredWhere:
+    - parent #NULL許容にしたい。理由はNULLが組織テーブルのトップノードのため。
+```
+
+`requiredWhere`(3節)は「`from`(ここでは`info_department`)が直接持つ列名」を
+列挙するものだが、`parent`は`info_department`の実列ではなく、`columns`配下で
+`info_department_tree`への関係を表すために付けた識別子(`name: parent`)である。
+実スキーマの`InfoDepartment`にも`parent`という列は存在しない。このため
+`requiredWhere: [parent]`は生成時に解決できないエラーになる。
+
+コメントにある意図(「NULLを許容し、NULLのときは組織テーブルのトップノードを表す」)
+を実現するには、絞り込みの対象は`info_department`自身ではなく、ネストした
+`parent`columnEntryが指す`info_department_tree.parent_info_department_id`列に
+なる。`parent`columnEntry自体は`arrayType: toFirstOne`だが、実体は
+`info_department_tree`への**内向きの関係**(6-1節(a)ではなく、`info_department_tree`
+側が`info_department_id`という実在のFK列を持つ、真のConnectionを`first: 1`で
+先頭のみ採用する形)であり、単数リレーション特有の「`condition`/`filter`引数が
+存在しない」制約(4節・4-1節)は当てはまらない。したがって`requiredWhere`/`where`を
+**`parent`columnEntry自身**に`parent_info_department_id`として指定すれば、
+`infoDepartmentTreesByInfoDepartmentId(condition: { parentInfoDepartmentId: $value
+})`のような形でそのまま実現できる可能性が高い(`4-1節`の`code`のような外部解決は
+不要)。
+
+**提案(未適用)**:
+```yaml
+DepartmentPage:
+  kind: read
+  from: info_department
+  condition: true
+  columns:
+    - info_department_id
+    - info_company_id
+    - name: parent
+      arrayType: toFirstOne
+      as: parent
+      using: info_department_id
+      from: info_department_tree
+      requiredWhere:
+        - parent_info_department_id
+      columns:
+        - info_department_tree_id
+        - parent_info_department_id
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+```
+(トップレベルの`requiredWhere: [parent]`は削除し、`parent`columnEntry自身に
+`requiredWhere: [parent_info_department_id]`を移す。`NULL`許容かどうか
+(`UUID`型のGraphQL引数はデフォルトでNULL許容)は生成側の型付けで対応可能と見込む。)
+
+`DepartmentPageEdit`側には同じ問題は無い(`requiredWhere: [info_department_id]`は
+`info_department`自身のPKで正しい)。
+
+ユーザーに確認のうえ、上記の提案を適用した(トップレベルの`requiredWhere: [parent]`を
+削除し、`parent`columnEntry自身に`requiredWhere: [parent_info_department_id]`を
+移した)。
+
+### 4-3. 集計
+
+| 定義 | 判定 |
+|---|---|
+| `DepartmentPage`(read) | ✅(4-2節の対応案を適用し解決) |
+| `DepartmentPageEdit` | ✅(4-1節の修正を適用済み) |
+
+`DepartmentPage`・`DepartmentPageEdit`とも要件0034の「エラーが無い状態」に到達した。
+次のアクションはGraphQL作成・モデル生成(要件0035相当)だが、これはユーザーの
+別途の指示を待って実施する。
+
+### 4-4. 【重大・新規発見】`view.yaml`全体がYAMLとして前方参照エラーで読み込めない
+### 不具合を発見・修正
+
+上記の評価とは別に、`view.yaml`全体の構造的な妥当性を`js-yaml`(PyYAMLと同じく
+アンカーを単一パスで解決する実装)で検証したところ、`CompanyPage.offices`
+(修正前の行番号で252行目付近)が`<<: *OfficePage`を参照している一方、
+`OfficePage: &OfficePage`の定義(修正前で282行目)は**その後ろ**にあり、
+YAML仕様上のアンカー解決順(定義済みのアンカーしか参照できない、前方参照不可)に
+反する不正な参照であることが判明した。`js-yaml`は
+`YAMLException: unidentified alias "OfficePage"`で読み込みに失敗した。
+
+`27_yaml_to_graphql_conversion_rules.md` 9-1節がPyYAMLの単一パスのアンカー解決
+挙動を実機確認済みの前提としているため、この不具合は本ライブラリが想定する
+YAML処理系(PyYAML相当)でも同様に**ファイル全体のパース自体が失敗する**、
+評価対象のどのノードよりも上位の致命的な不具合だった。
+
+他の全アンカー(`dictionaryLabel`・`dictionaryEdit`・`appellationLabelsEdit`・
+`appellationLabels`・`addressFields`・`addressEditFields`・`languageCodeEdit`・
+`updateStaff`・`DepartmentCategoryPage`)への参照は、すべて定義済みのアンカーを
+後方から参照する形になっており問題は無かった(`OfficePage`だけが唯一、自身より
+前で参照されていた)。
+
+**対応(適用済み)**: `OfficePage`/`OfficePageEdit`の定義ブロックを、参照元の
+`CompanyPage`より前(`updateStaff`の直後)に移動した。移動後、`js-yaml`で
+`source/view.yaml`全体が正常に読み込め、全18個のトップレベル定義
+(`dictionaryLabel`・`dictionaryEdit`・`appellationLabelsEdit`・`appellationLabels`・
+`addressFields`・`addressEditFields`・`languageCodeEdit`・`updateStaff`・
+`OfficePage`・`OfficePageEdit`・`CompanyPage`・`CompanyPageEdit`・`StaffPage`・
+`StaffPageEdit`・`DepartmentCategoryPage`・`DepartmentCategoryEdit`・
+`DepartmentPage`・`DepartmentPageEdit`)が認識されることを確認した。移動は
+定義の順序のみの変更であり、各定義の内容(意味)は変更していない。

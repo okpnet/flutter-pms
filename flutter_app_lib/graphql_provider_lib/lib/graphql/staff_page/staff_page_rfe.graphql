@@ -1,0 +1,81 @@
+# staff_page画面 - RFE(read for editing、要件0037: StaffPageEditのgenerateRfe: trueから
+#   同一columnsツリーを読み込み専用クエリとして導出したもの)
+#
+# 画面仕様: source/view.yaml #StaffPageEdit(generateRfe: true)
+
+query StaffPageRfe(
+  $infoStaffId: UUID!
+  $ja: Boolean!
+  $en: Boolean!
+  $jaLanguageCodeId: UUID
+  $enLanguageCodeId: UUID
+) {
+  infoStaffByInfoStaffId(infoStaffId: $infoStaffId) {
+    infoStaffId
+    infoCompanyId
+    code
+    sex
+    phone
+    privatePhone
+    remarks
+    updateAt
+    updateUserId
+    updateUserHistoryId
+    remove
+
+    labels: sharedAppellationBySharedAppellationsId {
+      sharedAppellationsId
+      sharedDictionaryBySharedDictionaryNameId {
+        sharedDictionaryId
+        ja: sharedDictionaryValuesBySharedDictionaryId(
+          condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+        ) @include(if: $ja) {
+          nodes {
+            dictionaryValue
+          }
+        }
+        en: sharedDictionaryValuesBySharedDictionaryId(
+          condition: { sharedLanguageCodeId: $enLanguageCodeId }
+        ) @include(if: $en) {
+          nodes {
+            dictionaryValue
+          }
+        }
+      }
+      sharedDictionaryBySharedDictionaryPronunciationId {
+        sharedDictionaryId
+        ja: sharedDictionaryValuesBySharedDictionaryId(
+          condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+        ) @include(if: $ja) {
+          nodes {
+            dictionaryValue
+          }
+        }
+        en: sharedDictionaryValuesBySharedDictionaryId(
+          condition: { sharedLanguageCodeId: $enLanguageCodeId }
+        ) @include(if: $en) {
+          nodes {
+            dictionaryValue
+          }
+        }
+      }
+      sharedDictionaryBySharedDictionaryNicknameId {
+        sharedDictionaryId
+        ja: sharedDictionaryValuesBySharedDictionaryId(
+          condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+        ) @include(if: $ja) {
+          nodes {
+            dictionaryValue
+          }
+        }
+        en: sharedDictionaryValuesBySharedDictionaryId(
+          condition: { sharedLanguageCodeId: $enLanguageCodeId }
+        ) @include(if: $en) {
+          nodes {
+            dictionaryValue
+          }
+        }
+      }
+    }
+  }
+}

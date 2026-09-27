@@ -1,7 +1,7 @@
 ﻿# A5:ER FORMAT:18
 # A5:ER ENCODING:UTF8
 # A5:ER Mk-1 Copyright © 2007 m.matsubara
-# A5:SQL Mk-2 Version 2.20.0 beta 24 Copyright © 1997 - 2024 m.matsubara
+# A5:SQL Mk-2 Version 2.20.0 beta 20 Copyright © 1997 - 2024 m.matsubara
 #  https://a5m2.mmatsubara.com
 
 [Manager]
@@ -17759,7 +17759,7 @@ TermPos2=R
 ZOrder=1121
 
 [Entity]
-PName=indo_department_kind
+PName=info_department_kind
 LName=組織区分情報
 Comment=
 TableInnerOption=
@@ -17767,16 +17767,15 @@ TableOption=
 Page=インフォメーション
 Left=5050
 Top=3900
-Field="組織区分ID","indo_department_kind_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
-Field="組織区分バリューID","info_department_kind_value_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="組織区分ID","info_department_kind_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="組織情報ID","info_department_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
-Index==2,info_department_kind_value_id,info_department_id
+Index==2,info_department_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260926161603
+ModifiedDateTime=20260927085237
 Position="インフォメーション",5050,3900
 ZOrder=1122
 
@@ -17788,39 +17787,18 @@ TableInnerOption=
 TableOption=
 Page=インフォメーション
 Left=5400
-Top=4600
-Field="組織区分バリューID","info_department_kind_value_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
+Top=4550
+Field="組織区分バリューID","info_department_kind_value_id","*@UUID",,0,"gen_random_uuid()","",$FFFFFFFF,""
+Field="組織区分ID","info_department_kind_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260926161613
-Position="インフォメーション",5400,4600
+ModifiedDateTime=20260927085213
+Position="インフォメーション",5400,4550
 ZOrder=1123
-
-[Relation]
-Entity1=info_department_kind_value
-Entity2=indo_department_kind
-RelationType1=2
-RelationType2=4
-Fields1=info_department_kind_value_id
-Fields2=info_department_kind_value_id
-Cardinarity1=
-Cardinarity2=
-Position="インフォメーション",0,7775,5529,7369,R,R,""
-Dependence=0
-Caption=
-PName=
-ModifiedDateTime=20260926155923
-LineMode=0
-Bar1=778
-Bar2=553
-Bar3=737
-TermPos1=R
-TermPos2=R
-ZOrder=1126
 
 [Relation]
 Entity1=shared_appellations
@@ -17838,16 +17816,16 @@ Caption=
 PName=
 ModifiedDateTime=20260926160007
 LineMode=0
-Bar1=915
-Bar2=85
-Bar3=140
+Bar1=50
+Bar2=950
+Bar3=127
 TermPos1=R
 TermPos2=R
 ZOrder=1127
 
 [Relation]
 Entity1=info_department
-Entity2=indo_department_kind
+Entity2=info_department_kind
 RelationType1=2
 RelationType2=4
 Fields1=info_department_id
@@ -17877,6 +17855,7 @@ Page=インフォメーション
 Left=5550
 Top=5250
 Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
+Field="組織区分ID","info_department_kind_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="組織区分バリューID","info_department_kind_value_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="呼称セットID","shared_appellations_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
@@ -17884,7 +17863,7 @@ Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFF
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260926161617
+ModifiedDateTime=20260927085311
 Position="インフォメーション",5550,5250
 ZOrder=1132
 
@@ -17910,7 +17889,7 @@ TermPos2=R
 ZOrder=1133
 
 [Entity]
-PName=history_indo_department_kind
+PName=history_info_department_kind
 LName=組織区分情報履歴
 Comment=
 TableInnerOption=
@@ -17919,25 +17898,24 @@ Page=インフォメーション
 Left=3700
 Top=4500
 Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
-Field="組織区分ID","indo_department_kind_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
-Field="組織区分バリューID","info_department_kind_value_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="組織区分ID","info_department_kind_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="組織情報ID","info_department_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="レビジョン","revision","@INT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="リニアシンボル","symbol","*@VARCHAR16","NOT NULL",,"\q\q","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260926161608
+ModifiedDateTime=20260927085242
 Position="インフォメーション",3700,4500
 ZOrder=1134
 
 [Relation]
-Entity1=indo_department_kind
-Entity2=history_indo_department_kind
+Entity1=info_department_kind
+Entity2=history_info_department_kind
 RelationType1=2
 RelationType2=3
-Fields1=indo_department_kind_id
-Fields2=indo_department_kind_id
+Fields1=info_department_kind_id
+Fields2=info_department_kind_id
 Cardinarity1=
 Cardinarity2=
 Position="インフォメーション",0,8431,3909,4576,R,R,""
@@ -17954,7 +17932,7 @@ ZOrder=1135
 
 [Relation]
 Entity1=history_info_staff
-Entity2=history_indo_department_kind
+Entity2=history_info_department_kind
 RelationType1=1
 RelationType2=3
 Fields1=history_id,info_staff_id
@@ -18017,7 +17995,7 @@ ZOrder=-520
 
 [Relation]
 Entity1=history_info_staff
-Entity2=indo_department_kind
+Entity2=info_department_kind
 RelationType1=1
 RelationType2=3
 Fields1=history_id,info_staff_id
@@ -18035,3 +18013,24 @@ Bar3=187
 TermPos1=R
 TermPos2=L
 ZOrder=-521
+
+[Relation]
+Entity1=info_department_kind
+Entity2=info_department_kind_value
+RelationType1=1
+RelationType2=3
+Fields1=info_department_kind_id
+Fields2=info_department_kind_id
+Cardinarity1=
+Cardinarity2=
+Position="インフォメーション",0,7314,2686,6884,R,R,""
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=731
+Bar2=269
+Bar3=688
+TermPos1=R
+TermPos2=R
+ZOrder=1137

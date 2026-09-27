@@ -212,11 +212,71 @@ updateStaff: &updateStaff
       as: name
       using: shared_appellations_id
       arrayType: toFirstOne
-      <<: *appellationLabelsEdit
+      <<: *appellationLabels
     - sex
     - phone
     - symbol
-    - private_phone 
+    - private_phone
+
+# 事業所の読み込み
+# (要件0034追記4: CompanyPage.officesがこのOfficePageをアンカー参照するため、
+#  YAMLのアンカー/エイリアスの制約上、CompanyPageより前に定義する必要がある。
+#  以前はCompanyPageより後に定義されており、標準的なYAMLパーサでは
+#  前方参照エラーになる不具合があったため、この位置に移動した)
+OfficePage: &OfficePage
+  kind: read
+  from: info_office
+  condition: true
+  columns:
+    - info_office_id
+    - info_company_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: shared_appellations_id
+      <<: *appellationLabels
+    - name: info_address_id
+      as: address
+      arrayType: toFirstOne
+      using: info_address_id
+      <<: *addressFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *updateStaff
+      defaultWhere:
+      - column: remove
+        operator: "="
+        value: false
+
+# 事業所編集
+OfficePageEdit:
+  kind: edit
+  from: info_office
+  requiredWhere:
+    - info_office_id
+  generateRfe: true
+  columns:
+    - info_office_id
+    - info_company_id
+    - code
+    - name: labels
+      arrayType: toFirstOne
+      using: shared_appellations_id
+      <<: *appellationLabelsEdit
+    - name: address
+      arrayType: toFirstOne
+      using: info_address_id
+      <<: *addressEditFields
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
 
 # --- read: 会社情報(info_company) 詳細画面 ---
 CompanyPage:
@@ -278,62 +338,7 @@ CompanyPageEdit:
     - update_user_history_id
     - remove
 
-# 事業所の読み込み
-OfficePage: &OfficePage
-  kind: read
-  from: info_office
-  condition: true
-  columns:
-    - info_office_id
-    - info_company_id
-    - code
-    - name: labels
-      as: labels
-      arrayType: toFirstOne
-      using: shared_appellations_id
-      <<: *appellationLabels
-    - name: info_address_id
-      as: address
-      arrayType: toFirstOne
-      using: info_address_id
-      <<: *addressFields
-    - symbol
-    - remarks
-    - update_at
-    - name: update_user
-      as: update_user
-      using: [update_user_history_id,update_user_id]
-      arrayType: toFirstOne
-      <<: *updateStaff
-      defaultWhere:
-      - column: remove
-        operator: "="
-        value: false
-
-OfficePageEdit:
-  kind: edit
-  from: info_office
-  requiredWhere:
-    - info_office_id
-    - info_company_id
-  generateRfe: true
-  columns:
-    - info_office_id
-    - info_company_id
-    - code
-    - name: labels
-      arrayType: toFirstOne
-      using: shared_appellations_id
-      <<: *appellationLabels
-    - name: info_address_id
-      arrayType: toFirstOne
-      using: info_address_id
-      <<: *addressFields
-    - remarks
-    - update_user_id
-    - update_user_history_id
-    - remove
-
+# 担当者
 StaffPage:
   kind: read
   from: info_staff
@@ -363,7 +368,8 @@ StaffPage:
         operator: "="
         value: false
 
-StaffpageEdit:
+# 担当者編集
+StaffPageEdit:
   kind: edit
   from: info_staff
   requiredWhere:
@@ -376,7 +382,7 @@ StaffpageEdit:
     - name: labels
       arrayType: toFirstOne
       using: shared_appellations_id
-      <<: *appellationLabels
+      <<: *appellationLabelsEdit
     - sex
     - phone
     - private_phone
@@ -385,12 +391,17 @@ StaffpageEdit:
     - update_user_history_id
     - remove
 
-DepartmentPage:
+# 組織区分
+DepartmentCategoryPage: &DepartmentCategoryPage
   kind: read
-  from: info_department
+  from: info_department_kind_value
   condition: true
   columns:
-    
+    - info_department_kind_value_id
+    - name: labels
+      arrayType: toFirstOne
+      using: shared_appellations_id
+      <<: *appellationLabels
     - symbol
     - remarks
     - update_at
@@ -403,3 +414,184 @@ DepartmentPage:
       - column: remove
         operator: "="
         value: false
+
+# 組織区分編集
+DepartmentCategoryEdit:
+  kind: edit
+  from: info_department_kind_value
+  requiredWhere:
+    - info_department_kind_value_id
+  generateRfe: true
+  columns:
+    - info_department_kind_value_id
+    - name: labels
+      arrayType: toFirstOne
+      using: shared_appellations_id
+      <<: *appellationLabelsEdit
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 組織
+DepartmentPage:
+  kind: read
+  from: info_department
+  condition: true
+  columns:
+    - info_department_id
+    - info_company_id
+    - name: parent
+      arrayType: toFirstOne
+      as: parent
+      using: info_department_id
+      from: info_department_tree
+      # NULL許容(呼び出し側がNULLを渡したときは組織テーブルのトップノードを表す)。
+      requiredWhere:
+        - parent_info_department_id
+      columns:
+        - info_department_tree_id
+        - parent_info_department_id
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+    - info_office_id
+    - name: office
+      arrayType: toFirstOne
+      as: office
+      using: info_office_id      
+      <<: *OfficePage
+    - code
+    - name: labels
+      arrayType: toFirstOne
+      using: shared_appellations_id
+      <<: *appellationLabels
+    - name: address
+      arrayType: toFirstOne
+      using: info_address_id
+      <<: *addressFields
+    - name: kinds
+      arrayType: toMany
+      using: info_department_id
+      from: info_department_kind
+      columns:
+        - info_department_kind_id
+        - name: value
+          as: value
+          using: info_department_kind_id
+          arrayType: toMany
+          from: info_department_kind_value
+          columns:
+            - info_department_kind_value_id
+            - name: labels
+              arrayType: toFirstOne
+              using: shared_appellations_id
+              <<: *appellationLabels
+              defaultWhere:
+                - column: remove
+                  operator: "="
+                  value: false
+        - info_department_id
+        - symbol
+        - remarks
+        - update_at
+        - name: update_user
+          as: update_user
+          using: [update_user_history_id,update_user_id]
+          arrayType: toFirstOne
+          <<: *updateStaff
+          defaultWhere:
+          - column: remove
+            operator: "="
+            value: false
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *updateStaff
+      defaultWhere:
+      - column: remove
+        operator: "="
+        value: false
+
+# 組織編集
+DepartmentPageEdit:
+  kind: edit
+  generateRfe: true
+  requiredWhere:
+    - info_department_id
+  columns:
+    - info_department_id
+    - info_company_id
+    - name: parent
+      arrayType: toFirstOne
+      as: parent
+      using: info_department_id
+      from: info_department_tree
+      columns:
+        - info_department_tree_id
+        - parent_info_department_id
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+    - name: office
+      arrayType: toFirstOne
+      as: office
+      using: info_office_id
+      kind: edit
+      from: info_office
+      columns:
+        - info_office_id
+        - code
+        - name: labels
+          arrayType: toFirstOne
+          using: shared_appellations_id
+          <<: *appellationLabelsEdit
+        - name: address
+          arrayType: toFirstOne
+          using: info_address_id
+          <<: *addressEditFields
+        - remarks
+        - update_user_id
+        - update_user_history_id
+        - remove
+    - code
+    - name: labels
+      arrayType: toFirstOne
+      using: shared_appellations_id
+      <<: *appellationLabelsEdit
+    - name: address
+      arrayType: toFirstOne
+      using: info_address_id
+      <<: *addressEditFields
+    - name: kinds
+      arrayType: toMany
+      using: info_department_id
+      from: info_department_kind
+      columns:
+        - info_department_kind_id
+        - name: value
+          as: value
+          using: info_department_kind_id
+          arrayType: toMany
+          from: info_department_kind_value
+          columns:
+            - info_department_kind_value_id
+            - name: labels
+              arrayType: toFirstOne
+              using: shared_appellations_id
+              <<: *appellationLabelsEdit
+        - info_department_id
+        - remarks
+        - update_user_id
+        - update_user_history_id
+        - remove
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove

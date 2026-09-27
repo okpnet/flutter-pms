@@ -213,6 +213,49 @@ extension NestedMapFlattenX on Map<String, dynamic> {
 }
 
 // ---------------------------------------------------------------------------
+// 1-2) Connection(1対多)の各レコードから値を取り出す
+//
+// ⚠ 暫定実装(2026-09-26追加、DepartmentPage.kinds[].valueをJSON配列文字列に
+//   束ねたいという要望への対応)。「1対多をJSON配列文字列としてMapの1セルに
+//   まとめる」という要件自体の採否・実装方針(このDart側extractFromEachRecord方式で
+//   進めるか、バックエンド側にcomputed column(json_agg)を追加してもらう方式に
+//   切り替えるか)がまだ確定していないため、方針変更時にこの節(ConnectionRecordsX・
+//   test/nested_map_flattener_test.dart)ごと差し戻される可能性がある。
+// ---------------------------------------------------------------------------
+
+extension ConnectionRecordsX on Map<String, dynamic> {
+  /// このMapがConnection形状(1対多、`nodes`/`edges`を持つ)であれば、各レコードについて
+  /// [field](そのレコード自身を基準にした`flattenForColumns`と同じ形式のキー。
+  /// [collapseSingleRecordPaths]もレコード自身を基準にした相対パスで指定する)の値を
+  /// 順番に取り出し、レコード順のリストとして返す。
+  ///
+  /// PostGraphileのtoMany関係は常にRelay Connection型(`nodes`/`edges`/`pageInfo`/
+  /// `totalCount`)になり、GraphQLのスキーマ自体をJSON配列(スカラー)に変えることは
+  /// できない(バックエンド側にcomputed columnを追加しない限り)。そのため「1対多を
+  /// JSON配列文字列としてMapの1セルにまとめたい」場合は、通常どおりtoMany(Connection)
+  /// として取得したうえで、このメソッドで各レコードから必要な値だけを取り出し、
+  /// 呼び出し側で`jsonEncode(...)`して1つの値にする、という2段階で実現する。
+  ///
+  /// Connection形状でない場合は空リストを返す。
+  List<dynamic> extractFromEachRecord(
+    String field, {
+    String separator = kFlatKeySeparator,
+    Set<String> collapseSingleRecordPaths = const {},
+  }) {
+    if (!_isConnectionShaped(this)) return const [];
+    return _extractConnectionRecords(this)
+        .map(
+          (record) => record.flattenForColumns(
+            [field],
+            separator: separator,
+            collapseSingleRecordPaths: collapseSingleRecordPaths,
+          )[field],
+        )
+        .toList();
+  }
+}
+
+// ---------------------------------------------------------------------------
 // 2) フラット Map -> ネストした Map
 // ---------------------------------------------------------------------------
 

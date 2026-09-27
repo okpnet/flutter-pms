@@ -1,0 +1,127 @@
+# staff_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: source/view.yaml #StaffPage
+# 命名規則: CLAUDE.md 画面仕様命名規則(要件0033)により、トップノード名`StaffPage`の
+#   スネークケース(`staff_page`)をディレクトリ名・ファイル名にする。
+#
+# 言語解決は company_page_read.graphql と同じ方式(要件0036): 呼び出し側が表示言語の
+# `shared_language_code_id`を事前解決し、`$languageCodeId: UUID!`として渡す。各辞書値は
+# `value`という単一エイリアスで取得する。
+#
+# view.yamlの`StaffPage.update_user`は`updateStaff`共有アーム(history_info_staff経由)を
+# 使う。`private_phone`は実スキーマの`privatePhone`に対応する。
+
+query StaffPageRead(
+  $first: Int!
+  $offset: Int
+  $condition: InfoStaffCondition
+  $orderBy: [InfoStaffsOrderBy!] = [PRIMARY_KEY_ASC]
+  $languageCodeId: UUID!
+  $removed: Boolean = false
+) {
+  allInfoStaffs(
+    first: $first
+    offset: $offset
+    condition: $condition
+    orderBy: $orderBy
+    filter: { remove: { equalTo: $removed } }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      infoStaffId
+      infoCompanyId
+      code
+      sex
+      phone
+      privatePhone
+      symbol
+      remarks
+      updateAt
+      remove
+
+      # --- 担当者名(共通名前仕様: shared_appellations経由) ------------------------
+      labels: sharedAppellationBySharedAppellationsId {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          value: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $languageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+        sharedDictionaryBySharedDictionaryPronunciationId {
+          sharedDictionaryId
+          value: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $languageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+        sharedDictionaryBySharedDictionaryNicknameId {
+          sharedDictionaryId
+          value: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $languageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+      }
+
+      # --- 共通項: 更新者(history_info_staff経由、updateStaffアーム相当) -----------
+      update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+        historyId
+        infoStaffId
+        infoCompanyId
+        code
+        sex
+        phone
+        symbol
+        privatePhone
+        name: sharedAppellationBySharedAppellationsId {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+          sharedDictionaryBySharedDictionaryPronunciationId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+          sharedDictionaryBySharedDictionaryNicknameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -676,3 +676,187 @@ schema.graphql自体の置き換え以外の対応(views.md・GraphQL・KeyName�
 
 新規テーブル`HistorySharedDictionaryValue`・`HistorySharedLanguageCode`はview.yamlの対象外
 のため対応不要。
+
+## 追記13: 0026再実行(2026/09/27、「0026の実行」の指示)【重大】department_pageに
+## 直結する関係のFK逆転を検出
+
+### 接続・取得・差分判定
+
+`curl -m 10 http://192.168.1.100:5000/graphql` で疎通確認(`HTTP 405`、変化なし)後、
+`get-graphql-schema`で再取得したところ464,384行(直前の`lib/graphql/schema.graphql`は
+464,405行、-21行)を検出した。`type X implements Node`の一覧差分は無し(新規・削除
+テーブルなし)。
+
+`InfoCompany`・`InfoAddress`・`InfoOffice`・`InfoStaff`・`SharedAppellation`・
+`SharedDictionary`・`SharedDictionaryValue`・`SharedLanguageCode`・`HistoryInfoStaff`・
+`InfoDepartmentTree`は無変更。`InfoDepartment`・`InfoDepartmentKind`・
+`InfoDepartmentKindValue`の3型に実質的な変更を検出した。
+
+### 検出した変更: `info_department_kind`↔`info_department_kind_value`のFKが逆転
+
+- **旧スキーマ**: `InfoDepartmentKind.infoDepartmentKindValueId`(FK、`UUID!`)により
+  `info_department_kind → info_department_kind_value`が**単数**(1件のみ、
+  `infoDepartmentKindValueByInfoDepartmentKindValueId`)。要件0035再実行(直前の
+  ログ、`DepartmentPage.kinds[].value`)はこの旧スキーマに合わせて`arrayType:
+  toFirstOne`・`using: info_department_kind_value_id`・
+  `from: info_department_kind_value`に修正した。
+- **新スキーマ**: `InfoDepartmentKind.infoDepartmentKindValueId`列が**削除**され、
+  代わりに`InfoDepartmentKindValue.infoDepartmentKindId`(FK、`UUID!`)が**新設**
+  された。これにより`info_department_kind → info_department_kind_value`は
+  **複数件**(`infoDepartmentKindValuesByInfoDepartmentKindId`、Connection)に
+  変わった。逆に`InfoDepartmentKindValue`側にあった
+  `infoDepartmentKindsByInfoDepartmentKindValueId`(旧・複数件)は削除され、
+  `infoDepartmentKindByInfoDepartmentKindId`(新・単数)に置き換わった。
+
+  **`InfoDepartmentKind.infoDepartmentKindValueByInfoDepartmentKindValueId`
+  フィールド自体が削除された**ため、`department_page_read.graphql`の
+  `kinds.nodes[].value: infoDepartmentKindValueByInfoDepartmentKindValueId {...}`
+  は実スキーマ上もはや存在しないフィールドを参照している(要件0024は
+  `schema.graphql.dart`のみを再生成するため、`department_page_read.graphql.dart`
+  (キャッシュ済みモデル)自体は今回再生成されておらず、`dart analyze`・
+  `flutter test`は影響を受けず成功しているが、次に`department_page`のモデルを
+  実際に再生成した瞬間、またはこのクエリを実サーバーに投げた瞬間に失敗する)。
+
+- 追加で、`InfoDepartment → InfoDepartmentKind`にも新規の単数フィールド
+  `infoDepartmentKindByInfoDepartmentId`が追加され、既存の複数件フィールド
+  `infoDepartmentKindsByInfoDepartmentId`(`DepartmentPage.kinds`が現在使用中)は
+  `@deprecated(reason: "Please use infoDepartmentKindByInfoDepartmentId instead")`
+  が付与された(削除はされていないため、現時点でこのフィールド自体はまだ動作する)。
+
+これはview.yamlのコメント(要件0035ログで記録した「本来1つのinfo_department_kindに
+複数のinfo_department_kind_valueを持たせたいのであれば、DB側にjunctionテーブルが
+必要」という指摘)がまさに反映された、DB設計側の追随と見られる。
+
+### 置き換え・要件0024の実行・影響確認
+
+`lib/graphql/schema.graphql`を置き換え(464,405行 → 464,384行)、
+`dart run build_runner build --build-filter="lib/postgraphile/schema.graphql.dart"`を実行した。
+
+結果: `Built with build_runner/aot in 282s; wrote 1 output.`(警告は既知のスカラー
+代替のみ)。
+
+- `git status`で`lib/graphql/schema.graphql`以外の生成済みファイルに変更が無いことを
+  確認(`department_page`を含む全画面の`*.graphql`/`*.graphql.dart`は再生成されて
+  いない)。
+- `dart analyze lib test`: error・warning 0件。
+- `flutter test`: 18件すべて成功(`department_page`のテストは旧スキーマで
+  codegenされたモデルに対する往復変換テストのため、今回の変更はまだコード上に
+  現れていない)。
+
+### 結論・次のアクション
+
+`department_page`(要件0035で生成済み)の`kinds[].value`は、今回のスキーマ変更に
+より設計を再度見直す必要がある。新スキーマでは「1つの`info_department_kind`に
+複数の`info_department_kind_value`」という、要件0035評価時にユーザーへ提示した
+「DB設計を見直す(junction相当)」の選択肢が実現された形になっているため、
+`DepartmentPage.kinds[].value`は`arrayType: toFirstOne`から`arrayType: toMany`
+(`using: info_department_kind_id`、`infoDepartmentKindValuesByInfoDepartmentKindId`
+経由)に戻す修正が必要と考えられる。また`InfoDepartment → InfoDepartmentKind`が
+非推奨ながら新しい単数フィールドを提供し始めたことも、`kinds`自体の設計
+(1対多のままで良いか、単数に変えるべきか)を再検討する材料になる。
+
+本ログでは`schema.graphql`の置き換えのみを実施し、`view.yaml`・`department_page`の
+GraphQL再修正はユーザーの方針確認を待って別途実施する。
+
+### 追記13-1: ユーザー確認後の修正(即時再生成)
+
+ユーザーに確認した結果、「`kinds[].value`を`toMany`に修正し、`department_page`を
+即時再生成する」方針を選択された。以下を実施した。
+
+- `view.yaml`の`DepartmentPage.kinds[].value`: `using`を
+  `info_department_kind_value_id`→`info_department_kind_id`に修正
+  (`arrayType: toMany`・`from: info_department_kind_value`は新スキーマに
+  合わせて維持)。
+- `department_page_read.graphql`: `value: infoDepartmentKindValueByInfoDepartmentKindValueId
+  {...}`(単数、削除済みフィールド)を`value: infoDepartmentKindValuesByInfoDepartmentKindId
+  {...}`(Connection)に書き換えた。
+- `test/department_page_flatten_roundtrip_test.dart`: `_kindNode`ヘルパーの
+  `value`をConnection形状(`totalCount`/`pageInfo`/`nodes`)に修正し、
+  `extractFromEachRecord`の`collapseSingleRecordPaths`に`value`自身の
+  collapseパスを追加した(`value`が二重にConnectionになったため2段階collapse)。
+
+`dart run build_runner build --build-filter="lib/postgraphile/department_page/**"`を
+実行し、`Built with build_runner/aot in 8s; wrote 1 output.`(警告は既知のスカラー
+代替のみ)。`dart analyze lib test`: error・warning 0件。`flutter test`: 18件すべて
+成功。
+
+## 追記11: 0026再実行(2026/09/26、「0026を実行」の指示)
+
+### 接続・取得・差分判定
+
+`curl -m 10 http://192.168.1.100:5000/graphql` で疎通確認(`HTTP 405`、変化なし)後、
+`get-graphql-schema`で再取得したところ464,405行(直前の`lib/graphql/schema.graphql`は
+454,142行、+10,263行)を検出した。`type X implements Node`の一覧差分を取ったところ、
+**新規テーブル`IndoDepartmentKind`・`InfoDepartmentKindValue`(History含む)が追加**された
+(`IndoDepartmentKind`という綴りは`InfoDepartmentKind`の誤字と思われるが、実スキーマ側の
+命名のため本ライブラリ側では訂正しない)。
+
+`@graphql-inspector/cli diff`は3,866件(うち1,023件が"breaking changes")を報告した。
+Fk#番号ズレノイズを除外した76件のうち、`InfoCompany`・`InfoAddress`・`InfoOffice`・
+`SharedDictionary`・`SharedDictionaryValue`・`SharedLanguageCode`(company_page画面が
+参照する主要テーブル)の型定義には**差分が無い**ことを`diff`で個別に確認した。
+`SharedAppellation`・`HistoryInfoStaff`には新規テーブルへの逆参照フィールド
+(`infoDepartmentKindValuesBySharedAppellationsId`・`historyInfoStaffsBySharedAppellationsId`・
+`sharedAppellationBySharedAppellationsId`(HistoryInfoStaff側)等)が追加されたのみで、
+既存フィールドの変更・削除は無い。`lib/graphql/company_page/`の3ファイルはいずれも
+これらの新規フィールドを選択していないため、影響は無い。
+
+### 置き換え・要件0024の実行・影響確認
+
+`lib/graphql/schema.graphql`を置き換え(454,142行 → 464,405行)、
+`dart run build_runner build --build-filter="lib/postgraphile/schema.graphql.dart"`を実行した。
+
+結果: `Built with build_runner/aot in 270s; wrote 1 output.`(警告は既知のスカラー代替のみ)。
+
+- `git status`で`lib/graphql/schema.graphql`以外の生成済みファイルに変更が無いことを確認
+  (`company_page`関連の`*.graphql`/`*.graphql.dart`は再生成されていない)。
+- `dart analyze lib test`: error・warning 0件。
+- `flutter test`: 4件すべて成功(`company_page_flatten_roundtrip_test.dart`)。
+
+### 結論
+
+新規テーブル`IndoDepartmentKind`・`InfoDepartmentKindValue`の追加は、現在GraphQL化済みの
+`company_page`画面には影響しない。`view.yaml`にはこの間に`OfficePage`/`OfficePageEdit`・
+`StaffPage`/`StaffpageEdit`・`DepartmentPage`(要件0037・0038、`generateRfe`・複合`using`
+配列対応)が追加されているが、これらはまだGraphQL化(要件0034〜0035相当の評価・生成)が
+実施されていないため、本ログの評価範囲外(生成物が無いので影響の受けようがない)。
+生成物の再作成は不要と判断し、実施していない。
+
+## 追記12: 0026再実行(2026/09/26、「0026の実行」の指示)
+
+### 接続・取得・差分判定
+
+`curl -m 10 http://192.168.1.100:5000/graphql` で疎通確認(`HTTP 405`、変化なし)後、
+`get-graphql-schema`で再取得したところ464,405行(直前の`lib/graphql/schema.graphql`と
+行数は同じだが内容が異なる)を検出した。`type X implements Node`の一覧差分を取ったところ、
+**`IndoDepartmentKind`・`HistoryIndoDepartmentKind`(追記11で追加、綴りの誤りと指摘済み)が
+削除され、`InfoDepartmentKind`・`HistoryInfoDepartmentKind`(綴りを訂正したもの)が
+追加された**ことを確認した。実体は同一テーブルの名称訂正(リポジトリ外の
+`database/ER/QualDB_ER_02A.a5er`・`docker/postgresql/scripts/06_cteate_test.sql`が
+この間に更新されていることも確認した。DB設計側で追記11の誤字指摘を反映したものと見られる)。
+
+この名称訂正の影響は`InfoDepartment`・`HistoryInfoStaff`の逆参照フィールド名
+(`indoDepartmentKindsByInfoDepartmentId`→`infoDepartmentKindsByInfoDepartmentId`等)の
+みで、`company_page`画面が参照する`InfoCompany`・`InfoAddress`・`InfoOffice`・
+`InfoStaff`・`SharedAppellation`・`SharedDictionary`・`SharedDictionaryValue`・
+`SharedLanguageCode`の型定義は**すべて無変更**であることを`diff`で個別に確認した。
+
+### 置き換え・要件0024の実行・影響確認
+
+`lib/graphql/schema.graphql`を置き換え、
+`dart run build_runner build --build-filter="lib/postgraphile/schema.graphql.dart"`を実行した。
+
+結果: `Built with build_runner/aot in 249s; wrote 1 output.`(警告は既知のスカラー代替のみ)。
+
+- `git status`で`lib/graphql/schema.graphql`以外の生成済みファイルに変更が無いことを確認。
+- `dart analyze lib test`: error・warning 0件。
+- `flutter test`: 4件すべて成功(`company_page_flatten_roundtrip_test.dart`。read側は
+  要件0036対応(`value`単一エイリアス)が既に反映されていることを確認したが、これは
+  本セッション外での作業であり本ログの対象外)。
+
+### 結論
+
+`InfoDepartmentKind`関連の名称訂正は`company_page`画面に影響しない。`view.yaml`には
+この間に`DepatmentCategoryPage`/`DepatmentCategoryEdit`(新テーブル`info_department_kind_value`
+向け)・`DepartmentPage`の拡充が追加されているが、いずれもまだGraphQL化されていないため
+本ログの評価範囲外。生成物の再作成は不要と判断し、実施していない。

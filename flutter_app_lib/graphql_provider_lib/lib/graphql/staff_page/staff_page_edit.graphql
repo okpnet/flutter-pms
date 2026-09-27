@@ -1,0 +1,154 @@
+# staff_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: source/view.yaml #StaffPageEdit
+# 命名規則: CLAUDE.md 画面仕様命名規則(要件0033)により`staff_page`をファイル名にする。
+#
+# `labels`(担当者名)は`appellationLabelsEdit`共有アーム経由でname/pronunciation/nickname
+# それぞれのshared_dictionaryを入れ子更新する(company_page_edit.graphqlの会社名編集と同型)。
+
+mutation StaffPageEdit(
+  $infoStaffId: UUID!
+  $sex: String
+  $phone: String
+  $privatePhone: String
+  $remarks: String
+  $sharedAppellationsId: UUID!
+  $jaLanguageCodeId: UUID!
+  $enLanguageCodeId: UUID!
+  $nameSharedDictionaryId: UUID!
+  $nameJa: String!
+  $nameEn: String!
+  $pronunciationSharedDictionaryId: UUID!
+  $pronunciationJa: String!
+  $pronunciationEn: String!
+  $nicknameSharedDictionaryId: UUID!
+  $nicknameJa: String!
+  $nicknameEn: String!
+) {
+  updateInfoStaffByInfoStaffId(
+    input: {
+      infoStaffId: $infoStaffId
+      infoStaffPatch: {
+        sex: $sex
+        phone: $phone
+        privatePhone: $privatePhone
+        remarks: $remarks
+
+        # --- 担当者名(共通名前仕様、shared_appellations経由でshared_dictionaryへ入れ子更新) ---
+        sharedAppellationToSharedAppellationsId: {
+          updateBySharedAppellationsId: {
+            sharedAppellationsId: $sharedAppellationsId
+            sharedAppellationPatch: {
+              sharedDictionaryToSharedDictionaryNameId: {
+                updateBySharedDictionaryId: {
+                  sharedDictionaryId: $nameSharedDictionaryId
+                  sharedDictionaryPatch: {
+                    sharedDictionaryValuesUsingSharedDictionaryId: {
+                      deleteOthers: true
+                      create: [
+                        { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $nameJa }
+                        { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $nameEn }
+                      ]
+                    }
+                  }
+                }
+              }
+              sharedDictionaryToSharedDictionaryPronunciationId: {
+                updateBySharedDictionaryId: {
+                  sharedDictionaryId: $pronunciationSharedDictionaryId
+                  sharedDictionaryPatch: {
+                    sharedDictionaryValuesUsingSharedDictionaryId: {
+                      deleteOthers: true
+                      create: [
+                        { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $pronunciationJa }
+                        { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $pronunciationEn }
+                      ]
+                    }
+                  }
+                }
+              }
+              sharedDictionaryToSharedDictionaryNicknameId: {
+                updateBySharedDictionaryId: {
+                  sharedDictionaryId: $nicknameSharedDictionaryId
+                  sharedDictionaryPatch: {
+                    sharedDictionaryValuesUsingSharedDictionaryId: {
+                      deleteOthers: true
+                      create: [
+                        { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $nicknameJa }
+                        { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $nicknameEn }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ) {
+    infoStaff {
+      infoStaffId
+      infoCompanyId
+      code
+      sex
+      phone
+      privatePhone
+      remarks
+      labels: sharedAppellationBySharedAppellationsId {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          ja: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+          en: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+        sharedDictionaryBySharedDictionaryPronunciationId {
+          sharedDictionaryId
+          ja: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+          en: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+        sharedDictionaryBySharedDictionaryNicknameId {
+          sharedDictionaryId
+          ja: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+          en: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+      }
+    }
+  }
+}

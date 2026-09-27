@@ -67,10 +67,9 @@ $BODY$
 LANGUAGE plpgsql;
 
 --220.create tables
-create table tests.history_indo_department_kind (
+create table tests.history_info_department_kind (
     history_id uuid default gen_random_uuid(),
-    indo_department_kind_id uuid not null,
-    info_department_kind_value_id uuid not null,
+    info_department_kind_id uuid not null,
     info_department_id uuid not null,
     revision integer default 1,
     symbol varchar(16) default '',
@@ -82,6 +81,7 @@ create table tests.history_indo_department_kind (
 );
 create table tests.history_info_department_kind_value (
     history_id uuid default gen_random_uuid(),
+    info_department_kind_id uuid not null,
     info_department_kind_value_id uuid not null,
     shared_appellations_id uuid not null,
     revision integer default 1,
@@ -94,6 +94,7 @@ create table tests.history_info_department_kind_value (
 );
 create table tests.info_department_kind_value (
     info_department_kind_value_id uuid default gen_random_uuid(),
+    info_department_kind_id uuid not null,
     shared_appellations_id uuid not null,
     revision integer default 1,
     symbol varchar(16) default '',
@@ -103,9 +104,8 @@ create table tests.info_department_kind_value (
     update_user_history_id uuid default null,
     remove boolean default 'f'
 );
-create table tests.indo_department_kind (
-    indo_department_kind_id uuid default gen_random_uuid(),
-    info_department_kind_value_id uuid not null,
+create table tests.info_department_kind (
+    info_department_kind_id uuid default gen_random_uuid(),
     info_department_id uuid not null,
     revision integer default 1,
     symbol varchar(16) default '',
@@ -3258,20 +3258,20 @@ create table tests.info_office (
     remove boolean default 'f'
 );
 --220.add table comments
-comment on table tests.history_indo_department_kind is '組織区分情報履歴';
-comment on column tests.history_indo_department_kind.history_id is '履歴ID';
-comment on column tests.history_indo_department_kind.indo_department_kind_id is '組織区分ID';
-comment on column tests.history_indo_department_kind.info_department_kind_value_id is '組織区分バリューID';
-comment on column tests.history_indo_department_kind.info_department_id is '組織情報ID';
-comment on column tests.history_indo_department_kind.revision is 'レビジョン';
-comment on column tests.history_indo_department_kind.symbol is 'リニアシンボル';
-comment on column tests.history_indo_department_kind.remarks is '備考';
-comment on column tests.history_indo_department_kind.update_at is '更新日時';
-comment on column tests.history_indo_department_kind.update_user_id is '更新者ID';
-comment on column tests.history_indo_department_kind.update_user_history_id is '更新者履歴ID';
-comment on column tests.history_indo_department_kind.remove is '削除';
+comment on table tests.history_info_department_kind is '組織区分情報履歴';
+comment on column tests.history_info_department_kind.history_id is '履歴ID';
+comment on column tests.history_info_department_kind.info_department_kind_id is '組織区分ID';
+comment on column tests.history_info_department_kind.info_department_id is '組織情報ID';
+comment on column tests.history_info_department_kind.revision is 'レビジョン';
+comment on column tests.history_info_department_kind.symbol is 'リニアシンボル';
+comment on column tests.history_info_department_kind.remarks is '備考';
+comment on column tests.history_info_department_kind.update_at is '更新日時';
+comment on column tests.history_info_department_kind.update_user_id is '更新者ID';
+comment on column tests.history_info_department_kind.update_user_history_id is '更新者履歴ID';
+comment on column tests.history_info_department_kind.remove is '削除';
 comment on table tests.history_info_department_kind_value is '組織区分バリュー情報履歴';
 comment on column tests.history_info_department_kind_value.history_id is '履歴ID';
+comment on column tests.history_info_department_kind_value.info_department_kind_id is '組織区分ID';
 comment on column tests.history_info_department_kind_value.info_department_kind_value_id is '組織区分バリューID';
 comment on column tests.history_info_department_kind_value.shared_appellations_id is '呼称セットID';
 comment on column tests.history_info_department_kind_value.revision is 'レビジョン';
@@ -3283,6 +3283,7 @@ comment on column tests.history_info_department_kind_value.update_user_history_i
 comment on column tests.history_info_department_kind_value.remove is '削除';
 comment on table tests.info_department_kind_value is '組織区分バリュー情報';
 comment on column tests.info_department_kind_value.info_department_kind_value_id is '組織区分バリューID';
+comment on column tests.info_department_kind_value.info_department_kind_id is '組織区分ID';
 comment on column tests.info_department_kind_value.shared_appellations_id is '呼称セットID';
 comment on column tests.info_department_kind_value.revision is 'レビジョン';
 comment on column tests.info_department_kind_value.symbol is 'リニアシンボル';
@@ -3291,17 +3292,16 @@ comment on column tests.info_department_kind_value.update_at is '更新日時';
 comment on column tests.info_department_kind_value.update_user_id is '更新者ID';
 comment on column tests.info_department_kind_value.update_user_history_id is '更新者履歴ID';
 comment on column tests.info_department_kind_value.remove is '削除';
-comment on table tests.indo_department_kind is '組織区分情報';
-comment on column tests.indo_department_kind.indo_department_kind_id is '組織区分ID';
-comment on column tests.indo_department_kind.info_department_kind_value_id is '組織区分バリューID';
-comment on column tests.indo_department_kind.info_department_id is '組織情報ID';
-comment on column tests.indo_department_kind.revision is 'レビジョン';
-comment on column tests.indo_department_kind.symbol is 'リニアシンボル';
-comment on column tests.indo_department_kind.remarks is '備考';
-comment on column tests.indo_department_kind.update_at is '更新日時';
-comment on column tests.indo_department_kind.update_user_id is '更新者ID';
-comment on column tests.indo_department_kind.update_user_history_id is '更新者履歴ID';
-comment on column tests.indo_department_kind.remove is '削除';
+comment on table tests.info_department_kind is '組織区分情報';
+comment on column tests.info_department_kind.info_department_kind_id is '組織区分ID';
+comment on column tests.info_department_kind.info_department_id is '組織情報ID';
+comment on column tests.info_department_kind.revision is 'レビジョン';
+comment on column tests.info_department_kind.symbol is 'リニアシンボル';
+comment on column tests.info_department_kind.remarks is '備考';
+comment on column tests.info_department_kind.update_at is '更新日時';
+comment on column tests.info_department_kind.update_user_id is '更新者ID';
+comment on column tests.info_department_kind.update_user_history_id is '更新者履歴ID';
+comment on column tests.info_department_kind.remove is '削除';
 comment on table tests.history_shared_dictionary_value is '共有辞書バリュー履歴';
 comment on column tests.history_shared_dictionary_value.history_id is '履歴ID';
 comment on column tests.history_shared_dictionary_value.shared_dictionary_value_id is '共有辞書バリューID';
@@ -6229,10 +6229,10 @@ comment on column tests.info_office.update_user_id is '更新者ID';
 comment on column tests.info_office.update_user_history_id is '更新者履歴ID';
 comment on column tests.info_office.remove is '削除';
 --220.add table primary key and index
-create unique index history_indo_department_kind_PKI
-    on tests.history_indo_department_kind(history_id,indo_department_kind_id);
-alter table tests.history_indo_department_kind
-    add constraint history_indo_department_kind_PKC primary key (history_id,indo_department_kind_id);
+create unique index history_info_department_kind_PKI
+    on tests.history_info_department_kind(history_id,info_department_kind_id);
+alter table tests.history_info_department_kind
+    add constraint history_info_department_kind_PKC primary key (history_id,info_department_kind_id);
 create unique index history_info_department_kind_value_PKI
     on tests.history_info_department_kind_value(history_id,info_department_kind_value_id);
 alter table tests.history_info_department_kind_value
@@ -6241,12 +6241,12 @@ create unique index info_department_kind_value_PKI
     on tests.info_department_kind_value(info_department_kind_value_id);
 alter table tests.info_department_kind_value
     add constraint info_department_kind_value_PKC primary key (info_department_kind_value_id);
-create unique index indo_department_kind_PKI
-    on tests.indo_department_kind(indo_department_kind_id);
-alter table tests.indo_department_kind
-    add constraint indo_department_kind_PKC primary key (indo_department_kind_id);
-alter table tests.indo_department_kind
-     add constraint indo_department_kind_IX1 unique (info_department_kind_value_id,info_department_id);
+create unique index info_department_kind_PKI
+    on tests.info_department_kind(info_department_kind_id);
+alter table tests.info_department_kind
+    add constraint info_department_kind_PKC primary key (info_department_kind_id);
+alter table tests.info_department_kind
+     add constraint info_department_kind_IX1 unique (info_department_id);
 create unique index history_shared_dictionary_value_PKI
     on tests.history_shared_dictionary_value(history_id,shared_dictionary_value_id);
 alter table tests.history_shared_dictionary_value
@@ -7553,15 +7553,15 @@ alter table tests.info_office
 alter table tests.info_office
      add constraint info_office_IX1 unique (symbol);
 --220.add table foreign key
-alter table tests.history_indo_department_kind add constraint history_indo_department_kind_FK1 foreign key (indo_department_kind_id) references tests.indo_department_kind (indo_department_kind_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.history_indo_department_kind add constraint history_indo_department_kind_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.history_info_department_kind add constraint history_info_department_kind_FK1 foreign key (info_department_kind_id) references tests.info_department_kind (info_department_kind_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.history_info_department_kind add constraint history_info_department_kind_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_info_department_kind_value add constraint history_info_department_kind_value_FK1 foreign key (info_department_kind_value_id) references tests.info_department_kind_value (info_department_kind_value_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_info_department_kind_value add constraint history_info_department_kind_value_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.info_department_kind_value add constraint info_department_kind_value_FK1 foreign key (shared_appellations_id) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.info_department_kind_value add constraint info_department_kind_value_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.indo_department_kind add constraint indo_department_kind_FK1 foreign key (info_department_id) references tests.info_department (info_department_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.indo_department_kind add constraint indo_department_kind_FK2 foreign key (info_department_kind_value_id) references tests.info_department_kind_value (info_department_kind_value_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.indo_department_kind add constraint indo_department_kind_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.info_department_kind_value add constraint info_department_kind_value_FK1 foreign key (info_department_kind_id) references tests.info_department_kind (info_department_kind_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.info_department_kind_value add constraint info_department_kind_value_FK2 foreign key (shared_appellations_id) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.info_department_kind_value add constraint info_department_kind_value_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.info_department_kind add constraint info_department_kind_FK1 foreign key (info_department_id) references tests.info_department (info_department_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.info_department_kind add constraint info_department_kind_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_shared_dictionary_value add constraint history_shared_dictionary_value_FK1 foreign key (shared_dictionary_value_id) references tests.shared_dictionary_value (shared_dictionary_value_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_shared_dictionary_value add constraint history_shared_dictionary_value_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_shared_language_code add constraint history_shared_language_code_FK1 foreign key (shared_language_code_id) references tests.shared_language_code (shared_language_code_id) DEFERRABLE INITIALLY DEFERRED;
@@ -8099,8 +8099,8 @@ alter table tests.info_office add constraint info_office_FK2 foreign key (info_c
 alter table tests.info_office add constraint info_office_FK3 foreign key (info_address_id) references tests.info_address (info_address_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_office add constraint info_office_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 --220.add table trigger
--- history_indo_department_kind update trigger
-CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_indo_department_kind() RETURNS trigger AS
+-- history_info_department_kind update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_info_department_kind() RETURNS trigger AS
 $BODY$
 DECLARE
     latest_row record;
@@ -8118,11 +8118,11 @@ BEGIN
 END
 $BODY$
 LANGUAGE plpgsql VOLATILE;
-CREATE TRIGGER trg_01_updatetimes_history_indo_department_kind BEFORE INSERT OR UPDATE OR DELETE ON tests.history_indo_department_kind FOR EACH ROW EXECUTE
-PROCEDURE tests.trg_01_updatetimes_history_indo_department_kind();
+CREATE TRIGGER trg_01_updatetimes_history_info_department_kind BEFORE INSERT OR UPDATE OR DELETE ON tests.history_info_department_kind FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_history_info_department_kind();
 
 
-CREATE TRIGGER trg_04_symbol_history_indo_department_kind BEFORE INSERT ON tests.history_indo_department_kind FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+CREATE TRIGGER trg_04_symbol_history_info_department_kind BEFORE INSERT ON tests.history_info_department_kind FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- history_info_department_kind_value update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_info_department_kind_value() RETURNS trigger AS
 $BODY$
@@ -8182,12 +8182,14 @@ BEGIN
         IF (revisions >= 0) THEN
             IF (
                 NEW.info_department_kind_value_id,
+                NEW.info_department_kind_id,
                 NEW.shared_appellations_id,
                 NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.info_department_kind_value_id,
+                OLD.info_department_kind_id,
                 OLD.shared_appellations_id,
                 OLD.symbol,
                 OLD.remarks,
@@ -8202,6 +8204,7 @@ BEGIN
         END IF;
         INSERT INTO tests.history_info_department_kind_value (
             info_department_kind_value_id,
+            info_department_kind_id,
             shared_appellations_id,
             revision,
             symbol,
@@ -8214,6 +8217,7 @@ BEGIN
         VALUES
         (
             NEW.info_department_kind_value_id,
+            NEW.info_department_kind_id,
             NEW.shared_appellations_id,
             NEW.revision,
             NEW.symbol,
@@ -8234,8 +8238,8 @@ CREATE TRIGGER trg_02_history_info_department_kind_value BEFORE INSERT OR UPDATE
 PROCEDURE tests.trg_02_history_info_department_kind_value();
 
 
--- indo_department_kind update trigger
-CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_indo_department_kind() RETURNS trigger AS
+-- info_department_kind update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_info_department_kind() RETURNS trigger AS
 $BODY$
 DECLARE
     latest_row record;
@@ -8244,7 +8248,7 @@ BEGIN
         NEW.update_at:=now();
         RETURN NEW;
     ELSEIF (TG_OP='INSERT') THEN
-        NEW.indo_department_kind_id := gen_random_uuid();
+        NEW.info_department_kind_id := gen_random_uuid();
         NEW.update_at:=now();
         RETURN NEW;
     ELSEIF (TG_OP = 'DELETE') THEN
@@ -8253,30 +8257,28 @@ BEGIN
 END
 $BODY$
 LANGUAGE plpgsql VOLATILE;
-CREATE TRIGGER trg_01_updatetimes_indo_department_kind BEFORE INSERT OR UPDATE OR DELETE ON tests.indo_department_kind FOR EACH ROW EXECUTE
-PROCEDURE tests.trg_01_updatetimes_indo_department_kind();
+CREATE TRIGGER trg_01_updatetimes_info_department_kind BEFORE INSERT OR UPDATE OR DELETE ON tests.info_department_kind FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_info_department_kind();
 
 
-CREATE TRIGGER trg_04_symbol_indo_department_kind BEFORE INSERT ON tests.indo_department_kind FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
--- indo_department_kind history trigger
-CREATE OR REPLACE FUNCTION tests.trg_02_history_indo_department_kind() RETURNS trigger AS
+CREATE TRIGGER trg_04_symbol_info_department_kind BEFORE INSERT ON tests.info_department_kind FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- info_department_kind history trigger
+CREATE OR REPLACE FUNCTION tests.trg_02_history_info_department_kind() RETURNS trigger AS
 $BODY$
 DECLARE
     revisions int;
 BEGIN
     IF (TG_OP = 'UPDATE') OR (TG_OP='INSERT') THEN
-        SELECT Max(revision) INTO revisions FROM tests.history_indo_department_kind WHERE indo_department_kind_id=NEW.indo_department_kind_id;
+        SELECT Max(revision) INTO revisions FROM tests.history_info_department_kind WHERE info_department_kind_id=NEW.info_department_kind_id;
         IF (revisions >= 0) THEN
             IF (
-                NEW.indo_department_kind_id,
-                NEW.info_department_kind_value_id,
+                NEW.info_department_kind_id,
                 NEW.info_department_id,
                 NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
-                OLD.indo_department_kind_id,
-                OLD.info_department_kind_value_id,
+                OLD.info_department_kind_id,
                 OLD.info_department_id,
                 OLD.symbol,
                 OLD.remarks,
@@ -8289,9 +8291,8 @@ BEGIN
         ELSE
             NEW.revision := 1;
         END IF;
-        INSERT INTO tests.history_indo_department_kind (
-            indo_department_kind_id,
-            info_department_kind_value_id,
+        INSERT INTO tests.history_info_department_kind (
+            info_department_kind_id,
             info_department_id,
             revision,
             symbol,
@@ -8303,8 +8304,7 @@ BEGIN
         )
         VALUES
         (
-            NEW.indo_department_kind_id,
-            NEW.info_department_kind_value_id,
+            NEW.info_department_kind_id,
             NEW.info_department_id,
             NEW.revision,
             NEW.symbol,
@@ -8321,8 +8321,8 @@ BEGIN
 END
 $BODY$
 LANGUAGE plpgsql VOLATILE;
-CREATE TRIGGER trg_02_history_indo_department_kind BEFORE INSERT OR UPDATE OR DELETE ON tests.indo_department_kind FOR EACH ROW EXECUTE
-PROCEDURE tests.trg_02_history_indo_department_kind();
+CREATE TRIGGER trg_02_history_info_department_kind BEFORE INSERT OR UPDATE OR DELETE ON tests.info_department_kind FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_02_history_info_department_kind();
 
 
 -- history_shared_dictionary_value update trigger
