@@ -62,82 +62,43 @@ var select=function(array,func){
         return result;
     };
 
-
 var create=function(doc){
     //ヒエラルキーは除くテーブルセット
     var entityArray=ext.toSelect(doc.objects,function(e){
-        var reg=new RegExp("^(hrchy_|history_hrchy_|shared_)");
+        var reg=new RegExp("^(hrchy_|history_hrchy_|shared_|history_shared_appellations)");
         if(e.objectType=="Entity" && !reg.test(e.pName))return e;
     });
+    //shared_appellationsテーブルから生えているリレーションシップ
+    var rels=ext.toSelect(doc.objects,function(e){
+        var reg=new RegExp("^shared_appellations");
+        if(e.objectType=="Relation"  &&  reg.test(e.entityPName1))return e;
+    });
+    
 
-    ext.toFor(entityArray,function(index,entity){
-        uniqueIndexs(entity);
+    ext.toFor(rels,function(index,entity){
+        var table=ext.toFirst(entityArray,function(e){
+            return e.pName==rels[index].entityPName2;
+        });
+        if(table==null){
+            return;
+        }
+        //println(table.pName);
+        var column=ext.toFirst(table.attributes,function(e){
+            return e.pName==rels[index].attributes2;
+        });
+        var value=1;
+        if(column.notNull==true){
+            value=2;
+        }
+        if(rels[index].attributes2!="shared_appellations_id"){
+            return;
+        }
+        //rels[index].relationType2=value;
+        println(rels[index].entityPName2 + " " + rels[index].attributes2 + " " + column.notNull + " " + value);
     });
 
     println("Done!!");
 };
 
-var addAtribute=function(entity){
-    var hasSymboleCol= ext.toAny(entity.attributes,function(e){
-        return e.pName=="symbol";
-    });
-    if(hasSymboleCol){
-        println('has symbol => ' + entity.pName);
-        return;
-    }
-    var attr= entity.attributes.add();
-    attr['pName']="symbol";
-    attr['lName']="リニアシンボル";
-    attr['dataType']="*@VARCHAR16";
-    attr['notNull']=true;
-    attr['defaultValue']="''";
-    println('Add symbol => ' + entity.pName);
-
-};
-
-var uniqueIndexs=function(entity){
-    var hasSymboleCol= ext.toAny(entity.attributes,function(e){
-        return e.pName=="symbol";
-    });
-    var reg=new RegExp("\Wsymbol\W");
-//    var hasUnique=ext.toAny(entity.indexes,function(e){
-//        return reg.test(e.attributes);
-//    });
-
-//    if(hasSymboleCol || !hasUnique){
-//        println("skip=>"+entity.pName);
-//        var indexs=entity.indexes.add();
-//        indexs['unique']=2;
-//        indexs['attributes']='2,symbole';
-//        return;
-//    }
-
-    if(!hasSymboleCol){
-        return;
-    }
-    
-    var idx=0;
-    ext.toFor(entity.indexes,function(e){
-        if(reg.test(e.attributes)){
-            return;
-        }
-        idx++;
-    });
-    println(idx+"=>"+entity.pName);
-    //entity.attributes.delete("symbole");
-    
-};
-
-var removeAtribute=function(entity){
-    var hasSymboleCol= ext.toAny(entity.attributes,function(e){
-        return e.pName=="symbole";
-    });
-    if(!hasSymboleCol){
-        println("skip=>"+entity.pName);
-        return;
-    }
-    //entity.attributes.delete("symbole");
-    
-};
 
 create(frmER.document);

@@ -59,3 +59,38 @@ OfficePage: &OfficePage
       - column: remove
         operator: "="
         value: false
+
+# --- read: 組織階層(hrchy_info_department)の子孫数。ツリーノードの展開可否判定に使う。
+#     要件0039: 「ancestor_info_department_id <> descendant_info_department_id」(自己参照行の
+#     除外)と「COUNT(*)」(子孫数の集計)は、標準のPostGraphile condition/filterでは
+#     表現できない(列同士の比較・集計のどちらも提供されない)。3.1案(DBビュー作成)を
+#     採択したため、以下のSQLでビューを作成し(★DB側で別途実行が必要。本ライブラリは
+#     DBへ直接アクセスする手段を持たない)、schema.graphqlを要件0026で再取得したうえで
+#     このnodeを完成させる。
+#
+#     CREATE VIEW hrchy_info_department_descendant_count AS
+#     SELECT
+#       ancestor_info_department_id,
+#       COUNT(*) AS descendant_count
+#     FROM hrchy_info_department
+#     WHERE remove = false
+#       AND ancestor_info_department_id IS NOT NULL
+#       AND ancestor_info_department_id <> descendant_info_department_id
+#     GROUP BY ancestor_info_department_id;
+#
+#     ビュー側でremove=false・自己参照行の除外を済ませているため、このnodeにdefaultWhereは
+#     不要になる。ancestor_info_department_idに対応する行が無い(=子孫0件の葉ノード)場合は
+#     GROUP BYの性質上その行自体が存在しないため、アプリ側は「取得結果が0件/null」を
+#     「子孫数0」として扱うこと。
+#
+#     ★下記は単独の共有アーム(&anchor)として定義した。実際に使う画面(部署ツリー画面、
+#     未定義)側では、部署自身のid列(例: info_department_id)を`using`に指定して
+#     `arrayType: toFirstOne`でこのアームをマージする想定
+#     (例: `using: info_department_id, <<: *departmentDescendantCount`)。
+#     `using`に何を指定すべきかは、部署ツリー画面のnode定義が決まってから確定する。
+departmentDescendantCount: &departmentDescendantCount
+  kind: read
+  from: hrchy_info_department_descendant_count
+  columns:
+    - ancestor_info_department_id
+    - descendant_count

@@ -433,6 +433,8 @@ DepartmentCategoryEdit:
     - update_user_history_id
     - remove
 
+
+
 # 組織
 DepartmentPage:
   kind: read

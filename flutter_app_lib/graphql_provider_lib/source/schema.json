@@ -21,8 +21,8 @@
     },
     "operator": {
       "type": "string",
-      "enum": ["=", ">", "<", ">=", "<=", "IN", "NOT IN", "LIKE", "NOT LIKE", "EXISTS", "NOT EXISTS"],
-      "description": "defaultWhereで使う比較演算子"
+      "enum": ["=", "<>", ">", "<", ">=", "<=", "IN", "NOT IN", "LIKE", "NOT LIKE", "EXISTS", "NOT EXISTS"],
+      "description": "defaultWhereで使う比較演算子。要件0039により'<>'(不一致)を追加。'<>'は他の演算子と同様、valueに列名ではなく固定のリテラル値を取ることを前提とする(列同士の比較(例: ancestor_info_department_id <> descendant_info_department_id)は本スキーマの範囲外であり、表現できない。実現するにはDBビュー等でバックエンド側に処理を移す必要がある)。"
     },
     "whereValue": {
       "description": "defaultWhereのvalue。対象列の型に従うため具体的な型は限定せず、スカラー値または配列(IN/NOT IN用)のみを構造として許容する。operatorがEXISTS/NOT EXISTSのときはdefaultWhereEntry側でさらに文字列型に限定する。",

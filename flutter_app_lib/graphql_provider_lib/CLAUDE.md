@@ -207,4 +207,6 @@ GraphQLへの変換できないエラーは変換できない理由をログへ�
 
 2026/09/26_0038:test.yamlのCompanyPage.offices.update_user(history_info_staffへの複合FK、update_user_id+update_user_history_id)で"using"に配列を渡そうとしていたが、schema.jsonの"using"は単一文字列のみ対応でこの用法に未対応だった。加えて指定順が実スキーマのフィールド名(historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId、列順はupdate_user_history_id→update_user_id)と逆になっていた。schema.jsonの"using"を文字列または文字列配列に対応するよう修正し、27_yaml_to_graphql_conversion_rules.mdに複合FKの列順に関する注意を追記。test.yamlの列順を修正した。
 
+2026/09/28_0039:部署ツリー画面で子孫数からノードの展開可否を判断する必要があるが、DepartmentHierarchy案(ancestor_info_department_id<>descendant_info_department_idの除外、count(*)による子孫数集計)は標準のPostGraphile condition/filterでは列同士の比較も集計も表現できず、対応するAggregateプラグインも未導入のため実現不可と判明した。対応案(3.1 DBビュー作成/3.2 pg-aggregatesプラグイン導入/3.3 schema.jsonのみの変更/3.4 クライアント側集計)を提示し、3.1(DBビュー作成)を採択した。schema.jsonのoperatorに"<>"を追加し、test.yamlにビュー(hrchy_info_department_descendant_count、要DB側での作成)を参照する共有アームdepartmentDescendantCountを追加した。詳細はdocs/0039_department_hierarchy_descendant_count_log.md参照。
 
+2026/09/28_0040:"source/06_create_test.sql"からPostgrapileのスキーマを作成、SDLからschema.graphqlを取得して差分を比較し、変更があれば"lib/graphql/schema.json"置き換え、0024を実行。Postgrapileは"postgraphile-plugin-nested-mutations postgraphile-plugin-connection-filter@2.3.0"のプラグインを適用する。
