@@ -81,9 +81,9 @@ create table tests.history_info_department_kind (
 );
 create table tests.history_info_department_kind_value (
     history_id uuid default gen_random_uuid(),
-    info_department_kind_id uuid not null,
     info_department_kind_value_id uuid not null,
-    shared_appellations_id uuid not null,
+    info_department_kind_id uuid not null,
+    names uuid not null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -213,8 +213,9 @@ create table tests.history_mstr_packing_spec (
     mstr_item_id uuid default null,
     length_id uuid not null,
     wide_id uuid not null,
-    hight_id uuid not null,
-    wait_id uuid default null,
+    height_id uuid not null,
+    weight_id uuid default null,
+    revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -227,6 +228,7 @@ create table tests.history_mstr_spec_measurement (
     mstr_spec_measurement_id uuid not null,
     measurement_value decimal(10,4) not null,
     shared_unit_id uuid not null,
+    revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -239,6 +241,7 @@ create table tests.history_mstr_envelope_measurement (
     mstr_envelope_measurement_id uuid not null,
     measurement_value decimal(10,4) default 0.0,
     shared_unit_id uuid not null,
+    revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -251,9 +254,10 @@ create table tests.history_mstr_equipment_envelope (
     mstr_equipment_envelope_id uuid not null,
     mstr_equipment_id uuid default null,
     length_id uuid not null,
-    wide_id_ uuid not null,
+    wide_id uuid not null,
     height_id uuid not null,
-    wait_id uuid default null,
+    weight_id uuid default null,
+    revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -265,6 +269,7 @@ create table tests.mstr_spec_measurement (
     mstr_spec_measurement_id uuid default gen_random_uuid(),
     measurement_value decimal(10,4) not null,
     shared_unit_id uuid not null,
+    revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -277,8 +282,9 @@ create table tests.mstr_packing_spec (
     mstr_item_id uuid default null,
     length_id uuid not null,
     wide_id uuid not null,
-    hight_id uuid not null,
-    wait_id uuid default null,
+    height_id uuid not null,
+    weight_id uuid default null,
+    revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -290,6 +296,7 @@ create table tests.mstr_envelope_measurement (
     mstr_envelope_measurement_id uuid default gen_random_uuid(),
     measurement_value decimal(10,4) default 0.0,
     shared_unit_id uuid not null,
+    revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -301,9 +308,10 @@ create table tests.mstr_equipment_envelope (
     mstr_equipment_envelope_id uuid default gen_random_uuid(),
     mstr_equipment_id uuid default null,
     length_id uuid not null,
-    wide_id_ uuid not null,
+    wide_id uuid not null,
     height_id uuid not null,
-    wait_id uuid default null,
+    weight_id uuid default null,
+    revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -420,6 +428,7 @@ create table tests.shared_appellations (
     shared_dictionary_pronunciation_id uuid default null,
     shared_dictionary_nickname_id uuid default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -429,8 +438,6 @@ create table tests.shared_appellations (
 create table tests.history_shared_dictionary (
     history_id uuid default gen_random_uuid(),
     shared_dictionary_id uuid not null,
-    ja varchar(1024) default null,
-    en varchar(1024) default null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -497,11 +504,11 @@ create table tests.mstr_equipment_kind (
 );
 create table tests.history_info_staff_icon (
     history_id uuid default gen_random_uuid(),
-    info_role_id uuid not null,
+    info_staff_icon_id uuid not null,
     trans_file_id uuid not null,
-    info_staff_id varchar(255) not null,
-    info_staff_history_id varchar(255) not null,
-    name varchar(255) default null,
+    info_staff_id uuid not null,
+    info_staff_history_id uuid not null,
+    names uuid default null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -511,11 +518,11 @@ create table tests.history_info_staff_icon (
     remove boolean default 'f'
 );
 create table tests.info_staff_icon (
-    info_role_id uuid default gen_random_uuid(),
+    info_staff_icon_id uuid default gen_random_uuid(),
     trans_file_id uuid not null,
-    info_staff_id varchar(255) not null,
-    info_staff_history_id varchar(255) not null,
-    name varchar(255) default null,
+    info_staff_id uuid not null,
+    info_staff_history_id uuid not null,
+    names uuid default null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -526,9 +533,9 @@ create table tests.info_staff_icon (
 );
 create table tests.history_mstr_item_hcdcs (
     history_id uuid default gen_random_uuid(),
-    mstr_item_hcds_id uuid not null,
+    mstr_item_hcdcs_id uuid not null,
     mstr_item_id uuid not null,
-    iso3166_3 varchar(2) default '',
+    iso3166_3 varchar(3) default '',
     code varchar(16) default '',
     revision integer default 1,
     symbol varchar(16) default '',
@@ -539,10 +546,11 @@ create table tests.history_mstr_item_hcdcs (
     remove boolean default 'f'
 );
 create table tests.mstr_item_hcdcs (
-    mstr_item_hcds_id uuid default gen_random_uuid(),
+    mstr_item_hcdcs_id uuid default gen_random_uuid(),
     mstr_item_id uuid not null,
-    iso3166_3 varchar(2) default '',
+    iso3166_3 varchar(3) default '',
     code varchar(16) default '',
+    revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -731,7 +739,6 @@ create table tests.trans_container_tree (
     trans_container_tree_id uuid default gen_random_uuid(),
     trans_container_id uuid not null,
     parent_trans_container_id uuid default null,
-    revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -1266,8 +1273,6 @@ create table tests.history_mstr_item_actual_size (
     mstr_item_size_kind_id uuid not null,
     size_value decimal(10,4) default 0.0,
     detail varchar(1024) default null,
-    unit_history_id uuid default null,
-    info_unit_id uuid default null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -1685,9 +1690,6 @@ create table tests.history_info_department (
     info_office_id uuid default null,
     code varchar(255) not null,
     names uuid not null,
-    category1 uuid default null,
-    category2 uuid default null,
-    category3 uuid default null,
     info_address_id uuid default null,
     revision integer default 1,
     symbol varchar(16) default '',
@@ -1733,10 +1735,10 @@ create table tests.history_info_access_path (
 create table tests.history_info_company (
     history_id uuid default gen_random_uuid(),
     info_company_id uuid not null,
-    shared_appellations_id uuid not null,
+    names uuid not null,
     info_address_id uuid default null,
     web_page varchar(255) default null,
-    ceo uuid default null,
+    ceo_names uuid default null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -3000,6 +3002,7 @@ create table tests.shared_unit (
     shared_appellations_id uuid not null,
     description varchar(1024) default null,
     revision integer default 1,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -3269,9 +3272,9 @@ comment on column tests.history_info_department_kind.update_user_history_id is '
 comment on column tests.history_info_department_kind.remove is '削除';
 comment on table tests.history_info_department_kind_value is '組織区分バリュー情報履歴';
 comment on column tests.history_info_department_kind_value.history_id is '履歴ID';
-comment on column tests.history_info_department_kind_value.info_department_kind_id is '組織区分ID';
 comment on column tests.history_info_department_kind_value.info_department_kind_value_id is '組織区分バリューID';
-comment on column tests.history_info_department_kind_value.shared_appellations_id is '呼称セットID';
+comment on column tests.history_info_department_kind_value.info_department_kind_id is '組織区分ID';
+comment on column tests.history_info_department_kind_value.names is '区分名';
 comment on column tests.history_info_department_kind_value.revision is 'レビジョン';
 comment on column tests.history_info_department_kind_value.symbol is 'リニアシンボル';
 comment on column tests.history_info_department_kind_value.remarks is '備考';
@@ -3391,8 +3394,9 @@ comment on column tests.history_mstr_packing_spec.mstr_packing_spec_id is '梱�
 comment on column tests.history_mstr_packing_spec.mstr_item_id is '品目ID';
 comment on column tests.history_mstr_packing_spec.length_id is '縦';
 comment on column tests.history_mstr_packing_spec.wide_id is '幅';
-comment on column tests.history_mstr_packing_spec.hight_id is '高さ';
-comment on column tests.history_mstr_packing_spec.wait_id is '重さ';
+comment on column tests.history_mstr_packing_spec.height_id is '高さ';
+comment on column tests.history_mstr_packing_spec.weight_id is '重さ';
+comment on column tests.history_mstr_packing_spec.revision is 'レビジョン';
 comment on column tests.history_mstr_packing_spec.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_packing_spec.remarks is '備考';
 comment on column tests.history_mstr_packing_spec.update_at is '更新日時';
@@ -3404,6 +3408,7 @@ comment on column tests.history_mstr_spec_measurement.history_id is '履歴ID';
 comment on column tests.history_mstr_spec_measurement.mstr_spec_measurement_id is '梱包サイズ大きさID';
 comment on column tests.history_mstr_spec_measurement.measurement_value is '値';
 comment on column tests.history_mstr_spec_measurement.shared_unit_id is '単位ID';
+comment on column tests.history_mstr_spec_measurement.revision is 'レビジョン';
 comment on column tests.history_mstr_spec_measurement.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_spec_measurement.remarks is '備考';
 comment on column tests.history_mstr_spec_measurement.update_at is '更新日時';
@@ -3415,6 +3420,7 @@ comment on column tests.history_mstr_envelope_measurement.history_id is '履歴I
 comment on column tests.history_mstr_envelope_measurement.mstr_envelope_measurement_id is '大きさID';
 comment on column tests.history_mstr_envelope_measurement.measurement_value is '値';
 comment on column tests.history_mstr_envelope_measurement.shared_unit_id is '単位ID';
+comment on column tests.history_mstr_envelope_measurement.revision is 'レビジョン';
 comment on column tests.history_mstr_envelope_measurement.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_envelope_measurement.remarks is '備考';
 comment on column tests.history_mstr_envelope_measurement.update_at is '更新日時';
@@ -3426,9 +3432,10 @@ comment on column tests.history_mstr_equipment_envelope.history_id is '履歴ID'
 comment on column tests.history_mstr_equipment_envelope.mstr_equipment_envelope_id is '占有範囲ID';
 comment on column tests.history_mstr_equipment_envelope.mstr_equipment_id is '設備ID';
 comment on column tests.history_mstr_equipment_envelope.length_id is '縦';
-comment on column tests.history_mstr_equipment_envelope.wide_id_ is '横';
+comment on column tests.history_mstr_equipment_envelope.wide_id is '横';
 comment on column tests.history_mstr_equipment_envelope.height_id is '高さ';
-comment on column tests.history_mstr_equipment_envelope.wait_id is '重さ';
+comment on column tests.history_mstr_equipment_envelope.weight_id is '重さ';
+comment on column tests.history_mstr_equipment_envelope.revision is 'レビジョン';
 comment on column tests.history_mstr_equipment_envelope.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_equipment_envelope.remarks is '備考';
 comment on column tests.history_mstr_equipment_envelope.update_at is '更新日時';
@@ -3439,6 +3446,7 @@ comment on table tests.mstr_spec_measurement is '梱包サイズ大きさマス�
 comment on column tests.mstr_spec_measurement.mstr_spec_measurement_id is '梱包サイズ大きさID';
 comment on column tests.mstr_spec_measurement.measurement_value is '値';
 comment on column tests.mstr_spec_measurement.shared_unit_id is '単位ID';
+comment on column tests.mstr_spec_measurement.revision is 'レビジョン';
 comment on column tests.mstr_spec_measurement.symbol is 'リニアシンボル';
 comment on column tests.mstr_spec_measurement.remarks is '備考';
 comment on column tests.mstr_spec_measurement.update_at is '更新日時';
@@ -3450,8 +3458,9 @@ comment on column tests.mstr_packing_spec.mstr_packing_spec_id is '梱包サイ�
 comment on column tests.mstr_packing_spec.mstr_item_id is '品目ID';
 comment on column tests.mstr_packing_spec.length_id is '縦';
 comment on column tests.mstr_packing_spec.wide_id is '幅';
-comment on column tests.mstr_packing_spec.hight_id is '高さ';
-comment on column tests.mstr_packing_spec.wait_id is '重さ';
+comment on column tests.mstr_packing_spec.height_id is '高さ';
+comment on column tests.mstr_packing_spec.weight_id is '重さ';
+comment on column tests.mstr_packing_spec.revision is 'レビジョン';
 comment on column tests.mstr_packing_spec.symbol is 'リニアシンボル';
 comment on column tests.mstr_packing_spec.remarks is '備考';
 comment on column tests.mstr_packing_spec.update_at is '更新日時';
@@ -3462,6 +3471,7 @@ comment on table tests.mstr_envelope_measurement is '設備占有範囲量マス
 comment on column tests.mstr_envelope_measurement.mstr_envelope_measurement_id is '大きさID';
 comment on column tests.mstr_envelope_measurement.measurement_value is '値';
 comment on column tests.mstr_envelope_measurement.shared_unit_id is '単位ID';
+comment on column tests.mstr_envelope_measurement.revision is 'レビジョン';
 comment on column tests.mstr_envelope_measurement.symbol is 'リニアシンボル';
 comment on column tests.mstr_envelope_measurement.remarks is '備考';
 comment on column tests.mstr_envelope_measurement.update_at is '更新日時';
@@ -3472,9 +3482,10 @@ comment on table tests.mstr_equipment_envelope is '設備占有範囲マスタ';
 comment on column tests.mstr_equipment_envelope.mstr_equipment_envelope_id is '占有範囲ID';
 comment on column tests.mstr_equipment_envelope.mstr_equipment_id is '設備ID';
 comment on column tests.mstr_equipment_envelope.length_id is '奥行き';
-comment on column tests.mstr_equipment_envelope.wide_id_ is '横';
+comment on column tests.mstr_equipment_envelope.wide_id is '横';
 comment on column tests.mstr_equipment_envelope.height_id is '高さ';
-comment on column tests.mstr_equipment_envelope.wait_id is '重さ';
+comment on column tests.mstr_equipment_envelope.weight_id is '重さ';
+comment on column tests.mstr_equipment_envelope.revision is 'レビジョン';
 comment on column tests.mstr_equipment_envelope.symbol is 'リニアシンボル';
 comment on column tests.mstr_equipment_envelope.remarks is '備考';
 comment on column tests.mstr_equipment_envelope.update_at is '更新日時';
@@ -3582,6 +3593,7 @@ comment on column tests.shared_appellations.shared_dictionary_name_id is '名前
 comment on column tests.shared_appellations.shared_dictionary_pronunciation_id is '読み';
 comment on column tests.shared_appellations.shared_dictionary_nickname_id is '略称';
 comment on column tests.shared_appellations.revision is 'レビジョン';
+comment on column tests.shared_appellations.symbol is 'リニアシンボル';
 comment on column tests.shared_appellations.remarks is '備考';
 comment on column tests.shared_appellations.update_at is '更新日時';
 comment on column tests.shared_appellations.update_user_id is '更新者ID';
@@ -3590,8 +3602,6 @@ comment on column tests.shared_appellations.remove is '削除';
 comment on table tests.history_shared_dictionary is '共有辞書履歴';
 comment on column tests.history_shared_dictionary.history_id is '履歴ID';
 comment on column tests.history_shared_dictionary.shared_dictionary_id is '共有辞書ID';
-comment on column tests.history_shared_dictionary.ja is 'ja';
-comment on column tests.history_shared_dictionary.en is 'en';
 comment on column tests.history_shared_dictionary.revision is 'レビジョン';
 comment on column tests.history_shared_dictionary.symbol is 'リニアシンボル';
 comment on column tests.history_shared_dictionary.remarks is '備考';
@@ -3653,11 +3663,11 @@ comment on column tests.mstr_equipment_kind.update_user_history_id is '更新者
 comment on column tests.mstr_equipment_kind.remove is '削除';
 comment on table tests.history_info_staff_icon is '担当者アイコン履歴';
 comment on column tests.history_info_staff_icon.history_id is '履歴ID';
-comment on column tests.history_info_staff_icon.info_role_id is 'アイコンID';
+comment on column tests.history_info_staff_icon.info_staff_icon_id is 'アイコンID';
 comment on column tests.history_info_staff_icon.trans_file_id is 'ファイルID';
 comment on column tests.history_info_staff_icon.info_staff_id is '担当者ID';
 comment on column tests.history_info_staff_icon.info_staff_history_id is '担当者履歴ID';
-comment on column tests.history_info_staff_icon.name is '名称';
+comment on column tests.history_info_staff_icon.names is '名称';
 comment on column tests.history_info_staff_icon.revision is 'レビジョン';
 comment on column tests.history_info_staff_icon.symbol is 'リニアシンボル';
 comment on column tests.history_info_staff_icon.remarks is '備考';
@@ -3666,11 +3676,11 @@ comment on column tests.history_info_staff_icon.update_user_id is '更新者ID';
 comment on column tests.history_info_staff_icon.update_user_history_id is '更新者履歴ID';
 comment on column tests.history_info_staff_icon.remove is '削除';
 comment on table tests.info_staff_icon is '担当者アイコン情報';
-comment on column tests.info_staff_icon.info_role_id is 'アイコンID';
+comment on column tests.info_staff_icon.info_staff_icon_id is 'アイコンID';
 comment on column tests.info_staff_icon.trans_file_id is 'ファイルID';
 comment on column tests.info_staff_icon.info_staff_id is '担当者ID';
 comment on column tests.info_staff_icon.info_staff_history_id is '担当者履歴ID';
-comment on column tests.info_staff_icon.name is '名称';
+comment on column tests.info_staff_icon.names is '名称';
 comment on column tests.info_staff_icon.revision is 'レビジョン';
 comment on column tests.info_staff_icon.symbol is 'リニアシンボル';
 comment on column tests.info_staff_icon.remarks is '備考';
@@ -3680,7 +3690,7 @@ comment on column tests.info_staff_icon.update_user_history_id is '更新者履�
 comment on column tests.info_staff_icon.remove is '削除';
 comment on table tests.history_mstr_item_hcdcs is 'HSコードマスタ履歴';
 comment on column tests.history_mstr_item_hcdcs.history_id is '履歴ID';
-comment on column tests.history_mstr_item_hcdcs.mstr_item_hcds_id is '品目HSコードID';
+comment on column tests.history_mstr_item_hcdcs.mstr_item_hcdcs_id is '品目HSコードID';
 comment on column tests.history_mstr_item_hcdcs.mstr_item_id is '品目ID';
 comment on column tests.history_mstr_item_hcdcs.iso3166_3 is '国';
 comment on column tests.history_mstr_item_hcdcs.code is 'コード';
@@ -3692,10 +3702,11 @@ comment on column tests.history_mstr_item_hcdcs.update_user_id is '更新者ID';
 comment on column tests.history_mstr_item_hcdcs.update_user_history_id is '更新者履歴ID';
 comment on column tests.history_mstr_item_hcdcs.remove is '削除';
 comment on table tests.mstr_item_hcdcs is 'HSコードマスタ';
-comment on column tests.mstr_item_hcdcs.mstr_item_hcds_id is '品目HSコードID';
+comment on column tests.mstr_item_hcdcs.mstr_item_hcdcs_id is '品目HSコードID';
 comment on column tests.mstr_item_hcdcs.mstr_item_id is '品目ID';
 comment on column tests.mstr_item_hcdcs.iso3166_3 is '国';
 comment on column tests.mstr_item_hcdcs.code is 'コード';
+comment on column tests.mstr_item_hcdcs.revision is 'レビジョン';
 comment on column tests.mstr_item_hcdcs.symbol is 'リニアシンボル';
 comment on column tests.mstr_item_hcdcs.remarks is '備考';
 comment on column tests.mstr_item_hcdcs.update_at is '更新日時';
@@ -3871,7 +3882,6 @@ comment on table tests.trans_container_tree is 'コンテナ体系マスタ';
 comment on column tests.trans_container_tree.trans_container_tree_id is 'コンテナ体系ID';
 comment on column tests.trans_container_tree.trans_container_id is '自コンテナID';
 comment on column tests.trans_container_tree.parent_trans_container_id is '親コンテナID';
-comment on column tests.trans_container_tree.revision is 'レビジョン';
 comment on column tests.trans_container_tree.symbol is 'リニアシンボル';
 comment on column tests.trans_container_tree.remarks is '備考';
 comment on column tests.trans_container_tree.update_at is '更新日時';
@@ -4368,8 +4378,6 @@ comment on column tests.history_mstr_item_actual_size.mstr_item_id is '品目ID'
 comment on column tests.history_mstr_item_actual_size.mstr_item_size_kind_id is '品目大きさ区分ID';
 comment on column tests.history_mstr_item_actual_size.size_value is '大きさ';
 comment on column tests.history_mstr_item_actual_size.detail is '詳細';
-comment on column tests.history_mstr_item_actual_size.unit_history_id is '単位履歴ID';
-comment on column tests.history_mstr_item_actual_size.info_unit_id is '単位ID';
 comment on column tests.history_mstr_item_actual_size.revision is 'レビジョン';
 comment on column tests.history_mstr_item_actual_size.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_item_actual_size.remarks is '備考';
@@ -4761,9 +4769,6 @@ comment on column tests.history_info_department.info_company_id is '会社ID';
 comment on column tests.history_info_department.info_office_id is '事業所ID';
 comment on column tests.history_info_department.code is '組織コード';
 comment on column tests.history_info_department.names is '組織名称';
-comment on column tests.history_info_department.category1 is '組織区分1';
-comment on column tests.history_info_department.category2 is '組織区分2';
-comment on column tests.history_info_department.category3 is '組織区分3';
 comment on column tests.history_info_department.info_address_id is '住所ID';
 comment on column tests.history_info_department.revision is 'レビジョン';
 comment on column tests.history_info_department.symbol is 'リニアシンボル';
@@ -4806,10 +4811,10 @@ comment on column tests.history_info_access_path.remove is '削除';
 comment on table tests.history_info_company is '会社情報履歴';
 comment on column tests.history_info_company.history_id is '履歴ID';
 comment on column tests.history_info_company.info_company_id is '会社ID';
-comment on column tests.history_info_company.shared_appellations_id is '呼称セットID';
+comment on column tests.history_info_company.names is '会社名';
 comment on column tests.history_info_company.info_address_id is '住所ID';
 comment on column tests.history_info_company.web_page is 'ホームページ';
-comment on column tests.history_info_company.ceo is '代表';
+comment on column tests.history_info_company.ceo_names is '代表社名';
 comment on column tests.history_info_company.revision is 'レビジョン';
 comment on column tests.history_info_company.symbol is 'リニアシンボル';
 comment on column tests.history_info_company.remarks is '備考';
@@ -5985,6 +5990,7 @@ comment on column tests.shared_unit.shared_unit_id is '単位ID';
 comment on column tests.shared_unit.shared_appellations_id is '呼称セットID';
 comment on column tests.shared_unit.description is '詳細';
 comment on column tests.shared_unit.revision is 'レビジョン';
+comment on column tests.shared_unit.symbol is 'リニアシンボル';
 comment on column tests.shared_unit.remarks is '備考';
 comment on column tests.shared_unit.update_at is '更新日時';
 comment on column tests.shared_unit.update_user_id is '更新者ID';
@@ -6229,44 +6235,56 @@ create unique index history_info_department_kind_PKI
     on tests.history_info_department_kind(history_id,info_department_kind_id);
 alter table tests.history_info_department_kind
     add constraint history_info_department_kind_PKC primary key (history_id,info_department_kind_id);
+alter table tests.history_info_department_kind
+     add constraint history_info_department_kind_IX1 unique (info_department_kind_id,revision);
 create unique index history_info_department_kind_value_PKI
     on tests.history_info_department_kind_value(history_id,info_department_kind_value_id);
 alter table tests.history_info_department_kind_value
     add constraint history_info_department_kind_value_PKC primary key (history_id,info_department_kind_value_id);
+alter table tests.history_info_department_kind_value
+     add constraint history_info_department_kind_value_IX1 unique (info_department_kind_value_id,revision);
 create unique index info_department_kind_value_PKI
     on tests.info_department_kind_value(info_department_kind_value_id);
 alter table tests.info_department_kind_value
     add constraint info_department_kind_value_PKC primary key (info_department_kind_value_id);
+alter table tests.info_department_kind_value
+     add constraint info_department_kind_value_IX1 unique (symbol);
 create unique index info_department_kind_PKI
     on tests.info_department_kind(info_department_kind_id);
 alter table tests.info_department_kind
     add constraint info_department_kind_PKC primary key (info_department_kind_id);
 alter table tests.info_department_kind
      add constraint info_department_kind_IX1 unique (info_department_id);
+alter table tests.info_department_kind
+     add constraint info_department_kind_IX2 unique (symbol);
 create unique index history_shared_dictionary_value_PKI
     on tests.history_shared_dictionary_value(history_id,shared_dictionary_value_id);
 alter table tests.history_shared_dictionary_value
     add constraint history_shared_dictionary_value_PKC primary key (history_id,shared_dictionary_value_id);
 alter table tests.history_shared_dictionary_value
-     add constraint history_shared_dictionary_value_IX1 unique (shared_language_code_id,shared_dictionary_id);
+     add constraint history_shared_dictionary_value_IX1 unique (shared_dictionary_value_id,revision);
 create unique index history_shared_language_code_PKI
     on tests.history_shared_language_code(history_id,shared_language_code_id);
 alter table tests.history_shared_language_code
     add constraint history_shared_language_code_PKC primary key (history_id,shared_language_code_id);
 alter table tests.history_shared_language_code
-     add constraint history_shared_language_code_IX1 unique (code);
+     add constraint history_shared_language_code_IX1 unique (shared_language_code_id,revision);
 create unique index shared_dictionary_value_PKI
     on tests.shared_dictionary_value(shared_dictionary_value_id);
 alter table tests.shared_dictionary_value
     add constraint shared_dictionary_value_PKC primary key (shared_dictionary_value_id);
 alter table tests.shared_dictionary_value
      add constraint shared_dictionary_value_IX1 unique (shared_language_code_id,shared_dictionary_id);
+alter table tests.shared_dictionary_value
+     add constraint shared_dictionary_value_IX2 unique (symbol);
 create unique index shared_language_code_PKI
     on tests.shared_language_code(shared_language_code_id);
 alter table tests.shared_language_code
     add constraint shared_language_code_PKC primary key (shared_language_code_id);
 alter table tests.shared_language_code
      add constraint shared_language_code_IX1 unique (code);
+alter table tests.shared_language_code
+     add constraint shared_language_code_IX2 unique (symbol);
 create unique index shared_symbol_counter_PKI
     on tests.shared_symbol_counter(table_name ,yy,mm);
 alter table tests.shared_symbol_counter
@@ -6276,7 +6294,7 @@ create unique index history_mstr_inspection_kind_PKI
 alter table tests.history_mstr_inspection_kind
     add constraint history_mstr_inspection_kind_PKC primary key (history_id,mstr_inspection_kind_id);
 alter table tests.history_mstr_inspection_kind
-     add constraint history_mstr_inspection_kind_IX1 unique (symbol);
+     add constraint history_mstr_inspection_kind_IX1 unique (mstr_inspection_kind_id,revision);
 create unique index mstr_inspection_kind_PKI
     on tests.mstr_inspection_kind(mstr_inspection_kind_id);
 alter table tests.mstr_inspection_kind
@@ -6288,25 +6306,25 @@ create unique index history_mstr_packing_spec_PKI
 alter table tests.history_mstr_packing_spec
     add constraint history_mstr_packing_spec_PKC primary key (history_id,mstr_packing_spec_id);
 alter table tests.history_mstr_packing_spec
-     add constraint history_mstr_packing_spec_IX1 unique (symbol);
+     add constraint history_mstr_packing_spec_IX1 unique (mstr_packing_spec_id,revision);
 create unique index history_mstr_spec_measurement_PKI
     on tests.history_mstr_spec_measurement(history_id,mstr_spec_measurement_id);
 alter table tests.history_mstr_spec_measurement
     add constraint history_mstr_spec_measurement_PKC primary key (history_id,mstr_spec_measurement_id);
 alter table tests.history_mstr_spec_measurement
-     add constraint history_mstr_spec_measurement_IX1 unique (symbol);
+     add constraint history_mstr_spec_measurement_IX1 unique (mstr_spec_measurement_id,revision);
 create unique index history_mstr_envelope_measurement_PKI
     on tests.history_mstr_envelope_measurement(history_id,mstr_envelope_measurement_id);
 alter table tests.history_mstr_envelope_measurement
     add constraint history_mstr_envelope_measurement_PKC primary key (history_id,mstr_envelope_measurement_id);
 alter table tests.history_mstr_envelope_measurement
-     add constraint history_mstr_envelope_measurement_IX1 unique (symbol);
+     add constraint history_mstr_envelope_measurement_IX1 unique (mstr_envelope_measurement_id,revision);
 create unique index history_mstr_equipment_envelope_PKI
     on tests.history_mstr_equipment_envelope(history_id,mstr_equipment_envelope_id);
 alter table tests.history_mstr_equipment_envelope
     add constraint history_mstr_equipment_envelope_PKC primary key (history_id,mstr_equipment_envelope_id);
 alter table tests.history_mstr_equipment_envelope
-     add constraint history_mstr_equipment_envelope_IX1 unique (symbol);
+     add constraint history_mstr_equipment_envelope_IX1 unique (mstr_equipment_envelope_id,revision);
 create unique index mstr_spec_measurement_PKI
     on tests.mstr_spec_measurement(mstr_spec_measurement_id);
 alter table tests.mstr_spec_measurement
@@ -6344,7 +6362,7 @@ create unique index history_mstr_shipping_kind_PKI
 alter table tests.history_mstr_shipping_kind
     add constraint history_mstr_shipping_kind_PKC primary key (history_id,mstr_shipping_kind_id);
 alter table tests.history_mstr_shipping_kind
-     add constraint history_mstr_shipping_kind_IX1 unique (symbol);
+     add constraint history_mstr_shipping_kind_IX1 unique (mstr_shipping_kind_id,revision);
 create unique index mstr_shipping_kind_PKI
     on tests.mstr_shipping_kind(mstr_shipping_kind_id);
 alter table tests.mstr_shipping_kind
@@ -6356,7 +6374,7 @@ create unique index history_mstr_item_size_kind_PKI
 alter table tests.history_mstr_item_size_kind
     add constraint history_mstr_item_size_kind_PKC primary key (history_id,mstr_item_size_kind_id);
 alter table tests.history_mstr_item_size_kind
-     add constraint history_mstr_item_size_kind_IX1 unique (symbol);
+     add constraint history_mstr_item_size_kind_IX1 unique (mstr_item_size_kind_id,revision);
 create unique index mstr_item_size_kind_PKI
     on tests.mstr_item_size_kind(mstr_item_size_kind_id);
 alter table tests.mstr_item_size_kind
@@ -6369,7 +6387,7 @@ create unique index history_mstr_item_kind_PKI
 alter table tests.history_mstr_item_kind
     add constraint history_mstr_item_kind_PKC primary key (history_id,mstr_item_kind_id);
 alter table tests.history_mstr_item_kind
-     add constraint history_mstr_item_kind_IX1 unique (symbol);
+     add constraint history_mstr_item_kind_IX1 unique (mstr_item_kind_id,revision);
 create unique index mstr_item_kind_PKI
     on tests.mstr_item_kind(mstr_item_kind_id);
 alter table tests.mstr_item_kind
@@ -6381,33 +6399,37 @@ create unique index history_shared_appellations_PKI
 alter table tests.history_shared_appellations
     add constraint history_shared_appellations_PKC primary key (history_id,shared_appellations_id);
 alter table tests.history_shared_appellations
-     add constraint history_shared_appellations_IX1 unique (symbol);
+     add constraint history_shared_appellations_IX1 unique (shared_appellations_id,revision);
 create unique index shared_appellations_PKI
     on tests.shared_appellations(shared_appellations_id);
 alter table tests.shared_appellations
     add constraint shared_appellations_PKC primary key (shared_appellations_id);
+alter table tests.shared_appellations
+     add constraint shared_appellations_IX1 unique (symbol);
 create unique index history_shared_dictionary_PKI
     on tests.history_shared_dictionary(history_id,shared_dictionary_id);
 alter table tests.history_shared_dictionary
     add constraint history_shared_dictionary_PKC primary key (history_id,shared_dictionary_id);
 alter table tests.history_shared_dictionary
-     add constraint history_shared_dictionary_IX1 unique (symbol);
+     add constraint history_shared_dictionary_IX1 unique (shared_dictionary_id,revision);
 create unique index shared_dictionary_PKI
     on tests.shared_dictionary(shared_dictionary_id);
 alter table tests.shared_dictionary
     add constraint shared_dictionary_PKC primary key (shared_dictionary_id);
+alter table tests.shared_dictionary
+     add constraint shared_dictionary_IX1 unique (symbol);
 create unique index history_mstr_equipment_PKI
     on tests.history_mstr_equipment(history_id,mstr_equipment_id);
 alter table tests.history_mstr_equipment
     add constraint history_mstr_equipment_PKC primary key (history_id,mstr_equipment_id);
 alter table tests.history_mstr_equipment
-     add constraint history_mstr_equipment_IX1 unique (symbol);
+     add constraint history_mstr_equipment_IX1 unique (mstr_equipment_id,revision);
 create unique index history_mstr_equipment_kind_PKI
     on tests.history_mstr_equipment_kind(history_id,mstr_equipment_kind_id);
 alter table tests.history_mstr_equipment_kind
     add constraint history_mstr_equipment_kind_PKC primary key (history_id,mstr_equipment_kind_id);
 alter table tests.history_mstr_equipment_kind
-     add constraint history_mstr_equipment_kind_IX1 unique (symbol);
+     add constraint history_mstr_equipment_kind_IX1 unique (mstr_equipment_kind_id,revision);
 create unique index mstr_equipment_kind_PKI
     on tests.mstr_equipment_kind(mstr_equipment_kind_id);
 alter table tests.mstr_equipment_kind
@@ -6415,27 +6437,27 @@ alter table tests.mstr_equipment_kind
 alter table tests.mstr_equipment_kind
      add constraint mstr_equipment_kind_IX1 unique (symbol);
 create unique index history_info_staff_icon_PKI
-    on tests.history_info_staff_icon(history_id,info_role_id);
+    on tests.history_info_staff_icon(history_id,info_staff_icon_id);
 alter table tests.history_info_staff_icon
-    add constraint history_info_staff_icon_PKC primary key (history_id,info_role_id);
+    add constraint history_info_staff_icon_PKC primary key (history_id,info_staff_icon_id);
 alter table tests.history_info_staff_icon
-     add constraint history_info_staff_icon_IX1 unique (symbol);
+     add constraint history_info_staff_icon_IX1 unique (info_staff_icon_id,revision);
 create unique index info_staff_icon_PKI
-    on tests.info_staff_icon(info_role_id);
+    on tests.info_staff_icon(info_staff_icon_id);
 alter table tests.info_staff_icon
-    add constraint info_staff_icon_PKC primary key (info_role_id);
+    add constraint info_staff_icon_PKC primary key (info_staff_icon_id);
 alter table tests.info_staff_icon
      add constraint info_staff_icon_IX1 unique (symbol);
 create unique index history_mstr_item_hcdcs_PKI
-    on tests.history_mstr_item_hcdcs(history_id,mstr_item_hcds_id);
+    on tests.history_mstr_item_hcdcs(history_id,mstr_item_hcdcs_id);
 alter table tests.history_mstr_item_hcdcs
-    add constraint history_mstr_item_hcdcs_PKC primary key (history_id,mstr_item_hcds_id);
+    add constraint history_mstr_item_hcdcs_PKC primary key (history_id,mstr_item_hcdcs_id);
 alter table tests.history_mstr_item_hcdcs
-     add constraint history_mstr_item_hcdcs_IX1 unique (symbol);
+     add constraint history_mstr_item_hcdcs_IX1 unique (mstr_item_hcdcs_id,revision);
 create unique index mstr_item_hcdcs_PKI
-    on tests.mstr_item_hcdcs(mstr_item_hcds_id);
+    on tests.mstr_item_hcdcs(mstr_item_hcdcs_id);
 alter table tests.mstr_item_hcdcs
-    add constraint mstr_item_hcdcs_PKC primary key (mstr_item_hcds_id);
+    add constraint mstr_item_hcdcs_PKC primary key (mstr_item_hcdcs_id);
 alter table tests.mstr_item_hcdcs
      add constraint mstr_item_hcdcs_IX1 unique (symbol);
 create unique index history_mstr_document_content_tree_PKI
@@ -6443,7 +6465,7 @@ create unique index history_mstr_document_content_tree_PKI
 alter table tests.history_mstr_document_content_tree
     add constraint history_mstr_document_content_tree_PKC primary key (history_id,mstr_document_content_tree_id);
 alter table tests.history_mstr_document_content_tree
-     add constraint history_mstr_document_content_tree_IX1 unique (symbol);
+     add constraint history_mstr_document_content_tree_IX1 unique (mstr_document_content_tree_id,revision);
 create unique index hrchy_mstr_document_content_PKI
     on tests.hrchy_mstr_document_content(hrchy_mstr_document_content_id);
 alter table tests.hrchy_mstr_document_content
@@ -6453,7 +6475,7 @@ create unique index history_mstr_document_content_PKI
 alter table tests.history_mstr_document_content
     add constraint history_mstr_document_content_PKC primary key (history_id,mstr_document_content_id);
 alter table tests.history_mstr_document_content
-     add constraint history_mstr_document_content_IX1 unique (symbol);
+     add constraint history_mstr_document_content_IX1 unique (mstr_document_content_id,revision);
 create unique index mstr_document_content_tree_PKI
     on tests.mstr_document_content_tree(mstr_document_content_tree_id);
 alter table tests.mstr_document_content_tree
@@ -6471,7 +6493,7 @@ create unique index history_mstr_document_tier_PKI
 alter table tests.history_mstr_document_tier
     add constraint history_mstr_document_tier_PKC primary key (history_id,mstr_document_tier_id);
 alter table tests.history_mstr_document_tier
-     add constraint history_mstr_document_tier_IX1 unique (symbol);
+     add constraint history_mstr_document_tier_IX1 unique (mstr_document_tier_id,revision);
 create unique index mstr_document_tier_PKI
     on tests.mstr_document_tier(mstr_document_tier_id);
 alter table tests.mstr_document_tier
@@ -6483,7 +6505,7 @@ create unique index history_mstr_document_tree_PKI
 alter table tests.history_mstr_document_tree
     add constraint history_mstr_document_tree_PKC primary key (history_id,mstr_document_tree_id);
 alter table tests.history_mstr_document_tree
-     add constraint history_mstr_document_tree_IX1 unique (symbol);
+     add constraint history_mstr_document_tree_IX1 unique (mstr_document_tree_id,revision);
 create unique index hrchy_mstr_documet_PKI
     on tests.hrchy_mstr_documet(hrchy_mstr_document_id);
 alter table tests.hrchy_mstr_documet
@@ -6499,7 +6521,7 @@ create unique index history_mstr_document_PKI
 alter table tests.history_mstr_document
     add constraint history_mstr_document_PKC primary key (history_id,mstr_document_id);
 alter table tests.history_mstr_document
-     add constraint history_mstr_document_IX1 unique (symbol);
+     add constraint history_mstr_document_IX1 unique (mstr_document_id,revision);
 create unique index mstr_document_PKI
     on tests.mstr_document(mstr_document_id);
 alter table tests.mstr_document
@@ -6517,7 +6539,7 @@ create unique index history_mstr_location_tree_PKI
 alter table tests.history_mstr_location_tree
     add constraint history_mstr_location_tree_PKC primary key (history_id,mstr_location_tree_id);
 alter table tests.history_mstr_location_tree
-     add constraint history_mstr_location_tree_IX1 unique (symbol);
+     add constraint history_mstr_location_tree_IX1 unique (mstr_location_tree_id,revision);
 create unique index mstr_location_tree_PKI
     on tests.mstr_location_tree(mstr_location_tree_id);
 alter table tests.mstr_location_tree
@@ -6529,7 +6551,7 @@ create unique index history_info_department_tree_PKI
 alter table tests.history_info_department_tree
     add constraint history_info_department_tree_PKC primary key (history_id,info_department_tree_id);
 alter table tests.history_info_department_tree
-     add constraint history_info_department_tree_IX1 unique (symbol);
+     add constraint history_info_department_tree_IX1 unique (info_department_tree_id,revision);
 create unique index info_department_tree_PKI
     on tests.info_department_tree(info_department_tree_id);
 alter table tests.info_department_tree
@@ -6551,7 +6573,7 @@ create unique index history_mstr_inspection_operation_PKI
 alter table tests.history_mstr_inspection_operation
     add constraint history_mstr_inspection_operation_PKC primary key (history_id,mstr_inspection_operation_id);
 alter table tests.history_mstr_inspection_operation
-     add constraint history_mstr_inspection_operation_IX1 unique (symbol);
+     add constraint history_mstr_inspection_operation_IX1 unique (mstr_inspection_operation_id,revision);
 create unique index mstr_inspection_operation_PKI
     on tests.mstr_inspection_operation(mstr_inspection_operation_id);
 alter table tests.mstr_inspection_operation
@@ -6563,7 +6585,7 @@ create unique index history_mstr_inspection_operation_task_PKI
 alter table tests.history_mstr_inspection_operation_task
     add constraint history_mstr_inspection_operation_task_PKC primary key (history_id,mstr_inspection_operation_task_id);
 alter table tests.history_mstr_inspection_operation_task
-     add constraint history_mstr_inspection_operation_task_IX1 unique (symbol);
+     add constraint history_mstr_inspection_operation_task_IX1 unique (mstr_inspection_operation_task_id,revision);
 create unique index mstr_inspection_operation_task_PKI
     on tests.mstr_inspection_operation_task(mstr_inspection_operation_task_id);
 alter table tests.mstr_inspection_operation_task
@@ -6575,7 +6597,7 @@ create unique index history_info_department_access_permission_PKI
 alter table tests.history_info_department_access_permission
     add constraint history_info_department_access_permission_PKC primary key (history_id,info_department_access_permission_id);
 alter table tests.history_info_department_access_permission
-     add constraint history_info_department_access_permission_IX1 unique (symbol);
+     add constraint history_info_department_access_permission_IX1 unique (info_department_access_permission_id,revision);
 create unique index info_department_access_permission_PKI
     on tests.info_department_access_permission(info_department_access_permission_id);
 alter table tests.info_department_access_permission
@@ -6587,7 +6609,7 @@ create unique index history_info_assign_PKI
 alter table tests.history_info_assign
     add constraint history_info_assign_PKC primary key (history_id,info_assign_id);
 alter table tests.history_info_assign
-     add constraint history_info_assign_IX1 unique (symbol);
+     add constraint history_info_assign_IX1 unique (info_assign_id,revision);
 create unique index mstr_item_provision_PKI
     on tests.mstr_item_provision(mstr_item_provision_id);
 alter table tests.mstr_item_provision
@@ -6599,13 +6621,13 @@ create unique index history_mstr_item_provision_PKI
 alter table tests.history_mstr_item_provision
     add constraint history_mstr_item_provision_PKC primary key (history_id,mstr_item_provision_id);
 alter table tests.history_mstr_item_provision
-     add constraint history_mstr_item_provision_IX1 unique (symbol);
+     add constraint history_mstr_item_provision_IX1 unique (mstr_item_provision_id,revision);
 create unique index history_mstr_equipment_provision_PKI
     on tests.history_mstr_equipment_provision(history_id,mstr_equipment_provision_id);
 alter table tests.history_mstr_equipment_provision
     add constraint history_mstr_equipment_provision_PKC primary key (history_id,mstr_equipment_provision_id);
 alter table tests.history_mstr_equipment_provision
-     add constraint history_mstr_equipment_provision_IX1 unique (symbol);
+     add constraint history_mstr_equipment_provision_IX1 unique (mstr_equipment_provision_id,revision);
 create unique index mstr_equipment_provision_PKI
     on tests.mstr_equipment_provision(mstr_equipment_provision_id);
 alter table tests.mstr_equipment_provision
@@ -6633,7 +6655,7 @@ create unique index history_info_app_status_PKI
 alter table tests.history_info_app_status
     add constraint history_info_app_status_PKC primary key (history_id,info_app_status_id);
 alter table tests.history_info_app_status
-     add constraint history_info_app_status_IX1 unique (symbol);
+     add constraint history_info_app_status_IX1 unique (info_app_status_id,revision);
 create unique index info_app_status_PKI
     on tests.info_app_status(info_app_status_id);
 alter table tests.info_app_status
@@ -6651,49 +6673,49 @@ create unique index history_mstr_operation_task_PKI
 alter table tests.history_mstr_operation_task
     add constraint history_mstr_operation_task_PKC primary key (history_id,mstr_operation_task_id);
 alter table tests.history_mstr_operation_task
-     add constraint history_mstr_operation_task_IX1 unique (symbol);
+     add constraint history_mstr_operation_task_IX1 unique (mstr_operation_task_id,revision);
 create unique index history_mstr_report_PKI
     on tests.history_mstr_report(history_id,mstr_report_id);
 alter table tests.history_mstr_report
     add constraint history_mstr_report_PKC primary key (history_id,mstr_report_id);
 alter table tests.history_mstr_report
-     add constraint history_mstr_report_IX1 unique (symbol);
+     add constraint history_mstr_report_IX1 unique (mstr_report_id,revision);
 create unique index history_mstr_item_operation_task_PKI
     on tests.history_mstr_item_operation_task(history_id,mstr_item_operation_task_id);
 alter table tests.history_mstr_item_operation_task
     add constraint history_mstr_item_operation_task_PKC primary key (history_id,mstr_item_operation_task_id);
 alter table tests.history_mstr_item_operation_task
-     add constraint history_mstr_item_operation_task_IX1 unique (symbol);
+     add constraint history_mstr_item_operation_task_IX1 unique (mstr_item_operation_task_id,revision);
 create unique index history_mstr_task_tree_PKI
     on tests.history_mstr_task_tree(history_id,mstr_task_tree_id);
 alter table tests.history_mstr_task_tree
     add constraint history_mstr_task_tree_PKC primary key (history_id,mstr_task_tree_id);
 alter table tests.history_mstr_task_tree
-     add constraint history_mstr_task_tree_IX1 unique (symbol);
+     add constraint history_mstr_task_tree_IX1 unique (mstr_task_tree_id,revision);
 create unique index history_mstr_outsource_available_PKI
     on tests.history_mstr_outsource_available(history_id,mstr_outsource_available_id);
 alter table tests.history_mstr_outsource_available
     add constraint history_mstr_outsource_available_PKC primary key (history_id,mstr_outsource_available_id);
 alter table tests.history_mstr_outsource_available
-     add constraint history_mstr_outsource_available_IX1 unique (symbol);
+     add constraint history_mstr_outsource_available_IX1 unique (mstr_outsource_available_id,revision);
 create unique index history_mstr_equipment_available_PKI
     on tests.history_mstr_equipment_available(history_id,mstr_equipment_available_id);
 alter table tests.history_mstr_equipment_available
     add constraint history_mstr_equipment_available_PKC primary key (history_id,mstr_equipment_available_id);
 alter table tests.history_mstr_equipment_available
-     add constraint history_mstr_equipment_available_IX1 unique (symbol);
+     add constraint history_mstr_equipment_available_IX1 unique (mstr_equipment_available_id,revision);
 create unique index history_mstr_task_PKI
     on tests.history_mstr_task(history_id,mstr_task_id);
 alter table tests.history_mstr_task
     add constraint history_mstr_task_PKC primary key (history_id,mstr_task_id);
 alter table tests.history_mstr_task
-     add constraint history_mstr_task_IX1 unique (symbol);
+     add constraint history_mstr_task_IX1 unique (mstr_task_id,revision);
 create unique index history_mstr_task_location_PKI
     on tests.history_mstr_task_location(history_id,mstr_task_location_id);
 alter table tests.history_mstr_task_location
     add constraint history_mstr_task_location_PKC primary key (history_id,mstr_task_location_id);
 alter table tests.history_mstr_task_location
-     add constraint history_mstr_task_location_IX1 unique (symbol);
+     add constraint history_mstr_task_location_IX1 unique (mstr_task_location_id,revision);
 create unique index mstr_task_location_PKI
     on tests.mstr_task_location(mstr_task_location_id);
 alter table tests.mstr_task_location
@@ -6705,209 +6727,211 @@ create unique index history_mstr_task_group_PKI
 alter table tests.history_mstr_task_group
     add constraint history_mstr_task_group_PKC primary key (history_id,mstr_task_group_id);
 alter table tests.history_mstr_task_group
-     add constraint history_mstr_task_group_IX1 unique (symbol);
+     add constraint history_mstr_task_group_IX1 unique (mstr_task_group_id,revision);
 create unique index history_mstr_operation_PKI
     on tests.history_mstr_operation(history_id,mstr_operation_id);
 alter table tests.history_mstr_operation
     add constraint history_mstr_operation_PKC primary key (history_id,mstr_operation_id);
 alter table tests.history_mstr_operation
-     add constraint history_mstr_operation_IX1 unique (symbol);
+     add constraint history_mstr_operation_IX1 unique (mstr_operation_id,revision);
 create unique index history_mstr_manufacturer_PKI
     on tests.history_mstr_manufacturer(history_id,mstr_manufacturer_id);
 alter table tests.history_mstr_manufacturer
     add constraint history_mstr_manufacturer_PKC primary key (history_id,mstr_manufacturer_id);
 alter table tests.history_mstr_manufacturer
-     add constraint history_mstr_manufacturer_IX1 unique (symbol);
+     add constraint history_mstr_manufacturer_IX1 unique (mstr_manufacturer_id,revision);
 create unique index history_mstr_inspection_PKI
     on tests.history_mstr_inspection(history_id,mstr_inspection_id);
 alter table tests.history_mstr_inspection
     add constraint history_mstr_inspection_PKC primary key (history_id,mstr_inspection_id);
 alter table tests.history_mstr_inspection
-     add constraint history_mstr_inspection_IX1 unique (symbol);
+     add constraint history_mstr_inspection_IX1 unique (mstr_inspection_id,revision);
 create unique index history_mstr_inspection_formula_PKI
     on tests.history_mstr_inspection_formula(history_id,mstr_inspection_formula_id);
 alter table tests.history_mstr_inspection_formula
     add constraint history_mstr_inspection_formula_PKC primary key (history_id,mstr_inspection_formula_id);
 alter table tests.history_mstr_inspection_formula
-     add constraint history_mstr_inspection_formula_IX1 unique (symbol);
+     add constraint history_mstr_inspection_formula_IX1 unique (mstr_inspection_formula_id,revision);
 create unique index history_mstr_item_actual_size_PKI
     on tests.history_mstr_item_actual_size(history_id,mstr_item_actual_size_id);
 alter table tests.history_mstr_item_actual_size
     add constraint history_mstr_item_actual_size_PKC primary key (history_id,mstr_item_actual_size_id);
 alter table tests.history_mstr_item_actual_size
-     add constraint history_mstr_item_actual_size_IX1 unique (symbol);
+     add constraint history_mstr_item_actual_size_IX1 unique (mstr_item_actual_size_id,revision);
 create unique index history_mstr_item_tree_PKI
     on tests.history_mstr_item_tree(history_id,mstr_item_tree_id);
 alter table tests.history_mstr_item_tree
     add constraint history_mstr_item_tree_PKC primary key (history_id,mstr_item_tree_id);
 alter table tests.history_mstr_item_tree
-     add constraint history_mstr_item_tree_IX1 unique (symbol);
+     add constraint history_mstr_item_tree_IX1 unique (mstr_item_tree_id,revision);
 create unique index history_mstr_item_PKI
     on tests.history_mstr_item(history_id,mstr_item_id);
 alter table tests.history_mstr_item
     add constraint history_mstr_item_PKC primary key (history_id,mstr_item_id);
 alter table tests.history_mstr_item
-     add constraint history_mstr_item_IX1 unique (symbol);
+     add constraint history_mstr_item_IX1 unique (mstr_item_id,revision);
 create unique index history_mstr_audit_std_checkitem_PKI
     on tests.history_mstr_audit_std_checkitem(history_id,mstr_audit_std_checkitem_id,mstr_audit_std_id);
 alter table tests.history_mstr_audit_std_checkitem
     add constraint history_mstr_audit_std_checkitem_PKC primary key (history_id,mstr_audit_std_checkitem_id,mstr_audit_std_id);
 alter table tests.history_mstr_audit_std_checkitem
-     add constraint history_mstr_audit_std_checkitem_IX1 unique (symbol);
+     add constraint history_mstr_audit_std_checkitem_IX1 unique (mstr_audit_std_checkitem_id,revision);
 create unique index history_mstr_audit_std_PKI
     on tests.history_mstr_audit_std(history_id,mstr_audit_std_id);
 alter table tests.history_mstr_audit_std
     add constraint history_mstr_audit_std_PKC primary key (history_id,mstr_audit_std_id);
 alter table tests.history_mstr_audit_std
-     add constraint history_mstr_audit_std_IX1 unique (symbol);
+     add constraint history_mstr_audit_std_IX1 unique (mstr_audit_std_id,revision);
 create unique index history_mstr_location_PKI
     on tests.history_mstr_location(history_id,mstr_location_id);
 alter table tests.history_mstr_location
     add constraint history_mstr_location_PKC primary key (history_id,mstr_location_id);
 alter table tests.history_mstr_location
-     add constraint history_mstr_location_IX1 unique (symbol);
+     add constraint history_mstr_location_IX1 unique (mstr_location_id,revision);
 create unique index history_mstr_equipment_tag_PKI
     on tests.history_mstr_equipment_tag(history_id,mstr_equipment_tag_id);
 alter table tests.history_mstr_equipment_tag
     add constraint history_mstr_equipment_tag_PKC primary key (history_id,mstr_equipment_tag_id);
 alter table tests.history_mstr_equipment_tag
-     add constraint history_mstr_equipment_tag_IX1 unique (symbol);
+     add constraint history_mstr_equipment_tag_IX1 unique (mstr_equipment_tag_id,revision);
 create unique index history_mstr_stakeholder_contact_PKI
     on tests.history_mstr_stakeholder_contact(history_id,mstr_stakeholder_contact_id);
 alter table tests.history_mstr_stakeholder_contact
     add constraint history_mstr_stakeholder_contact_PKC primary key (history_id,mstr_stakeholder_contact_id);
 alter table tests.history_mstr_stakeholder_contact
-     add constraint history_mstr_stakeholder_contact_IX1 unique (symbol);
+     add constraint history_mstr_stakeholder_contact_IX1 unique (mstr_stakeholder_contact_id,revision);
 create unique index history_mstr_stakeholder_provision_PKI
     on tests.history_mstr_stakeholder_provision(history_id,mstr_stakeholder_provision_id);
 alter table tests.history_mstr_stakeholder_provision
     add constraint history_mstr_stakeholder_provision_PKC primary key (history_id,mstr_stakeholder_provision_id);
 alter table tests.history_mstr_stakeholder_provision
-     add constraint history_mstr_stakeholder_provision_IX1 unique (symbol);
+     add constraint history_mstr_stakeholder_provision_IX1 unique (mstr_stakeholder_provision_id,revision);
 create unique index history_mstr_stakeholder_PKI
     on tests.history_mstr_stakeholder(history_id,mstr_stakeholder_id);
 alter table tests.history_mstr_stakeholder
     add constraint history_mstr_stakeholder_PKC primary key (history_id,mstr_stakeholder_id);
 alter table tests.history_mstr_stakeholder
-     add constraint history_mstr_stakeholder_IX1 unique (symbol);
+     add constraint history_mstr_stakeholder_IX1 unique (mstr_stakeholder_id,revision);
 create unique index history_mstr_staff_license_PKI
     on tests.history_mstr_staff_license(history_id,mstr_staff_license_id);
 alter table tests.history_mstr_staff_license
     add constraint history_mstr_staff_license_PKC primary key (history_id,mstr_staff_license_id);
 alter table tests.history_mstr_staff_license
-     add constraint history_mstr_staff_license_IX1 unique (symbol);
+     add constraint history_mstr_staff_license_IX1 unique (mstr_staff_license_id,revision);
 create unique index history_mstr_license_PKI
     on tests.history_mstr_license(history_id,mstr_license_id);
 alter table tests.history_mstr_license
     add constraint history_mstr_license_PKC primary key (history_id,mstr_license_id);
 alter table tests.history_mstr_license
-     add constraint history_mstr_license_IX1 unique (symbol);
+     add constraint history_mstr_license_IX1 unique (mstr_license_id,revision);
 create unique index history_info_staff_access_permission_PKI
     on tests.history_info_staff_access_permission(history_id,info_staff_access_permission_id);
 alter table tests.history_info_staff_access_permission
     add constraint history_info_staff_access_permission_PKC primary key (history_id,info_staff_access_permission_id);
 alter table tests.history_info_staff_access_permission
-     add constraint history_info_staff_access_permission_IX1 unique (symbol);
+     add constraint history_info_staff_access_permission_IX1 unique (info_staff_access_permission_id,revision);
 create unique index history_mstr_approval_scope_pattern_PKI
     on tests.history_mstr_approval_scope_pattern(history_id,mstr_approval_scope_pattern_id);
 alter table tests.history_mstr_approval_scope_pattern
     add constraint history_mstr_approval_scope_pattern_PKC primary key (history_id,mstr_approval_scope_pattern_id);
 alter table tests.history_mstr_approval_scope_pattern
-     add constraint history_mstr_approval_scope_pattern_IX1 unique (symbol);
+     add constraint history_mstr_approval_scope_pattern_IX1 unique (mstr_approval_scope_pattern_id,revision);
 create unique index history_mstr_approval_pattern_PKI
     on tests.history_mstr_approval_pattern(history_id,mstr_approval_pattern_id);
 alter table tests.history_mstr_approval_pattern
     add constraint history_mstr_approval_pattern_PKC primary key (history_id,mstr_approval_pattern_id);
 alter table tests.history_mstr_approval_pattern
-     add constraint history_mstr_approval_pattern_IX1 unique (symbol);
+     add constraint history_mstr_approval_pattern_IX1 unique (mstr_approval_pattern_id,revision);
 create unique index history_mstr_capability_PKI
     on tests.history_mstr_capability(history_id,mstr_capability_id);
 alter table tests.history_mstr_capability
     add constraint history_mstr_capability_PKC primary key (history_id,mstr_capability_id);
 alter table tests.history_mstr_capability
-     add constraint history_mstr_capability_IX1 unique (symbol);
+     add constraint history_mstr_capability_IX1 unique (mstr_capability_id,revision);
 create unique index history_mstr_approval_pattern_detail_PKI
     on tests.history_mstr_approval_pattern_detail(history_id,mstr_approval_pattern_detail_id);
 alter table tests.history_mstr_approval_pattern_detail
     add constraint history_mstr_approval_pattern_detail_PKC primary key (history_id,mstr_approval_pattern_detail_id);
 alter table tests.history_mstr_approval_pattern_detail
-     add constraint history_mstr_approval_pattern_detail_IX1 unique (symbol);
+     add constraint history_mstr_approval_pattern_detail_IX1 unique (mstr_approval_pattern_detail_id,revision);
 create unique index history_mstr_approval_PKI
     on tests.history_mstr_approval(history_id,mstr_approval_id);
 alter table tests.history_mstr_approval
     add constraint history_mstr_approval_PKC primary key (history_id,mstr_approval_id);
 alter table tests.history_mstr_approval
-     add constraint history_mstr_approval_IX1 unique (symbol);
+     add constraint history_mstr_approval_IX1 unique (mstr_approval_id,revision);
 create unique index history_info_position_PKI
     on tests.history_info_position(history_id,info_position_id);
 alter table tests.history_info_position
     add constraint history_info_position_PKC primary key (history_id,info_position_id);
 alter table tests.history_info_position
-     add constraint history_info_position_IX1 unique (symbol);
+     add constraint history_info_position_IX1 unique (info_position_id,revision);
 create unique index history_mstr_staff_capability_PKI
     on tests.history_mstr_staff_capability(history_id,mstr_staff_capability_id,info_staff_id);
 alter table tests.history_mstr_staff_capability
     add constraint history_mstr_staff_capability_PKC primary key (history_id,mstr_staff_capability_id,info_staff_id);
 alter table tests.history_mstr_staff_capability
-     add constraint history_mstr_staff_capability_IX1 unique (symbol);
+     add constraint history_mstr_staff_capability_IX1 unique (mstr_staff_capability_id,revision);
 create unique index history_mstr_sign_PKI
     on tests.history_mstr_sign(history_id,mstr_sign_id);
 alter table tests.history_mstr_sign
     add constraint history_mstr_sign_PKC primary key (history_id,mstr_sign_id);
 alter table tests.history_mstr_sign
-     add constraint history_mstr_sign_IX1 unique (symbol);
+     add constraint history_mstr_sign_IX1 unique (mstr_sign_id,revision);
 create unique index history_info_staff_PKI
     on tests.history_info_staff(history_id,info_staff_id);
 alter table tests.history_info_staff
     add constraint history_info_staff_PKC primary key (history_id,info_staff_id);
 alter table tests.history_info_staff
-     add constraint history_info_staff_IX1 unique (symbol);
+     add constraint history_info_staff_IX1 unique (info_staff_id,revision);
 create unique index history_info_provision_PKI
     on tests.history_info_provision(history_id,info_provision_id);
 alter table tests.history_info_provision
     add constraint history_info_provision_PKC primary key (history_id,info_provision_id);
 alter table tests.history_info_provision
-     add constraint history_info_provision_IX1 unique (symbol);
+     add constraint history_info_provision_IX1 unique (info_provision_id,revision);
 create unique index history_info_address_PKI
     on tests.history_info_address(history_id,info_address_id);
 alter table tests.history_info_address
     add constraint history_info_address_PKC primary key (history_id,info_address_id);
 alter table tests.history_info_address
-     add constraint history_info_address_IX1 unique (symbol);
+     add constraint history_info_address_IX1 unique (info_address_id,revision);
 create unique index history_shared_unit_PKI
     on tests.history_shared_unit(history_id,shared_unit_id);
 alter table tests.history_shared_unit
     add constraint history_shared_unit_PKC primary key (history_id,shared_unit_id);
 alter table tests.history_shared_unit
-     add constraint history_shared_unit_IX1 unique (symbol);
+     add constraint history_shared_unit_IX1 unique (shared_unit_id,revision);
 create unique index history_info_office_PKI
     on tests.history_info_office(history_id,info_office_id);
 alter table tests.history_info_office
     add constraint history_info_office_PKC primary key (history_id,info_office_id);
 alter table tests.history_info_office
-     add constraint history_info_office_IX1 unique (symbol);
+     add constraint history_info_office_IX1 unique (info_office_id,revision);
 create unique index history_info_department_PKI
     on tests.history_info_department(history_id,info_department_id);
 alter table tests.history_info_department
     add constraint history_info_department_PKC primary key (history_id,info_department_id);
 alter table tests.history_info_department
-     add constraint history_info_department_IX1 unique (symbol);
+     add constraint history_info_department_IX1 unique (info_department_id,revision);
 create unique index history_info_access_path_approval_PKI
     on tests.history_info_access_path_approval(history_id,info_access_path_approval_id);
 alter table tests.history_info_access_path_approval
     add constraint history_info_access_path_approval_PKC primary key (history_id,info_access_path_approval_id);
 alter table tests.history_info_access_path_approval
-     add constraint history_info_access_path_approval_IX1 unique (symbol);
+     add constraint history_info_access_path_approval_IX1 unique (info_access_path_approval_id,revision);
 create unique index history_info_access_path_PKI
     on tests.history_info_access_path(history_id,info_access_path_id);
 alter table tests.history_info_access_path
     add constraint history_info_access_path_PKC primary key (history_id,info_access_path_id);
 alter table tests.history_info_access_path
-     add constraint history_info_access_path_IX1 unique (symbol);
+     add constraint history_info_access_path_IX1 unique (info_access_path_id,revision);
 create unique index history_info_company_PKI
     on tests.history_info_company(history_id,info_company_id);
 alter table tests.history_info_company
     add constraint history_info_company_PKC primary key (history_id,info_company_id);
+alter table tests.history_info_company
+     add constraint history_info_company_IX1 unique (info_company_id,revision);
 create unique index info_company_PKI
     on tests.info_company(info_company_id);
 alter table tests.info_company
@@ -6919,9 +6943,7 @@ create unique index history_info_app_PKI
 alter table tests.history_info_app
     add constraint history_info_app_PKC primary key (history_id,info_app_id);
 alter table tests.history_info_app
-     add constraint history_info_app_IX1 unique (name);
-alter table tests.history_info_app
-     add constraint history_info_app_IX2 unique (symbol);
+     add constraint history_info_app_IX1 unique (info_app_id,revision);
 create unique index trans_anonymouse_PKI
     on tests.trans_anonymouse(trans_anonymouse_id);
 alter table tests.trans_anonymouse
@@ -6976,6 +6998,8 @@ create unique index info_provision_PKI
     on tests.info_provision(info_provision_id);
 alter table tests.info_provision
     add constraint info_provision_PKC primary key (info_provision_id);
+alter table tests.info_provision
+     add constraint info_provision_IX1 unique (symbol);
 create unique index mstr_inspection_formula_PKI
     on tests.mstr_inspection_formula(mstr_inspection_formula_id);
 alter table tests.mstr_inspection_formula
@@ -7454,6 +7478,8 @@ create unique index shared_unit_PKI
     on tests.shared_unit(shared_unit_id);
 alter table tests.shared_unit
     add constraint shared_unit_PKC primary key (shared_unit_id);
+alter table tests.shared_unit
+     add constraint shared_unit_IX1 unique (symbol);
 create unique index mstr_item_PKI
     on tests.mstr_item(mstr_item_id);
 alter table tests.mstr_item
@@ -7581,17 +7607,17 @@ alter table tests.history_mstr_equipment_envelope add constraint history_mstr_eq
 alter table tests.history_mstr_equipment_envelope add constraint history_mstr_equipment_envelope_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_spec_measurement add constraint mstr_spec_measurement_FK1 foreign key (shared_unit_id) references tests.shared_unit (shared_unit_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_spec_measurement add constraint mstr_spec_measurement_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_packing_spec add constraint mstr_packing_spec_FK1 foreign key (wait_id) references tests.mstr_spec_measurement (mstr_spec_measurement_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_packing_spec add constraint mstr_packing_spec_FK2 foreign key (hight_id) references tests.mstr_spec_measurement (mstr_spec_measurement_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_packing_spec add constraint mstr_packing_spec_FK1 foreign key (weight_id) references tests.mstr_spec_measurement (mstr_spec_measurement_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_packing_spec add constraint mstr_packing_spec_FK2 foreign key (height_id) references tests.mstr_spec_measurement (mstr_spec_measurement_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_packing_spec add constraint mstr_packing_spec_FK3 foreign key (wide_id) references tests.mstr_spec_measurement (mstr_spec_measurement_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_packing_spec add constraint mstr_packing_spec_FK4 foreign key (length_id) references tests.mstr_spec_measurement (mstr_spec_measurement_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_packing_spec add constraint mstr_packing_spec_FK5 foreign key (mstr_item_id) references tests.mstr_item (mstr_item_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_packing_spec add constraint mstr_packing_spec_FK6 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_envelope_measurement add constraint mstr_envelope_measurement_FK1 foreign key (shared_unit_id) references tests.shared_unit (shared_unit_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_envelope_measurement add constraint mstr_envelope_measurement_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_equipment_envelope add constraint mstr_equipment_envelope_FK1 foreign key (wait_id) references tests.mstr_envelope_measurement (mstr_envelope_measurement_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_equipment_envelope add constraint mstr_equipment_envelope_FK1 foreign key (weight_id) references tests.mstr_envelope_measurement (mstr_envelope_measurement_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_equipment_envelope add constraint mstr_equipment_envelope_FK2 foreign key (height_id) references tests.mstr_envelope_measurement (mstr_envelope_measurement_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_equipment_envelope add constraint mstr_equipment_envelope_FK3 foreign key (wide_id_) references tests.mstr_envelope_measurement (mstr_envelope_measurement_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_equipment_envelope add constraint mstr_equipment_envelope_FK3 foreign key (wide_id) references tests.mstr_envelope_measurement (mstr_envelope_measurement_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_equipment_envelope add constraint mstr_equipment_envelope_FK4 foreign key (length_id) references tests.mstr_envelope_measurement (mstr_envelope_measurement_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_equipment_envelope add constraint mstr_equipment_envelope_FK5 foreign key (mstr_equipment_id) references tests.mstr_equipment (mstr_equipment_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_equipment_envelope add constraint mstr_equipment_envelope_FK6 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
@@ -7626,11 +7652,13 @@ alter table tests.history_mstr_equipment_kind add constraint history_mstr_equipm
 alter table tests.history_mstr_equipment_kind add constraint history_mstr_equipment_kind_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_equipment_kind add constraint mstr_equipment_kind_FK1 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_equipment_kind add constraint mstr_equipment_kind_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.history_info_staff_icon add constraint history_info_staff_icon_FK1 foreign key (info_role_id) references tests.info_staff_icon (info_role_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.history_info_staff_icon add constraint history_info_staff_icon_FK1 foreign key (info_staff_icon_id) references tests.info_staff_icon (info_staff_icon_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_info_staff_icon add constraint history_info_staff_icon_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.info_staff_icon add constraint info_staff_icon_FK1 foreign key (trans_file_id) references tests.trans_file (trans_file_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.info_staff_icon add constraint info_staff_icon_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.history_mstr_item_hcdcs add constraint history_mstr_item_hcdcs_FK1 foreign key (mstr_item_hcds_id) references tests.mstr_item_hcdcs (mstr_item_hcds_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.info_staff_icon add constraint info_staff_icon_FK1 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.info_staff_icon add constraint info_staff_icon_FK2 foreign key (info_staff_history_id,info_staff_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.info_staff_icon add constraint info_staff_icon_FK3 foreign key (trans_file_id) references tests.trans_file (trans_file_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.info_staff_icon add constraint info_staff_icon_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.history_mstr_item_hcdcs add constraint history_mstr_item_hcdcs_FK1 foreign key (mstr_item_hcdcs_id) references tests.mstr_item_hcdcs (mstr_item_hcdcs_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_item_hcdcs add constraint history_mstr_item_hcdcs_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_item_hcdcs add constraint mstr_item_hcdcs_FK1 foreign key (mstr_item_id) references tests.mstr_item (mstr_item_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_item_hcdcs add constraint mstr_item_hcdcs_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
@@ -8861,6 +8889,7 @@ BEGIN
             mstr_spec_measurement_id,
             measurement_value,
             shared_unit_id,
+            revision,
             symbol,
             remarks,
             update_at,
@@ -8873,6 +8902,7 @@ BEGIN
             NEW.mstr_spec_measurement_id,
             NEW.measurement_value,
             NEW.shared_unit_id,
+            NEW.revision,
             NEW.symbol,
             NEW.remarks,
             NEW.update_at,
@@ -8929,8 +8959,8 @@ BEGIN
                 NEW.mstr_item_id,
                 NEW.length_id,
                 NEW.wide_id,
-                NEW.hight_id,
-                NEW.wait_id,
+                NEW.height_id,
+                NEW.weight_id,
                 NEW.symbol,
                 NEW.remarks,
                 NEW.remove
@@ -8939,8 +8969,8 @@ BEGIN
                 OLD.mstr_item_id,
                 OLD.length_id,
                 OLD.wide_id,
-                OLD.hight_id,
-                OLD.wait_id,
+                OLD.height_id,
+                OLD.weight_id,
                 OLD.symbol,
                 OLD.remarks,
                 OLD.remove
@@ -8957,8 +8987,9 @@ BEGIN
             mstr_item_id,
             length_id,
             wide_id,
-            hight_id,
-            wait_id,
+            height_id,
+            weight_id,
+            revision,
             symbol,
             remarks,
             update_at,
@@ -8972,8 +9003,9 @@ BEGIN
             NEW.mstr_item_id,
             NEW.length_id,
             NEW.wide_id,
-            NEW.hight_id,
-            NEW.wait_id,
+            NEW.height_id,
+            NEW.weight_id,
+            NEW.revision,
             NEW.symbol,
             NEW.remarks,
             NEW.update_at,
@@ -9051,6 +9083,7 @@ BEGIN
             mstr_envelope_measurement_id,
             measurement_value,
             shared_unit_id,
+            revision,
             symbol,
             remarks,
             update_at,
@@ -9063,6 +9096,7 @@ BEGIN
             NEW.mstr_envelope_measurement_id,
             NEW.measurement_value,
             NEW.shared_unit_id,
+            NEW.revision,
             NEW.symbol,
             NEW.remarks,
             NEW.update_at,
@@ -9118,9 +9152,9 @@ BEGIN
                 NEW.mstr_equipment_envelope_id,
                 NEW.mstr_equipment_id,
                 NEW.length_id,
-                NEW.wide_id_,
+                NEW.wide_id,
                 NEW.height_id,
-                NEW.wait_id,
+                NEW.weight_id,
                 NEW.symbol,
                 NEW.remarks,
                 NEW.remove
@@ -9128,9 +9162,9 @@ BEGIN
                 OLD.mstr_equipment_envelope_id,
                 OLD.mstr_equipment_id,
                 OLD.length_id,
-                OLD.wide_id_,
+                OLD.wide_id,
                 OLD.height_id,
-                OLD.wait_id,
+                OLD.weight_id,
                 OLD.symbol,
                 OLD.remarks,
                 OLD.remove
@@ -9146,9 +9180,10 @@ BEGIN
             mstr_equipment_envelope_id,
             mstr_equipment_id,
             length_id,
-            wide_id_,
+            wide_id,
             height_id,
-            wait_id,
+            weight_id,
+            revision,
             symbol,
             remarks,
             update_at,
@@ -9161,9 +9196,10 @@ BEGIN
             NEW.mstr_equipment_envelope_id,
             NEW.mstr_equipment_id,
             NEW.length_id,
-            NEW.wide_id_,
+            NEW.wide_id,
             NEW.height_id,
-            NEW.wait_id,
+            NEW.weight_id,
+            NEW.revision,
             NEW.symbol,
             NEW.remarks,
             NEW.update_at,
@@ -9602,6 +9638,7 @@ CREATE TRIGGER trg_01_updatetimes_shared_appellations BEFORE INSERT OR UPDATE OR
 PROCEDURE tests.trg_01_updatetimes_shared_appellations();
 
 
+CREATE TRIGGER trg_04_symbol_shared_appellations BEFORE INSERT ON tests.shared_appellations FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- shared_appellations history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_shared_appellations() RETURNS trigger AS
 $BODY$
@@ -9616,6 +9653,7 @@ BEGIN
                 NEW.shared_dictionary_name_id,
                 NEW.shared_dictionary_pronunciation_id,
                 NEW.shared_dictionary_nickname_id,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
@@ -9623,6 +9661,7 @@ BEGIN
                 OLD.shared_dictionary_name_id,
                 OLD.shared_dictionary_pronunciation_id,
                 OLD.shared_dictionary_nickname_id,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -9639,6 +9678,7 @@ BEGIN
             shared_dictionary_pronunciation_id,
             shared_dictionary_nickname_id,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -9652,6 +9692,7 @@ BEGIN
             NEW.shared_dictionary_pronunciation_id,
             NEW.shared_dictionary_nickname_id,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -9957,7 +9998,7 @@ BEGIN
         NEW.update_at:=now();
         RETURN NEW;
     ELSEIF (TG_OP='INSERT') THEN
-        NEW.info_role_id := gen_random_uuid();
+        NEW.info_staff_icon_id := gen_random_uuid();
         NEW.update_at:=now();
         RETURN NEW;
     ELSEIF (TG_OP = 'DELETE') THEN
@@ -9978,23 +10019,23 @@ DECLARE
     revisions int;
 BEGIN
     IF (TG_OP = 'UPDATE') OR (TG_OP='INSERT') THEN
-        SELECT Max(revision) INTO revisions FROM tests.history_info_staff_icon WHERE info_role_id=NEW.info_role_id;
+        SELECT Max(revision) INTO revisions FROM tests.history_info_staff_icon WHERE info_staff_icon_id=NEW.info_staff_icon_id;
         IF (revisions >= 0) THEN
             IF (
-                NEW.info_role_id,
+                NEW.info_staff_icon_id,
                 NEW.trans_file_id,
                 NEW.info_staff_id,
                 NEW.info_staff_history_id,
-                NEW.name,
+                NEW.names,
                 NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
-                OLD.info_role_id,
+                OLD.info_staff_icon_id,
                 OLD.trans_file_id,
                 OLD.info_staff_id,
                 OLD.info_staff_history_id,
-                OLD.name,
+                OLD.names,
                 OLD.symbol,
                 OLD.remarks,
                 OLD.remove
@@ -10007,11 +10048,11 @@ BEGIN
             NEW.revision := 1;
         END IF;
         INSERT INTO tests.history_info_staff_icon (
-            info_role_id,
+            info_staff_icon_id,
             trans_file_id,
             info_staff_id,
             info_staff_history_id,
-            name,
+            names,
             revision,
             symbol,
             remarks,
@@ -10022,11 +10063,11 @@ BEGIN
         )
         VALUES
         (
-            NEW.info_role_id,
+            NEW.info_staff_icon_id,
             NEW.trans_file_id,
             NEW.info_staff_id,
             NEW.info_staff_history_id,
-            NEW.name,
+            NEW.names,
             NEW.revision,
             NEW.symbol,
             NEW.remarks,
@@ -10080,7 +10121,7 @@ BEGIN
         NEW.update_at:=now();
         RETURN NEW;
     ELSEIF (TG_OP='INSERT') THEN
-        NEW.mstr_item_hcds_id := gen_random_uuid();
+        NEW.mstr_item_hcdcs_id := gen_random_uuid();
         NEW.update_at:=now();
         RETURN NEW;
     ELSEIF (TG_OP = 'DELETE') THEN
@@ -10101,10 +10142,10 @@ DECLARE
     revisions int;
 BEGIN
     IF (TG_OP = 'UPDATE') OR (TG_OP='INSERT') THEN
-        SELECT Max(revision) INTO revisions FROM tests.history_mstr_item_hcdcs WHERE mstr_item_hcds_id=NEW.mstr_item_hcds_id;
+        SELECT Max(revision) INTO revisions FROM tests.history_mstr_item_hcdcs WHERE mstr_item_hcdcs_id=NEW.mstr_item_hcdcs_id;
         IF (revisions >= 0) THEN
             IF (
-                NEW.mstr_item_hcds_id,
+                NEW.mstr_item_hcdcs_id,
                 NEW.mstr_item_id,
                 NEW.iso3166_3,
                 NEW.code,
@@ -10112,7 +10153,7 @@ BEGIN
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
-                OLD.mstr_item_hcds_id,
+                OLD.mstr_item_hcdcs_id,
                 OLD.mstr_item_id,
                 OLD.iso3166_3,
                 OLD.code,
@@ -10128,10 +10169,11 @@ BEGIN
             NEW.revision := 1;
         END IF;
         INSERT INTO tests.history_mstr_item_hcdcs (
-            mstr_item_hcds_id,
+            mstr_item_hcdcs_id,
             mstr_item_id,
             iso3166_3,
             code,
+            revision,
             symbol,
             remarks,
             update_at,
@@ -10141,10 +10183,11 @@ BEGIN
         )
         VALUES
         (
-            NEW.mstr_item_hcds_id,
+            NEW.mstr_item_hcdcs_id,
             NEW.mstr_item_id,
             NEW.iso3166_3,
             NEW.code,
+            NEW.revision,
             NEW.symbol,
             NEW.remarks,
             NEW.update_at,
@@ -17409,6 +17452,7 @@ CREATE TRIGGER trg_01_updatetimes_shared_unit BEFORE INSERT OR UPDATE OR DELETE 
 PROCEDURE tests.trg_01_updatetimes_shared_unit();
 
 
+CREATE TRIGGER trg_04_symbol_shared_unit BEFORE INSERT ON tests.shared_unit FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
 -- shared_unit history trigger
 CREATE OR REPLACE FUNCTION tests.trg_02_history_shared_unit() RETURNS trigger AS
 $BODY$
@@ -17422,12 +17466,14 @@ BEGIN
                 NEW.shared_unit_id,
                 NEW.shared_appellations_id,
                 NEW.description,
+                NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.shared_unit_id,
                 OLD.shared_appellations_id,
                 OLD.description,
+                OLD.symbol,
                 OLD.remarks,
                 OLD.remove
             )
@@ -17443,6 +17489,7 @@ BEGIN
             shared_appellations_id,
             description,
             revision,
+            symbol,
             remarks,
             update_at,
             update_user_id,
@@ -17455,6 +17502,7 @@ BEGIN
             NEW.shared_appellations_id,
             NEW.description,
             NEW.revision,
+            NEW.symbol,
             NEW.remarks,
             NEW.update_at,
             NEW.update_user_id,
@@ -20712,7 +20760,7 @@ FROM
 WHERE
     remove = 'f' 
 GROUP BY
-    tancestor_mstr_document_content_id;
+    ancestor_mstr_document_content_id;
 
 drop view if exists tests.v_department_descendants;
 create view  tests.v_department_descendants as

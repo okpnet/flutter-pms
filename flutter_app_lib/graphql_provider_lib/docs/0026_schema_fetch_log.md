@@ -677,6 +677,125 @@ schema.graphql自体の置き換え以外の対応(views.md・GraphQL・KeyName�
 新規テーブル`HistorySharedDictionaryValue`・`HistorySharedLanguageCode`はview.yamlの対象外
 のため対応不要。
 
+## 追記14: 0026再実行(2026/09/28、「0026の実行」の指示)【重大】要件0040の確定:
+## shared_appellations_id→namesの全面リネームを検出・反映(接続復旧)
+
+要件0040(2026/09/28、`docker/postgresql/scripts/06_cteate_test.sql`の未コミット差分調査時点)
+では、`shared_appellations_id`→`names`への全面リネームをSQL側で検出したが、当時は
+`http://192.168.1.100:5000/graphql`に到達できず(別セグメント)、SDL取得・実際のフィールド名
+確定は持ち越しとなっていた(詳細は
+[docs/0040_shared_appellations_column_rename_log.md](0040_shared_appellations_column_rename_log.md))。
+今回は接続可能な環境で0026が実行できたため、要件0040の残作業(正確なフィールド名の確定・
+schema.graphql反映)を本追記で完了させる。
+
+### 接続・取得・差分判定
+
+`curl -m 10 http://192.168.1.100:5000/graphql` で疎通確認(`HTTP 405`)後、
+`get-graphql-schema`で再取得したところ476,624行(直前の`lib/graphql/schema.graphql`は
+464,384行、+12,240行)を検出した。`type X implements Node`の一覧差分は無し(新規・削除
+テーブルなし)。
+
+`@graphql-inspector/cli diff`は16,626件(うち9,293件が"breaking changes")を報告した。
+Fk#番号ズレノイズを除外すると3,230件が残るが、`InfoCompany`・`InfoOffice`・`InfoDepartment`・
+`InfoStaff`・`InfoPosition`・`InfoDepartmentKindValue`・`HistoryInfoStaff`等の型定義を
+個別に`diff`で確認した結果、**実質はすべて単一の変更(列名リネーム)に由来する**ことを
+確認した。
+
+### 検出内容: `shared_appellations_id`(呼称セットID)→`names`への全面リネーム(要件0040の確定)
+
+70件以上のテーブル(`info_company`・`info_office`・`info_department`・`info_staff`・
+`info_position`・`info_department_kind_value`・`history_info_staff`等、History系含む)で、
+汎用的な単一FK列`shared_appellations_id`が`names`へリネームされ、それに伴い以下も
+一斉に変わった(`InfoOffice`で確認した実例)。
+
+```
+- """呼称セットID"""              + """事業所名称"""(テーブルごとに意味のある説明文に変化)
+- sharedAppellationsId: UUID!     + names: UUID!
+- sharedAppellationBySharedAppellationsId: SharedAppellation
+                                   + sharedAppellationByNames: SharedAppellation
+```
+
+ミューテーション入力側(`InfoOfficeInput`等)も同様。
+
+```
+- sharedAppellationToSharedAppellationsId: XxxFkNInput
+                                   + sharedAppellationToNames: XxxFkNInput
+```
+
+`Condition`/`Filter`型の`sharedAppellationsId`列も同様に`names`へ(`InfoOfficeCondition.names`・
+`InfoOfficeFilter.names: UUIDFilter`等)。
+
+**`InfoCompany`のみ追加の変更がある**: 汎用列`sharedAppellationsId`(→`names`、説明「会社名」)に
+加え、既に固有の役割名を持っていた`ceo`(代表)列も`ceoNames`へリネームされていた
+(`sharedAppellationByCeo`→`sharedAppellationByCeoNames`、`sharedAppellationToCeo`→
+`sharedAppellationToCeoNames`)。要件0040調査時点では「固有の役割名を持つFK列(`ceo`・
+`InfoAddress.address1`/`address2`/`bill`)は変更されない」と推測していたが、これは`ceo`に
+ついては誤りで、**`ceo`も実際にはリネームされていた**(`InfoAddress.address1`/`address2`/
+`bill`は今回のSDLでも変更なしを確認済み、`sharedAppellationByAddress1`等はそのまま)。
+
+`InfoDepartmentKind`自体(`InfoDepartmentKindValue`ではなく)には今回の変更は無い。
+
+### 影響範囲(views.md対象、既に生成済みの5画面すべてに影響)
+
+`grep`で確認した結果、`shared_appellations_id`/`sharedAppellationsId`を参照している
+本ライブラリのファイルは以下(要件0035〜0038で生成済みの全5画面)。
+
+- GraphQL: `lib/graphql/{company_page,staff_page,department_category,office_page,department_page}/`
+  配下の read/edit/rfe 計14ファイル。
+- `lib/contents/{company_page,staff_page,department_category,office_page,department_page}_keyname.dart`
+  (計5ファイル、`ContentVariable`定数の型・キー)。
+- `test/{company_page,staff_page,department_category,office_page,department_page}_flatten_roundtrip_test.dart`
+  (計5ファイル、テストデータ・アサーション)。
+- `source/view.yaml`(`using: shared_appellations_id`が15箇所、`using: ceo`が2箇所)・
+  `source/test.yaml`(同様の参照が2箇所)。
+- `ceo`固有の追加影響は`company_page`のみ(`sharedAppellationByCeo`→`sharedAppellationByCeoNames`)。
+
+### 置き換え・要件0024の実行・影響確認
+
+`lib/graphql/schema.graphql`を置き換え(464,384行 → 476,624行)、
+`dart run build_runner build --build-filter="lib/postgraphile/schema.graphql.dart"`を実行した。
+
+結果: `Built with build_runner/aot in 289s; wrote 1 output.`(警告は既知のスカラー代替
+(BigFloat/BigInt/Date/Datetime/UUID/JSON)のみ)。
+
+- `git status`で`lib/graphql/schema.graphql`以外の本ライブラリの生成済みファイルに変更が
+  無いことを確認(既存5画面の`*.graphql.dart`は`--build-filter`により再生成されていない)。
+- `dart analyze lib test`: 13,083件はすべて`info`(既存生成コードのスタイル指摘)。
+  `error`・`warning`は0件。
+- `flutter test`: 18件すべて成功(`company_page`・`department_category`・`department_page`・
+  `office_page`・`staff_page`の往復変換テストを含む。いずれも旧schemaでcodegenされたままの
+  モデルに対するテストのため、今回のリネームはまだコード上に反映されておらず、影響を
+  受けていない)。
+
+### 結論・次のアクション
+
+要件0040が接続不可で持ち越していた「`shared_appellations_id`→`names`」リネームの正確な
+フィールド名が確定し、`schema.graphql`への反映(要件0026・0024相当)は完了した。
+
+ただし、次にいずれかの画面(company_page・staff_page・department_category・office_page・
+department_page)のGraphQL/モデルを実際に再生成した瞬間、`sharedAppellationsId`/
+`sharedAppellationBySharedAppellationsId`/`sharedAppellationToSharedAppellationsId`(および
+company_pageの`ceo`/`sharedAppellationByCeo`/`sharedAppellationToCeo`)を参照している既存の
+GraphQLファイルはコード生成に失敗する。以下の機械的なリネーム対応が必要(要件0025相当の
+スコープと判断し、本ログでは記録のみに留め、実施していない)。
+
+1. 上記14件のGraphQLファイル(read/edit/rfe)内の`sharedAppellationsId`→`names`・
+   `sharedAppellationBySharedAppellationsId`→`sharedAppellationByNames`・
+   `sharedAppellationToSharedAppellationsId`→`sharedAppellationToNames`(company_pageのみ
+   追加で`ceo`→`ceoNames`系3種)の置換。
+2. 5件の`*_keyname.dart`の`ContentVariable`定義を同様に更新。
+3. `source/view.yaml`・`source/test.yaml`の`using: shared_appellations_id`(15+2箇所)を
+   `using: names`へ、`using: ceo`(2箇所、company_pageのみ)を`using: ceo_names`へ置換する。
+   `docker/postgresql/scripts/06_cteate_test.sql`で実列名を確認したところ、
+   `tests.info_office.names`(コメント「事業所名称」)・`tests.info_company.names`
+   (「会社名」)・`tests.info_company.ceo_names`(「代表社名」)がいずれも実在し、
+   **DB列自体が`shared_appellations_id`→`names`・`ceo`→`ceo_names`へリネームされている**
+   ことを確認した(PostGraphileのsmart comment等によるGraphQL側のみの見た目の変更ではない)。
+4. 5件の`*_flatten_roundtrip_test.dart`のテストデータ・アサーションキーを更新。
+
+上記1・2・4はGraphQL/生成モデルの構造変更に伴う機械的対応、3は`view.yaml`の`using`が
+DB列名基準かGraphQLフィールド名基準かの確認を要するため、ユーザーへの確認後に着手する。
+
 ## 追記13: 0026再実行(2026/09/27、「0026の実行」の指示)【重大】department_pageに
 ## 直結する関係のFK逆転を検出
 

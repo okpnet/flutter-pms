@@ -15,7 +15,7 @@ var frmER =(function(){
 var ext={
     "toFirst":function(array,func){
         for(var index in array){
-            if(func(array[index]))return array[index];
+            if(func(index,array[index]))return array[index];
         }
         return null;
       },
@@ -63,40 +63,28 @@ var select=function(array,func){
     };
 
 var create=function(doc){
-    //ヒエラルキーは除くテーブルセット
+    //除くテーブルセット
     var entityArray=ext.toSelect(doc.objects,function(e){
-        var reg=new RegExp("^(hrchy_|history_hrchy_|shared_|history_shared_appellations)");
-        if(e.objectType=="Entity" && !reg.test(e.pName))return e;
+        var reg=new RegExp("^history_");
+        if(e.objectType=="Entity" && reg.test(e.pName))return e;
     });
     //shared_appellationsテーブルから生えているリレーションシップ
     var rels=ext.toSelect(doc.objects,function(e){
         var reg=new RegExp("^shared_appellations");
         if(e.objectType=="Relation"  &&  reg.test(e.entityPName1))return e;
     });
-    
-
-    ext.toFor(rels,function(index,entity){
-        var table=ext.toFirst(entityArray,function(e){
-            return e.pName==rels[index].entityPName2;
-        });
-        if(table==null){
-            return;
+    ext.toFor(entityArray,function(index,entity){
+        var indexCnt=entity.indexes.length;
+        for(var i=0;i<indexCnt;i++){
+            entity.indexes.delete(0);
         }
-        //println(table.pName);
-        var column=ext.toFirst(table.attributes,function(e){
-            return e.pName==rels[index].attributes2;
-        });
-        var value=1;
-        if(column.notNull==true){
-            value=2;
-        }
-        if(rels[index].attributes2!="shared_appellations_id"){
-            return;
-        }
-        //rels[index].relationType2=value;
-        println(rels[index].entityPName2 + " " + rels[index].attributes2 + " " + column.notNull + " " + value);
+        var newIdx=entity.attributes[1].pName + "," + "revision";
+        println(entity.pName + " " + newIdx);
+        var uidx= entity.indexes.add();
+        println(uidx.getKeys());
+        uidx.attributes=newIdx;
+        uidx.indexType=2;
     });
-
     println("Done!!");
 };
 
