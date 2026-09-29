@@ -647,9 +647,7 @@ const documentNodeQueryCompanyPageRead = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
-                        name: NameNode(
-                          value: 'sharedAppellationBySharedAppellationsId',
-                        ),
+                        name: NameNode(value: 'sharedAppellationByNames'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -952,7 +950,7 @@ const documentNodeQueryCompanyPageRead = DocumentNode(
                         ),
                       ),
                       FieldNode(
-                        name: NameNode(value: 'sharedAppellationByCeo'),
+                        name: NameNode(value: 'sharedAppellationByCeoNames'),
                         alias: NameNode(value: 'ceo'),
                         arguments: [],
                         directives: [],
@@ -2454,8 +2452,7 @@ const documentNodeQueryCompanyPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedAppellationBySharedAppellationsId',
+                                      value: 'sharedAppellationByNames',
                                     ),
                                     alias: NameNode(value: 'labels'),
                                     arguments: [],
@@ -4076,8 +4073,7 @@ const documentNodeQueryCompanyPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedAppellationBySharedAppellationsId',
+                                            value: 'sharedAppellationByNames',
                                           ),
                                           alias: NameNode(value: 'name'),
                                           arguments: [],
@@ -4505,7 +4501,7 @@ const documentNodeQueryCompanyPageRead = DocumentNode(
                               selectionSet: null,
                             ),
                             FieldNode(
-                              name: NameNode(value: 'sharedAppellationsId'),
+                              name: NameNode(value: 'names'),
                               alias: null,
                               arguments: [],
                               directives: [],
@@ -5077,7 +5073,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes {
     this.remarks,
     this.updateAt,
     this.remove,
-    this.sharedAppellationBySharedAppellationsId,
+    this.sharedAppellationByNames,
     this.ceo,
     this.infoAddressByInfoAddressId,
     required this.infoOfficesByInfoCompanyId,
@@ -5094,8 +5090,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes {
     final l$remarks = json['remarks'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
-    final l$sharedAppellationBySharedAppellationsId =
-        json['sharedAppellationBySharedAppellationsId'];
+    final l$sharedAppellationByNames = json['sharedAppellationByNames'];
     final l$ceo = json['ceo'];
     final l$infoAddressByInfoAddressId = json['infoAddressByInfoAddressId'];
     final l$infoOfficesByInfoCompanyId = json['infoOfficesByInfoCompanyId'];
@@ -5109,12 +5104,10 @@ class Query$CompanyPageRead$allInfoCompanies$nodes {
       remarks: (l$remarks as String?),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
-      sharedAppellationBySharedAppellationsId:
-          l$sharedAppellationBySharedAppellationsId == null
+      sharedAppellationByNames: l$sharedAppellationByNames == null
           ? null
-          : Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId.fromJson(
-              (l$sharedAppellationBySharedAppellationsId
-                  as Map<String, dynamic>),
+          : Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames.fromJson(
+              (l$sharedAppellationByNames as Map<String, dynamic>),
             ),
       ceo: l$ceo == null
           ? null
@@ -5153,8 +5146,8 @@ class Query$CompanyPageRead$allInfoCompanies$nodes {
 
   final bool? remove;
 
-  final Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId?
-  sharedAppellationBySharedAppellationsId;
+  final Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames?
+  sharedAppellationByNames;
 
   final Query$CompanyPageRead$allInfoCompanies$nodes$ceo? ceo;
 
@@ -5183,10 +5176,9 @@ class Query$CompanyPageRead$allInfoCompanies$nodes {
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
     _resultData['remove'] = l$remove;
-    final l$sharedAppellationBySharedAppellationsId =
-        sharedAppellationBySharedAppellationsId;
-    _resultData['sharedAppellationBySharedAppellationsId'] =
-        l$sharedAppellationBySharedAppellationsId?.toJson();
+    final l$sharedAppellationByNames = sharedAppellationByNames;
+    _resultData['sharedAppellationByNames'] = l$sharedAppellationByNames
+        ?.toJson();
     final l$ceo = ceo;
     _resultData['ceo'] = l$ceo?.toJson();
     final l$infoAddressByInfoAddressId = infoAddressByInfoAddressId;
@@ -5212,8 +5204,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes {
     final l$remarks = remarks;
     final l$updateAt = updateAt;
     final l$remove = remove;
-    final l$sharedAppellationBySharedAppellationsId =
-        sharedAppellationBySharedAppellationsId;
+    final l$sharedAppellationByNames = sharedAppellationByNames;
     final l$ceo = ceo;
     final l$infoAddressByInfoAddressId = infoAddressByInfoAddressId;
     final l$infoOfficesByInfoCompanyId = infoOfficesByInfoCompanyId;
@@ -5227,7 +5218,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes {
       l$remarks,
       l$updateAt,
       l$remove,
-      l$sharedAppellationBySharedAppellationsId,
+      l$sharedAppellationByNames,
       l$ceo,
       l$infoAddressByInfoAddressId,
       l$infoOfficesByInfoCompanyId,
@@ -5275,12 +5266,9 @@ class Query$CompanyPageRead$allInfoCompanies$nodes {
     if (l$remove != lOther$remove) {
       return false;
     }
-    final l$sharedAppellationBySharedAppellationsId =
-        sharedAppellationBySharedAppellationsId;
-    final lOther$sharedAppellationBySharedAppellationsId =
-        other.sharedAppellationBySharedAppellationsId;
-    if (l$sharedAppellationBySharedAppellationsId !=
-        lOther$sharedAppellationBySharedAppellationsId) {
+    final l$sharedAppellationByNames = sharedAppellationByNames;
+    final lOther$sharedAppellationByNames = other.sharedAppellationByNames;
+    if (l$sharedAppellationByNames != lOther$sharedAppellationByNames) {
       return false;
     }
     final l$ceo = ceo;
@@ -5340,8 +5328,8 @@ abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes<TRes> {
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId?
-    sharedAppellationBySharedAppellationsId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames?
+    sharedAppellationByNames,
     Query$CompanyPageRead$allInfoCompanies$nodes$ceo? ceo,
     Query$CompanyPageRead$allInfoCompanies$nodes$infoAddressByInfoAddressId?
     infoAddressByInfoAddressId,
@@ -5351,10 +5339,10 @@ abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes<TRes> {
     historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId,
     String? $__typename,
   });
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames<
     TRes
   >
-  get sharedAppellationBySharedAppellationsId;
+  get sharedAppellationByNames;
   CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$ceo<TRes> get ceo;
   CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$infoAddressByInfoAddressId<
     TRes
@@ -5390,7 +5378,7 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes<TRes>
     Object? remarks = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
-    Object? sharedAppellationBySharedAppellationsId = _undefined,
+    Object? sharedAppellationByNames = _undefined,
     Object? ceo = _undefined,
     Object? infoAddressByInfoAddressId = _undefined,
     Object? infoOfficesByInfoCompanyId = _undefined,
@@ -5408,11 +5396,10 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes<TRes>
           ? _instance.updateAt
           : (updateAt as String?),
       remove: remove == _undefined ? _instance.remove : (remove as bool?),
-      sharedAppellationBySharedAppellationsId:
-          sharedAppellationBySharedAppellationsId == _undefined
-          ? _instance.sharedAppellationBySharedAppellationsId
-          : (sharedAppellationBySharedAppellationsId
-                as Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId?),
+      sharedAppellationByNames: sharedAppellationByNames == _undefined
+          ? _instance.sharedAppellationByNames
+          : (sharedAppellationByNames
+                as Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames?),
       ceo: ceo == _undefined
           ? _instance.ceo
           : (ceo as Query$CompanyPageRead$allInfoCompanies$nodes$ceo?),
@@ -5437,19 +5424,18 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes<TRes>
     ),
   );
 
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames<
     TRes
   >
-  get sharedAppellationBySharedAppellationsId {
-    final local$sharedAppellationBySharedAppellationsId =
-        _instance.sharedAppellationBySharedAppellationsId;
-    return local$sharedAppellationBySharedAppellationsId == null
-        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId.stub(
+  get sharedAppellationByNames {
+    final local$sharedAppellationByNames = _instance.sharedAppellationByNames;
+    return local$sharedAppellationByNames == null
+        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames.stub(
             _then(_instance),
           )
-        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId(
-            local$sharedAppellationBySharedAppellationsId,
-            (e) => call(sharedAppellationBySharedAppellationsId: e),
+        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames(
+            local$sharedAppellationByNames,
+            (e) => call(sharedAppellationByNames: e),
           );
   }
 
@@ -5524,8 +5510,8 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes<TRes>
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId?
-    sharedAppellationBySharedAppellationsId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames?
+    sharedAppellationByNames,
     Query$CompanyPageRead$allInfoCompanies$nodes$ceo? ceo,
     Query$CompanyPageRead$allInfoCompanies$nodes$infoAddressByInfoAddressId?
     infoAddressByInfoAddressId,
@@ -5536,11 +5522,11 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes<TRes>
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames<
     TRes
   >
-  get sharedAppellationBySharedAppellationsId =>
-      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId.stub(
+  get sharedAppellationByNames =>
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames.stub(
         _res,
       );
 
@@ -5572,8 +5558,8 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes<TRes>
       );
 }
 
-class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId {
-  Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId({
+class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames {
+  Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames({
     required this.sharedAppellationsId,
     this.sharedDictionaryBySharedDictionaryNameId,
     this.sharedDictionaryBySharedDictionaryPronunciationId,
@@ -5581,7 +5567,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppe
     this.$__typename = 'SharedAppellation',
   });
 
-  factory Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId.fromJson(
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedAppellationsId = json['sharedAppellationsId'];
@@ -5592,26 +5578,26 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppe
     final l$sharedDictionaryBySharedDictionaryNicknameId =
         json['sharedDictionaryBySharedDictionaryNicknameId'];
     final l$$__typename = json['__typename'];
-    return Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId(
+    return Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames(
       sharedAppellationsId: (l$sharedAppellationsId as String),
       sharedDictionaryBySharedDictionaryNameId:
           l$sharedDictionaryBySharedDictionaryNameId == null
           ? null
-          : Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId.fromJson(
+          : Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNameId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryPronunciationId:
           l$sharedDictionaryBySharedDictionaryPronunciationId == null
           ? null
-          : Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+          : Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
               (l$sharedDictionaryBySharedDictionaryPronunciationId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryNicknameId:
           l$sharedDictionaryBySharedDictionaryNicknameId == null
           ? null
-          : Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+          : Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNicknameId
                   as Map<String, dynamic>),
             ),
@@ -5621,13 +5607,13 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppe
 
   final String sharedAppellationsId;
 
-  final Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId?
+  final Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId?
   sharedDictionaryBySharedDictionaryNameId;
 
-  final Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId?
+  final Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId?
   sharedDictionaryBySharedDictionaryPronunciationId;
 
-  final Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId?
+  final Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId?
   sharedDictionaryBySharedDictionaryNicknameId;
 
   final String $__typename;
@@ -5678,7 +5664,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppe
       return true;
     }
     if (other
-            is! Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId ||
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -5720,76 +5706,75 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppe
   }
 }
 
-extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId
-    on
-        Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId {
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId<
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames
+    on Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames<
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames
   >
   get copyWith =>
-      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId(
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId<
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames<
   TRes
 > {
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId(
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames(
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames
     instance,
     TRes Function(
-      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId,
+      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames,
     )
     then,
-  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId;
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames;
 
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId.stub(
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId;
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames;
 
   TRes call({
     String? sharedAppellationsId,
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId?
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId?
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId?
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   });
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId;
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId;
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId;
 }
 
-class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId<
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames<
           TRes
         > {
-  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId(
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames(
     this._instance,
     this._then,
   );
 
-  final Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId
+  final Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames
   _instance;
 
   final TRes Function(
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames,
   )
   _then;
 
@@ -5802,7 +5787,7 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellati
     Object? sharedDictionaryBySharedDictionaryNicknameId = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId(
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames(
       sharedAppellationsId:
           sharedAppellationsId == _undefined || sharedAppellationsId == null
           ? _instance.sharedAppellationsId
@@ -5811,80 +5796,80 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellati
           sharedDictionaryBySharedDictionaryNameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNameId
           : (sharedDictionaryBySharedDictionaryNameId
-                as Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId?),
+                as Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId?),
       sharedDictionaryBySharedDictionaryPronunciationId:
           sharedDictionaryBySharedDictionaryPronunciationId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryPronunciationId
           : (sharedDictionaryBySharedDictionaryPronunciationId
-                as Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId?),
+                as Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId?),
       sharedDictionaryBySharedDictionaryNicknameId:
           sharedDictionaryBySharedDictionaryNicknameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNicknameId
           : (sharedDictionaryBySharedDictionaryNicknameId
-                as Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId?),
+                as Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId {
     final local$sharedDictionaryBySharedDictionaryNameId =
         _instance.sharedDictionaryBySharedDictionaryNameId;
     return local$sharedDictionaryBySharedDictionaryNameId == null
-        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId.stub(
+        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
+        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId(
             local$sharedDictionaryBySharedDictionaryNameId,
             (e) => call(sharedDictionaryBySharedDictionaryNameId: e),
           );
   }
 
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId {
     final local$sharedDictionaryBySharedDictionaryPronunciationId =
         _instance.sharedDictionaryBySharedDictionaryPronunciationId;
     return local$sharedDictionaryBySharedDictionaryPronunciationId == null
-        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId(
+        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId(
             local$sharedDictionaryBySharedDictionaryPronunciationId,
             (e) => call(sharedDictionaryBySharedDictionaryPronunciationId: e),
           );
   }
 
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId {
     final local$sharedDictionaryBySharedDictionaryNicknameId =
         _instance.sharedDictionaryBySharedDictionaryNicknameId;
     return local$sharedDictionaryBySharedDictionaryNicknameId == null
-        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId.stub(
+        ? CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId(
+        : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId(
             local$sharedDictionaryBySharedDictionaryNicknameId,
             (e) => call(sharedDictionaryBySharedDictionaryNicknameId: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId<
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames<
           TRes
         > {
-  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId(
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames(
     this._res,
   );
 
@@ -5892,57 +5877,57 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppel
 
   call({
     String? sharedAppellationsId,
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId?
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId?
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId?
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId =>
-      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId.stub(
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId.stub(
         _res,
       );
 
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId =>
-      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId.stub(
         _res,
       );
 
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId =>
-      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId.stub(
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId.stub(
         _res,
       );
 }
 
-class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId {
-  Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId({
+class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId {
+  Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId.fromJson(
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
+    return Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
+          Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -5951,7 +5936,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppe
 
   final String sharedDictionaryId;
 
-  final Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value
+  final Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value
   value;
 
   final String $__typename;
@@ -5981,7 +5966,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppe
       return true;
     }
     if (other
-            is! Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId ||
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -6004,64 +5989,64 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppe
   }
 }
 
-extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId
     on
-        Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId {
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId
+        Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId<
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId
   >
   get copyWith =>
-      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId<
   TRes
 > {
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId(
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId
     instance,
     TRes Function(
-      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId,
+      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId,
     )
     then,
-  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId;
 
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId.stub(
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value?
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId(
     this._instance,
     this._then,
   );
 
-  final Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId
+  final Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId
   _instance;
 
   final TRes Function(
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId,
   )
   _then;
 
@@ -6072,7 +6057,7 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellati
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -6080,33 +6065,33 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellati
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value),
+                as Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value(
+    return CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId(
     this._res,
   );
 
@@ -6114,37 +6099,37 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppel
 
   call({
     String? sharedDictionaryId,
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value?
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value.stub(
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value.stub(
         _res,
       );
 }
 
-class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value {
-  Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value({
+class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value {
+  Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value(
+    return Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
+                : Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -6154,7 +6139,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppe
   }
 
   final List<
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes?
   >
   nodes;
 
@@ -6185,7 +6170,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppe
       return true;
     }
     if (other
-            is! Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value ||
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -6210,50 +6195,50 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppe
   }
 }
 
-extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value
     on
-        Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value {
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value<
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value
+        Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value<
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value
   >
   get copyWith =>
-      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value(
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value<
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 > {
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value(
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value(
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value
     instance,
     TRes Function(
-      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value,
+      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value;
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value;
 
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value.stub(
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value;
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value;
 
   TRes call({
     List<
-      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-          Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes
         >?
       >,
     )
@@ -6261,23 +6246,23 @@ abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppel
   );
 }
 
-class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value<
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value<
           TRes
         > {
-  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value(
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value(
     this._instance,
     this._then,
   );
 
-  final Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value
+  final Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value
   _instance;
 
   final TRes Function(
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value,
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value,
   )
   _then;
 
@@ -6287,12 +6272,12 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellati
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value(
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+                  Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -6302,12 +6287,12 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellati
 
   TRes nodes(
     Iterable<
-      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-          Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes
         >?
       >,
     )
@@ -6317,7 +6302,7 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellati
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+            : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -6326,14 +6311,14 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellati
   );
 }
 
-class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value<
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value(
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value(
     this._res,
   );
 
@@ -6341,7 +6326,7 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppel
 
   call({
     List<
-      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -6350,18 +6335,18 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppel
   nodes(_fn) => _res;
 }
 
-class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes {
-  Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes({
+class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes {
+  Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    return Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -6393,7 +6378,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppe
       return true;
     }
     if (other
-            is! Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes ||
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -6411,55 +6396,55 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppe
   }
 }
 
-extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes
     on
-        Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes {
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes(
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes
     instance,
     TRes Function(
-      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes,
+      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes;
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes;
 
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes.stub(
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes;
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes
+  final Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes,
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes,
   )
   _then;
 
@@ -6469,7 +6454,7 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellati
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -6480,14 +6465,14 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellati
   );
 }
 
-class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$value$nodes(
     this._res,
   );
 
@@ -6496,23 +6481,23 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppel
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId {
-  Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId({
+class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId {
+  Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId(
+    return Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
+          Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -6521,7 +6506,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppe
 
   final String sharedDictionaryId;
 
-  final Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value
+  final Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value
   value;
 
   final String $__typename;
@@ -6551,7 +6536,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppe
       return true;
     }
     if (other
-            is! Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId ||
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -6574,64 +6559,64 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppe
   }
 }
 
-extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId
     on
-        Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId {
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId<
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId
+        Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId<
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId
   >
   get copyWith =>
-      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId(
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId<
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 > {
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId(
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId(
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId
     instance,
     TRes Function(
-      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId,
+      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId,
     )
     then,
-  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId;
 
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value?
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId(
     this._instance,
     this._then,
   );
 
-  final Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId
+  final Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId
   _instance;
 
   final TRes Function(
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId,
   )
   _then;
 
@@ -6642,7 +6627,7 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellati
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId(
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -6650,33 +6635,33 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellati
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value),
+                as Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    return CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId(
     this._res,
   );
 
@@ -6684,37 +6669,37 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppel
 
   call({
     String? sharedDictionaryId,
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value?
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
         _res,
       );
 }
 
-class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value {
-  Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value({
+class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value {
+  Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    return Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
+                : Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -6724,7 +6709,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppe
   }
 
   final List<
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
   >
   nodes;
 
@@ -6755,7 +6740,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppe
       return true;
     }
     if (other
-            is! Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value ||
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -6780,50 +6765,50 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppe
   }
 }
 
-extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value
     on
-        Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value {
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value<
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value
+        Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value<
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value
   >
   get copyWith =>
-      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value(
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value<
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 > {
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value(
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value
     instance,
     TRes Function(
-      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value,
+      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value;
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value;
 
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value;
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value;
 
   TRes call({
     List<
-      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-          Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
         >?
       >,
     )
@@ -6831,23 +6816,23 @@ abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppel
   );
 }
 
-class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value<
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value<
           TRes
         > {
-  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value(
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value(
     this._instance,
     this._then,
   );
 
-  final Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value
+  final Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value
   _instance;
 
   final TRes Function(
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value,
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value,
   )
   _then;
 
@@ -6857,12 +6842,12 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellati
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+                  Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -6872,12 +6857,12 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellati
 
   TRes nodes(
     Iterable<
-      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-          Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
         >?
       >,
     )
@@ -6887,7 +6872,7 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellati
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+            : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -6896,14 +6881,14 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellati
   );
 }
 
-class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value<
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value(
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value(
     this._res,
   );
 
@@ -6911,7 +6896,7 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppel
 
   call({
     List<
-      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -6920,18 +6905,18 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppel
   nodes(_fn) => _res;
 }
 
-class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
-  Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes({
+class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
+  Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    return Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -6963,7 +6948,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppe
       return true;
     }
     if (other
-            is! Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes ||
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -6981,55 +6966,55 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppe
   }
 }
 
-extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
     on
-        Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
     instance,
     TRes Function(
-      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
+      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
 
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.stub(
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+  final Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
   )
   _then;
 
@@ -7039,7 +7024,7 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellati
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -7050,14 +7035,14 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellati
   );
 }
 
-class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
     this._res,
   );
 
@@ -7066,23 +7051,23 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppel
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId {
-  Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId({
+class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId {
+  Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId(
+    return Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
+          Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -7091,7 +7076,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppe
 
   final String sharedDictionaryId;
 
-  final Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value
+  final Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value
   value;
 
   final String $__typename;
@@ -7121,7 +7106,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppe
       return true;
     }
     if (other
-            is! Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId ||
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -7144,64 +7129,64 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppe
   }
 }
 
-extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId
     on
-        Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId {
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId<
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId
+        Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId<
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId
   >
   get copyWith =>
-      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId(
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId<
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 > {
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId(
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId(
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId
     instance,
     TRes Function(
-      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId,
+      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId,
     )
     then,
-  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId;
 
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId.stub(
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value?
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId(
     this._instance,
     this._then,
   );
 
-  final Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId
+  final Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId
   _instance;
 
   final TRes Function(
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId,
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId,
   )
   _then;
 
@@ -7212,7 +7197,7 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellati
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId(
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -7220,33 +7205,33 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellati
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value),
+                as Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value(
+    return CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId(
     this._res,
   );
 
@@ -7254,37 +7239,37 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppel
 
   call({
     String? sharedDictionaryId,
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value?
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
         _res,
       );
 }
 
-class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value {
-  Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value({
+class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value {
+  Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value(
+    return Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
+                : Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -7294,7 +7279,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppe
   }
 
   final List<
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
   >
   nodes;
 
@@ -7325,7 +7310,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppe
       return true;
     }
     if (other
-            is! Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value ||
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -7350,50 +7335,50 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppe
   }
 }
 
-extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value
     on
-        Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value {
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value<
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value
+        Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value<
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value
   >
   get copyWith =>
-      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value(
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value<
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 > {
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value(
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value(
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value
     instance,
     TRes Function(
-      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value,
+      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value;
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value;
 
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value;
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value;
 
   TRes call({
     List<
-      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-          Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
         >?
       >,
     )
@@ -7401,23 +7386,23 @@ abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppel
   );
 }
 
-class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value<
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value<
           TRes
         > {
-  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value(
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value(
     this._instance,
     this._then,
   );
 
-  final Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value
+  final Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value
   _instance;
 
   final TRes Function(
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value,
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value,
   )
   _then;
 
@@ -7427,12 +7412,12 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellati
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value(
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+                  Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -7442,12 +7427,12 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellati
 
   TRes nodes(
     Iterable<
-      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-          Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
         >?
       >,
     )
@@ -7457,7 +7442,7 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellati
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+            : CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -7466,14 +7451,14 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellati
   );
 }
 
-class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value<
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value(
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value(
     this._res,
   );
 
@@ -7481,7 +7466,7 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppel
 
   call({
     List<
-      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -7490,18 +7475,18 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppel
   nodes(_fn) => _res;
 }
 
-class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
-  Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes({
+class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
+  Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
+  factory Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    return Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -7533,7 +7518,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppe
       return true;
     }
     if (other
-            is! Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes ||
+            is! Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -7551,55 +7536,55 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppe
   }
 }
 
-extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+extension UtilityExtension$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
     on
-        Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
-  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
+  CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+      CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
     instance,
     TRes Function(
-      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
+      Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
+  ) = _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
 
-  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.stub(
+  factory CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
+  ) = _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+  _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+  final Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
   )
   _then;
 
@@ -7609,7 +7594,7 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellati
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -7620,14 +7605,14 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellati
   );
 }
 
-class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+        CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+  _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
     this._res,
   );
 
@@ -28321,7 +28306,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$historyInfoStaffByUpdateUserH
   Query$CompanyPageRead$allInfoCompanies$nodes$historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId({
     required this.historyId,
     required this.infoStaffId,
-    required this.sharedAppellationsId,
+    required this.names,
     this.$__typename = 'HistoryInfoStaff',
   });
 
@@ -28330,12 +28315,12 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$historyInfoStaffByUpdateUserH
   ) {
     final l$historyId = json['historyId'];
     final l$infoStaffId = json['infoStaffId'];
-    final l$sharedAppellationsId = json['sharedAppellationsId'];
+    final l$names = json['names'];
     final l$$__typename = json['__typename'];
     return Query$CompanyPageRead$allInfoCompanies$nodes$historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
-      sharedAppellationsId: (l$sharedAppellationsId as String),
+      names: (l$names as String),
       $__typename: (l$$__typename as String),
     );
   }
@@ -28344,7 +28329,7 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$historyInfoStaffByUpdateUserH
 
   final String infoStaffId;
 
-  final String sharedAppellationsId;
+  final String names;
 
   final String $__typename;
 
@@ -28354,8 +28339,8 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$historyInfoStaffByUpdateUserH
     _resultData['historyId'] = l$historyId;
     final l$infoStaffId = infoStaffId;
     _resultData['infoStaffId'] = l$infoStaffId;
-    final l$sharedAppellationsId = sharedAppellationsId;
-    _resultData['sharedAppellationsId'] = l$sharedAppellationsId;
+    final l$names = names;
+    _resultData['names'] = l$names;
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -28365,14 +28350,9 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$historyInfoStaffByUpdateUserH
   int get hashCode {
     final l$historyId = historyId;
     final l$infoStaffId = infoStaffId;
-    final l$sharedAppellationsId = sharedAppellationsId;
+    final l$names = names;
     final l$$__typename = $__typename;
-    return Object.hashAll([
-      l$historyId,
-      l$infoStaffId,
-      l$sharedAppellationsId,
-      l$$__typename,
-    ]);
+    return Object.hashAll([l$historyId, l$infoStaffId, l$names, l$$__typename]);
   }
 
   @override
@@ -28395,9 +28375,9 @@ class Query$CompanyPageRead$allInfoCompanies$nodes$historyInfoStaffByUpdateUserH
     if (l$infoStaffId != lOther$infoStaffId) {
       return false;
     }
-    final l$sharedAppellationsId = sharedAppellationsId;
-    final lOther$sharedAppellationsId = other.sharedAppellationsId;
-    if (l$sharedAppellationsId != lOther$sharedAppellationsId) {
+    final l$names = names;
+    final lOther$names = other.names;
+    if (l$names != lOther$names) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -28441,7 +28421,7 @@ abstract class CopyWith$Query$CompanyPageRead$allInfoCompanies$nodes$historyInfo
   TRes call({
     String? historyId,
     String? infoStaffId,
-    String? sharedAppellationsId,
+    String? names,
     String? $__typename,
   });
 }
@@ -28471,7 +28451,7 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$historyInfoStaf
   TRes call({
     Object? historyId = _undefined,
     Object? infoStaffId = _undefined,
-    Object? sharedAppellationsId = _undefined,
+    Object? names = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$CompanyPageRead$allInfoCompanies$nodes$historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId(
@@ -28481,10 +28461,9 @@ class _CopyWithImpl$Query$CompanyPageRead$allInfoCompanies$nodes$historyInfoStaf
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      sharedAppellationsId:
-          sharedAppellationsId == _undefined || sharedAppellationsId == null
-          ? _instance.sharedAppellationsId
-          : (sharedAppellationsId as String),
+      names: names == _undefined || names == null
+          ? _instance.names
+          : (names as String),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -28508,7 +28487,7 @@ class _CopyWithStubImpl$Query$CompanyPageRead$allInfoCompanies$nodes$historyInfo
   call({
     String? historyId,
     String? infoStaffId,
-    String? sharedAppellationsId,
+    String? names,
     String? $__typename,
   }) => _res;
 }

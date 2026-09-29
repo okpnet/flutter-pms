@@ -774,9 +774,7 @@ const documentNodeMutationStaffPageEdit = DocumentNode(
                             ),
                           ),
                           ObjectFieldNode(
-                            name: NameNode(
-                              value: 'sharedAppellationToSharedAppellationsId',
-                            ),
+                            name: NameNode(value: 'sharedAppellationToNames'),
                             value: ObjectValueNode(
                               fields: [
                                 ObjectFieldNode(
@@ -1237,9 +1235,7 @@ const documentNodeMutationStaffPageEdit = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
-                        name: NameNode(
-                          value: 'sharedAppellationBySharedAppellationsId',
-                        ),
+                        name: NameNode(value: 'sharedAppellationByNames'),
                         alias: NameNode(value: 'labels'),
                         arguments: [],
                         directives: [],

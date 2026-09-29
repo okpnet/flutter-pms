@@ -37,15 +37,45 @@ YAMLの各プロパティは「GraphQLの引数として呼び出し側に公開
 
 - `where`: 任意引数。呼び出し側が指定しなければ、その条件は適用されない(フィルタなし)。
 - `requiredWhere`: 必須引数。呼び出し側は必ず値を渡す必要がある。
-- いずれも列名の配列。値・演算子は持たない(`=`一致、またはPostGraphileの標準フィルタ引数に委ねる)。
+- いずれも`whereEntry`(3-1節)の配列。値・演算子は持たない(`=`一致、またはPostGraphileの標準フィルタ引数に委ねる)。
 
 ### 3-1. 引数名の決め方
 
-生成されるGraphQL引数名は、**`where`/`requiredWhere`に列挙した列名(例: `code`)をそのまま使う**。node直下・ネストした`columnEntry`のいずれでも同じで、祖先の`as`/`name`を連結して自動的にプレフィックスを付与するような処理は行わない。
+`where`/`requiredWhere`の各要素(`whereEntry`)は、単純な列名の文字列、または`{column, as}`の
+オブジェクト(要件0043で追加)のいずれかを取る。生成されるGraphQL引数名は、**文字列形式なら
+列名(例: `code`)をそのまま使い、`{column, as}`形式なら`as`の値を使う**。node直下・ネストした
+`columnEntry`のいずれでも同じで、祖先の`as`(6-3節、出力フィールド名の上書き)や`name`を
+連結して自動的にプレフィックスを付与するような処理は行わない(`whereEntry`の`as`は
+6-3節の`as`とは独立したプロパティであり、互いに影響しない。出力フィールド名を変えずに
+引数名だけを変えたい場合、あるいはその逆も、それぞれ独立して指定できる)。
 
-理由: `where`/`requiredWhere`を持つ`columnEntry`が共有アーム経由で複数箇所に再利用される場合(例: `dictionaryLabel.language`(`requiredWhere: [code]`)が`appellationLabels`のname/pronunciation/nicknameの3箇所で使われる場合)、素朴には`code`という同じ引数名が複数箇所で必要になり得る。この衝突は**YAML/スキーマの検証範囲外とし、GraphQL変換時に実際に引数名が重複した場合はそこで初めてエラーとして検出する**(点10と同じ「構造の妥当性のみ検証し、実在性・整合性は生成時エラーとする」考え方の一貫した適用)。
+理由: `where`/`requiredWhere`を持つ`columnEntry`が共有アーム経由で複数箇所に再利用される場合
+(例: `dictionaryLabel.language`(`requiredWhere: [code]`)が`appellationLabels`のname/
+pronunciation/nicknameの3箇所で使われる場合)、素朴には`code`という同じ引数名が複数箇所で
+必要になり得る。さらに、`dictionaryLabel`が画面のツリー構造の深い位置(子・孫)に配置された
+場合、祖先や兄弟の別ノードが持つ同名の列(例: マスタテーブル自身の`code`列)ともGraphQL
+引数名が衝突しうる(要件0043で指摘)。この衝突は**YAML/スキーマの検証範囲外とし、GraphQL
+変換時に実際に引数名が重複した場合はそこで初めてエラーとして検出する**(点10と同じ
+「構造の妥当性のみ検証し、実在性・整合性は生成時エラーとする」考え方の一貫した適用)。
 
-呼び出し側が実務上同じ値(例: 表示言語コード)を複数箇所で使い回したいだけであれば、GraphQL変数は同じクエリ内の複数の引数位置で再利用できるため、そもそも引数名の衝突自体が起こらない(`CompanyPage.graphql`で`$displayLanguageCode`を全箇所で使い回している実例を参照)。逆に要素ごとに独立して異なる値を渡したい場合は、その時点で衝突が起きるので、YAMLの`as`(6-3節)を使って呼び出し側ごとに人が判断して引数名を分ける、または生成ツールがエラーを検出した時点で個別に対応する。
+呼び出し側が実務上同じ値(例: 表示言語コード)を複数箇所で使い回したいだけであれば、GraphQL
+変数は同じクエリ内の複数の引数位置で再利用できるため、そもそも引数名の衝突自体が起こらない
+(`CompanyPage.graphql`で`$displayLanguageCode`を全箇所で使い回している実例を参照)。逆に
+要素ごとに独立して異なる値を渡したい場合や、祖先・兄弟の別ノードの同名列と衝突する場合は、
+`whereEntry`を`{column: "code", as: "languageCode"}`のようなオブジェクト形式にして、
+生成される引数名を明示的に分ける。
+
+```yaml
+# dictionaryLabelが画面の深い位置(子・孫)に配置され、祖先(マスタ自身)の`code`列と
+# 引数名が衝突する場合の回避例
+- name: language
+  arrayType: toFirstOne
+  from: shared_language_code
+  output: false
+  requiredWhere:
+    - column: code
+      as: languageCode   # 生成される引数名は $code ではなく $languageCode になる
+```
 
 ## 4. `defaultWhere` → 固定条件(ハードコード)
 
@@ -332,6 +362,14 @@ second occurrence
 
 ## 変更履歴
 
+- 2026-09-29(要件0043): `dictionaryLabel`を画面の深い位置(子・孫)に配置した場合、
+  祖先・兄弟の別ノードが持つ同名の列(例: マスタ自身の`code`列)とGraphQL引数名が衝突しうる
+  問題を検討。3-1節が「`as`(6-3節)で引数名を分けられる」としていたが、6-3節の`as`は
+  出力フィールド名の上書き専用で引数名には影響しない、という記述の矛盾(ドキュメントバグ)が
+  判明した。`where`/`requiredWhere`の要素(`whereEntry`)に、単純な列名の文字列に加えて
+  `{column, as}`形式(この`as`は6-3節の`as`とは独立した、引数名専用の上書き)を追加し、
+  実際に引数名を明示的に分けられるようにした。`schema.json`(`$defs/whereEntry`新設、
+  `whereList`の`items`をこれに変更)・3-1節(矛盾の解消、例の追加)を更新。
 - 2026-09-26: 新規作成。`condition`の再設計(Map値の廃止、真偽値フラグ化)と、`where`/`requiredWhere`(引数)・`defaultWhere`(固定条件)の役割分担の明文化に伴い、既存のYAML例(`shared_language_code.code = "JA"`のハードコードを`requiredWhere: [code]`に修正、`info_staff.yaml`の`condition`のMap値を`condition: true`に修正)と合わせて作成。
 - 2026-09-26(2回目): `pick`(6-4節)を追加。YAMLマージがキー単位の全部か無しかしかできないため、「共有定義を丸ごと取り込みつつ一部の列だけ出力したい」を実現する生成時フィルタとして新設。`info_company.yaml`に`appellationLabels`(shared_appellationsのname/pronunciation/nickname束ね)と、`CompanyPage`(`ceo`/`offices`でそれぞれ`pick: [name]`を使う例)を追加。
 - 2026-09-26(3回目): ユーザーがアップロードした`test.yaml`の下書きを実際に修正し(`<<: &appellationLabels`の重複アンカーによるパースエラーを含む複数の不具合を修正)、`CompanyPage`をGraphQLへ手作業変換する実験を実施(`CompanyPage.graphql`)。この過程で見つかった5件の論点を9節として追加。

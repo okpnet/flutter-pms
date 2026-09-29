@@ -142,7 +142,7 @@ Map<String, dynamic> _buildRawReadJson() => {
         'remarks': '備考テキスト',
         'updateAt': '2026-09-25T00:00:00',
         'remove': false,
-        'sharedAppellationBySharedAppellationsId': _companyNameReadJson(),
+        'sharedAppellationByNames': _companyNameReadJson(),
         'ceo': _ceoReadJson(),
         'infoAddressByInfoAddressId': _infoAddressReadJson(),
         'infoOfficesByInfoCompanyId': {
@@ -158,7 +158,7 @@ Map<String, dynamic> _buildRawReadJson() => {
         'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId': {
           'historyId': 'h1111111-1111-1111-1111-111111111111',
           'infoStaffId': 's1111111-1111-1111-1111-111111111111',
-          'sharedAppellationsId': 'a2222222-2222-2222-2222-222222222222',
+          'names': 'a2222222-2222-2222-2222-222222222222',
           '__typename': 'HistoryInfoStaff',
         },
         '__typename': 'InfoCompany',
@@ -280,7 +280,7 @@ Map<String, dynamic> _buildRawEditJson() => {
       'webPage': 'https://example.com',
       'symbol': 'CO001',
       'remarks': '備考テキスト(編集後)',
-      'sharedAppellationBySharedAppellationsId': _companyNameJson(),
+      'sharedAppellationByNames': _companyNameJson(),
       'ceo': _ceoJson(),
       'infoAddressByInfoAddressId': _infoAddressJson(),
       '__typename': 'InfoCompany',
@@ -301,7 +301,7 @@ Map<String, dynamic> _buildRawRfeJson() => {
     'updateUserId': 's1111111-1111-1111-1111-111111111111',
     'updateUserHistoryId': 'h1111111-1111-1111-1111-111111111111',
     'remove': false,
-    'sharedAppellationBySharedAppellationsId': _companyNameJson(),
+    'sharedAppellationByNames': _companyNameJson(),
     'ceo': _ceoJson(),
     'infoAddressByInfoAddressId': _infoAddressJson(),
     '__typename': 'InfoCompany',
@@ -337,9 +337,9 @@ void main() {
       final nodeMap = node.toJson();
 
       const nameValue = CompanyPageKeyName
-          .sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue;
+          .sharedAppellationByNames_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue;
       const pronunciationValue = CompanyPageKeyName
-          .sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryPronunciationId_value_dictionaryValue;
+          .sharedAppellationByNames_sharedDictionaryBySharedDictionaryPronunciationId_value_dictionaryValue;
       const ceoNameValue = CompanyPageKeyName
           .ceo_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue;
       const ceoNicknameValue = CompanyPageKeyName
@@ -350,8 +350,8 @@ void main() {
           .infoAddressByInfoAddressId_billName_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue;
 
       const collapsePaths = {
-        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||value',
-        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryPronunciationId||value',
+        'sharedAppellationByNames||sharedDictionaryBySharedDictionaryNameId||value',
+        'sharedAppellationByNames||sharedDictionaryBySharedDictionaryPronunciationId||value',
         'ceo||sharedDictionaryBySharedDictionaryNameId||value',
         'ceo||sharedDictionaryBySharedDictionaryNicknameId||value',
         'infoAddressByInfoAddressId||address1||sharedDictionaryBySharedDictionaryNameId||value',

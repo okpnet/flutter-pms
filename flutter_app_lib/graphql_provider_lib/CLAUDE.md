@@ -121,6 +121,7 @@ graphqlの生成指示は、共通項として必ず"remarks"、"update_at"、"r
 ####　追記ルール
 追加ルールは、「年月日_4桁のとおし番号:追加内容」とします。要件に変更があったとき、変更のとおし番号を参照します。
 追加があったかどうかは、チャットでとおし番号を使った指示になります。年月日はいつ追加したかの記録です。
+
 ### 要件
 
 2026/09/08_0001:pubspec.ymlからローカルライブラリ「gqlib」へアクセスし、内容を理解できるか確認してください。
@@ -212,3 +213,7 @@ GraphQLへの変換できないエラーは変換できない理由をログへ�
 2026/09/28_0040:"source/06_create_test.sql"からPostgrapileのスキーマを作成、SDLからschema.graphqlを取得して差分を比較し、変更があれば"lib/graphql/schema.json"置き換え、0024を実行。Postgrapileは"postgraphile-plugin-nested-mutations postgraphile-plugin-connection-filter@2.3.0"のプラグインを適用する。
 
 2026/09/28_0041:【翌日の課題】0026の実行(docs/0026_schema_fetch_log.md 追記14)で確定した"shared_appellations_id"→"names"(info_company・info_officeほか70件以上のテーブル)、及び"ceo"→"ceo_names"(info_companyのみ)のDB列名変更に対応する。生成済み5画面(company_page, staff_page, department_category, office_page, department_page)のGraphQL(read/edit/rfe計14ファイル)、lib/contents配下のkeyname.dart(5ファイル)、対応するflatten_roundtripテスト(5ファイル)、及びsource/view.yaml・source/test.yamlの"using: shared_appellations_id"(15+2箇所)・"using: ceo"(2箇所)を新しい列名に合わせて修正し、buildrunner再生成・テストを行う。詳細は上記ログ参照。
+
+2026/09/29_0042:生成およびテストは、結合を除き最小サイズに分割して順次行う。実行時はタスクのハングアップを10分間隔で監視し、状態を評価する。停止状態と判断した場合は、ハングアップなど進行を阻害する原因を調査し、権限の範囲で除去(タスクキルなど)し、再評価を行う。
+
+2026/09/29_0043:view.yamlのdictionaryLabelを子や孫に配置したとき、dictionaryLabelがとるWhereの引数"code"は親に同名の列が存在する場合があるので、dictionaryLabelに対するWhereである、あるいは親が他の子テーブルの同名の子列をWhereで絞り込むことができるようにschema.jsonをレビューする。

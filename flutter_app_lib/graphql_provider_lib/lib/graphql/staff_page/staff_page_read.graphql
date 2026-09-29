@@ -44,7 +44,7 @@ query StaffPageRead(
       remove
 
       # --- 担当者名(共通名前仕様: shared_appellations経由) ------------------------
-      labels: sharedAppellationBySharedAppellationsId {
+      labels: sharedAppellationByNames {
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {
           sharedDictionaryId
@@ -88,7 +88,7 @@ query StaffPageRead(
         phone
         symbol
         privatePhone
-        name: sharedAppellationBySharedAppellationsId {
+        name: sharedAppellationByNames {
           sharedAppellationsId
           sharedDictionaryBySharedDictionaryNameId {
             sharedDictionaryId

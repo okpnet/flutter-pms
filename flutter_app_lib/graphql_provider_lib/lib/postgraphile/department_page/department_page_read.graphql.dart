@@ -669,9 +669,7 @@ const documentNodeQueryDepartmentPageRead = DocumentNode(
                         ),
                       ),
                       FieldNode(
-                        name: NameNode(
-                          value: 'sharedAppellationBySharedAppellationsId',
-                        ),
+                        name: NameNode(value: 'sharedAppellationByNames'),
                         alias: NameNode(value: 'labels'),
                         arguments: [],
                         directives: [],
@@ -2094,10 +2092,7 @@ const documentNodeQueryDepartmentPageRead = DocumentNode(
                               selectionSet: null,
                             ),
                             FieldNode(
-                              name: NameNode(
-                                value:
-                                    'sharedAppellationBySharedAppellationsId',
-                              ),
+                              name: NameNode(value: 'sharedAppellationByNames'),
                               alias: NameNode(value: 'labels'),
                               arguments: [],
                               directives: [],
@@ -3615,8 +3610,7 @@ const documentNodeQueryDepartmentPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value:
-                                          'sharedAppellationBySharedAppellationsId',
+                                      value: 'sharedAppellationByNames',
                                     ),
                                     alias: NameNode(value: 'name'),
                                     arguments: [],
@@ -4155,7 +4149,7 @@ const documentNodeQueryDepartmentPageRead = DocumentNode(
                                               FieldNode(
                                                 name: NameNode(
                                                   value:
-                                                      'sharedAppellationBySharedAppellationsId',
+                                                      'sharedAppellationByNames',
                                                 ),
                                                 alias: NameNode(
                                                   value: 'labels',
@@ -4653,8 +4647,7 @@ const documentNodeQueryDepartmentPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value:
-                                                'sharedAppellationBySharedAppellationsId',
+                                            value: 'sharedAppellationByNames',
                                           ),
                                           alias: NameNode(value: 'name'),
                                           arguments: [],
@@ -5124,10 +5117,7 @@ const documentNodeQueryDepartmentPageRead = DocumentNode(
                               selectionSet: null,
                             ),
                             FieldNode(
-                              name: NameNode(
-                                value:
-                                    'sharedAppellationBySharedAppellationsId',
-                              ),
+                              name: NameNode(value: 'sharedAppellationByNames'),
                               alias: NameNode(value: 'name'),
                               arguments: [],
                               directives: [],

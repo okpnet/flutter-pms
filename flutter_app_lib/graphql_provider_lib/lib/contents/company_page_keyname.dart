@@ -13,7 +13,7 @@
 //
 // 要件0026(2026-09-25)のスキーマ変更により、`ceo`・`address1`/`address2`/`bill`は
 // 単純な文字列列から`shared_appellations`経由(呼称セット、name/pronunciation/nickname)
-// のFKへ変更された。会社名(`sharedAppellationBySharedAppellationsId`)と同型の
+// のFKへ変更された。会社名(`sharedAppellationByNames`)と同型の
 // キー構成を4系統(ceo・address1・address2・bill)追加している。
 import 'content_variable.dart';
 
@@ -63,93 +63,93 @@ abstract class CompanyPageKeyName {
 
   // --- 会社名(共通名前仕様、shared_appellations経由) -------------------------
   static const ContentVariable
-  sharedAppellationBySharedAppellationsId_sharedAppellationsId =
+  sharedAppellationByNames_sharedAppellationsId =
       ContentVariable(
-        'sharedAppellationBySharedAppellationsId||sharedAppellationsId',
+        'sharedAppellationByNames||sharedAppellationsId',
         GraphQLTypeKind.uuid,
       );
 
   static const ContentVariable
-  sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_sharedDictionaryId =
+  sharedAppellationByNames_sharedDictionaryBySharedDictionaryNameId_sharedDictionaryId =
       ContentVariable(
-        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||sharedDictionaryId',
+        'sharedAppellationByNames||sharedDictionaryBySharedDictionaryNameId||sharedDictionaryId',
         GraphQLTypeKind.uuid,
       );
 
   static const ContentVariable
-  sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_ja_dictionaryValue =
+  sharedAppellationByNames_sharedDictionaryBySharedDictionaryNameId_ja_dictionaryValue =
       ContentVariable(
-        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||ja||dictionaryValue',
+        'sharedAppellationByNames||sharedDictionaryBySharedDictionaryNameId||ja||dictionaryValue',
         GraphQLTypeKind.string,
       );
 
   static const ContentVariable
-  sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_en_dictionaryValue =
+  sharedAppellationByNames_sharedDictionaryBySharedDictionaryNameId_en_dictionaryValue =
       ContentVariable(
-        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||en||dictionaryValue',
+        'sharedAppellationByNames||sharedDictionaryBySharedDictionaryNameId||en||dictionaryValue',
         GraphQLTypeKind.string,
       );
 
   static const ContentVariable
-  sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue =
+  sharedAppellationByNames_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue =
       ContentVariable(
-        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNameId||value||dictionaryValue',
+        'sharedAppellationByNames||sharedDictionaryBySharedDictionaryNameId||value||dictionaryValue',
         GraphQLTypeKind.string,
       );
 
   static const ContentVariable
-  sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryPronunciationId_sharedDictionaryId =
+  sharedAppellationByNames_sharedDictionaryBySharedDictionaryPronunciationId_sharedDictionaryId =
       ContentVariable(
-        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryPronunciationId||sharedDictionaryId',
+        'sharedAppellationByNames||sharedDictionaryBySharedDictionaryPronunciationId||sharedDictionaryId',
         GraphQLTypeKind.uuid,
       );
 
   static const ContentVariable
-  sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryPronunciationId_ja_dictionaryValue =
+  sharedAppellationByNames_sharedDictionaryBySharedDictionaryPronunciationId_ja_dictionaryValue =
       ContentVariable(
-        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryPronunciationId||ja||dictionaryValue',
+        'sharedAppellationByNames||sharedDictionaryBySharedDictionaryPronunciationId||ja||dictionaryValue',
         GraphQLTypeKind.string,
       );
 
   static const ContentVariable
-  sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryPronunciationId_en_dictionaryValue =
+  sharedAppellationByNames_sharedDictionaryBySharedDictionaryPronunciationId_en_dictionaryValue =
       ContentVariable(
-        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryPronunciationId||en||dictionaryValue',
+        'sharedAppellationByNames||sharedDictionaryBySharedDictionaryPronunciationId||en||dictionaryValue',
         GraphQLTypeKind.string,
       );
 
   static const ContentVariable
-  sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryPronunciationId_value_dictionaryValue =
+  sharedAppellationByNames_sharedDictionaryBySharedDictionaryPronunciationId_value_dictionaryValue =
       ContentVariable(
-        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryPronunciationId||value||dictionaryValue',
+        'sharedAppellationByNames||sharedDictionaryBySharedDictionaryPronunciationId||value||dictionaryValue',
         GraphQLTypeKind.string,
       );
 
   static const ContentVariable
-  sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNicknameId_sharedDictionaryId =
+  sharedAppellationByNames_sharedDictionaryBySharedDictionaryNicknameId_sharedDictionaryId =
       ContentVariable(
-        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNicknameId||sharedDictionaryId',
+        'sharedAppellationByNames||sharedDictionaryBySharedDictionaryNicknameId||sharedDictionaryId',
         GraphQLTypeKind.uuid,
       );
 
   static const ContentVariable
-  sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNicknameId_ja_dictionaryValue =
+  sharedAppellationByNames_sharedDictionaryBySharedDictionaryNicknameId_ja_dictionaryValue =
       ContentVariable(
-        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNicknameId||ja||dictionaryValue',
+        'sharedAppellationByNames||sharedDictionaryBySharedDictionaryNicknameId||ja||dictionaryValue',
         GraphQLTypeKind.string,
       );
 
   static const ContentVariable
-  sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNicknameId_en_dictionaryValue =
+  sharedAppellationByNames_sharedDictionaryBySharedDictionaryNicknameId_en_dictionaryValue =
       ContentVariable(
-        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNicknameId||en||dictionaryValue',
+        'sharedAppellationByNames||sharedDictionaryBySharedDictionaryNicknameId||en||dictionaryValue',
         GraphQLTypeKind.string,
       );
 
   static const ContentVariable
-  sharedAppellationBySharedAppellationsId_sharedDictionaryBySharedDictionaryNicknameId_value_dictionaryValue =
+  sharedAppellationByNames_sharedDictionaryBySharedDictionaryNicknameId_value_dictionaryValue =
       ContentVariable(
-        'sharedAppellationBySharedAppellationsId||sharedDictionaryBySharedDictionaryNicknameId||value||dictionaryValue',
+        'sharedAppellationByNames||sharedDictionaryBySharedDictionaryNicknameId||value||dictionaryValue',
         GraphQLTypeKind.string,
       );
 
@@ -581,9 +581,9 @@ abstract class CompanyPageKeyName {
       );
 
   static const ContentVariable
-  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId_sharedAppellationsId =
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId_names =
       ContentVariable(
-        'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId||sharedAppellationsId',
+        'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId||names',
         GraphQLTypeKind.uuid,
       );
 }

@@ -33,7 +33,7 @@ query DepartmentCategoryRead(
       updateAt
       remove
 
-      labels: sharedAppellationBySharedAppellationsId {
+      labels: sharedAppellationByNames {
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {
           sharedDictionaryId
@@ -76,7 +76,7 @@ query DepartmentCategoryRead(
         phone
         symbol
         privatePhone
-        name: sharedAppellationBySharedAppellationsId {
+        name: sharedAppellationByNames {
           sharedAppellationsId
           sharedDictionaryBySharedDictionaryNameId {
             sharedDictionaryId

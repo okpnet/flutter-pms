@@ -23,7 +23,7 @@ query StaffPageRfe(
     updateUserHistoryId
     remove
 
-    labels: sharedAppellationBySharedAppellationsId {
+    labels: sharedAppellationByNames {
       sharedAppellationsId
       sharedDictionaryBySharedDictionaryNameId {
         sharedDictionaryId

@@ -41,7 +41,7 @@ query CompanyPageRfe(
     remove
 
     # --- 会社名(共通名前仕様、shared_appellations経由) ------------------------
-    sharedAppellationBySharedAppellationsId {
+    sharedAppellationByNames {
       sharedAppellationsId
       sharedDictionaryBySharedDictionaryNameId {
         sharedDictionaryId
@@ -97,7 +97,7 @@ query CompanyPageRfe(
     }
 
     # --- 代表(ceo、要件0026でshared_appellations経由のFKに変更) -----------------
-    ceo: sharedAppellationByCeo {
+    ceo: sharedAppellationByCeoNames {
       sharedAppellationsId
       sharedDictionaryBySharedDictionaryNameId {
         sharedDictionaryId

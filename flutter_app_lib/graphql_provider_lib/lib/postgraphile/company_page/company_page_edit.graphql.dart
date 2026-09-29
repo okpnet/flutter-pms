@@ -2134,9 +2134,7 @@ const documentNodeMutationCompanyPageEdit = DocumentNode(
                             ),
                           ),
                           ObjectFieldNode(
-                            name: NameNode(
-                              value: 'sharedAppellationToSharedAppellationsId',
-                            ),
+                            name: NameNode(value: 'sharedAppellationToNames'),
                             value: ObjectValueNode(
                               fields: [
                                 ObjectFieldNode(
@@ -2531,7 +2529,9 @@ const documentNodeMutationCompanyPageEdit = DocumentNode(
                             ),
                           ),
                           ObjectFieldNode(
-                            name: NameNode(value: 'sharedAppellationToCeo'),
+                            name: NameNode(
+                              value: 'sharedAppellationToCeoNames',
+                            ),
                             value: ObjectValueNode(
                               fields: [
                                 ObjectFieldNode(
@@ -4179,9 +4179,7 @@ const documentNodeMutationCompanyPageEdit = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
-                        name: NameNode(
-                          value: 'sharedAppellationBySharedAppellationsId',
-                        ),
+                        name: NameNode(value: 'sharedAppellationByNames'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -4682,7 +4680,7 @@ const documentNodeMutationCompanyPageEdit = DocumentNode(
                         ),
                       ),
                       FieldNode(
-                        name: NameNode(value: 'sharedAppellationByCeo'),
+                        name: NameNode(value: 'sharedAppellationByCeoNames'),
                         alias: NameNode(value: 'ceo'),
                         arguments: [],
                         directives: [],
@@ -7308,7 +7306,7 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany {
     this.webPage,
     this.symbol,
     this.remarks,
-    this.sharedAppellationBySharedAppellationsId,
+    this.sharedAppellationByNames,
     this.ceo,
     this.infoAddressByInfoAddressId,
     this.$__typename = 'InfoCompany',
@@ -7321,8 +7319,7 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany {
     final l$webPage = json['webPage'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
-    final l$sharedAppellationBySharedAppellationsId =
-        json['sharedAppellationBySharedAppellationsId'];
+    final l$sharedAppellationByNames = json['sharedAppellationByNames'];
     final l$ceo = json['ceo'];
     final l$infoAddressByInfoAddressId = json['infoAddressByInfoAddressId'];
     final l$$__typename = json['__typename'];
@@ -7331,12 +7328,10 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany {
       webPage: (l$webPage as String?),
       symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
-      sharedAppellationBySharedAppellationsId:
-          l$sharedAppellationBySharedAppellationsId == null
+      sharedAppellationByNames: l$sharedAppellationByNames == null
           ? null
-          : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId.fromJson(
-              (l$sharedAppellationBySharedAppellationsId
-                  as Map<String, dynamic>),
+          : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames.fromJson(
+              (l$sharedAppellationByNames as Map<String, dynamic>),
             ),
       ceo: l$ceo == null
           ? null
@@ -7360,8 +7355,8 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany {
 
   final String? remarks;
 
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId?
-  sharedAppellationBySharedAppellationsId;
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames?
+  sharedAppellationByNames;
 
   final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo?
   ceo;
@@ -7381,10 +7376,9 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany {
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
-    final l$sharedAppellationBySharedAppellationsId =
-        sharedAppellationBySharedAppellationsId;
-    _resultData['sharedAppellationBySharedAppellationsId'] =
-        l$sharedAppellationBySharedAppellationsId?.toJson();
+    final l$sharedAppellationByNames = sharedAppellationByNames;
+    _resultData['sharedAppellationByNames'] = l$sharedAppellationByNames
+        ?.toJson();
     final l$ceo = ceo;
     _resultData['ceo'] = l$ceo?.toJson();
     final l$infoAddressByInfoAddressId = infoAddressByInfoAddressId;
@@ -7401,8 +7395,7 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany {
     final l$webPage = webPage;
     final l$symbol = symbol;
     final l$remarks = remarks;
-    final l$sharedAppellationBySharedAppellationsId =
-        sharedAppellationBySharedAppellationsId;
+    final l$sharedAppellationByNames = sharedAppellationByNames;
     final l$ceo = ceo;
     final l$infoAddressByInfoAddressId = infoAddressByInfoAddressId;
     final l$$__typename = $__typename;
@@ -7411,7 +7404,7 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany {
       l$webPage,
       l$symbol,
       l$remarks,
-      l$sharedAppellationBySharedAppellationsId,
+      l$sharedAppellationByNames,
       l$ceo,
       l$infoAddressByInfoAddressId,
       l$$__typename,
@@ -7448,12 +7441,9 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany {
     if (l$remarks != lOther$remarks) {
       return false;
     }
-    final l$sharedAppellationBySharedAppellationsId =
-        sharedAppellationBySharedAppellationsId;
-    final lOther$sharedAppellationBySharedAppellationsId =
-        other.sharedAppellationBySharedAppellationsId;
-    if (l$sharedAppellationBySharedAppellationsId !=
-        lOther$sharedAppellationBySharedAppellationsId) {
+    final l$sharedAppellationByNames = sharedAppellationByNames;
+    final lOther$sharedAppellationByNames = other.sharedAppellationByNames;
+    if (l$sharedAppellationByNames != lOther$sharedAppellationByNames) {
       return false;
     }
     final l$ceo = ceo;
@@ -7508,18 +7498,18 @@ abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
     String? webPage,
     String? symbol,
     String? remarks,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId?
-    sharedAppellationBySharedAppellationsId,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames?
+    sharedAppellationByNames,
     Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo?
     ceo,
     Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$infoAddressByInfoAddressId?
     infoAddressByInfoAddressId,
     String? $__typename,
   });
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId<
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames<
     TRes
   >
-  get sharedAppellationBySharedAppellationsId;
+  get sharedAppellationByNames;
   CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo<
     TRes
   >
@@ -7557,7 +7547,7 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
     Object? webPage = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
-    Object? sharedAppellationBySharedAppellationsId = _undefined,
+    Object? sharedAppellationByNames = _undefined,
     Object? ceo = _undefined,
     Object? infoAddressByInfoAddressId = _undefined,
     Object? $__typename = _undefined,
@@ -7569,11 +7559,10 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
       webPage: webPage == _undefined ? _instance.webPage : (webPage as String?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
-      sharedAppellationBySharedAppellationsId:
-          sharedAppellationBySharedAppellationsId == _undefined
-          ? _instance.sharedAppellationBySharedAppellationsId
-          : (sharedAppellationBySharedAppellationsId
-                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId?),
+      sharedAppellationByNames: sharedAppellationByNames == _undefined
+          ? _instance.sharedAppellationByNames
+          : (sharedAppellationByNames
+                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames?),
       ceo: ceo == _undefined
           ? _instance.ceo
           : (ceo
@@ -7588,19 +7577,18 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
     ),
   );
 
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId<
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames<
     TRes
   >
-  get sharedAppellationBySharedAppellationsId {
-    final local$sharedAppellationBySharedAppellationsId =
-        _instance.sharedAppellationBySharedAppellationsId;
-    return local$sharedAppellationBySharedAppellationsId == null
-        ? CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId.stub(
+  get sharedAppellationByNames {
+    final local$sharedAppellationByNames = _instance.sharedAppellationByNames;
+    return local$sharedAppellationByNames == null
+        ? CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames.stub(
             _then(_instance),
           )
-        : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId(
-            local$sharedAppellationBySharedAppellationsId,
-            (e) => call(sharedAppellationBySharedAppellationsId: e),
+        : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames(
+            local$sharedAppellationByNames,
+            (e) => call(sharedAppellationByNames: e),
           );
   }
 
@@ -7654,8 +7642,8 @@ class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
     String? webPage,
     String? symbol,
     String? remarks,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId?
-    sharedAppellationBySharedAppellationsId,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames?
+    sharedAppellationByNames,
     Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$ceo?
     ceo,
     Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$infoAddressByInfoAddressId?
@@ -7663,11 +7651,11 @@ class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
     String? $__typename,
   }) => _res;
 
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId<
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames<
     TRes
   >
-  get sharedAppellationBySharedAppellationsId =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId.stub(
+  get sharedAppellationByNames =>
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames.stub(
         _res,
       );
 
@@ -7688,8 +7676,8 @@ class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
       );
 }
 
-class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId {
-  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId({
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames({
     required this.sharedAppellationsId,
     this.sharedDictionaryBySharedDictionaryNameId,
     this.sharedDictionaryBySharedDictionaryPronunciationId,
@@ -7697,7 +7685,7 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
     this.$__typename = 'SharedAppellation',
   });
 
-  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId.fromJson(
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedAppellationsId = json['sharedAppellationsId'];
@@ -7708,26 +7696,26 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
     final l$sharedDictionaryBySharedDictionaryNicknameId =
         json['sharedDictionaryBySharedDictionaryNicknameId'];
     final l$$__typename = json['__typename'];
-    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId(
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames(
       sharedAppellationsId: (l$sharedAppellationsId as String),
       sharedDictionaryBySharedDictionaryNameId:
           l$sharedDictionaryBySharedDictionaryNameId == null
           ? null
-          : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId.fromJson(
+          : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNameId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryPronunciationId:
           l$sharedDictionaryBySharedDictionaryPronunciationId == null
           ? null
-          : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+          : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
               (l$sharedDictionaryBySharedDictionaryPronunciationId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryNicknameId:
           l$sharedDictionaryBySharedDictionaryNicknameId == null
           ? null
-          : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+          : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNicknameId
                   as Map<String, dynamic>),
             ),
@@ -7737,13 +7725,13 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
 
   final String sharedAppellationsId;
 
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId?
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId?
   sharedDictionaryBySharedDictionaryNameId;
 
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId?
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId?
   sharedDictionaryBySharedDictionaryPronunciationId;
 
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId?
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId?
   sharedDictionaryBySharedDictionaryNicknameId;
 
   final String $__typename;
@@ -7794,7 +7782,7 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
       return true;
     }
     if (other
-            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId ||
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -7836,76 +7824,76 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
   }
 }
 
-extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames
     on
-        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId {
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames
   >
   get copyWith =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId(
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId<
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames<
   TRes
 > {
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames
     instance,
     TRes Function(
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId,
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames,
     )
     then,
-  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId;
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames;
 
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId.stub(
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId;
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames;
 
   TRes call({
     String? sharedAppellationsId,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId?
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId?
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId?
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   });
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId;
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId;
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId;
 }
 
-class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId<
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames<
   TRes
 >
     implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames<
           TRes
         > {
-  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId(
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames(
     this._instance,
     this._then,
   );
 
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames
   _instance;
 
   final TRes Function(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames,
   )
   _then;
 
@@ -7918,7 +7906,7 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
     Object? sharedDictionaryBySharedDictionaryNicknameId = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames(
       sharedAppellationsId:
           sharedAppellationsId == _undefined || sharedAppellationsId == null
           ? _instance.sharedAppellationsId
@@ -7927,80 +7915,80 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
           sharedDictionaryBySharedDictionaryNameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNameId
           : (sharedDictionaryBySharedDictionaryNameId
-                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId?),
+                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId?),
       sharedDictionaryBySharedDictionaryPronunciationId:
           sharedDictionaryBySharedDictionaryPronunciationId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryPronunciationId
           : (sharedDictionaryBySharedDictionaryPronunciationId
-                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId?),
+                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId?),
       sharedDictionaryBySharedDictionaryNicknameId:
           sharedDictionaryBySharedDictionaryNicknameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNicknameId
           : (sharedDictionaryBySharedDictionaryNicknameId
-                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId?),
+                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId {
     final local$sharedDictionaryBySharedDictionaryNameId =
         _instance.sharedDictionaryBySharedDictionaryNameId;
     return local$sharedDictionaryBySharedDictionaryNameId == null
-        ? CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId.stub(
+        ? CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId.stub(
             _then(_instance),
           )
-        : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
+        : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId(
             local$sharedDictionaryBySharedDictionaryNameId,
             (e) => call(sharedDictionaryBySharedDictionaryNameId: e),
           );
   }
 
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId {
     final local$sharedDictionaryBySharedDictionaryPronunciationId =
         _instance.sharedDictionaryBySharedDictionaryPronunciationId;
     return local$sharedDictionaryBySharedDictionaryPronunciationId == null
-        ? CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+        ? CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId.stub(
             _then(_instance),
           )
-        : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId(
+        : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId(
             local$sharedDictionaryBySharedDictionaryPronunciationId,
             (e) => call(sharedDictionaryBySharedDictionaryPronunciationId: e),
           );
   }
 
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId {
     final local$sharedDictionaryBySharedDictionaryNicknameId =
         _instance.sharedDictionaryBySharedDictionaryNicknameId;
     return local$sharedDictionaryBySharedDictionaryNicknameId == null
-        ? CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId.stub(
+        ? CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId.stub(
             _then(_instance),
           )
-        : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId(
+        : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId(
             local$sharedDictionaryBySharedDictionaryNicknameId,
             (e) => call(sharedDictionaryBySharedDictionaryNicknameId: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId<
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames<
   TRes
 >
     implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId(
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames(
     this._res,
   );
 
@@ -8008,61 +7996,61 @@ class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
 
   call({
     String? sharedAppellationsId,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId?
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId?
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId?
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId.stub(
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId.stub(
         _res,
       );
 
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId.stub(
         _res,
       );
 
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId.stub(
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId.stub(
         _res,
       );
 }
 
-class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId {
-  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId({
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId({
     required this.sharedDictionaryId,
     required this.ja,
     required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId.fromJson(
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$ja = json['ja'];
     final l$en = json['en'];
     final l$$__typename = json['__typename'];
-    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
+      ja: Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
         (l$ja as Map<String, dynamic>),
       ),
-      en: Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
+      en: Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
         (l$en as Map<String, dynamic>),
       ),
       $__typename: (l$$__typename as String),
@@ -8071,10 +8059,10 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
 
   final String sharedDictionaryId;
 
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja
   ja;
 
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en
   en;
 
   final String $__typename;
@@ -8107,7 +8095,7 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
       return true;
     }
     if (other
-            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId ||
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -8135,70 +8123,70 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
   }
 }
 
-extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId
     on
-        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId {
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId
   >
   get copyWith =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId<
   TRes
 > {
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId
     instance,
     TRes Function(
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId,
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId,
     )
     then,
-  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId;
 
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId.stub(
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja?
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja?
     ja,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en?
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en?
     en,
     String? $__typename,
   });
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja<
     TRes
   >
   get ja;
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en<
     TRes
   >
   get en;
 }
 
-class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId(
     this._instance,
     this._then,
   );
 
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId
   _instance;
 
   final TRes Function(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId,
   )
   _then;
 
@@ -8210,7 +8198,7 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
     Object? en = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -8218,48 +8206,48 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
       ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja),
+                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en),
+                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja<
     TRes
   >
   get ja {
     final local$ja = _instance.ja;
-    return CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja(
+    return CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja(
       local$ja,
       (e) => call(ja: e),
     );
   }
 
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en<
     TRes
   >
   get en {
     final local$en = _instance.en;
-    return CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en(
+    return CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en(
       local$en,
       (e) => call(en: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId(
     this._res,
   );
 
@@ -8267,47 +8255,47 @@ class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
 
   call({
     String? sharedDictionaryId,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja?
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja?
     ja,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en?
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en?
     en,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja<
     TRes
   >
   get ja =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja.stub(
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja.stub(
         _res,
       );
 
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en<
     TRes
   >
   get en =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en.stub(
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en.stub(
         _res,
       );
 }
 
-class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja {
-  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja({
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja(
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
+                : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -8317,7 +8305,7 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
   }
 
   final List<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
   >
   nodes;
 
@@ -8348,7 +8336,7 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
       return true;
     }
     if (other
-            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja ||
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -8373,50 +8361,50 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
   }
 }
 
-extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja
     on
-        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja {
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja
   >
   get copyWith =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja(
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja<
   TRes
 > {
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja
     instance,
     TRes Function(
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja,
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja,
     )
     then,
-  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja;
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja;
 
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja.stub(
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja;
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja;
 
   TRes call({
     List<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
-          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes
         >?
       >,
     )
@@ -8424,23 +8412,23 @@ abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
   );
 }
 
-class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja<
           TRes
         > {
-  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja(
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja(
     this._instance,
     this._then,
   );
 
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja
   _instance;
 
   final TRes Function(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja,
   )
   _then;
 
@@ -8450,12 +8438,12 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+                  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -8465,12 +8453,12 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
 
   TRes nodes(
     Iterable<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
-          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes
         >?
       >,
     )
@@ -8480,7 +8468,7 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+            : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
                 e,
                 (i) => i,
               ),
@@ -8489,14 +8477,14 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
   );
 }
 
-class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja(
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja(
     this._res,
   );
 
@@ -8504,7 +8492,7 @@ class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
 
   call({
     List<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
     >?
     nodes,
     String? $__typename,
@@ -8513,18 +8501,18 @@ class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
   nodes(_fn) => _res;
 }
 
-class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
-  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes({
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -8556,7 +8544,7 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
       return true;
     }
     if (other
-            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes ||
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -8574,55 +8562,55 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
   }
 }
 
-extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes
     on
-        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes
     instance,
     TRes Function(
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
 
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes.stub(
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes
   _instance;
 
   final TRes Function(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
   )
   _then;
 
@@ -8632,7 +8620,7 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -8643,14 +8631,14 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
   );
 }
 
-class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
     this._res,
   );
 
@@ -8659,23 +8647,23 @@ class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en {
-  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en({
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en(
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
+                : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -8685,7 +8673,7 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
   }
 
   final List<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes?
   >
   nodes;
 
@@ -8716,7 +8704,7 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
       return true;
     }
     if (other
-            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en ||
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -8741,50 +8729,50 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
   }
 }
 
-extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en
     on
-        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en {
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en
   >
   get copyWith =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en(
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en<
   TRes
 > {
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en
     instance,
     TRes Function(
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en,
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en,
     )
     then,
-  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en;
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en;
 
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en.stub(
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en;
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en;
 
   TRes call({
     List<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes<
-          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes
         >?
       >,
     )
@@ -8792,23 +8780,23 @@ abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
   );
 }
 
-class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en<
           TRes
         > {
-  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en(
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en(
     this._instance,
     this._then,
   );
 
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en
   _instance;
 
   final TRes Function(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en,
   )
   _then;
 
@@ -8818,12 +8806,12 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+                  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -8833,12 +8821,12 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
 
   TRes nodes(
     Iterable<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes<
-          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes
         >?
       >,
     )
@@ -8848,7 +8836,7 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+            : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes(
                 e,
                 (i) => i,
               ),
@@ -8857,14 +8845,14 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
   );
 }
 
-class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en(
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en(
     this._res,
   );
 
@@ -8872,7 +8860,7 @@ class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
 
   call({
     List<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes?
     >?
     nodes,
     String? $__typename,
@@ -8881,18 +8869,18 @@ class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
   nodes(_fn) => _res;
 }
 
-class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes {
-  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes({
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -8924,7 +8912,7 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
       return true;
     }
     if (other
-            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes ||
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -8942,55 +8930,55 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
   }
 }
 
-extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes
     on
-        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes {
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes
     instance,
     TRes Function(
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes,
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes;
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes;
 
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes.stub(
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes;
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes
   _instance;
 
   final TRes Function(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes,
   )
   _then;
 
@@ -9000,7 +8988,7 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -9011,14 +8999,14 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
   );
 }
 
-class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNameId$en$nodes(
     this._res,
   );
 
@@ -9027,27 +9015,27 @@ class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId {
-  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId({
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId({
     required this.sharedDictionaryId,
     required this.ja,
     required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$ja = json['ja'];
     final l$en = json['en'];
     final l$$__typename = json['__typename'];
-    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId(
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
+      ja: Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
         (l$ja as Map<String, dynamic>),
       ),
-      en: Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
+      en: Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
         (l$en as Map<String, dynamic>),
       ),
       $__typename: (l$$__typename as String),
@@ -9056,10 +9044,10 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
 
   final String sharedDictionaryId;
 
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja
   ja;
 
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en
   en;
 
   final String $__typename;
@@ -9092,7 +9080,7 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
       return true;
     }
     if (other
-            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId ||
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -9120,70 +9108,70 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
   }
 }
 
-extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId
     on
-        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId {
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId
   >
   get copyWith =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId(
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId<
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 > {
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId
     instance,
     TRes Function(
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId,
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId,
     )
     then,
-  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId;
 
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId;
 
   TRes call({
     String? sharedDictionaryId,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja?
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja?
     ja,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en?
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en?
     en,
     String? $__typename,
   });
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja<
     TRes
   >
   get ja;
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en<
     TRes
   >
   get en;
 }
 
-class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId(
     this._instance,
     this._then,
   );
 
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId
   _instance;
 
   final TRes Function(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId,
   )
   _then;
 
@@ -9195,7 +9183,7 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
     Object? en = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -9203,48 +9191,48 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
       ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en),
+                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja<
     TRes
   >
   get ja {
     final local$ja = _instance.ja;
-    return CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    return CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja(
       local$ja,
       (e) => call(ja: e),
     );
   }
 
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en<
     TRes
   >
   get en {
     final local$en = _instance.en;
-    return CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    return CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en(
       local$en,
       (e) => call(en: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId(
     this._res,
   );
 
@@ -9252,47 +9240,47 @@ class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
 
   call({
     String? sharedDictionaryId,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja?
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja?
     ja,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en?
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en?
     en,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja<
     TRes
   >
   get ja =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
         _res,
       );
 
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en<
     TRes
   >
   get en =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
         _res,
       );
 }
 
-class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja {
-  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja({
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
+                : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -9302,7 +9290,7 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
   }
 
   final List<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
   >
   nodes;
 
@@ -9333,7 +9321,7 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
       return true;
     }
     if (other
-            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja ||
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -9358,50 +9346,50 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
   }
 }
 
-extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja
     on
-        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja {
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja
   >
   get copyWith =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja<
   TRes
 > {
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja
     instance,
     TRes Function(
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja,
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja,
     )
     then,
-  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja;
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja;
 
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja;
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja;
 
   TRes call({
     List<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
-          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
         >?
       >,
     )
@@ -9409,23 +9397,23 @@ abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
   );
 }
 
-class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja<
           TRes
         > {
-  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja(
     this._instance,
     this._then,
   );
 
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja
   _instance;
 
   final TRes Function(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja,
   )
   _then;
 
@@ -9435,12 +9423,12 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+                  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -9450,12 +9438,12 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
 
   TRes nodes(
     Iterable<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
-          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
         >?
       >,
     )
@@ -9465,7 +9453,7 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+            : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
                 e,
                 (i) => i,
               ),
@@ -9474,14 +9462,14 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
   );
 }
 
-class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja(
     this._res,
   );
 
@@ -9489,7 +9477,7 @@ class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
 
   call({
     List<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
     >?
     nodes,
     String? $__typename,
@@ -9498,18 +9486,18 @@ class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
   nodes(_fn) => _res;
 }
 
-class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
-  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes({
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -9541,7 +9529,7 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
       return true;
     }
     if (other
-            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes ||
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -9559,55 +9547,55 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
   }
 }
 
-extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
     on
-        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
     instance,
     TRes Function(
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
 
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.stub(
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
   _instance;
 
   final TRes Function(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
   )
   _then;
 
@@ -9617,7 +9605,7 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -9628,14 +9616,14 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
   );
 }
 
-class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
     this._res,
   );
 
@@ -9644,23 +9632,23 @@ class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en {
-  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en({
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
+                : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -9670,7 +9658,7 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
   }
 
   final List<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
   >
   nodes;
 
@@ -9701,7 +9689,7 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
       return true;
     }
     if (other
-            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en ||
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -9726,50 +9714,50 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
   }
 }
 
-extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en
     on
-        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en {
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en
   >
   get copyWith =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en(
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en<
   TRes
 > {
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en
     instance,
     TRes Function(
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en,
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en,
     )
     then,
-  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en;
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en;
 
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en;
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en;
 
   TRes call({
     List<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
-          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
         >?
       >,
     )
@@ -9777,23 +9765,23 @@ abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
   );
 }
 
-class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en<
           TRes
         > {
-  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en(
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en(
     this._instance,
     this._then,
   );
 
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en
   _instance;
 
   final TRes Function(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en,
   )
   _then;
 
@@ -9803,12 +9791,12 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+                  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -9818,12 +9806,12 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
 
   TRes nodes(
     Iterable<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
-          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
         >?
       >,
     )
@@ -9833,7 +9821,7 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+            : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
                 e,
                 (i) => i,
               ),
@@ -9842,14 +9830,14 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
   );
 }
 
-class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en(
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en(
     this._res,
   );
 
@@ -9857,7 +9845,7 @@ class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
 
   call({
     List<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
     >?
     nodes,
     String? $__typename,
@@ -9866,18 +9854,18 @@ class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
   nodes(_fn) => _res;
 }
 
-class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
-  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes({
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -9909,7 +9897,7 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
       return true;
     }
     if (other
-            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes ||
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -9927,55 +9915,55 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
   }
 }
 
-extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
     on
-        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
     instance,
     TRes Function(
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
 
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.stub(
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
   _instance;
 
   final TRes Function(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
   )
   _then;
 
@@ -9985,7 +9973,7 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -9996,14 +9984,14 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
   );
 }
 
-class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
     this._res,
   );
 
@@ -10012,27 +10000,27 @@ class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId {
-  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId({
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId({
     required this.sharedDictionaryId,
     required this.ja,
     required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$ja = json['ja'];
     final l$en = json['en'];
     final l$$__typename = json['__typename'];
-    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId(
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
+      ja: Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
         (l$ja as Map<String, dynamic>),
       ),
-      en: Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
+      en: Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
         (l$en as Map<String, dynamic>),
       ),
       $__typename: (l$$__typename as String),
@@ -10041,10 +10029,10 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
 
   final String sharedDictionaryId;
 
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja
   ja;
 
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en
   en;
 
   final String $__typename;
@@ -10077,7 +10065,7 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
       return true;
     }
     if (other
-            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId ||
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -10105,70 +10093,70 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
   }
 }
 
-extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId
     on
-        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId {
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId
   >
   get copyWith =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId(
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId<
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 > {
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId
     instance,
     TRes Function(
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId,
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId,
     )
     then,
-  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId;
 
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId.stub(
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja?
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja?
     ja,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en?
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en?
     en,
     String? $__typename,
   });
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja<
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja<
     TRes
   >
   get ja;
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en<
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en<
     TRes
   >
   get en;
 }
 
-class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId(
     this._instance,
     this._then,
   );
 
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId
   _instance;
 
   final TRes Function(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId,
   )
   _then;
 
@@ -10180,7 +10168,7 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
     Object? en = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -10188,48 +10176,48 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
       ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja),
+                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en),
+                as Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja<
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja<
     TRes
   >
   get ja {
     final local$ja = _instance.ja;
-    return CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja(
+    return CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja(
       local$ja,
       (e) => call(ja: e),
     );
   }
 
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en<
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en<
     TRes
   >
   get en {
     final local$en = _instance.en;
-    return CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en(
+    return CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en(
       local$en,
       (e) => call(en: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId(
     this._res,
   );
 
@@ -10237,47 +10225,47 @@ class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
 
   call({
     String? sharedDictionaryId,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja?
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja?
     ja,
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en?
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en?
     en,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja<
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja<
     TRes
   >
   get ja =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
         _res,
       );
 
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en<
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en<
     TRes
   >
   get en =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
         _res,
       );
 }
 
-class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja {
-  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja({
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja(
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.fromJson(
+                : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -10287,7 +10275,7 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
   }
 
   final List<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
   >
   nodes;
 
@@ -10318,7 +10306,7 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
       return true;
     }
     if (other
-            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja ||
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -10343,50 +10331,50 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
   }
 }
 
-extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja
     on
-        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja {
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja
   >
   get copyWith =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja(
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja<
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja<
   TRes
 > {
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja
     instance,
     TRes Function(
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja,
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja,
     )
     then,
-  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja;
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja;
 
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja;
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja;
 
   TRes call({
     List<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
-          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
         >?
       >,
     )
@@ -10394,23 +10382,23 @@ abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
   );
 }
 
-class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja<
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja<
           TRes
         > {
-  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja(
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja(
     this._instance,
     this._then,
   );
 
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja
   _instance;
 
   final TRes Function(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja,
   )
   _then;
 
@@ -10420,12 +10408,12 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+                  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -10435,12 +10423,12 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
 
   TRes nodes(
     Iterable<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
-          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
         >?
       >,
     )
@@ -10450,7 +10438,7 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+            : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
                 e,
                 (i) => i,
               ),
@@ -10459,14 +10447,14 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
   );
 }
 
-class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja<
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja(
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja(
     this._res,
   );
 
@@ -10474,7 +10462,7 @@ class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
 
   call({
     List<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
     >?
     nodes,
     String? $__typename,
@@ -10483,18 +10471,18 @@ class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
   nodes(_fn) => _res;
 }
 
-class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes {
-  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes({
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.fromJson(
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -10526,7 +10514,7 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
       return true;
     }
     if (other
-            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes ||
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -10544,55 +10532,55 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
   }
 }
 
-extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
     on
-        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes {
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
     instance,
     TRes Function(
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes,
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes;
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes;
 
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.stub(
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes;
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
   _instance;
 
   final TRes Function(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes,
   )
   _then;
 
@@ -10602,7 +10590,7 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -10613,14 +10601,14 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
   );
 }
 
-class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
     this._res,
   );
 
@@ -10629,23 +10617,23 @@ class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en {
-  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en({
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en(
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.fromJson(
+                : Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -10655,7 +10643,7 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
   }
 
   final List<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
   >
   nodes;
 
@@ -10686,7 +10674,7 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
       return true;
     }
     if (other
-            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en ||
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -10711,50 +10699,50 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
   }
 }
 
-extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en
     on
-        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en {
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en
   >
   get copyWith =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en(
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en<
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en<
   TRes
 > {
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en
     instance,
     TRes Function(
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en,
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en,
     )
     then,
-  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en;
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en;
 
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en;
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en;
 
   TRes call({
     List<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
-          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
         >?
       >,
     )
@@ -10762,23 +10750,23 @@ abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
   );
 }
 
-class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en<
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en<
           TRes
         > {
-  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en(
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en(
     this._instance,
     this._then,
   );
 
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en
   _instance;
 
   final TRes Function(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en,
   )
   _then;
 
@@ -10788,12 +10776,12 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+                  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -10803,12 +10791,12 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
 
   TRes nodes(
     Iterable<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
-          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+          Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
         >?
       >,
     )
@@ -10818,7 +10806,7 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+            : CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
                 e,
                 (i) => i,
               ),
@@ -10827,14 +10815,14 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
   );
 }
 
-class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en<
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en(
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en(
     this._res,
   );
 
@@ -10842,7 +10830,7 @@ class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
 
   call({
     List<
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
     >?
     nodes,
     String? $__typename,
@@ -10851,18 +10839,18 @@ class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyI
   nodes(_fn) => _res;
 }
 
-class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes {
-  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes({
+class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes {
+  Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.fromJson(
+  factory Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+    return Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -10894,7 +10882,7 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
       return true;
     }
     if (other
-            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes ||
+            is! Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -10912,55 +10900,55 @@ class Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$shar
   }
 }
 
-extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+extension UtilityExtension$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
     on
-        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes {
-  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+        Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes {
+  CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+      CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+abstract class CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
     instance,
     TRes Function(
-      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes,
+      Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes;
+  ) = _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes;
 
-  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.stub(
+  factory CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes;
+  ) = _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+  _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+  final Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
   _instance;
 
   final TRes Function(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes,
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes,
   )
   _then;
 
@@ -10970,7 +10958,7 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+    Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -10981,14 +10969,14 @@ class _CopyWithImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$in
   );
 }
 
-class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+class _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+        CopyWith$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationBySharedAppellationsId$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+  _CopyWithStubImpl$Mutation$CompanyPageEdit$updateInfoCompanyByInfoCompanyId$infoCompany$sharedAppellationByNames$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
     this._res,
   );
 

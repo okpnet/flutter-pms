@@ -8,8 +8,8 @@
 #
 # 要件0026(2026-09-25、schema.graphql再取得)により、`InfoCompany.ceo`・
 # `InfoAddress.address1`/`address2`/`bill`が単純な`String`から`shared_appellations`への
-# 直接FK(UUID)へ変更された。会社名(`sharedAppellationToSharedAppellationsId`)と同じ
-# 入れ子ミューテーション構造(`sharedAppellationToCeo`/`sharedAppellationToAddress1`/
+# 直接FK(UUID)へ変更された。会社名(`sharedAppellationToNames`)と同じ
+# 入れ子ミューテーション構造(`sharedAppellationToCeoNames`/`sharedAppellationToAddress1`/
 # `sharedAppellationToAddress2`/`sharedAppellationToBill`)で、name/pronunciation/nickname
 # それぞれのshared_dictionary(と配下のshared_dictionary_value)を更新する
 # (docs/0034_view_yaml_graphql_evaluation_log.md参照)。
@@ -95,7 +95,7 @@ mutation CompanyPageEdit(
         remarks: $remarks
 
         # --- 会社名(共通名前仕様、shared_appellations経由でshared_dictionaryへ入れ子更新) ---
-        sharedAppellationToSharedAppellationsId: {
+        sharedAppellationToNames: {
           updateBySharedAppellationsId: {
             sharedAppellationsId: $sharedAppellationsId
             sharedAppellationPatch: {
@@ -146,7 +146,7 @@ mutation CompanyPageEdit(
         }
 
         # --- 代表(ceo、要件0026でshared_appellations経由のFKに変更) -----------------
-        sharedAppellationToCeo: {
+        sharedAppellationToCeoNames: {
           updateBySharedAppellationsId: {
             sharedAppellationsId: $ceoSharedAppellationsId
             sharedAppellationPatch: {
@@ -366,7 +366,7 @@ mutation CompanyPageEdit(
       webPage
       symbol
       remarks
-      sharedAppellationBySharedAppellationsId {
+      sharedAppellationByNames {
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {
           sharedDictionaryId
@@ -420,7 +420,7 @@ mutation CompanyPageEdit(
           }
         }
       }
-      ceo: sharedAppellationByCeo {
+      ceo: sharedAppellationByCeoNames {
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {
           sharedDictionaryId

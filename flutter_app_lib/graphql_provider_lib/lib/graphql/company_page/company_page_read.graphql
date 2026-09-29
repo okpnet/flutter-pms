@@ -76,7 +76,7 @@ query CompanyPageRead(
       remove
 
       # --- 会社名(共通名前仕様: shared_appellations経由) ------------------------
-      sharedAppellationBySharedAppellationsId {
+      sharedAppellationByNames {
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {
           sharedDictionaryId
@@ -111,7 +111,7 @@ query CompanyPageRead(
       }
 
       # --- 代表(ceo、要件0026でshared_appellations経由のFKに変更) -----------------
-      ceo: sharedAppellationByCeo {
+      ceo: sharedAppellationByCeoNames {
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {
           sharedDictionaryId
@@ -281,7 +281,7 @@ query CompanyPageRead(
           remove
 
           # --- 事業所名(view.yamlに`pick`指定が無いため、name/pronunciation/nicknameすべて) ---
-          labels: sharedAppellationBySharedAppellationsId {
+          labels: sharedAppellationByNames {
             sharedAppellationsId
             sharedDictionaryBySharedDictionaryNameId {
               sharedDictionaryId
@@ -440,7 +440,7 @@ query CompanyPageRead(
             phone
             symbol
             privatePhone
-            name: sharedAppellationBySharedAppellationsId {
+            name: sharedAppellationByNames {
               sharedAppellationsId
               sharedDictionaryBySharedDictionaryNameId {
                 sharedDictionaryId
@@ -481,7 +481,7 @@ query CompanyPageRead(
       historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
         historyId
         infoStaffId
-        sharedAppellationsId
+        names
       }
     }
   }

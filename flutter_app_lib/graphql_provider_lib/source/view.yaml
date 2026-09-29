@@ -26,12 +26,17 @@ dictionaryLabel: &dictionaryLabel
         # codeは呼び出し側が必ず指定する引数(requiredWhere)であり、ハードコードしない。
         # output: false … 常に出力から除外する。where/requiredWhere/defaultWhereはpickと違い
         # 除外されず、親(value)のLATERALサブクエリのJOIN/WHERE句の構築には使われ続ける。
+        # 要件0043: dictionaryLabelは画面のツリーの深い位置(子・孫)で使い回されるため、
+        # 祖先・兄弟の別ノードが持つ同名列(例: 各マスタ自身のcode列)とGraphQL引数名が
+        # 衝突しうる。{column, as}でこの1箇所だけ明示的にlanguageCodeへ改名しておけば、
+        # dictionaryLabelを経由する全画面に自動的に反映され、各画面での個別対応は不要になる。
         - name: language
           arrayType: toFirstOne
           from: shared_language_code
           output: false
           requiredWhere:
-            - code
+            - column: code
+              as: languageCode
           defaultWhere:
             - column: remove
               operator: "="
@@ -210,13 +215,71 @@ updateStaff: &updateStaff
     - code
     - name: name
       as: name
-      using: shared_appellations_id
+      using: names
       arrayType: toFirstOne
+      pick: # 2026/09/29　追加
+        - name
+        - pronunciation
+        - nickname
       <<: *appellationLabels
     - sex
     - phone
     - symbol
     - private_phone
+
+# 提供の読み込み　2026/09/29　追加
+ProvisionPage: &ProvisionPage
+  kind: read
+  from: info_provision
+  condition: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - info_provision_id
+    - info_company_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick:
+        - name
+        - pronunciation
+        - nickname
+      <<: *appellationLabels
+    - details
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *updateStaff
+
+# 提供の書き込み　2026/09/29　追加
+ProvisionPageEdit:
+  kind: edit
+  generateRfe: true
+  requiredWhere:
+    - info_provision_id
+  columns:
+    - info_provision_id
+    - info_company_id
+    - code
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *appellationLabels
+    - details
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
 
 # 事業所の読み込み
 # (要件0034追記4: CompanyPage.officesがこのOfficePageをアンカー参照するため、
@@ -227,6 +290,12 @@ OfficePage: &OfficePage
   kind: read
   from: info_office
   condition: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
   columns:
     - info_office_id
     - info_company_id
@@ -234,7 +303,11 @@ OfficePage: &OfficePage
     - name: labels
       as: labels
       arrayType: toFirstOne
-      using: shared_appellations_id
+      using: names
+      pick: # 2026/09/29　追加
+        - name
+        - pronunciation
+        - nickname
       <<: *appellationLabels
     - name: info_address_id
       as: address
@@ -249,10 +322,7 @@ OfficePage: &OfficePage
       using: [update_user_history_id,update_user_id]
       arrayType: toFirstOne
       <<: *updateStaff
-      defaultWhere:
-      - column: remove
-        operator: "="
-        value: false
+
 
 # 事業所編集
 OfficePageEdit:
@@ -267,7 +337,7 @@ OfficePageEdit:
     - code
     - name: labels
       arrayType: toFirstOne
-      using: shared_appellations_id
+      using: names
       <<: *appellationLabelsEdit
     - name: address
       arrayType: toFirstOne
@@ -283,18 +353,28 @@ CompanyPage:
   kind: read
   from: info_company
   condition: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
   columns:
     - info_company_id
     - web_page
     - name: ceo
       as: ceo_labels
       arrayType: toFirstOne
-      using: ceo
+      using: ceo_names
       pick:
         - name
         - pronunciation
         - nickname
       <<: *appellationLabels
+    - name: provision #2026/09/29　追加
+      arrayType: toMany
+      as: provisions
+      <<: *ProvisionPage
     - symbol
     - remarks
     - name: address
@@ -331,7 +411,7 @@ CompanyPageEdit:
     - web_page
     - name: ceo
       arrayType: toFirstOne
-      using: ceo
+      using: ceo_names
       <<: *appellationLabelsEdit
     - remarks
     - update_user_id
@@ -339,10 +419,16 @@ CompanyPageEdit:
     - remove
 
 # 担当者
-StaffPage:
+StaffPage: &StaffPage
   kind: read
   from: info_staff
   condition: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
   columns:
     - info_staff_id
     - info_company_id
@@ -350,7 +436,11 @@ StaffPage:
     - name: labels
       as: labels
       arrayType: toFirstOne
-      using: shared_appellations_id
+      using: names
+      pick: # 2026/09/29　追加
+        - name
+        - pronunciation
+        - nickname
       <<: *appellationLabels
     - sex
     - phone
@@ -363,10 +453,6 @@ StaffPage:
       using: [update_user_history_id,update_user_id]
       arrayType: toFirstOne
       <<: *updateStaff
-      defaultWhere:
-      - column: remove
-        operator: "="
-        value: false
 
 # 担当者編集
 StaffPageEdit:
@@ -381,7 +467,7 @@ StaffPageEdit:
     - code
     - name: labels
       arrayType: toFirstOne
-      using: shared_appellations_id
+      using: names
       <<: *appellationLabelsEdit
     - sex
     - phone
@@ -396,11 +482,21 @@ DepartmentCategoryPage: &DepartmentCategoryPage
   kind: read
   from: info_department_kind_value
   condition: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
   columns:
     - info_department_kind_value_id
     - name: labels
       arrayType: toFirstOne
-      using: shared_appellations_id
+      using: names
+      pick: # 2026/09/29　追加
+        - name
+        - pronunciation
+        - nickname
       <<: *appellationLabels
     - symbol
     - remarks
@@ -410,10 +506,6 @@ DepartmentCategoryPage: &DepartmentCategoryPage
       using: [update_user_history_id,update_user_id]
       arrayType: toFirstOne
       <<: *updateStaff
-      defaultWhere:
-      - column: remove
-        operator: "="
-        value: false
 
 # 組織区分編集
 DepartmentCategoryEdit:
@@ -426,20 +518,24 @@ DepartmentCategoryEdit:
     - info_department_kind_value_id
     - name: labels
       arrayType: toFirstOne
-      using: shared_appellations_id
+      using: names
       <<: *appellationLabelsEdit
     - remarks
     - update_user_id
     - update_user_history_id
     - remove
 
-
-
 # 組織
 DepartmentPage:
   kind: read
   from: info_department
   condition: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
   columns:
     - info_department_id
     - info_company_id
@@ -458,6 +554,13 @@ DepartmentPage:
         - column: remove
           operator: "="
           value: false
+    - name: descendants
+      arrayType: toFirstOne
+      as: descendants
+      using: info_department_id
+      pick:
+        - descendant_count
+      from: v_department_descendants
     - info_office_id
     - name: office
       arrayType: toFirstOne
@@ -467,7 +570,11 @@ DepartmentPage:
     - code
     - name: labels
       arrayType: toFirstOne
-      using: shared_appellations_id
+      using: names
+      pick: # 2026/09/29　追加
+        - name
+        - pronunciation
+        - nickname
       <<: *appellationLabels
     - name: address
       arrayType: toFirstOne
@@ -488,7 +595,7 @@ DepartmentPage:
             - info_department_kind_value_id
             - name: labels
               arrayType: toFirstOne
-              using: shared_appellations_id
+              using: names
               <<: *appellationLabels
               defaultWhere:
                 - column: remove
@@ -515,10 +622,6 @@ DepartmentPage:
       using: [update_user_history_id,update_user_id]
       arrayType: toFirstOne
       <<: *updateStaff
-      defaultWhere:
-      - column: remove
-        operator: "="
-        value: false
 
 # 組織編集
 DepartmentPageEdit:
@@ -552,7 +655,7 @@ DepartmentPageEdit:
         - code
         - name: labels
           arrayType: toFirstOne
-          using: shared_appellations_id
+          using: names
           <<: *appellationLabelsEdit
         - name: address
           arrayType: toFirstOne
@@ -565,7 +668,7 @@ DepartmentPageEdit:
     - code
     - name: labels
       arrayType: toFirstOne
-      using: shared_appellations_id
+      using: names
       <<: *appellationLabelsEdit
     - name: address
       arrayType: toFirstOne
@@ -586,7 +689,7 @@ DepartmentPageEdit:
             - info_department_kind_value_id
             - name: labels
               arrayType: toFirstOne
-              using: shared_appellations_id
+              using: names
               <<: *appellationLabelsEdit
         - info_department_id
         - remarks
@@ -597,3 +700,271 @@ DepartmentPageEdit:
     - update_user_id
     - update_user_history_id
     - remove
+
+# 力量読み込み
+CapabilityPage: &CapabilityPage
+  kind: read
+  from: mstr_capability
+  condition: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - mstr_capability_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *appellationLabels
+    - detail
+    - reference_value
+    - max
+    - min
+    - step 
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *updateStaff
+
+# 力量書き込み
+CapabilityPageEdit:
+  kind: edit
+  from: mstr_capability
+  requiredWhere:
+    - mstr_capability_id  
+  generateRfe: true
+  columns:
+    - mstr_capability_id
+    - code
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *appellationLabels
+    - detail
+    - reference_value
+    - max
+    - min
+    - step 
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 資格読み込み
+LicensePage: &LicensePage
+  kind: read
+  from: mstr_license
+  condition: true
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_license_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *appellationLabels
+    - detail
+    - public_license
+    - customer_license
+    - organization_license
+    - update_interval 
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *updateStaff
+
+# 資格書き込み
+LicensePageEdit:
+  kind: edit
+  from: mstr_license
+  requiredWhere:
+    - mstr_license_id
+  generateRfe: true
+  columns:
+    - mstr_license_id
+    - code
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *appellationLabels
+    - detail
+    - public_license
+    - customer_license
+    - organization_license
+    - update_interval 
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 役割読み込み
+PositionPage: &PositionPage
+  kind: read
+  from: info_position
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  generateRfe: true
+  columns:
+    - info_position_id
+    - priority
+    - names 
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *updateStaff
+
+# 役割読み込み
+PositionPageEdit: 
+  kind: edit
+  from: info_position
+  requiredWhere:
+    - info_position_id
+  generateRfe: true
+  columns:
+    - info_position_id
+    - priority
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *appellationLabels
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 担当者の組織割り当て読み込み
+AssignPage:
+  kind: read
+  from: info_assign
+  condition: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - info_assign_id
+    - name: staff
+      arrayType: toFirstOne
+      as: staff
+      using: info_staff_id
+      <<: *StaffPage
+    - info_position_id
+    - info_office_id
+    - info_department_id
+    - enable
+    - priority 
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *updateStaff
+
+# 担当者の組織割り当て書き込み
+AssignPageEdit:
+  kind: edit
+  from: info_assign
+  requiredWhere:
+    - info_assign_id
+  generateRfe: true
+  columns:
+    - info_assign_id
+    - info_staff_id
+    - info_position_id
+    - info_office_id
+    - info_department_id
+    - enable
+    - priority
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 人の力量の読み込み
+StaffToCapabilityPage:
+  kind: read
+  from: info_staff
+  condition: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - info_staff_id
+    - info_company_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: # 2026/09/29　追加
+        - name
+        - pronunciation
+        - nickname
+      <<: *appellationLabels
+    - sex
+    - phone
+    - private_phone
+    - name: capability
+      arrayType: toMany
+      as: capabilitys
+      using: info_staff_id
+      from: info_staff_capability
+      columns:
+        - mstr_staff_capability_id
+        - info_staff_id
+        - name: capability
+          arrayType: toFirstOne
+          using: mstr_capability_id
+          <<: *CapabilityPage
+        - value
+        - stop 
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *updateStaff
+
+
+# 力量と人の読み込み

@@ -24,7 +24,7 @@ mutation DepartmentCategoryEdit(
       infoDepartmentKindValuePatch: {
         remarks: $remarks
 
-        sharedAppellationToSharedAppellationsId: {
+        sharedAppellationToNames: {
           updateBySharedAppellationsId: {
             sharedAppellationsId: $sharedAppellationsId
             sharedAppellationPatch: {
@@ -79,7 +79,7 @@ mutation DepartmentCategoryEdit(
     infoDepartmentKindValue {
       infoDepartmentKindValueId
       remarks
-      labels: sharedAppellationBySharedAppellationsId {
+      labels: sharedAppellationByNames {
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {
           sharedDictionaryId

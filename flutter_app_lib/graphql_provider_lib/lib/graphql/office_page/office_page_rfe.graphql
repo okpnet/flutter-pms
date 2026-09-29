@@ -17,7 +17,7 @@ query OfficePageRfe(
     updateUserHistoryId
     remove
 
-    labels: sharedAppellationBySharedAppellationsId {
+    labels: sharedAppellationByNames {
       sharedAppellationsId
       sharedDictionaryBySharedDictionaryNameId {
         sharedDictionaryId

@@ -35,7 +35,7 @@ mutation StaffPageEdit(
         remarks: $remarks
 
         # --- 担当者名(共通名前仕様、shared_appellations経由でshared_dictionaryへ入れ子更新) ---
-        sharedAppellationToSharedAppellationsId: {
+        sharedAppellationToNames: {
           updateBySharedAppellationsId: {
             sharedAppellationsId: $sharedAppellationsId
             sharedAppellationPatch: {
@@ -95,7 +95,7 @@ mutation StaffPageEdit(
       phone
       privatePhone
       remarks
-      labels: sharedAppellationBySharedAppellationsId {
+      labels: sharedAppellationByNames {
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {
           sharedDictionaryId

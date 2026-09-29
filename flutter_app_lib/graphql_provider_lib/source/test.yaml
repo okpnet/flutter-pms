@@ -9,7 +9,7 @@ CompanyPage:
     - name: ceo
       as: ceo_labels
       arrayType: toFirstOne
-      using: ceo
+      using: ceo_names
       pick:
         - name
         - pronunciation
@@ -41,7 +41,7 @@ OfficePage: &OfficePage
     - name: labels
       as: labels
       arrayType: toFirstOne
-      using: shared_appellations_id
+      using: names
       <<: *appellationLabels
     - name: info_address_id
       arrayType: toFirstOne

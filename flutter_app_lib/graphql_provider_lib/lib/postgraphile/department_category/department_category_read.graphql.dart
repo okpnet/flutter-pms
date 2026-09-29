@@ -603,9 +603,7 @@ const documentNodeQueryDepartmentCategoryRead = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
-                        name: NameNode(
-                          value: 'sharedAppellationBySharedAppellationsId',
-                        ),
+                        name: NameNode(value: 'sharedAppellationByNames'),
                         alias: NameNode(value: 'labels'),
                         arguments: [],
                         directives: [],
@@ -974,10 +972,7 @@ const documentNodeQueryDepartmentCategoryRead = DocumentNode(
                               selectionSet: null,
                             ),
                             FieldNode(
-                              name: NameNode(
-                                value:
-                                    'sharedAppellationBySharedAppellationsId',
-                              ),
+                              name: NameNode(value: 'sharedAppellationByNames'),
                               alias: NameNode(value: 'name'),
                               arguments: [],
                               directives: [],

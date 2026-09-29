@@ -61,7 +61,7 @@ mutation OfficePageEdit(
       infoOfficePatch: {
         remarks: $remarks
 
-        sharedAppellationToSharedAppellationsId: {
+        sharedAppellationToNames: {
           updateBySharedAppellationsId: {
             sharedAppellationsId: $sharedAppellationsId
             sharedAppellationPatch: {
@@ -280,7 +280,7 @@ mutation OfficePageEdit(
       infoCompanyId
       code
       remarks
-      labels: sharedAppellationBySharedAppellationsId {
+      labels: sharedAppellationByNames {
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {
           sharedDictionaryId

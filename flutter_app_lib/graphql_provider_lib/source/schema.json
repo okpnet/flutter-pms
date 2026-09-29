@@ -86,12 +86,30 @@
       "type": "boolean",
       "description": "kind:editのノードにのみ意味を持つ(read、および対応するcolumnEntryでは無視する。生成時に警告としてもよいが検証はしない、点10と同じ方針)。trueのとき、このeditノードとまったく同じcolumnsツリーを、書き込み対象としてではなく単純なSELECT対象として解釈した「read for editing(旧RFE)」クエリを追加生成する。requiredWhereで指定した列(通常は主キー)を必須引数として1件取得する読み込み専用クエリになり、nested mutation記法(using経由の入れ子更新等)はSELECT用の入れ子(using経由の関連先を辿るだけ)に読み替える。この変換規則の詳細は27_yaml_to_graphql_conversion_rulesを参照。editとread for editingは常に同一のcolumnsツリーから導出されるため、両者が構造的に乖離することはない(要件0037、旧kind:RFEノードの手書き維持による乖離リスクの解消)。省略時(falseと同義)はread for editing用クエリを生成しない。"
     },
+    "whereEntry": {
+      "description": "where/requiredWhereの要素。単純な列名の文字列(生成される引数名は列名そのまま)、または{column, as}のオブジェクト(要件0043で追加。asで生成される引数名を明示的に上書きする)。同じcolumns配下で複数のwhere/requiredWhereエントリが同じ列名を指す場合(例: 共有アームを名前/読み/略称の3箇所で使い回す場合)で、呼び出し側が値を使い回すのではなく独立した値を渡したい場合や、祖先・兄弟の別ノードが持つ同名の列(例: マスタ自身の`code`列)とGraphQL引数名が衝突する場合に、asで明示的に別名を与えて衝突を避ける。列名の実在性・引数名衝突の有無はここでは検証しない(生成時エラー、点10と同じ方針)。",
+      "oneOf": [
+        { "type": "string", "minLength": 1 },
+        {
+          "type": "object",
+          "properties": {
+            "column": { "type": "string", "minLength": 1 },
+            "as": {
+              "type": "string",
+              "minLength": 1,
+              "description": "生成されるGraphQL引数名。省略不可(省略してよいだけならプレーンな文字列形式を使う)。columnEntry自身のasプロパティ(6-3節、出力フィールド名の上書き)とは独立しており、互いに影響しない。"
+            }
+          },
+          "required": ["column", "as"],
+          "additionalProperties": false
+        }
+      ]
+    },
     "whereList": {
       "type": "array",
-      "items": { "type": "string", "minLength": 1 },
+      "items": { "$ref": "#/$defs/whereEntry" },
       "minItems": 1,
-      "uniqueItems": true,
-      "description": "引数として使う列名の配列(requiredWhere/whereで共通利用)"
+      "description": "引数として使う列(where/requiredWhereで共通利用)の配列。要素はwhereEntry(文字列、または{column, as})。"
     },
     "columnsList": {
       "type": "array",
