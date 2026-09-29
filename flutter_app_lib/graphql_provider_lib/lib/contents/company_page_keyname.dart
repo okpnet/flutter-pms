@@ -565,6 +565,19 @@ abstract class CompanyPageKeyName {
         GraphQLTypeKind.string,
       );
 
+  // --- 提供一覧(要件0044追加、ProvisionPage埋め込み、Connection形状) --------------
+  static const ContentVariable provisions = ContentVariable(
+    'provisions',
+    GraphQLTypeKind.connection,
+  );
+
+  static const ContentVariable
+  provisions_labels_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue =
+      ContentVariable(
+        'provisions||labels||sharedDictionaryBySharedDictionaryNameId||value||dictionaryValue',
+        GraphQLTypeKind.string,
+      );
+
   // --- read専用: 共通項: 更新者(共通名前仕様の呼称セットID解決に必要なidのみ) ------
   static const ContentVariable
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId_historyId =

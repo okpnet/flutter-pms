@@ -22,6 +22,19 @@
 # 要件0037: `view.yaml`の`CompanyPageEdit`は`generateRfe: true`を持つ。編集フォームへの
 # プリロード用クエリ(旧RFE)は、独立したYAMLノードとしてではなく、本ノードと全く同じ
 # `columns`ツリーから自動導出される(company_page_rfe.graphql参照)。
+#
+# 要件0044追記: `provisions`(1対多、ProvisionPageEditと同じ列構成)の入れ子編集を追加した。
+# これまでの入れ子編集(会社名・代表・住所)はすべて`arrayType: toFirstOne`(1対1相当)で
+# あり、各フィールドを個別のスカラー変数に分解できたが、`provisions`は`arrayType: toMany`
+# (件数が可変)のため同じ分解方式が使えない。このため、PostGraphile
+# (postgraphile-plugin-nested-mutations)が`InfoProvisionFk2InverseInput`として提供する
+# 標準の入れ子書き込み型(`updateByInfoProvisionId`/`create`/`deleteByInfoProvisionId`)を
+# そのまま可変長リストの変数として公開する方式を採用した
+# (`$provisionsUpdate`/`$provisionsCreate`/`$provisionsDelete`)。各要素は
+# `lib/graphql/schema.graphql`の対応する入力型(`InfoProvisionOnInfoProvisionForInfoProvisionFk2UsingInfoProvisionPkcUpdate`
+# 等)にそのまま従う(`infoProvisionPatch`には`sharedAppellationToNames`による名称の
+# 入れ子更新も含められる。呼び出し側がMap/JSONとして直接組み立てる想定で、
+# provision_page_edit.graphqlのような個別スカラー変数への分解は行っていない)。
 
 mutation CompanyPageEdit(
   $infoCompanyId: UUID!
@@ -85,6 +98,9 @@ mutation CompanyPageEdit(
   $billNicknameSharedDictionaryId: UUID!
   $billNicknameJa: String!
   $billNicknameEn: String!
+  $provisionsUpdate: [InfoProvisionOnInfoProvisionForInfoProvisionFk2UsingInfoProvisionPkcUpdate!]
+  $provisionsCreate: [InfoProvisionFk2InfoProvisionCreateInput!]
+  $provisionsDelete: [InfoProvisionInfoProvisionPkcDelete!]
 ) {
   updateInfoCompanyByInfoCompanyId(
     input: {
@@ -357,6 +373,13 @@ mutation CompanyPageEdit(
               }
             }
           }
+        }
+
+        # --- 提供一覧(要件0044追加、1対多の入れ子編集) ------------------------------
+        infoProvisionsUsingInfoCompanyId: {
+          updateByInfoProvisionId: $provisionsUpdate
+          create: $provisionsCreate
+          deleteByInfoProvisionId: $provisionsDelete
         }
       }
     }
@@ -638,6 +661,76 @@ mutation CompanyPageEdit(
             ) {
               nodes {
                 dictionaryValue
+              }
+            }
+          }
+        }
+      }
+
+      # --- 提供一覧(要件0044追加、更新後の状態を返す) ------------------------------
+      provisions: infoProvisionsByInfoCompanyId {
+        totalCount
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+        nodes {
+          infoProvisionId
+          infoCompanyId
+          code
+          details
+          remarks
+          labels: sharedAppellationByNames {
+            sharedAppellationsId
+            sharedDictionaryBySharedDictionaryNameId {
+              sharedDictionaryId
+              ja: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+              en: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $enLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+            }
+            sharedDictionaryBySharedDictionaryPronunciationId {
+              sharedDictionaryId
+              ja: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+              en: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $enLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+            }
+            sharedDictionaryBySharedDictionaryNicknameId {
+              sharedDictionaryId
+              ja: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+              en: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $enLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
               }
             }
           }

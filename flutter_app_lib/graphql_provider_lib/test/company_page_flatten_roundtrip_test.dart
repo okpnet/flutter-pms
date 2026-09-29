@@ -155,6 +155,56 @@ Map<String, dynamic> _buildRawReadJson() => {
           'nodes': <dynamic>[],
           '__typename': 'InfoOfficesConnection',
         },
+        'provisions': {
+          'totalCount': 1,
+          'pageInfo': {
+            'hasNextPage': false,
+            'endCursor': null,
+            '__typename': 'PageInfo',
+          },
+          'nodes': [
+            {
+              'infoProvisionId': 'pv111111-1111-1111-1111-111111111111',
+              'infoCompanyId': 'c1111111-1111-1111-1111-111111111111',
+              'code': 'PV001',
+              'details': '提供内容の詳細テキスト',
+              'symbol': 'PV001',
+              'remarks': null,
+              'updateAt': '2026-09-29T00:00:00',
+              'remove': false,
+              'labels': _sharedAppellationReadJson(
+                appellationsId: 'apv11111-1111-1111-1111-111111111111',
+                nameDictionaryId: 'dpv11111-1111-1111-1111-111111111111',
+                nameValue: '一般提供',
+                pronunciationDictionaryId:
+                    'dpv22222-2222-2222-2222-222222222222',
+                nicknameDictionaryId: 'dpv33333-3333-3333-3333-333333333333',
+              ),
+              'update_user': {
+                'historyId': 'h1111111-1111-1111-1111-111111111111',
+                'infoStaffId': 's1111111-1111-1111-1111-111111111111',
+                'infoCompanyId': 'c1111111-1111-1111-1111-111111111111',
+                'code': 'U001',
+                'sex': null,
+                'phone': null,
+                'symbol': null,
+                'privatePhone': null,
+                'name': _sharedAppellationReadJson(
+                  appellationsId: 'a9999999-9999-9999-9999-999999999999',
+                  nameDictionaryId: 'd1111111-1111-1111-1111-111111111111',
+                  nameValue: '管理者 花子',
+                  pronunciationDictionaryId:
+                      'd2222222-2222-2222-2222-222222222222',
+                  nicknameDictionaryId:
+                      'd3333333-3333-3333-3333-333333333333',
+                ),
+                '__typename': 'HistoryInfoStaff',
+              },
+              '__typename': 'InfoProvision',
+            },
+          ],
+          '__typename': 'InfoProvisionsConnection',
+        },
         'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId': {
           'historyId': 'h1111111-1111-1111-1111-111111111111',
           'infoStaffId': 's1111111-1111-1111-1111-111111111111',
@@ -273,6 +323,35 @@ Map<String, dynamic> _infoAddressJson() => {
   '__typename': 'InfoAddress',
 };
 
+// 要件0044: provisions(入れ子編集後の状態、ja/en両方を持つ形状)。
+Map<String, dynamic> _provisionsEditJson() => {
+  'totalCount': 1,
+  'pageInfo': {
+    'hasNextPage': false,
+    'endCursor': null,
+    '__typename': 'PageInfo',
+  },
+  'nodes': [
+    {
+      'infoProvisionId': 'pv111111-1111-1111-1111-111111111111',
+      'infoCompanyId': 'c1111111-1111-1111-1111-111111111111',
+      'code': 'PV001',
+      'details': '提供内容の詳細テキスト(編集後)',
+      'remarks': null,
+      'labels': _sharedAppellationJson(
+        appellationsId: 'apv11111-1111-1111-1111-111111111111',
+        nameDictionaryId: 'dpv11111-1111-1111-1111-111111111111',
+        nameJa: '一般提供',
+        nameEn: 'General provision',
+        pronunciationDictionaryId: 'dpv22222-2222-2222-2222-222222222222',
+        nicknameDictionaryId: 'dpv33333-3333-3333-3333-333333333333',
+      ),
+      '__typename': 'InfoProvision',
+    },
+  ],
+  '__typename': 'InfoProvisionsConnection',
+};
+
 Map<String, dynamic> _buildRawEditJson() => {
   'updateInfoCompanyByInfoCompanyId': {
     'infoCompany': {
@@ -283,6 +362,7 @@ Map<String, dynamic> _buildRawEditJson() => {
       'sharedAppellationByNames': _companyNameJson(),
       'ceo': _ceoJson(),
       'infoAddressByInfoAddressId': _infoAddressJson(),
+      'provisions': _provisionsEditJson(),
       '__typename': 'InfoCompany',
     },
     'clientMutationId': null,
@@ -323,6 +403,18 @@ void main() {
 
     expect(restoredMap, equals(nodeMap));
     expect(restoredNode, equals(node));
+
+    // 要件0044: provisions(ProvisionPage埋め込み、1対多)の各レコードからlabelsの
+    // 表示名だけを取り出せることを確認する。
+    final provisionsConnection =
+        nodeMap[CompanyPageKeyName.provisions.name] as Map<String, dynamic>;
+    final provisionLabels = provisionsConnection.extractFromEachRecord(
+      'labels||sharedDictionaryBySharedDictionaryNameId||value||dictionaryValue',
+      collapseSingleRecordPaths: {
+        'labels||sharedDictionaryBySharedDictionaryNameId||value',
+      },
+    );
+    expect(provisionLabels, ['一般提供']);
 
     // ignore: avoid_print
     print('COMPANY_PAGE_READ_FLAT_MAP_JSON=${jsonEncode(flatMap)}');

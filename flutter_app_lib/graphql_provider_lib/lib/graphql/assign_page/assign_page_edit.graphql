@@ -1,0 +1,45 @@
+# assign_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: source/view.yaml #AssignPageEdit(担当者の組織割り当て、info_assign)
+#
+# 要件0044で`info_staff_id`(担当者)をPatchから除外していたが、ユーザー指示により
+# 担当者の付け替え(再割り当て)も編集対象に含めるよう修正した(2026-09-29追記)。
+# `info_position_id`/`info_office_id`/`info_department_id`とあわせて、この割り当てが
+# 「誰の・どこへの」割り当てかを表す4本のFKすべてが編集対象になる。
+
+mutation AssignPageEdit(
+  $infoAssignId: UUID!
+  $infoStaffId: UUID
+  $infoPositionId: UUID
+  $infoOfficeId: UUID
+  $infoDepartmentId: UUID
+  $enable: Boolean
+  $priority: Int
+  $remarks: String
+) {
+  updateInfoAssignByInfoAssignId(
+    input: {
+      infoAssignId: $infoAssignId
+      infoAssignPatch: {
+        infoStaffId: $infoStaffId
+        infoPositionId: $infoPositionId
+        infoOfficeId: $infoOfficeId
+        infoDepartmentId: $infoDepartmentId
+        enable: $enable
+        priority: $priority
+        remarks: $remarks
+      }
+    }
+  ) {
+    infoAssign {
+      infoAssignId
+      infoStaffId
+      infoPositionId
+      infoOfficeId
+      infoDepartmentId
+      enable
+      priority
+      remarks
+    }
+  }
+}

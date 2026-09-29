@@ -1,0 +1,18 @@
+# assign_page画面 - RFE(read for editing、要件0037: AssignPageEditのgenerateRfe: trueから導出)
+
+query AssignPageRfe($infoAssignId: UUID!) {
+  infoAssignByInfoAssignId(infoAssignId: $infoAssignId) {
+    infoAssignId
+    infoStaffId
+    infoPositionId
+    infoOfficeId
+    infoDepartmentId
+    enable
+    priority
+    remarks
+    updateAt
+    updateUserId
+    updateUserHistoryId
+    remove
+  }
+}

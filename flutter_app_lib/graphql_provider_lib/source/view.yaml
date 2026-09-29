@@ -274,7 +274,7 @@ ProvisionPageEdit:
     - name: labels
       arrayType: toFirstOne
       using: names
-      <<: *appellationLabels
+      <<: *appellationLabelsEdit
     - details
     - remarks
     - update_user_id
@@ -413,6 +413,29 @@ CompanyPageEdit:
       arrayType: toFirstOne
       using: ceo_names
       <<: *appellationLabelsEdit
+    - name: provision #2026/09/29　追加(CompanyPage.provisionsの入れ子編集)
+      # ProvisionPageEdit(トップノード)をそのまま<<でmergeすると、node専用の
+      # generateRfeプロパティがcolumnEntry位置では許可されずスキーマ違反になるため
+      # (schema.jsonのnode.generateRfeはcolumnEntryに無い)、generateRfe/requiredWhereを
+      # 除いたcolumnsのみをこの場で複製する(要件0044追記、ProvisionPageEditと同一内容を
+      # 保つこと)。
+      arrayType: toMany
+      as: provisions
+      kind: edit
+      from: info_provision
+      columns:
+        - info_provision_id
+        - info_company_id
+        - code
+        - name: labels
+          arrayType: toFirstOne
+          using: names
+          <<: *appellationLabelsEdit
+        - details
+        - remarks
+        - update_user_id
+        - update_user_history_id
+        - remove
     - remarks
     - update_user_id
     - update_user_history_id
@@ -751,12 +774,12 @@ CapabilityPageEdit:
     - name: labels
       arrayType: toFirstOne
       using: names
-      <<: *appellationLabels
+      <<: *appellationLabelsEdit
     - detail
     - reference_value
     - max
     - min
-    - step 
+    - step
     - remarks
     - update_user_id
     - update_user_history_id
@@ -767,6 +790,8 @@ LicensePage: &LicensePage
   kind: read
   from: mstr_license
   condition: true
+  requiredWhere:
+    - languageCode
   defaultWhere:
     - column: remove
       operator: =
@@ -810,7 +835,7 @@ LicensePageEdit:
     - name: labels
       arrayType: toFirstOne
       using: names
-      <<: *appellationLabels
+      <<: *appellationLabelsEdit
     - detail
     - public_license
     - customer_license
@@ -831,11 +856,18 @@ PositionPage: &PositionPage
     - column: remove
       operator: =
       value: false
-  generateRfe: true
   columns:
     - info_position_id
     - priority
-    - names 
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick:
+        - name
+        - pronunciation
+        - nickname
+      <<: *appellationLabels
     - symbol
     - remarks
     - update_at
@@ -845,7 +877,7 @@ PositionPage: &PositionPage
       arrayType: toFirstOne
       <<: *updateStaff
 
-# 役割読み込み
+# 役割書き込み
 PositionPageEdit: 
   kind: edit
   from: info_position
@@ -858,7 +890,7 @@ PositionPageEdit:
     - name: labels
       arrayType: toFirstOne
       using: names
-      <<: *appellationLabels
+      <<: *appellationLabelsEdit
     - remarks
     - update_user_id
     - update_user_history_id
@@ -935,7 +967,7 @@ StaffToCapabilityPage:
       as: labels
       arrayType: toFirstOne
       using: names
-      pick: # 2026/09/29　追加
+      pick:
         - name
         - pronunciation
         - nickname
@@ -947,12 +979,13 @@ StaffToCapabilityPage:
       arrayType: toMany
       as: capabilitys
       using: info_staff_id
-      from: info_staff_capability
+      from: mstr_staff_capability
       columns:
         - mstr_staff_capability_id
         - info_staff_id
         - name: capability
           arrayType: toFirstOne
+          as: capability
           using: mstr_capability_id
           <<: *CapabilityPage
         - value
@@ -966,5 +999,55 @@ StaffToCapabilityPage:
       arrayType: toFirstOne
       <<: *updateStaff
 
-
 # 力量と人の読み込み
+CapabilityToStaffPage:
+  kind: read
+  from: mstr_capability
+  condition: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - mstr_capability_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick:
+        - name
+        - pronunciation
+        - nickname
+      <<: *appellationLabels
+    - detail
+    - reference_value
+    - max
+    - min
+    - step
+    - name: staff_capability
+      arrayType: toMany
+      as: staff_capability
+      from: mstr_staff_capability
+      using: mstr_capability_id
+      columns:
+        - mstr_staff_capability_id
+        - info_staff_id
+        - name: staff
+          arrayType: toFirstOne
+          as: staff
+          using: info_staff_id
+          <<: *StaffPage
+        - mstr_capability_id
+        - value
+        - stop
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *updateStaff
