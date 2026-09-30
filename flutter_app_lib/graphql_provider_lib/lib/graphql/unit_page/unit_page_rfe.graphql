@@ -1,0 +1,76 @@
+# unit_page画面 - RFE(read for editing、要件0037: UnitPageEditのgenerateRfe: trueから導出)
+#
+# 要件0045で確立した最新方式(department_page_rfe.graphql参照)にあわせ、
+# $jaLanguageCodeId/$enLanguageCodeIdをUUID!(必須)として両言語を常時取得する
+# (旧$ja: Boolean!/$en: Boolean!の@includeトグルは使わない)。
+
+query UnitPageRfe(
+  $sharedUnitId: UUID!
+  $jaLanguageCodeId: UUID!
+  $enLanguageCodeId: UUID!
+) {
+  sharedUnitBySharedUnitId(sharedUnitId: $sharedUnitId) {
+    sharedUnitId
+    description
+    remarks
+    updateAt
+    updateUserId
+    updateUserHistoryId
+    remove
+
+    labels: sharedAppellationByNames {
+      sharedAppellationsId
+      sharedDictionaryBySharedDictionaryNameId {
+        sharedDictionaryId
+        ja: sharedDictionaryValuesBySharedDictionaryId(
+          condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+        ) {
+          nodes {
+            dictionaryValue
+          }
+        }
+        en: sharedDictionaryValuesBySharedDictionaryId(
+          condition: { sharedLanguageCodeId: $enLanguageCodeId }
+        ) {
+          nodes {
+            dictionaryValue
+          }
+        }
+      }
+      sharedDictionaryBySharedDictionaryPronunciationId {
+        sharedDictionaryId
+        ja: sharedDictionaryValuesBySharedDictionaryId(
+          condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+        ) {
+          nodes {
+            dictionaryValue
+          }
+        }
+        en: sharedDictionaryValuesBySharedDictionaryId(
+          condition: { sharedLanguageCodeId: $enLanguageCodeId }
+        ) {
+          nodes {
+            dictionaryValue
+          }
+        }
+      }
+      sharedDictionaryBySharedDictionaryNicknameId {
+        sharedDictionaryId
+        ja: sharedDictionaryValuesBySharedDictionaryId(
+          condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+        ) {
+          nodes {
+            dictionaryValue
+          }
+        }
+        en: sharedDictionaryValuesBySharedDictionaryId(
+          condition: { sharedLanguageCodeId: $enLanguageCodeId }
+        ) {
+          nodes {
+            dictionaryValue
+          }
+        }
+      }
+    }
+  }
+}

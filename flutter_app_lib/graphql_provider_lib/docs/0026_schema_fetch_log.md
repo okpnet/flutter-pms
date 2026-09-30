@@ -979,3 +979,68 @@ Fk#番号ズレノイズを除外した76件のうち、`InfoCompany`・`InfoAdd
 この間に`DepatmentCategoryPage`/`DepatmentCategoryEdit`(新テーブル`info_department_kind_value`
 向け)・`DepartmentPage`の拡充が追加されているが、いずれもまだGraphQL化されていないため
 本ログの評価範囲外。生成物の再作成は不要と判断し、実施していない。
+
+## 追記15: 0026再実行(2026/09/30、「0026を実行」の指示)
+
+### 接続・取得・差分判定
+
+`curl -m 10 http://192.168.1.100:5000/graphql` で疎通確認(`HTTP 405`、変化なし)後、
+`get-graphql-schema`で再取得したところ477,777行(直前の`lib/graphql/schema.graphql`は
+476,624行、+1,153行)を検出した。`type X implements Node`の一覧差分を取ったところ、
+以下の変化があった。
+
+- **削除**: `TransApproval`・`TransApprovalGr`
+- **追加**: `TransApprovalPattern`・`TransPreapproval`
+
+`@graphql-inspector/cli diff`はFk#番号ズレノイズを除外して348件を報告した。実質は
+以下に集約される。
+
+1.  **`MstrApproval`(承認マスタ、History含む)の`info_role_id`列が`info_position_id`へ
+    リネームされた**(`infoPositionByInfoRoleId`→`infoPositionByInfoPositionId`、
+    `InfoPosition.mstrApprovalsByInfoRoleId`等の逆参照フィールド名も追随)。
+    `view.yaml`の`ApprovalEdit`(1419行付近)には「既知の問題: 列名はinfo_role_idのまま」
+    というコメントが付いていたが、本リネームによりこの既知の問題は実スキーマ側の対応で
+    解消された可能性がある(`view.yaml`側の修正は本ログの範囲外、要件0044/0045相当の
+    スコープとして別途評価が必要)。
+2.  `MstrApproval`の逆参照`transApprovalsByTransApprovedId`が削除され、
+    `transPreapprovalsByMstrApprovalId`が追加された(1のNode一覧差分と対応する変更)。
+3.  **`SharedUnit`(単位マスタ、History含む)の`shared_appellations_id`列が`names`へ
+    リネームされた**(`sharedAppellationBySharedAppellationsId`→`sharedAppellationByNames`)。
+    `view.yaml`の`Unit`/`UnitPage`/`UnitPageEdit`(230行付近)は`using: names`と、
+    **リネーム後の新しい列名を既に先取りして記述していた**ため、今回の置き換えにより
+    かえって整合する形になった(旧スキーマの時点では`view.yaml`と実スキーマが
+    食い違っていたことになるが、既にGraphQL化されていない画面のため実害は無かった)。
+4.  `MstrDocument`/`HistoryMstrDocument`の`transApprovedId`列が削除された(1の
+    `TransApproval`廃止に伴う参照先消失)。
+
+いずれも`TransApproval`・`TransApprovalGr`・`TransApprovalPattern`・`TransPreapproval`・
+`MstrApproval`・`SharedUnit`・`MstrDocument`は、現在GraphQL化済みの12画面
+(company_page・office_page・staff_page・department_category・department_page・
+provision_page・capability_page・license_page・position_page・assign_page・
+staff_to_capability_page・capability_to_staff_page)のいずれからも参照されていない
+ことを確認した(該当テーブル名で`grep`し該当なし)。要件0026の指示は差分の有無のみを
+条件にしているため、要件0020のスキップ対象にはあたらないと判断し、**置き換えを実行した**。
+
+### 置き換え・要件0024の実行・影響確認
+
+`lib/graphql/schema.graphql`を置き換え(476,624行 → 477,777行)、
+`dart run build_runner build --build-filter="lib/postgraphile/schema.graphql.dart"`を実行した。
+
+結果: `Built with build_runner/aot in 315s; wrote 1 output.`(警告は既知のスカラー代替
+(BigFloat/BigInt/Date/Datetime/UUID/JSON)のみ)。
+
+- `git status`で`lib/graphql/schema.graphql`以外の生成済みファイルに変更が無いことを
+  確認(12画面すべての`*.graphql`/`*.graphql.dart`は再生成されていない)。
+- `dart analyze lib test`: error・warning 0件。
+- `flutter test test/company_page_flatten_roundtrip_test.dart`(代表1画面): 5件すべて
+  成功(exit code 0)。schema.graphql単体の置き換えによる副作用は無いことを確認した。
+
+### 結論・次のアクション
+
+`MstrApproval.info_role_id`→`info_position_id`のリネームは、`view.yaml`の
+`ApprovalEdit`が抱えていた既知の問題(列名不一致)を解消する可能性がある変更のため、
+次回`view.yaml`の承認関連画面(`ApprovalRead`/`ApprovalEdit`/`ApprovalDetailRead`/
+`ApprovalDetailEdit`/`ApprovalOperationPage`/`ApprovalOperationPageEdit`)を評価・
+生成する際に反映すること。`SharedUnit`の`names`リネームは`view.yaml`側が既に対応済み
+のため追加対応不要。新規テーブル`TransApprovalPattern`・`TransPreapproval`は
+`view.yaml`の対象外のため対応不要。

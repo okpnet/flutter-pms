@@ -251,6 +251,9 @@ Unit: &Unit
 UnitPage:
   kind: read
   from: shared_unit
+  condition: true # 要件0044レビュー: 他の全Read画面と同様に付与されるべきだが欠落していた
+  requiredWhere:
+    - languageCode # 要件0044レビュー: labels解決に必要、他の全Read画面と同様に欠落していた
   defaultWhere:
     - column: remove
       operator: "="
@@ -288,8 +291,9 @@ UnitPageEdit:
     - name: labels
       arrayType: toFirstOne
       using: names
-      <<: *appellationLabels
-    - description 
+      <<: *appellationLabelsEdit # 要件0044レビュー: 読み込み用アーム(appellationLabels)
+        # が誤って参照されていたため編集用アームに修正(他のEdit画面と同じ既知のパターン)
+    - description
     - remarks
     - update_user_id
     - update_user_history_id
@@ -1123,8 +1127,11 @@ CapableStaffPage:
       columns:
         - mstr_staff_capability_id
         - info_staff_id
-        - name: staff
-          arrayType: toMany
+        - name: staff # 意図はCapability(1)-Staff(N)だが、junction(mstr_staff_capability)
+          # 経由のため各行自身のinfo_staff_idは1対1(外向きのFK、要件0027変換ルール6-1節)。
+          # 要件0044レビューで指摘・ユーザー確認済み(生成物は元々toFirstOne相当で
+          # 正しかったため実害なし、view.yamlの記述のみ修正)。
+          arrayType: toFirstOne
           as: staff
           using: info_staff_id
           <<: *StaffPage
@@ -1376,11 +1383,11 @@ ApprovalRead: &ApprovalRead
   columns:
     - mstr_approval_id
     - info_department_id
-    - info_role_id # 既知の問題: 列名はinfo_role_idのまま(DBはリネームされていない)。
-      # リレーション先だけがinfo_position(旧mstr_role→info_position)に変更されたため、
-      # 列名は変更せずusing/relationのみ実スキーマにあわせる(schema.graphql確認済み:
-      # infoRoleId列・infoPositionByInfoRoleIdリレーション)。旧`info_position_id`
-      # (列名自体を変更していた誤り、コメント`#roleから変更された`も削除)を修正。
+    - info_position_id # 要件0026追記15(2026-09-30のschema.graphql再取得)で解消:
+      # 従来は列名がinfo_role_idのままでリレーション先だけinfo_positionという不一致
+      # だったが、今回のDB側対応でMstrApproval.info_role_id列自体がinfo_position_idへ
+      # リネームされたことをschema.graphqlで確認した(infoPositionId列・
+      # infoPositionByInfoPositionIdリレーション)。旧info_role_id表記を修正した。
     - priority
     - name: labels
       as: labels
@@ -1402,12 +1409,17 @@ ApprovalRead: &ApprovalRead
 
 # 承認の編集
 # 必ず参照で使用するためPageにはしない
-ApprovalEdit:
+ApprovalEdit: &ApprovalEdit
   kind: edit
   from: mstr_approval
-  requiredWhere: 
+  requiredWhere:
     - mstr_approval_id
-  generateRfe: true
+  # 要件0044レビュー: generateRfe: trueが付いていたが、ApprovalEditは常に
+  # ApprovalDetailEdit.approvalへのcolumnEntryとしてのみ参照され(単独のトップレベル
+  # 操作としては使われない、本ノード冒頭コメント参照)、generateRfeはnode専用の
+  # プロパティでcolumnEntryでは許可されない(schema.json)。マージ先(ApprovalDetailEdit)
+  # 自身が既にgenerateRfe: trueを持ちRFEを導出するため、ここでの指定は不要かつ
+  # スキーマ違反になるため削除した。
   columns:
     - mstr_approval_id
     - info_department_id
@@ -1416,11 +1428,11 @@ ApprovalEdit:
       as: department # 要件確認: タイプミス(pdepartmentn)を修正
       using: info_department_id
       <<: *DepartmentPage #IDを取得するだけ
-    - info_role_id # 既知の問題: 列名はinfo_role_idのまま(ApprovalRead参照)
+    - info_position_id # 要件0026追記15で解消(ApprovalRead参照、詳細は同箇所のコメント)
     - name: position
       arrayType: toFirstOne
       as: position
-      using: info_role_id # 列名が実際にはinfo_role_idのため修正(旧info_position_idは誤り)
+      using: info_position_id
       <<: *PositionPage #IDを取得するだけ
     - priority
     - name: labels
@@ -1463,12 +1475,14 @@ ApprovalDetailRead: &ApprovalDetailRead
 # 承認書き込み
 # 役職順に行う承認順序、エスカレーションのペア
 # 必ず参照で使用するためPageにはしない
-ApprovalDetailEdit: 
+ApprovalDetailEdit: &ApprovalDetailEdit
   kind: edit
   from: mstr_approval_pattern_detail
-  requiredWhere: 
+  requiredWhere:
     - mstr_approval_pattern_detail_id
-  generateRfe: true
+  # 要件0044レビュー: ApprovalEditと同じ理由(冒頭コメント参照)でgenerateRfe: trueを
+  # 削除した。アンカー未定義(&ApprovalDetailEdit欠落)でApprovalOperationPageEditからの
+  # `<<: *ApprovalDetailEdit`参照がYAMLパースエラーになっていたため、あわせて追加した。
   columns:
     - mstr_approval_pattern_detail_id
     - mstr_approval_id
@@ -1544,7 +1558,9 @@ ApprovalOperationPageEdit:
 ##### 品目
 
 # 梱包サイズ読み込み用
-SpecMeasurement:  &SpecMeasurement
+# 変更:SpecMeasurement->SpecMeasurementPage 統一。
+# 画面でSymbolが必要になる。誰が変更したか詳細画面で必要になる。
+SpecMeasurementPage:  &SpecMeasurementPage
   kind: read
   from: mstr_spec_measurement
   condition: true
@@ -1557,19 +1573,32 @@ SpecMeasurement:  &SpecMeasurement
   columns:
     - mstr_spec_measurement_id
     - measurement_value
-    - shared_unit_id 
-    - name: unit
+    # 要件0044フィードバック: 生のshared_unit_id列とunit(呼称アーム、内部で
+    # sharedUnitIdを出力する)が同じ値を二重に持っていたため、列数が少なくデータが
+    # 小さくなる後者のみに統一し、前者を削除した(差は軽微だが冗長なため)。
+    - name: unit # IDの解決のみ(Unitは参照用アーム)
       arrayType: toFirstOne
       using:  shared_unit_id
       <<: *Unit
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *updateStaff
 
-# 
+# 梱包サイズ書き込み
 SpecMeasurementEdit:  &SpecMeasurementEdit
   kind: edit
   from: mstr_spec_measurement
-  requiredWhere:
-    - languageCode
+  requiredWhere: # 要件0044レビュー: readのrequiredWhereをそのままコピーしたためlanguageCode
+    # (表示言語解決用、editの識別条件としては無関係)が混入していた。他のEditノードと同様、
+    # 自身のPK(mstr_spec_measurement_id)のみに修正。
     - mstr_spec_measurement_id
+  generateRfe: true # 要件0044レビュー: 他の全Editノードと同様に付与されるべきだが
+    # 欠落していたため追加した。
   defaultWhere:
     - column: remove
       operator: =
@@ -1577,11 +1606,65 @@ SpecMeasurementEdit:  &SpecMeasurementEdit
   columns:
     - mstr_spec_measurement_id
     - measurement_value
-    - shared_unit_id 
+    - shared_unit_id # Readとは異なりここでは削除しない: unitはIDの取得のみ(書き込み
+      # 不可)のため、既存のshared_unit行への付け替え自体はこの生FK列をPatch対象として
+      # 使う必要がある(出力側の重複は無くし、Patch入力としてのみ機能させる)。
     - name: unit
       arrayType: toFirstOne
       using:  shared_unit_id
       <<: *Unit #IDの取得のみ
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 製造元の読込
+# 統一
+ManufacturePage: &ManufacturePage
+  kind: read
+  from: mstr_manufacturer
+  condition: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_manufacturer_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *appellationLabels
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *updateStaff
+
+# 製造元の書き込み
+ManufacturePageEdit:  &ManufacturePageEdit
+  kind: edit
+  from: mstr_manufacturer
+  requiredWhere: 
+    - mstr_manufacturer_id
+  generateRfe: true
+  columns:
+    - mstr_manufacturer_id
+    - code
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *appellationLabels
     - remarks
     - update_user_id
     - update_user_history_id
@@ -1656,14 +1739,213 @@ ItemKindPageEdit:
     - code
     - name: labels
       arrayType: toFirstOne
-      using: ceo_names
+      using: names # 要件0044レビュー: `ceo_names`(CompanyPageEditからのコピー&ペースト
+        # 起因の誤り)になっていた。mstr_item_kindはcompanyのような複数呼称セットを
+        # 持たないテーブルのため、他画面と同様の汎用列名`names`に修正した。
       <<: *appellationLabelsEdit
     - remarks
     - update_user_id
     - update_user_history_id
     - remove
 
+# 品目のうち、設備などネストオブジェクトになるモノの読込
+ItemRead: &ItemRead
+  kind: read
+  condition: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_item_id
+    - mstr_item_kind_id
+    - name: kinds
+      arrayType: toFirstOne
+      as: kinds
+      using: mstr_item_kind_id
+      <<: *ItemKind
+    - code
+    - identification
+    - control_code
+    - name: manufacture
+      arrayType: toFirstOne
+      as: manufacture
+      using: mstr_manufacturer_id
+      <<: *ManufacturePage
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *appellationLabels
+    - label_code
+    - description
+    - name: unit # IDの解決のみ(Unitは参照用アーム)
+      arrayType: toFirstOne
+      using:  shared_unit_id
+      <<: *Unit
+    - increment
+    - lot
+    - stock_quantity 
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *updateStaff
 
+# 品目ツリーの読込
+ItemPage:
+  kind: read
+  from: mstr_item
+  condition: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_item_id
+    - name: parent
+      arrayType: toFirstOne
+      as: parent
+      using: mstr_item_id
+      from: mstr_item_tree
+      # NULL許容(呼び出し側がNULLを渡したときは組織テーブルのトップノードを表す)。
+      requiredWhere:
+        - parent_mstr_item_id
+      columns:
+        - mstr_item_tree_id
+        - parent_mstr_item_id
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+    - name: descendants
+      arrayType: toFirstOne
+      as: descendants
+      using: mstr_item_id
+      pick:
+        - descendant_count
+      from: v_item_descendants
+    - mstr_item_kind_id
+    - name: kinds
+      arrayType: toFirstOne
+      as: kinds
+      using: mstr_item_kind_id
+      <<: *ItemKind
+    - code
+    - identification
+    - control_code
+    - name: manufacture
+      arrayType: toFirstOne
+      as: manufacture
+      using: mstr_manufacturer_id
+      <<: *ManufacturePage
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *appellationLabels
+    - label_code
+    - description
+    - name: unit # IDの解決のみ(Unitは参照用アーム)
+      arrayType: toFirstOne
+      using:  shared_unit_id
+      <<: *Unit
+    - increment
+    - lot
+    - stock_quantity 
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *updateStaff
+
+#品目の書き込み
+ItemPageEdit:
+  kind: edit
+  from: mstr_item
+  requiredWhere:
+    - mstr_item_id
+  generateRfe: true
+  columns:
+    - mstr_item_id
+    - name: parent
+      arrayType: toFirstOne
+      as: parent
+      using: mstr_item_id
+      from: mstr_item_tree
+      # NULL許容(呼び出し側がNULLを渡したときは組織テーブルのトップノードを表す)。
+      requiredWhere:
+        - parent_mstr_item_id
+      columns:
+        - mstr_item_tree_id
+        - parent_mstr_item_id
+        - code
+        - control_code
+        - name: labels
+          arrayType: toFirstOne
+          using: names
+          <<: *appellationLabelsEdit
+        - quantity
+        - detail 
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+    - name: descendants
+      arrayType: toFirstOne
+      as: descendants
+      using: mstr_item_id
+      pick:
+        - descendant_count
+      from: v_item_descendants
+    - mstr_item_kind_id
+    - name: kinds
+      arrayType: toFirstOne
+      using: mstr_item_kind_id
+      <<: *ItemKind #IDの取得のみ
+    - code
+    - identification
+    - control_code
+    - name: manufacture
+      arrayType: toFirstOne
+      as: manufacture
+      using: mstr_manufacturer_id
+      <<: *ManufacturePageEdit
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *appellationLabelsEdit
+    - label_code
+    - description
+    - name: unit # IDの解決のみ(Unitは参照用アーム)
+      arrayType: toFirstOne
+      using:  shared_unit_id
+      <<: *Unit
+    - increment
+    - lot
+    - stock_quantity 
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
 
 ##### 設備
 

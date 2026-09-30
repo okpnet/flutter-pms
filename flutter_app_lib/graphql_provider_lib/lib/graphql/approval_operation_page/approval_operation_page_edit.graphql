@@ -1,0 +1,237 @@
+# approval_operation_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: source/view.yaml #ApprovalOperationPageEdit(承認オペレーション、
+# mstr_approval_pattern)。
+#
+# `pattern_detail`(mstr_approval_pattern_detail、1対多)はcompany_page_edit.graphqlの
+# `provisions`と同じ方針で、PostGraphileの入れ子書き込み型をそのままリスト変数として
+# 公開する($patternDetailUpdate/$patternDetailCreate/$patternDetailDelete)。各要素は
+# `lib/graphql/schema.graphql`の対応する入力型に従う。内側の`approval`
+# (mstr_approval、要件0044参照)への編集(名称・部署ID・役割ID)は、要素のPatch内で
+# `mstrApprovalToMstrApprovalId.updateByMstrApprovalId`としてさらに入れ子で表現できるが、
+# 本ファイルでは結果選択(output)側のみを完全にネストし、書き込み側は呼び出し側が
+# 各要素のPatchオブジェクトを直接組み立てる想定とする(department/positionは
+# view.yamlコメントのとおりIDを取得するだけで、編集はしない)。
+#
+# 監査列(update_user_id/update_user_history_id/remove)は要件0045の方針により
+# 変数・Patch・出力から除外する。
+
+mutation ApprovalOperationPageEdit(
+  $mstrApprovalPatternId: UUID!
+  $remarks: String
+  $sharedAppellationsId: UUID!
+  $jaLanguageCodeId: UUID!
+  $enLanguageCodeId: UUID!
+  $nameSharedDictionaryId: UUID!
+  $nameJa: String!
+  $nameEn: String!
+  $pronunciationSharedDictionaryId: UUID!
+  $pronunciationJa: String!
+  $pronunciationEn: String!
+  $nicknameSharedDictionaryId: UUID!
+  $nicknameJa: String!
+  $nicknameEn: String!
+  $patternDetailUpdate: [MstrApprovalPatternDetailOnMstrApprovalPatternDetailForMstrApprovalPatternDetailFk1UsingMstrApprovalPatternDetailPkcUpdate!]
+  $patternDetailCreate: [MstrApprovalPatternDetailFk1MstrApprovalPatternDetailCreateInput!]
+  $patternDetailDelete: [MstrApprovalPatternDetailMstrApprovalPatternDetailPkcDelete!]
+) {
+  updateMstrApprovalPatternByMstrApprovalPatternId(
+    input: {
+      mstrApprovalPatternId: $mstrApprovalPatternId
+      mstrApprovalPatternPatch: {
+        remarks: $remarks
+
+        sharedAppellationToNames: {
+          updateBySharedAppellationsId: {
+            sharedAppellationsId: $sharedAppellationsId
+            sharedAppellationPatch: {
+              sharedDictionaryToSharedDictionaryNameId: {
+                updateBySharedDictionaryId: {
+                  sharedDictionaryId: $nameSharedDictionaryId
+                  sharedDictionaryPatch: {
+                    sharedDictionaryValuesUsingSharedDictionaryId: {
+                      deleteOthers: true
+                      create: [
+                        { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $nameJa }
+                        { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $nameEn }
+                      ]
+                    }
+                  }
+                }
+              }
+              sharedDictionaryToSharedDictionaryPronunciationId: {
+                updateBySharedDictionaryId: {
+                  sharedDictionaryId: $pronunciationSharedDictionaryId
+                  sharedDictionaryPatch: {
+                    sharedDictionaryValuesUsingSharedDictionaryId: {
+                      deleteOthers: true
+                      create: [
+                        { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $pronunciationJa }
+                        { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $pronunciationEn }
+                      ]
+                    }
+                  }
+                }
+              }
+              sharedDictionaryToSharedDictionaryNicknameId: {
+                updateBySharedDictionaryId: {
+                  sharedDictionaryId: $nicknameSharedDictionaryId
+                  sharedDictionaryPatch: {
+                    sharedDictionaryValuesUsingSharedDictionaryId: {
+                      deleteOthers: true
+                      create: [
+                        { sharedLanguageCodeId: $jaLanguageCodeId, dictionaryValue: $nicknameJa }
+                        { sharedLanguageCodeId: $enLanguageCodeId, dictionaryValue: $nicknameEn }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        mstrApprovalPatternDetailsUsingMstrApprovalPatternId: {
+          updateByMstrApprovalPatternDetailId: $patternDetailUpdate
+          create: $patternDetailCreate
+          deleteByMstrApprovalPatternDetailId: $patternDetailDelete
+        }
+      }
+    }
+  ) {
+    mstrApprovalPattern {
+      mstrApprovalPatternId
+      remarks
+      labels: sharedAppellationByNames {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          ja: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+          en: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+        sharedDictionaryBySharedDictionaryPronunciationId {
+          sharedDictionaryId
+          ja: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+          en: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+        sharedDictionaryBySharedDictionaryNicknameId {
+          sharedDictionaryId
+          ja: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+          en: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+      }
+
+      pattern_detail: mstrApprovalPatternDetailsByMstrApprovalPatternId {
+        totalCount
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+        nodes {
+          mstrApprovalPatternDetailId
+          mstrApprovalId
+          mstrApprovalPatternId
+          remarks
+
+          approval: mstrApprovalByMstrApprovalId {
+            mstrApprovalId
+            infoDepartmentId
+            infoPositionId
+            priority
+            remarks
+            labels: sharedAppellationByNames {
+              sharedAppellationsId
+              sharedDictionaryBySharedDictionaryNameId {
+                sharedDictionaryId
+                ja: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+                en: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+              }
+              sharedDictionaryBySharedDictionaryPronunciationId {
+                sharedDictionaryId
+                ja: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+                en: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+              }
+              sharedDictionaryBySharedDictionaryNicknameId {
+                sharedDictionaryId
+                ja: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+                en: sharedDictionaryValuesBySharedDictionaryId(
+                  condition: { sharedLanguageCodeId: $enLanguageCodeId }
+                ) {
+                  nodes {
+                    dictionaryValue
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

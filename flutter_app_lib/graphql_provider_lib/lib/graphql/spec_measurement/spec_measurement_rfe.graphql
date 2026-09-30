@@ -1,0 +1,66 @@
+# spec_measurement画面 - RFE(read for editing、要件0037:
+#   SpecMeasurementEditのgenerateRfe: trueから導出)
+#
+# `unit`は編集対象ではなく表示専用(IDの取得のみ、spec_measurement_edit.graphql参照)
+# のため、名称・住所のような編集対象の呼称セットとは異なりja/en両方ではなく
+# 現在の表示言語1つ($languageCodeId)のみを解決する(一覧表示と同じ考え方)。
+#
+# 要件0044フィードバック: 生の`sharedUnitId`は、spec_measurement_read.graphqlでは
+# `unit.sharedUnitId`と重複するため削除したが、本ファイルはEditと同一のcolumnsツリー
+# から自動導出される(要件0037)ため、Editが編集フォームへの現在値プリロード用に
+# 保持している`sharedUnitId`をそのまま引き継ぐ(削除しない)。
+
+query SpecMeasurementRfe(
+  $mstrSpecMeasurementId: UUID!
+  $languageCodeId: UUID!
+) {
+  mstrSpecMeasurementByMstrSpecMeasurementId(
+    mstrSpecMeasurementId: $mstrSpecMeasurementId
+  ) {
+    mstrSpecMeasurementId
+    measurementValue
+    sharedUnitId
+    remarks
+    updateAt
+    updateUserId
+    updateUserHistoryId
+    remove
+
+    unit: sharedUnitBySharedUnitId {
+      sharedUnitId
+      labels: sharedAppellationByNames {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          value: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $languageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+        sharedDictionaryBySharedDictionaryPronunciationId {
+          sharedDictionaryId
+          value: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $languageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+        sharedDictionaryBySharedDictionaryNicknameId {
+          sharedDictionaryId
+          value: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $languageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+      }
+    }
+  }
+}
