@@ -708,7 +708,7 @@ create table tests.history_mstr_document (
     title uuid not null,
     control_number varchar(255) not null,
     version_code varchar(255) default '',
-    trans_approved_id uuid not null,
+    trans_approval_pattern_id uuid not null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -726,7 +726,7 @@ create table tests.mstr_document (
     title uuid not null,
     control_number varchar(255) not null,
     version_code varchar(255) default '',
-    trans_approved_id uuid not null,
+    trans_approval_pattern_id uuid not null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -1550,7 +1550,7 @@ create table tests.history_mstr_approval (
     history_id uuid default gen_random_uuid(),
     mstr_approval_id uuid not null,
     info_department_id uuid default null,
-    info_role_id uuid not null,
+    info_position_id uuid not null,
     priority smallint default 32767,
     names uuid not null,
     revision integer default 1,
@@ -1658,7 +1658,7 @@ create table tests.history_info_address (
 create table tests.history_shared_unit (
     history_id uuid default gen_random_uuid(),
     shared_unit_id uuid not null,
-    shared_appellations_id uuid not null,
+    names uuid not null,
     description varchar(1024) default null,
     revision integer default 1,
     symbol varchar(16) default '',
@@ -2019,11 +2019,13 @@ create table tests.info_access_path_approval (
     remove boolean default 'f'
 );
 create table tests.trans_approved (
-    trans_approved_id uuid not null,
-    period timestamp not null,
-    status smallint default 32767,
-    priority smallint default 0,
+    trans_approved_id uuid default gen_random_uuid(),
+    trans_preapproval_id uuid not null,
+    approved boolean default 'f',
+    status jsonb default null,
     symbol varchar(16) default '',
+    approver_history_id uuid not null,
+    approver_info_staff_id uuid not null,
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2033,7 +2035,7 @@ create table tests.trans_approved (
 create table tests.mstr_approval (
     mstr_approval_id uuid default gen_random_uuid(),
     info_department_id uuid default null,
-    info_role_id uuid not null,
+    info_position_id uuid not null,
     priority smallint default 32767,
     names uuid not null,
     revision integer default 1,
@@ -2067,11 +2069,11 @@ create table tests.mstr_approval_pattern (
     update_user_history_id uuid default null,
     remove boolean default 'f'
 );
-create table tests.trans_approval (
-    trans_approval_gr_id uuid not null,
-    trans_approved_id uuid not null,
-    staff_history_id uuid not null,
-    info_staff_id uuid not null,
+create table tests.trans_preapproval (
+    trans_preapproval_id uuid default gen_random_uuid(),
+    trans_approval_pattern_id uuid not null,
+    mstr_approval_id uuid not null,
+    period timestamp default null,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -2079,11 +2081,10 @@ create table tests.trans_approval (
     update_user_history_id uuid default null,
     remove boolean default 'f'
 );
-create table tests.trans_approval_gr (
-    trans_approval_gr_id uuid default gen_random_uuid(),
+create table tests.trans_approval_pattern (
+    trans_approval_pattern_id uuid default gen_random_uuid(),
     mstr_approval_pattern_id uuid not null,
-    trans_approved_id uuid not null,
-    status smallint default 32767,
+    status jsonb default null,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -2999,7 +3000,7 @@ create table tests.mstr_item_tree (
 );
 create table tests.shared_unit (
     shared_unit_id uuid default gen_random_uuid(),
-    shared_appellations_id uuid not null,
+    names uuid not null,
     description varchar(1024) default null,
     revision integer default 1,
     symbol varchar(16) default '',
@@ -3853,7 +3854,7 @@ comment on column tests.history_mstr_document.trans_file_id is 'ファイルID';
 comment on column tests.history_mstr_document.title is 'タイトル';
 comment on column tests.history_mstr_document.control_number is '管理番号';
 comment on column tests.history_mstr_document.version_code is '版コード';
-comment on column tests.history_mstr_document.trans_approved_id is '承認結果ID';
+comment on column tests.history_mstr_document.trans_approval_pattern_id is '承認実行パターンID';
 comment on column tests.history_mstr_document.revision is 'レビジョン';
 comment on column tests.history_mstr_document.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_document.remarks is '備考';
@@ -3870,7 +3871,7 @@ comment on column tests.mstr_document.trans_file_id is 'ファイルID';
 comment on column tests.mstr_document.title is 'タイトル';
 comment on column tests.mstr_document.control_number is '管理番号';
 comment on column tests.mstr_document.version_code is '版コード';
-comment on column tests.mstr_document.trans_approved_id is '承認結果ID';
+comment on column tests.mstr_document.trans_approval_pattern_id is '承認実行パターンID';
 comment on column tests.mstr_document.revision is 'レビジョン';
 comment on column tests.mstr_document.symbol is 'リニアシンボル';
 comment on column tests.mstr_document.remarks is '備考';
@@ -4638,7 +4639,7 @@ comment on table tests.history_mstr_approval is '承認マスタ履歴';
 comment on column tests.history_mstr_approval.history_id is '利益ID';
 comment on column tests.history_mstr_approval.mstr_approval_id is '承認ID';
 comment on column tests.history_mstr_approval.info_department_id is '組織情報ID';
-comment on column tests.history_mstr_approval.info_role_id is '役割ID';
+comment on column tests.history_mstr_approval.info_position_id is '役割ID';
 comment on column tests.history_mstr_approval.priority is '順位';
 comment on column tests.history_mstr_approval.names is '名称';
 comment on column tests.history_mstr_approval.revision is 'レビジョン';
@@ -4739,7 +4740,7 @@ comment on column tests.history_info_address.remove is '削除';
 comment on table tests.history_shared_unit is '単位履歴';
 comment on column tests.history_shared_unit.history_id is '履歴ID';
 comment on column tests.history_shared_unit.shared_unit_id is '単位ID';
-comment on column tests.history_shared_unit.shared_appellations_id is '呼称セットID';
+comment on column tests.history_shared_unit.names is '単位名称';
 comment on column tests.history_shared_unit.description is '詳細';
 comment on column tests.history_shared_unit.revision is 'レビジョン';
 comment on column tests.history_shared_unit.symbol is 'リニアシンボル';
@@ -5075,10 +5076,12 @@ comment on column tests.info_access_path_approval.update_user_history_id is '更
 comment on column tests.info_access_path_approval.remove is '削除';
 comment on table tests.trans_approved is '承認結果';
 comment on column tests.trans_approved.trans_approved_id is '承認結果ID';
-comment on column tests.trans_approved.period is '期限';
+comment on column tests.trans_approved.trans_preapproval_id is '承認前ID';
+comment on column tests.trans_approved.approved is '承認適用';
 comment on column tests.trans_approved.status is '状態';
-comment on column tests.trans_approved.priority is '順';
 comment on column tests.trans_approved.symbol is 'リニアシンボル';
+comment on column tests.trans_approved.approver_history_id is '承認者履歴ID';
+comment on column tests.trans_approved.approver_info_staff_id is '承認者担当者ID';
 comment on column tests.trans_approved.remarks is '備考';
 comment on column tests.trans_approved.update_at is '更新日時';
 comment on column tests.trans_approved.update_user_id is '更新者ID';
@@ -5087,7 +5090,7 @@ comment on column tests.trans_approved.remove is '削除';
 comment on table tests.mstr_approval is '承認マスタ';
 comment on column tests.mstr_approval.mstr_approval_id is '承認ID';
 comment on column tests.mstr_approval.info_department_id is '組織情報ID';
-comment on column tests.mstr_approval.info_role_id is '役割ID';
+comment on column tests.mstr_approval.info_position_id is '役割ID';
 comment on column tests.mstr_approval.priority is '順位';
 comment on column tests.mstr_approval.names is '名称';
 comment on column tests.mstr_approval.revision is 'レビジョン';
@@ -5118,28 +5121,27 @@ comment on column tests.mstr_approval_pattern.update_at is '更新日時';
 comment on column tests.mstr_approval_pattern.update_user_id is '更新者ID';
 comment on column tests.mstr_approval_pattern.update_user_history_id is '更新者履歴ID';
 comment on column tests.mstr_approval_pattern.remove is '削除';
-comment on table tests.trans_approval is '承認';
-comment on column tests.trans_approval.trans_approval_gr_id is '承認グループID';
-comment on column tests.trans_approval.trans_approved_id is '承認結果ID';
-comment on column tests.trans_approval.staff_history_id is '履歴ID';
-comment on column tests.trans_approval.info_staff_id is '担当者ID';
-comment on column tests.trans_approval.symbol is 'リニアシンボル';
-comment on column tests.trans_approval.remarks is '備考';
-comment on column tests.trans_approval.update_at is '更新日時';
-comment on column tests.trans_approval.update_user_id is '更新者ID';
-comment on column tests.trans_approval.update_user_history_id is '更新者履歴ID';
-comment on column tests.trans_approval.remove is '削除';
-comment on table tests.trans_approval_gr is '認証グループ';
-comment on column tests.trans_approval_gr.trans_approval_gr_id is '承認グループID';
-comment on column tests.trans_approval_gr.mstr_approval_pattern_id is '承認パターンID';
-comment on column tests.trans_approval_gr.trans_approved_id is '承認結果ID';
-comment on column tests.trans_approval_gr.status is '状態';
-comment on column tests.trans_approval_gr.symbol is 'リニアシンボル';
-comment on column tests.trans_approval_gr.remarks is '備考';
-comment on column tests.trans_approval_gr.update_at is '更新日時';
-comment on column tests.trans_approval_gr.update_user_id is '更新者ID';
-comment on column tests.trans_approval_gr.update_user_history_id is '更新者履歴ID';
-comment on column tests.trans_approval_gr.remove is '削除';
+comment on table tests.trans_preapproval is '承認前';
+comment on column tests.trans_preapproval.trans_preapproval_id is '承認前ID';
+comment on column tests.trans_preapproval.trans_approval_pattern_id is '承認実行パターンID';
+comment on column tests.trans_preapproval.mstr_approval_id is '承認ID';
+comment on column tests.trans_preapproval.period is '期限';
+comment on column tests.trans_preapproval.symbol is 'リニアシンボル';
+comment on column tests.trans_preapproval.remarks is '備考';
+comment on column tests.trans_preapproval.update_at is '更新日時';
+comment on column tests.trans_preapproval.update_user_id is '更新者ID';
+comment on column tests.trans_preapproval.update_user_history_id is '更新者履歴ID';
+comment on column tests.trans_preapproval.remove is '削除';
+comment on table tests.trans_approval_pattern is '承認実行パターン';
+comment on column tests.trans_approval_pattern.trans_approval_pattern_id is '承認実行パターンID';
+comment on column tests.trans_approval_pattern.mstr_approval_pattern_id is '承認パターンID';
+comment on column tests.trans_approval_pattern.status is '状態';
+comment on column tests.trans_approval_pattern.symbol is 'リニアシンボル';
+comment on column tests.trans_approval_pattern.remarks is '備考';
+comment on column tests.trans_approval_pattern.update_at is '更新日時';
+comment on column tests.trans_approval_pattern.update_user_id is '更新者ID';
+comment on column tests.trans_approval_pattern.update_user_history_id is '更新者履歴ID';
+comment on column tests.trans_approval_pattern.remove is '削除';
 comment on table tests.trans_audit_member is '監査参加者';
 comment on column tests.trans_audit_member.trans_audit_member_id is '監査参加者ID';
 comment on column tests.trans_audit_member.trans_audit_id is '監査ID';
@@ -5987,7 +5989,7 @@ comment on column tests.mstr_item_tree.update_user_history_id is '更新者履�
 comment on column tests.mstr_item_tree.remove is '削除';
 comment on table tests.shared_unit is '単位';
 comment on column tests.shared_unit.shared_unit_id is '単位ID';
-comment on column tests.shared_unit.shared_appellations_id is '呼称セットID';
+comment on column tests.shared_unit.names is '単位名称';
 comment on column tests.shared_unit.description is '詳細';
 comment on column tests.shared_unit.revision is 'レビジョン';
 comment on column tests.shared_unit.symbol is 'リニアシンボル';
@@ -7078,20 +7080,18 @@ alter table tests.mstr_approval_pattern
     add constraint mstr_approval_pattern_PKC primary key (mstr_approval_pattern_id);
 alter table tests.mstr_approval_pattern
      add constraint mstr_approval_pattern_IX1 unique (symbol);
-create unique index trans_approval_PKI
-    on tests.trans_approval(trans_approval_gr_id);
-alter table tests.trans_approval
-    add constraint trans_approval_PKC primary key (trans_approval_gr_id);
-alter table tests.trans_approval
-     add constraint trans_approval_IX1 unique (symbol);
-create unique index trans_approval_gr_PKI
-    on tests.trans_approval_gr(trans_approval_gr_id);
-alter table tests.trans_approval_gr
-    add constraint trans_approval_gr_PKC primary key (trans_approval_gr_id);
-alter table tests.trans_approval_gr
-     add constraint trans_approval_gr_IX1 unique (trans_approval_gr_id,trans_approved_id);
-alter table tests.trans_approval_gr
-     add constraint trans_approval_gr_IX2 unique (symbol);
+create unique index trans_preapproval_PKI
+    on tests.trans_preapproval(trans_preapproval_id);
+alter table tests.trans_preapproval
+    add constraint trans_preapproval_PKC primary key (trans_preapproval_id);
+alter table tests.trans_preapproval
+     add constraint trans_preapproval_IX1 unique (symbol);
+create unique index trans_approval_pattern_PKI
+    on tests.trans_approval_pattern(trans_approval_pattern_id);
+alter table tests.trans_approval_pattern
+    add constraint trans_approval_pattern_PKC primary key (trans_approval_pattern_id);
+alter table tests.trans_approval_pattern
+     add constraint trans_approval_pattern_IX1 unique (symbol);
 create unique index trans_audit_member_PKI
     on tests.trans_audit_member(trans_audit_member_id,trans_audit_id);
 alter table tests.trans_audit_member
@@ -7686,9 +7686,9 @@ alter table tests.mstr_document_tree add constraint mstr_document_tree_FK2 forei
 alter table tests.mstr_document_tree add constraint mstr_document_tree_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_document add constraint history_mstr_document_FK1 foreign key (mstr_document_id) references tests.mstr_document (mstr_document_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_document add constraint history_mstr_document_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_document add constraint mstr_document_FK1 foreign key (title) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_document add constraint mstr_document_FK2 foreign key (name) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_document add constraint mstr_document_FK3 foreign key (trans_approved_id) references tests.trans_approved (trans_approved_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_document add constraint mstr_document_FK1 foreign key (trans_approval_pattern_id) references tests.trans_approval_pattern (trans_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_document add constraint mstr_document_FK2 foreign key (title) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_document add constraint mstr_document_FK3 foreign key (name) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_document add constraint mstr_document_FK4 foreign key (trans_file_id) references tests.trans_file (trans_file_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_document add constraint mstr_document_FK5 foreign key (mstr_document_tier_id) references tests.mstr_document_tier (mstr_document_tier_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_document add constraint mstr_document_FK6 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
@@ -7886,21 +7886,22 @@ alter table tests.mstr_equipment_tag add constraint mstr_equipment_tag_FK1 forei
 alter table tests.mstr_equipment_tag add constraint mstr_equipment_tag_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_access_path_approval add constraint info_access_path_approval_FK1 foreign key (info_access_path_id) references tests.info_access_path (info_access_path_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_access_path_approval add constraint info_access_path_approval_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_approved add constraint trans_approved_FK1 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_approved add constraint trans_approved_FK1 foreign key (approver_history_id,approver_info_staff_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_approved add constraint trans_approved_FK2 foreign key (trans_preapproval_id) references tests.trans_preapproval (trans_preapproval_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_approved add constraint trans_approved_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_approval add constraint mstr_approval_FK1 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_approval add constraint mstr_approval_FK2 foreign key (info_department_id) references tests.info_department (info_department_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_approval add constraint mstr_approval_FK3 foreign key (info_role_id) references tests.info_position (info_position_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_approval add constraint mstr_approval_FK3 foreign key (info_position_id) references tests.info_position (info_position_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_approval add constraint mstr_approval_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_position add constraint info_position_FK1 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_position add constraint info_position_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_approval_pattern add constraint mstr_approval_pattern_FK1 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_approval_pattern add constraint mstr_approval_pattern_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_approval add constraint trans_approval_FK1 foreign key (trans_approved_id) references tests.mstr_approval (mstr_approval_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_approval add constraint trans_approval_FK2 foreign key (trans_approval_gr_id) references tests.trans_approval_gr (trans_approval_gr_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_approval add constraint trans_approval_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_approval_gr add constraint trans_approval_gr_FK1 foreign key (mstr_approval_pattern_id) references tests.mstr_approval_pattern (mstr_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_approval_gr add constraint trans_approval_gr_FK2 foreign key (trans_approved_id) references tests.trans_approved (trans_approved_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_approval_gr add constraint trans_approval_gr_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_preapproval add constraint trans_preapproval_FK1 foreign key (mstr_approval_id) references tests.mstr_approval (mstr_approval_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_preapproval add constraint trans_preapproval_FK2 foreign key (trans_approval_pattern_id) references tests.trans_approval_pattern (trans_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_preapproval add constraint trans_preapproval_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_approval_pattern add constraint trans_approval_pattern_FK1 foreign key (mstr_approval_pattern_id) references tests.mstr_approval_pattern (mstr_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_approval_pattern add constraint trans_approval_pattern_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_audit_member add constraint trans_audit_member_FK1 foreign key (trans_audit_id) references tests.trans_audit (trans_audit_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_audit_member add constraint trans_audit_member_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_auditor add constraint trans_auditor_FK1 foreign key (audit_history_id,mstr_audit_std_id) references tests.history_mstr_audit_std (history_id,mstr_audit_std_id) DEFERRABLE INITIALLY DEFERRED;
@@ -8071,7 +8072,7 @@ alter table tests.mstr_item_tree add constraint mstr_item_tree_FK1 foreign key (
 alter table tests.mstr_item_tree add constraint mstr_item_tree_FK2 foreign key (parent_mstr_item_id) references tests.mstr_item (mstr_item_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_item_tree add constraint mstr_item_tree_FK3 foreign key (mstr_item_id) references tests.mstr_item (mstr_item_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_item_tree add constraint mstr_item_tree_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.shared_unit add constraint shared_unit_FK1 foreign key (shared_appellations_id) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.shared_unit add constraint shared_unit_FK1 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.shared_unit add constraint shared_unit_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_item add constraint mstr_item_FK1 foreign key (mstr_item_kind_id) references tests.mstr_item_kind (mstr_item_kind_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_item add constraint mstr_item_FK2 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
@@ -10818,7 +10819,7 @@ BEGIN
                 NEW.title,
                 NEW.control_number,
                 NEW.version_code,
-                NEW.trans_approved_id,
+                NEW.trans_approval_pattern_id,
                 NEW.symbol,
                 NEW.remarks,
                 NEW.remove
@@ -10831,7 +10832,7 @@ BEGIN
                 OLD.title,
                 OLD.control_number,
                 OLD.version_code,
-                OLD.trans_approved_id,
+                OLD.trans_approval_pattern_id,
                 OLD.symbol,
                 OLD.remarks,
                 OLD.remove
@@ -10852,7 +10853,7 @@ BEGIN
             title,
             control_number,
             version_code,
-            trans_approved_id,
+            trans_approval_pattern_id,
             revision,
             symbol,
             remarks,
@@ -10871,7 +10872,7 @@ BEGIN
             NEW.title,
             NEW.control_number,
             NEW.version_code,
-            NEW.trans_approved_id,
+            NEW.trans_approval_pattern_id,
             NEW.revision,
             NEW.symbol,
             NEW.remarks,
@@ -14670,6 +14671,7 @@ BEGIN
         NEW.update_at:=now();
         RETURN NEW;
     ELSEIF (TG_OP='INSERT') THEN
+        NEW.trans_approved_id := gen_random_uuid();
         NEW.update_at:=now();
         RETURN NEW;
     ELSEIF (TG_OP = 'DELETE') THEN
@@ -14719,7 +14721,7 @@ BEGIN
             IF (
                 NEW.mstr_approval_id,
                 NEW.info_department_id,
-                NEW.info_role_id,
+                NEW.info_position_id,
                 NEW.priority,
                 NEW.names,
                 NEW.symbol,
@@ -14728,7 +14730,7 @@ BEGIN
             ) IS NOT DISTINCT FROM (
                 OLD.mstr_approval_id,
                 OLD.info_department_id,
-                OLD.info_role_id,
+                OLD.info_position_id,
                 OLD.priority,
                 OLD.names,
                 OLD.symbol,
@@ -14745,7 +14747,7 @@ BEGIN
         INSERT INTO tests.history_mstr_approval (
             mstr_approval_id,
             info_department_id,
-            info_role_id,
+            info_position_id,
             priority,
             names,
             revision,
@@ -14760,7 +14762,7 @@ BEGIN
         (
             NEW.mstr_approval_id,
             NEW.info_department_id,
-            NEW.info_role_id,
+            NEW.info_position_id,
             NEW.priority,
             NEW.names,
             NEW.revision,
@@ -14960,8 +14962,8 @@ CREATE TRIGGER trg_02_history_mstr_approval_pattern BEFORE INSERT OR UPDATE OR D
 PROCEDURE tests.trg_02_history_mstr_approval_pattern();
 
 
--- trans_approval update trigger
-CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_approval() RETURNS trigger AS
+-- trans_preapproval update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_preapproval() RETURNS trigger AS
 $BODY$
 DECLARE
     latest_row record;
@@ -14970,6 +14972,7 @@ BEGIN
         NEW.update_at:=now();
         RETURN NEW;
     ELSEIF (TG_OP='INSERT') THEN
+        NEW.trans_preapproval_id := gen_random_uuid();
         NEW.update_at:=now();
         RETURN NEW;
     ELSEIF (TG_OP = 'DELETE') THEN
@@ -14978,13 +14981,13 @@ BEGIN
 END
 $BODY$
 LANGUAGE plpgsql VOLATILE;
-CREATE TRIGGER trg_01_updatetimes_trans_approval BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_approval FOR EACH ROW EXECUTE
-PROCEDURE tests.trg_01_updatetimes_trans_approval();
+CREATE TRIGGER trg_01_updatetimes_trans_preapproval BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_preapproval FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_trans_preapproval();
 
 
-CREATE TRIGGER trg_04_symbol_trans_approval BEFORE INSERT ON tests.trans_approval FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
--- trans_approval_gr update trigger
-CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_approval_gr() RETURNS trigger AS
+CREATE TRIGGER trg_04_symbol_trans_preapproval BEFORE INSERT ON tests.trans_preapproval FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
+-- trans_approval_pattern update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_approval_pattern() RETURNS trigger AS
 $BODY$
 DECLARE
     latest_row record;
@@ -14993,7 +14996,7 @@ BEGIN
         NEW.update_at:=now();
         RETURN NEW;
     ELSEIF (TG_OP='INSERT') THEN
-        NEW.trans_approval_gr_id := gen_random_uuid();
+        NEW.trans_approval_pattern_id := gen_random_uuid();
         NEW.update_at:=now();
         RETURN NEW;
     ELSEIF (TG_OP = 'DELETE') THEN
@@ -15002,11 +15005,11 @@ BEGIN
 END
 $BODY$
 LANGUAGE plpgsql VOLATILE;
-CREATE TRIGGER trg_01_updatetimes_trans_approval_gr BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_approval_gr FOR EACH ROW EXECUTE
-PROCEDURE tests.trg_01_updatetimes_trans_approval_gr();
+CREATE TRIGGER trg_01_updatetimes_trans_approval_pattern BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_approval_pattern FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_trans_approval_pattern();
 
 
-CREATE TRIGGER trg_04_symbol_trans_approval_gr BEFORE INSERT ON tests.trans_approval_gr FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
+CREATE TRIGGER trg_04_symbol_trans_approval_pattern BEFORE INSERT ON tests.trans_approval_pattern FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_audit_member update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_audit_member() RETURNS trigger AS
 $BODY$
@@ -17464,14 +17467,14 @@ BEGIN
         IF (revisions >= 0) THEN
             IF (
                 NEW.shared_unit_id,
-                NEW.shared_appellations_id,
+                NEW.names,
                 NEW.description,
                 NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.shared_unit_id,
-                OLD.shared_appellations_id,
+                OLD.names,
                 OLD.description,
                 OLD.symbol,
                 OLD.remarks,
@@ -17486,7 +17489,7 @@ BEGIN
         END IF;
         INSERT INTO tests.history_shared_unit (
             shared_unit_id,
-            shared_appellations_id,
+            names,
             description,
             revision,
             symbol,
@@ -17499,7 +17502,7 @@ BEGIN
         VALUES
         (
             NEW.shared_unit_id,
-            NEW.shared_appellations_id,
+            NEW.names,
             NEW.description,
             NEW.revision,
             NEW.symbol,

@@ -227,6 +227,74 @@ updateStaff: &updateStaff
     - symbol
     - private_phone
 
+# 単位の読み込み
+# 参照用の単位
+Unit: &Unit
+  kind: read
+  from: shared_unit
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - shared_unit_id
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *appellationLabels
+
+UnitPage:
+  kind: read
+  from: shared_unit
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - shared_unit_id
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *appellationLabels
+    - description 
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *updateStaff
+
+# 単位の書き込み
+UnitPageEdit:
+  kind: edit
+  from: shared_unit
+  requiredWhere:
+    - shared_unit_id  
+  generateRfe: true
+  columns:
+    - shared_unit_id
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *appellationLabels
+    - description 
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
 # 提供の読み込み　2026/09/29　追加
 ProvisionPage: &ProvisionPage
   kind: read
@@ -322,7 +390,6 @@ OfficePage: &OfficePage
       using: [update_user_history_id,update_user_id]
       arrayType: toFirstOne
       <<: *updateStaff
-
 
 # 事業所編集
 OfficePageEdit:
@@ -549,7 +616,7 @@ DepartmentCategoryEdit:
     - remove
 
 # 組織
-DepartmentPage:
+DepartmentPage: &DepartmentPage
   kind: read
   from: info_department
   condition: true
@@ -1290,3 +1357,316 @@ StaffHeldLicensePageEdit:
 # 上記と同じ理由でStaffLicenseEditをそのまま参照する。
 LicenseHoldersPageEdit:
   <<: *StaffLicenseEdit
+
+######  承認
+
+# 承認の読み込み
+# 必ず参照で使用するためPageにはしない
+ApprovalRead: &ApprovalRead
+  kind: read
+  from: mstr_approval
+  condition: true
+  requiredWhere: # 要件確認: labels(shared_appellations)がlanguageCodeを要求するため、
+    # 他のRead画面と同様にルートでも明示する。
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_approval_id
+    - info_department_id
+    - info_role_id # 既知の問題: 列名はinfo_role_idのまま(DBはリネームされていない)。
+      # リレーション先だけがinfo_position(旧mstr_role→info_position)に変更されたため、
+      # 列名は変更せずusing/relationのみ実スキーマにあわせる(schema.graphql確認済み:
+      # infoRoleId列・infoPositionByInfoRoleIdリレーション)。旧`info_position_id`
+      # (列名自体を変更していた誤り、コメント`#roleから変更された`も削除)を修正。
+    - priority
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *appellationLabels
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *updateStaff
+
+# 承認の編集
+# 必ず参照で使用するためPageにはしない
+ApprovalEdit:
+  kind: edit
+  from: mstr_approval
+  requiredWhere: 
+    - mstr_approval_id
+  generateRfe: true
+  columns:
+    - mstr_approval_id
+    - info_department_id
+    - name: department
+      arrayType: toFirstOne
+      as: department # 要件確認: タイプミス(pdepartmentn)を修正
+      using: info_department_id
+      <<: *DepartmentPage #IDを取得するだけ
+    - info_role_id # 既知の問題: 列名はinfo_role_idのまま(ApprovalRead参照)
+    - name: position
+      arrayType: toFirstOne
+      as: position
+      using: info_role_id # 列名が実際にはinfo_role_idのため修正(旧info_position_idは誤り)
+      <<: *PositionPage #IDを取得するだけ
+    - priority
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *appellationLabelsEdit
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 承認読み込み
+# 役職順に行う承認順序、エスカレーションのペア
+# 必ず参照で使用するためPageにはしない
+ApprovalDetailRead: &ApprovalDetailRead
+  kind: read
+  from: mstr_approval_pattern_detail
+  condition: true
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_approval_pattern_detail_id
+    - mstr_approval_id
+    - name: approval
+      arrayType: toFirstOne
+      using: mstr_approval_id
+      <<: *ApprovalRead
+    - mstr_approval_pattern_id
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *updateStaff
+
+# 承認書き込み
+# 役職順に行う承認順序、エスカレーションのペア
+# 必ず参照で使用するためPageにはしない
+ApprovalDetailEdit: 
+  kind: edit
+  from: mstr_approval_pattern_detail
+  requiredWhere: 
+    - mstr_approval_pattern_detail_id
+  generateRfe: true
+  columns:
+    - mstr_approval_pattern_detail_id
+    - mstr_approval_id
+    - name: approval
+      arrayType: toFirstOne
+      using: mstr_approval_id
+      <<: *ApprovalEdit
+    - mstr_approval_pattern_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+#承認オペレーション読み込み
+ApprovalOperationPage:
+  kind: read
+  from: mstr_approval_pattern
+  condition: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_approval_pattern_id
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *appellationLabels
+    - name: pattern_detail
+      as: pattern_detail
+      arrayType: toMany
+      using: mstr_approval_pattern_id
+      <<: *ApprovalDetailRead
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *updateStaff
+
+#承認オペレーション書き込み
+ApprovalOperationPageEdit:
+  kind: edit
+  from: mstr_approval_pattern
+  requiredWhere:
+    - mstr_approval_pattern_id
+  generateRfe: true
+  columns:
+    - mstr_approval_pattern_id
+    - name: labels # 要件確認: 誤って`name`にアンカー参照(*appellationLabelsEdit)自体を
+      # 指定していた(単純な識別子文字列であるべき)ため修正
+      arrayType: toFirstOne
+      using: names
+      <<: *appellationLabelsEdit
+    - name: pattern_detail
+      arrayType: toMany
+      using: mstr_approval_pattern_id 
+      <<: *ApprovalDetailEdit
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+##### 品目
+
+# 梱包サイズ読み込み用
+SpecMeasurement:  &SpecMeasurement
+  kind: read
+  from: mstr_spec_measurement
+  condition: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_spec_measurement_id
+    - measurement_value
+    - shared_unit_id 
+    - name: unit
+      arrayType: toFirstOne
+      using:  shared_unit_id
+      <<: *Unit
+
+# 
+SpecMeasurementEdit:  &SpecMeasurementEdit
+  kind: edit
+  from: mstr_spec_measurement
+  requiredWhere:
+    - languageCode
+    - mstr_spec_measurement_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_spec_measurement_id
+    - measurement_value
+    - shared_unit_id 
+    - name: unit
+      arrayType: toFirstOne
+      using:  shared_unit_id
+      <<: *Unit #IDの取得のみ
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+
+# 品目区分読み込み。参照用。
+ItemKind: &ItemKind
+  kind: read
+  from: mstr_item_kind
+  condition: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_item_kind_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *appellationLabels
+
+# 品目区分読み込み
+ItemKindPage:
+  kind: read
+  from: mstr_item_kind
+  condition: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_item_kind_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *appellationLabels
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *updateStaff
+
+# 品目区分書き込み
+ItemKindPageEdit:
+  kind: edit
+  from: mstr_item_kind
+  requiredWhere:
+    - mstr_item_kind_id
+  generateRfe: true
+  columns:
+    - mstr_item_kind_id
+    - code
+    - name: labels
+      arrayType: toFirstOne
+      using: ceo_names
+      <<: *appellationLabelsEdit
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+
+
+##### 設備
+
+#EquipmentPage:
+#  kind: read
+#  from: 
