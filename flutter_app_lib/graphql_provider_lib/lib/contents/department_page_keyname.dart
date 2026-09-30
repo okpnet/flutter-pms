@@ -1,16 +1,22 @@
 // department_page_keyname.dart
 //
 // ignore_for_file: constant_identifier_names
-// lib/graphql/department_page/department_page_read.graphql の結果を
-// nested_map_flattener.dart で平坦化したときのキー文字列の定数クラス。
+// lib/graphql/department_page/department_page_read.graphql /
+// department_page_edit.graphql の結果を nested_map_flattener.dart で
+// 平坦化したときのキー文字列の定数クラス。
 //
-// 対象画面: source/view.yaml #DepartmentPage(組織、info_department。read専用画面)
+// 対象画面: source/view.yaml #DepartmentPage / #DepartmentPageEdit(組織、info_department)
 //
-// `kinds`(1対多、info_department_kind)はConnection形状のためflatten()では
-// 再帰されず、`kinds`というキー1つでConnectionオブジェクトそのものが値になる
-// (nested_map_flattener.dartの設計方針どおり)。個別の`info_department_kind_value`
-// ラベルを取り出す場合はnested_map_flattener.dartのConnectionRecordsX
-// (extractFromEachRecord)を使う。
+// 要件0045修正: `kinds`(info_department_kind)はinfo_department_idに一意制約(Ix1)を
+// 持つ1対1と判明したため、`office`/`address`と同じ単純な入れ子オブジェクトとして
+// 平坦化される(`kinds||...`キー)。内側の`kinds||value`(info_department_kind_value、
+// 真のtoMany)はConnection形状のためflatten()では再帰されず、`kinds||value`という
+// キー1つでConnectionオブジェクトそのものが値になる(nested_map_flattener.dartの
+// 設計方針どおり)。個別のラベルを取り出す場合はConnectionRecordsX
+// (extractFromEachRecord)を使う。Edit/RFEはlabels等をja/en個別フィールドで返すため
+// 既存のvalueキーとは別形状になる。CLAUDE.md GraphQL変換ルール(read for editing)の
+// 方針に従い、Edit/RFE専用の定数は追加しない(department_category_keyname.dartと
+// 同じ方針)。
 import 'content_variable.dart';
 
 abstract class DepartmentPageKeyName {
@@ -106,11 +112,26 @@ abstract class DepartmentPageKeyName {
         GraphQLTypeKind.string,
       );
 
-  // --- 組織区分一覧(Connection、ConnectionRecordsXで個別に取り出す) --------------
-  static const ContentVariable kinds = ContentVariable(
-    'kinds',
+  // --- 組織区分(要件0045修正: info_department_kindはinfo_department_idに一意制約を
+  //     持つ1対1のため、office/addressと同じ単純な入れ子オブジェクト) --------------
+  static const ContentVariable kinds_infoDepartmentKindId = ContentVariable(
+    'kinds||infoDepartmentKindId',
+    GraphQLTypeKind.uuid,
+  );
+
+  // `value`(info_department_kind_value)は真のtoMany。Connection、
+  // ConnectionRecordsXで個別に取り出す。
+  static const ContentVariable kinds_value = ContentVariable(
+    'kinds||value',
     GraphQLTypeKind.connection,
   );
+
+  static const ContentVariable
+  kinds_value_labels_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue =
+      ContentVariable(
+        'kinds||value||labels||sharedDictionaryBySharedDictionaryNameId||value||dictionaryValue',
+        GraphQLTypeKind.string,
+      );
 
   // --- 共通項: 更新者(history_info_staff経由、updateStaffアーム相当) -------------
   static const ContentVariable update_user_historyId = ContentVariable(

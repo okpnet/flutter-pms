@@ -1,13 +1,18 @@
-// capability_to_staff_page_keyname.dart
+// capable_staff_page_keyname.dart
 //
 // ignore_for_file: constant_identifier_names
-// lib/graphql/capability_to_staff_page/capability_to_staff_page_read.graphql の結果を
-// nested_map_flattener.dart で平坦化したときのキー文字列の定数クラス。
+// lib/graphql/capable_staff_page/capable_staff_page_read.graphql /
+// capable_staff_page_edit.graphql の結果を nested_map_flattener.dart で
+// 平坦化したときのキー文字列の定数クラス。
 //
-// 対象画面: source/view.yaml #CapabilityToStaffPage(力量→担当者、mstr_capability起点)
+// 対象画面: source/view.yaml #CapableStaffPage(2026/09/30、旧CapabilityToStaffPageから
+// リネーム。力量→担当者、mstr_capability起点)。要件0045でCapableStaffPageEdit/RFEを
+// 追加したが、Edit/RFEはlabels等をja/en個別フィールドで返すため既存のvalueキーとは
+// 別形状になる。CLAUDE.md GraphQL変換ルール(read for editing)の方針に従い、Edit/RFE
+// 専用の定数は追加しない(department_category_keyname.dartと同じ方針)。
 import 'content_variable.dart';
 
-abstract class CapabilityToStaffPageKeyName {
+abstract class CapableStaffPageKeyName {
   static const ContentVariable mstrCapabilityId = ContentVariable(
     'mstrCapabilityId',
     GraphQLTypeKind.uuid,

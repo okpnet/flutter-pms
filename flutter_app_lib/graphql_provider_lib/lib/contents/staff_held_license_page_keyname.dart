@@ -1,13 +1,18 @@
-// staff_to_capability_page_keyname.dart
+// staff_held_license_page_keyname.dart
 //
 // ignore_for_file: constant_identifier_names
-// lib/graphql/staff_to_capability_page/staff_to_capability_page_read.graphql の結果を
-// nested_map_flattener.dart で平坦化したときのキー文字列の定数クラス。
+// lib/graphql/staff_held_license_page/staff_held_license_page_read.graphql /
+// staff_held_license_page_edit.graphql の結果を nested_map_flattener.dart で
+// 平坦化したときのキー文字列の定数クラス。
 //
-// 対象画面: source/view.yaml #StaffToCapabilityPage(担当者→力量、info_staff起点)
+// 対象画面: source/view.yaml #StaffHeldLicensePage(担当者起点、mstr_staff_license
+// 経由でmstr_licenseへ)。要件0045で新規追加。Edit/RFEはlabels等をja/en個別フィールドで
+// 返すため既存のvalueキーとは別形状になる。CLAUDE.md GraphQL変換ルール(read for
+// editing)の方針に従い、Edit/RFE専用の定数は追加しない
+// (department_category_keyname.dartと同じ方針)。
 import 'content_variable.dart';
 
-abstract class StaffToCapabilityPageKeyName {
+abstract class StaffHeldLicensePageKeyName {
   static const ContentVariable infoStaffId = ContentVariable(
     'infoStaffId',
     GraphQLTypeKind.uuid,
@@ -46,24 +51,18 @@ abstract class StaffToCapabilityPageKeyName {
         GraphQLTypeKind.string,
       );
 
-  // --- 力量一覧(mstr_staff_capability、Connection形状のためnested_map_flattener.dartの
-  //     extractFromEachRecordで各レコードのlabelsのみをリストとして取り出す用途) -----------
-  static const ContentVariable capabilitys = ContentVariable(
-    'capabilitys',
+  // --- 保有資格一覧(mstr_staff_license、Connection形状) -------------------------
+  static const ContentVariable holdeLicense = ContentVariable(
+    'holdeLicense',
     GraphQLTypeKind.connection,
   );
 
   static const ContentVariable
-  capabilitys_capability_labels_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue =
+  holdeLicense_license_labels_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue =
       ContentVariable(
-        'capabilitys||capability||labels||sharedDictionaryBySharedDictionaryNameId||value||dictionaryValue',
+        'holdeLicense||license||labels||sharedDictionaryBySharedDictionaryNameId||value||dictionaryValue',
         GraphQLTypeKind.string,
       );
-
-  static const ContentVariable capabilitys_value = ContentVariable(
-    'capabilitys||value',
-    GraphQLTypeKind.bigFloat,
-  );
 
   // --- 共通項: 更新者(history_info_staff経由、updateStaffアーム相当) -------------
   static const ContentVariable update_user_historyId = ContentVariable(

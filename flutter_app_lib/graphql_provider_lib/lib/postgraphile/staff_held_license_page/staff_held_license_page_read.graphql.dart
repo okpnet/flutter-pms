@@ -5,15 +5,15 @@ import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
 import 'package:graphql_flutter/graphql_flutter.dart' as graphql_flutter;
 
-class Variables$Query$StaffToCapabilityPageRead {
-  factory Variables$Query$StaffToCapabilityPageRead({
+class Variables$Query$StaffHeldLicensePageRead {
+  factory Variables$Query$StaffHeldLicensePageRead({
     required int first,
     int? offset,
     Input$InfoStaffCondition? condition,
     List<Enum$InfoStaffsOrderBy>? orderBy,
     required String languageCodeId,
     bool? removed,
-  }) => Variables$Query$StaffToCapabilityPageRead._({
+  }) => Variables$Query$StaffHeldLicensePageRead._({
     r'first': first,
     if (offset != null) r'offset': offset,
     if (condition != null) r'condition': condition,
@@ -22,9 +22,9 @@ class Variables$Query$StaffToCapabilityPageRead {
     if (removed != null) r'removed': removed,
   });
 
-  Variables$Query$StaffToCapabilityPageRead._(this._$data);
+  Variables$Query$StaffHeldLicensePageRead._(this._$data);
 
-  factory Variables$Query$StaffToCapabilityPageRead.fromJson(
+  factory Variables$Query$StaffHeldLicensePageRead.fromJson(
     Map<String, dynamic> data,
   ) {
     final result$data = <String, dynamic>{};
@@ -54,7 +54,7 @@ class Variables$Query$StaffToCapabilityPageRead {
       final l$removed = data['removed'];
       result$data['removed'] = (l$removed as bool?);
     }
-    return Variables$Query$StaffToCapabilityPageRead._(result$data);
+    return Variables$Query$StaffHeldLicensePageRead._(result$data);
   }
 
   Map<String, dynamic> _$data;
@@ -100,18 +100,18 @@ class Variables$Query$StaffToCapabilityPageRead {
     return result$data;
   }
 
-  CopyWith$Variables$Query$StaffToCapabilityPageRead<
-    Variables$Query$StaffToCapabilityPageRead
+  CopyWith$Variables$Query$StaffHeldLicensePageRead<
+    Variables$Query$StaffHeldLicensePageRead
   >
   get copyWith =>
-      CopyWith$Variables$Query$StaffToCapabilityPageRead(this, (i) => i);
+      CopyWith$Variables$Query$StaffHeldLicensePageRead(this, (i) => i);
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Variables$Query$StaffToCapabilityPageRead ||
+    if (other is! Variables$Query$StaffHeldLicensePageRead ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -195,14 +195,14 @@ class Variables$Query$StaffToCapabilityPageRead {
   }
 }
 
-abstract class CopyWith$Variables$Query$StaffToCapabilityPageRead<TRes> {
-  factory CopyWith$Variables$Query$StaffToCapabilityPageRead(
-    Variables$Query$StaffToCapabilityPageRead instance,
-    TRes Function(Variables$Query$StaffToCapabilityPageRead) then,
-  ) = _CopyWithImpl$Variables$Query$StaffToCapabilityPageRead;
+abstract class CopyWith$Variables$Query$StaffHeldLicensePageRead<TRes> {
+  factory CopyWith$Variables$Query$StaffHeldLicensePageRead(
+    Variables$Query$StaffHeldLicensePageRead instance,
+    TRes Function(Variables$Query$StaffHeldLicensePageRead) then,
+  ) = _CopyWithImpl$Variables$Query$StaffHeldLicensePageRead;
 
-  factory CopyWith$Variables$Query$StaffToCapabilityPageRead.stub(TRes res) =
-      _CopyWithStubImpl$Variables$Query$StaffToCapabilityPageRead;
+  factory CopyWith$Variables$Query$StaffHeldLicensePageRead.stub(TRes res) =
+      _CopyWithStubImpl$Variables$Query$StaffHeldLicensePageRead;
 
   TRes call({
     int? first,
@@ -214,16 +214,16 @@ abstract class CopyWith$Variables$Query$StaffToCapabilityPageRead<TRes> {
   });
 }
 
-class _CopyWithImpl$Variables$Query$StaffToCapabilityPageRead<TRes>
-    implements CopyWith$Variables$Query$StaffToCapabilityPageRead<TRes> {
-  _CopyWithImpl$Variables$Query$StaffToCapabilityPageRead(
+class _CopyWithImpl$Variables$Query$StaffHeldLicensePageRead<TRes>
+    implements CopyWith$Variables$Query$StaffHeldLicensePageRead<TRes> {
+  _CopyWithImpl$Variables$Query$StaffHeldLicensePageRead(
     this._instance,
     this._then,
   );
 
-  final Variables$Query$StaffToCapabilityPageRead _instance;
+  final Variables$Query$StaffHeldLicensePageRead _instance;
 
-  final TRes Function(Variables$Query$StaffToCapabilityPageRead) _then;
+  final TRes Function(Variables$Query$StaffHeldLicensePageRead) _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
@@ -235,7 +235,7 @@ class _CopyWithImpl$Variables$Query$StaffToCapabilityPageRead<TRes>
     Object? languageCodeId = _undefined,
     Object? removed = _undefined,
   }) => _then(
-    Variables$Query$StaffToCapabilityPageRead._({
+    Variables$Query$StaffHeldLicensePageRead._({
       ..._instance._$data,
       if (first != _undefined && first != null) 'first': (first as int),
       if (offset != _undefined) 'offset': (offset as int?),
@@ -250,9 +250,9 @@ class _CopyWithImpl$Variables$Query$StaffToCapabilityPageRead<TRes>
   );
 }
 
-class _CopyWithStubImpl$Variables$Query$StaffToCapabilityPageRead<TRes>
-    implements CopyWith$Variables$Query$StaffToCapabilityPageRead<TRes> {
-  _CopyWithStubImpl$Variables$Query$StaffToCapabilityPageRead(this._res);
+class _CopyWithStubImpl$Variables$Query$StaffHeldLicensePageRead<TRes>
+    implements CopyWith$Variables$Query$StaffHeldLicensePageRead<TRes> {
+  _CopyWithStubImpl$Variables$Query$StaffHeldLicensePageRead(this._res);
 
   TRes _res;
 
@@ -266,26 +266,26 @@ class _CopyWithStubImpl$Variables$Query$StaffToCapabilityPageRead<TRes>
   }) => _res;
 }
 
-class Query$StaffToCapabilityPageRead {
-  Query$StaffToCapabilityPageRead({
+class Query$StaffHeldLicensePageRead {
+  Query$StaffHeldLicensePageRead({
     this.allInfoStaffs,
     this.$__typename = 'Query',
   });
 
-  factory Query$StaffToCapabilityPageRead.fromJson(Map<String, dynamic> json) {
+  factory Query$StaffHeldLicensePageRead.fromJson(Map<String, dynamic> json) {
     final l$allInfoStaffs = json['allInfoStaffs'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead(
+    return Query$StaffHeldLicensePageRead(
       allInfoStaffs: l$allInfoStaffs == null
           ? null
-          : Query$StaffToCapabilityPageRead$allInfoStaffs.fromJson(
+          : Query$StaffHeldLicensePageRead$allInfoStaffs.fromJson(
               (l$allInfoStaffs as Map<String, dynamic>),
             ),
       $__typename: (l$$__typename as String),
     );
   }
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs? allInfoStaffs;
+  final Query$StaffHeldLicensePageRead$allInfoStaffs? allInfoStaffs;
 
   final String $__typename;
 
@@ -310,7 +310,7 @@ class Query$StaffToCapabilityPageRead {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Query$StaffToCapabilityPageRead ||
+    if (other is! Query$StaffHeldLicensePageRead ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -328,36 +328,35 @@ class Query$StaffToCapabilityPageRead {
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead
-    on Query$StaffToCapabilityPageRead {
-  CopyWith$Query$StaffToCapabilityPageRead<Query$StaffToCapabilityPageRead>
-  get copyWith => CopyWith$Query$StaffToCapabilityPageRead(this, (i) => i);
+extension UtilityExtension$Query$StaffHeldLicensePageRead
+    on Query$StaffHeldLicensePageRead {
+  CopyWith$Query$StaffHeldLicensePageRead<Query$StaffHeldLicensePageRead>
+  get copyWith => CopyWith$Query$StaffHeldLicensePageRead(this, (i) => i);
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead<TRes> {
-  factory CopyWith$Query$StaffToCapabilityPageRead(
-    Query$StaffToCapabilityPageRead instance,
-    TRes Function(Query$StaffToCapabilityPageRead) then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead;
+abstract class CopyWith$Query$StaffHeldLicensePageRead<TRes> {
+  factory CopyWith$Query$StaffHeldLicensePageRead(
+    Query$StaffHeldLicensePageRead instance,
+    TRes Function(Query$StaffHeldLicensePageRead) then,
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead.stub(TRes res) =
-      _CopyWithStubImpl$Query$StaffToCapabilityPageRead;
+  factory CopyWith$Query$StaffHeldLicensePageRead.stub(TRes res) =
+      _CopyWithStubImpl$Query$StaffHeldLicensePageRead;
 
   TRes call({
-    Query$StaffToCapabilityPageRead$allInfoStaffs? allInfoStaffs,
+    Query$StaffHeldLicensePageRead$allInfoStaffs? allInfoStaffs,
     String? $__typename,
   });
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs<TRes>
-  get allInfoStaffs;
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs<TRes> get allInfoStaffs;
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead<TRes>
-    implements CopyWith$Query$StaffToCapabilityPageRead<TRes> {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead(this._instance, this._then);
+class _CopyWithImpl$Query$StaffHeldLicensePageRead<TRes>
+    implements CopyWith$Query$StaffHeldLicensePageRead<TRes> {
+  _CopyWithImpl$Query$StaffHeldLicensePageRead(this._instance, this._then);
 
-  final Query$StaffToCapabilityPageRead _instance;
+  final Query$StaffHeldLicensePageRead _instance;
 
-  final TRes Function(Query$StaffToCapabilityPageRead) _then;
+  final TRes Function(Query$StaffHeldLicensePageRead) _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
@@ -365,51 +364,51 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead<TRes>
     Object? allInfoStaffs = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead(
+    Query$StaffHeldLicensePageRead(
       allInfoStaffs: allInfoStaffs == _undefined
           ? _instance.allInfoStaffs
-          : (allInfoStaffs as Query$StaffToCapabilityPageRead$allInfoStaffs?),
+          : (allInfoStaffs as Query$StaffHeldLicensePageRead$allInfoStaffs?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs<TRes>
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs<TRes>
   get allInfoStaffs {
     final local$allInfoStaffs = _instance.allInfoStaffs;
     return local$allInfoStaffs == null
-        ? CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs.stub(
+        ? CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs.stub(
             _then(_instance),
           )
-        : CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs(
+        : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs(
             local$allInfoStaffs,
             (e) => call(allInfoStaffs: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead<TRes>
-    implements CopyWith$Query$StaffToCapabilityPageRead<TRes> {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead(this._res);
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead<TRes>
+    implements CopyWith$Query$StaffHeldLicensePageRead<TRes> {
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead(this._res);
 
   TRes _res;
 
   call({
-    Query$StaffToCapabilityPageRead$allInfoStaffs? allInfoStaffs,
+    Query$StaffHeldLicensePageRead$allInfoStaffs? allInfoStaffs,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs<TRes>
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs<TRes>
   get allInfoStaffs =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs.stub(_res);
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs.stub(_res);
 }
 
-const documentNodeQueryStaffToCapabilityPageRead = DocumentNode(
+const documentNodeQueryStaffHeldLicensePageRead = DocumentNode(
   definitions: [
     OperationDefinitionNode(
       type: OperationType.query,
-      name: NameNode(value: 'StaffToCapabilityPageRead'),
+      name: NameNode(value: 'StaffHeldLicensePageRead'),
       variableDefinitions: [
         VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'first')),
@@ -930,11 +929,28 @@ const documentNodeQueryStaffToCapabilityPageRead = DocumentNode(
                         ),
                       ),
                       FieldNode(
-                        name: NameNode(
-                          value: 'mstrStaffCapabilitiesByInfoStaffId',
-                        ),
-                        alias: NameNode(value: 'capabilitys'),
-                        arguments: [],
+                        name: NameNode(value: 'mstrStaffLicensesByInfoStaffId'),
+                        alias: NameNode(value: 'holdeLicense'),
+                        arguments: [
+                          ArgumentNode(
+                            name: NameNode(value: 'filter'),
+                            value: ObjectValueNode(
+                              fields: [
+                                ObjectFieldNode(
+                                  name: NameNode(value: 'remove'),
+                                  value: ObjectValueNode(
+                                    fields: [
+                                      ObjectFieldNode(
+                                        name: NameNode(value: 'equalTo'),
+                                        value: BooleanValueNode(value: false),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                         directives: [],
                         selectionSet: SelectionSetNode(
                           selections: [
@@ -984,9 +1000,7 @@ const documentNodeQueryStaffToCapabilityPageRead = DocumentNode(
                               selectionSet: SelectionSetNode(
                                 selections: [
                                   FieldNode(
-                                    name: NameNode(
-                                      value: 'mstrStaffCapabilityId',
-                                    ),
+                                    name: NameNode(value: 'mstrStaffLicenseId'),
                                     alias: null,
                                     arguments: [],
                                     directives: [],
@@ -1000,14 +1014,49 @@ const documentNodeQueryStaffToCapabilityPageRead = DocumentNode(
                                     selectionSet: null,
                                   ),
                                   FieldNode(
-                                    name: NameNode(value: 'value'),
+                                    name: NameNode(value: 'mstrLicenseId'),
                                     alias: null,
                                     arguments: [],
                                     directives: [],
                                     selectionSet: null,
                                   ),
                                   FieldNode(
-                                    name: NameNode(value: 'stop'),
+                                    name: NameNode(value: 'startAt'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: 'stopAt'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: 'abeyance'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: 'abeyanceAt'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: 'revocation'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: 'revocationAt'),
                                     alias: null,
                                     arguments: [],
                                     directives: [],
@@ -1015,16 +1064,16 @@ const documentNodeQueryStaffToCapabilityPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(
-                                      value: 'mstrCapabilityByMstrCapabilityId',
+                                      value: 'mstrLicenseByMstrLicenseId',
                                     ),
-                                    alias: NameNode(value: 'capability'),
+                                    alias: NameNode(value: 'license'),
                                     arguments: [],
                                     directives: [],
                                     selectionSet: SelectionSetNode(
                                       selections: [
                                         FieldNode(
                                           name: NameNode(
-                                            value: 'mstrCapabilityId',
+                                            value: 'mstrLicenseId',
                                           ),
                                           alias: null,
                                           arguments: [],
@@ -1047,7 +1096,7 @@ const documentNodeQueryStaffToCapabilityPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value: 'referenceValue',
+                                            value: 'publicLicense',
                                           ),
                                           alias: null,
                                           arguments: [],
@@ -1055,25 +1104,89 @@ const documentNodeQueryStaffToCapabilityPageRead = DocumentNode(
                                           selectionSet: null,
                                         ),
                                         FieldNode(
-                                          name: NameNode(value: 'max'),
+                                          name: NameNode(
+                                            value: 'customerLicense',
+                                          ),
                                           alias: null,
                                           arguments: [],
                                           directives: [],
                                           selectionSet: null,
                                         ),
                                         FieldNode(
-                                          name: NameNode(value: 'min'),
+                                          name: NameNode(
+                                            value: 'organizationLicense',
+                                          ),
                                           alias: null,
                                           arguments: [],
                                           directives: [],
                                           selectionSet: null,
                                         ),
                                         FieldNode(
-                                          name: NameNode(value: 'step'),
+                                          name: NameNode(
+                                            value: 'updateInterval',
+                                          ),
                                           alias: null,
                                           arguments: [],
                                           directives: [],
-                                          selectionSet: null,
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(value: 'years'),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(value: 'months'),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(value: 'days'),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(value: 'hours'),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'minutes',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'seconds',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                         FieldNode(
                                           name: NameNode(value: 'symbol'),
@@ -2438,28 +2551,28 @@ const documentNodeQueryStaffToCapabilityPageRead = DocumentNode(
     ),
   ],
 );
-Query$StaffToCapabilityPageRead _parserFn$Query$StaffToCapabilityPageRead(
+Query$StaffHeldLicensePageRead _parserFn$Query$StaffHeldLicensePageRead(
   Map<String, dynamic> data,
-) => Query$StaffToCapabilityPageRead.fromJson(data);
-typedef OnQueryComplete$Query$StaffToCapabilityPageRead =
+) => Query$StaffHeldLicensePageRead.fromJson(data);
+typedef OnQueryComplete$Query$StaffHeldLicensePageRead =
     FutureOr<void> Function(
       Map<String, dynamic>?,
-      Query$StaffToCapabilityPageRead?,
+      Query$StaffHeldLicensePageRead?,
     );
 
-class Options$Query$StaffToCapabilityPageRead
-    extends graphql.QueryOptions<Query$StaffToCapabilityPageRead> {
-  Options$Query$StaffToCapabilityPageRead({
+class Options$Query$StaffHeldLicensePageRead
+    extends graphql.QueryOptions<Query$StaffHeldLicensePageRead> {
+  Options$Query$StaffHeldLicensePageRead({
     String? operationName,
-    required Variables$Query$StaffToCapabilityPageRead variables,
+    required Variables$Query$StaffHeldLicensePageRead variables,
     graphql.FetchPolicy? fetchPolicy,
     graphql.ErrorPolicy? errorPolicy,
     graphql.CacheRereadPolicy? cacheRereadPolicy,
     Object? optimisticResult,
-    Query$StaffToCapabilityPageRead? typedOptimisticResult,
+    Query$StaffHeldLicensePageRead? typedOptimisticResult,
     Duration? pollInterval,
     graphql.Context? context,
-    OnQueryComplete$Query$StaffToCapabilityPageRead? onComplete,
+    OnQueryComplete$Query$StaffHeldLicensePageRead? onComplete,
     graphql.OnQueryError? onError,
   }) : onCompleteWithParsed = onComplete,
        super(
@@ -2477,14 +2590,14 @@ class Options$Query$StaffToCapabilityPageRead
                  data,
                  data == null
                      ? null
-                     : _parserFn$Query$StaffToCapabilityPageRead(data),
+                     : _parserFn$Query$StaffHeldLicensePageRead(data),
                ),
          onError: onError,
-         document: documentNodeQueryStaffToCapabilityPageRead,
-         parserFn: _parserFn$Query$StaffToCapabilityPageRead,
+         document: documentNodeQueryStaffHeldLicensePageRead,
+         parserFn: _parserFn$Query$StaffHeldLicensePageRead,
        );
 
-  final OnQueryComplete$Query$StaffToCapabilityPageRead? onCompleteWithParsed;
+  final OnQueryComplete$Query$StaffHeldLicensePageRead? onCompleteWithParsed;
 
   @override
   List<Object?> get properties => [
@@ -2495,16 +2608,16 @@ class Options$Query$StaffToCapabilityPageRead
   ];
 }
 
-class WatchOptions$Query$StaffToCapabilityPageRead
-    extends graphql.WatchQueryOptions<Query$StaffToCapabilityPageRead> {
-  WatchOptions$Query$StaffToCapabilityPageRead({
+class WatchOptions$Query$StaffHeldLicensePageRead
+    extends graphql.WatchQueryOptions<Query$StaffHeldLicensePageRead> {
+  WatchOptions$Query$StaffHeldLicensePageRead({
     String? operationName,
-    required Variables$Query$StaffToCapabilityPageRead variables,
+    required Variables$Query$StaffHeldLicensePageRead variables,
     graphql.FetchPolicy? fetchPolicy,
     graphql.ErrorPolicy? errorPolicy,
     graphql.CacheRereadPolicy? cacheRereadPolicy,
     Object? optimisticResult,
-    Query$StaffToCapabilityPageRead? typedOptimisticResult,
+    Query$StaffHeldLicensePageRead? typedOptimisticResult,
     graphql.Context? context,
     Duration? pollInterval,
     bool? eagerlyFetchResults,
@@ -2518,47 +2631,47 @@ class WatchOptions$Query$StaffToCapabilityPageRead
          cacheRereadPolicy: cacheRereadPolicy,
          optimisticResult: optimisticResult ?? typedOptimisticResult?.toJson(),
          context: context,
-         document: documentNodeQueryStaffToCapabilityPageRead,
+         document: documentNodeQueryStaffHeldLicensePageRead,
          pollInterval: pollInterval,
          eagerlyFetchResults: eagerlyFetchResults,
          carryForwardDataOnException: carryForwardDataOnException,
          fetchResults: fetchResults,
-         parserFn: _parserFn$Query$StaffToCapabilityPageRead,
+         parserFn: _parserFn$Query$StaffHeldLicensePageRead,
        );
 }
 
-class FetchMoreOptions$Query$StaffToCapabilityPageRead
+class FetchMoreOptions$Query$StaffHeldLicensePageRead
     extends graphql.FetchMoreOptions {
-  FetchMoreOptions$Query$StaffToCapabilityPageRead({
+  FetchMoreOptions$Query$StaffHeldLicensePageRead({
     required graphql.UpdateQuery updateQuery,
-    required Variables$Query$StaffToCapabilityPageRead variables,
+    required Variables$Query$StaffHeldLicensePageRead variables,
   }) : super(
          updateQuery: updateQuery,
          variables: variables.toJson(),
-         document: documentNodeQueryStaffToCapabilityPageRead,
+         document: documentNodeQueryStaffHeldLicensePageRead,
        );
 }
 
-extension ClientExtension$Query$StaffToCapabilityPageRead
+extension ClientExtension$Query$StaffHeldLicensePageRead
     on graphql.GraphQLClient {
-  Future<graphql.QueryResult<Query$StaffToCapabilityPageRead>>
-  query$StaffToCapabilityPageRead(
-    Options$Query$StaffToCapabilityPageRead options,
+  Future<graphql.QueryResult<Query$StaffHeldLicensePageRead>>
+  query$StaffHeldLicensePageRead(
+    Options$Query$StaffHeldLicensePageRead options,
   ) async => await this.query(options);
 
-  graphql.ObservableQuery<Query$StaffToCapabilityPageRead>
-  watchQuery$StaffToCapabilityPageRead(
-    WatchOptions$Query$StaffToCapabilityPageRead options,
+  graphql.ObservableQuery<Query$StaffHeldLicensePageRead>
+  watchQuery$StaffHeldLicensePageRead(
+    WatchOptions$Query$StaffHeldLicensePageRead options,
   ) => this.watchQuery(options);
 
-  void writeQuery$StaffToCapabilityPageRead({
-    required Query$StaffToCapabilityPageRead data,
-    required Variables$Query$StaffToCapabilityPageRead variables,
+  void writeQuery$StaffHeldLicensePageRead({
+    required Query$StaffHeldLicensePageRead data,
+    required Variables$Query$StaffHeldLicensePageRead variables,
     bool broadcast = true,
   }) => this.writeQuery(
     graphql.Request(
       operation: graphql.Operation(
-        document: documentNodeQueryStaffToCapabilityPageRead,
+        document: documentNodeQueryStaffHeldLicensePageRead,
       ),
       variables: variables.toJson(),
     ),
@@ -2566,14 +2679,14 @@ extension ClientExtension$Query$StaffToCapabilityPageRead
     broadcast: broadcast,
   );
 
-  Query$StaffToCapabilityPageRead? readQuery$StaffToCapabilityPageRead({
-    required Variables$Query$StaffToCapabilityPageRead variables,
+  Query$StaffHeldLicensePageRead? readQuery$StaffHeldLicensePageRead({
+    required Variables$Query$StaffHeldLicensePageRead variables,
     bool optimistic = true,
   }) {
     final result = this.readQuery(
       graphql.Request(
         operation: graphql.Operation(
-          document: documentNodeQueryStaffToCapabilityPageRead,
+          document: documentNodeQueryStaffHeldLicensePageRead,
         ),
         variables: variables.toJson(),
       ),
@@ -2581,54 +2694,54 @@ extension ClientExtension$Query$StaffToCapabilityPageRead
     );
     return result == null
         ? null
-        : Query$StaffToCapabilityPageRead.fromJson(result);
+        : Query$StaffHeldLicensePageRead.fromJson(result);
   }
 }
 
-graphql_flutter.QueryHookResult<Query$StaffToCapabilityPageRead>
-useQuery$StaffToCapabilityPageRead(
-  Options$Query$StaffToCapabilityPageRead options,
+graphql_flutter.QueryHookResult<Query$StaffHeldLicensePageRead>
+useQuery$StaffHeldLicensePageRead(
+  Options$Query$StaffHeldLicensePageRead options,
 ) => graphql_flutter.useQuery(options);
-graphql.ObservableQuery<Query$StaffToCapabilityPageRead>
-useWatchQuery$StaffToCapabilityPageRead(
-  WatchOptions$Query$StaffToCapabilityPageRead options,
+graphql.ObservableQuery<Query$StaffHeldLicensePageRead>
+useWatchQuery$StaffHeldLicensePageRead(
+  WatchOptions$Query$StaffHeldLicensePageRead options,
 ) => graphql_flutter.useWatchQuery(options);
 
-class Query$StaffToCapabilityPageRead$Widget
-    extends graphql_flutter.Query<Query$StaffToCapabilityPageRead> {
-  Query$StaffToCapabilityPageRead$Widget({
+class Query$StaffHeldLicensePageRead$Widget
+    extends graphql_flutter.Query<Query$StaffHeldLicensePageRead> {
+  Query$StaffHeldLicensePageRead$Widget({
     widgets.Key? key,
-    required Options$Query$StaffToCapabilityPageRead options,
-    required graphql_flutter.QueryBuilder<Query$StaffToCapabilityPageRead>
+    required Options$Query$StaffHeldLicensePageRead options,
+    required graphql_flutter.QueryBuilder<Query$StaffHeldLicensePageRead>
     builder,
   }) : super(key: key, options: options, builder: builder);
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs {
-  Query$StaffToCapabilityPageRead$allInfoStaffs({
+class Query$StaffHeldLicensePageRead$allInfoStaffs {
+  Query$StaffHeldLicensePageRead$allInfoStaffs({
     required this.totalCount,
     required this.pageInfo,
     required this.nodes,
     this.$__typename = 'InfoStaffsConnection',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$totalCount = json['totalCount'];
     final l$pageInfo = json['pageInfo'];
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs(
       totalCount: (l$totalCount as int),
-      pageInfo: Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo.fromJson(
+      pageInfo: Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo.fromJson(
         (l$pageInfo as Map<String, dynamic>),
       ),
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$StaffToCapabilityPageRead$allInfoStaffs$nodes.fromJson(
+                : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -2639,9 +2752,9 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs {
 
   final int totalCount;
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo pageInfo;
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo pageInfo;
 
-  final List<Query$StaffToCapabilityPageRead$allInfoStaffs$nodes?> nodes;
+  final List<Query$StaffHeldLicensePageRead$allInfoStaffs$nodes?> nodes;
 
   final String $__typename;
 
@@ -2677,7 +2790,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Query$StaffToCapabilityPageRead$allInfoStaffs ||
+    if (other is! Query$StaffHeldLicensePageRead$allInfoStaffs ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -2712,38 +2825,37 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs {
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs
-    on Query$StaffToCapabilityPageRead$allInfoStaffs {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs<
-    Query$StaffToCapabilityPageRead$allInfoStaffs
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs
+    on Query$StaffHeldLicensePageRead$allInfoStaffs {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs<
+    Query$StaffHeldLicensePageRead$allInfoStaffs
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs(this, (i) => i);
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs(this, (i) => i);
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs<TRes> {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs(
-    Query$StaffToCapabilityPageRead$allInfoStaffs instance,
-    TRes Function(Query$StaffToCapabilityPageRead$allInfoStaffs) then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs;
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs<TRes> {
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs(
+    Query$StaffHeldLicensePageRead$allInfoStaffs instance,
+    TRes Function(Query$StaffHeldLicensePageRead$allInfoStaffs) then,
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs.stub(
-    TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs;
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs.stub(TRes res) =
+      _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs;
 
   TRes call({
     int? totalCount,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo? pageInfo,
-    List<Query$StaffToCapabilityPageRead$allInfoStaffs$nodes?>? nodes,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo? pageInfo,
+    List<Query$StaffHeldLicensePageRead$allInfoStaffs$nodes?>? nodes,
     String? $__typename,
   });
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo<TRes>
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo<TRes>
   get pageInfo;
   TRes nodes(
-    Iterable<Query$StaffToCapabilityPageRead$allInfoStaffs$nodes?> Function(
+    Iterable<Query$StaffHeldLicensePageRead$allInfoStaffs$nodes?> Function(
       Iterable<
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes<
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes<
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes
         >?
       >,
     )
@@ -2751,16 +2863,16 @@ abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs<TRes> {
   );
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs<TRes>
-    implements CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs<TRes> {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs(
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs<TRes>
+    implements CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs<TRes> {
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs _instance;
+  final Query$StaffHeldLicensePageRead$allInfoStaffs _instance;
 
-  final TRes Function(Query$StaffToCapabilityPageRead$allInfoStaffs) _then;
+  final TRes Function(Query$StaffHeldLicensePageRead$allInfoStaffs) _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
@@ -2770,38 +2882,37 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs<TRes>
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs(
+    Query$StaffHeldLicensePageRead$allInfoStaffs(
       totalCount: totalCount == _undefined || totalCount == null
           ? _instance.totalCount
           : (totalCount as int),
       pageInfo: pageInfo == _undefined || pageInfo == null
           ? _instance.pageInfo
-          : (pageInfo
-                as Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo),
+          : (pageInfo as Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo),
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
-                as List<Query$StaffToCapabilityPageRead$allInfoStaffs$nodes?>),
+                as List<Query$StaffHeldLicensePageRead$allInfoStaffs$nodes?>),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo<TRes>
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo<TRes>
   get pageInfo {
     final local$pageInfo = _instance.pageInfo;
-    return CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo(
+    return CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo(
       local$pageInfo,
       (e) => call(pageInfo: e),
     );
   }
 
   TRes nodes(
-    Iterable<Query$StaffToCapabilityPageRead$allInfoStaffs$nodes?> Function(
+    Iterable<Query$StaffHeldLicensePageRead$allInfoStaffs$nodes?> Function(
       Iterable<
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes<
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes<
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes
         >?
       >,
     )
@@ -2811,7 +2922,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs<TRes>
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes(
+            : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes(
                 e,
                 (i) => i,
               ),
@@ -2820,42 +2931,40 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs<TRes>
   );
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs<TRes>
-    implements CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs<TRes> {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs(this._res);
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs<TRes>
+    implements CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs<TRes> {
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs(this._res);
 
   TRes _res;
 
   call({
     int? totalCount,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo? pageInfo,
-    List<Query$StaffToCapabilityPageRead$allInfoStaffs$nodes?>? nodes,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo? pageInfo,
+    List<Query$StaffHeldLicensePageRead$allInfoStaffs$nodes?>? nodes,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo<TRes>
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo<TRes>
   get pageInfo =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo.stub(
-        _res,
-      );
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo.stub(_res);
 
   nodes(_fn) => _res;
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo({
     required this.hasNextPage,
     this.endCursor,
     this.$__typename = 'PageInfo',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$hasNextPage = json['hasNextPage'];
     final l$endCursor = json['endCursor'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo(
       hasNextPage: (l$hasNextPage as bool),
       endCursor: (l$endCursor as String?),
       $__typename: (l$$__typename as String),
@@ -2892,7 +3001,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo ||
+    if (other is! Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -2915,44 +3024,44 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo {
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo
-    on Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo
+    on Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo instance,
-    TRes Function(Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo) then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo;
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo instance,
+    TRes Function(Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo) then,
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo;
 
   TRes call({bool? hasNextPage, String? endCursor, String? $__typename});
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo<TRes>
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo<TRes>
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo<TRes> {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo(
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo<TRes> {
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo _instance;
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo _instance;
 
-  final TRes Function(Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo)
+  final TRes Function(Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo)
   _then;
 
   static const _undefined = <dynamic, dynamic>{};
@@ -2962,7 +3071,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo<TRes>
     Object? endCursor = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo(
       hasNextPage: hasNextPage == _undefined || hasNextPage == null
           ? _instance.hasNextPage
           : (hasNextPage as bool),
@@ -2976,12 +3085,12 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo<TRes>
   );
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo<TRes> {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo(
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo<TRes> {
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$pageInfo(
     this._res,
   );
 
@@ -2990,8 +3099,8 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$pageInfo<
   call({bool? hasNextPage, String? endCursor, String? $__typename}) => _res;
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes({
     required this.infoStaffId,
     this.infoCompanyId,
     this.code,
@@ -3003,12 +3112,12 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes {
     this.updateAt,
     this.remove,
     this.labels,
-    required this.capabilitys,
+    required this.holdeLicense,
     this.update_user,
     this.$__typename = 'InfoStaff',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$infoStaffId = json['infoStaffId'];
@@ -3022,10 +3131,10 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes {
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
     final l$labels = json['labels'];
-    final l$capabilitys = json['capabilitys'];
+    final l$holdeLicense = json['holdeLicense'];
     final l$update_user = json['update_user'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes(
       infoStaffId: (l$infoStaffId as String),
       infoCompanyId: (l$infoCompanyId as String?),
       code: (l$code as String?),
@@ -3038,16 +3147,16 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes {
       remove: (l$remove as bool?),
       labels: l$labels == null
           ? null
-          : Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels.fromJson(
+          : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels.fromJson(
               (l$labels as Map<String, dynamic>),
             ),
-      capabilitys:
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys.fromJson(
-            (l$capabilitys as Map<String, dynamic>),
+      holdeLicense:
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense.fromJson(
+            (l$holdeLicense as Map<String, dynamic>),
           ),
       update_user: l$update_user == null
           ? null
-          : Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user.fromJson(
+          : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user.fromJson(
               (l$update_user as Map<String, dynamic>),
             ),
       $__typename: (l$$__typename as String),
@@ -3074,12 +3183,12 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes {
 
   final bool? remove;
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels? labels;
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels? labels;
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys
-  capabilitys;
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense
+  holdeLicense;
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user?
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user?
   update_user;
 
   final String $__typename;
@@ -3108,8 +3217,8 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes {
     _resultData['remove'] = l$remove;
     final l$labels = labels;
     _resultData['labels'] = l$labels?.toJson();
-    final l$capabilitys = capabilitys;
-    _resultData['capabilitys'] = l$capabilitys.toJson();
+    final l$holdeLicense = holdeLicense;
+    _resultData['holdeLicense'] = l$holdeLicense.toJson();
     final l$update_user = update_user;
     _resultData['update_user'] = l$update_user?.toJson();
     final l$$__typename = $__typename;
@@ -3130,7 +3239,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes {
     final l$updateAt = updateAt;
     final l$remove = remove;
     final l$labels = labels;
-    final l$capabilitys = capabilitys;
+    final l$holdeLicense = holdeLicense;
     final l$update_user = update_user;
     final l$$__typename = $__typename;
     return Object.hashAll([
@@ -3145,7 +3254,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes {
       l$updateAt,
       l$remove,
       l$labels,
-      l$capabilitys,
+      l$holdeLicense,
       l$update_user,
       l$$__typename,
     ]);
@@ -3156,7 +3265,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes ||
+    if (other is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -3215,9 +3324,9 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes {
     if (l$labels != lOther$labels) {
       return false;
     }
-    final l$capabilitys = capabilitys;
-    final lOther$capabilitys = other.capabilitys;
-    if (l$capabilitys != lOther$capabilitys) {
+    final l$holdeLicense = holdeLicense;
+    final lOther$holdeLicense = other.holdeLicense;
+    if (l$holdeLicense != lOther$holdeLicense) {
       return false;
     }
     final l$update_user = update_user;
@@ -3234,28 +3343,28 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes {
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes
-    on Query$StaffToCapabilityPageRead$allInfoStaffs$nodes {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes
+    on Query$StaffHeldLicensePageRead$allInfoStaffs$nodes {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes
   >
-  get copyWith => CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes(
+  get copyWith => CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes(
     this,
     (i) => i,
   );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes instance,
-    TRes Function(Query$StaffToCapabilityPageRead$allInfoStaffs$nodes) then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes;
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes instance,
+    TRes Function(Query$StaffHeldLicensePageRead$allInfoStaffs$nodes) then,
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes;
 
   TRes call({
     String? infoStaffId,
@@ -3268,33 +3377,31 @@ abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes<
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels? labels,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys?
-    capabilitys,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user?
-    update_user,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels? labels,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense?
+    holdeLicense,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user? update_user,
     String? $__typename,
   });
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels<TRes>
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels<TRes>
   get labels;
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys<TRes>
-  get capabilitys;
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user<TRes>
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense<TRes>
+  get holdeLicense;
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user<TRes>
   get update_user;
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes<TRes>
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes<TRes>
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes<TRes> {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes(
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes<TRes> {
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes _instance;
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes _instance;
 
-  final TRes Function(Query$StaffToCapabilityPageRead$allInfoStaffs$nodes)
-  _then;
+  final TRes Function(Query$StaffHeldLicensePageRead$allInfoStaffs$nodes) _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
@@ -3310,11 +3417,11 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes<TRes>
     Object? updateAt = _undefined,
     Object? remove = _undefined,
     Object? labels = _undefined,
-    Object? capabilitys = _undefined,
+    Object? holdeLicense = _undefined,
     Object? update_user = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes(
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
@@ -3336,63 +3443,61 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes<TRes>
       labels: labels == _undefined
           ? _instance.labels
           : (labels
-                as Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels?),
-      capabilitys: capabilitys == _undefined || capabilitys == null
-          ? _instance.capabilitys
-          : (capabilitys
-                as Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys),
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels?),
+      holdeLicense: holdeLicense == _undefined || holdeLicense == null
+          ? _instance.holdeLicense
+          : (holdeLicense
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense),
       update_user: update_user == _undefined
           ? _instance.update_user
           : (update_user
-                as Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user?),
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels<TRes>
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels<TRes>
   get labels {
     final local$labels = _instance.labels;
     return local$labels == null
-        ? CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels.stub(
+        ? CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels.stub(
             _then(_instance),
           )
-        : CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels(
+        : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels(
             local$labels,
             (e) => call(labels: e),
           );
   }
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys<TRes>
-  get capabilitys {
-    final local$capabilitys = _instance.capabilitys;
-    return CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys(
-      local$capabilitys,
-      (e) => call(capabilitys: e),
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense<TRes>
+  get holdeLicense {
+    final local$holdeLicense = _instance.holdeLicense;
+    return CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense(
+      local$holdeLicense,
+      (e) => call(holdeLicense: e),
     );
   }
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user<TRes>
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user<TRes>
   get update_user {
     final local$update_user = _instance.update_user;
     return local$update_user == null
-        ? CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user.stub(
+        ? CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user.stub(
             _then(_instance),
           )
-        : CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user(
+        : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user(
             local$update_user,
             (e) => call(update_user: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes<
-  TRes
->
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes<TRes>
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes<TRes> {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes(
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes<TRes> {
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes(
     this._res,
   );
 
@@ -3409,35 +3514,34 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes<
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels? labels,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys?
-    capabilitys,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user?
-    update_user,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels? labels,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense?
+    holdeLicense,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user? update_user,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels<TRes>
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels<TRes>
   get labels =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels.stub(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels.stub(
         _res,
       );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys<TRes>
-  get capabilitys =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys.stub(
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense<TRes>
+  get holdeLicense =>
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense.stub(
         _res,
       );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user<TRes>
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user<TRes>
   get update_user =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user.stub(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user.stub(
         _res,
       );
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels({
     required this.sharedAppellationsId,
     this.sharedDictionaryBySharedDictionaryNameId,
     this.sharedDictionaryBySharedDictionaryPronunciationId,
@@ -3445,7 +3549,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels {
     this.$__typename = 'SharedAppellation',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedAppellationsId = json['sharedAppellationsId'];
@@ -3456,26 +3560,26 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels {
     final l$sharedDictionaryBySharedDictionaryNicknameId =
         json['sharedDictionaryBySharedDictionaryNicknameId'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels(
       sharedAppellationsId: (l$sharedAppellationsId as String),
       sharedDictionaryBySharedDictionaryNameId:
           l$sharedDictionaryBySharedDictionaryNameId == null
           ? null
-          : Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId.fromJson(
+          : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNameId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryPronunciationId:
           l$sharedDictionaryBySharedDictionaryPronunciationId == null
           ? null
-          : Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+          : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
               (l$sharedDictionaryBySharedDictionaryPronunciationId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryNicknameId:
           l$sharedDictionaryBySharedDictionaryNicknameId == null
           ? null
-          : Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+          : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNicknameId
                   as Map<String, dynamic>),
             ),
@@ -3485,13 +3589,13 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels {
 
   final String sharedAppellationsId;
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId?
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId?
   sharedDictionaryBySharedDictionaryNameId;
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId?
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId?
   sharedDictionaryBySharedDictionaryPronunciationId;
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId?
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId?
   sharedDictionaryBySharedDictionaryNicknameId;
 
   final String $__typename;
@@ -3541,7 +3645,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels ||
+    if (other is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -3583,72 +3687,70 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels {
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels
-    on Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels
+    on Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels instance,
-    TRes Function(Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels)
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels instance,
+    TRes Function(Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels)
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels;
 
   TRes call({
     String? sharedAppellationsId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   });
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId;
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId;
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId;
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels _instance;
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels _instance;
 
-  final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels,
-  )
+  final TRes Function(Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels)
   _then;
 
   static const _undefined = <dynamic, dynamic>{};
@@ -3660,7 +3762,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels<
     Object? sharedDictionaryBySharedDictionaryNicknameId = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels(
       sharedAppellationsId:
           sharedAppellationsId == _undefined || sharedAppellationsId == null
           ? _instance.sharedAppellationsId
@@ -3669,80 +3771,80 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels<
           sharedDictionaryBySharedDictionaryNameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNameId
           : (sharedDictionaryBySharedDictionaryNameId
-                as Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId?),
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId?),
       sharedDictionaryBySharedDictionaryPronunciationId:
           sharedDictionaryBySharedDictionaryPronunciationId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryPronunciationId
           : (sharedDictionaryBySharedDictionaryPronunciationId
-                as Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId?),
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId?),
       sharedDictionaryBySharedDictionaryNicknameId:
           sharedDictionaryBySharedDictionaryNicknameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNicknameId
           : (sharedDictionaryBySharedDictionaryNicknameId
-                as Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId?),
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId {
     final local$sharedDictionaryBySharedDictionaryNameId =
         _instance.sharedDictionaryBySharedDictionaryNameId;
     return local$sharedDictionaryBySharedDictionaryNameId == null
-        ? CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId.stub(
+        ? CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
+        : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
             local$sharedDictionaryBySharedDictionaryNameId,
             (e) => call(sharedDictionaryBySharedDictionaryNameId: e),
           );
   }
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId {
     final local$sharedDictionaryBySharedDictionaryPronunciationId =
         _instance.sharedDictionaryBySharedDictionaryPronunciationId;
     return local$sharedDictionaryBySharedDictionaryPronunciationId == null
-        ? CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+        ? CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+        : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
             local$sharedDictionaryBySharedDictionaryPronunciationId,
             (e) => call(sharedDictionaryBySharedDictionaryPronunciationId: e),
           );
   }
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId {
     final local$sharedDictionaryBySharedDictionaryNicknameId =
         _instance.sharedDictionaryBySharedDictionaryNicknameId;
     return local$sharedDictionaryBySharedDictionaryNicknameId == null
-        ? CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId.stub(
+        ? CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
+        : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
             local$sharedDictionaryBySharedDictionaryNicknameId,
             (e) => call(sharedDictionaryBySharedDictionaryNicknameId: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels(
     this._res,
   );
 
@@ -3750,57 +3852,57 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labe
 
   call({
     String? sharedAppellationsId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId.stub(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId.stub(
         _res,
       );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId.stub(
         _res,
       );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId.stub(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId.stub(
         _res,
       );
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -3809,7 +3911,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionar
 
   final String sharedDictionaryId;
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value
   value;
 
   final String $__typename;
@@ -3839,7 +3941,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionar
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -3862,64 +3964,64 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionar
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId,
   )
   _then;
 
@@ -3930,7 +4032,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$s
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -3938,33 +4040,33 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$s
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value),
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
+    return CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
     this._res,
   );
 
@@ -3972,37 +4074,37 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labe
 
   call({
     String? sharedDictionaryId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value.stub(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value.stub(
         _res,
       );
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
+                : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -4012,7 +4114,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionar
   }
 
   final List<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
   >
   nodes;
 
@@ -4043,7 +4145,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionar
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -4068,50 +4170,50 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionar
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value;
 
   TRes call({
     List<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
         >?
       >,
     )
@@ -4119,23 +4221,23 @@ abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labe
   );
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value,
   )
   _then;
 
@@ -4145,12 +4247,12 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$s
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+                  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -4160,12 +4262,12 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$s
 
   TRes nodes(
     Iterable<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
         >?
       >,
     )
@@ -4175,7 +4277,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$s
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+            : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -4184,14 +4286,14 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$s
   );
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
     this._res,
   );
 
@@ -4199,7 +4301,7 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labe
 
   call({
     List<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -4208,18 +4310,18 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labe
   nodes(_fn) => _res;
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -4251,7 +4353,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionar
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -4269,55 +4371,55 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionar
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes,
   )
   _then;
 
@@ -4327,7 +4429,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$s
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -4338,14 +4440,14 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$s
   );
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
     this._res,
   );
 
@@ -4354,23 +4456,23 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labe
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -4379,7 +4481,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionar
 
   final String sharedDictionaryId;
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
   value;
 
   final String $__typename;
@@ -4409,7 +4511,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionar
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -4432,64 +4534,64 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionar
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId,
   )
   _then;
 
@@ -4500,7 +4602,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$s
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -4508,33 +4610,33 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$s
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value),
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    return CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
     this._res,
   );
 
@@ -4542,37 +4644,37 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labe
 
   call({
     String? sharedDictionaryId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
         _res,
       );
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
+                : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -4582,7 +4684,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionar
   }
 
   final List<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
   >
   nodes;
 
@@ -4613,7 +4715,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionar
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -4638,50 +4740,50 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionar
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value;
 
   TRes call({
     List<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
         >?
       >,
     )
@@ -4689,23 +4791,23 @@ abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labe
   );
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value,
   )
   _then;
 
@@ -4715,12 +4817,12 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$s
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+                  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -4730,12 +4832,12 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$s
 
   TRes nodes(
     Iterable<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
         >?
       >,
     )
@@ -4745,7 +4847,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$s
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+            : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -4754,14 +4856,14 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$s
   );
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
     this._res,
   );
 
@@ -4769,7 +4871,7 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labe
 
   call({
     List<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -4778,18 +4880,18 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labe
   nodes(_fn) => _res;
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -4821,7 +4923,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionar
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -4839,55 +4941,55 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionar
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
   )
   _then;
 
@@ -4897,7 +4999,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$s
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -4908,14 +5010,14 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$s
   );
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
     this._res,
   );
 
@@ -4924,23 +5026,23 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labe
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -4949,7 +5051,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionar
 
   final String sharedDictionaryId;
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value
   value;
 
   final String $__typename;
@@ -4979,7 +5081,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionar
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -5002,64 +5104,64 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionar
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId,
   )
   _then;
 
@@ -5070,7 +5172,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$s
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -5078,33 +5180,33 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$s
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value),
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
+    return CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
     this._res,
   );
 
@@ -5112,37 +5214,37 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labe
 
   call({
     String? sharedDictionaryId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
         _res,
       );
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
+                : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -5152,7 +5254,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionar
   }
 
   final List<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
   >
   nodes;
 
@@ -5183,7 +5285,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionar
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -5208,50 +5310,50 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionar
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value;
 
   TRes call({
     List<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
         >?
       >,
     )
@@ -5259,23 +5361,23 @@ abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labe
   );
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value,
   )
   _then;
 
@@ -5285,12 +5387,12 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$s
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+                  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -5300,12 +5402,12 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$s
 
   TRes nodes(
     Iterable<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
         >?
       >,
     )
@@ -5315,7 +5417,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$s
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+            : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -5324,14 +5426,14 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$s
   );
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
     this._res,
   );
 
@@ -5339,7 +5441,7 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labe
 
   call({
     List<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -5348,18 +5450,18 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labe
   nodes(_fn) => _res;
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -5391,7 +5493,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionar
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -5409,55 +5511,55 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionar
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
   )
   _then;
 
@@ -5467,7 +5569,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$s
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -5478,14 +5580,14 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$s
   );
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
     this._res,
   );
 
@@ -5494,32 +5596,32 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$labe
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense({
     required this.totalCount,
     required this.pageInfo,
     required this.nodes,
-    this.$__typename = 'MstrStaffCapabilitiesConnection',
+    this.$__typename = 'MstrStaffLicensesConnection',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$totalCount = json['totalCount'];
     final l$pageInfo = json['pageInfo'];
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense(
       totalCount: (l$totalCount as int),
       pageInfo:
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo.fromJson(
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo.fromJson(
             (l$pageInfo as Map<String, dynamic>),
           ),
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes.fromJson(
+                : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -5530,11 +5632,11 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys {
 
   final int totalCount;
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo
   pageInfo;
 
   final List<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes?
   >
   nodes;
 
@@ -5573,7 +5675,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys {
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -5608,55 +5710,55 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys {
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys
-    on Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense
+    on Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys instance,
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense;
 
   TRes call({
     int? totalCount,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo?
     pageInfo,
     List<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes?
     >?
     nodes,
     String? $__typename,
   });
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo<
     TRes
   >
   get pageInfo;
   TRes nodes(
     Iterable<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes<
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes<
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes
         >?
       >,
     )
@@ -5664,23 +5766,23 @@ abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
   );
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense,
   )
   _then;
 
@@ -5692,19 +5794,19 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense(
       totalCount: totalCount == _undefined || totalCount == null
           ? _instance.totalCount
           : (totalCount as int),
       pageInfo: pageInfo == _undefined || pageInfo == null
           ? _instance.pageInfo
           : (pageInfo
-                as Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo),
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo),
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes?
+                  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -5712,12 +5814,12 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
     ),
   );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo<
     TRes
   >
   get pageInfo {
     final local$pageInfo = _instance.pageInfo;
-    return CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo(
+    return CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo(
       local$pageInfo,
       (e) => call(pageInfo: e),
     );
@@ -5725,12 +5827,12 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
 
   TRes nodes(
     Iterable<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes<
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes<
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes
         >?
       >,
     )
@@ -5740,7 +5842,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes(
+            : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes(
                 e,
                 (i) => i,
               ),
@@ -5749,14 +5851,14 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
   );
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense(
     this._res,
   );
 
@@ -5764,40 +5866,40 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
 
   call({
     int? totalCount,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo?
     pageInfo,
     List<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes?
     >?
     nodes,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo<
     TRes
   >
   get pageInfo =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo.stub(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo.stub(
         _res,
       );
 
   nodes(_fn) => _res;
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo({
     required this.hasNextPage,
     this.endCursor,
     this.$__typename = 'PageInfo',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$hasNextPage = json['hasNextPage'];
     final l$endCursor = json['endCursor'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo(
       hasNextPage: (l$hasNextPage as bool),
       endCursor: (l$endCursor as String?),
       $__typename: (l$$__typename as String),
@@ -5835,7 +5937,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo {
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -5858,54 +5960,54 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo {
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo
-    on Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo
+    on Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo;
 
   TRes call({bool? hasNextPage, String? endCursor, String? $__typename});
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo,
   )
   _then;
 
@@ -5916,7 +6018,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
     Object? endCursor = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo(
       hasNextPage: hasNextPage == _undefined || hasNextPage == null
           ? _instance.hasNextPage
           : (hasNextPage as bool),
@@ -5930,14 +6032,14 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
   );
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$pageInfo(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$pageInfo(
     this._res,
   );
 
@@ -5946,64 +6048,99 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
   call({bool? hasNextPage, String? endCursor, String? $__typename}) => _res;
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes({
-    required this.mstrStaffCapabilityId,
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes({
+    required this.mstrStaffLicenseId,
     required this.infoStaffId,
-    this.value,
-    this.stop,
-    this.capability,
-    this.$__typename = 'MstrStaffCapability',
+    required this.mstrLicenseId,
+    this.startAt,
+    required this.stopAt,
+    this.abeyance,
+    this.abeyanceAt,
+    this.revocation,
+    this.revocationAt,
+    this.license,
+    this.$__typename = 'MstrStaffLicense',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
-    final l$mstrStaffCapabilityId = json['mstrStaffCapabilityId'];
+    final l$mstrStaffLicenseId = json['mstrStaffLicenseId'];
     final l$infoStaffId = json['infoStaffId'];
-    final l$value = json['value'];
-    final l$stop = json['stop'];
-    final l$capability = json['capability'];
+    final l$mstrLicenseId = json['mstrLicenseId'];
+    final l$startAt = json['startAt'];
+    final l$stopAt = json['stopAt'];
+    final l$abeyance = json['abeyance'];
+    final l$abeyanceAt = json['abeyanceAt'];
+    final l$revocation = json['revocation'];
+    final l$revocationAt = json['revocationAt'];
+    final l$license = json['license'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes(
-      mstrStaffCapabilityId: (l$mstrStaffCapabilityId as String),
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes(
+      mstrStaffLicenseId: (l$mstrStaffLicenseId as String),
       infoStaffId: (l$infoStaffId as String),
-      value: (l$value as String?),
-      stop: (l$stop as bool?),
-      capability: l$capability == null
+      mstrLicenseId: (l$mstrLicenseId as String),
+      startAt: (l$startAt as String?),
+      stopAt: (l$stopAt as String),
+      abeyance: (l$abeyance as bool?),
+      abeyanceAt: (l$abeyanceAt as String?),
+      revocation: (l$revocation as bool?),
+      revocationAt: (l$revocationAt as String?),
+      license: l$license == null
           ? null
-          : Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability.fromJson(
-              (l$capability as Map<String, dynamic>),
+          : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license.fromJson(
+              (l$license as Map<String, dynamic>),
             ),
       $__typename: (l$$__typename as String),
     );
   }
 
-  final String mstrStaffCapabilityId;
+  final String mstrStaffLicenseId;
 
   final String infoStaffId;
 
-  final String? value;
+  final String mstrLicenseId;
 
-  final bool? stop;
+  final String? startAt;
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability?
-  capability;
+  final String stopAt;
+
+  final bool? abeyance;
+
+  final String? abeyanceAt;
+
+  final bool? revocation;
+
+  final String? revocationAt;
+
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license?
+  license;
 
   final String $__typename;
 
   Map<String, dynamic> toJson() {
     final _resultData = <String, dynamic>{};
-    final l$mstrStaffCapabilityId = mstrStaffCapabilityId;
-    _resultData['mstrStaffCapabilityId'] = l$mstrStaffCapabilityId;
+    final l$mstrStaffLicenseId = mstrStaffLicenseId;
+    _resultData['mstrStaffLicenseId'] = l$mstrStaffLicenseId;
     final l$infoStaffId = infoStaffId;
     _resultData['infoStaffId'] = l$infoStaffId;
-    final l$value = value;
-    _resultData['value'] = l$value;
-    final l$stop = stop;
-    _resultData['stop'] = l$stop;
-    final l$capability = capability;
-    _resultData['capability'] = l$capability?.toJson();
+    final l$mstrLicenseId = mstrLicenseId;
+    _resultData['mstrLicenseId'] = l$mstrLicenseId;
+    final l$startAt = startAt;
+    _resultData['startAt'] = l$startAt;
+    final l$stopAt = stopAt;
+    _resultData['stopAt'] = l$stopAt;
+    final l$abeyance = abeyance;
+    _resultData['abeyance'] = l$abeyance;
+    final l$abeyanceAt = abeyanceAt;
+    _resultData['abeyanceAt'] = l$abeyanceAt;
+    final l$revocation = revocation;
+    _resultData['revocation'] = l$revocation;
+    final l$revocationAt = revocationAt;
+    _resultData['revocationAt'] = l$revocationAt;
+    final l$license = license;
+    _resultData['license'] = l$license?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -6011,18 +6148,28 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes {
 
   @override
   int get hashCode {
-    final l$mstrStaffCapabilityId = mstrStaffCapabilityId;
+    final l$mstrStaffLicenseId = mstrStaffLicenseId;
     final l$infoStaffId = infoStaffId;
-    final l$value = value;
-    final l$stop = stop;
-    final l$capability = capability;
+    final l$mstrLicenseId = mstrLicenseId;
+    final l$startAt = startAt;
+    final l$stopAt = stopAt;
+    final l$abeyance = abeyance;
+    final l$abeyanceAt = abeyanceAt;
+    final l$revocation = revocation;
+    final l$revocationAt = revocationAt;
+    final l$license = license;
     final l$$__typename = $__typename;
     return Object.hashAll([
-      l$mstrStaffCapabilityId,
+      l$mstrStaffLicenseId,
       l$infoStaffId,
-      l$value,
-      l$stop,
-      l$capability,
+      l$mstrLicenseId,
+      l$startAt,
+      l$stopAt,
+      l$abeyance,
+      l$abeyanceAt,
+      l$revocation,
+      l$revocationAt,
+      l$license,
       l$$__typename,
     ]);
   }
@@ -6033,13 +6180,13 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes {
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
-    final l$mstrStaffCapabilityId = mstrStaffCapabilityId;
-    final lOther$mstrStaffCapabilityId = other.mstrStaffCapabilityId;
-    if (l$mstrStaffCapabilityId != lOther$mstrStaffCapabilityId) {
+    final l$mstrStaffLicenseId = mstrStaffLicenseId;
+    final lOther$mstrStaffLicenseId = other.mstrStaffLicenseId;
+    if (l$mstrStaffLicenseId != lOther$mstrStaffLicenseId) {
       return false;
     }
     final l$infoStaffId = infoStaffId;
@@ -6047,19 +6194,44 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes {
     if (l$infoStaffId != lOther$infoStaffId) {
       return false;
     }
-    final l$value = value;
-    final lOther$value = other.value;
-    if (l$value != lOther$value) {
+    final l$mstrLicenseId = mstrLicenseId;
+    final lOther$mstrLicenseId = other.mstrLicenseId;
+    if (l$mstrLicenseId != lOther$mstrLicenseId) {
       return false;
     }
-    final l$stop = stop;
-    final lOther$stop = other.stop;
-    if (l$stop != lOther$stop) {
+    final l$startAt = startAt;
+    final lOther$startAt = other.startAt;
+    if (l$startAt != lOther$startAt) {
       return false;
     }
-    final l$capability = capability;
-    final lOther$capability = other.capability;
-    if (l$capability != lOther$capability) {
+    final l$stopAt = stopAt;
+    final lOther$stopAt = other.stopAt;
+    if (l$stopAt != lOther$stopAt) {
+      return false;
+    }
+    final l$abeyance = abeyance;
+    final lOther$abeyance = other.abeyance;
+    if (l$abeyance != lOther$abeyance) {
+      return false;
+    }
+    final l$abeyanceAt = abeyanceAt;
+    final lOther$abeyanceAt = other.abeyanceAt;
+    if (l$abeyanceAt != lOther$abeyanceAt) {
+      return false;
+    }
+    final l$revocation = revocation;
+    final lOther$revocation = other.revocation;
+    if (l$revocation != lOther$revocation) {
+      return false;
+    }
+    final l$revocationAt = revocationAt;
+    final lOther$revocationAt = other.revocationAt;
+    if (l$revocationAt != lOther$revocationAt) {
+      return false;
+    }
+    final l$license = license;
+    final lOther$license = other.license;
+    if (l$license != lOther$license) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -6071,175 +6243,207 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes {
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes
-    on Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes
+    on Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes;
 
   TRes call({
-    String? mstrStaffCapabilityId,
+    String? mstrStaffLicenseId,
     String? infoStaffId,
-    String? value,
-    bool? stop,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability?
-    capability,
+    String? mstrLicenseId,
+    String? startAt,
+    String? stopAt,
+    bool? abeyance,
+    String? abeyanceAt,
+    bool? revocation,
+    String? revocationAt,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license?
+    license,
     String? $__typename,
   });
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license<
     TRes
   >
-  get capability;
+  get license;
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes,
   )
   _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
   TRes call({
-    Object? mstrStaffCapabilityId = _undefined,
+    Object? mstrStaffLicenseId = _undefined,
     Object? infoStaffId = _undefined,
-    Object? value = _undefined,
-    Object? stop = _undefined,
-    Object? capability = _undefined,
+    Object? mstrLicenseId = _undefined,
+    Object? startAt = _undefined,
+    Object? stopAt = _undefined,
+    Object? abeyance = _undefined,
+    Object? abeyanceAt = _undefined,
+    Object? revocation = _undefined,
+    Object? revocationAt = _undefined,
+    Object? license = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes(
-      mstrStaffCapabilityId:
-          mstrStaffCapabilityId == _undefined || mstrStaffCapabilityId == null
-          ? _instance.mstrStaffCapabilityId
-          : (mstrStaffCapabilityId as String),
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes(
+      mstrStaffLicenseId:
+          mstrStaffLicenseId == _undefined || mstrStaffLicenseId == null
+          ? _instance.mstrStaffLicenseId
+          : (mstrStaffLicenseId as String),
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      value: value == _undefined ? _instance.value : (value as String?),
-      stop: stop == _undefined ? _instance.stop : (stop as bool?),
-      capability: capability == _undefined
-          ? _instance.capability
-          : (capability
-                as Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability?),
+      mstrLicenseId: mstrLicenseId == _undefined || mstrLicenseId == null
+          ? _instance.mstrLicenseId
+          : (mstrLicenseId as String),
+      startAt: startAt == _undefined ? _instance.startAt : (startAt as String?),
+      stopAt: stopAt == _undefined || stopAt == null
+          ? _instance.stopAt
+          : (stopAt as String),
+      abeyance: abeyance == _undefined
+          ? _instance.abeyance
+          : (abeyance as bool?),
+      abeyanceAt: abeyanceAt == _undefined
+          ? _instance.abeyanceAt
+          : (abeyanceAt as String?),
+      revocation: revocation == _undefined
+          ? _instance.revocation
+          : (revocation as bool?),
+      revocationAt: revocationAt == _undefined
+          ? _instance.revocationAt
+          : (revocationAt as String?),
+      license: license == _undefined
+          ? _instance.license
+          : (license
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license<
     TRes
   >
-  get capability {
-    final local$capability = _instance.capability;
-    return local$capability == null
-        ? CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability.stub(
+  get license {
+    final local$license = _instance.license;
+    return local$license == null
+        ? CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license.stub(
             _then(_instance),
           )
-        : CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability(
-            local$capability,
-            (e) => call(capability: e),
+        : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license(
+            local$license,
+            (e) => call(license: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes(
     this._res,
   );
 
   TRes _res;
 
   call({
-    String? mstrStaffCapabilityId,
+    String? mstrStaffLicenseId,
     String? infoStaffId,
-    String? value,
-    bool? stop,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability?
-    capability,
+    String? mstrLicenseId,
+    String? startAt,
+    String? stopAt,
+    bool? abeyance,
+    String? abeyanceAt,
+    bool? revocation,
+    String? revocationAt,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license?
+    license,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license<
     TRes
   >
-  get capability =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability.stub(
+  get license =>
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license.stub(
         _res,
       );
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability({
-    required this.mstrCapabilityId,
-    required this.code,
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license({
+    required this.mstrLicenseId,
+    this.code,
     this.detail,
-    required this.referenceValue,
-    this.max,
-    this.min,
-    this.step,
+    this.publicLicense,
+    this.customerLicense,
+    this.organizationLicense,
+    this.updateInterval,
     this.symbol,
     this.remarks,
     this.updateAt,
     this.remove,
     this.labels,
     this.update_user,
-    this.$__typename = 'MstrCapability',
+    this.$__typename = 'MstrLicense',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license.fromJson(
     Map<String, dynamic> json,
   ) {
-    final l$mstrCapabilityId = json['mstrCapabilityId'];
+    final l$mstrLicenseId = json['mstrLicenseId'];
     final l$code = json['code'];
     final l$detail = json['detail'];
-    final l$referenceValue = json['referenceValue'];
-    final l$max = json['max'];
-    final l$min = json['min'];
-    final l$step = json['step'];
+    final l$publicLicense = json['publicLicense'];
+    final l$customerLicense = json['customerLicense'];
+    final l$organizationLicense = json['organizationLicense'];
+    final l$updateInterval = json['updateInterval'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
     final l$updateAt = json['updateAt'];
@@ -6247,45 +6451,50 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
     final l$labels = json['labels'];
     final l$update_user = json['update_user'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability(
-      mstrCapabilityId: (l$mstrCapabilityId as String),
-      code: (l$code as String),
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license(
+      mstrLicenseId: (l$mstrLicenseId as String),
+      code: (l$code as String?),
       detail: (l$detail as String?),
-      referenceValue: (l$referenceValue as String),
-      max: (l$max as String?),
-      min: (l$min as String?),
-      step: (l$step as String?),
+      publicLicense: (l$publicLicense as bool?),
+      customerLicense: (l$customerLicense as bool?),
+      organizationLicense: (l$organizationLicense as bool?),
+      updateInterval: l$updateInterval == null
+          ? null
+          : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval.fromJson(
+              (l$updateInterval as Map<String, dynamic>),
+            ),
       symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
       labels: l$labels == null
           ? null
-          : Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels.fromJson(
+          : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels.fromJson(
               (l$labels as Map<String, dynamic>),
             ),
       update_user: l$update_user == null
           ? null
-          : Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user.fromJson(
+          : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user.fromJson(
               (l$update_user as Map<String, dynamic>),
             ),
       $__typename: (l$$__typename as String),
     );
   }
 
-  final String mstrCapabilityId;
+  final String mstrLicenseId;
 
-  final String code;
+  final String? code;
 
   final String? detail;
 
-  final String referenceValue;
+  final bool? publicLicense;
 
-  final String? max;
+  final bool? customerLicense;
 
-  final String? min;
+  final bool? organizationLicense;
 
-  final String? step;
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval?
+  updateInterval;
 
   final String? symbol;
 
@@ -6295,30 +6504,30 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
 
   final bool? remove;
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels?
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels?
   labels;
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user?
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user?
   update_user;
 
   final String $__typename;
 
   Map<String, dynamic> toJson() {
     final _resultData = <String, dynamic>{};
-    final l$mstrCapabilityId = mstrCapabilityId;
-    _resultData['mstrCapabilityId'] = l$mstrCapabilityId;
+    final l$mstrLicenseId = mstrLicenseId;
+    _resultData['mstrLicenseId'] = l$mstrLicenseId;
     final l$code = code;
     _resultData['code'] = l$code;
     final l$detail = detail;
     _resultData['detail'] = l$detail;
-    final l$referenceValue = referenceValue;
-    _resultData['referenceValue'] = l$referenceValue;
-    final l$max = max;
-    _resultData['max'] = l$max;
-    final l$min = min;
-    _resultData['min'] = l$min;
-    final l$step = step;
-    _resultData['step'] = l$step;
+    final l$publicLicense = publicLicense;
+    _resultData['publicLicense'] = l$publicLicense;
+    final l$customerLicense = customerLicense;
+    _resultData['customerLicense'] = l$customerLicense;
+    final l$organizationLicense = organizationLicense;
+    _resultData['organizationLicense'] = l$organizationLicense;
+    final l$updateInterval = updateInterval;
+    _resultData['updateInterval'] = l$updateInterval?.toJson();
     final l$symbol = symbol;
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
@@ -6338,13 +6547,13 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
 
   @override
   int get hashCode {
-    final l$mstrCapabilityId = mstrCapabilityId;
+    final l$mstrLicenseId = mstrLicenseId;
     final l$code = code;
     final l$detail = detail;
-    final l$referenceValue = referenceValue;
-    final l$max = max;
-    final l$min = min;
-    final l$step = step;
+    final l$publicLicense = publicLicense;
+    final l$customerLicense = customerLicense;
+    final l$organizationLicense = organizationLicense;
+    final l$updateInterval = updateInterval;
     final l$symbol = symbol;
     final l$remarks = remarks;
     final l$updateAt = updateAt;
@@ -6353,13 +6562,13 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
     final l$update_user = update_user;
     final l$$__typename = $__typename;
     return Object.hashAll([
-      l$mstrCapabilityId,
+      l$mstrLicenseId,
       l$code,
       l$detail,
-      l$referenceValue,
-      l$max,
-      l$min,
-      l$step,
+      l$publicLicense,
+      l$customerLicense,
+      l$organizationLicense,
+      l$updateInterval,
       l$symbol,
       l$remarks,
       l$updateAt,
@@ -6376,13 +6585,13 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license ||
         runtimeType != other.runtimeType) {
       return false;
     }
-    final l$mstrCapabilityId = mstrCapabilityId;
-    final lOther$mstrCapabilityId = other.mstrCapabilityId;
-    if (l$mstrCapabilityId != lOther$mstrCapabilityId) {
+    final l$mstrLicenseId = mstrLicenseId;
+    final lOther$mstrLicenseId = other.mstrLicenseId;
+    if (l$mstrLicenseId != lOther$mstrLicenseId) {
       return false;
     }
     final l$code = code;
@@ -6395,24 +6604,24 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
     if (l$detail != lOther$detail) {
       return false;
     }
-    final l$referenceValue = referenceValue;
-    final lOther$referenceValue = other.referenceValue;
-    if (l$referenceValue != lOther$referenceValue) {
+    final l$publicLicense = publicLicense;
+    final lOther$publicLicense = other.publicLicense;
+    if (l$publicLicense != lOther$publicLicense) {
       return false;
     }
-    final l$max = max;
-    final lOther$max = other.max;
-    if (l$max != lOther$max) {
+    final l$customerLicense = customerLicense;
+    final lOther$customerLicense = other.customerLicense;
+    if (l$customerLicense != lOther$customerLicense) {
       return false;
     }
-    final l$min = min;
-    final lOther$min = other.min;
-    if (l$min != lOther$min) {
+    final l$organizationLicense = organizationLicense;
+    final lOther$organizationLicense = other.organizationLicense;
+    if (l$organizationLicense != lOther$organizationLicense) {
       return false;
     }
-    final l$step = step;
-    final lOther$step = other.step;
-    if (l$step != lOther$step) {
+    final l$updateInterval = updateInterval;
+    final lOther$updateInterval = other.updateInterval;
+    if (l$updateInterval != lOther$updateInterval) {
       return false;
     }
     final l$symbol = symbol;
@@ -6454,93 +6663,97 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability
-    on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license
+    on Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license;
 
   TRes call({
-    String? mstrCapabilityId,
+    String? mstrLicenseId,
     String? code,
     String? detail,
-    String? referenceValue,
-    String? max,
-    String? min,
-    String? step,
+    bool? publicLicense,
+    bool? customerLicense,
+    bool? organizationLicense,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval?
+    updateInterval,
     String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels?
     labels,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user?
     update_user,
     String? $__typename,
   });
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval<
+    TRes
+  >
+  get updateInterval;
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels<
     TRes
   >
   get labels;
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user<
     TRes
   >
   get update_user;
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license,
   )
   _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
   TRes call({
-    Object? mstrCapabilityId = _undefined,
+    Object? mstrLicenseId = _undefined,
     Object? code = _undefined,
     Object? detail = _undefined,
-    Object? referenceValue = _undefined,
-    Object? max = _undefined,
-    Object? min = _undefined,
-    Object? step = _undefined,
+    Object? publicLicense = _undefined,
+    Object? customerLicense = _undefined,
+    Object? organizationLicense = _undefined,
+    Object? updateInterval = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
     Object? updateAt = _undefined,
@@ -6549,21 +6762,25 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
     Object? update_user = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability(
-      mstrCapabilityId:
-          mstrCapabilityId == _undefined || mstrCapabilityId == null
-          ? _instance.mstrCapabilityId
-          : (mstrCapabilityId as String),
-      code: code == _undefined || code == null
-          ? _instance.code
-          : (code as String),
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license(
+      mstrLicenseId: mstrLicenseId == _undefined || mstrLicenseId == null
+          ? _instance.mstrLicenseId
+          : (mstrLicenseId as String),
+      code: code == _undefined ? _instance.code : (code as String?),
       detail: detail == _undefined ? _instance.detail : (detail as String?),
-      referenceValue: referenceValue == _undefined || referenceValue == null
-          ? _instance.referenceValue
-          : (referenceValue as String),
-      max: max == _undefined ? _instance.max : (max as String?),
-      min: min == _undefined ? _instance.min : (min as String?),
-      step: step == _undefined ? _instance.step : (step as String?),
+      publicLicense: publicLicense == _undefined
+          ? _instance.publicLicense
+          : (publicLicense as bool?),
+      customerLicense: customerLicense == _undefined
+          ? _instance.customerLicense
+          : (customerLicense as bool?),
+      organizationLicense: organizationLicense == _undefined
+          ? _instance.organizationLicense
+          : (organizationLicense as bool?),
+      updateInterval: updateInterval == _undefined
+          ? _instance.updateInterval
+          : (updateInterval
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       updateAt: updateAt == _undefined
@@ -6573,99 +6790,366 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
       labels: labels == _undefined
           ? _instance.labels
           : (labels
-                as Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels?),
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels?),
       update_user: update_user == _undefined
           ? _instance.update_user
           : (update_user
-                as Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user?),
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval<
+    TRes
+  >
+  get updateInterval {
+    final local$updateInterval = _instance.updateInterval;
+    return local$updateInterval == null
+        ? CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval(
+            local$updateInterval,
+            (e) => call(updateInterval: e),
+          );
+  }
+
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels<
     TRes
   >
   get labels {
     final local$labels = _instance.labels;
     return local$labels == null
-        ? CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels.stub(
+        ? CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels.stub(
             _then(_instance),
           )
-        : CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels(
+        : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels(
             local$labels,
             (e) => call(labels: e),
           );
   }
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user<
     TRes
   >
   get update_user {
     final local$update_user = _instance.update_user;
     return local$update_user == null
-        ? CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user.stub(
+        ? CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user.stub(
             _then(_instance),
           )
-        : CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user(
+        : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user(
             local$update_user,
             (e) => call(update_user: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license(
     this._res,
   );
 
   TRes _res;
 
   call({
-    String? mstrCapabilityId,
+    String? mstrLicenseId,
     String? code,
     String? detail,
-    String? referenceValue,
-    String? max,
-    String? min,
-    String? step,
+    bool? publicLicense,
+    bool? customerLicense,
+    bool? organizationLicense,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval?
+    updateInterval,
     String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels?
     labels,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user?
     update_user,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval<
+    TRes
+  >
+  get updateInterval =>
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval.stub(
+        _res,
+      );
+
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels<
     TRes
   >
   get labels =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels.stub(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels.stub(
         _res,
       );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user<
     TRes
   >
   get update_user =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user.stub(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user.stub(
         _res,
       );
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval({
+    this.years,
+    this.months,
+    this.days,
+    this.hours,
+    this.minutes,
+    this.seconds,
+    this.$__typename = 'Interval',
+  });
+
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$years = json['years'];
+    final l$months = json['months'];
+    final l$days = json['days'];
+    final l$hours = json['hours'];
+    final l$minutes = json['minutes'];
+    final l$seconds = json['seconds'];
+    final l$$__typename = json['__typename'];
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval(
+      years: (l$years as int?),
+      months: (l$months as int?),
+      days: (l$days as int?),
+      hours: (l$hours as int?),
+      minutes: (l$minutes as int?),
+      seconds: (l$seconds as num?)?.toDouble(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final int? years;
+
+  final int? months;
+
+  final int? days;
+
+  final int? hours;
+
+  final int? minutes;
+
+  final double? seconds;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$years = years;
+    _resultData['years'] = l$years;
+    final l$months = months;
+    _resultData['months'] = l$months;
+    final l$days = days;
+    _resultData['days'] = l$days;
+    final l$hours = hours;
+    _resultData['hours'] = l$hours;
+    final l$minutes = minutes;
+    _resultData['minutes'] = l$minutes;
+    final l$seconds = seconds;
+    _resultData['seconds'] = l$seconds;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$years = years;
+    final l$months = months;
+    final l$days = days;
+    final l$hours = hours;
+    final l$minutes = minutes;
+    final l$seconds = seconds;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$years,
+      l$months,
+      l$days,
+      l$hours,
+      l$minutes,
+      l$seconds,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$years = years;
+    final lOther$years = other.years;
+    if (l$years != lOther$years) {
+      return false;
+    }
+    final l$months = months;
+    final lOther$months = other.months;
+    if (l$months != lOther$months) {
+      return false;
+    }
+    final l$days = days;
+    final lOther$days = other.days;
+    if (l$days != lOther$days) {
+      return false;
+    }
+    final l$hours = hours;
+    final lOther$hours = other.hours;
+    if (l$hours != lOther$hours) {
+      return false;
+    }
+    final l$minutes = minutes;
+    final lOther$minutes = other.minutes;
+    if (l$minutes != lOther$minutes) {
+      return false;
+    }
+    final l$seconds = seconds;
+    final lOther$seconds = other.seconds;
+    if (l$seconds != lOther$seconds) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval
+    on
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval
+  >
+  get copyWith =>
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval<
+  TRes
+> {
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval
+    instance,
+    TRes Function(
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval,
+    )
+    then,
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval;
+
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval;
+
+  TRes call({
+    int? years,
+    int? months,
+    int? days,
+    int? hours,
+    int? minutes,
+    double? seconds,
+    String? $__typename,
+  });
+}
+
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval<
+          TRes
+        > {
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval(
+    this._instance,
+    this._then,
+  );
+
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval
+  _instance;
+
+  final TRes Function(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? years = _undefined,
+    Object? months = _undefined,
+    Object? days = _undefined,
+    Object? hours = _undefined,
+    Object? minutes = _undefined,
+    Object? seconds = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval(
+      years: years == _undefined ? _instance.years : (years as int?),
+      months: months == _undefined ? _instance.months : (months as int?),
+      days: days == _undefined ? _instance.days : (days as int?),
+      hours: hours == _undefined ? _instance.hours : (hours as int?),
+      minutes: minutes == _undefined ? _instance.minutes : (minutes as int?),
+      seconds: seconds == _undefined ? _instance.seconds : (seconds as double?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    int? years,
+    int? months,
+    int? days,
+    int? hours,
+    int? minutes,
+    double? seconds,
+    String? $__typename,
+  }) => _res;
+}
+
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels({
     required this.sharedAppellationsId,
     this.sharedDictionaryBySharedDictionaryNameId,
     this.sharedDictionaryBySharedDictionaryPronunciationId,
@@ -6673,7 +7157,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
     this.$__typename = 'SharedAppellation',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedAppellationsId = json['sharedAppellationsId'];
@@ -6684,26 +7168,26 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
     final l$sharedDictionaryBySharedDictionaryNicknameId =
         json['sharedDictionaryBySharedDictionaryNicknameId'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels(
       sharedAppellationsId: (l$sharedAppellationsId as String),
       sharedDictionaryBySharedDictionaryNameId:
           l$sharedDictionaryBySharedDictionaryNameId == null
           ? null
-          : Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId.fromJson(
+          : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNameId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryPronunciationId:
           l$sharedDictionaryBySharedDictionaryPronunciationId == null
           ? null
-          : Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+          : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
               (l$sharedDictionaryBySharedDictionaryPronunciationId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryNicknameId:
           l$sharedDictionaryBySharedDictionaryNicknameId == null
           ? null
-          : Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+          : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNicknameId
                   as Map<String, dynamic>),
             ),
@@ -6713,13 +7197,13 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
 
   final String sharedAppellationsId;
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId?
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId?
   sharedDictionaryBySharedDictionaryNameId;
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId?
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId?
   sharedDictionaryBySharedDictionaryPronunciationId;
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId?
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId?
   sharedDictionaryBySharedDictionaryNicknameId;
 
   final String $__typename;
@@ -6770,7 +7254,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -6812,76 +7296,76 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels;
 
   TRes call({
     String? sharedAppellationsId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   });
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId;
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId;
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId;
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels,
   )
   _then;
 
@@ -6894,7 +7378,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
     Object? sharedDictionaryBySharedDictionaryNicknameId = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels(
       sharedAppellationsId:
           sharedAppellationsId == _undefined || sharedAppellationsId == null
           ? _instance.sharedAppellationsId
@@ -6903,80 +7387,80 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
           sharedDictionaryBySharedDictionaryNameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNameId
           : (sharedDictionaryBySharedDictionaryNameId
-                as Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId?),
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId?),
       sharedDictionaryBySharedDictionaryPronunciationId:
           sharedDictionaryBySharedDictionaryPronunciationId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryPronunciationId
           : (sharedDictionaryBySharedDictionaryPronunciationId
-                as Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId?),
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId?),
       sharedDictionaryBySharedDictionaryNicknameId:
           sharedDictionaryBySharedDictionaryNicknameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNicknameId
           : (sharedDictionaryBySharedDictionaryNicknameId
-                as Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId?),
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId {
     final local$sharedDictionaryBySharedDictionaryNameId =
         _instance.sharedDictionaryBySharedDictionaryNameId;
     return local$sharedDictionaryBySharedDictionaryNameId == null
-        ? CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId.stub(
+        ? CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId(
+        : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId(
             local$sharedDictionaryBySharedDictionaryNameId,
             (e) => call(sharedDictionaryBySharedDictionaryNameId: e),
           );
   }
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId {
     final local$sharedDictionaryBySharedDictionaryPronunciationId =
         _instance.sharedDictionaryBySharedDictionaryPronunciationId;
     return local$sharedDictionaryBySharedDictionaryPronunciationId == null
-        ? CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+        ? CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+        : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId(
             local$sharedDictionaryBySharedDictionaryPronunciationId,
             (e) => call(sharedDictionaryBySharedDictionaryPronunciationId: e),
           );
   }
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId {
     final local$sharedDictionaryBySharedDictionaryNicknameId =
         _instance.sharedDictionaryBySharedDictionaryNicknameId;
     return local$sharedDictionaryBySharedDictionaryNicknameId == null
-        ? CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId.stub(
+        ? CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId(
+        : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId(
             local$sharedDictionaryBySharedDictionaryNicknameId,
             (e) => call(sharedDictionaryBySharedDictionaryNicknameId: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels(
     this._res,
   );
 
@@ -6984,57 +7468,57 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
 
   call({
     String? sharedAppellationsId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId.stub(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId.stub(
         _res,
       );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId.stub(
         _res,
       );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId.stub(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId.stub(
         _res,
       );
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -7043,7 +7527,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
 
   final String sharedDictionaryId;
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value
   value;
 
   final String $__typename;
@@ -7073,7 +7557,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -7096,64 +7580,64 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId,
   )
   _then;
 
@@ -7164,7 +7648,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -7172,33 +7656,33 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value),
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value(
+    return CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId(
     this._res,
   );
 
@@ -7206,37 +7690,37 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
 
   call({
     String? sharedDictionaryId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value.stub(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value.stub(
         _res,
       );
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
+                : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -7246,7 +7730,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
   }
 
   final List<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
   >
   nodes;
 
@@ -7277,7 +7761,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -7302,50 +7786,50 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value;
 
   TRes call({
     List<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
         >?
       >,
     )
@@ -7353,23 +7837,23 @@ abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
   );
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value,
   )
   _then;
 
@@ -7379,12 +7863,12 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+                  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -7394,12 +7878,12 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
 
   TRes nodes(
     Iterable<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
         >?
       >,
     )
@@ -7409,7 +7893,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+            : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -7418,14 +7902,14 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
   );
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value(
     this._res,
   );
 
@@ -7433,7 +7917,7 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
 
   call({
     List<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -7442,18 +7926,18 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
   nodes(_fn) => _res;
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -7485,7 +7969,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -7503,55 +7987,55 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes,
   )
   _then;
 
@@ -7561,7 +8045,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -7572,14 +8056,14 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
   );
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
     this._res,
   );
 
@@ -7588,23 +8072,23 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -7613,7 +8097,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
 
   final String sharedDictionaryId;
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
   value;
 
   final String $__typename;
@@ -7643,7 +8127,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -7666,64 +8150,64 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId,
   )
   _then;
 
@@ -7734,7 +8218,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -7742,33 +8226,33 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value),
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    return CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId(
     this._res,
   );
 
@@ -7776,37 +8260,37 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
 
   call({
     String? sharedDictionaryId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
         _res,
       );
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
+                : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -7816,7 +8300,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
   }
 
   final List<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
   >
   nodes;
 
@@ -7847,7 +8331,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -7872,50 +8356,50 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value;
 
   TRes call({
     List<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
         >?
       >,
     )
@@ -7923,23 +8407,23 @@ abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
   );
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value,
   )
   _then;
 
@@ -7949,12 +8433,12 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+                  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -7964,12 +8448,12 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
 
   TRes nodes(
     Iterable<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
         >?
       >,
     )
@@ -7979,7 +8463,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+            : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -7988,14 +8472,14 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
   );
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
     this._res,
   );
 
@@ -8003,7 +8487,7 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
 
   call({
     List<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -8012,18 +8496,18 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
   nodes(_fn) => _res;
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -8055,7 +8539,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -8073,55 +8557,55 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
   )
   _then;
 
@@ -8131,7 +8615,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -8142,14 +8626,14 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
   );
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
     this._res,
   );
 
@@ -8158,23 +8642,23 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -8183,7 +8667,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
 
   final String sharedDictionaryId;
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value
   value;
 
   final String $__typename;
@@ -8213,7 +8697,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -8236,64 +8720,64 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId,
   )
   _then;
 
@@ -8304,7 +8788,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -8312,33 +8796,33 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value),
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
+    return CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId(
     this._res,
   );
 
@@ -8346,37 +8830,37 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
 
   call({
     String? sharedDictionaryId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
         _res,
       );
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
+                : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -8386,7 +8870,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
   }
 
   final List<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
   >
   nodes;
 
@@ -8417,7 +8901,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -8442,50 +8926,50 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value;
 
   TRes call({
     List<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
         >?
       >,
     )
@@ -8493,23 +8977,23 @@ abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
   );
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value,
   )
   _then;
 
@@ -8519,12 +9003,12 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+                  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -8534,12 +9018,12 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
 
   TRes nodes(
     Iterable<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
         >?
       >,
     )
@@ -8549,7 +9033,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+            : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -8558,14 +9042,14 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
   );
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
     this._res,
   );
 
@@ -8573,7 +9057,7 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
 
   call({
     List<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -8582,18 +9066,18 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
   nodes(_fn) => _res;
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -8625,7 +9109,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -8643,55 +9127,55 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
   )
   _then;
 
@@ -8701,7 +9185,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -8712,14 +9196,14 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
   );
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
     this._res,
   );
 
@@ -8728,8 +9212,8 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user({
     required this.historyId,
     required this.infoStaffId,
     this.infoCompanyId,
@@ -8742,7 +9226,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
     this.$__typename = 'HistoryInfoStaff',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$historyId = json['historyId'];
@@ -8755,7 +9239,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
     final l$privatePhone = json['privatePhone'];
     final l$name = json['name'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
       infoCompanyId: (l$infoCompanyId as String?),
@@ -8766,7 +9250,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
       privatePhone: (l$privatePhone as String?),
       name: l$name == null
           ? null
-          : Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name.fromJson(
+          : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name.fromJson(
               (l$name as Map<String, dynamic>),
             ),
       $__typename: (l$$__typename as String),
@@ -8789,7 +9273,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
 
   final String? privatePhone;
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name?
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name?
   name;
 
   final String $__typename;
@@ -8851,7 +9335,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -8909,34 +9393,34 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user;
 
   TRes call({
     String? historyId,
@@ -8947,33 +9431,33 @@ abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name?
     name,
     String? $__typename,
   });
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name<
     TRes
   >
   get name;
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user,
   )
   _then;
 
@@ -8991,7 +9475,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
     Object? name = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user(
       historyId: historyId == _undefined || historyId == null
           ? _instance.historyId
           : (historyId as String),
@@ -9011,37 +9495,37 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
       name: name == _undefined
           ? _instance.name
           : (name
-                as Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name?),
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name<
     TRes
   >
   get name {
     final local$name = _instance.name;
     return local$name == null
-        ? CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name.stub(
+        ? CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name.stub(
             _then(_instance),
           )
-        : CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name(
+        : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name(
             local$name,
             (e) => call(name: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user(
     this._res,
   );
 
@@ -9056,22 +9540,22 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name?
     name,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name<
     TRes
   >
   get name =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name.stub(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name.stub(
         _res,
       );
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name({
     required this.sharedAppellationsId,
     this.sharedDictionaryBySharedDictionaryNameId,
     this.sharedDictionaryBySharedDictionaryPronunciationId,
@@ -9079,7 +9563,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
     this.$__typename = 'SharedAppellation',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedAppellationsId = json['sharedAppellationsId'];
@@ -9090,26 +9574,26 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
     final l$sharedDictionaryBySharedDictionaryNicknameId =
         json['sharedDictionaryBySharedDictionaryNicknameId'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name(
       sharedAppellationsId: (l$sharedAppellationsId as String),
       sharedDictionaryBySharedDictionaryNameId:
           l$sharedDictionaryBySharedDictionaryNameId == null
           ? null
-          : Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId.fromJson(
+          : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNameId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryPronunciationId:
           l$sharedDictionaryBySharedDictionaryPronunciationId == null
           ? null
-          : Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+          : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
               (l$sharedDictionaryBySharedDictionaryPronunciationId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryNicknameId:
           l$sharedDictionaryBySharedDictionaryNicknameId == null
           ? null
-          : Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+          : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNicknameId
                   as Map<String, dynamic>),
             ),
@@ -9119,13 +9603,13 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
 
   final String sharedAppellationsId;
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId?
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId?
   sharedDictionaryBySharedDictionaryNameId;
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?
   sharedDictionaryBySharedDictionaryPronunciationId;
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?
   sharedDictionaryBySharedDictionaryNicknameId;
 
   final String $__typename;
@@ -9176,7 +9660,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -9218,76 +9702,76 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name;
 
   TRes call({
     String? sharedAppellationsId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   });
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId;
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId;
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId;
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name,
   )
   _then;
 
@@ -9300,7 +9784,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
     Object? sharedDictionaryBySharedDictionaryNicknameId = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name(
       sharedAppellationsId:
           sharedAppellationsId == _undefined || sharedAppellationsId == null
           ? _instance.sharedAppellationsId
@@ -9309,80 +9793,80 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
           sharedDictionaryBySharedDictionaryNameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNameId
           : (sharedDictionaryBySharedDictionaryNameId
-                as Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId?),
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId?),
       sharedDictionaryBySharedDictionaryPronunciationId:
           sharedDictionaryBySharedDictionaryPronunciationId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryPronunciationId
           : (sharedDictionaryBySharedDictionaryPronunciationId
-                as Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?),
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?),
       sharedDictionaryBySharedDictionaryNicknameId:
           sharedDictionaryBySharedDictionaryNicknameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNicknameId
           : (sharedDictionaryBySharedDictionaryNicknameId
-                as Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?),
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId {
     final local$sharedDictionaryBySharedDictionaryNameId =
         _instance.sharedDictionaryBySharedDictionaryNameId;
     return local$sharedDictionaryBySharedDictionaryNameId == null
-        ? CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId.stub(
+        ? CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+        : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId(
             local$sharedDictionaryBySharedDictionaryNameId,
             (e) => call(sharedDictionaryBySharedDictionaryNameId: e),
           );
   }
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId {
     final local$sharedDictionaryBySharedDictionaryPronunciationId =
         _instance.sharedDictionaryBySharedDictionaryPronunciationId;
     return local$sharedDictionaryBySharedDictionaryPronunciationId == null
-        ? CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+        ? CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+        : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
             local$sharedDictionaryBySharedDictionaryPronunciationId,
             (e) => call(sharedDictionaryBySharedDictionaryPronunciationId: e),
           );
   }
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId {
     final local$sharedDictionaryBySharedDictionaryNicknameId =
         _instance.sharedDictionaryBySharedDictionaryNicknameId;
     return local$sharedDictionaryBySharedDictionaryNicknameId == null
-        ? CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.stub(
+        ? CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+        : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
             local$sharedDictionaryBySharedDictionaryNicknameId,
             (e) => call(sharedDictionaryBySharedDictionaryNicknameId: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name(
     this._res,
   );
 
@@ -9390,57 +9874,57 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
 
   call({
     String? sharedAppellationsId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId.stub(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId.stub(
         _res,
       );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.stub(
         _res,
       );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.stub(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.stub(
         _res,
       );
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -9449,7 +9933,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
 
   final String sharedDictionaryId;
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
   value;
 
   final String $__typename;
@@ -9479,7 +9963,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -9502,64 +9986,64 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId,
   )
   _then;
 
@@ -9570,7 +10054,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -9578,33 +10062,33 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value),
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+    return CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId(
     this._res,
   );
 
@@ -9612,37 +10096,37 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
 
   call({
     String? sharedDictionaryId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.stub(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.stub(
         _res,
       );
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
+                : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -9652,7 +10136,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
   }
 
   final List<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
   >
   nodes;
 
@@ -9683,7 +10167,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -9708,50 +10192,50 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value;
 
   TRes call({
     List<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
         >?
       >,
     )
@@ -9759,23 +10243,23 @@ abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
   );
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value,
   )
   _then;
 
@@ -9785,12 +10269,12 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+                  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -9800,12 +10284,12 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
 
   TRes nodes(
     Iterable<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
         >?
       >,
     )
@@ -9815,7 +10299,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+            : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -9824,14 +10308,14 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
   );
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
     this._res,
   );
 
@@ -9839,7 +10323,7 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
 
   call({
     List<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -9848,18 +10332,18 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
   nodes(_fn) => _res;
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -9891,7 +10375,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -9909,55 +10393,55 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes,
   )
   _then;
 
@@ -9967,7 +10451,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -9978,14 +10462,14 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
   );
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
     this._res,
   );
 
@@ -9994,23 +10478,23 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -10019,7 +10503,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
 
   final String sharedDictionaryId;
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
   value;
 
   final String $__typename;
@@ -10049,7 +10533,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -10072,64 +10556,64 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId,
   )
   _then;
 
@@ -10140,7 +10624,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -10148,33 +10632,33 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value),
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    return CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
     this._res,
   );
 
@@ -10182,37 +10666,37 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
 
   call({
     String? sharedDictionaryId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
         _res,
       );
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
+                : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -10222,7 +10706,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
   }
 
   final List<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
   >
   nodes;
 
@@ -10253,7 +10737,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -10278,50 +10762,50 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value;
 
   TRes call({
     List<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
         >?
       >,
     )
@@ -10329,23 +10813,23 @@ abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
   );
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value,
   )
   _then;
 
@@ -10355,12 +10839,12 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+                  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -10370,12 +10854,12 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
 
   TRes nodes(
     Iterable<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
         >?
       >,
     )
@@ -10385,7 +10869,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+            : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -10394,14 +10878,14 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
   );
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
     this._res,
   );
 
@@ -10409,7 +10893,7 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
 
   call({
     List<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -10418,18 +10902,18 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
   nodes(_fn) => _res;
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -10461,7 +10945,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -10479,55 +10963,55 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
   )
   _then;
 
@@ -10537,7 +11021,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -10548,14 +11032,14 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
   );
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
     this._res,
   );
 
@@ -10564,23 +11048,23 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -10589,7 +11073,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
 
   final String sharedDictionaryId;
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
   value;
 
   final String $__typename;
@@ -10619,7 +11103,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -10642,64 +11126,64 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId,
   )
   _then;
 
@@ -10710,7 +11194,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -10718,33 +11202,33 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value),
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+    return CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
     this._res,
   );
 
@@ -10752,37 +11236,37 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
 
   call({
     String? sharedDictionaryId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
         _res,
       );
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
+                : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -10792,7 +11276,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
   }
 
   final List<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
   >
   nodes;
 
@@ -10823,7 +11307,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -10848,50 +11332,50 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value;
 
   TRes call({
     List<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
         >?
       >,
     )
@@ -10899,23 +11383,23 @@ abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
   );
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value,
   )
   _then;
 
@@ -10925,12 +11409,12 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+                  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -10940,12 +11424,12 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
 
   TRes nodes(
     Iterable<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
         >?
       >,
     )
@@ -10955,7 +11439,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+            : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -10964,14 +11448,14 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
   );
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
     this._res,
   );
 
@@ -10979,7 +11463,7 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
 
   call({
     List<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -10988,18 +11472,18 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
   nodes(_fn) => _res;
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -11031,7 +11515,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -11049,55 +11533,55 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capa
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
   )
   _then;
 
@@ -11107,7 +11591,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -11118,14 +11602,14 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabili
   );
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
     this._res,
   );
 
@@ -11134,8 +11618,8 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$capa
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user({
     required this.historyId,
     required this.infoStaffId,
     this.infoCompanyId,
@@ -11148,7 +11632,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user {
     this.$__typename = 'HistoryInfoStaff',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$historyId = json['historyId'];
@@ -11161,7 +11645,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user {
     final l$privatePhone = json['privatePhone'];
     final l$name = json['name'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
       infoCompanyId: (l$infoCompanyId as String?),
@@ -11172,7 +11656,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user {
       privatePhone: (l$privatePhone as String?),
       name: l$name == null
           ? null
-          : Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name.fromJson(
+          : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name.fromJson(
               (l$name as Map<String, dynamic>),
             ),
       $__typename: (l$$__typename as String),
@@ -11195,7 +11679,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user {
 
   final String? privatePhone;
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name?
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name?
   name;
 
   final String $__typename;
@@ -11257,7 +11741,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user {
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -11315,32 +11799,32 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user {
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user
-    on Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user
+    on Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user instance,
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user;
 
   TRes call({
     String? historyId,
@@ -11351,32 +11835,32 @@ abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$upda
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name? name,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name? name,
     String? $__typename,
   });
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name<
     TRes
   >
   get name;
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user,
   )
   _then;
 
@@ -11394,7 +11878,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_u
     Object? name = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user(
       historyId: historyId == _undefined || historyId == null
           ? _instance.historyId
           : (historyId as String),
@@ -11414,37 +11898,37 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_u
       name: name == _undefined
           ? _instance.name
           : (name
-                as Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name?),
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name<
     TRes
   >
   get name {
     final local$name = _instance.name;
     return local$name == null
-        ? CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name.stub(
+        ? CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name.stub(
             _then(_instance),
           )
-        : CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name(
+        : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name(
             local$name,
             (e) => call(name: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user(
     this._res,
   );
 
@@ -11459,21 +11943,21 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$upda
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name? name,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name? name,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name<
     TRes
   >
   get name =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name.stub(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name.stub(
         _res,
       );
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name({
     required this.sharedAppellationsId,
     this.sharedDictionaryBySharedDictionaryNameId,
     this.sharedDictionaryBySharedDictionaryPronunciationId,
@@ -11481,7 +11965,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name {
     this.$__typename = 'SharedAppellation',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedAppellationsId = json['sharedAppellationsId'];
@@ -11492,26 +11976,26 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name {
     final l$sharedDictionaryBySharedDictionaryNicknameId =
         json['sharedDictionaryBySharedDictionaryNicknameId'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name(
       sharedAppellationsId: (l$sharedAppellationsId as String),
       sharedDictionaryBySharedDictionaryNameId:
           l$sharedDictionaryBySharedDictionaryNameId == null
           ? null
-          : Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId.fromJson(
+          : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNameId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryPronunciationId:
           l$sharedDictionaryBySharedDictionaryPronunciationId == null
           ? null
-          : Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+          : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
               (l$sharedDictionaryBySharedDictionaryPronunciationId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryNicknameId:
           l$sharedDictionaryBySharedDictionaryNicknameId == null
           ? null
-          : Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+          : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNicknameId
                   as Map<String, dynamic>),
             ),
@@ -11521,13 +12005,13 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name {
 
   final String sharedAppellationsId;
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId?
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId?
   sharedDictionaryBySharedDictionaryNameId;
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?
   sharedDictionaryBySharedDictionaryPronunciationId;
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?
   sharedDictionaryBySharedDictionaryNicknameId;
 
   final String $__typename;
@@ -11578,7 +12062,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name {
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -11620,75 +12104,75 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name {
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name
-    on Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name
+    on Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name;
 
   TRes call({
     String? sharedAppellationsId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   });
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId;
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId;
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId;
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name,
   )
   _then;
 
@@ -11701,7 +12185,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_u
     Object? sharedDictionaryBySharedDictionaryNicknameId = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name(
       sharedAppellationsId:
           sharedAppellationsId == _undefined || sharedAppellationsId == null
           ? _instance.sharedAppellationsId
@@ -11710,80 +12194,80 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_u
           sharedDictionaryBySharedDictionaryNameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNameId
           : (sharedDictionaryBySharedDictionaryNameId
-                as Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId?),
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId?),
       sharedDictionaryBySharedDictionaryPronunciationId:
           sharedDictionaryBySharedDictionaryPronunciationId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryPronunciationId
           : (sharedDictionaryBySharedDictionaryPronunciationId
-                as Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?),
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?),
       sharedDictionaryBySharedDictionaryNicknameId:
           sharedDictionaryBySharedDictionaryNicknameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNicknameId
           : (sharedDictionaryBySharedDictionaryNicknameId
-                as Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?),
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId {
     final local$sharedDictionaryBySharedDictionaryNameId =
         _instance.sharedDictionaryBySharedDictionaryNameId;
     return local$sharedDictionaryBySharedDictionaryNameId == null
-        ? CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId.stub(
+        ? CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+        : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
             local$sharedDictionaryBySharedDictionaryNameId,
             (e) => call(sharedDictionaryBySharedDictionaryNameId: e),
           );
   }
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId {
     final local$sharedDictionaryBySharedDictionaryPronunciationId =
         _instance.sharedDictionaryBySharedDictionaryPronunciationId;
     return local$sharedDictionaryBySharedDictionaryPronunciationId == null
-        ? CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+        ? CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+        : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
             local$sharedDictionaryBySharedDictionaryPronunciationId,
             (e) => call(sharedDictionaryBySharedDictionaryPronunciationId: e),
           );
   }
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId {
     final local$sharedDictionaryBySharedDictionaryNicknameId =
         _instance.sharedDictionaryBySharedDictionaryNicknameId;
     return local$sharedDictionaryBySharedDictionaryNicknameId == null
-        ? CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.stub(
+        ? CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+        : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
             local$sharedDictionaryBySharedDictionaryNicknameId,
             (e) => call(sharedDictionaryBySharedDictionaryNicknameId: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name(
     this._res,
   );
 
@@ -11791,57 +12275,57 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$upda
 
   call({
     String? sharedAppellationsId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId.stub(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId.stub(
         _res,
       );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.stub(
         _res,
       );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.stub(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.stub(
         _res,
       );
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -11850,7 +12334,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$share
 
   final String sharedDictionaryId;
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
   value;
 
   final String $__typename;
@@ -11880,7 +12364,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$share
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -11903,64 +12387,64 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$share
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId,
   )
   _then;
 
@@ -11971,7 +12455,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_u
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -11979,33 +12463,33 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_u
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value),
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+    return CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
     this._res,
   );
 
@@ -12013,37 +12497,37 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$upda
 
   call({
     String? sharedDictionaryId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.stub(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.stub(
         _res,
       );
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
+                : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -12053,7 +12537,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$share
   }
 
   final List<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
   >
   nodes;
 
@@ -12084,7 +12568,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$share
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -12109,50 +12593,50 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$share
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value;
 
   TRes call({
     List<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
         >?
       >,
     )
@@ -12160,23 +12644,23 @@ abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$upda
   );
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value,
   )
   _then;
 
@@ -12186,12 +12670,12 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_u
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+                  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -12201,12 +12685,12 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_u
 
   TRes nodes(
     Iterable<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
         >?
       >,
     )
@@ -12216,7 +12700,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_u
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+            : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -12225,14 +12709,14 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_u
   );
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
     this._res,
   );
 
@@ -12240,7 +12724,7 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$upda
 
   call({
     List<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -12249,18 +12733,18 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$upda
   nodes(_fn) => _res;
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -12292,7 +12776,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$share
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -12310,55 +12794,55 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$share
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes,
   )
   _then;
 
@@ -12368,7 +12852,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_u
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -12379,14 +12863,14 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_u
   );
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
     this._res,
   );
 
@@ -12395,23 +12879,23 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$upda
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -12420,7 +12904,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$share
 
   final String sharedDictionaryId;
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
   value;
 
   final String $__typename;
@@ -12450,7 +12934,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$share
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -12473,64 +12957,64 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$share
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId,
   )
   _then;
 
@@ -12541,7 +13025,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_u
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -12549,33 +13033,33 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_u
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value),
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    return CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
     this._res,
   );
 
@@ -12583,37 +13067,37 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$upda
 
   call({
     String? sharedDictionaryId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
         _res,
       );
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
+                : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -12623,7 +13107,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$share
   }
 
   final List<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
   >
   nodes;
 
@@ -12654,7 +13138,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$share
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -12679,50 +13163,50 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$share
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value;
 
   TRes call({
     List<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
         >?
       >,
     )
@@ -12730,23 +13214,23 @@ abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$upda
   );
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value,
   )
   _then;
 
@@ -12756,12 +13240,12 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_u
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+                  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -12771,12 +13255,12 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_u
 
   TRes nodes(
     Iterable<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
         >?
       >,
     )
@@ -12786,7 +13270,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_u
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+            : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -12795,14 +13279,14 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_u
   );
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
     this._res,
   );
 
@@ -12810,7 +13294,7 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$upda
 
   call({
     List<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -12819,18 +13303,18 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$upda
   nodes(_fn) => _res;
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -12862,7 +13346,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$share
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -12880,55 +13364,55 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$share
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
   )
   _then;
 
@@ -12938,7 +13422,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_u
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -12949,14 +13433,14 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_u
   );
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
     this._res,
   );
 
@@ -12965,23 +13449,23 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$upda
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -12990,7 +13474,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$share
 
   final String sharedDictionaryId;
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
   value;
 
   final String $__typename;
@@ -13020,7 +13504,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$share
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -13043,64 +13527,64 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$share
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId,
   )
   _then;
 
@@ -13111,7 +13595,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_u
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -13119,33 +13603,33 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_u
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value),
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+    return CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
     this._res,
   );
 
@@ -13153,37 +13637,37 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$upda
 
   call({
     String? sharedDictionaryId,
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
         _res,
       );
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
+                : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -13193,7 +13677,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$share
   }
 
   final List<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
   >
   nodes;
 
@@ -13224,7 +13708,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$share
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -13249,50 +13733,50 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$share
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value;
 
   TRes call({
     List<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
         >?
       >,
     )
@@ -13300,23 +13784,23 @@ abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$upda
   );
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value,
   )
   _then;
 
@@ -13326,12 +13810,12 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_u
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+                  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -13341,12 +13825,12 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_u
 
   TRes nodes(
     Iterable<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-          Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
         >?
       >,
     )
@@ -13356,7 +13840,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_u
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+            : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -13365,14 +13849,14 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_u
   );
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
     this._res,
   );
 
@@ -13380,7 +13864,7 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$upda
 
   call({
     List<
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -13389,18 +13873,18 @@ class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$upda
   nodes(_fn) => _res;
 }
 
-class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
-  Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes({
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -13432,7 +13916,7 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$share
       return true;
     }
     if (other
-            is! Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes ||
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -13450,55 +13934,55 @@ class Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$share
   }
 }
 
-extension UtilityExtension$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
     on
-        Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
-  CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
     instance,
     TRes Function(
-      Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
 
-  factory CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.stub(
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
   )
   _then;
 
@@ -13508,7 +13992,7 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_u
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -13519,14 +14003,14 @@ class _CopyWithImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_u
   );
 }
 
-class _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$StaffToCapabilityPageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
     this._res,
   );
 

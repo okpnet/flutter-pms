@@ -603,8 +603,13 @@ DepartmentPage:
       arrayType: toFirstOne
       using: info_address_id
       <<: *addressFields
-    - name: kinds
-      arrayType: toMany
+    - name: kinds # 要件0045レビュー: info_department_kindはinfo_department_idに一意制約
+      # (Ix1)を持つ1対1(schema.graphqlのInfoDepartmentKindInfoDepartmentKindIx1Connect
+      # 参照)。旧`infoDepartmentKindsByInfoDepartmentId`は非推奨(@deprecated、
+      # `infoDepartmentKindByInfoDepartmentId`を使うよう指示あり)。arrayTypeをtoMany
+      # からtoFirstOneへ修正し、非推奨フィールドを避ける。department_page_read.graphqlも
+      # あわせて再生成する。
+      arrayType: toFirstOne
       using: info_department_id
       from: info_department_kind
       columns:
@@ -649,6 +654,8 @@ DepartmentPage:
 # 組織編集
 DepartmentPageEdit:
   kind: edit
+  from: info_department # 要件0045レビュー: fromが未指定だった(他のEditノードとの
+    # 一貫性、及びrequiredWhereのinfo_department_idから判断し追記)。
   generateRfe: true
   requiredWhere:
     - info_department_id
@@ -725,6 +732,7 @@ DepartmentPageEdit:
     - remove
 
 # 力量読み込み
+# 力量評価の項目を定義する
 CapabilityPage: &CapabilityPage
   kind: read
   from: mstr_capability
@@ -762,6 +770,7 @@ CapabilityPage: &CapabilityPage
       <<: *updateStaff
 
 # 力量書き込み
+# 力量評価項目を定義する
 CapabilityPageEdit:
   kind: edit
   from: mstr_capability
@@ -786,6 +795,7 @@ CapabilityPageEdit:
     - remove
 
 # 資格読み込み
+# 作業に必要な公的、私的をとわず資格を定義する
 LicensePage: &LicensePage
   kind: read
   from: mstr_license
@@ -823,6 +833,7 @@ LicensePage: &LicensePage
       <<: *updateStaff
 
 # 資格書き込み
+# 作業に必要な公的、私的をとわず資格を定義する
 LicensePageEdit:
   kind: edit
   from: mstr_license
@@ -847,6 +858,7 @@ LicensePageEdit:
     - remove
 
 # 役割読み込み
+# 組織の役職名や順位、エスカレーションを定義する
 PositionPage: &PositionPage
   kind: read
   from: info_position
@@ -878,6 +890,7 @@ PositionPage: &PositionPage
       <<: *updateStaff
 
 # 役割書き込み
+# 組織の役職名や順位、エスカレーションを定義する
 PositionPageEdit: 
   kind: edit
   from: info_position
@@ -897,6 +910,7 @@ PositionPageEdit:
     - remove
 
 # 担当者の組織割り当て読み込み
+# 組織の役職名や順位、エスカレーションを担当者に割り当てる責任と権限の付与
 AssignPage:
   kind: read
   from: info_assign
@@ -929,6 +943,7 @@ AssignPage:
       <<: *updateStaff
 
 # 担当者の組織割り当て書き込み
+# 組織の役職名や順位、エスカレーションを担当者に割り当てる責任と権限の付与
 AssignPageEdit:
   kind: edit
   from: info_assign
@@ -948,8 +963,11 @@ AssignPageEdit:
     - update_user_history_id
     - remove
 
-# 人の力量の読み込み
-StaffToCapabilityPage:
+# 担当者の力量の読み込み
+# 担当者に適用した力量項目、及び力量評価結果を反映する
+# 担当者がもつ評価された力量項目
+# 2026/09/30変更:StaffToCapabilityPage->StaffCapabilityPage 
+StaffCapabilityPage:
   kind: read
   from: info_staff
   condition: true
@@ -975,7 +993,7 @@ StaffToCapabilityPage:
     - sex
     - phone
     - private_phone
-    - name: capability
+    - name: capabilitys
       arrayType: toMany
       as: capabilitys
       using: info_staff_id
@@ -999,8 +1017,11 @@ StaffToCapabilityPage:
       arrayType: toFirstOne
       <<: *updateStaff
 
-# 力量と人の読み込み
-CapabilityToStaffPage:
+# 力量と担当者の読み込み
+# 担当者に適用した力量項目、及び力量評価結果を反映する
+# 力量項目をもつ担当者と評価された結果
+# C2026/09/30変更:apabilityToStaffPage->CapableStaffPage
+CapableStaffPage:
   kind: read
   from: mstr_capability
   condition: true
@@ -1036,7 +1057,7 @@ CapabilityToStaffPage:
         - mstr_staff_capability_id
         - info_staff_id
         - name: staff
-          arrayType: toFirstOne
+          arrayType: toMany
           as: staff
           using: info_staff_id
           <<: *StaffPage
@@ -1051,3 +1072,221 @@ CapabilityToStaffPage:
       using: [update_user_history_id,update_user_id]
       arrayType: toFirstOne
       <<: *updateStaff
+
+# 力量と担当者の書き込み
+# 力量と担当者を関連付けする
+StaffCapabilityEdit: &StaffCapabilityEdit
+  kind: edit
+  from: mstr_staff_capability
+  requiredWhere: # 要件0028: 元は未指定だったため追記。mstr_staff_capabilityは
+    # info_staff_idでパーティショニングされておりPostgraphileの一意キー更新は
+    # ByMstrStaffCapabilityIdAndInfoStaffId(複合)のみ生成されるため、schema.graphqlを
+    # 確認しrequiredWhereも複合にした(単独PKのミューテーションは存在しない)。
+    - mstr_staff_capability_id
+    - info_staff_id
+  generateRfe: true
+  columns:
+    - mstr_staff_capability_id
+    #- info_staff_id
+    - name: staff
+      arrayType: toFirstOne
+      using: info_staff_id
+      <<: *StaffPage  #ここでStaffの編集は行わず、IDを割り当てるだけ
+    #- mstr_capability_id
+    - name: capability
+      arrayType: toFirstOne
+      using: mstr_capability_id
+      <<: *CapabilityPage #ここでCapabilityの編集は行わず、IDを割り当てるだけ
+    - value
+    - stop
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 担当者の力量の書き込み(StaffCapabilityPage側の編集画面)
+# 力量と担当者の関連付けの実体はmstr_staff_capabilityのため、StaffCapabilityEditと
+# 完全に同一の内容をそのまま参照する。
+StaffCapabilityPageEdit:
+  <<: *StaffCapabilityEdit
+
+# 力量と担当者の書き込み(CapableStaffPage側の編集画面)
+# 上記と同じ理由でStaffCapabilityEditをそのまま参照する。
+CapableStaffPageEdit:
+  <<: *StaffCapabilityEdit
+
+# 担当者の資格の読み込み
+# 担当者が持つ資格が該当する
+StaffHeldLicensePage:
+  kind: read
+  from: info_staff
+  condition: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - info_staff_id
+    - info_company_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick:
+        - name
+        - pronunciation
+        - nickname
+      <<: *appellationLabels
+    - sex
+    - phone
+    - private_phone
+    - name: holdeLicense # 要件0045レビュー: 元は内側に`from: mstr_license`の`licenses`
+      # という不要な入れ子層があり、mstr_staff_license自身の列(mstr_staff_license_id/
+      # info_staff_id)をmstr_license由来として重複宣言していた(コピー&ペースト起因の
+      # 構造ミスと判断)。LicenseHoldersPage.licensesと対称になるよう1階層に平坦化した。
+      arrayType: toMany
+      as: holdeLicense
+      using: info_staff_id
+      from: mstr_staff_license
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+      columns:
+        - mstr_staff_license_id
+        - info_staff_id
+        - mstr_license_id
+        - name: license
+          arrayType: toFirstOne
+          as: license
+          using: mstr_license_id
+          <<: *LicensePage
+        - start_at
+        - stop_at
+        - abeyance
+        - abeyance_at
+        - revocation
+        - revocation_at
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *updateStaff
+
+# 資格を持つ担当者の読み込み
+# 資格を持っている担当者が該当する
+LicenseHoldersPage:
+  kind: read
+  from: mstr_license
+  condition: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_license_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *appellationLabels
+    - detail
+    - public_license
+    - customer_license
+    - organization_license
+    - update_interval 
+    - name: licenses # 要件0045レビュー: 元はlicenses(mstr_license(1)→mstr_staff_license(多))が
+      # toFirstOne、内側のstaff(junction行(1)→info_staff(1))がtoManyと基数が入れ替わっていた
+      # (schema.jsonの方針どおり基数はスキーマ側で検証されないため生成側で修正)。
+      from: mstr_staff_license
+      arrayType: toMany
+      as: licenses
+      using: mstr_license_id
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+      columns:
+        - mstr_staff_license_id
+        - info_staff_id
+        - name: staff
+          arrayType: toFirstOne
+          as: staff
+          using: info_staff_id
+          <<: *StaffPage
+        - mstr_license_id
+        - name: license
+          arrayType: toFirstOne
+          as: license
+          using: mstr_license_id
+          <<: *LicensePage
+        - start_at
+        - stop_at
+        - abeyance
+        - abeyance_at
+        - revocation
+        - revocation_at
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *updateStaff
+
+# 資格と担当者の紐付け書き込み
+# 資格と担当者を関連付けする
+StaffLicenseEdit: &StaffLicenseEdit
+  kind: edit
+  from: mstr_staff_license
+  requiredWhere: # 要件0028: info_staff_idは1対多で非一意のためRFEの単一レコード取得条件に
+    # 使えない。from自身のPKに修正(元はinfo_staff_idだった)。
+    - mstr_staff_license_id
+  generateRfe: true
+  columns:
+    - mstr_staff_license_id
+    #- info_staff_id
+    - name: staff
+      arrayType: toFirstOne
+      using: info_staff_id
+      <<: *StaffPage  #ここでStaffの編集は行わず、IDを割り当てるだけ
+    #- mstr_license_id
+    - name: license
+      arrayType: toFirstOne
+      using: mstr_license_id
+      <<: *LicensePage  #ここでLicenseの編集は行わず、IDを割り当てるだけ
+    - start_at
+    - stop_at
+    - abeyance
+    - abeyance_at
+    - revocation
+    - revocation_at
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 担当者が持つ資格の書き込み(StaffHeldLicensePage側の編集画面)
+# 資格と担当者の関連付けの実体はmstr_staff_licenseのため、StaffLicenseEditと
+# 完全に同一の内容をそのまま参照する。
+StaffHeldLicensePageEdit:
+  <<: *StaffLicenseEdit
+
+# 資格を持つ担当者の書き込み(LicenseHoldersPage側の編集画面)
+# 上記と同じ理由でStaffLicenseEditをそのまま参照する。
+LicenseHoldersPageEdit:
+  <<: *StaffLicenseEdit

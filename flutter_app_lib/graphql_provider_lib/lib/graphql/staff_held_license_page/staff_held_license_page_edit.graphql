@@ -1,0 +1,337 @@
+# staff_held_license_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: source/view.yaml #StaffHeldLicensePageEdit(StaffLicenseEditを参照)。
+# 要件0045で追加。担当者と資格の関連付け(mstr_staff_license)を編集する。
+# mstr_staff_licenseの一意キー更新はupdateMstrStaffLicenseByMstrStaffLicenseId
+# (単独PK)。mstr_staff_capabilityと異なりパーティショニングされていない
+# (lib/graphql/schema.graphql確認済み)。
+#
+# staff/licenseはいずれも「ここでStaffの編集は行わず、IDを割り当てるだけ」
+# (view.yamlコメント)のため、$infoStaffId/$mstrLicenseIdはスカラーのID再割り当てとして
+# Patchに含め、出力側ではStaffPage/LicensePageと同型の全列を返す(ja/en方式、
+# staff_capability_page_edit.graphqlと同じ方針)。
+#
+# 要件0037: generateRfe: trueにより、このcolumnsツリーから読み込み専用の
+# 「read for editing」クエリを自動導出する(staff_held_license_page_rfe.graphql参照)。
+#
+# 参考: DepartmentCategoryEdit/CompanyPageEditの既存生成物に合わせ、view.yamlの
+# columnsに含まれるupdate_user_id/update_user_history_id/removeは監査列のため
+# このミューテーションの変数・Patch・出力には含めない(既存生成物との一貫性を優先)。
+
+mutation StaffHeldLicensePageEdit(
+  $mstrStaffLicenseId: UUID!
+  $infoStaffId: UUID
+  $mstrLicenseId: UUID
+  $startAt: Datetime
+  $stopAt: Datetime
+  $abeyance: Boolean
+  $abeyanceAt: Datetime
+  $revocation: Boolean
+  $revocationAt: Datetime
+  $remarks: String
+  $jaLanguageCodeId: UUID!
+  $enLanguageCodeId: UUID!
+) {
+  updateMstrStaffLicenseByMstrStaffLicenseId(
+    input: {
+      mstrStaffLicenseId: $mstrStaffLicenseId
+      mstrStaffLicensePatch: {
+        infoStaffId: $infoStaffId
+        mstrLicenseId: $mstrLicenseId
+        startAt: $startAt
+        stopAt: $stopAt
+        abeyance: $abeyance
+        abeyanceAt: $abeyanceAt
+        revocation: $revocation
+        revocationAt: $revocationAt
+        remarks: $remarks
+      }
+    }
+  ) {
+    mstrStaffLicense {
+      mstrStaffLicenseId
+      infoStaffId
+      mstrLicenseId
+      startAt
+      stopAt
+      abeyance
+      abeyanceAt
+      revocation
+      revocationAt
+
+      staff: infoStaffByInfoStaffId {
+        infoStaffId
+        infoCompanyId
+        code
+        sex
+        phone
+        privatePhone
+        symbol
+        remarks
+        updateAt
+        remove
+
+        labels: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+          sharedDictionaryBySharedDictionaryPronunciationId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+          sharedDictionaryBySharedDictionaryNicknameId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+
+        update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+          historyId
+          infoStaffId
+          infoCompanyId
+          code
+          sex
+          phone
+          symbol
+          privatePhone
+          name: sharedAppellationByNames {
+            sharedAppellationsId
+            sharedDictionaryBySharedDictionaryNameId {
+              sharedDictionaryId
+              ja: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+              en: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $enLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+            }
+            sharedDictionaryBySharedDictionaryPronunciationId {
+              sharedDictionaryId
+              ja: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+              en: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $enLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+            }
+            sharedDictionaryBySharedDictionaryNicknameId {
+              sharedDictionaryId
+              ja: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+              en: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $enLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+            }
+          }
+        }
+      }
+
+      license: mstrLicenseByMstrLicenseId {
+        mstrLicenseId
+        code
+        detail
+        publicLicense
+        customerLicense
+        organizationLicense
+        updateInterval {
+          years
+          months
+          days
+          hours
+          minutes
+          seconds
+        }
+        symbol
+        remarks
+        updateAt
+        remove
+
+        labels: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+          sharedDictionaryBySharedDictionaryPronunciationId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+          sharedDictionaryBySharedDictionaryNicknameId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+
+        update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+          historyId
+          infoStaffId
+          infoCompanyId
+          code
+          sex
+          phone
+          symbol
+          privatePhone
+          name: sharedAppellationByNames {
+            sharedAppellationsId
+            sharedDictionaryBySharedDictionaryNameId {
+              sharedDictionaryId
+              ja: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+              en: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $enLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+            }
+            sharedDictionaryBySharedDictionaryPronunciationId {
+              sharedDictionaryId
+              ja: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+              en: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $enLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+            }
+            sharedDictionaryBySharedDictionaryNicknameId {
+              sharedDictionaryId
+              ja: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+              en: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $enLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

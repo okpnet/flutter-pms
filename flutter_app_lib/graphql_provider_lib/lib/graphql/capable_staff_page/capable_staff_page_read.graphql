@@ -1,20 +1,23 @@
-# staff_to_capability_page画面 - Read(一覧取得クエリ、担当者→力量)
+# capable_staff_page画面 - Read(一覧取得クエリ、力量→担当者)
 #
-# 画面仕様: source/view.yaml #StaffToCapabilityPage(info_staff起点、mstr_staff_capability
-# 経由でmstr_capabilityへ)。読み込み専用画面(kind: read)のみで、Edit/RFEは無い。
+# 画面仕様: source/view.yaml #CapableStaffPage(2026/09/30、旧CapabilityToStaffPageから
+# リネーム。mstr_capability起点、mstr_staff_capability経由でinfo_staffへ)。
+# Edit/RFEはStaffCapabilityEditを参照するCapableStaffPageEditとして要件0045で追加。
 #
-# staff自身の列はstaff_page_read.graphqlと同型(住所無し)。capabilitys配下の
-# capability(mstr_capability)はcapability_page_read.graphqlのnodesと同型。
+# staff_capability.staffはinfo_staff_id(mstr_staff_capability自身が持つFK、外向きの
+# 関係)であるため、要件0027変換ルール6-1節により実際のGraphQLは単数フィールド
+# (infoStaffByInfoStaffId)になる(view.yamlの`arrayType: toMany`は誤りと判断し
+# `toFirstOne`に修正済み。詳細はdocs/0044ログ参照)。
 
-query StaffToCapabilityPageRead(
+query CapableStaffPageRead(
   $first: Int!
   $offset: Int
-  $condition: InfoStaffCondition
-  $orderBy: [InfoStaffsOrderBy!] = [PRIMARY_KEY_ASC]
+  $condition: MstrCapabilityCondition
+  $orderBy: [MstrCapabilitiesOrderBy!] = [PRIMARY_KEY_ASC]
   $languageCodeId: UUID!
   $removed: Boolean = false
 ) {
-  allInfoStaffs(
+  allMstrCapabilities(
     first: $first
     offset: $offset
     condition: $condition
@@ -27,12 +30,13 @@ query StaffToCapabilityPageRead(
       endCursor
     }
     nodes {
-      infoStaffId
-      infoCompanyId
+      mstrCapabilityId
       code
-      sex
-      phone
-      privatePhone
+      detail
+      referenceValue
+      max
+      min
+      step
       symbol
       remarks
       updateAt
@@ -72,7 +76,7 @@ query StaffToCapabilityPageRead(
         }
       }
 
-      capabilitys: mstrStaffCapabilitiesByInfoStaffId {
+      staff_capability: mstrStaffCapabilitiesByMstrCapabilityId {
         totalCount
         pageInfo {
           hasNextPage
@@ -81,17 +85,17 @@ query StaffToCapabilityPageRead(
         nodes {
           mstrStaffCapabilityId
           infoStaffId
+          mstrCapabilityId
           value
           stop
 
-          capability: mstrCapabilityByMstrCapabilityId {
-            mstrCapabilityId
+          staff: infoStaffByInfoStaffId {
+            infoStaffId
+            infoCompanyId
             code
-            detail
-            referenceValue
-            max
-            min
-            step
+            sex
+            phone
+            privatePhone
             symbol
             remarks
             updateAt

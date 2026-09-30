@@ -5,12 +5,19 @@
 #
 # `office`はOfficePage共有アームをそのまま入れ子で取得する(office_page_read.graphqlと同型)。
 #
-# `kinds`(toMany、info_department_kind)の`value`は要件0035再評価時点の実スキーマでは
+# `kinds`(info_department_kind)の`value`は要件0035再評価時点の実スキーマでは
 # info_department_kind_value_idの単一FKだったためtoFirstOneに修正したが、要件0026
 # (2026/09/27、追記13)でFKが逆転し、info_department_kind_value側がinfo_department_kind_id
 # を持つ設計(1つのinfo_department_kindに複数のinfo_department_kind_value)に変わった
 # ため、再度toMany(infoDepartmentKindValuesByInfoDepartmentKindId)へ修正した
 # (docs/0026_schema_fetch_log.md追記13参照)。
+#
+# 要件0045レビュー: `kinds`自体(info_department_kind、using: info_department_id)は
+# info_department_idに一意制約(Ix1)を持つ1対1であり、旧`arrayType: toMany`は誤りと
+# 判明した。生成されるGraphQLフィールドも旧`infoDepartmentKindsByInfoDepartmentId`は
+# `@deprecated(reason: "Please use infoDepartmentKindByInfoDepartmentId instead")`
+# だったため、単数の`infoDepartmentKindByInfoDepartmentId`に修正した
+# (view.yamlの`kinds.arrayType`もtoFirstOneへ修正済み)。
 
 query DepartmentPageRead(
   $first: Int!
@@ -403,75 +410,27 @@ query DepartmentPageRead(
         }
       }
 
-      # --- 組織区分(1対多、各行はinfo_department_kind_valueへの単一FK) ------------
-      kinds: infoDepartmentKindsByInfoDepartmentId {
-        totalCount
-        pageInfo {
-          hasNextPage
-          endCursor
-        }
-        nodes {
-          infoDepartmentKindId
-          infoDepartmentId
-          symbol
-          remarks
-          updateAt
-          remove
+      # --- 組織区分(要件0045修正: info_department_kindはinfo_department_idに一意制約
+      #     (Ix1)を持つ1対1。旧infoDepartmentKindsByInfoDepartmentIdは@deprecatedの
+      #     ため単数のinfoDepartmentKindByInfoDepartmentIdに修正。valueは真のtoMany
+      #     のままconnection形状) --------------------------------------------------
+      kinds: infoDepartmentKindByInfoDepartmentId {
+        infoDepartmentKindId
+        infoDepartmentId
+        symbol
+        remarks
+        updateAt
+        remove
 
-          value: infoDepartmentKindValuesByInfoDepartmentKindId {
-            totalCount
-            pageInfo {
-              hasNextPage
-              endCursor
-            }
-            nodes {
-              infoDepartmentKindValueId
-              labels: sharedAppellationByNames {
-                sharedAppellationsId
-                sharedDictionaryBySharedDictionaryNameId {
-                  sharedDictionaryId
-                  value: sharedDictionaryValuesBySharedDictionaryId(
-                    condition: { sharedLanguageCodeId: $languageCodeId }
-                  ) {
-                    nodes {
-                      dictionaryValue
-                    }
-                  }
-                }
-                sharedDictionaryBySharedDictionaryPronunciationId {
-                  sharedDictionaryId
-                  value: sharedDictionaryValuesBySharedDictionaryId(
-                    condition: { sharedLanguageCodeId: $languageCodeId }
-                  ) {
-                    nodes {
-                      dictionaryValue
-                    }
-                  }
-                }
-                sharedDictionaryBySharedDictionaryNicknameId {
-                  sharedDictionaryId
-                  value: sharedDictionaryValuesBySharedDictionaryId(
-                    condition: { sharedLanguageCodeId: $languageCodeId }
-                  ) {
-                    nodes {
-                      dictionaryValue
-                    }
-                  }
-                }
-              }
-            }
+        value: infoDepartmentKindValuesByInfoDepartmentKindId {
+          totalCount
+          pageInfo {
+            hasNextPage
+            endCursor
           }
-
-          update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
-            historyId
-            infoStaffId
-            infoCompanyId
-            code
-            sex
-            phone
-            symbol
-            privatePhone
-            name: sharedAppellationByNames {
+          nodes {
+            infoDepartmentKindValueId
+            labels: sharedAppellationByNames {
               sharedAppellationsId
               sharedDictionaryBySharedDictionaryNameId {
                 sharedDictionaryId
@@ -501,6 +460,50 @@ query DepartmentPageRead(
                   nodes {
                     dictionaryValue
                   }
+                }
+              }
+            }
+          }
+        }
+
+        update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+          historyId
+          infoStaffId
+          infoCompanyId
+          code
+          sex
+          phone
+          symbol
+          privatePhone
+          name: sharedAppellationByNames {
+            sharedAppellationsId
+            sharedDictionaryBySharedDictionaryNameId {
+              sharedDictionaryId
+              value: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $languageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+            }
+            sharedDictionaryBySharedDictionaryPronunciationId {
+              sharedDictionaryId
+              value: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $languageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+            }
+            sharedDictionaryBySharedDictionaryNicknameId {
+              sharedDictionaryId
+              value: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $languageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
                 }
               }
             }

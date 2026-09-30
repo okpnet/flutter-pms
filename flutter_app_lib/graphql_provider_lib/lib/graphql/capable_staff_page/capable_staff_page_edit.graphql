@@ -1,0 +1,324 @@
+# capable_staff_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: source/view.yaml #CapableStaffPageEdit(StaffCapabilityEditを参照)。
+# 要件0045で追加。担当者と力量の関連付け(mstr_staff_capability)を編集する。
+#
+# mstr_staff_capabilityはinfo_staff_idでパーティショニングされており、Postgraphileが
+# 生成する一意キー更新ミューテーションは単独PK(mstrStaffCapabilityId)ではなく
+# updateMstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId(複合)のみ(lib/graphql/schema.graphql
+# 確認済み)。そのためsource/view.yamlのrequiredWhereも複合(mstr_staff_capability_id,
+# info_staff_id)に修正した(要件0028)。
+#
+# staff/capabilityはいずれも「ここでStaffの編集は行わず、IDを割り当てるだけ」
+# (view.yamlコメント)のため、$infoStaffId/$mstrCapabilityIdはスカラーのID再割り当て
+# としてPatchに含め、出力側ではCompanyPage/StaffPage同様に対象の全列(StaffPage/
+# CapabilityPageと同型)を返す。生成物のOUTPUT側の名称解決はcompany_page_edit.graphql
+# などの既存Edit画面と同じ$jaLanguageCodeId/$enLanguageCodeId(必須)方式。
+#
+# 要件0037: generateRfe: trueにより、このcolumnsツリーから読み込み専用の
+# 「read for editing」クエリを自動導出する(capable_staff_page_rfe.graphql参照)。
+#
+# 参考: DepartmentCategoryEdit/CompanyPageEditの既存生成物に合わせ、view.yamlの
+# columnsに含まれるupdate_user_id/update_user_history_id/removeは監査列(サーバー側で
+# 設定・別画面で操作)のためこのミューテーションの変数・Patch・出力には含めない
+# (既存生成物との一貫性を優先。詳細はdocs/0045ログ参照)。
+
+mutation CapableStaffPageEdit(
+  $mstrStaffCapabilityId: UUID!
+  $infoStaffId: UUID!
+  $mstrCapabilityId: UUID
+  $value: BigFloat
+  $stop: Boolean
+  $remarks: String
+  $jaLanguageCodeId: UUID!
+  $enLanguageCodeId: UUID!
+) {
+  updateMstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId(
+    input: {
+      mstrStaffCapabilityId: $mstrStaffCapabilityId
+      infoStaffId: $infoStaffId
+      mstrStaffCapabilityPatch: {
+        infoStaffId: $infoStaffId
+        mstrCapabilityId: $mstrCapabilityId
+        value: $value
+        stop: $stop
+        remarks: $remarks
+      }
+    }
+  ) {
+    mstrStaffCapability {
+      mstrStaffCapabilityId
+      infoStaffId
+      mstrCapabilityId
+      value
+      stop
+
+      staff: infoStaffByInfoStaffId {
+        infoStaffId
+        infoCompanyId
+        code
+        sex
+        phone
+        privatePhone
+        symbol
+        remarks
+        updateAt
+        remove
+
+        labels: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+          sharedDictionaryBySharedDictionaryPronunciationId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+          sharedDictionaryBySharedDictionaryNicknameId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+
+        update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+          historyId
+          infoStaffId
+          infoCompanyId
+          code
+          sex
+          phone
+          symbol
+          privatePhone
+          name: sharedAppellationByNames {
+            sharedAppellationsId
+            sharedDictionaryBySharedDictionaryNameId {
+              sharedDictionaryId
+              ja: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+              en: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $enLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+            }
+            sharedDictionaryBySharedDictionaryPronunciationId {
+              sharedDictionaryId
+              ja: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+              en: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $enLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+            }
+            sharedDictionaryBySharedDictionaryNicknameId {
+              sharedDictionaryId
+              ja: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+              en: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $enLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+            }
+          }
+        }
+      }
+
+      capability: mstrCapabilityByMstrCapabilityId {
+        mstrCapabilityId
+        code
+        detail
+        referenceValue
+        max
+        min
+        step
+        symbol
+        remarks
+        updateAt
+        remove
+
+        labels: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+          sharedDictionaryBySharedDictionaryPronunciationId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+          sharedDictionaryBySharedDictionaryNicknameId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+
+        update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+          historyId
+          infoStaffId
+          infoCompanyId
+          code
+          sex
+          phone
+          symbol
+          privatePhone
+          name: sharedAppellationByNames {
+            sharedAppellationsId
+            sharedDictionaryBySharedDictionaryNameId {
+              sharedDictionaryId
+              ja: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+              en: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $enLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+            }
+            sharedDictionaryBySharedDictionaryPronunciationId {
+              sharedDictionaryId
+              ja: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+              en: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $enLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+            }
+            sharedDictionaryBySharedDictionaryNicknameId {
+              sharedDictionaryId
+              ja: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+              en: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $enLanguageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

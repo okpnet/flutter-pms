@@ -3979,7 +3979,7 @@ const documentNodeQueryDepartmentPageRead = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(
-                          value: 'infoDepartmentKindsByInfoDepartmentId',
+                          value: 'infoDepartmentKindByInfoDepartmentId',
                         ),
                         alias: NameNode(value: 'kinds'),
                         arguments: [],
@@ -3987,585 +3987,84 @@ const documentNodeQueryDepartmentPageRead = DocumentNode(
                         selectionSet: SelectionSetNode(
                           selections: [
                             FieldNode(
-                              name: NameNode(value: 'totalCount'),
+                              name: NameNode(value: 'infoDepartmentKindId'),
                               alias: null,
                               arguments: [],
                               directives: [],
                               selectionSet: null,
                             ),
                             FieldNode(
-                              name: NameNode(value: 'pageInfo'),
+                              name: NameNode(value: 'infoDepartmentId'),
                               alias: null,
                               arguments: [],
                               directives: [],
-                              selectionSet: SelectionSetNode(
-                                selections: [
-                                  FieldNode(
-                                    name: NameNode(value: 'hasNextPage'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(value: 'endCursor'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(value: '__typename'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                ],
-                              ),
+                              selectionSet: null,
                             ),
                             FieldNode(
-                              name: NameNode(value: 'nodes'),
+                              name: NameNode(value: 'symbol'),
                               alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'remarks'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'updateAt'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'remove'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(
+                                value:
+                                    'infoDepartmentKindValuesByInfoDepartmentKindId',
+                              ),
+                              alias: NameNode(value: 'value'),
                               arguments: [],
                               directives: [],
                               selectionSet: SelectionSetNode(
                                 selections: [
                                   FieldNode(
-                                    name: NameNode(
-                                      value: 'infoDepartmentKindId',
-                                    ),
+                                    name: NameNode(value: 'totalCount'),
                                     alias: null,
                                     arguments: [],
                                     directives: [],
                                     selectionSet: null,
                                   ),
                                   FieldNode(
-                                    name: NameNode(value: 'infoDepartmentId'),
+                                    name: NameNode(value: 'pageInfo'),
                                     alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(value: 'symbol'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(value: 'remarks'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(value: 'updateAt'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(value: 'remove'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(
-                                      value:
-                                          'infoDepartmentKindValuesByInfoDepartmentKindId',
-                                    ),
-                                    alias: NameNode(value: 'value'),
                                     arguments: [],
                                     directives: [],
                                     selectionSet: SelectionSetNode(
                                       selections: [
                                         FieldNode(
-                                          name: NameNode(value: 'totalCount'),
+                                          name: NameNode(value: 'hasNextPage'),
                                           alias: null,
                                           arguments: [],
                                           directives: [],
                                           selectionSet: null,
                                         ),
                                         FieldNode(
-                                          name: NameNode(value: 'pageInfo'),
+                                          name: NameNode(value: 'endCursor'),
                                           alias: null,
                                           arguments: [],
                                           directives: [],
-                                          selectionSet: SelectionSetNode(
-                                            selections: [
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: 'hasNextPage',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: 'endCursor',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: '__typename',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(value: 'nodes'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: SelectionSetNode(
-                                            selections: [
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value:
-                                                      'infoDepartmentKindValueId',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value:
-                                                      'sharedAppellationByNames',
-                                                ),
-                                                alias: NameNode(
-                                                  value: 'labels',
-                                                ),
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: SelectionSetNode(
-                                                  selections: [
-                                                    FieldNode(
-                                                      name: NameNode(
-                                                        value:
-                                                            'sharedAppellationsId',
-                                                      ),
-                                                      alias: null,
-                                                      arguments: [],
-                                                      directives: [],
-                                                      selectionSet: null,
-                                                    ),
-                                                    FieldNode(
-                                                      name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryNameId',
-                                                      ),
-                                                      alias: null,
-                                                      arguments: [],
-                                                      directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
-                                                            ),
-                                                            alias: NameNode(
-                                                              value: 'value',
-                                                            ),
-                                                            arguments: [
-                                                              ArgumentNode(
-                                                                name: NameNode(
-                                                                  value:
-                                                                      'condition',
-                                                                ),
-                                                                value: ObjectValueNode(
-                                                                  fields: [
-                                                                    ObjectFieldNode(
-                                                                      name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
-                                                                      ),
-                                                                      value: VariableNode(
-                                                                        name: NameNode(
-                                                                          value:
-                                                                              'languageCodeId',
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ],
-                                                            directives: [],
-                                                            selectionSet: SelectionSetNode(
-                                                              selections: [
-                                                                FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'nodes',
-                                                                  ),
-                                                                  alias: null,
-                                                                  arguments: [],
-                                                                  directives:
-                                                                      [],
-                                                                  selectionSet: SelectionSetNode(
-                                                                    selections: [
-                                                                      FieldNode(
-                                                                        name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
-                                                                        ),
-                                                                        alias:
-                                                                            null,
-                                                                        arguments:
-                                                                            [],
-                                                                        directives:
-                                                                            [],
-                                                                        selectionSet:
-                                                                            null,
-                                                                      ),
-                                                                      FieldNode(
-                                                                        name: NameNode(
-                                                                          value:
-                                                                              '__typename',
-                                                                        ),
-                                                                        alias:
-                                                                            null,
-                                                                        arguments:
-                                                                            [],
-                                                                        directives:
-                                                                            [],
-                                                                        selectionSet:
-                                                                            null,
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
-                                                                  alias: null,
-                                                                  arguments: [],
-                                                                  directives:
-                                                                      [],
-                                                                  selectionSet:
-                                                                      null,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    FieldNode(
-                                                      name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryPronunciationId',
-                                                      ),
-                                                      alias: null,
-                                                      arguments: [],
-                                                      directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
-                                                            ),
-                                                            alias: NameNode(
-                                                              value: 'value',
-                                                            ),
-                                                            arguments: [
-                                                              ArgumentNode(
-                                                                name: NameNode(
-                                                                  value:
-                                                                      'condition',
-                                                                ),
-                                                                value: ObjectValueNode(
-                                                                  fields: [
-                                                                    ObjectFieldNode(
-                                                                      name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
-                                                                      ),
-                                                                      value: VariableNode(
-                                                                        name: NameNode(
-                                                                          value:
-                                                                              'languageCodeId',
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ],
-                                                            directives: [],
-                                                            selectionSet: SelectionSetNode(
-                                                              selections: [
-                                                                FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'nodes',
-                                                                  ),
-                                                                  alias: null,
-                                                                  arguments: [],
-                                                                  directives:
-                                                                      [],
-                                                                  selectionSet: SelectionSetNode(
-                                                                    selections: [
-                                                                      FieldNode(
-                                                                        name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
-                                                                        ),
-                                                                        alias:
-                                                                            null,
-                                                                        arguments:
-                                                                            [],
-                                                                        directives:
-                                                                            [],
-                                                                        selectionSet:
-                                                                            null,
-                                                                      ),
-                                                                      FieldNode(
-                                                                        name: NameNode(
-                                                                          value:
-                                                                              '__typename',
-                                                                        ),
-                                                                        alias:
-                                                                            null,
-                                                                        arguments:
-                                                                            [],
-                                                                        directives:
-                                                                            [],
-                                                                        selectionSet:
-                                                                            null,
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
-                                                                  alias: null,
-                                                                  arguments: [],
-                                                                  directives:
-                                                                      [],
-                                                                  selectionSet:
-                                                                      null,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    FieldNode(
-                                                      name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryBySharedDictionaryNicknameId',
-                                                      ),
-                                                      alias: null,
-                                                      arguments: [],
-                                                      directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryId',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  'sharedDictionaryValuesBySharedDictionaryId',
-                                                            ),
-                                                            alias: NameNode(
-                                                              value: 'value',
-                                                            ),
-                                                            arguments: [
-                                                              ArgumentNode(
-                                                                name: NameNode(
-                                                                  value:
-                                                                      'condition',
-                                                                ),
-                                                                value: ObjectValueNode(
-                                                                  fields: [
-                                                                    ObjectFieldNode(
-                                                                      name: NameNode(
-                                                                        value:
-                                                                            'sharedLanguageCodeId',
-                                                                      ),
-                                                                      value: VariableNode(
-                                                                        name: NameNode(
-                                                                          value:
-                                                                              'languageCodeId',
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ],
-                                                            directives: [],
-                                                            selectionSet: SelectionSetNode(
-                                                              selections: [
-                                                                FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'nodes',
-                                                                  ),
-                                                                  alias: null,
-                                                                  arguments: [],
-                                                                  directives:
-                                                                      [],
-                                                                  selectionSet: SelectionSetNode(
-                                                                    selections: [
-                                                                      FieldNode(
-                                                                        name: NameNode(
-                                                                          value:
-                                                                              'dictionaryValue',
-                                                                        ),
-                                                                        alias:
-                                                                            null,
-                                                                        arguments:
-                                                                            [],
-                                                                        directives:
-                                                                            [],
-                                                                        selectionSet:
-                                                                            null,
-                                                                      ),
-                                                                      FieldNode(
-                                                                        name: NameNode(
-                                                                          value:
-                                                                              '__typename',
-                                                                        ),
-                                                                        alias:
-                                                                            null,
-                                                                        arguments:
-                                                                            [],
-                                                                        directives:
-                                                                            [],
-                                                                        selectionSet:
-                                                                            null,
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
-                                                                  alias: null,
-                                                                  arguments: [],
-                                                                  directives:
-                                                                      [],
-                                                                  selectionSet:
-                                                                      null,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    FieldNode(
-                                                      name: NameNode(
-                                                        value: '__typename',
-                                                      ),
-                                                      alias: null,
-                                                      arguments: [],
-                                                      directives: [],
-                                                      selectionSet: null,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: '__typename',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                            ],
-                                          ),
+                                          selectionSet: null,
                                         ),
                                         FieldNode(
                                           name: NameNode(value: '__typename'),
@@ -4578,68 +4077,16 @@ const documentNodeQueryDepartmentPageRead = DocumentNode(
                                     ),
                                   ),
                                   FieldNode(
-                                    name: NameNode(
-                                      value:
-                                          'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
-                                    ),
-                                    alias: NameNode(value: 'update_user'),
+                                    name: NameNode(value: 'nodes'),
+                                    alias: null,
                                     arguments: [],
                                     directives: [],
                                     selectionSet: SelectionSetNode(
                                       selections: [
                                         FieldNode(
-                                          name: NameNode(value: 'historyId'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(value: 'infoStaffId'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                        FieldNode(
                                           name: NameNode(
-                                            value: 'infoCompanyId',
+                                            value: 'infoDepartmentKindValueId',
                                           ),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(value: 'code'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(value: 'sex'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(value: 'phone'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(value: 'symbol'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(value: 'privatePhone'),
                                           alias: null,
                                           arguments: [],
                                           directives: [],
@@ -4649,7 +4096,7 @@ const documentNodeQueryDepartmentPageRead = DocumentNode(
                                           name: NameNode(
                                             value: 'sharedAppellationByNames',
                                           ),
-                                          alias: NameNode(value: 'name'),
+                                          alias: NameNode(value: 'labels'),
                                           arguments: [],
                                           directives: [],
                                           selectionSet: SelectionSetNode(
@@ -4982,6 +4429,431 @@ const documentNodeQueryDepartmentPageRead = DocumentNode(
                                                                 ),
                                                               ],
                                                             ),
+                                                          ),
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  '__typename',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: null,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: '__typename',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: '__typename'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FieldNode(
+                              name: NameNode(
+                                value:
+                                    'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
+                              ),
+                              alias: NameNode(value: 'update_user'),
+                              arguments: [],
+                              directives: [],
+                              selectionSet: SelectionSetNode(
+                                selections: [
+                                  FieldNode(
+                                    name: NameNode(value: 'historyId'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: 'infoStaffId'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: 'infoCompanyId'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: 'code'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: 'sex'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: 'phone'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: 'symbol'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: 'privatePhone'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(
+                                      value: 'sharedAppellationByNames',
+                                    ),
+                                    alias: NameNode(value: 'name'),
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(
+                                            value: 'sharedAppellationsId',
+                                          ),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(
+                                            value:
+                                                'sharedDictionaryBySharedDictionaryNameId',
+                                          ),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'sharedDictionaryId',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value:
+                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                ),
+                                                alias: NameNode(value: 'value'),
+                                                arguments: [
+                                                  ArgumentNode(
+                                                    name: NameNode(
+                                                      value: 'condition',
+                                                    ),
+                                                    value: ObjectValueNode(
+                                                      fields: [
+                                                        ObjectFieldNode(
+                                                          name: NameNode(
+                                                            value:
+                                                                'sharedLanguageCodeId',
+                                                          ),
+                                                          value: VariableNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  'languageCodeId',
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                                directives: [],
+                                                selectionSet: SelectionSetNode(
+                                                  selections: [
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: 'nodes',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: SelectionSetNode(
+                                                        selections: [
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  'dictionaryValue',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: null,
+                                                          ),
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  '__typename',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: null,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: '__typename',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(
+                                            value:
+                                                'sharedDictionaryBySharedDictionaryPronunciationId',
+                                          ),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'sharedDictionaryId',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value:
+                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                ),
+                                                alias: NameNode(value: 'value'),
+                                                arguments: [
+                                                  ArgumentNode(
+                                                    name: NameNode(
+                                                      value: 'condition',
+                                                    ),
+                                                    value: ObjectValueNode(
+                                                      fields: [
+                                                        ObjectFieldNode(
+                                                          name: NameNode(
+                                                            value:
+                                                                'sharedLanguageCodeId',
+                                                          ),
+                                                          value: VariableNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  'languageCodeId',
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                                directives: [],
+                                                selectionSet: SelectionSetNode(
+                                                  selections: [
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: 'nodes',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: SelectionSetNode(
+                                                        selections: [
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  'dictionaryValue',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: null,
+                                                          ),
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  '__typename',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: null,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: '__typename',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(
+                                            value:
+                                                'sharedDictionaryBySharedDictionaryNicknameId',
+                                          ),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'sharedDictionaryId',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value:
+                                                      'sharedDictionaryValuesBySharedDictionaryId',
+                                                ),
+                                                alias: NameNode(value: 'value'),
+                                                arguments: [
+                                                  ArgumentNode(
+                                                    name: NameNode(
+                                                      value: 'condition',
+                                                    ),
+                                                    value: ObjectValueNode(
+                                                      fields: [
+                                                        ObjectFieldNode(
+                                                          name: NameNode(
+                                                            value:
+                                                                'sharedLanguageCodeId',
+                                                          ),
+                                                          value: VariableNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  'languageCodeId',
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                                directives: [],
+                                                selectionSet: SelectionSetNode(
+                                                  selections: [
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: 'nodes',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: SelectionSetNode(
+                                                        selections: [
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  'dictionaryValue',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: null,
                                                           ),
                                                           FieldNode(
                                                             name: NameNode(
@@ -6036,7 +5908,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes {
     this.labels,
     this.address,
     this.office,
-    required this.kinds,
+    this.kinds,
     this.update_user,
     this.$__typename = 'InfoDepartment',
   });
@@ -6086,9 +5958,11 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes {
           : Query$DepartmentPageRead$allInfoDepartments$nodes$office.fromJson(
               (l$office as Map<String, dynamic>),
             ),
-      kinds: Query$DepartmentPageRead$allInfoDepartments$nodes$kinds.fromJson(
-        (l$kinds as Map<String, dynamic>),
-      ),
+      kinds: l$kinds == null
+          ? null
+          : Query$DepartmentPageRead$allInfoDepartments$nodes$kinds.fromJson(
+              (l$kinds as Map<String, dynamic>),
+            ),
       update_user: l$update_user == null
           ? null
           : Query$DepartmentPageRead$allInfoDepartments$nodes$update_user.fromJson(
@@ -6122,8 +5996,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes {
 
   final Query$DepartmentPageRead$allInfoDepartments$nodes$office? office;
 
-  @Deprecated('Please use infoDepartmentKindByInfoDepartmentId instead')
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds kinds;
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds? kinds;
 
   final Query$DepartmentPageRead$allInfoDepartments$nodes$update_user?
   update_user;
@@ -6157,7 +6030,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes {
     final l$office = office;
     _resultData['office'] = l$office?.toJson();
     final l$kinds = kinds;
-    _resultData['kinds'] = l$kinds.toJson();
+    _resultData['kinds'] = l$kinds?.toJson();
     final l$update_user = update_user;
     _resultData['update_user'] = l$update_user?.toJson();
     final l$$__typename = $__typename;
@@ -6410,9 +6283,9 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes<TRes>
           ? _instance.office
           : (office
                 as Query$DepartmentPageRead$allInfoDepartments$nodes$office?),
-      kinds: kinds == _undefined || kinds == null
+      kinds: kinds == _undefined
           ? _instance.kinds
-          : (kinds as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds),
+          : (kinds as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds?),
       update_user: update_user == _undefined
           ? _instance.update_user
           : (update_user
@@ -6474,10 +6347,14 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes<TRes>
   CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds<TRes>
   get kinds {
     final local$kinds = _instance.kinds;
-    return CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds(
-      local$kinds,
-      (e) => call(kinds: e),
-    );
+    return local$kinds == null
+        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds(
+            local$kinds,
+            (e) => call(kinds: e),
+          );
   }
 
   CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$update_user<TRes>
@@ -27144,432 +27021,6 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$office
 
 class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds {
   Query$DepartmentPageRead$allInfoDepartments$nodes$kinds({
-    required this.totalCount,
-    required this.pageInfo,
-    required this.nodes,
-    this.$__typename = 'InfoDepartmentKindsConnection',
-  });
-
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds.fromJson(
-    Map<String, dynamic> json,
-  ) {
-    final l$totalCount = json['totalCount'];
-    final l$pageInfo = json['pageInfo'];
-    final l$nodes = json['nodes'];
-    final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds(
-      totalCount: (l$totalCount as int),
-      pageInfo:
-          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo.fromJson(
-            (l$pageInfo as Map<String, dynamic>),
-          ),
-      nodes: (l$nodes as List<dynamic>)
-          .map(
-            (e) => e == null
-                ? null
-                : Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes.fromJson(
-                    (e as Map<String, dynamic>),
-                  ),
-          )
-          .toList(),
-      $__typename: (l$$__typename as String),
-    );
-  }
-
-  final int totalCount;
-
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo
-  pageInfo;
-
-  final List<Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes?>
-  nodes;
-
-  final String $__typename;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$totalCount = totalCount;
-    _resultData['totalCount'] = l$totalCount;
-    final l$pageInfo = pageInfo;
-    _resultData['pageInfo'] = l$pageInfo.toJson();
-    final l$nodes = nodes;
-    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$totalCount = totalCount;
-    final l$pageInfo = pageInfo;
-    final l$nodes = nodes;
-    final l$$__typename = $__typename;
-    return Object.hashAll([
-      l$totalCount,
-      l$pageInfo,
-      Object.hashAll(l$nodes.map((v) => v)),
-      l$$__typename,
-    ]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (other is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$totalCount = totalCount;
-    final lOther$totalCount = other.totalCount;
-    if (l$totalCount != lOther$totalCount) {
-      return false;
-    }
-    final l$pageInfo = pageInfo;
-    final lOther$pageInfo = other.pageInfo;
-    if (l$pageInfo != lOther$pageInfo) {
-      return false;
-    }
-    final l$nodes = nodes;
-    final lOther$nodes = other.nodes;
-    if (l$nodes.length != lOther$nodes.length) {
-      return false;
-    }
-    for (int i = 0; i < l$nodes.length; i++) {
-      final l$nodes$entry = l$nodes[i];
-      final lOther$nodes$entry = lOther$nodes[i];
-      if (l$nodes$entry != lOther$nodes$entry) {
-        return false;
-      }
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds
-    on Query$DepartmentPageRead$allInfoDepartments$nodes$kinds {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds
-  >
-  get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds(
-        this,
-        (i) => i,
-      );
-}
-
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds<
-  TRes
-> {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds instance,
-    TRes Function(Query$DepartmentPageRead$allInfoDepartments$nodes$kinds) then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds;
-
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds.stub(
-    TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds;
-
-  TRes call({
-    int? totalCount,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo? pageInfo,
-    List<Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes?>? nodes,
-    String? $__typename,
-  });
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo<
-    TRes
-  >
-  get pageInfo;
-  TRes nodes(
-    Iterable<Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes?>
-    Function(
-      Iterable<
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes<
-          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes
-        >?
-      >,
-    )
-    _fn,
-  );
-}
-
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds<
-  TRes
->
-    implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds<TRes> {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds(
-    this._instance,
-    this._then,
-  );
-
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds _instance;
-
-  final TRes Function(Query$DepartmentPageRead$allInfoDepartments$nodes$kinds)
-  _then;
-
-  static const _undefined = <dynamic, dynamic>{};
-
-  TRes call({
-    Object? totalCount = _undefined,
-    Object? pageInfo = _undefined,
-    Object? nodes = _undefined,
-    Object? $__typename = _undefined,
-  }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds(
-      totalCount: totalCount == _undefined || totalCount == null
-          ? _instance.totalCount
-          : (totalCount as int),
-      pageInfo: pageInfo == _undefined || pageInfo == null
-          ? _instance.pageInfo
-          : (pageInfo
-                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo),
-      nodes: nodes == _undefined || nodes == null
-          ? _instance.nodes
-          : (nodes
-                as List<
-                  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes?
-                >),
-      $__typename: $__typename == _undefined || $__typename == null
-          ? _instance.$__typename
-          : ($__typename as String),
-    ),
-  );
-
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo<
-    TRes
-  >
-  get pageInfo {
-    final local$pageInfo = _instance.pageInfo;
-    return CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo(
-      local$pageInfo,
-      (e) => call(pageInfo: e),
-    );
-  }
-
-  TRes nodes(
-    Iterable<Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes?>
-    Function(
-      Iterable<
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes<
-          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes
-        >?
-      >,
-    )
-    _fn,
-  ) => call(
-    nodes: _fn(
-      _instance.nodes.map(
-        (e) => e == null
-            ? null
-            : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes(
-                e,
-                (i) => i,
-              ),
-      ),
-    ).toList(),
-  );
-}
-
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds<
-  TRes
->
-    implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds<TRes> {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds(
-    this._res,
-  );
-
-  TRes _res;
-
-  call({
-    int? totalCount,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo? pageInfo,
-    List<Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes?>? nodes,
-    String? $__typename,
-  }) => _res;
-
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo<
-    TRes
-  >
-  get pageInfo =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo.stub(
-        _res,
-      );
-
-  nodes(_fn) => _res;
-}
-
-class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo({
-    required this.hasNextPage,
-    this.endCursor,
-    this.$__typename = 'PageInfo',
-  });
-
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo.fromJson(
-    Map<String, dynamic> json,
-  ) {
-    final l$hasNextPage = json['hasNextPage'];
-    final l$endCursor = json['endCursor'];
-    final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo(
-      hasNextPage: (l$hasNextPage as bool),
-      endCursor: (l$endCursor as String?),
-      $__typename: (l$$__typename as String),
-    );
-  }
-
-  final bool hasNextPage;
-
-  final String? endCursor;
-
-  final String $__typename;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$hasNextPage = hasNextPage;
-    _resultData['hasNextPage'] = l$hasNextPage;
-    final l$endCursor = endCursor;
-    _resultData['endCursor'] = l$endCursor;
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$hasNextPage = hasNextPage;
-    final l$endCursor = endCursor;
-    final l$$__typename = $__typename;
-    return Object.hashAll([l$hasNextPage, l$endCursor, l$$__typename]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$hasNextPage = hasNextPage;
-    final lOther$hasNextPage = other.hasNextPage;
-    if (l$hasNextPage != lOther$hasNextPage) {
-      return false;
-    }
-    final l$endCursor = endCursor;
-    final lOther$endCursor = other.endCursor;
-    if (l$endCursor != lOther$endCursor) {
-      return false;
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo
-    on Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo
-  >
-  get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo(
-        this,
-        (i) => i,
-      );
-}
-
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo<
-  TRes
-> {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo instance,
-    TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo,
-    )
-    then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo;
-
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo.stub(
-    TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo;
-
-  TRes call({bool? hasNextPage, String? endCursor, String? $__typename});
-}
-
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo<
-  TRes
->
-    implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo<
-          TRes
-        > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo(
-    this._instance,
-    this._then,
-  );
-
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo
-  _instance;
-
-  final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo,
-  )
-  _then;
-
-  static const _undefined = <dynamic, dynamic>{};
-
-  TRes call({
-    Object? hasNextPage = _undefined,
-    Object? endCursor = _undefined,
-    Object? $__typename = _undefined,
-  }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo(
-      hasNextPage: hasNextPage == _undefined || hasNextPage == null
-          ? _instance.hasNextPage
-          : (hasNextPage as bool),
-      endCursor: endCursor == _undefined
-          ? _instance.endCursor
-          : (endCursor as String?),
-      $__typename: $__typename == _undefined || $__typename == null
-          ? _instance.$__typename
-          : ($__typename as String),
-    ),
-  );
-}
-
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo<
-  TRes
->
-    implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo<
-          TRes
-        > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$pageInfo(
-    this._res,
-  );
-
-  TRes _res;
-
-  call({bool? hasNextPage, String? endCursor, String? $__typename}) => _res;
-}
-
-class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes({
     required this.infoDepartmentKindId,
     required this.infoDepartmentId,
     this.symbol,
@@ -27581,7 +27032,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes {
     this.$__typename = 'InfoDepartmentKind',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$infoDepartmentKindId = json['infoDepartmentKindId'];
@@ -27593,7 +27044,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes {
     final l$value = json['value'];
     final l$update_user = json['update_user'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds(
       infoDepartmentKindId: (l$infoDepartmentKindId as String),
       infoDepartmentId: (l$infoDepartmentId as String),
       symbol: (l$symbol as String?),
@@ -27601,12 +27052,12 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes {
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
       value:
-          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value.fromJson(
+          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       update_user: l$update_user == null
           ? null
-          : Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user.fromJson(
+          : Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user.fromJson(
               (l$update_user as Map<String, dynamic>),
             ),
       $__typename: (l$$__typename as String),
@@ -27625,10 +27076,9 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes {
 
   final bool? remove;
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value
-  value;
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value value;
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user?
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user?
   update_user;
 
   final String $__typename;
@@ -27685,8 +27135,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes {
     if (identical(this, other)) {
       return true;
     }
-    if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes ||
+    if (other is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -27739,30 +27188,29 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes {
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes
-    on Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds
+    on Query$DepartmentPageRead$allInfoDepartments$nodes$kinds {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes instance,
-    TRes Function(Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes)
-    then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes;
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds instance,
+    TRes Function(Query$DepartmentPageRead$allInfoDepartments$nodes$kinds) then,
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds;
 
   TRes call({
     String? infoDepartmentKindId,
@@ -27771,38 +27219,32 @@ abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value? value,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value? value,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user?
     update_user,
     String? $__typename,
   });
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value<
-    TRes
-  >
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value<TRes>
   get value;
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user<
     TRes
   >
   get update_user;
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes<
-          TRes
-        > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes(
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds<TRes> {
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes _instance;
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds _instance;
 
-  final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes,
-  )
+  final TRes Function(Query$DepartmentPageRead$allInfoDepartments$nodes$kinds)
   _then;
 
   static const _undefined = <dynamic, dynamic>{};
@@ -27818,7 +27260,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
     Object? update_user = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds(
       infoDepartmentKindId:
           infoDepartmentKindId == _undefined || infoDepartmentKindId == null
           ? _instance.infoDepartmentKindId
@@ -27836,52 +27278,48 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value),
+                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value),
       update_user: update_user == _undefined
           ? _instance.update_user
           : (update_user
-                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user?),
+                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value<
-    TRes
-  >
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value<TRes>
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value(
+    return CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value(
       local$value,
       (e) => call(value: e),
     );
   }
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user<
     TRes
   >
   get update_user {
     final local$update_user = _instance.update_user;
     return local$update_user == null
-        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user.stub(
+        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user.stub(
             _then(_instance),
           )
-        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user(
+        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user(
             local$update_user,
             (e) => call(update_user: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes<
-          TRes
-        > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes(
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds<TRes> {
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds(
     this._res,
   );
 
@@ -27894,55 +27332,53 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value? value,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value? value,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user?
     update_user,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value<
-    TRes
-  >
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value<TRes>
   get value =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value.stub(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value.stub(
         _res,
       );
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user<
     TRes
   >
   get update_user =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user.stub(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user.stub(
         _res,
       );
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value({
     required this.totalCount,
     required this.pageInfo,
     required this.nodes,
     this.$__typename = 'InfoDepartmentKindValuesConnection',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$totalCount = json['totalCount'];
     final l$pageInfo = json['pageInfo'];
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value(
       totalCount: (l$totalCount as int),
       pageInfo:
-          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo.fromJson(
+          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo.fromJson(
             (l$pageInfo as Map<String, dynamic>),
           ),
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes.fromJson(
+                : Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -27953,11 +27389,11 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value {
 
   final int totalCount;
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo
   pageInfo;
 
   final List<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes?
   >
   nodes;
 
@@ -27996,7 +27432,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value {
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -28031,56 +27467,51 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value {
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value
-    on Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value
+    on Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value
-    instance,
-    TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value,
-    )
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value instance,
+    TRes Function(Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value)
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value;
 
   TRes call({
     int? totalCount,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo?
     pageInfo,
-    List<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes?
-    >?
+    List<Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes?>?
     nodes,
     String? $__typename,
   });
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo<
     TRes
   >
   get pageInfo;
   TRes nodes(
     Iterable<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes<
-          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes<
+          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes
         >?
       >,
     )
@@ -28088,23 +27519,22 @@ abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
   );
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value
-  _instance;
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value,
   )
   _then;
 
@@ -28116,19 +27546,19 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value(
       totalCount: totalCount == _undefined || totalCount == null
           ? _instance.totalCount
           : (totalCount as int),
       pageInfo: pageInfo == _undefined || pageInfo == null
           ? _instance.pageInfo
           : (pageInfo
-                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo),
+                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo),
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes?
+                  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -28136,12 +27566,12 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
     ),
   );
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo<
     TRes
   >
   get pageInfo {
     final local$pageInfo = _instance.pageInfo;
-    return CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo(
+    return CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo(
       local$pageInfo,
       (e) => call(pageInfo: e),
     );
@@ -28149,12 +27579,12 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
 
   TRes nodes(
     Iterable<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes<
-          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes<
+          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes
         >?
       >,
     )
@@ -28164,7 +27594,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes(
+            : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -28173,14 +27603,14 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
   );
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value(
     this._res,
   );
 
@@ -28188,40 +27618,38 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
 
   call({
     int? totalCount,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo?
     pageInfo,
-    List<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes?
-    >?
+    List<Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes?>?
     nodes,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo<
     TRes
   >
   get pageInfo =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo.stub(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo.stub(
         _res,
       );
 
   nodes(_fn) => _res;
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo({
     required this.hasNextPage,
     this.endCursor,
     this.$__typename = 'PageInfo',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$hasNextPage = json['hasNextPage'];
     final l$endCursor = json['endCursor'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo(
       hasNextPage: (l$hasNextPage as bool),
       endCursor: (l$endCursor as String?),
       $__typename: (l$$__typename as String),
@@ -28259,7 +27687,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageIn
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -28282,54 +27710,54 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageIn
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo
-    on Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo
+    on Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo;
 
   TRes call({bool? hasNextPage, String? endCursor, String? $__typename});
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo,
   )
   _then;
 
@@ -28340,7 +27768,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
     Object? endCursor = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo(
       hasNextPage: hasNextPage == _undefined || hasNextPage == null
           ? _instance.hasNextPage
           : (hasNextPage as bool),
@@ -28354,14 +27782,14 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
   );
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$pageInfo(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$pageInfo(
     this._res,
   );
 
@@ -28370,24 +27798,24 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
   call({bool? hasNextPage, String? endCursor, String? $__typename}) => _res;
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes({
     required this.infoDepartmentKindValueId,
     this.labels,
     this.$__typename = 'InfoDepartmentKindValue',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$infoDepartmentKindValueId = json['infoDepartmentKindValueId'];
     final l$labels = json['labels'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes(
       infoDepartmentKindValueId: (l$infoDepartmentKindValueId as String),
       labels: l$labels == null
           ? null
-          : Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels.fromJson(
+          : Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels.fromJson(
               (l$labels as Map<String, dynamic>),
             ),
       $__typename: (l$$__typename as String),
@@ -28396,7 +27824,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes 
 
   final String infoDepartmentKindValueId;
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels?
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels?
   labels;
 
   final String $__typename;
@@ -28430,7 +27858,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes 
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -28453,63 +27881,63 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes 
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes
-    on Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes
+    on Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes;
 
   TRes call({
     String? infoDepartmentKindValueId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels?
     labels,
     String? $__typename,
   });
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels<
     TRes
   >
   get labels;
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes,
   )
   _then;
 
@@ -28520,7 +27948,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
     Object? labels = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes(
       infoDepartmentKindValueId:
           infoDepartmentKindValueId == _undefined ||
               infoDepartmentKindValueId == null
@@ -28529,37 +27957,37 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
       labels: labels == _undefined
           ? _instance.labels
           : (labels
-                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels?),
+                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels<
     TRes
   >
   get labels {
     final local$labels = _instance.labels;
     return local$labels == null
-        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels.stub(
+        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels.stub(
             _then(_instance),
           )
-        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels(
+        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels(
             local$labels,
             (e) => call(labels: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes(
     this._res,
   );
 
@@ -28567,22 +27995,22 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
 
   call({
     String? infoDepartmentKindValueId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels?
     labels,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels<
     TRes
   >
   get labels =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels.stub(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels.stub(
         _res,
       );
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels({
     required this.sharedAppellationsId,
     this.sharedDictionaryBySharedDictionaryNameId,
     this.sharedDictionaryBySharedDictionaryPronunciationId,
@@ -28590,7 +28018,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$
     this.$__typename = 'SharedAppellation',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedAppellationsId = json['sharedAppellationsId'];
@@ -28601,26 +28029,26 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$
     final l$sharedDictionaryBySharedDictionaryNicknameId =
         json['sharedDictionaryBySharedDictionaryNicknameId'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels(
       sharedAppellationsId: (l$sharedAppellationsId as String),
       sharedDictionaryBySharedDictionaryNameId:
           l$sharedDictionaryBySharedDictionaryNameId == null
           ? null
-          : Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId.fromJson(
+          : Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNameId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryPronunciationId:
           l$sharedDictionaryBySharedDictionaryPronunciationId == null
           ? null
-          : Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+          : Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
               (l$sharedDictionaryBySharedDictionaryPronunciationId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryNicknameId:
           l$sharedDictionaryBySharedDictionaryNicknameId == null
           ? null
-          : Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+          : Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNicknameId
                   as Map<String, dynamic>),
             ),
@@ -28630,13 +28058,13 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$
 
   final String sharedAppellationsId;
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId?
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId?
   sharedDictionaryBySharedDictionaryNameId;
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId?
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId?
   sharedDictionaryBySharedDictionaryPronunciationId;
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId?
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId?
   sharedDictionaryBySharedDictionaryNicknameId;
 
   final String $__typename;
@@ -28687,7 +28115,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -28729,76 +28157,75 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels
-    on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels
+    on Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels;
 
   TRes call({
     String? sharedAppellationsId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   });
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId;
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId;
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId;
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels,
   )
   _then;
 
@@ -28811,7 +28238,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
     Object? sharedDictionaryBySharedDictionaryNicknameId = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels(
       sharedAppellationsId:
           sharedAppellationsId == _undefined || sharedAppellationsId == null
           ? _instance.sharedAppellationsId
@@ -28820,80 +28247,80 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
           sharedDictionaryBySharedDictionaryNameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNameId
           : (sharedDictionaryBySharedDictionaryNameId
-                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId?),
+                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId?),
       sharedDictionaryBySharedDictionaryPronunciationId:
           sharedDictionaryBySharedDictionaryPronunciationId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryPronunciationId
           : (sharedDictionaryBySharedDictionaryPronunciationId
-                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId?),
+                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId?),
       sharedDictionaryBySharedDictionaryNicknameId:
           sharedDictionaryBySharedDictionaryNicknameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNicknameId
           : (sharedDictionaryBySharedDictionaryNicknameId
-                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId?),
+                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId {
     final local$sharedDictionaryBySharedDictionaryNameId =
         _instance.sharedDictionaryBySharedDictionaryNameId;
     return local$sharedDictionaryBySharedDictionaryNameId == null
-        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId.stub(
+        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
+        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
             local$sharedDictionaryBySharedDictionaryNameId,
             (e) => call(sharedDictionaryBySharedDictionaryNameId: e),
           );
   }
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId {
     final local$sharedDictionaryBySharedDictionaryPronunciationId =
         _instance.sharedDictionaryBySharedDictionaryPronunciationId;
     return local$sharedDictionaryBySharedDictionaryPronunciationId == null
-        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
             local$sharedDictionaryBySharedDictionaryPronunciationId,
             (e) => call(sharedDictionaryBySharedDictionaryPronunciationId: e),
           );
   }
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId {
     final local$sharedDictionaryBySharedDictionaryNicknameId =
         _instance.sharedDictionaryBySharedDictionaryNicknameId;
     return local$sharedDictionaryBySharedDictionaryNicknameId == null
-        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId.stub(
+        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
+        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
             local$sharedDictionaryBySharedDictionaryNicknameId,
             (e) => call(sharedDictionaryBySharedDictionaryNicknameId: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels(
     this._res,
   );
 
@@ -28901,57 +28328,57 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
 
   call({
     String? sharedAppellationsId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId.stub(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId.stub(
         _res,
       );
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId.stub(
         _res,
       );
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId.stub(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId.stub(
         _res,
       );
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
+          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -28960,7 +28387,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$
 
   final String sharedDictionaryId;
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value
   value;
 
   final String $__typename;
@@ -28990,7 +28417,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -29013,64 +28440,64 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId
+        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId,
   )
   _then;
 
@@ -29081,7 +28508,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -29089,33 +28516,33 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value),
+                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
+    return CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId(
     this._res,
   );
 
@@ -29123,37 +28550,37 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
 
   call({
     String? sharedDictionaryId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value.stub(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value.stub(
         _res,
       );
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
+                : Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -29163,7 +28590,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$
   }
 
   final List<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
   >
   nodes;
 
@@ -29194,7 +28621,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -29219,50 +28646,50 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value
+        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value;
 
   TRes call({
     List<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
         >?
       >,
     )
@@ -29270,23 +28697,23 @@ abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
   );
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value,
   )
   _then;
 
@@ -29296,12 +28723,12 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+                  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -29311,12 +28738,12 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
 
   TRes nodes(
     Iterable<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
         >?
       >,
     )
@@ -29326,7 +28753,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+            : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -29335,14 +28762,14 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
   );
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value(
     this._res,
   );
 
@@ -29350,7 +28777,7 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
 
   call({
     List<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -29359,18 +28786,18 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
   nodes(_fn) => _res;
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -29402,7 +28829,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -29420,55 +28847,55 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes,
   )
   _then;
 
@@ -29478,7 +28905,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -29489,14 +28916,14 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
   );
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
     this._res,
   );
 
@@ -29505,23 +28932,23 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
+          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -29530,7 +28957,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$
 
   final String sharedDictionaryId;
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
   value;
 
   final String $__typename;
@@ -29560,7 +28987,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -29583,64 +29010,64 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId
+        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId,
   )
   _then;
 
@@ -29651,7 +29078,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -29659,33 +29086,33 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value),
+                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    return CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId(
     this._res,
   );
 
@@ -29693,37 +29120,37 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
 
   call({
     String? sharedDictionaryId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
         _res,
       );
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
+                : Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -29733,7 +29160,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$
   }
 
   final List<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
   >
   nodes;
 
@@ -29764,7 +29191,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -29789,50 +29216,50 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
+        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value;
 
   TRes call({
     List<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
         >?
       >,
     )
@@ -29840,23 +29267,23 @@ abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
   );
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value,
   )
   _then;
 
@@ -29866,12 +29293,12 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+                  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -29881,12 +29308,12 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
 
   TRes nodes(
     Iterable<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
         >?
       >,
     )
@@ -29896,7 +29323,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+            : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -29905,14 +29332,14 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
   );
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
     this._res,
   );
 
@@ -29920,7 +29347,7 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
 
   call({
     List<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -29929,18 +29356,18 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
   nodes(_fn) => _res;
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -29972,7 +29399,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -29990,55 +29417,55 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
   )
   _then;
 
@@ -30048,7 +29475,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -30059,14 +29486,14 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
   );
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
     this._res,
   );
 
@@ -30075,23 +29502,23 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
+          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -30100,7 +29527,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$
 
   final String sharedDictionaryId;
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value
   value;
 
   final String $__typename;
@@ -30130,7 +29557,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -30153,64 +29580,64 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId
+        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId,
   )
   _then;
 
@@ -30221,7 +29648,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -30229,33 +29656,33 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value),
+                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
+    return CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId(
     this._res,
   );
 
@@ -30263,37 +29690,37 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
 
   call({
     String? sharedDictionaryId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
         _res,
       );
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
+                : Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -30303,7 +29730,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$
   }
 
   final List<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
   >
   nodes;
 
@@ -30334,7 +29761,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -30359,50 +29786,50 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value
+        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value;
 
   TRes call({
     List<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
         >?
       >,
     )
@@ -30410,23 +29837,23 @@ abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
   );
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value,
   )
   _then;
 
@@ -30436,12 +29863,12 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+                  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -30451,12 +29878,12 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
 
   TRes nodes(
     Iterable<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
         >?
       >,
     )
@@ -30466,7 +29893,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+            : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -30475,14 +29902,14 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
   );
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
     this._res,
   );
 
@@ -30490,7 +29917,7 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
 
   call({
     List<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -30499,18 +29926,18 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
   nodes(_fn) => _res;
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -30542,7 +29969,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -30560,55 +29987,55 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
   )
   _then;
 
@@ -30618,7 +30045,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -30629,14 +30056,14 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
   );
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$value$nodes$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
     this._res,
   );
 
@@ -30645,8 +30072,8 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user({
     required this.historyId,
     required this.infoStaffId,
     this.infoCompanyId,
@@ -30659,7 +30086,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user 
     this.$__typename = 'HistoryInfoStaff',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$historyId = json['historyId'];
@@ -30672,7 +30099,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user 
     final l$privatePhone = json['privatePhone'];
     final l$name = json['name'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
       infoCompanyId: (l$infoCompanyId as String?),
@@ -30683,7 +30110,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user 
       privatePhone: (l$privatePhone as String?),
       name: l$name == null
           ? null
-          : Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name.fromJson(
+          : Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name.fromJson(
               (l$name as Map<String, dynamic>),
             ),
       $__typename: (l$$__typename as String),
@@ -30706,7 +30133,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user 
 
   final String? privatePhone;
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name?
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name?
   name;
 
   final String $__typename;
@@ -30768,7 +30195,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user 
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -30826,33 +30253,33 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user 
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user
-    on Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user
+    on Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user;
 
   TRes call({
     String? historyId,
@@ -30863,33 +30290,33 @@ abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name?
     name,
     String? $__typename,
   });
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name<
     TRes
   >
   get name;
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user,
   )
   _then;
 
@@ -30907,7 +30334,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
     Object? name = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user(
       historyId: historyId == _undefined || historyId == null
           ? _instance.historyId
           : (historyId as String),
@@ -30927,37 +30354,37 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
       name: name == _undefined
           ? _instance.name
           : (name
-                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name?),
+                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name<
     TRes
   >
   get name {
     final local$name = _instance.name;
     return local$name == null
-        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name.stub(
+        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name.stub(
             _then(_instance),
           )
-        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name(
+        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name(
             local$name,
             (e) => call(name: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user(
     this._res,
   );
 
@@ -30972,22 +30399,22 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name?
     name,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name<
     TRes
   >
   get name =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name.stub(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name.stub(
         _res,
       );
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name({
     required this.sharedAppellationsId,
     this.sharedDictionaryBySharedDictionaryNameId,
     this.sharedDictionaryBySharedDictionaryPronunciationId,
@@ -30995,7 +30422,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$
     this.$__typename = 'SharedAppellation',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedAppellationsId = json['sharedAppellationsId'];
@@ -31006,26 +30433,26 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$
     final l$sharedDictionaryBySharedDictionaryNicknameId =
         json['sharedDictionaryBySharedDictionaryNicknameId'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name(
       sharedAppellationsId: (l$sharedAppellationsId as String),
       sharedDictionaryBySharedDictionaryNameId:
           l$sharedDictionaryBySharedDictionaryNameId == null
           ? null
-          : Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId.fromJson(
+          : Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNameId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryPronunciationId:
           l$sharedDictionaryBySharedDictionaryPronunciationId == null
           ? null
-          : Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+          : Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
               (l$sharedDictionaryBySharedDictionaryPronunciationId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryNicknameId:
           l$sharedDictionaryBySharedDictionaryNicknameId == null
           ? null
-          : Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+          : Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNicknameId
                   as Map<String, dynamic>),
             ),
@@ -31035,13 +30462,13 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$
 
   final String sharedAppellationsId;
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId?
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId?
   sharedDictionaryBySharedDictionaryNameId;
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?
   sharedDictionaryBySharedDictionaryPronunciationId;
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?
   sharedDictionaryBySharedDictionaryNicknameId;
 
   final String $__typename;
@@ -31092,7 +30519,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -31134,75 +30561,75 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name
-    on Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name
+    on Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name;
 
   TRes call({
     String? sharedAppellationsId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   });
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId;
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId;
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId;
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name,
   )
   _then;
 
@@ -31215,7 +30642,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
     Object? sharedDictionaryBySharedDictionaryNicknameId = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name(
       sharedAppellationsId:
           sharedAppellationsId == _undefined || sharedAppellationsId == null
           ? _instance.sharedAppellationsId
@@ -31224,80 +30651,80 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
           sharedDictionaryBySharedDictionaryNameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNameId
           : (sharedDictionaryBySharedDictionaryNameId
-                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId?),
+                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId?),
       sharedDictionaryBySharedDictionaryPronunciationId:
           sharedDictionaryBySharedDictionaryPronunciationId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryPronunciationId
           : (sharedDictionaryBySharedDictionaryPronunciationId
-                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?),
+                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?),
       sharedDictionaryBySharedDictionaryNicknameId:
           sharedDictionaryBySharedDictionaryNicknameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNicknameId
           : (sharedDictionaryBySharedDictionaryNicknameId
-                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?),
+                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId {
     final local$sharedDictionaryBySharedDictionaryNameId =
         _instance.sharedDictionaryBySharedDictionaryNameId;
     return local$sharedDictionaryBySharedDictionaryNameId == null
-        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId.stub(
+        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId(
             local$sharedDictionaryBySharedDictionaryNameId,
             (e) => call(sharedDictionaryBySharedDictionaryNameId: e),
           );
   }
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId {
     final local$sharedDictionaryBySharedDictionaryPronunciationId =
         _instance.sharedDictionaryBySharedDictionaryPronunciationId;
     return local$sharedDictionaryBySharedDictionaryPronunciationId == null
-        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
             local$sharedDictionaryBySharedDictionaryPronunciationId,
             (e) => call(sharedDictionaryBySharedDictionaryPronunciationId: e),
           );
   }
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId {
     final local$sharedDictionaryBySharedDictionaryNicknameId =
         _instance.sharedDictionaryBySharedDictionaryNicknameId;
     return local$sharedDictionaryBySharedDictionaryNicknameId == null
-        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.stub(
+        ? CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+        : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
             local$sharedDictionaryBySharedDictionaryNicknameId,
             (e) => call(sharedDictionaryBySharedDictionaryNicknameId: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name(
     this._res,
   );
 
@@ -31305,57 +30732,57 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
 
   call({
     String? sharedAppellationsId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId.stub(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId.stub(
         _res,
       );
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.stub(
         _res,
       );
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.stub(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.stub(
         _res,
       );
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
+          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -31364,7 +30791,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$
 
   final String sharedDictionaryId;
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
   value;
 
   final String $__typename;
@@ -31394,7 +30821,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -31417,64 +30844,64 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId
+        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId,
   )
   _then;
 
@@ -31485,7 +30912,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -31493,33 +30920,33 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value),
+                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+    return CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId(
     this._res,
   );
 
@@ -31527,37 +30954,37 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
 
   call({
     String? sharedDictionaryId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.stub(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.stub(
         _res,
       );
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
+                : Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -31567,7 +30994,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$
   }
 
   final List<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
   >
   nodes;
 
@@ -31598,7 +31025,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -31623,50 +31050,50 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
+        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value;
 
   TRes call({
     List<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
         >?
       >,
     )
@@ -31674,23 +31101,23 @@ abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
   );
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value,
   )
   _then;
 
@@ -31700,12 +31127,12 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+                  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -31715,12 +31142,12 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
 
   TRes nodes(
     Iterable<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
         >?
       >,
     )
@@ -31730,7 +31157,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+            : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -31739,14 +31166,14 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
   );
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
     this._res,
   );
 
@@ -31754,7 +31181,7 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
 
   call({
     List<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -31763,18 +31190,18 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
   nodes(_fn) => _res;
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -31806,7 +31233,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -31824,55 +31251,55 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes,
   )
   _then;
 
@@ -31882,7 +31309,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -31893,14 +31320,14 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
   );
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
     this._res,
   );
 
@@ -31909,23 +31336,23 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
+          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -31934,7 +31361,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$
 
   final String sharedDictionaryId;
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
   value;
 
   final String $__typename;
@@ -31964,7 +31391,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -31987,64 +31414,64 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
+        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId,
   )
   _then;
 
@@ -32055,7 +31482,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -32063,33 +31490,33 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value),
+                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    return CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
     this._res,
   );
 
@@ -32097,37 +31524,37 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
 
   call({
     String? sharedDictionaryId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
         _res,
       );
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
+                : Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -32137,7 +31564,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$
   }
 
   final List<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
   >
   nodes;
 
@@ -32168,7 +31595,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -32193,50 +31620,50 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
+        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value;
 
   TRes call({
     List<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
         >?
       >,
     )
@@ -32244,23 +31671,23 @@ abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
   );
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value,
   )
   _then;
 
@@ -32270,12 +31697,12 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+                  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -32285,12 +31712,12 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
 
   TRes nodes(
     Iterable<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
         >?
       >,
     )
@@ -32300,7 +31727,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+            : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -32309,14 +31736,14 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
   );
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
     this._res,
   );
 
@@ -32324,7 +31751,7 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
 
   call({
     List<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -32333,18 +31760,18 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
   nodes(_fn) => _res;
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -32376,7 +31803,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -32394,55 +31821,55 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
   )
   _then;
 
@@ -32452,7 +31879,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -32463,14 +31890,14 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
   );
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
     this._res,
   );
 
@@ -32479,23 +31906,23 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
+          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -32504,7 +31931,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$
 
   final String sharedDictionaryId;
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
   value;
 
   final String $__typename;
@@ -32534,7 +31961,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -32557,64 +31984,64 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
+        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId,
   )
   _then;
 
@@ -32625,7 +32052,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -32633,33 +32060,33 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value),
+                as Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+    return CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
     this._res,
   );
 
@@ -32667,37 +32094,37 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
 
   call({
     String? sharedDictionaryId,
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
         _res,
       );
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
+                : Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -32707,7 +32134,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$
   }
 
   final List<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
   >
   nodes;
 
@@ -32738,7 +32165,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -32763,50 +32190,50 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
+        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value;
 
   TRes call({
     List<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
         >?
       >,
     )
@@ -32814,23 +32241,23 @@ abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
   );
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value,
   )
   _then;
 
@@ -32840,12 +32267,12 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+                  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -32855,12 +32282,12 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
 
   TRes nodes(
     Iterable<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
         >?
       >,
     )
@@ -32870,7 +32297,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+            : CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -32879,14 +32306,14 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
   );
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
     this._res,
   );
 
@@ -32894,7 +32321,7 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
 
   call({
     List<
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -32903,18 +32330,18 @@ class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$
   nodes(_fn) => _res;
 }
 
-class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
-  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes({
+class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
+  Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
+  factory Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    return Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -32946,7 +32373,7 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$
       return true;
     }
     if (other
-            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes ||
+            is! Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -32964,55 +32391,55 @@ class Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$
   }
 }
 
-extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+extension UtilityExtension$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
     on
-        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
-  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
+  CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+      CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+abstract class CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
     instance,
     TRes Function(
-      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
+      Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
+  ) = _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
 
-  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.stub(
+  factory CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
+  ) = _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+  _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+  final Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
   )
   _then;
 
@@ -33022,7 +32449,7 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -33033,14 +32460,14 @@ class _CopyWithImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$node
   );
 }
 
-class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+class _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+        CopyWith$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+  _CopyWithStubImpl$Query$DepartmentPageRead$allInfoDepartments$nodes$kinds$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
     this._res,
   );
 
