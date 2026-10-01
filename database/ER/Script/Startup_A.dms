@@ -386,8 +386,8 @@ class Entity{
     Columns=new Array;
     UniqueIndexs=new Array;
     IsTrigger=null;
-    IsRelations=null;
-    IsFkRelations=null;
+    IsRelations=new Array;
+    IsFkRelations=new Array;
     //コンストラクタ
     function Entity(entity,relations){
         Name=entity.pName;
@@ -405,8 +405,15 @@ class Entity{
             for(var index in commonAttrs)Columns.add(new Column(commonAttrs[index]));
 //            println(Name+':'+entity.lName);
             try{
-            IsRelations=ext.toWhere(relations,function(e){return (e.entityPName1==Name && !new RegExp("^history_id").test(e.attributes1));});
-            IsFkRelations=ext.toWhere(relations,function(e){return (e.entityPName2==Name);});// && !new RegExp("^history_id").test(e.attributes2));});
+            var rels=ext.toWhere(relations,function(e){return (e.entityPName1==Name && !new RegExp("^history_id").test(e.attributes1));});
+            for(var index in rels){
+                IsRelations.add(rels[index]);
+            }
+            //外部キー
+            var fkRels=ext.toWhere(relations,function(e){return (e.entityPName2==Name);});// && !new RegExp("^history_id").test(e.attributes2));});
+            for(var index in fkRels){
+                IsFkRelations.add(fkRels[index]);
+            }
             }catch(ex){
                 println('erroe:'+ex);
             }
@@ -442,6 +449,8 @@ class Entity{
         }else if(entity.objectType=="View"){
             IsView=true;
             ViewQuery=entity.query;
+            Comment=entity.comment;
+            
         }
 //        println('donee');
     }
@@ -460,11 +469,21 @@ class Entity{
     }
     //コメントクエリ生成
     function GetCommentQuery(schema){
-        if(IsView)return "";
-        var result= "comment on table "+schema+"."+Name+" is '"+lName+"';"+CR;
-        for(var index in Columns){
-            var colComment=Columns[index].GetCommentQuery(schema,Name);
-            if(colComment.length>0)result+=colComment;
+        var result="";
+        if(IsView){
+            if(Comment.length==0){
+                break;
+            }
+            println(Comment);
+            var reg=new RegExp("[\\s|^|\\t]@schema","i");
+	        var comment=reg.replace(Comment,schema);
+            result="comment on view "+schema+"."+Name+" is E'"+comment+"';"+CR;
+        }else{
+	        result= "comment on table "+schema+"."+Name+" is E'"+lName+"';"+CR;
+	        for(var index in Columns){
+	            var colComment=Columns[index].GetCommentQuery(schema,Name);
+	            if(colComment.length>0)result+=colComment;
+	        }
         }
         return result;
     }
@@ -527,9 +546,11 @@ class Entity{
 
             var fkentity=ext.toFirst(entities,function(e){return (e.Name==rel.entityPName1);});
             if(fkentity==null)continue;
-            
+
+//            
             var fkUpdate=""; 
             var fkDelete="";
+
             result+="alter table "+schema+"."+Name+" add constraint " + Name + "_FK" + (index+1) +" foreign key ("+rel.attributes2+") references " +schema+"."+ rel.entityPName1 + " (" + rel.attributes1 + ")" + fkDelete + fkUpdate +" DEFERRABLE INITIALLY DEFERRED;" +CR;
         }
 

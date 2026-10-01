@@ -1,7 +1,7 @@
 ﻿# A5:ER FORMAT:18
 # A5:ER ENCODING:UTF8
 # A5:ER Mk-1 Copyright © 2007 m.matsubara
-# A5:SQL Mk-2 Version 2.20.0 beta 24 Copyright © 1997 - 2024 m.matsubara
+# A5:SQL Mk-2 Version 2.20.0 beta 20 Copyright © 1997 - 2024 m.matsubara
 #  https://a5m2.mmatsubara.com
 
 [Manager]
@@ -17981,7 +17981,7 @@ ZOrder=1137
 [View]
 PName=v_department_descendants
 LName=組織子孫数
-Comment=
+Comment=@foreignKey (ancestor_info_department_id) references info_department (info_department_id)
 Query=SELECT\n    ancestor_info_department_id\n    , COUNT(descendant_info_department_id) AS descendant_count\nFROM\n    @schema.hrchy_info_department \nWHERE\n    remove = \qf\q \n    AND\n    ancestor_info_department_id <> descendant_info_department_id\nGROUP BY\n    ancestor_info_department_id
 LNameByComment=1
 Color=$000000
