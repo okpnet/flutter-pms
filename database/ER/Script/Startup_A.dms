@@ -470,6 +470,7 @@ class Entity{
     //コメントクエリ生成
     function GetCommentQuery(schema){
         var result="";
+                    println(Comment);
         if(IsView){
             if(Comment.length==0){
                 break;
