@@ -1,11 +1,13 @@
 # office_page画面 - RFE(read for editing、要件0037: OfficePageEditのgenerateRfe: trueから導出)
 
+# 要件0048: 要件0036以前の方式($ja/$en: Boolean!と@includeによる条件付き取得)を、
+# company_page_rfe.graphqlと同じ方式($jaLanguageCodeId/$enLanguageCodeIdをUUID!(必須)とし、
+# ja/en両方を常時取得)へ修正した。Editは両言語を必須引数で要求するため、RFEも常に両方を取得する(要件0046のC2)。
+
 query OfficePageRfe(
   $infoOfficeId: UUID!
-  $ja: Boolean!
-  $en: Boolean!
-  $jaLanguageCodeId: UUID
-  $enLanguageCodeId: UUID
+  $jaLanguageCodeId: UUID!
+  $enLanguageCodeId: UUID!
 ) {
   infoOfficeByInfoOfficeId(infoOfficeId: $infoOfficeId) {
     infoOfficeId
@@ -23,14 +25,14 @@ query OfficePageRfe(
         sharedDictionaryId
         ja: sharedDictionaryValuesBySharedDictionaryId(
           condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-        ) @include(if: $ja) {
+        ) {
           nodes {
             dictionaryValue
           }
         }
         en: sharedDictionaryValuesBySharedDictionaryId(
           condition: { sharedLanguageCodeId: $enLanguageCodeId }
-        ) @include(if: $en) {
+        ) {
           nodes {
             dictionaryValue
           }
@@ -40,14 +42,14 @@ query OfficePageRfe(
         sharedDictionaryId
         ja: sharedDictionaryValuesBySharedDictionaryId(
           condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-        ) @include(if: $ja) {
+        ) {
           nodes {
             dictionaryValue
           }
         }
         en: sharedDictionaryValuesBySharedDictionaryId(
           condition: { sharedLanguageCodeId: $enLanguageCodeId }
-        ) @include(if: $en) {
+        ) {
           nodes {
             dictionaryValue
           }
@@ -57,14 +59,14 @@ query OfficePageRfe(
         sharedDictionaryId
         ja: sharedDictionaryValuesBySharedDictionaryId(
           condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-        ) @include(if: $ja) {
+        ) {
           nodes {
             dictionaryValue
           }
         }
         en: sharedDictionaryValuesBySharedDictionaryId(
           condition: { sharedLanguageCodeId: $enLanguageCodeId }
-        ) @include(if: $en) {
+        ) {
           nodes {
             dictionaryValue
           }
@@ -85,14 +87,14 @@ query OfficePageRfe(
           sharedDictionaryId
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-          ) @include(if: $ja) {
+          ) {
             nodes {
               dictionaryValue
             }
           }
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
-          ) @include(if: $en) {
+          ) {
             nodes {
               dictionaryValue
             }
@@ -102,14 +104,14 @@ query OfficePageRfe(
           sharedDictionaryId
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-          ) @include(if: $ja) {
+          ) {
             nodes {
               dictionaryValue
             }
           }
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
-          ) @include(if: $en) {
+          ) {
             nodes {
               dictionaryValue
             }
@@ -119,14 +121,14 @@ query OfficePageRfe(
           sharedDictionaryId
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-          ) @include(if: $ja) {
+          ) {
             nodes {
               dictionaryValue
             }
           }
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
-          ) @include(if: $en) {
+          ) {
             nodes {
               dictionaryValue
             }
@@ -140,14 +142,14 @@ query OfficePageRfe(
           sharedDictionaryId
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-          ) @include(if: $ja) {
+          ) {
             nodes {
               dictionaryValue
             }
           }
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
-          ) @include(if: $en) {
+          ) {
             nodes {
               dictionaryValue
             }
@@ -157,14 +159,14 @@ query OfficePageRfe(
           sharedDictionaryId
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-          ) @include(if: $ja) {
+          ) {
             nodes {
               dictionaryValue
             }
           }
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
-          ) @include(if: $en) {
+          ) {
             nodes {
               dictionaryValue
             }
@@ -174,14 +176,14 @@ query OfficePageRfe(
           sharedDictionaryId
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-          ) @include(if: $ja) {
+          ) {
             nodes {
               dictionaryValue
             }
           }
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
-          ) @include(if: $en) {
+          ) {
             nodes {
               dictionaryValue
             }
@@ -195,14 +197,14 @@ query OfficePageRfe(
           sharedDictionaryId
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-          ) @include(if: $ja) {
+          ) {
             nodes {
               dictionaryValue
             }
           }
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
-          ) @include(if: $en) {
+          ) {
             nodes {
               dictionaryValue
             }
@@ -212,14 +214,14 @@ query OfficePageRfe(
           sharedDictionaryId
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-          ) @include(if: $ja) {
+          ) {
             nodes {
               dictionaryValue
             }
           }
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
-          ) @include(if: $en) {
+          ) {
             nodes {
               dictionaryValue
             }
@@ -229,14 +231,14 @@ query OfficePageRfe(
           sharedDictionaryId
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-          ) @include(if: $ja) {
+          ) {
             nodes {
               dictionaryValue
             }
           }
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
-          ) @include(if: $en) {
+          ) {
             nodes {
               dictionaryValue
             }

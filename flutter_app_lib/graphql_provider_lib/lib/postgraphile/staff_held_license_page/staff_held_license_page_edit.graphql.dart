@@ -818,6 +818,13 @@ const documentNodeMutationStaffHeldLicensePageEdit = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
+                        name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
                         name: NameNode(value: 'infoStaffByInfoStaffId'),
                         alias: NameNode(value: 'staff'),
                         arguments: [],
@@ -3899,6 +3906,7 @@ class Mutation$StaffHeldLicensePageEdit$updateMstrStaffLicenseByMstrStaffLicense
     this.abeyanceAt,
     this.revocation,
     this.revocationAt,
+    this.remarks,
     this.staff,
     this.license,
     this.$__typename = 'MstrStaffLicense',
@@ -3916,6 +3924,7 @@ class Mutation$StaffHeldLicensePageEdit$updateMstrStaffLicenseByMstrStaffLicense
     final l$abeyanceAt = json['abeyanceAt'];
     final l$revocation = json['revocation'];
     final l$revocationAt = json['revocationAt'];
+    final l$remarks = json['remarks'];
     final l$staff = json['staff'];
     final l$license = json['license'];
     final l$$__typename = json['__typename'];
@@ -3929,6 +3938,7 @@ class Mutation$StaffHeldLicensePageEdit$updateMstrStaffLicenseByMstrStaffLicense
       abeyanceAt: (l$abeyanceAt as String?),
       revocation: (l$revocation as bool?),
       revocationAt: (l$revocationAt as String?),
+      remarks: (l$remarks as String?),
       staff: l$staff == null
           ? null
           : Mutation$StaffHeldLicensePageEdit$updateMstrStaffLicenseByMstrStaffLicenseId$mstrStaffLicense$staff.fromJson(
@@ -3961,6 +3971,8 @@ class Mutation$StaffHeldLicensePageEdit$updateMstrStaffLicenseByMstrStaffLicense
 
   final String? revocationAt;
 
+  final String? remarks;
+
   final Mutation$StaffHeldLicensePageEdit$updateMstrStaffLicenseByMstrStaffLicenseId$mstrStaffLicense$staff?
   staff;
 
@@ -3989,6 +4001,8 @@ class Mutation$StaffHeldLicensePageEdit$updateMstrStaffLicenseByMstrStaffLicense
     _resultData['revocation'] = l$revocation;
     final l$revocationAt = revocationAt;
     _resultData['revocationAt'] = l$revocationAt;
+    final l$remarks = remarks;
+    _resultData['remarks'] = l$remarks;
     final l$staff = staff;
     _resultData['staff'] = l$staff?.toJson();
     final l$license = license;
@@ -4009,6 +4023,7 @@ class Mutation$StaffHeldLicensePageEdit$updateMstrStaffLicenseByMstrStaffLicense
     final l$abeyanceAt = abeyanceAt;
     final l$revocation = revocation;
     final l$revocationAt = revocationAt;
+    final l$remarks = remarks;
     final l$staff = staff;
     final l$license = license;
     final l$$__typename = $__typename;
@@ -4022,6 +4037,7 @@ class Mutation$StaffHeldLicensePageEdit$updateMstrStaffLicenseByMstrStaffLicense
       l$abeyanceAt,
       l$revocation,
       l$revocationAt,
+      l$remarks,
       l$staff,
       l$license,
       l$$__typename,
@@ -4083,6 +4099,11 @@ class Mutation$StaffHeldLicensePageEdit$updateMstrStaffLicenseByMstrStaffLicense
     if (l$revocationAt != lOther$revocationAt) {
       return false;
     }
+    final l$remarks = remarks;
+    final lOther$remarks = other.remarks;
+    if (l$remarks != lOther$remarks) {
+      return false;
+    }
     final l$staff = staff;
     final lOther$staff = other.staff;
     if (l$staff != lOther$staff) {
@@ -4141,6 +4162,7 @@ abstract class CopyWith$Mutation$StaffHeldLicensePageEdit$updateMstrStaffLicense
     String? abeyanceAt,
     bool? revocation,
     String? revocationAt,
+    String? remarks,
     Mutation$StaffHeldLicensePageEdit$updateMstrStaffLicenseByMstrStaffLicenseId$mstrStaffLicense$staff?
     staff,
     Mutation$StaffHeldLicensePageEdit$updateMstrStaffLicenseByMstrStaffLicenseId$mstrStaffLicense$license?
@@ -4189,6 +4211,7 @@ class _CopyWithImpl$Mutation$StaffHeldLicensePageEdit$updateMstrStaffLicenseByMs
     Object? abeyanceAt = _undefined,
     Object? revocation = _undefined,
     Object? revocationAt = _undefined,
+    Object? remarks = _undefined,
     Object? staff = _undefined,
     Object? license = _undefined,
     Object? $__typename = _undefined,
@@ -4220,6 +4243,7 @@ class _CopyWithImpl$Mutation$StaffHeldLicensePageEdit$updateMstrStaffLicenseByMs
       revocationAt: revocationAt == _undefined
           ? _instance.revocationAt
           : (revocationAt as String?),
+      remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       staff: staff == _undefined
           ? _instance.staff
           : (staff
@@ -4288,6 +4312,7 @@ class _CopyWithStubImpl$Mutation$StaffHeldLicensePageEdit$updateMstrStaffLicense
     String? abeyanceAt,
     bool? revocation,
     String? revocationAt,
+    String? remarks,
     Mutation$StaffHeldLicensePageEdit$updateMstrStaffLicenseByMstrStaffLicenseId$mstrStaffLicense$staff?
     staff,
     Mutation$StaffHeldLicensePageEdit$updateMstrStaffLicenseByMstrStaffLicenseId$mstrStaffLicense$license?

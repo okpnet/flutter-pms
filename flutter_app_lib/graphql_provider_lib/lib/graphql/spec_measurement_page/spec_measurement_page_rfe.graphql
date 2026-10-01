@@ -10,7 +10,9 @@
 # から自動導出される(要件0037)ため、Editが編集フォームへの現在値プリロード用に
 # 保持している`sharedUnitId`をそのまま引き継ぐ(削除しない)。
 
-query SpecMeasurementRfe(
+# 要件0047: フォルダ・ファイル名・オペレーション名をspec_measurement_page / SpecMeasurementPageRfeへ改名した。
+
+query SpecMeasurementPageRfe(
   $mstrSpecMeasurementId: UUID!
   $languageCodeId: UUID!
 ) {

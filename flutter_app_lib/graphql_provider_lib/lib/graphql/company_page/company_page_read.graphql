@@ -42,6 +42,10 @@
 # 要件0035再実行(view.yamlがofficesを`<<: *OfficePage`(共有アーム)へ変更): OfficePage
 # 自身が持つ`address`(shared_appellations経由のaddress1/address2/bill)・`update_user`
 # (history_info_staff経由)を、office_page_read.graphqlと同型で追加した。
+#
+# 要件0047(view.yaml修正に伴う再生成): view.yamlの`CompanyPage`に会社名`labels`・`update_at`・
+# `update_user`(共通項)を追加し、出力名をview.yamlの`as`に揃えた(会社名`labels`、代表`ceo_labels`、
+# 住所`address`、事業所`offices`、更新者`update_user`)。更新者は他のRead画面と同じ`updateStaff`アームの形。
 
 query CompanyPageRead(
   $first: Int!
@@ -76,7 +80,7 @@ query CompanyPageRead(
       remove
 
       # --- 会社名(共通名前仕様: shared_appellations経由) ------------------------
-      sharedAppellationByNames {
+      labels: sharedAppellationByNames {
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {
           sharedDictionaryId
@@ -111,7 +115,7 @@ query CompanyPageRead(
       }
 
       # --- 代表(ceo、要件0026でshared_appellations経由のFKに変更) -----------------
-      ceo: sharedAppellationByCeoNames {
+      ceo_labels: sharedAppellationByCeoNames {
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {
           sharedDictionaryId
@@ -146,7 +150,7 @@ query CompanyPageRead(
       }
 
       # --- 住所(要件0026でaddress1/address2/billがshared_appellations経由のFKに変更) ---
-      infoAddressByInfoAddressId {
+      address: infoAddressByInfoAddressId {
         infoAddressId
         iso31663
         zipCode
@@ -261,7 +265,7 @@ query CompanyPageRead(
       }
 
       # --- 事業所一覧(1対多、ページネーション対応) -------------------------------
-      infoOfficesByInfoCompanyId(
+      offices: infoOfficesByInfoCompanyId(
         first: $officesFirst
         offset: $officesOffset
         filter: { remove: { equalTo: $removed } }
@@ -577,11 +581,49 @@ query CompanyPageRead(
         }
       }
 
-      # --- 共通項: 更新者(共通名前仕様の呼称セットID解決に必要なidのみ) -------------
-      historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+      # --- 共通項: 更新者(要件0047: view.yamlのupdate_user、updateStaffアーム) ----------
+      update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
         historyId
         infoStaffId
-        names
+        infoCompanyId
+        code
+        sex
+        phone
+        symbol
+        privatePhone
+        name: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+          sharedDictionaryBySharedDictionaryPronunciationId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+          sharedDictionaryBySharedDictionaryNicknameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
       }
     }
   }

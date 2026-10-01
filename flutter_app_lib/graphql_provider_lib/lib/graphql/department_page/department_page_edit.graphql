@@ -127,6 +127,7 @@ mutation DepartmentPageEdit(
   $kindsValueUpdate: [InfoDepartmentKindValueOnInfoDepartmentKindValueForInfoDepartmentKindValueFk1UsingInfoDepartmentKindValuePkcUpdate!]
   $kindsValueCreate: [InfoDepartmentKindValueFk1InfoDepartmentKindValueCreateInput!]
   $kindsValueDelete: [InfoDepartmentKindValueInfoDepartmentKindValuePkcDelete!]
+  $kindsRemarks: String # 要件0047再生成: view.yamlのkinds.remarks(結果・Patchに欠落していた)
   $remarks: String
 ) {
   updateInfoDepartmentByInfoDepartmentId(
@@ -580,6 +581,7 @@ mutation DepartmentPageEdit(
           updateByInfoDepartmentId: {
             infoDepartmentId: $infoDepartmentId
             infoDepartmentKindPatch: {
+              remarks: $kindsRemarks
               infoDepartmentKindValuesUsingInfoDepartmentKindId: {
                 updateByInfoDepartmentKindValueId: $kindsValueUpdate
                 create: $kindsValueCreate
@@ -1063,6 +1065,7 @@ mutation DepartmentPageEdit(
       kinds: infoDepartmentKindByInfoDepartmentId {
         infoDepartmentKindId
         infoDepartmentId
+        remarks
 
         value: infoDepartmentKindValuesByInfoDepartmentKindId {
           totalCount

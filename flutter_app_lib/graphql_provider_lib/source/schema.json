@@ -170,7 +170,7 @@
       ]
     },
     "columnEntry": {
-      "description": "columnsの要素。(a)単純な列名の文字列、または(b) name + arrayType(ネストした関係の返し方: toMany/toFirstOne)と、arrayType指定時のネストした定義(columns/where/requiredWhere/limit/kind等、node相当のプロパティ)を持つオブジェクト。ネスト内容をread/editの共有定義から流用する場合はYAMLエイリアス(*name)で解決する想定で、本スキーマ上は同じnode形状として扱う。列名のFK整合性は検証しない(生成時エラー)。generateRfeはトップレベルのnode(1画面=1操作ドキュメント)にのみ意味を持つため、columnEntryには含めていない。",
+      "description": "columnsの要素。(a)単純な列名の文字列、または(b) name + arrayType(ネストした関係の返し方: toMany/toFirstOne)と、arrayType指定時のネストした定義(columns/where/requiredWhere/limit/kind等、node相当のプロパティ)を持つオブジェクト。ネスト内容をread/editの共有定義から流用する場合はYAMLエイリアス(*name)で解決する想定で、本スキーマ上は同じnode形状として扱う。列名のFK整合性は検証しない(生成時エラー)。要件0047により、editのトップレベルnodeを子としてそのまま<<でmergeできるよう、columnEntryでもgenerateRfeを許容した(#/$defs/childGenerateRfe参照)。また、editツリー内の子の編集可否を明示するeditableを追加した(#/$defs/editable参照)。",
       "oneOf": [
         { "type": "string", "minLength": 1 },
         {
@@ -196,12 +196,52 @@
             "limit": { "$ref": "#/$defs/limit" },
             "offset": { "$ref": "#/$defs/offset" },
             "pagination": { "$ref": "#/$defs/pagination" },
-            "editTables": { "$ref": "#/$defs/editTablesList" }
+            "editTables": { "$ref": "#/$defs/editTablesList" },
+            "generateRfe": { "$ref": "#/$defs/childGenerateRfe" },
+            "editable": { "$ref": "#/$defs/editable" }
           },
           "required": ["name"],
-          "additionalProperties": false
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": { "editable": { "const": false } },
+                "required": ["editable"]
+              },
+              "then": {
+                "properties": {
+                  "kind": {
+                    "const": "read",
+                    "description": "editable: falseの子(IDの割り当てのみ)はreadの定義を参照すること(要件0047)。"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": { "editable": { "const": true } },
+                "required": ["editable"]
+              },
+              "then": {
+                "properties": {
+                  "kind": {
+                    "const": "edit",
+                    "description": "editable: trueの子(親とともに編集する)はeditの定義を参照すること(要件0047)。"
+                  }
+                }
+              }
+            }
+          ]
         }
       ]
+    },
+    "editable": {
+      "type": "boolean",
+      "description": "要件0047。kind:editのツリー内で、関連(arrayType持ち)の子を親とともに編集するかどうかを明示する。false: 子は書き込まない(IDの割り当てのみ)。親側のusing(FK列)だけを書き込み対象とし、子のcolumnsは読み込み(RFE・結果モデルでの表示)にのみ使う。子はreadの定義を参照する(<<: *XxxPage等)。true: 子を親とともに入れ子で編集する。子はeditの定義を参照し、親のRFE(generateRfe)にも子の編集対象列がすべて含まれる(親のEditと相互変換できること、要件0046)。参照先のkindとの不一致(false+edit、true+read)は本スキーマで検出する。省略時は参照先のkindに従う(edit=true、read=false)が、readを参照する子は意図を明示するためeditable: falseを書くこと(省略していると、コピーによる修正モレと区別できないため要件0046の確認対象になる)。readのツリー内では意味を持たない(無視する)。"
+    },
+    "childGenerateRfe": {
+      "type": "boolean",
+      "description": "要件0047。columnEntry(子)位置のgenerateRfe。editのトップレベルnode(generateRfeを持つ)を子として<<でmergeしたときにスキーマ違反とならないよう、また子の位置でfalseを明示できるように許容する。子の位置では値に関わらず独立したRFEファイルを生成しない(RFEはトップレベルnodeごとに1つ)。editable: trueの子は親のRFEに常に含まれる(親のEditと相互変換するため、子ごとに除外することはできない)。"
     },
     "editTableEntry": {
       "type": "object",

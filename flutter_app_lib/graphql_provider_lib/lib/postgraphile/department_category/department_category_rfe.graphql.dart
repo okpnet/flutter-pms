@@ -7,16 +7,12 @@ import 'package:graphql_flutter/graphql_flutter.dart' as graphql_flutter;
 class Variables$Query$DepartmentCategoryRfe {
   factory Variables$Query$DepartmentCategoryRfe({
     required String infoDepartmentKindValueId,
-    required bool ja,
-    required bool en,
-    String? jaLanguageCodeId,
-    String? enLanguageCodeId,
+    required String jaLanguageCodeId,
+    required String enLanguageCodeId,
   }) => Variables$Query$DepartmentCategoryRfe._({
     r'infoDepartmentKindValueId': infoDepartmentKindValueId,
-    r'ja': ja,
-    r'en': en,
-    if (jaLanguageCodeId != null) r'jaLanguageCodeId': jaLanguageCodeId,
-    if (enLanguageCodeId != null) r'enLanguageCodeId': enLanguageCodeId,
+    r'jaLanguageCodeId': jaLanguageCodeId,
+    r'enLanguageCodeId': enLanguageCodeId,
   });
 
   Variables$Query$DepartmentCategoryRfe._(this._$data);
@@ -28,18 +24,10 @@ class Variables$Query$DepartmentCategoryRfe {
     final l$infoDepartmentKindValueId = data['infoDepartmentKindValueId'];
     result$data['infoDepartmentKindValueId'] =
         (l$infoDepartmentKindValueId as String);
-    final l$ja = data['ja'];
-    result$data['ja'] = (l$ja as bool);
-    final l$en = data['en'];
-    result$data['en'] = (l$en as bool);
-    if (data.containsKey('jaLanguageCodeId')) {
-      final l$jaLanguageCodeId = data['jaLanguageCodeId'];
-      result$data['jaLanguageCodeId'] = (l$jaLanguageCodeId as String?);
-    }
-    if (data.containsKey('enLanguageCodeId')) {
-      final l$enLanguageCodeId = data['enLanguageCodeId'];
-      result$data['enLanguageCodeId'] = (l$enLanguageCodeId as String?);
-    }
+    final l$jaLanguageCodeId = data['jaLanguageCodeId'];
+    result$data['jaLanguageCodeId'] = (l$jaLanguageCodeId as String);
+    final l$enLanguageCodeId = data['enLanguageCodeId'];
+    result$data['enLanguageCodeId'] = (l$enLanguageCodeId as String);
     return Variables$Query$DepartmentCategoryRfe._(result$data);
   }
 
@@ -48,30 +36,18 @@ class Variables$Query$DepartmentCategoryRfe {
   String get infoDepartmentKindValueId =>
       (_$data['infoDepartmentKindValueId'] as String);
 
-  bool get ja => (_$data['ja'] as bool);
+  String get jaLanguageCodeId => (_$data['jaLanguageCodeId'] as String);
 
-  bool get en => (_$data['en'] as bool);
-
-  String? get jaLanguageCodeId => (_$data['jaLanguageCodeId'] as String?);
-
-  String? get enLanguageCodeId => (_$data['enLanguageCodeId'] as String?);
+  String get enLanguageCodeId => (_$data['enLanguageCodeId'] as String);
 
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
     final l$infoDepartmentKindValueId = infoDepartmentKindValueId;
     result$data['infoDepartmentKindValueId'] = l$infoDepartmentKindValueId;
-    final l$ja = ja;
-    result$data['ja'] = l$ja;
-    final l$en = en;
-    result$data['en'] = l$en;
-    if (_$data.containsKey('jaLanguageCodeId')) {
-      final l$jaLanguageCodeId = jaLanguageCodeId;
-      result$data['jaLanguageCodeId'] = l$jaLanguageCodeId;
-    }
-    if (_$data.containsKey('enLanguageCodeId')) {
-      final l$enLanguageCodeId = enLanguageCodeId;
-      result$data['enLanguageCodeId'] = l$enLanguageCodeId;
-    }
+    final l$jaLanguageCodeId = jaLanguageCodeId;
+    result$data['jaLanguageCodeId'] = l$jaLanguageCodeId;
+    final l$enLanguageCodeId = enLanguageCodeId;
+    result$data['enLanguageCodeId'] = l$enLanguageCodeId;
     return result$data;
   }
 
@@ -95,31 +71,13 @@ class Variables$Query$DepartmentCategoryRfe {
     if (l$infoDepartmentKindValueId != lOther$infoDepartmentKindValueId) {
       return false;
     }
-    final l$ja = ja;
-    final lOther$ja = other.ja;
-    if (l$ja != lOther$ja) {
-      return false;
-    }
-    final l$en = en;
-    final lOther$en = other.en;
-    if (l$en != lOther$en) {
-      return false;
-    }
     final l$jaLanguageCodeId = jaLanguageCodeId;
     final lOther$jaLanguageCodeId = other.jaLanguageCodeId;
-    if (_$data.containsKey('jaLanguageCodeId') !=
-        other._$data.containsKey('jaLanguageCodeId')) {
-      return false;
-    }
     if (l$jaLanguageCodeId != lOther$jaLanguageCodeId) {
       return false;
     }
     final l$enLanguageCodeId = enLanguageCodeId;
     final lOther$enLanguageCodeId = other.enLanguageCodeId;
-    if (_$data.containsKey('enLanguageCodeId') !=
-        other._$data.containsKey('enLanguageCodeId')) {
-      return false;
-    }
     if (l$enLanguageCodeId != lOther$enLanguageCodeId) {
       return false;
     }
@@ -129,16 +87,12 @@ class Variables$Query$DepartmentCategoryRfe {
   @override
   int get hashCode {
     final l$infoDepartmentKindValueId = infoDepartmentKindValueId;
-    final l$ja = ja;
-    final l$en = en;
     final l$jaLanguageCodeId = jaLanguageCodeId;
     final l$enLanguageCodeId = enLanguageCodeId;
     return Object.hashAll([
       l$infoDepartmentKindValueId,
-      l$ja,
-      l$en,
-      _$data.containsKey('jaLanguageCodeId') ? l$jaLanguageCodeId : const {},
-      _$data.containsKey('enLanguageCodeId') ? l$enLanguageCodeId : const {},
+      l$jaLanguageCodeId,
+      l$enLanguageCodeId,
     ]);
   }
 }
@@ -154,8 +108,6 @@ abstract class CopyWith$Variables$Query$DepartmentCategoryRfe<TRes> {
 
   TRes call({
     String? infoDepartmentKindValueId,
-    bool? ja,
-    bool? en,
     String? jaLanguageCodeId,
     String? enLanguageCodeId,
   });
@@ -176,8 +128,6 @@ class _CopyWithImpl$Variables$Query$DepartmentCategoryRfe<TRes>
 
   TRes call({
     Object? infoDepartmentKindValueId = _undefined,
-    Object? ja = _undefined,
-    Object? en = _undefined,
     Object? jaLanguageCodeId = _undefined,
     Object? enLanguageCodeId = _undefined,
   }) => _then(
@@ -186,12 +136,10 @@ class _CopyWithImpl$Variables$Query$DepartmentCategoryRfe<TRes>
       if (infoDepartmentKindValueId != _undefined &&
           infoDepartmentKindValueId != null)
         'infoDepartmentKindValueId': (infoDepartmentKindValueId as String),
-      if (ja != _undefined && ja != null) 'ja': (ja as bool),
-      if (en != _undefined && en != null) 'en': (en as bool),
-      if (jaLanguageCodeId != _undefined)
-        'jaLanguageCodeId': (jaLanguageCodeId as String?),
-      if (enLanguageCodeId != _undefined)
-        'enLanguageCodeId': (enLanguageCodeId as String?),
+      if (jaLanguageCodeId != _undefined && jaLanguageCodeId != null)
+        'jaLanguageCodeId': (jaLanguageCodeId as String),
+      if (enLanguageCodeId != _undefined && enLanguageCodeId != null)
+        'enLanguageCodeId': (enLanguageCodeId as String),
     }),
   );
 }
@@ -204,8 +152,6 @@ class _CopyWithStubImpl$Variables$Query$DepartmentCategoryRfe<TRes>
 
   call({
     String? infoDepartmentKindValueId,
-    bool? ja,
-    bool? en,
     String? jaLanguageCodeId,
     String? enLanguageCodeId,
   }) => _res;
@@ -391,32 +337,14 @@ const documentNodeQueryDepartmentCategoryRfe = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'ja')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'Boolean'),
-            isNonNull: true,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'en')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'Boolean'),
-            isNonNull: true,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'jaLanguageCodeId')),
-          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: false),
+          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
         VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'enLanguageCodeId')),
-          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: false),
+          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
@@ -537,19 +465,7 @@ const documentNodeQueryDepartmentCategoryRfe = DocumentNode(
                                   ),
                                 ),
                               ],
-                              directives: [
-                                DirectiveNode(
-                                  name: NameNode(value: 'include'),
-                                  arguments: [
-                                    ArgumentNode(
-                                      name: NameNode(value: 'if'),
-                                      value: VariableNode(
-                                        name: NameNode(value: 'ja'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              directives: [],
                               selectionSet: SelectionSetNode(
                                 selections: [
                                   FieldNode(
@@ -613,19 +529,7 @@ const documentNodeQueryDepartmentCategoryRfe = DocumentNode(
                                   ),
                                 ),
                               ],
-                              directives: [
-                                DirectiveNode(
-                                  name: NameNode(value: 'include'),
-                                  arguments: [
-                                    ArgumentNode(
-                                      name: NameNode(value: 'if'),
-                                      value: VariableNode(
-                                        name: NameNode(value: 'en'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              directives: [],
                               selectionSet: SelectionSetNode(
                                 selections: [
                                   FieldNode(
@@ -716,19 +620,7 @@ const documentNodeQueryDepartmentCategoryRfe = DocumentNode(
                                   ),
                                 ),
                               ],
-                              directives: [
-                                DirectiveNode(
-                                  name: NameNode(value: 'include'),
-                                  arguments: [
-                                    ArgumentNode(
-                                      name: NameNode(value: 'if'),
-                                      value: VariableNode(
-                                        name: NameNode(value: 'ja'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              directives: [],
                               selectionSet: SelectionSetNode(
                                 selections: [
                                   FieldNode(
@@ -792,19 +684,7 @@ const documentNodeQueryDepartmentCategoryRfe = DocumentNode(
                                   ),
                                 ),
                               ],
-                              directives: [
-                                DirectiveNode(
-                                  name: NameNode(value: 'include'),
-                                  arguments: [
-                                    ArgumentNode(
-                                      name: NameNode(value: 'if'),
-                                      value: VariableNode(
-                                        name: NameNode(value: 'en'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              directives: [],
                               selectionSet: SelectionSetNode(
                                 selections: [
                                   FieldNode(
@@ -894,19 +774,7 @@ const documentNodeQueryDepartmentCategoryRfe = DocumentNode(
                                   ),
                                 ),
                               ],
-                              directives: [
-                                DirectiveNode(
-                                  name: NameNode(value: 'include'),
-                                  arguments: [
-                                    ArgumentNode(
-                                      name: NameNode(value: 'if'),
-                                      value: VariableNode(
-                                        name: NameNode(value: 'ja'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              directives: [],
                               selectionSet: SelectionSetNode(
                                 selections: [
                                   FieldNode(
@@ -970,19 +838,7 @@ const documentNodeQueryDepartmentCategoryRfe = DocumentNode(
                                   ),
                                 ),
                               ],
-                              directives: [
-                                DirectiveNode(
-                                  name: NameNode(value: 'include'),
-                                  arguments: [
-                                    ArgumentNode(
-                                      name: NameNode(value: 'if'),
-                                      value: VariableNode(
-                                        name: NameNode(value: 'en'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              directives: [],
                               selectionSet: SelectionSetNode(
                                 selections: [
                                   FieldNode(
@@ -1888,8 +1744,8 @@ class _CopyWithStubImpl$Query$DepartmentCategoryRfe$infoDepartmentKindValueByInf
 class Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNameId {
   Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNameId({
     required this.sharedDictionaryId,
-    this.ja,
-    this.en,
+    required this.ja,
+    required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
@@ -1902,26 +1758,22 @@ class Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindVal
     final l$$__typename = json['__typename'];
     return Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: l$ja == null
-          ? null
-          : Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
-              (l$ja as Map<String, dynamic>),
-            ),
-      en: l$en == null
-          ? null
-          : Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
-              (l$en as Map<String, dynamic>),
-            ),
+      ja: Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String sharedDictionaryId;
 
-  final Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNameId$ja?
+  final Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNameId$ja
   ja;
 
-  final Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNameId$en?
+  final Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNameId$en
   en;
 
   final String $__typename;
@@ -1931,9 +1783,9 @@ class Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindVal
     final l$sharedDictionaryId = sharedDictionaryId;
     _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
     final l$ja = ja;
-    _resultData['ja'] = l$ja?.toJson();
+    _resultData['ja'] = l$ja.toJson();
     final l$en = en;
-    _resultData['en'] = l$en?.toJson();
+    _resultData['en'] = l$en.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -2062,14 +1914,14 @@ class _CopyWithImpl$Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDep
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
           : (sharedDictionaryId as String),
-      ja: ja == _undefined
+      ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNameId$ja?),
-      en: en == _undefined
+                as Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+      en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNameId$en?),
+                as Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -2081,14 +1933,10 @@ class _CopyWithImpl$Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDep
   >
   get ja {
     final local$ja = _instance.ja;
-    return local$ja == null
-        ? CopyWith$Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNameId$ja.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNameId$ja(
-            local$ja,
-            (e) => call(ja: e),
-          );
+    return CopyWith$Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNameId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
   }
 
   CopyWith$Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNameId$en<
@@ -2096,14 +1944,10 @@ class _CopyWithImpl$Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDep
   >
   get en {
     final local$en = _instance.en;
-    return local$en == null
-        ? CopyWith$Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNameId$en.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNameId$en(
-            local$en,
-            (e) => call(en: e),
-          );
+    return CopyWith$Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNameId$en(
+      local$en,
+      (e) => call(en: e),
+    );
   }
 }
 
@@ -2885,8 +2729,8 @@ class _CopyWithStubImpl$Query$DepartmentCategoryRfe$infoDepartmentKindValueByInf
 class Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryPronunciationId {
   Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryPronunciationId({
     required this.sharedDictionaryId,
-    this.ja,
-    this.en,
+    required this.ja,
+    required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
@@ -2899,26 +2743,22 @@ class Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindVal
     final l$$__typename = json['__typename'];
     return Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: l$ja == null
-          ? null
-          : Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
-              (l$ja as Map<String, dynamic>),
-            ),
-      en: l$en == null
-          ? null
-          : Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
-              (l$en as Map<String, dynamic>),
-            ),
+      ja: Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String sharedDictionaryId;
 
-  final Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja?
+  final Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja
   ja;
 
-  final Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en?
+  final Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en
   en;
 
   final String $__typename;
@@ -2928,9 +2768,9 @@ class Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindVal
     final l$sharedDictionaryId = sharedDictionaryId;
     _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
     final l$ja = ja;
-    _resultData['ja'] = l$ja?.toJson();
+    _resultData['ja'] = l$ja.toJson();
     final l$en = en;
-    _resultData['en'] = l$en?.toJson();
+    _resultData['en'] = l$en.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -3059,14 +2899,14 @@ class _CopyWithImpl$Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDep
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
           : (sharedDictionaryId as String),
-      ja: ja == _undefined
+      ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja?),
-      en: en == _undefined
+                as Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+      en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en?),
+                as Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -3078,14 +2918,10 @@ class _CopyWithImpl$Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDep
   >
   get ja {
     final local$ja = _instance.ja;
-    return local$ja == null
-        ? CopyWith$Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja(
-            local$ja,
-            (e) => call(ja: e),
-          );
+    return CopyWith$Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
   }
 
   CopyWith$Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en<
@@ -3093,14 +2929,10 @@ class _CopyWithImpl$Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDep
   >
   get en {
     final local$en = _instance.en;
-    return local$en == null
-        ? CopyWith$Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en(
-            local$en,
-            (e) => call(en: e),
-          );
+    return CopyWith$Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en(
+      local$en,
+      (e) => call(en: e),
+    );
   }
 }
 
@@ -3882,8 +3714,8 @@ class _CopyWithStubImpl$Query$DepartmentCategoryRfe$infoDepartmentKindValueByInf
 class Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNicknameId {
   Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNicknameId({
     required this.sharedDictionaryId,
-    this.ja,
-    this.en,
+    required this.ja,
+    required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
@@ -3896,26 +3728,22 @@ class Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindVal
     final l$$__typename = json['__typename'];
     return Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: l$ja == null
-          ? null
-          : Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
-              (l$ja as Map<String, dynamic>),
-            ),
-      en: l$en == null
-          ? null
-          : Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
-              (l$en as Map<String, dynamic>),
-            ),
+      ja: Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String sharedDictionaryId;
 
-  final Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja?
+  final Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja
   ja;
 
-  final Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNicknameId$en?
+  final Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNicknameId$en
   en;
 
   final String $__typename;
@@ -3925,9 +3753,9 @@ class Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindVal
     final l$sharedDictionaryId = sharedDictionaryId;
     _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
     final l$ja = ja;
-    _resultData['ja'] = l$ja?.toJson();
+    _resultData['ja'] = l$ja.toJson();
     final l$en = en;
-    _resultData['en'] = l$en?.toJson();
+    _resultData['en'] = l$en.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -4056,14 +3884,14 @@ class _CopyWithImpl$Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDep
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
           : (sharedDictionaryId as String),
-      ja: ja == _undefined
+      ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja?),
-      en: en == _undefined
+                as Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+      en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNicknameId$en?),
+                as Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -4075,14 +3903,10 @@ class _CopyWithImpl$Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDep
   >
   get ja {
     final local$ja = _instance.ja;
-    return local$ja == null
-        ? CopyWith$Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja(
-            local$ja,
-            (e) => call(ja: e),
-          );
+    return CopyWith$Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
   }
 
   CopyWith$Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNicknameId$en<
@@ -4090,14 +3914,10 @@ class _CopyWithImpl$Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDep
   >
   get en {
     final local$en = _instance.en;
-    return local$en == null
-        ? CopyWith$Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNicknameId$en(
-            local$en,
-            (e) => call(en: e),
-          );
+    return CopyWith$Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId$labels$sharedDictionaryBySharedDictionaryNicknameId$en(
+      local$en,
+      (e) => call(en: e),
+    );
   }
 }
 

@@ -7,16 +7,12 @@ import 'package:graphql_flutter/graphql_flutter.dart' as graphql_flutter;
 class Variables$Query$StaffPageRfe {
   factory Variables$Query$StaffPageRfe({
     required String infoStaffId,
-    required bool ja,
-    required bool en,
-    String? jaLanguageCodeId,
-    String? enLanguageCodeId,
+    required String jaLanguageCodeId,
+    required String enLanguageCodeId,
   }) => Variables$Query$StaffPageRfe._({
     r'infoStaffId': infoStaffId,
-    r'ja': ja,
-    r'en': en,
-    if (jaLanguageCodeId != null) r'jaLanguageCodeId': jaLanguageCodeId,
-    if (enLanguageCodeId != null) r'enLanguageCodeId': enLanguageCodeId,
+    r'jaLanguageCodeId': jaLanguageCodeId,
+    r'enLanguageCodeId': enLanguageCodeId,
   });
 
   Variables$Query$StaffPageRfe._(this._$data);
@@ -25,18 +21,10 @@ class Variables$Query$StaffPageRfe {
     final result$data = <String, dynamic>{};
     final l$infoStaffId = data['infoStaffId'];
     result$data['infoStaffId'] = (l$infoStaffId as String);
-    final l$ja = data['ja'];
-    result$data['ja'] = (l$ja as bool);
-    final l$en = data['en'];
-    result$data['en'] = (l$en as bool);
-    if (data.containsKey('jaLanguageCodeId')) {
-      final l$jaLanguageCodeId = data['jaLanguageCodeId'];
-      result$data['jaLanguageCodeId'] = (l$jaLanguageCodeId as String?);
-    }
-    if (data.containsKey('enLanguageCodeId')) {
-      final l$enLanguageCodeId = data['enLanguageCodeId'];
-      result$data['enLanguageCodeId'] = (l$enLanguageCodeId as String?);
-    }
+    final l$jaLanguageCodeId = data['jaLanguageCodeId'];
+    result$data['jaLanguageCodeId'] = (l$jaLanguageCodeId as String);
+    final l$enLanguageCodeId = data['enLanguageCodeId'];
+    result$data['enLanguageCodeId'] = (l$enLanguageCodeId as String);
     return Variables$Query$StaffPageRfe._(result$data);
   }
 
@@ -44,30 +32,18 @@ class Variables$Query$StaffPageRfe {
 
   String get infoStaffId => (_$data['infoStaffId'] as String);
 
-  bool get ja => (_$data['ja'] as bool);
+  String get jaLanguageCodeId => (_$data['jaLanguageCodeId'] as String);
 
-  bool get en => (_$data['en'] as bool);
-
-  String? get jaLanguageCodeId => (_$data['jaLanguageCodeId'] as String?);
-
-  String? get enLanguageCodeId => (_$data['enLanguageCodeId'] as String?);
+  String get enLanguageCodeId => (_$data['enLanguageCodeId'] as String);
 
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
     final l$infoStaffId = infoStaffId;
     result$data['infoStaffId'] = l$infoStaffId;
-    final l$ja = ja;
-    result$data['ja'] = l$ja;
-    final l$en = en;
-    result$data['en'] = l$en;
-    if (_$data.containsKey('jaLanguageCodeId')) {
-      final l$jaLanguageCodeId = jaLanguageCodeId;
-      result$data['jaLanguageCodeId'] = l$jaLanguageCodeId;
-    }
-    if (_$data.containsKey('enLanguageCodeId')) {
-      final l$enLanguageCodeId = enLanguageCodeId;
-      result$data['enLanguageCodeId'] = l$enLanguageCodeId;
-    }
+    final l$jaLanguageCodeId = jaLanguageCodeId;
+    result$data['jaLanguageCodeId'] = l$jaLanguageCodeId;
+    final l$enLanguageCodeId = enLanguageCodeId;
+    result$data['enLanguageCodeId'] = l$enLanguageCodeId;
     return result$data;
   }
 
@@ -88,31 +64,13 @@ class Variables$Query$StaffPageRfe {
     if (l$infoStaffId != lOther$infoStaffId) {
       return false;
     }
-    final l$ja = ja;
-    final lOther$ja = other.ja;
-    if (l$ja != lOther$ja) {
-      return false;
-    }
-    final l$en = en;
-    final lOther$en = other.en;
-    if (l$en != lOther$en) {
-      return false;
-    }
     final l$jaLanguageCodeId = jaLanguageCodeId;
     final lOther$jaLanguageCodeId = other.jaLanguageCodeId;
-    if (_$data.containsKey('jaLanguageCodeId') !=
-        other._$data.containsKey('jaLanguageCodeId')) {
-      return false;
-    }
     if (l$jaLanguageCodeId != lOther$jaLanguageCodeId) {
       return false;
     }
     final l$enLanguageCodeId = enLanguageCodeId;
     final lOther$enLanguageCodeId = other.enLanguageCodeId;
-    if (_$data.containsKey('enLanguageCodeId') !=
-        other._$data.containsKey('enLanguageCodeId')) {
-      return false;
-    }
     if (l$enLanguageCodeId != lOther$enLanguageCodeId) {
       return false;
     }
@@ -122,16 +80,12 @@ class Variables$Query$StaffPageRfe {
   @override
   int get hashCode {
     final l$infoStaffId = infoStaffId;
-    final l$ja = ja;
-    final l$en = en;
     final l$jaLanguageCodeId = jaLanguageCodeId;
     final l$enLanguageCodeId = enLanguageCodeId;
     return Object.hashAll([
       l$infoStaffId,
-      l$ja,
-      l$en,
-      _$data.containsKey('jaLanguageCodeId') ? l$jaLanguageCodeId : const {},
-      _$data.containsKey('enLanguageCodeId') ? l$enLanguageCodeId : const {},
+      l$jaLanguageCodeId,
+      l$enLanguageCodeId,
     ]);
   }
 }
@@ -147,8 +101,6 @@ abstract class CopyWith$Variables$Query$StaffPageRfe<TRes> {
 
   TRes call({
     String? infoStaffId,
-    bool? ja,
-    bool? en,
     String? jaLanguageCodeId,
     String? enLanguageCodeId,
   });
@@ -166,8 +118,6 @@ class _CopyWithImpl$Variables$Query$StaffPageRfe<TRes>
 
   TRes call({
     Object? infoStaffId = _undefined,
-    Object? ja = _undefined,
-    Object? en = _undefined,
     Object? jaLanguageCodeId = _undefined,
     Object? enLanguageCodeId = _undefined,
   }) => _then(
@@ -175,12 +125,10 @@ class _CopyWithImpl$Variables$Query$StaffPageRfe<TRes>
       ..._instance._$data,
       if (infoStaffId != _undefined && infoStaffId != null)
         'infoStaffId': (infoStaffId as String),
-      if (ja != _undefined && ja != null) 'ja': (ja as bool),
-      if (en != _undefined && en != null) 'en': (en as bool),
-      if (jaLanguageCodeId != _undefined)
-        'jaLanguageCodeId': (jaLanguageCodeId as String?),
-      if (enLanguageCodeId != _undefined)
-        'enLanguageCodeId': (enLanguageCodeId as String?),
+      if (jaLanguageCodeId != _undefined && jaLanguageCodeId != null)
+        'jaLanguageCodeId': (jaLanguageCodeId as String),
+      if (enLanguageCodeId != _undefined && enLanguageCodeId != null)
+        'enLanguageCodeId': (enLanguageCodeId as String),
     }),
   );
 }
@@ -193,8 +141,6 @@ class _CopyWithStubImpl$Variables$Query$StaffPageRfe<TRes>
 
   call({
     String? infoStaffId,
-    bool? ja,
-    bool? en,
     String? jaLanguageCodeId,
     String? enLanguageCodeId,
   }) => _res;
@@ -348,32 +294,14 @@ const documentNodeQueryStaffPageRfe = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'ja')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'Boolean'),
-            isNonNull: true,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'en')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'Boolean'),
-            isNonNull: true,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'jaLanguageCodeId')),
-          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: false),
+          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
         VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'enLanguageCodeId')),
-          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: false),
+          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
@@ -525,19 +453,7 @@ const documentNodeQueryStaffPageRfe = DocumentNode(
                                   ),
                                 ),
                               ],
-                              directives: [
-                                DirectiveNode(
-                                  name: NameNode(value: 'include'),
-                                  arguments: [
-                                    ArgumentNode(
-                                      name: NameNode(value: 'if'),
-                                      value: VariableNode(
-                                        name: NameNode(value: 'ja'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              directives: [],
                               selectionSet: SelectionSetNode(
                                 selections: [
                                   FieldNode(
@@ -601,19 +517,7 @@ const documentNodeQueryStaffPageRfe = DocumentNode(
                                   ),
                                 ),
                               ],
-                              directives: [
-                                DirectiveNode(
-                                  name: NameNode(value: 'include'),
-                                  arguments: [
-                                    ArgumentNode(
-                                      name: NameNode(value: 'if'),
-                                      value: VariableNode(
-                                        name: NameNode(value: 'en'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              directives: [],
                               selectionSet: SelectionSetNode(
                                 selections: [
                                   FieldNode(
@@ -704,19 +608,7 @@ const documentNodeQueryStaffPageRfe = DocumentNode(
                                   ),
                                 ),
                               ],
-                              directives: [
-                                DirectiveNode(
-                                  name: NameNode(value: 'include'),
-                                  arguments: [
-                                    ArgumentNode(
-                                      name: NameNode(value: 'if'),
-                                      value: VariableNode(
-                                        name: NameNode(value: 'ja'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              directives: [],
                               selectionSet: SelectionSetNode(
                                 selections: [
                                   FieldNode(
@@ -780,19 +672,7 @@ const documentNodeQueryStaffPageRfe = DocumentNode(
                                   ),
                                 ),
                               ],
-                              directives: [
-                                DirectiveNode(
-                                  name: NameNode(value: 'include'),
-                                  arguments: [
-                                    ArgumentNode(
-                                      name: NameNode(value: 'if'),
-                                      value: VariableNode(
-                                        name: NameNode(value: 'en'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              directives: [],
                               selectionSet: SelectionSetNode(
                                 selections: [
                                   FieldNode(
@@ -882,19 +762,7 @@ const documentNodeQueryStaffPageRfe = DocumentNode(
                                   ),
                                 ),
                               ],
-                              directives: [
-                                DirectiveNode(
-                                  name: NameNode(value: 'include'),
-                                  arguments: [
-                                    ArgumentNode(
-                                      name: NameNode(value: 'if'),
-                                      value: VariableNode(
-                                        name: NameNode(value: 'ja'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              directives: [],
                               selectionSet: SelectionSetNode(
                                 selections: [
                                   FieldNode(
@@ -958,19 +826,7 @@ const documentNodeQueryStaffPageRfe = DocumentNode(
                                   ),
                                 ),
                               ],
-                              directives: [
-                                DirectiveNode(
-                                  name: NameNode(value: 'include'),
-                                  arguments: [
-                                    ArgumentNode(
-                                      name: NameNode(value: 'if'),
-                                      value: VariableNode(
-                                        name: NameNode(value: 'en'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              directives: [],
                               selectionSet: SelectionSetNode(
                                 selections: [
                                   FieldNode(
@@ -1885,8 +1741,8 @@ class _CopyWithStubImpl$Query$StaffPageRfe$infoStaffByInfoStaffId$labels<TRes>
 class Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNameId {
   Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNameId({
     required this.sharedDictionaryId,
-    this.ja,
-    this.en,
+    required this.ja,
+    required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
@@ -1899,26 +1755,22 @@ class Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedD
     final l$$__typename = json['__typename'];
     return Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: l$ja == null
-          ? null
-          : Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
-              (l$ja as Map<String, dynamic>),
-            ),
-      en: l$en == null
-          ? null
-          : Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
-              (l$en as Map<String, dynamic>),
-            ),
+      ja: Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String sharedDictionaryId;
 
-  final Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNameId$ja?
+  final Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNameId$ja
   ja;
 
-  final Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNameId$en?
+  final Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNameId$en
   en;
 
   final String $__typename;
@@ -1928,9 +1780,9 @@ class Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedD
     final l$sharedDictionaryId = sharedDictionaryId;
     _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
     final l$ja = ja;
-    _resultData['ja'] = l$ja?.toJson();
+    _resultData['ja'] = l$ja.toJson();
     final l$en = en;
-    _resultData['en'] = l$en?.toJson();
+    _resultData['en'] = l$en.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -2059,14 +1911,14 @@ class _CopyWithImpl$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDicti
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
           : (sharedDictionaryId as String),
-      ja: ja == _undefined
+      ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNameId$ja?),
-      en: en == _undefined
+                as Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+      en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNameId$en?),
+                as Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -2078,14 +1930,10 @@ class _CopyWithImpl$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDicti
   >
   get ja {
     final local$ja = _instance.ja;
-    return local$ja == null
-        ? CopyWith$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNameId$ja.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNameId$ja(
-            local$ja,
-            (e) => call(ja: e),
-          );
+    return CopyWith$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNameId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
   }
 
   CopyWith$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNameId$en<
@@ -2093,14 +1941,10 @@ class _CopyWithImpl$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDicti
   >
   get en {
     final local$en = _instance.en;
-    return local$en == null
-        ? CopyWith$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNameId$en.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNameId$en(
-            local$en,
-            (e) => call(en: e),
-          );
+    return CopyWith$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNameId$en(
+      local$en,
+      (e) => call(en: e),
+    );
   }
 }
 
@@ -2882,8 +2726,8 @@ class _CopyWithStubImpl$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedD
 class Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryPronunciationId {
   Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryPronunciationId({
     required this.sharedDictionaryId,
-    this.ja,
-    this.en,
+    required this.ja,
+    required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
@@ -2896,26 +2740,22 @@ class Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedD
     final l$$__typename = json['__typename'];
     return Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: l$ja == null
-          ? null
-          : Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
-              (l$ja as Map<String, dynamic>),
-            ),
-      en: l$en == null
-          ? null
-          : Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
-              (l$en as Map<String, dynamic>),
-            ),
+      ja: Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String sharedDictionaryId;
 
-  final Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja?
+  final Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja
   ja;
 
-  final Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en?
+  final Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en
   en;
 
   final String $__typename;
@@ -2925,9 +2765,9 @@ class Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedD
     final l$sharedDictionaryId = sharedDictionaryId;
     _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
     final l$ja = ja;
-    _resultData['ja'] = l$ja?.toJson();
+    _resultData['ja'] = l$ja.toJson();
     final l$en = en;
-    _resultData['en'] = l$en?.toJson();
+    _resultData['en'] = l$en.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -3056,14 +2896,14 @@ class _CopyWithImpl$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDicti
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
           : (sharedDictionaryId as String),
-      ja: ja == _undefined
+      ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja?),
-      en: en == _undefined
+                as Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+      en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en?),
+                as Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -3075,14 +2915,10 @@ class _CopyWithImpl$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDicti
   >
   get ja {
     final local$ja = _instance.ja;
-    return local$ja == null
-        ? CopyWith$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja(
-            local$ja,
-            (e) => call(ja: e),
-          );
+    return CopyWith$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
   }
 
   CopyWith$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en<
@@ -3090,14 +2926,10 @@ class _CopyWithImpl$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDicti
   >
   get en {
     final local$en = _instance.en;
-    return local$en == null
-        ? CopyWith$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en(
-            local$en,
-            (e) => call(en: e),
-          );
+    return CopyWith$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en(
+      local$en,
+      (e) => call(en: e),
+    );
   }
 }
 
@@ -3879,8 +3711,8 @@ class _CopyWithStubImpl$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedD
 class Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNicknameId {
   Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNicknameId({
     required this.sharedDictionaryId,
-    this.ja,
-    this.en,
+    required this.ja,
+    required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
@@ -3893,26 +3725,22 @@ class Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedD
     final l$$__typename = json['__typename'];
     return Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: l$ja == null
-          ? null
-          : Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
-              (l$ja as Map<String, dynamic>),
-            ),
-      en: l$en == null
-          ? null
-          : Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
-              (l$en as Map<String, dynamic>),
-            ),
+      ja: Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String sharedDictionaryId;
 
-  final Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja?
+  final Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja
   ja;
 
-  final Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNicknameId$en?
+  final Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNicknameId$en
   en;
 
   final String $__typename;
@@ -3922,9 +3750,9 @@ class Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedD
     final l$sharedDictionaryId = sharedDictionaryId;
     _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
     final l$ja = ja;
-    _resultData['ja'] = l$ja?.toJson();
+    _resultData['ja'] = l$ja.toJson();
     final l$en = en;
-    _resultData['en'] = l$en?.toJson();
+    _resultData['en'] = l$en.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -4053,14 +3881,14 @@ class _CopyWithImpl$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDicti
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
           : (sharedDictionaryId as String),
-      ja: ja == _undefined
+      ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja?),
-      en: en == _undefined
+                as Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+      en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNicknameId$en?),
+                as Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -4072,14 +3900,10 @@ class _CopyWithImpl$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDicti
   >
   get ja {
     final local$ja = _instance.ja;
-    return local$ja == null
-        ? CopyWith$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja(
-            local$ja,
-            (e) => call(ja: e),
-          );
+    return CopyWith$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
   }
 
   CopyWith$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNicknameId$en<
@@ -4087,14 +3911,10 @@ class _CopyWithImpl$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDicti
   >
   get en {
     final local$en = _instance.en;
-    return local$en == null
-        ? CopyWith$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNicknameId$en(
-            local$en,
-            (e) => call(en: e),
-          );
+    return CopyWith$Query$StaffPageRfe$infoStaffByInfoStaffId$labels$sharedDictionaryBySharedDictionaryNicknameId$en(
+      local$en,
+      (e) => call(en: e),
+    );
   }
 }
 

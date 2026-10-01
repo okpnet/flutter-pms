@@ -58,6 +58,7 @@ mutation StaffHeldLicensePageEdit(
       abeyanceAt
       revocation
       revocationAt
+      remarks # 要件0047再生成: 引数・Patchにあるが結果モデルに欠落していた(要件0046のC1)
 
       staff: infoStaffByInfoStaffId {
         infoStaffId

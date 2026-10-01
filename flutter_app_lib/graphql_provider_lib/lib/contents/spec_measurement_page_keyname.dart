@@ -1,15 +1,16 @@
-// spec_measurement_keyname.dart
+// spec_measurement_page_keyname.dart
 //
 // ignore_for_file: constant_identifier_names
-// lib/graphql/spec_measurement/spec_measurement_read.graphql /
-// spec_measurement_edit.graphql の結果を nested_map_flattener.dart で
+// lib/graphql/spec_measurement_page/spec_measurement_page_read.graphql /
+// spec_measurement_page_edit.graphql の結果を nested_map_flattener.dart で
 // 平坦化したときのキー文字列の定数クラス。
 //
-// 対象画面: source/view.yaml #SpecMeasurement / #SpecMeasurementEdit
+// 対象画面: source/view.yaml #SpecMeasurementPage / #SpecMeasurementEdit
 // (梱包サイズ、mstr_spec_measurement)
+// 要件0047: 読み込みノード名の統一にあわせ、ファイル名・クラス名をspec_measurement_page / SpecMeasurementPageKeyNameへ改名した。
 import 'content_variable.dart';
 
-abstract class SpecMeasurementKeyName {
+abstract class SpecMeasurementPageKeyName {
   static const ContentVariable mstrSpecMeasurementId = ContentVariable(
     'mstrSpecMeasurementId',
     GraphQLTypeKind.uuid,

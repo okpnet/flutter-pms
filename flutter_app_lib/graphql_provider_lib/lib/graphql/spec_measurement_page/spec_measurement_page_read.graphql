@@ -1,6 +1,6 @@
 # spec_measurement画面 - Read(一覧取得クエリ)
 #
-# 画面仕様: source/view.yaml #SpecMeasurement(梱包サイズ、mstr_spec_measurement)
+# 画面仕様: source/view.yaml #SpecMeasurementPage(梱包サイズ、mstr_spec_measurement)
 # 命名規則: CLAUDE.md 画面仕様命名規則(要件0033)により`spec_measurement`をファイル名にする。
 #
 # 要件0044レビュー: view.yamlのcolumnsには remarks/update_at/update_user が明示されて
@@ -13,7 +13,10 @@
 # `unit`側に統一し、生の`shared_unit_id`は削除した(edit側はPatch対象として必要な
 # ため引き続き保持する、spec_measurement_edit.graphql参照)。
 
-query SpecMeasurementRead(
+# 要件0047: view.yamlの読み込みノード名がSpecMeasurement→SpecMeasurementPageに統一されたため、
+# フォルダ・ファイル名・オペレーション名をspec_measurement_page / SpecMeasurementPageReadへ改名した。
+
+query SpecMeasurementPageRead(
   $first: Int!
   $offset: Int
   $condition: MstrSpecMeasurementCondition
@@ -36,6 +39,7 @@ query SpecMeasurementRead(
     nodes {
       mstrSpecMeasurementId
       measurementValue
+      symbol # 要件0047再生成: view.yamlのSpecMeasurementPageにsymbolが追加された(画面で必要)
       remarks
       updateAt
       remove

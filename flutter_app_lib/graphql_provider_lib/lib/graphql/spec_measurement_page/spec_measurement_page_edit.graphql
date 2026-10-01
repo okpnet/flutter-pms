@@ -7,7 +7,10 @@
 # 使う(書き込みはしない)。監査列(update_user_id/update_user_history_id/remove)は
 # 要件0045の方針により変数・Patch・出力から除外する。
 
-mutation SpecMeasurementEdit(
+# 要件0047: 読み込みノード名の統一(SpecMeasurementPage)にあわせ、フォルダ・ファイル名・オペレーション名を
+# spec_measurement_page / SpecMeasurementPageEditへ改名した(参照元のeditノード名はSpecMeasurementEditのまま)。
+
+mutation SpecMeasurementPageEdit(
   $mstrSpecMeasurementId: UUID!
   $measurementValue: BigFloat
   $sharedUnitId: UUID

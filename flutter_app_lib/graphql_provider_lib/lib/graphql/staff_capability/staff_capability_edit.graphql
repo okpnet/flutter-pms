@@ -1,6 +1,14 @@
-# staff_capability_page画面 - Edit(ミューテーション)
+# staff_capability - Edit(ミューテーション)
 #
-# 画面仕様: source/view.yaml #StaffCapabilityPageEdit(StaffCapabilityEditを参照)。
+# 画面仕様: source/view.yaml #StaffCapabilityEdit
+# 要件0047: view.yamlでStaffCapabilityPageEdit/CapableStaffPageEdit(いずれもStaffCapabilityEditを
+# <<で参照するだけの別名ノード)が「不要」としてコメントアウトされたため、両画面のedit/rfe
+# (staff_capability_page_*/capable_staff_page_*、内容は同一)を廃止し、トップノード
+# StaffCapabilityEdit(generateRfe: true)から1組だけ生成する。内容は旧staff_capability_page_edit.graphqlを
+# 引き継ぎ、結果モデルに欠落していたremarksを追加した(要件0046のC1)。read(StaffCapabilityPage/
+# CapableStaffPage)は従来どおり各画面のフォルダに残す。
+#
+# 以下は旧staff_capability_page_edit.graphqlの説明(要件0045)。
 # 要件0045で追加。担当者と力量の関連付け(mstr_staff_capability)を編集する。
 #
 # mstr_staff_capabilityはinfo_staff_idでパーティショニングされており、Postgraphileが
@@ -23,7 +31,7 @@
 # 設定・別画面で操作)のためこのミューテーションの変数・Patch・出力には含めない
 # (既存生成物との一貫性を優先。詳細はdocs/0045ログ参照)。
 
-mutation StaffCapabilityPageEdit(
+mutation StaffCapabilityEdit(
   $mstrStaffCapabilityId: UUID!
   $infoStaffId: UUID!
   $mstrCapabilityId: UUID
@@ -52,6 +60,7 @@ mutation StaffCapabilityPageEdit(
       mstrCapabilityId
       value
       stop
+      remarks # 要件0047再生成: 引数・Patchにあるが結果モデルに欠落していた(要件0046のC1)
 
       staff: infoStaffByInfoStaffId {
         infoStaffId

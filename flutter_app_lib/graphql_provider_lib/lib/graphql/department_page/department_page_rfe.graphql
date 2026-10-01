@@ -490,6 +490,7 @@ query DepartmentPageRfe(
     kinds: infoDepartmentKindByInfoDepartmentId {
       infoDepartmentKindId
       infoDepartmentId
+      remarks # 要件0047再生成: view.yamlのkinds.remarks
 
       value: infoDepartmentKindValuesByInfoDepartmentKindId {
         totalCount

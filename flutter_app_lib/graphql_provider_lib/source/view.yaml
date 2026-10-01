@@ -432,6 +432,17 @@ CompanyPage:
       value: false
   columns:
     - info_company_id
+    # 要件0047: 共通項(CLAUDE.md「仕様」)の会社名labelsが欠落していたため追加(要件0041で
+    # shared_appellations_id→namesへ改名された際の修正モレ。他のRead画面と同じ形)。
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick:
+        - name
+        - pronunciation
+        - nickname
+      <<: *appellationLabels
     - web_page
     - name: ceo
       as: ceo_labels
@@ -461,6 +472,13 @@ CompanyPage:
       arrayType: toMany #Q1:toManyであれば展開されず配列になる?
       limit: 50
       <<: *OfficePage
+    # 要件0047: 共通項(CLAUDE.md「仕様」)のupdate_at・更新者(name)が欠落していたため追加。
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *updateStaff
 
 # --- edit: 会社情報(info_company) 更新/新規作成
 #     要件0037: generateRfe: trueにより、このcolumnsツリーから読み込み専用の
@@ -474,12 +492,21 @@ CompanyPageEdit:
   generateRfe: true
   columns:
     - info_company_id
-    - shared_appellations_id
-    - name: info_address_id
+    # 要件0047: 要件0041の改名(shared_appellations_id→names)の修正モレ。旧列名の単純列を、
+    # 他のEdit画面と同じ会社名labels(編集用アーム)に置き換えた。
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *appellationLabelsEdit
+    # 要件0047: 子の名前がFK列名(info_address_id)と同じで、出力名がFK列と衝突するため、
+    # OfficePageEdit等と同じaddressに改名した。
+    - name: address
       arrayType: toFirstOne
       using: info_address_id
       <<: *addressEditFields
     - web_page
+    # 0048の指示結果が逆。symbolは不要。
+    #- symbol # 要件0048: 修正モレ(要件0047ログ6章の6)。会社の記号を編集対象に追加.
     - name: ceo
       arrayType: toFirstOne
       using: ceo_names
@@ -648,6 +675,11 @@ DepartmentPage: &DepartmentPage
         - column: remove
           operator: "="
           value: false
+    # 要件0046確認(変換不可、要件0047): v_department_descendantsはschema.graphql上InfoDepartmentとの関連(FK)を持たず
+    # (ビューのためPostGraphileが関連フィールドを生成しない)、allVDepartmentDescendantsからしか参照できないため、
+    # 一覧の各行へ入れ子で取得できない。列もancestor_info_department_idでありusing: info_department_idと一致しない。
+    # DB側でスマートコメント(@foreignKey (ancestor_info_department_id) references info_department (info_department_id))を
+    # 付与しschema.graphqlを再取得するまで、department_page_read.graphqlには含めていない。確認後は削除可。
     - name: descendants
       arrayType: toFirstOne
       as: descendants
@@ -776,7 +808,10 @@ DepartmentPageEdit:
       using: info_address_id
       <<: *addressEditFields
     - name: kinds
-      arrayType: toMany
+      # 要件0047: info_department_kindはinfo_department_idに一意制約(Ix1)を持つ1対1のため
+      # toFirstOneに修正(要件0045でDepartmentPage(read)とGraphQLは修正済みだったが、
+      # このEditノードだけtoManyのまま残っていた)。
+      arrayType: toFirstOne
       using: info_department_id
       from: info_department_kind
       columns:
@@ -1165,11 +1200,13 @@ StaffCapabilityEdit: &StaffCapabilityEdit
     - name: staff
       arrayType: toFirstOne
       using: info_staff_id
+      editable: false # 要件0047: IDの割り当てのみ(子は書き込まず、usingのFK列だけを書き込む)
       <<: *StaffPage  #ここでStaffの編集は行わず、IDを割り当てるだけ
     #- mstr_capability_id
     - name: capability
       arrayType: toFirstOne
       using: mstr_capability_id
+      editable: false # 要件0047: IDの割り当てのみ(子は書き込まず、usingのFK列だけを書き込む)
       <<: *CapabilityPage #ここでCapabilityの編集は行わず、IDを割り当てるだけ
     - value
     - stop
@@ -1181,13 +1218,15 @@ StaffCapabilityEdit: &StaffCapabilityEdit
 # 担当者の力量の書き込み(StaffCapabilityPage側の編集画面)
 # 力量と担当者の関連付けの実体はmstr_staff_capabilityのため、StaffCapabilityEditと
 # 完全に同一の内容をそのまま参照する。
-StaffCapabilityPageEdit:
-  <<: *StaffCapabilityEdit
+# 0047:不要と判断した
+#StaffCapabilityPageEdit:
+#  <<: *StaffCapabilityEdit
 
 # 力量と担当者の書き込み(CapableStaffPage側の編集画面)
 # 上記と同じ理由でStaffCapabilityEditをそのまま参照する。
-CapableStaffPageEdit:
-  <<: *StaffCapabilityEdit
+# 0047:不要と判断した
+#CapableStaffPageEdit:
+#  <<: *StaffCapabilityEdit
 
 # 担当者の資格の読み込み
 # 担当者が持つ資格が該当する
@@ -1337,11 +1376,13 @@ StaffLicenseEdit: &StaffLicenseEdit
     - name: staff
       arrayType: toFirstOne
       using: info_staff_id
+      editable: false # 要件0047: IDの割り当てのみ(子は書き込まず、usingのFK列だけを書き込む)
       <<: *StaffPage  #ここでStaffの編集は行わず、IDを割り当てるだけ
     #- mstr_license_id
     - name: license
       arrayType: toFirstOne
       using: mstr_license_id
+      editable: false # 要件0047: IDの割り当てのみ(子は書き込まず、usingのFK列だけを書き込む)
       <<: *LicensePage  #ここでLicenseの編集は行わず、IDを割り当てるだけ
     - start_at
     - stop_at
@@ -1427,13 +1468,15 @@ ApprovalEdit: &ApprovalEdit
       arrayType: toFirstOne
       as: department # 要件確認: タイプミス(pdepartmentn)を修正
       using: info_department_id
-      <<: *DepartmentPage #IDを取得するだけ
+      editable: false # 要件0047: IDの割り当てのみ(子は書き込まず、usingのFK列だけを書き込む)
+      <<: *DepartmentPage #IDを割り当てるだけ
     - info_position_id # 要件0026追記15で解消(ApprovalRead参照、詳細は同箇所のコメント)
     - name: position
       arrayType: toFirstOne
       as: position
       using: info_position_id
-      <<: *PositionPage #IDを取得するだけ
+      editable: false # 要件0047: IDの割り当てのみ(子は書き込まず、usingのFK列だけを書き込む)
+      <<: *PositionPage #IDを割り当てるだけ
     - priority
     - name: labels
       arrayType: toFirstOne
@@ -1475,11 +1518,13 @@ ApprovalDetailRead: &ApprovalDetailRead
 # 承認書き込み
 # 役職順に行う承認順序、エスカレーションのペア
 # 必ず参照で使用するためPageにはしない
+# 0047:generateRfe: trueを追加。インテリセンスの許可されていない問題、及び0044と競合しているが、明示的に生成しない/したくない場合があるためschema.jsonへの課題がある。
 ApprovalDetailEdit: &ApprovalDetailEdit
   kind: edit
   from: mstr_approval_pattern_detail
   requiredWhere:
     - mstr_approval_pattern_detail_id
+  generateRfe: false
   # 要件0044レビュー: ApprovalEditと同じ理由(冒頭コメント参照)でgenerateRfe: trueを
   # 削除した。アンカー未定義(&ApprovalDetailEdit欠落)でApprovalOperationPageEditからの
   # `<<: *ApprovalDetailEdit`参照がYAMLパースエラーになっていたため、あわせて追加した。
@@ -1489,6 +1534,7 @@ ApprovalDetailEdit: &ApprovalDetailEdit
     - name: approval
       arrayType: toFirstOne
       using: mstr_approval_id
+      editable: true # 要件0047: 親とともに編集する(親のRFEにも含まれる)
       <<: *ApprovalEdit
     - mstr_approval_pattern_id
     - remarks
@@ -1612,7 +1658,8 @@ SpecMeasurementEdit:  &SpecMeasurementEdit
     - name: unit
       arrayType: toFirstOne
       using:  shared_unit_id
-      <<: *Unit #IDの取得のみ
+      editable: false # 要件0047: IDの割り当てのみ(子は書き込まず、usingのFK列だけを書き込む)
+      <<: *Unit #IDを割り当てるだけ
     - remarks
     - update_user_id
     - update_user_history_id
@@ -1657,14 +1704,18 @@ ManufacturePageEdit:  &ManufacturePageEdit
   from: mstr_manufacturer
   requiredWhere: 
     - mstr_manufacturer_id
-  generateRfe: true
+  generateRfe: true #インテリセンスのエラー
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
   columns:
     - mstr_manufacturer_id
     - code
     - name: labels
       arrayType: toFirstOne
       using: names
-      <<: *appellationLabels
+      <<: *appellationLabelsEdit
     - remarks
     - update_user_id
     - update_user_history_id
@@ -1920,14 +1971,15 @@ ItemPageEdit:
     - name: kinds
       arrayType: toFirstOne
       using: mstr_item_kind_id
+      editable: false # 要件0047: IDの割り当てのみ(子は書き込まず、usingのFK列だけを書き込む)
       <<: *ItemKind #IDの取得のみ
     - code
     - identification
     - control_code
     - name: manufacture
       arrayType: toFirstOne
-      as: manufacture
       using: mstr_manufacturer_id
+      editable: true # 要件0047: 親とともに編集する(親のRFEにも含まれる)
       <<: *ManufacturePageEdit
     - name: labels
       arrayType: toFirstOne
@@ -1938,6 +1990,7 @@ ItemPageEdit:
     - name: unit # IDの解決のみ(Unitは参照用アーム)
       arrayType: toFirstOne
       using:  shared_unit_id
+      editable: false # 要件0047: IDの割り当てのみ(子は書き込まず、usingのFK列だけを書き込む)
       <<: *Unit
     - increment
     - lot
@@ -1949,6 +2002,6 @@ ItemPageEdit:
 
 ##### 設備
 
-#EquipmentPage:
-#  kind: read
-#  from: 
+EquipmentPage:
+  kind: read
+  from: 

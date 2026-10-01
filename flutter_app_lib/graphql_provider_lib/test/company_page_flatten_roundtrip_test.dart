@@ -142,10 +142,10 @@ Map<String, dynamic> _buildRawReadJson() => {
         'remarks': '備考テキスト',
         'updateAt': '2026-09-25T00:00:00',
         'remove': false,
-        'sharedAppellationByNames': _companyNameReadJson(),
-        'ceo': _ceoReadJson(),
-        'infoAddressByInfoAddressId': _infoAddressReadJson(),
-        'infoOfficesByInfoCompanyId': {
+        'labels': _companyNameReadJson(),
+        'ceo_labels': _ceoReadJson(),
+        'address': _infoAddressReadJson(),
+        'offices': {
           'totalCount': 0,
           'pageInfo': {
             'hasNextPage': false,
@@ -205,10 +205,23 @@ Map<String, dynamic> _buildRawReadJson() => {
           ],
           '__typename': 'InfoProvisionsConnection',
         },
-        'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId': {
+        // 要件0047: 更新者は他画面と同じupdateStaffアーム(update_user)の形。
+        'update_user': {
           'historyId': 'h1111111-1111-1111-1111-111111111111',
           'infoStaffId': 's1111111-1111-1111-1111-111111111111',
-          'names': 'a2222222-2222-2222-2222-222222222222',
+          'infoCompanyId': 'c1111111-1111-1111-1111-111111111111',
+          'code': 'U001',
+          'sex': null,
+          'phone': null,
+          'symbol': null,
+          'privatePhone': null,
+          'name': _sharedAppellationReadJson(
+            appellationsId: 'a2222222-2222-2222-2222-222222222222',
+            nameDictionaryId: 'd1111111-1111-1111-1111-111111111111',
+            nameValue: '管理者 花子',
+            pronunciationDictionaryId: 'd2222222-2222-2222-2222-222222222222',
+            nicknameDictionaryId: 'd3333333-3333-3333-3333-333333333333',
+          ),
           '__typename': 'HistoryInfoStaff',
         },
         '__typename': 'InfoCompany',
@@ -357,11 +370,11 @@ Map<String, dynamic> _buildRawEditJson() => {
     'infoCompany': {
       'infoCompanyId': 'c1111111-1111-1111-1111-111111111111',
       'webPage': 'https://example.com',
-      'symbol': 'CO001',
+      'symbol': 'CO001', // 要件0048: CompanyPageEditにsymbolを戻した
       'remarks': '備考テキスト(編集後)',
-      'sharedAppellationByNames': _companyNameJson(),
+      'labels': _companyNameJson(),
       'ceo': _ceoJson(),
-      'infoAddressByInfoAddressId': _infoAddressJson(),
+      'address': _infoAddressJson(),
       'provisions': _provisionsEditJson(),
       '__typename': 'InfoCompany',
     },
@@ -375,15 +388,17 @@ Map<String, dynamic> _buildRawRfeJson() => {
   'infoCompanyByInfoCompanyId': {
     'infoCompanyId': 'c1111111-1111-1111-1111-111111111111',
     'webPage': 'https://example.com',
-    'symbol': 'CO001',
+    'symbol': 'CO001', // 要件0048: CompanyPageEditにsymbolを戻した
     'remarks': '備考テキスト',
     'updateAt': '2026-09-25T00:00:00',
     'updateUserId': 's1111111-1111-1111-1111-111111111111',
     'updateUserHistoryId': 'h1111111-1111-1111-1111-111111111111',
     'remove': false,
-    'sharedAppellationByNames': _companyNameJson(),
+    'labels': _companyNameJson(),
     'ceo': _ceoJson(),
-    'infoAddressByInfoAddressId': _infoAddressJson(),
+    'address': _infoAddressJson(),
+    // 要件0047: RFEの再生成でprovisionsが追加された(要件0046の相互変換不可の解消)。
+    'provisions': _provisionsEditJson(),
     '__typename': 'InfoCompany',
   },
   '__typename': 'Query',
@@ -429,25 +444,25 @@ void main() {
       final nodeMap = node.toJson();
 
       const nameValue = CompanyPageKeyName
-          .sharedAppellationByNames_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue;
+          .labels_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue;
       const pronunciationValue = CompanyPageKeyName
-          .sharedAppellationByNames_sharedDictionaryBySharedDictionaryPronunciationId_value_dictionaryValue;
+          .labels_sharedDictionaryBySharedDictionaryPronunciationId_value_dictionaryValue;
       const ceoNameValue = CompanyPageKeyName
-          .ceo_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue;
+          .ceo_labels_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue;
       const ceoNicknameValue = CompanyPageKeyName
-          .ceo_sharedDictionaryBySharedDictionaryNicknameId_value_dictionaryValue;
+          .ceo_labels_sharedDictionaryBySharedDictionaryNicknameId_value_dictionaryValue;
       const address1NameValue = CompanyPageKeyName
-          .infoAddressByInfoAddressId_address1_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue;
+          .address_address1_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue;
       const billNameValue = CompanyPageKeyName
-          .infoAddressByInfoAddressId_billName_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue;
+          .address_billName_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue;
 
       const collapsePaths = {
-        'sharedAppellationByNames||sharedDictionaryBySharedDictionaryNameId||value',
-        'sharedAppellationByNames||sharedDictionaryBySharedDictionaryPronunciationId||value',
-        'ceo||sharedDictionaryBySharedDictionaryNameId||value',
-        'ceo||sharedDictionaryBySharedDictionaryNicknameId||value',
-        'infoAddressByInfoAddressId||address1||sharedDictionaryBySharedDictionaryNameId||value',
-        'infoAddressByInfoAddressId||billName||sharedDictionaryBySharedDictionaryNameId||value',
+        'labels||sharedDictionaryBySharedDictionaryNameId||value',
+        'labels||sharedDictionaryBySharedDictionaryPronunciationId||value',
+        'ceo_labels||sharedDictionaryBySharedDictionaryNameId||value',
+        'ceo_labels||sharedDictionaryBySharedDictionaryNicknameId||value',
+        'address||address1||sharedDictionaryBySharedDictionaryNameId||value',
+        'address||billName||sharedDictionaryBySharedDictionaryNameId||value',
       };
 
       final flatColumns = nodeMap.flattenForColumns([

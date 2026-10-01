@@ -7,16 +7,12 @@ import 'package:graphql_flutter/graphql_flutter.dart' as graphql_flutter;
 class Variables$Query$LicensePageRfe {
   factory Variables$Query$LicensePageRfe({
     required String mstrLicenseId,
-    required bool ja,
-    required bool en,
-    String? jaLanguageCodeId,
-    String? enLanguageCodeId,
+    required String jaLanguageCodeId,
+    required String enLanguageCodeId,
   }) => Variables$Query$LicensePageRfe._({
     r'mstrLicenseId': mstrLicenseId,
-    r'ja': ja,
-    r'en': en,
-    if (jaLanguageCodeId != null) r'jaLanguageCodeId': jaLanguageCodeId,
-    if (enLanguageCodeId != null) r'enLanguageCodeId': enLanguageCodeId,
+    r'jaLanguageCodeId': jaLanguageCodeId,
+    r'enLanguageCodeId': enLanguageCodeId,
   });
 
   Variables$Query$LicensePageRfe._(this._$data);
@@ -25,18 +21,10 @@ class Variables$Query$LicensePageRfe {
     final result$data = <String, dynamic>{};
     final l$mstrLicenseId = data['mstrLicenseId'];
     result$data['mstrLicenseId'] = (l$mstrLicenseId as String);
-    final l$ja = data['ja'];
-    result$data['ja'] = (l$ja as bool);
-    final l$en = data['en'];
-    result$data['en'] = (l$en as bool);
-    if (data.containsKey('jaLanguageCodeId')) {
-      final l$jaLanguageCodeId = data['jaLanguageCodeId'];
-      result$data['jaLanguageCodeId'] = (l$jaLanguageCodeId as String?);
-    }
-    if (data.containsKey('enLanguageCodeId')) {
-      final l$enLanguageCodeId = data['enLanguageCodeId'];
-      result$data['enLanguageCodeId'] = (l$enLanguageCodeId as String?);
-    }
+    final l$jaLanguageCodeId = data['jaLanguageCodeId'];
+    result$data['jaLanguageCodeId'] = (l$jaLanguageCodeId as String);
+    final l$enLanguageCodeId = data['enLanguageCodeId'];
+    result$data['enLanguageCodeId'] = (l$enLanguageCodeId as String);
     return Variables$Query$LicensePageRfe._(result$data);
   }
 
@@ -44,30 +32,18 @@ class Variables$Query$LicensePageRfe {
 
   String get mstrLicenseId => (_$data['mstrLicenseId'] as String);
 
-  bool get ja => (_$data['ja'] as bool);
+  String get jaLanguageCodeId => (_$data['jaLanguageCodeId'] as String);
 
-  bool get en => (_$data['en'] as bool);
-
-  String? get jaLanguageCodeId => (_$data['jaLanguageCodeId'] as String?);
-
-  String? get enLanguageCodeId => (_$data['enLanguageCodeId'] as String?);
+  String get enLanguageCodeId => (_$data['enLanguageCodeId'] as String);
 
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
     final l$mstrLicenseId = mstrLicenseId;
     result$data['mstrLicenseId'] = l$mstrLicenseId;
-    final l$ja = ja;
-    result$data['ja'] = l$ja;
-    final l$en = en;
-    result$data['en'] = l$en;
-    if (_$data.containsKey('jaLanguageCodeId')) {
-      final l$jaLanguageCodeId = jaLanguageCodeId;
-      result$data['jaLanguageCodeId'] = l$jaLanguageCodeId;
-    }
-    if (_$data.containsKey('enLanguageCodeId')) {
-      final l$enLanguageCodeId = enLanguageCodeId;
-      result$data['enLanguageCodeId'] = l$enLanguageCodeId;
-    }
+    final l$jaLanguageCodeId = jaLanguageCodeId;
+    result$data['jaLanguageCodeId'] = l$jaLanguageCodeId;
+    final l$enLanguageCodeId = enLanguageCodeId;
+    result$data['enLanguageCodeId'] = l$enLanguageCodeId;
     return result$data;
   }
 
@@ -88,31 +64,13 @@ class Variables$Query$LicensePageRfe {
     if (l$mstrLicenseId != lOther$mstrLicenseId) {
       return false;
     }
-    final l$ja = ja;
-    final lOther$ja = other.ja;
-    if (l$ja != lOther$ja) {
-      return false;
-    }
-    final l$en = en;
-    final lOther$en = other.en;
-    if (l$en != lOther$en) {
-      return false;
-    }
     final l$jaLanguageCodeId = jaLanguageCodeId;
     final lOther$jaLanguageCodeId = other.jaLanguageCodeId;
-    if (_$data.containsKey('jaLanguageCodeId') !=
-        other._$data.containsKey('jaLanguageCodeId')) {
-      return false;
-    }
     if (l$jaLanguageCodeId != lOther$jaLanguageCodeId) {
       return false;
     }
     final l$enLanguageCodeId = enLanguageCodeId;
     final lOther$enLanguageCodeId = other.enLanguageCodeId;
-    if (_$data.containsKey('enLanguageCodeId') !=
-        other._$data.containsKey('enLanguageCodeId')) {
-      return false;
-    }
     if (l$enLanguageCodeId != lOther$enLanguageCodeId) {
       return false;
     }
@@ -122,16 +80,12 @@ class Variables$Query$LicensePageRfe {
   @override
   int get hashCode {
     final l$mstrLicenseId = mstrLicenseId;
-    final l$ja = ja;
-    final l$en = en;
     final l$jaLanguageCodeId = jaLanguageCodeId;
     final l$enLanguageCodeId = enLanguageCodeId;
     return Object.hashAll([
       l$mstrLicenseId,
-      l$ja,
-      l$en,
-      _$data.containsKey('jaLanguageCodeId') ? l$jaLanguageCodeId : const {},
-      _$data.containsKey('enLanguageCodeId') ? l$enLanguageCodeId : const {},
+      l$jaLanguageCodeId,
+      l$enLanguageCodeId,
     ]);
   }
 }
@@ -147,8 +101,6 @@ abstract class CopyWith$Variables$Query$LicensePageRfe<TRes> {
 
   TRes call({
     String? mstrLicenseId,
-    bool? ja,
-    bool? en,
     String? jaLanguageCodeId,
     String? enLanguageCodeId,
   });
@@ -166,8 +118,6 @@ class _CopyWithImpl$Variables$Query$LicensePageRfe<TRes>
 
   TRes call({
     Object? mstrLicenseId = _undefined,
-    Object? ja = _undefined,
-    Object? en = _undefined,
     Object? jaLanguageCodeId = _undefined,
     Object? enLanguageCodeId = _undefined,
   }) => _then(
@@ -175,12 +125,10 @@ class _CopyWithImpl$Variables$Query$LicensePageRfe<TRes>
       ..._instance._$data,
       if (mstrLicenseId != _undefined && mstrLicenseId != null)
         'mstrLicenseId': (mstrLicenseId as String),
-      if (ja != _undefined && ja != null) 'ja': (ja as bool),
-      if (en != _undefined && en != null) 'en': (en as bool),
-      if (jaLanguageCodeId != _undefined)
-        'jaLanguageCodeId': (jaLanguageCodeId as String?),
-      if (enLanguageCodeId != _undefined)
-        'enLanguageCodeId': (enLanguageCodeId as String?),
+      if (jaLanguageCodeId != _undefined && jaLanguageCodeId != null)
+        'jaLanguageCodeId': (jaLanguageCodeId as String),
+      if (enLanguageCodeId != _undefined && enLanguageCodeId != null)
+        'enLanguageCodeId': (enLanguageCodeId as String),
     }),
   );
 }
@@ -193,8 +141,6 @@ class _CopyWithStubImpl$Variables$Query$LicensePageRfe<TRes>
 
   call({
     String? mstrLicenseId,
-    bool? ja,
-    bool? en,
     String? jaLanguageCodeId,
     String? enLanguageCodeId,
   }) => _res;
@@ -354,32 +300,14 @@ const documentNodeQueryLicensePageRfe = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'ja')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'Boolean'),
-            isNonNull: true,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'en')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'Boolean'),
-            isNonNull: true,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'jaLanguageCodeId')),
-          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: false),
+          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
         VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'enLanguageCodeId')),
-          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: false),
+          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
@@ -590,19 +518,7 @@ const documentNodeQueryLicensePageRfe = DocumentNode(
                                   ),
                                 ),
                               ],
-                              directives: [
-                                DirectiveNode(
-                                  name: NameNode(value: 'include'),
-                                  arguments: [
-                                    ArgumentNode(
-                                      name: NameNode(value: 'if'),
-                                      value: VariableNode(
-                                        name: NameNode(value: 'ja'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              directives: [],
                               selectionSet: SelectionSetNode(
                                 selections: [
                                   FieldNode(
@@ -666,19 +582,7 @@ const documentNodeQueryLicensePageRfe = DocumentNode(
                                   ),
                                 ),
                               ],
-                              directives: [
-                                DirectiveNode(
-                                  name: NameNode(value: 'include'),
-                                  arguments: [
-                                    ArgumentNode(
-                                      name: NameNode(value: 'if'),
-                                      value: VariableNode(
-                                        name: NameNode(value: 'en'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              directives: [],
                               selectionSet: SelectionSetNode(
                                 selections: [
                                   FieldNode(
@@ -769,19 +673,7 @@ const documentNodeQueryLicensePageRfe = DocumentNode(
                                   ),
                                 ),
                               ],
-                              directives: [
-                                DirectiveNode(
-                                  name: NameNode(value: 'include'),
-                                  arguments: [
-                                    ArgumentNode(
-                                      name: NameNode(value: 'if'),
-                                      value: VariableNode(
-                                        name: NameNode(value: 'ja'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              directives: [],
                               selectionSet: SelectionSetNode(
                                 selections: [
                                   FieldNode(
@@ -845,19 +737,7 @@ const documentNodeQueryLicensePageRfe = DocumentNode(
                                   ),
                                 ),
                               ],
-                              directives: [
-                                DirectiveNode(
-                                  name: NameNode(value: 'include'),
-                                  arguments: [
-                                    ArgumentNode(
-                                      name: NameNode(value: 'if'),
-                                      value: VariableNode(
-                                        name: NameNode(value: 'en'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              directives: [],
                               selectionSet: SelectionSetNode(
                                 selections: [
                                   FieldNode(
@@ -947,19 +827,7 @@ const documentNodeQueryLicensePageRfe = DocumentNode(
                                   ),
                                 ),
                               ],
-                              directives: [
-                                DirectiveNode(
-                                  name: NameNode(value: 'include'),
-                                  arguments: [
-                                    ArgumentNode(
-                                      name: NameNode(value: 'if'),
-                                      value: VariableNode(
-                                        name: NameNode(value: 'ja'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              directives: [],
                               selectionSet: SelectionSetNode(
                                 selections: [
                                   FieldNode(
@@ -1023,19 +891,7 @@ const documentNodeQueryLicensePageRfe = DocumentNode(
                                   ),
                                 ),
                               ],
-                              directives: [
-                                DirectiveNode(
-                                  name: NameNode(value: 'include'),
-                                  arguments: [
-                                    ArgumentNode(
-                                      name: NameNode(value: 'if'),
-                                      value: VariableNode(
-                                        name: NameNode(value: 'en'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              directives: [],
                               selectionSet: SelectionSetNode(
                                 selections: [
                                   FieldNode(
@@ -2261,8 +2117,8 @@ class _CopyWithStubImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels<
 class Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNameId {
   Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNameId({
     required this.sharedDictionaryId,
-    this.ja,
-    this.en,
+    required this.ja,
+    required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
@@ -2275,26 +2131,22 @@ class Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryByS
     final l$$__typename = json['__typename'];
     return Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: l$ja == null
-          ? null
-          : Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
-              (l$ja as Map<String, dynamic>),
-            ),
-      en: l$en == null
-          ? null
-          : Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
-              (l$en as Map<String, dynamic>),
-            ),
+      ja: Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String sharedDictionaryId;
 
-  final Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNameId$ja?
+  final Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNameId$ja
   ja;
 
-  final Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNameId$en?
+  final Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNameId$en
   en;
 
   final String $__typename;
@@ -2304,9 +2156,9 @@ class Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryByS
     final l$sharedDictionaryId = sharedDictionaryId;
     _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
     final l$ja = ja;
-    _resultData['ja'] = l$ja?.toJson();
+    _resultData['ja'] = l$ja.toJson();
     final l$en = en;
-    _resultData['en'] = l$en?.toJson();
+    _resultData['en'] = l$en.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -2435,14 +2287,14 @@ class _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$share
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
           : (sharedDictionaryId as String),
-      ja: ja == _undefined
+      ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNameId$ja?),
-      en: en == _undefined
+                as Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+      en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNameId$en?),
+                as Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -2454,14 +2306,10 @@ class _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$share
   >
   get ja {
     final local$ja = _instance.ja;
-    return local$ja == null
-        ? CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNameId$ja.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNameId$ja(
-            local$ja,
-            (e) => call(ja: e),
-          );
+    return CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNameId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
   }
 
   CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNameId$en<
@@ -2469,14 +2317,10 @@ class _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$share
   >
   get en {
     final local$en = _instance.en;
-    return local$en == null
-        ? CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNameId$en.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNameId$en(
-            local$en,
-            (e) => call(en: e),
-          );
+    return CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNameId$en(
+      local$en,
+      (e) => call(en: e),
+    );
   }
 }
 
@@ -3258,8 +3102,8 @@ class _CopyWithStubImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$s
 class Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryPronunciationId {
   Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryPronunciationId({
     required this.sharedDictionaryId,
-    this.ja,
-    this.en,
+    required this.ja,
+    required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
@@ -3272,26 +3116,22 @@ class Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryByS
     final l$$__typename = json['__typename'];
     return Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: l$ja == null
-          ? null
-          : Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
-              (l$ja as Map<String, dynamic>),
-            ),
-      en: l$en == null
-          ? null
-          : Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
-              (l$en as Map<String, dynamic>),
-            ),
+      ja: Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String sharedDictionaryId;
 
-  final Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja?
+  final Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja
   ja;
 
-  final Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en?
+  final Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en
   en;
 
   final String $__typename;
@@ -3301,9 +3141,9 @@ class Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryByS
     final l$sharedDictionaryId = sharedDictionaryId;
     _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
     final l$ja = ja;
-    _resultData['ja'] = l$ja?.toJson();
+    _resultData['ja'] = l$ja.toJson();
     final l$en = en;
-    _resultData['en'] = l$en?.toJson();
+    _resultData['en'] = l$en.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -3432,14 +3272,14 @@ class _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$share
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
           : (sharedDictionaryId as String),
-      ja: ja == _undefined
+      ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja?),
-      en: en == _undefined
+                as Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+      en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en?),
+                as Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -3451,14 +3291,10 @@ class _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$share
   >
   get ja {
     final local$ja = _instance.ja;
-    return local$ja == null
-        ? CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja(
-            local$ja,
-            (e) => call(ja: e),
-          );
+    return CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
   }
 
   CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en<
@@ -3466,14 +3302,10 @@ class _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$share
   >
   get en {
     final local$en = _instance.en;
-    return local$en == null
-        ? CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en(
-            local$en,
-            (e) => call(en: e),
-          );
+    return CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryPronunciationId$en(
+      local$en,
+      (e) => call(en: e),
+    );
   }
 }
 
@@ -4255,8 +4087,8 @@ class _CopyWithStubImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$s
 class Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNicknameId {
   Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNicknameId({
     required this.sharedDictionaryId,
-    this.ja,
-    this.en,
+    required this.ja,
+    required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
@@ -4269,26 +4101,22 @@ class Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryByS
     final l$$__typename = json['__typename'];
     return Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: l$ja == null
-          ? null
-          : Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
-              (l$ja as Map<String, dynamic>),
-            ),
-      en: l$en == null
-          ? null
-          : Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
-              (l$en as Map<String, dynamic>),
-            ),
+      ja: Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String sharedDictionaryId;
 
-  final Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja?
+  final Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja
   ja;
 
-  final Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNicknameId$en?
+  final Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNicknameId$en
   en;
 
   final String $__typename;
@@ -4298,9 +4126,9 @@ class Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryByS
     final l$sharedDictionaryId = sharedDictionaryId;
     _resultData['sharedDictionaryId'] = l$sharedDictionaryId;
     final l$ja = ja;
-    _resultData['ja'] = l$ja?.toJson();
+    _resultData['ja'] = l$ja.toJson();
     final l$en = en;
-    _resultData['en'] = l$en?.toJson();
+    _resultData['en'] = l$en.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -4429,14 +4257,14 @@ class _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$share
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
           : (sharedDictionaryId as String),
-      ja: ja == _undefined
+      ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja?),
-      en: en == _undefined
+                as Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+      en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNicknameId$en?),
+                as Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -4448,14 +4276,10 @@ class _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$share
   >
   get ja {
     final local$ja = _instance.ja;
-    return local$ja == null
-        ? CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja(
-            local$ja,
-            (e) => call(ja: e),
-          );
+    return CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNicknameId$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
   }
 
   CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNicknameId$en<
@@ -4463,14 +4287,10 @@ class _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$share
   >
   get en {
     final local$en = _instance.en;
-    return local$en == null
-        ? CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNicknameId$en(
-            local$en,
-            (e) => call(en: e),
-          );
+    return CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$sharedDictionaryBySharedDictionaryNicknameId$en(
+      local$en,
+      (e) => call(en: e),
+    );
   }
 }
 

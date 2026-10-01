@@ -1,4 +1,9 @@
-# staff_capability_page画面 - RFE(read for editing、要件0037:
+# staff_capability - RFE(read for editing、要件0037: StaffCapabilityEditのgenerateRfe: trueから導出)
+#
+# 要件0047: staff_capability_edit.graphqlと同じ理由で、旧staff_capability_page_rfe.graphql/
+# capable_staff_page_rfe.graphql(内容は同一)を1組に統合した。
+#
+# 以下は旧staff_capability_page_rfe.graphqlの説明(要件0045)。
 #   StaffCapabilityPageEdit(StaffCapabilityEdit参照)のgenerateRfe: trueから導出)
 #
 # mstr_staff_capabilityの一意キー更新はByMstrStaffCapabilityIdAndInfoStaffId(複合)の
@@ -8,7 +13,7 @@
 # `$en: Boolean!`の`@include`トグルは使わず、`$jaLanguageCodeId`/`$enLanguageCodeId`を
 # `UUID!`(必須)として両言語を常時取得する。
 
-query StaffCapabilityPageRfe(
+query StaffCapabilityRfe(
   $mstrStaffCapabilityId: UUID!
   $infoStaffId: UUID!
   $jaLanguageCodeId: UUID!

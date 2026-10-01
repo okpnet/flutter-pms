@@ -5,15 +5,15 @@ import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
 import 'package:graphql_flutter/graphql_flutter.dart' as graphql_flutter;
 
-class Variables$Query$SpecMeasurementRead {
-  factory Variables$Query$SpecMeasurementRead({
+class Variables$Query$SpecMeasurementPageRead {
+  factory Variables$Query$SpecMeasurementPageRead({
     required int first,
     int? offset,
     Input$MstrSpecMeasurementCondition? condition,
     List<Enum$MstrSpecMeasurementsOrderBy>? orderBy,
     required String languageCodeId,
     bool? removed,
-  }) => Variables$Query$SpecMeasurementRead._({
+  }) => Variables$Query$SpecMeasurementPageRead._({
     r'first': first,
     if (offset != null) r'offset': offset,
     if (condition != null) r'condition': condition,
@@ -22,9 +22,9 @@ class Variables$Query$SpecMeasurementRead {
     if (removed != null) r'removed': removed,
   });
 
-  Variables$Query$SpecMeasurementRead._(this._$data);
+  Variables$Query$SpecMeasurementPageRead._(this._$data);
 
-  factory Variables$Query$SpecMeasurementRead.fromJson(
+  factory Variables$Query$SpecMeasurementPageRead.fromJson(
     Map<String, dynamic> data,
   ) {
     final result$data = <String, dynamic>{};
@@ -54,7 +54,7 @@ class Variables$Query$SpecMeasurementRead {
       final l$removed = data['removed'];
       result$data['removed'] = (l$removed as bool?);
     }
-    return Variables$Query$SpecMeasurementRead._(result$data);
+    return Variables$Query$SpecMeasurementPageRead._(result$data);
   }
 
   Map<String, dynamic> _$data;
@@ -100,17 +100,18 @@ class Variables$Query$SpecMeasurementRead {
     return result$data;
   }
 
-  CopyWith$Variables$Query$SpecMeasurementRead<
-    Variables$Query$SpecMeasurementRead
+  CopyWith$Variables$Query$SpecMeasurementPageRead<
+    Variables$Query$SpecMeasurementPageRead
   >
-  get copyWith => CopyWith$Variables$Query$SpecMeasurementRead(this, (i) => i);
+  get copyWith =>
+      CopyWith$Variables$Query$SpecMeasurementPageRead(this, (i) => i);
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Variables$Query$SpecMeasurementRead ||
+    if (other is! Variables$Query$SpecMeasurementPageRead ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -194,14 +195,14 @@ class Variables$Query$SpecMeasurementRead {
   }
 }
 
-abstract class CopyWith$Variables$Query$SpecMeasurementRead<TRes> {
-  factory CopyWith$Variables$Query$SpecMeasurementRead(
-    Variables$Query$SpecMeasurementRead instance,
-    TRes Function(Variables$Query$SpecMeasurementRead) then,
-  ) = _CopyWithImpl$Variables$Query$SpecMeasurementRead;
+abstract class CopyWith$Variables$Query$SpecMeasurementPageRead<TRes> {
+  factory CopyWith$Variables$Query$SpecMeasurementPageRead(
+    Variables$Query$SpecMeasurementPageRead instance,
+    TRes Function(Variables$Query$SpecMeasurementPageRead) then,
+  ) = _CopyWithImpl$Variables$Query$SpecMeasurementPageRead;
 
-  factory CopyWith$Variables$Query$SpecMeasurementRead.stub(TRes res) =
-      _CopyWithStubImpl$Variables$Query$SpecMeasurementRead;
+  factory CopyWith$Variables$Query$SpecMeasurementPageRead.stub(TRes res) =
+      _CopyWithStubImpl$Variables$Query$SpecMeasurementPageRead;
 
   TRes call({
     int? first,
@@ -213,13 +214,16 @@ abstract class CopyWith$Variables$Query$SpecMeasurementRead<TRes> {
   });
 }
 
-class _CopyWithImpl$Variables$Query$SpecMeasurementRead<TRes>
-    implements CopyWith$Variables$Query$SpecMeasurementRead<TRes> {
-  _CopyWithImpl$Variables$Query$SpecMeasurementRead(this._instance, this._then);
+class _CopyWithImpl$Variables$Query$SpecMeasurementPageRead<TRes>
+    implements CopyWith$Variables$Query$SpecMeasurementPageRead<TRes> {
+  _CopyWithImpl$Variables$Query$SpecMeasurementPageRead(
+    this._instance,
+    this._then,
+  );
 
-  final Variables$Query$SpecMeasurementRead _instance;
+  final Variables$Query$SpecMeasurementPageRead _instance;
 
-  final TRes Function(Variables$Query$SpecMeasurementRead) _then;
+  final TRes Function(Variables$Query$SpecMeasurementPageRead) _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
@@ -231,7 +235,7 @@ class _CopyWithImpl$Variables$Query$SpecMeasurementRead<TRes>
     Object? languageCodeId = _undefined,
     Object? removed = _undefined,
   }) => _then(
-    Variables$Query$SpecMeasurementRead._({
+    Variables$Query$SpecMeasurementPageRead._({
       ..._instance._$data,
       if (first != _undefined && first != null) 'first': (first as int),
       if (offset != _undefined) 'offset': (offset as int?),
@@ -246,9 +250,9 @@ class _CopyWithImpl$Variables$Query$SpecMeasurementRead<TRes>
   );
 }
 
-class _CopyWithStubImpl$Variables$Query$SpecMeasurementRead<TRes>
-    implements CopyWith$Variables$Query$SpecMeasurementRead<TRes> {
-  _CopyWithStubImpl$Variables$Query$SpecMeasurementRead(this._res);
+class _CopyWithStubImpl$Variables$Query$SpecMeasurementPageRead<TRes>
+    implements CopyWith$Variables$Query$SpecMeasurementPageRead<TRes> {
+  _CopyWithStubImpl$Variables$Query$SpecMeasurementPageRead(this._res);
 
   TRes _res;
 
@@ -262,26 +266,26 @@ class _CopyWithStubImpl$Variables$Query$SpecMeasurementRead<TRes>
   }) => _res;
 }
 
-class Query$SpecMeasurementRead {
-  Query$SpecMeasurementRead({
+class Query$SpecMeasurementPageRead {
+  Query$SpecMeasurementPageRead({
     this.allMstrSpecMeasurements,
     this.$__typename = 'Query',
   });
 
-  factory Query$SpecMeasurementRead.fromJson(Map<String, dynamic> json) {
+  factory Query$SpecMeasurementPageRead.fromJson(Map<String, dynamic> json) {
     final l$allMstrSpecMeasurements = json['allMstrSpecMeasurements'];
     final l$$__typename = json['__typename'];
-    return Query$SpecMeasurementRead(
+    return Query$SpecMeasurementPageRead(
       allMstrSpecMeasurements: l$allMstrSpecMeasurements == null
           ? null
-          : Query$SpecMeasurementRead$allMstrSpecMeasurements.fromJson(
+          : Query$SpecMeasurementPageRead$allMstrSpecMeasurements.fromJson(
               (l$allMstrSpecMeasurements as Map<String, dynamic>),
             ),
       $__typename: (l$$__typename as String),
     );
   }
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements?
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements?
   allMstrSpecMeasurements;
 
   final String $__typename;
@@ -308,7 +312,7 @@ class Query$SpecMeasurementRead {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Query$SpecMeasurementRead ||
+    if (other is! Query$SpecMeasurementPageRead ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -326,36 +330,37 @@ class Query$SpecMeasurementRead {
   }
 }
 
-extension UtilityExtension$Query$SpecMeasurementRead
-    on Query$SpecMeasurementRead {
-  CopyWith$Query$SpecMeasurementRead<Query$SpecMeasurementRead> get copyWith =>
-      CopyWith$Query$SpecMeasurementRead(this, (i) => i);
+extension UtilityExtension$Query$SpecMeasurementPageRead
+    on Query$SpecMeasurementPageRead {
+  CopyWith$Query$SpecMeasurementPageRead<Query$SpecMeasurementPageRead>
+  get copyWith => CopyWith$Query$SpecMeasurementPageRead(this, (i) => i);
 }
 
-abstract class CopyWith$Query$SpecMeasurementRead<TRes> {
-  factory CopyWith$Query$SpecMeasurementRead(
-    Query$SpecMeasurementRead instance,
-    TRes Function(Query$SpecMeasurementRead) then,
-  ) = _CopyWithImpl$Query$SpecMeasurementRead;
+abstract class CopyWith$Query$SpecMeasurementPageRead<TRes> {
+  factory CopyWith$Query$SpecMeasurementPageRead(
+    Query$SpecMeasurementPageRead instance,
+    TRes Function(Query$SpecMeasurementPageRead) then,
+  ) = _CopyWithImpl$Query$SpecMeasurementPageRead;
 
-  factory CopyWith$Query$SpecMeasurementRead.stub(TRes res) =
-      _CopyWithStubImpl$Query$SpecMeasurementRead;
+  factory CopyWith$Query$SpecMeasurementPageRead.stub(TRes res) =
+      _CopyWithStubImpl$Query$SpecMeasurementPageRead;
 
   TRes call({
-    Query$SpecMeasurementRead$allMstrSpecMeasurements? allMstrSpecMeasurements,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements?
+    allMstrSpecMeasurements,
     String? $__typename,
   });
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements<TRes>
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements<TRes>
   get allMstrSpecMeasurements;
 }
 
-class _CopyWithImpl$Query$SpecMeasurementRead<TRes>
-    implements CopyWith$Query$SpecMeasurementRead<TRes> {
-  _CopyWithImpl$Query$SpecMeasurementRead(this._instance, this._then);
+class _CopyWithImpl$Query$SpecMeasurementPageRead<TRes>
+    implements CopyWith$Query$SpecMeasurementPageRead<TRes> {
+  _CopyWithImpl$Query$SpecMeasurementPageRead(this._instance, this._then);
 
-  final Query$SpecMeasurementRead _instance;
+  final Query$SpecMeasurementPageRead _instance;
 
-  final TRes Function(Query$SpecMeasurementRead) _then;
+  final TRes Function(Query$SpecMeasurementPageRead) _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
@@ -363,52 +368,53 @@ class _CopyWithImpl$Query$SpecMeasurementRead<TRes>
     Object? allMstrSpecMeasurements = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$SpecMeasurementRead(
+    Query$SpecMeasurementPageRead(
       allMstrSpecMeasurements: allMstrSpecMeasurements == _undefined
           ? _instance.allMstrSpecMeasurements
           : (allMstrSpecMeasurements
-                as Query$SpecMeasurementRead$allMstrSpecMeasurements?),
+                as Query$SpecMeasurementPageRead$allMstrSpecMeasurements?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements<TRes>
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements<TRes>
   get allMstrSpecMeasurements {
     final local$allMstrSpecMeasurements = _instance.allMstrSpecMeasurements;
     return local$allMstrSpecMeasurements == null
-        ? CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements.stub(
+        ? CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements.stub(
             _then(_instance),
           )
-        : CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements(
+        : CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements(
             local$allMstrSpecMeasurements,
             (e) => call(allMstrSpecMeasurements: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Query$SpecMeasurementRead<TRes>
-    implements CopyWith$Query$SpecMeasurementRead<TRes> {
-  _CopyWithStubImpl$Query$SpecMeasurementRead(this._res);
+class _CopyWithStubImpl$Query$SpecMeasurementPageRead<TRes>
+    implements CopyWith$Query$SpecMeasurementPageRead<TRes> {
+  _CopyWithStubImpl$Query$SpecMeasurementPageRead(this._res);
 
   TRes _res;
 
   call({
-    Query$SpecMeasurementRead$allMstrSpecMeasurements? allMstrSpecMeasurements,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements?
+    allMstrSpecMeasurements,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements<TRes>
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements<TRes>
   get allMstrSpecMeasurements =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements.stub(_res);
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements.stub(_res);
 }
 
-const documentNodeQuerySpecMeasurementRead = DocumentNode(
+const documentNodeQuerySpecMeasurementPageRead = DocumentNode(
   definitions: [
     OperationDefinitionNode(
       type: OperationType.query,
-      name: NameNode(value: 'SpecMeasurementRead'),
+      name: NameNode(value: 'SpecMeasurementPageRead'),
       variableDefinitions: [
         VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'first')),
@@ -564,6 +570,13 @@ const documentNodeQuerySpecMeasurementRead = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(value: 'measurementValue'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'symbol'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -1380,25 +1393,28 @@ const documentNodeQuerySpecMeasurementRead = DocumentNode(
     ),
   ],
 );
-Query$SpecMeasurementRead _parserFn$Query$SpecMeasurementRead(
+Query$SpecMeasurementPageRead _parserFn$Query$SpecMeasurementPageRead(
   Map<String, dynamic> data,
-) => Query$SpecMeasurementRead.fromJson(data);
-typedef OnQueryComplete$Query$SpecMeasurementRead =
-    FutureOr<void> Function(Map<String, dynamic>?, Query$SpecMeasurementRead?);
+) => Query$SpecMeasurementPageRead.fromJson(data);
+typedef OnQueryComplete$Query$SpecMeasurementPageRead =
+    FutureOr<void> Function(
+      Map<String, dynamic>?,
+      Query$SpecMeasurementPageRead?,
+    );
 
-class Options$Query$SpecMeasurementRead
-    extends graphql.QueryOptions<Query$SpecMeasurementRead> {
-  Options$Query$SpecMeasurementRead({
+class Options$Query$SpecMeasurementPageRead
+    extends graphql.QueryOptions<Query$SpecMeasurementPageRead> {
+  Options$Query$SpecMeasurementPageRead({
     String? operationName,
-    required Variables$Query$SpecMeasurementRead variables,
+    required Variables$Query$SpecMeasurementPageRead variables,
     graphql.FetchPolicy? fetchPolicy,
     graphql.ErrorPolicy? errorPolicy,
     graphql.CacheRereadPolicy? cacheRereadPolicy,
     Object? optimisticResult,
-    Query$SpecMeasurementRead? typedOptimisticResult,
+    Query$SpecMeasurementPageRead? typedOptimisticResult,
     Duration? pollInterval,
     graphql.Context? context,
-    OnQueryComplete$Query$SpecMeasurementRead? onComplete,
+    OnQueryComplete$Query$SpecMeasurementPageRead? onComplete,
     graphql.OnQueryError? onError,
   }) : onCompleteWithParsed = onComplete,
        super(
@@ -1416,14 +1432,14 @@ class Options$Query$SpecMeasurementRead
                  data,
                  data == null
                      ? null
-                     : _parserFn$Query$SpecMeasurementRead(data),
+                     : _parserFn$Query$SpecMeasurementPageRead(data),
                ),
          onError: onError,
-         document: documentNodeQuerySpecMeasurementRead,
-         parserFn: _parserFn$Query$SpecMeasurementRead,
+         document: documentNodeQuerySpecMeasurementPageRead,
+         parserFn: _parserFn$Query$SpecMeasurementPageRead,
        );
 
-  final OnQueryComplete$Query$SpecMeasurementRead? onCompleteWithParsed;
+  final OnQueryComplete$Query$SpecMeasurementPageRead? onCompleteWithParsed;
 
   @override
   List<Object?> get properties => [
@@ -1434,16 +1450,16 @@ class Options$Query$SpecMeasurementRead
   ];
 }
 
-class WatchOptions$Query$SpecMeasurementRead
-    extends graphql.WatchQueryOptions<Query$SpecMeasurementRead> {
-  WatchOptions$Query$SpecMeasurementRead({
+class WatchOptions$Query$SpecMeasurementPageRead
+    extends graphql.WatchQueryOptions<Query$SpecMeasurementPageRead> {
+  WatchOptions$Query$SpecMeasurementPageRead({
     String? operationName,
-    required Variables$Query$SpecMeasurementRead variables,
+    required Variables$Query$SpecMeasurementPageRead variables,
     graphql.FetchPolicy? fetchPolicy,
     graphql.ErrorPolicy? errorPolicy,
     graphql.CacheRereadPolicy? cacheRereadPolicy,
     Object? optimisticResult,
-    Query$SpecMeasurementRead? typedOptimisticResult,
+    Query$SpecMeasurementPageRead? typedOptimisticResult,
     graphql.Context? context,
     Duration? pollInterval,
     bool? eagerlyFetchResults,
@@ -1457,45 +1473,47 @@ class WatchOptions$Query$SpecMeasurementRead
          cacheRereadPolicy: cacheRereadPolicy,
          optimisticResult: optimisticResult ?? typedOptimisticResult?.toJson(),
          context: context,
-         document: documentNodeQuerySpecMeasurementRead,
+         document: documentNodeQuerySpecMeasurementPageRead,
          pollInterval: pollInterval,
          eagerlyFetchResults: eagerlyFetchResults,
          carryForwardDataOnException: carryForwardDataOnException,
          fetchResults: fetchResults,
-         parserFn: _parserFn$Query$SpecMeasurementRead,
+         parserFn: _parserFn$Query$SpecMeasurementPageRead,
        );
 }
 
-class FetchMoreOptions$Query$SpecMeasurementRead
+class FetchMoreOptions$Query$SpecMeasurementPageRead
     extends graphql.FetchMoreOptions {
-  FetchMoreOptions$Query$SpecMeasurementRead({
+  FetchMoreOptions$Query$SpecMeasurementPageRead({
     required graphql.UpdateQuery updateQuery,
-    required Variables$Query$SpecMeasurementRead variables,
+    required Variables$Query$SpecMeasurementPageRead variables,
   }) : super(
          updateQuery: updateQuery,
          variables: variables.toJson(),
-         document: documentNodeQuerySpecMeasurementRead,
+         document: documentNodeQuerySpecMeasurementPageRead,
        );
 }
 
-extension ClientExtension$Query$SpecMeasurementRead on graphql.GraphQLClient {
-  Future<graphql.QueryResult<Query$SpecMeasurementRead>>
-  query$SpecMeasurementRead(Options$Query$SpecMeasurementRead options) async =>
-      await this.query(options);
+extension ClientExtension$Query$SpecMeasurementPageRead
+    on graphql.GraphQLClient {
+  Future<graphql.QueryResult<Query$SpecMeasurementPageRead>>
+  query$SpecMeasurementPageRead(
+    Options$Query$SpecMeasurementPageRead options,
+  ) async => await this.query(options);
 
-  graphql.ObservableQuery<Query$SpecMeasurementRead>
-  watchQuery$SpecMeasurementRead(
-    WatchOptions$Query$SpecMeasurementRead options,
+  graphql.ObservableQuery<Query$SpecMeasurementPageRead>
+  watchQuery$SpecMeasurementPageRead(
+    WatchOptions$Query$SpecMeasurementPageRead options,
   ) => this.watchQuery(options);
 
-  void writeQuery$SpecMeasurementRead({
-    required Query$SpecMeasurementRead data,
-    required Variables$Query$SpecMeasurementRead variables,
+  void writeQuery$SpecMeasurementPageRead({
+    required Query$SpecMeasurementPageRead data,
+    required Variables$Query$SpecMeasurementPageRead variables,
     bool broadcast = true,
   }) => this.writeQuery(
     graphql.Request(
       operation: graphql.Operation(
-        document: documentNodeQuerySpecMeasurementRead,
+        document: documentNodeQuerySpecMeasurementPageRead,
       ),
       variables: variables.toJson(),
     ),
@@ -1503,66 +1521,70 @@ extension ClientExtension$Query$SpecMeasurementRead on graphql.GraphQLClient {
     broadcast: broadcast,
   );
 
-  Query$SpecMeasurementRead? readQuery$SpecMeasurementRead({
-    required Variables$Query$SpecMeasurementRead variables,
+  Query$SpecMeasurementPageRead? readQuery$SpecMeasurementPageRead({
+    required Variables$Query$SpecMeasurementPageRead variables,
     bool optimistic = true,
   }) {
     final result = this.readQuery(
       graphql.Request(
         operation: graphql.Operation(
-          document: documentNodeQuerySpecMeasurementRead,
+          document: documentNodeQuerySpecMeasurementPageRead,
         ),
         variables: variables.toJson(),
       ),
       optimistic: optimistic,
     );
-    return result == null ? null : Query$SpecMeasurementRead.fromJson(result);
+    return result == null
+        ? null
+        : Query$SpecMeasurementPageRead.fromJson(result);
   }
 }
 
-graphql_flutter.QueryHookResult<Query$SpecMeasurementRead>
-useQuery$SpecMeasurementRead(Options$Query$SpecMeasurementRead options) =>
-    graphql_flutter.useQuery(options);
-graphql.ObservableQuery<Query$SpecMeasurementRead>
-useWatchQuery$SpecMeasurementRead(
-  WatchOptions$Query$SpecMeasurementRead options,
+graphql_flutter.QueryHookResult<Query$SpecMeasurementPageRead>
+useQuery$SpecMeasurementPageRead(
+  Options$Query$SpecMeasurementPageRead options,
+) => graphql_flutter.useQuery(options);
+graphql.ObservableQuery<Query$SpecMeasurementPageRead>
+useWatchQuery$SpecMeasurementPageRead(
+  WatchOptions$Query$SpecMeasurementPageRead options,
 ) => graphql_flutter.useWatchQuery(options);
 
-class Query$SpecMeasurementRead$Widget
-    extends graphql_flutter.Query<Query$SpecMeasurementRead> {
-  Query$SpecMeasurementRead$Widget({
+class Query$SpecMeasurementPageRead$Widget
+    extends graphql_flutter.Query<Query$SpecMeasurementPageRead> {
+  Query$SpecMeasurementPageRead$Widget({
     widgets.Key? key,
-    required Options$Query$SpecMeasurementRead options,
-    required graphql_flutter.QueryBuilder<Query$SpecMeasurementRead> builder,
+    required Options$Query$SpecMeasurementPageRead options,
+    required graphql_flutter.QueryBuilder<Query$SpecMeasurementPageRead>
+    builder,
   }) : super(key: key, options: options, builder: builder);
 }
 
-class Query$SpecMeasurementRead$allMstrSpecMeasurements {
-  Query$SpecMeasurementRead$allMstrSpecMeasurements({
+class Query$SpecMeasurementPageRead$allMstrSpecMeasurements {
+  Query$SpecMeasurementPageRead$allMstrSpecMeasurements({
     required this.totalCount,
     required this.pageInfo,
     required this.nodes,
     this.$__typename = 'MstrSpecMeasurementsConnection',
   });
 
-  factory Query$SpecMeasurementRead$allMstrSpecMeasurements.fromJson(
+  factory Query$SpecMeasurementPageRead$allMstrSpecMeasurements.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$totalCount = json['totalCount'];
     final l$pageInfo = json['pageInfo'];
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$SpecMeasurementRead$allMstrSpecMeasurements(
+    return Query$SpecMeasurementPageRead$allMstrSpecMeasurements(
       totalCount: (l$totalCount as int),
       pageInfo:
-          Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo.fromJson(
+          Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo.fromJson(
             (l$pageInfo as Map<String, dynamic>),
           ),
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes.fromJson(
+                : Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -1573,9 +1595,10 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements {
 
   final int totalCount;
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo pageInfo;
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo pageInfo;
 
-  final List<Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes?> nodes;
+  final List<Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes?>
+  nodes;
 
   final String $__typename;
 
@@ -1611,7 +1634,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Query$SpecMeasurementRead$allMstrSpecMeasurements ||
+    if (other is! Query$SpecMeasurementPageRead$allMstrSpecMeasurements ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -1646,42 +1669,44 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements {
   }
 }
 
-extension UtilityExtension$Query$SpecMeasurementRead$allMstrSpecMeasurements
-    on Query$SpecMeasurementRead$allMstrSpecMeasurements {
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements<
-    Query$SpecMeasurementRead$allMstrSpecMeasurements
+extension UtilityExtension$Query$SpecMeasurementPageRead$allMstrSpecMeasurements
+    on Query$SpecMeasurementPageRead$allMstrSpecMeasurements {
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements<
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements
   >
-  get copyWith => CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements(
-    this,
-    (i) => i,
-  );
+  get copyWith =>
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements(
+        this,
+        (i) => i,
+      );
 }
 
-abstract class CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements<
+abstract class CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements<
   TRes
 > {
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements instance,
-    TRes Function(Query$SpecMeasurementRead$allMstrSpecMeasurements) then,
-  ) = _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements;
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements instance,
+    TRes Function(Query$SpecMeasurementPageRead$allMstrSpecMeasurements) then,
+  ) = _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements;
 
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements.stub(
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements;
+  ) = _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements;
 
   TRes call({
     int? totalCount,
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo? pageInfo,
-    List<Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes?>? nodes,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo? pageInfo,
+    List<Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes?>? nodes,
     String? $__typename,
   });
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo<TRes>
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo<TRes>
   get pageInfo;
   TRes nodes(
-    Iterable<Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes?> Function(
+    Iterable<Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes?>
+    Function(
       Iterable<
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes<
-          Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes<
+          Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes
         >?
       >,
     )
@@ -1689,17 +1714,18 @@ abstract class CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements<
   );
 }
 
-class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements<TRes>
+class _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements<TRes>
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements<TRes> {
-  _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements(
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements<TRes> {
+  _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements(
     this._instance,
     this._then,
   );
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements _instance;
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements _instance;
 
-  final TRes Function(Query$SpecMeasurementRead$allMstrSpecMeasurements) _then;
+  final TRes Function(Query$SpecMeasurementPageRead$allMstrSpecMeasurements)
+  _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
@@ -1709,19 +1735,19 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements<TRes>
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements(
       totalCount: totalCount == _undefined || totalCount == null
           ? _instance.totalCount
           : (totalCount as int),
       pageInfo: pageInfo == _undefined || pageInfo == null
           ? _instance.pageInfo
           : (pageInfo
-                as Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo),
+                as Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo),
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes?
+                  Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -1729,20 +1755,21 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements<TRes>
     ),
   );
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo<TRes>
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo<TRes>
   get pageInfo {
     final local$pageInfo = _instance.pageInfo;
-    return CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo(
+    return CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo(
       local$pageInfo,
       (e) => call(pageInfo: e),
     );
   }
 
   TRes nodes(
-    Iterable<Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes?> Function(
+    Iterable<Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes?>
+    Function(
       Iterable<
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes<
-          Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes<
+          Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes
         >?
       >,
     )
@@ -1752,7 +1779,7 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements<TRes>
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes(
+            : CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes(
                 e,
                 (i) => i,
               ),
@@ -1761,10 +1788,12 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements<TRes>
   );
 }
 
-class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements<TRes>
+class _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements<
+  TRes
+>
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements<TRes> {
-  _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements(
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements<TRes> {
+  _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements(
     this._res,
   );
 
@@ -1772,34 +1801,34 @@ class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements<TRes>
 
   call({
     int? totalCount,
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo? pageInfo,
-    List<Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes?>? nodes,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo? pageInfo,
+    List<Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes?>? nodes,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo<TRes>
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo<TRes>
   get pageInfo =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo.stub(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo.stub(
         _res,
       );
 
   nodes(_fn) => _res;
 }
 
-class Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo {
-  Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo({
+class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo {
+  Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo({
     required this.hasNextPage,
     this.endCursor,
     this.$__typename = 'PageInfo',
   });
 
-  factory Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo.fromJson(
+  factory Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$hasNextPage = json['hasNextPage'];
     final l$endCursor = json['endCursor'];
     final l$$__typename = json['__typename'];
-    return Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo(
+    return Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo(
       hasNextPage: (l$hasNextPage as bool),
       endCursor: (l$endCursor as String?),
       $__typename: (l$$__typename as String),
@@ -1836,7 +1865,8 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo ||
+    if (other
+            is! Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -1859,50 +1889,53 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo {
   }
 }
 
-extension UtilityExtension$Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo
-    on Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo {
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo<
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo
+extension UtilityExtension$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo
+    on Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo {
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo<
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo
   >
   get copyWith =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo<
+abstract class CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo<
   TRes
 > {
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo instance,
-    TRes Function(Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo)
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo instance,
+    TRes Function(
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo,
+    )
     then,
-  ) = _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo;
+  ) = _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo;
 
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo.stub(
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo;
+  ) = _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo;
 
   TRes call({bool? hasNextPage, String? endCursor, String? $__typename});
 }
 
-class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo<
+class _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo<
           TRes
         > {
-  _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo(
+  _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo(
     this._instance,
     this._then,
   );
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo _instance;
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo
+  _instance;
 
   final TRes Function(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo,
   )
   _then;
 
@@ -1913,7 +1946,7 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo<
     Object? endCursor = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo(
       hasNextPage: hasNextPage == _undefined || hasNextPage == null
           ? _instance.hasNextPage
           : (hasNextPage as bool),
@@ -1927,14 +1960,14 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo<
   );
 }
 
-class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo<
+class _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo<
           TRes
         > {
-  _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$pageInfo(
+  _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$pageInfo(
     this._res,
   );
 
@@ -1943,10 +1976,11 @@ class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$pageIn
   call({bool? hasNextPage, String? endCursor, String? $__typename}) => _res;
 }
 
-class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes {
-  Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes({
+class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes {
+  Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes({
     required this.mstrSpecMeasurementId,
     required this.measurementValue,
+    this.symbol,
     this.remarks,
     this.updateAt,
     this.remove,
@@ -1955,31 +1989,33 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes {
     this.$__typename = 'MstrSpecMeasurement',
   });
 
-  factory Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes.fromJson(
+  factory Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$mstrSpecMeasurementId = json['mstrSpecMeasurementId'];
     final l$measurementValue = json['measurementValue'];
+    final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
     final l$unit = json['unit'];
     final l$update_user = json['update_user'];
     final l$$__typename = json['__typename'];
-    return Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes(
+    return Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes(
       mstrSpecMeasurementId: (l$mstrSpecMeasurementId as String),
       measurementValue: (l$measurementValue as String),
+      symbol: (l$symbol as String?),
       remarks: (l$remarks as String?),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
       unit: l$unit == null
           ? null
-          : Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit.fromJson(
+          : Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit.fromJson(
               (l$unit as Map<String, dynamic>),
             ),
       update_user: l$update_user == null
           ? null
-          : Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user.fromJson(
+          : Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user.fromJson(
               (l$update_user as Map<String, dynamic>),
             ),
       $__typename: (l$$__typename as String),
@@ -1990,15 +2026,17 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes {
 
   final String measurementValue;
 
+  final String? symbol;
+
   final String? remarks;
 
   final String? updateAt;
 
   final bool? remove;
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit? unit;
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit? unit;
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user?
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user?
   update_user;
 
   final String $__typename;
@@ -2009,6 +2047,8 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes {
     _resultData['mstrSpecMeasurementId'] = l$mstrSpecMeasurementId;
     final l$measurementValue = measurementValue;
     _resultData['measurementValue'] = l$measurementValue;
+    final l$symbol = symbol;
+    _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
     final l$updateAt = updateAt;
@@ -2028,6 +2068,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes {
   int get hashCode {
     final l$mstrSpecMeasurementId = mstrSpecMeasurementId;
     final l$measurementValue = measurementValue;
+    final l$symbol = symbol;
     final l$remarks = remarks;
     final l$updateAt = updateAt;
     final l$remove = remove;
@@ -2037,6 +2078,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes {
     return Object.hashAll([
       l$mstrSpecMeasurementId,
       l$measurementValue,
+      l$symbol,
       l$remarks,
       l$updateAt,
       l$remove,
@@ -2051,7 +2093,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes ||
+    if (other is! Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -2063,6 +2105,11 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes {
     final l$measurementValue = measurementValue;
     final lOther$measurementValue = other.measurementValue;
     if (l$measurementValue != lOther$measurementValue) {
+      return false;
+    }
+    final l$symbol = symbol;
+    final lOther$symbol = other.symbol;
+    if (l$symbol != lOther$symbol) {
       return false;
     }
     final l$remarks = remarks;
@@ -2099,62 +2146,70 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes {
   }
 }
 
-extension UtilityExtension$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes
-    on Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes {
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes<
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes
+extension UtilityExtension$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes
+    on Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes {
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes<
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes
   >
   get copyWith =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes<
+abstract class CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes<
   TRes
 > {
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes instance,
-    TRes Function(Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes) then,
-  ) = _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes;
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes instance,
+    TRes Function(Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes)
+    then,
+  ) = _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes;
 
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes.stub(
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes;
+  ) = _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes;
 
   TRes call({
     String? mstrSpecMeasurementId,
     String? measurementValue,
+    String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit? unit,
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user?
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit? unit,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user?
     update_user,
     String? $__typename,
   });
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit<TRes>
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit<
+    TRes
+  >
   get unit;
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user<
     TRes
   >
   get update_user;
 }
 
-class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes<
+class _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes<TRes> {
-  _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes(
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes _instance;
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes _instance;
 
-  final TRes Function(Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes)
+  final TRes Function(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes,
+  )
   _then;
 
   static const _undefined = <dynamic, dynamic>{};
@@ -2162,6 +2217,7 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes<
   TRes call({
     Object? mstrSpecMeasurementId = _undefined,
     Object? measurementValue = _undefined,
+    Object? symbol = _undefined,
     Object? remarks = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
@@ -2169,7 +2225,7 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes<
     Object? update_user = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes(
       mstrSpecMeasurementId:
           mstrSpecMeasurementId == _undefined || mstrSpecMeasurementId == null
           ? _instance.mstrSpecMeasurementId
@@ -2178,6 +2234,7 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes<
           measurementValue == _undefined || measurementValue == null
           ? _instance.measurementValue
           : (measurementValue as String),
+      symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
@@ -2186,52 +2243,56 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes<
       unit: unit == _undefined
           ? _instance.unit
           : (unit
-                as Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit?),
+                as Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit?),
       update_user: update_user == _undefined
           ? _instance.update_user
           : (update_user
-                as Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user?),
+                as Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit<TRes>
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit<
+    TRes
+  >
   get unit {
     final local$unit = _instance.unit;
     return local$unit == null
-        ? CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit.stub(
+        ? CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit.stub(
             _then(_instance),
           )
-        : CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit(
+        : CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit(
             local$unit,
             (e) => call(unit: e),
           );
   }
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user<
     TRes
   >
   get update_user {
     final local$update_user = _instance.update_user;
     return local$update_user == null
-        ? CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user.stub(
+        ? CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user.stub(
             _then(_instance),
           )
-        : CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user(
+        : CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user(
             local$update_user,
             (e) => call(update_user: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes<
+class _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes<TRes> {
-  _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes(
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes(
     this._res,
   );
 
@@ -2240,48 +2301,51 @@ class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes<
   call({
     String? mstrSpecMeasurementId,
     String? measurementValue,
+    String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit? unit,
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user?
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit? unit,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user?
     update_user,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit<TRes>
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit<
+    TRes
+  >
   get unit =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit.stub(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit.stub(
         _res,
       );
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user<
     TRes
   >
   get update_user =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user.stub(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user.stub(
         _res,
       );
 }
 
-class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit {
-  Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit({
+class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit {
+  Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit({
     required this.sharedUnitId,
     this.labels,
     this.$__typename = 'SharedUnit',
   });
 
-  factory Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit.fromJson(
+  factory Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedUnitId = json['sharedUnitId'];
     final l$labels = json['labels'];
     final l$$__typename = json['__typename'];
-    return Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit(
+    return Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit(
       sharedUnitId: (l$sharedUnitId as String),
       labels: l$labels == null
           ? null
-          : Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels.fromJson(
+          : Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels.fromJson(
               (l$labels as Map<String, dynamic>),
             ),
       $__typename: (l$$__typename as String),
@@ -2290,7 +2354,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit {
 
   final String sharedUnitId;
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels?
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels?
   labels;
 
   final String $__typename;
@@ -2320,7 +2384,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit {
       return true;
     }
     if (other
-            is! Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit ||
+            is! Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -2343,58 +2407,62 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit {
   }
 }
 
-extension UtilityExtension$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit
-    on Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit {
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit<
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit
+extension UtilityExtension$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit
+    on Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit {
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit<
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit
   >
   get copyWith =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit<
+abstract class CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit<
   TRes
 > {
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit instance,
-    TRes Function(Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit)
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit instance,
+    TRes Function(
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit,
+    )
     then,
-  ) = _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit;
+  ) = _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit;
 
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit.stub(
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit;
+  ) = _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit;
 
   TRes call({
     String? sharedUnitId,
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels? labels,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels?
+    labels,
     String? $__typename,
   });
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels<
     TRes
   >
   get labels;
 }
 
-class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit<
+class _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit<
           TRes
         > {
-  _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit(
+  _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit(
     this._instance,
     this._then,
   );
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit _instance;
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit
+  _instance;
 
   final TRes Function(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit,
   )
   _then;
 
@@ -2405,44 +2473,44 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit
     Object? labels = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit(
       sharedUnitId: sharedUnitId == _undefined || sharedUnitId == null
           ? _instance.sharedUnitId
           : (sharedUnitId as String),
       labels: labels == _undefined
           ? _instance.labels
           : (labels
-                as Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels?),
+                as Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels<
     TRes
   >
   get labels {
     final local$labels = _instance.labels;
     return local$labels == null
-        ? CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels.stub(
+        ? CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels.stub(
             _then(_instance),
           )
-        : CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels(
+        : CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels(
             local$labels,
             (e) => call(labels: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit<
+class _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit<
           TRes
         > {
-  _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit(
+  _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit(
     this._res,
   );
 
@@ -2450,21 +2518,22 @@ class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$
 
   call({
     String? sharedUnitId,
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels? labels,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels?
+    labels,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels<
     TRes
   >
   get labels =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels.stub(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels.stub(
         _res,
       );
 }
 
-class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels {
-  Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels({
+class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels {
+  Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels({
     required this.sharedAppellationsId,
     this.sharedDictionaryBySharedDictionaryNameId,
     this.sharedDictionaryBySharedDictionaryPronunciationId,
@@ -2472,7 +2541,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels {
     this.$__typename = 'SharedAppellation',
   });
 
-  factory Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels.fromJson(
+  factory Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedAppellationsId = json['sharedAppellationsId'];
@@ -2483,26 +2552,26 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels {
     final l$sharedDictionaryBySharedDictionaryNicknameId =
         json['sharedDictionaryBySharedDictionaryNicknameId'];
     final l$$__typename = json['__typename'];
-    return Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels(
+    return Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels(
       sharedAppellationsId: (l$sharedAppellationsId as String),
       sharedDictionaryBySharedDictionaryNameId:
           l$sharedDictionaryBySharedDictionaryNameId == null
           ? null
-          : Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId.fromJson(
+          : Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNameId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryPronunciationId:
           l$sharedDictionaryBySharedDictionaryPronunciationId == null
           ? null
-          : Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+          : Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
               (l$sharedDictionaryBySharedDictionaryPronunciationId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryNicknameId:
           l$sharedDictionaryBySharedDictionaryNicknameId == null
           ? null
-          : Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+          : Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNicknameId
                   as Map<String, dynamic>),
             ),
@@ -2512,13 +2581,13 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels {
 
   final String sharedAppellationsId;
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId?
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId?
   sharedDictionaryBySharedDictionaryNameId;
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId?
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId?
   sharedDictionaryBySharedDictionaryPronunciationId;
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId?
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId?
   sharedDictionaryBySharedDictionaryNicknameId;
 
   final String $__typename;
@@ -2569,7 +2638,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels {
       return true;
     }
     if (other
-            is! Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels ||
+            is! Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -2611,75 +2680,75 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels {
   }
 }
 
-extension UtilityExtension$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels
-    on Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels {
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels<
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels
+extension UtilityExtension$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels
+    on Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels {
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels<
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels
   >
   get copyWith =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels<
+abstract class CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels<
   TRes
 > {
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels
     instance,
     TRes Function(
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels,
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels,
     )
     then,
-  ) = _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels;
+  ) = _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels;
 
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels.stub(
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels;
+  ) = _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels;
 
   TRes call({
     String? sharedAppellationsId,
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId?
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId?
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId?
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   });
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId;
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId;
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId;
 }
 
-class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels<
+class _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels<
           TRes
         > {
-  _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels(
+  _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels(
     this._instance,
     this._then,
   );
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels
   _instance;
 
   final TRes Function(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels,
   )
   _then;
 
@@ -2692,7 +2761,7 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit
     Object? sharedDictionaryBySharedDictionaryNicknameId = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels(
       sharedAppellationsId:
           sharedAppellationsId == _undefined || sharedAppellationsId == null
           ? _instance.sharedAppellationsId
@@ -2701,80 +2770,80 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit
           sharedDictionaryBySharedDictionaryNameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNameId
           : (sharedDictionaryBySharedDictionaryNameId
-                as Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId?),
+                as Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId?),
       sharedDictionaryBySharedDictionaryPronunciationId:
           sharedDictionaryBySharedDictionaryPronunciationId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryPronunciationId
           : (sharedDictionaryBySharedDictionaryPronunciationId
-                as Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId?),
+                as Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId?),
       sharedDictionaryBySharedDictionaryNicknameId:
           sharedDictionaryBySharedDictionaryNicknameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNicknameId
           : (sharedDictionaryBySharedDictionaryNicknameId
-                as Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId?),
+                as Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId {
     final local$sharedDictionaryBySharedDictionaryNameId =
         _instance.sharedDictionaryBySharedDictionaryNameId;
     return local$sharedDictionaryBySharedDictionaryNameId == null
-        ? CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId.stub(
+        ? CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId(
+        : CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId(
             local$sharedDictionaryBySharedDictionaryNameId,
             (e) => call(sharedDictionaryBySharedDictionaryNameId: e),
           );
   }
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId {
     final local$sharedDictionaryBySharedDictionaryPronunciationId =
         _instance.sharedDictionaryBySharedDictionaryPronunciationId;
     return local$sharedDictionaryBySharedDictionaryPronunciationId == null
-        ? CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+        ? CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+        : CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId(
             local$sharedDictionaryBySharedDictionaryPronunciationId,
             (e) => call(sharedDictionaryBySharedDictionaryPronunciationId: e),
           );
   }
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId {
     final local$sharedDictionaryBySharedDictionaryNicknameId =
         _instance.sharedDictionaryBySharedDictionaryNicknameId;
     return local$sharedDictionaryBySharedDictionaryNicknameId == null
-        ? CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId.stub(
+        ? CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId(
+        : CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId(
             local$sharedDictionaryBySharedDictionaryNicknameId,
             (e) => call(sharedDictionaryBySharedDictionaryNicknameId: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels<
+class _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels<
           TRes
         > {
-  _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels(
+  _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels(
     this._res,
   );
 
@@ -2782,57 +2851,57 @@ class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$
 
   call({
     String? sharedAppellationsId,
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId?
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId?
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId?
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId.stub(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId.stub(
         _res,
       );
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId.stub(
         _res,
       );
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId.stub(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId.stub(
         _res,
       );
 }
 
-class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId {
-  Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId({
+class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId {
+  Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId.fromJson(
+  factory Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId(
+    return Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
+          Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -2841,7 +2910,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$shared
 
   final String sharedDictionaryId;
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value
   value;
 
   final String $__typename;
@@ -2871,7 +2940,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$shared
       return true;
     }
     if (other
-            is! Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId ||
+            is! Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -2894,64 +2963,64 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$shared
   }
 }
 
-extension UtilityExtension$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId
+extension UtilityExtension$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId
     on
-        Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId {
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId<
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId
+        Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId {
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId<
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId
   >
   get copyWith =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId<
+abstract class CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId<
   TRes
 > {
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId
     instance,
     TRes Function(
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId,
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId,
     )
     then,
-  ) = _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId;
 
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId.stub(
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value?
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId(
     this._instance,
     this._then,
   );
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId
   _instance;
 
   final TRes Function(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId,
   )
   _then;
 
@@ -2962,7 +3031,7 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -2970,33 +3039,33 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value),
+                as Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value(
+    return CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId(
     this._res,
   );
 
@@ -3004,37 +3073,37 @@ class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$
 
   call({
     String? sharedDictionaryId,
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value?
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value.stub(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value.stub(
         _res,
       );
 }
 
-class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value {
-  Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value({
+class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value {
+  Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
+  factory Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value(
+    return Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
+                : Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -3044,7 +3113,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$shared
   }
 
   final List<
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
   >
   nodes;
 
@@ -3075,7 +3144,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$shared
       return true;
     }
     if (other
-            is! Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value ||
+            is! Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -3100,50 +3169,50 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$shared
   }
 }
 
-extension UtilityExtension$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value
+extension UtilityExtension$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value
     on
-        Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value {
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value<
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value
+        Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value {
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value<
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value
   >
   get copyWith =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value<
+abstract class CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 > {
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value
     instance,
     TRes Function(
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value,
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value;
+  ) = _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value;
 
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value.stub(
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value;
+  ) = _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value;
 
   TRes call({
     List<
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-          Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
         >?
       >,
     )
@@ -3151,23 +3220,23 @@ abstract class CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$
   );
 }
 
-class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value<
+class _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value<
           TRes
         > {
-  _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value(
+  _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value(
     this._instance,
     this._then,
   );
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value
   _instance;
 
   final TRes Function(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value,
   )
   _then;
 
@@ -3177,12 +3246,12 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+                  Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -3192,12 +3261,12 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit
 
   TRes nodes(
     Iterable<
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-          Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
         >?
       >,
     )
@@ -3207,7 +3276,7 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+            : CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -3216,14 +3285,14 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit
   );
 }
 
-class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value<
+class _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value(
+  _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value(
     this._res,
   );
 
@@ -3231,7 +3300,7 @@ class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$
 
   call({
     List<
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -3240,18 +3309,18 @@ class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$
   nodes(_fn) => _res;
 }
 
-class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes {
-  Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes({
+class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes {
+  Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
+  factory Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    return Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -3283,7 +3352,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$shared
       return true;
     }
     if (other
-            is! Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes ||
+            is! Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -3301,55 +3370,55 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$shared
   }
 }
 
-extension UtilityExtension$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
+extension UtilityExtension$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
     on
-        Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes {
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes {
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+abstract class CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
     instance,
     TRes Function(
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes,
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes;
+  ) = _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes;
 
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes.stub(
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes;
+  ) = _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+class _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+  _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes,
   )
   _then;
 
@@ -3359,7 +3428,7 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -3370,14 +3439,14 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit
   );
 }
 
-class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+class _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+  _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNameId$value$nodes(
     this._res,
   );
 
@@ -3386,23 +3455,23 @@ class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId {
-  Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId({
+class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId {
+  Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+  factory Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+    return Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
+          Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -3411,7 +3480,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$shared
 
   final String sharedDictionaryId;
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
   value;
 
   final String $__typename;
@@ -3441,7 +3510,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$shared
       return true;
     }
     if (other
-            is! Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId ||
+            is! Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -3464,64 +3533,64 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$shared
   }
 }
 
-extension UtilityExtension$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId
+extension UtilityExtension$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId
     on
-        Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId {
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId<
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId
+        Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId {
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId
   >
   get copyWith =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+abstract class CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 > {
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId
     instance,
     TRes Function(
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId,
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId,
     )
     then,
-  ) = _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId;
 
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value?
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId(
     this._instance,
     this._then,
   );
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId
   _instance;
 
   final TRes Function(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId,
   )
   _then;
 
@@ -3532,7 +3601,7 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -3540,33 +3609,33 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value),
+                as Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    return CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId(
     this._res,
   );
 
@@ -3574,37 +3643,37 @@ class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$
 
   call({
     String? sharedDictionaryId,
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value?
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
         _res,
       );
 }
 
-class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value {
-  Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value({
+class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value {
+  Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
+  factory Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    return Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
+                : Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -3614,7 +3683,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$shared
   }
 
   final List<
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
   >
   nodes;
 
@@ -3645,7 +3714,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$shared
       return true;
     }
     if (other
-            is! Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value ||
+            is! Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -3670,50 +3739,50 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$shared
   }
 }
 
-extension UtilityExtension$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
+extension UtilityExtension$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
     on
-        Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value {
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
+        Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value {
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
   >
   get copyWith =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+abstract class CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 > {
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
     instance,
     TRes Function(
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value,
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value;
+  ) = _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value;
 
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value;
+  ) = _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value;
 
   TRes call({
     List<
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-          Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
         >?
       >,
     )
@@ -3721,23 +3790,23 @@ abstract class CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$
   );
 }
 
-class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+class _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
           TRes
         > {
-  _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
+  _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
     this._instance,
     this._then,
   );
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value
   _instance;
 
   final TRes Function(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value,
   )
   _then;
 
@@ -3747,12 +3816,12 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+                  Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -3762,12 +3831,12 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit
 
   TRes nodes(
     Iterable<
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-          Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
         >?
       >,
     )
@@ -3777,7 +3846,7 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+            : CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -3786,14 +3855,14 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit
   );
 }
 
-class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+class _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
+  _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value(
     this._res,
   );
 
@@ -3801,7 +3870,7 @@ class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$
 
   call({
     List<
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -3810,18 +3879,18 @@ class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$
   nodes(_fn) => _res;
 }
 
-class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
-  Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes({
+class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
+  Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
+  factory Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    return Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -3853,7 +3922,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$shared
       return true;
     }
     if (other
-            is! Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes ||
+            is! Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -3871,55 +3940,55 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$shared
   }
 }
 
-extension UtilityExtension$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+extension UtilityExtension$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
     on
-        Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+abstract class CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
     instance,
     TRes Function(
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
+  ) = _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
 
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.stub(
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
+  ) = _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+class _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+  _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
   )
   _then;
 
@@ -3929,7 +3998,7 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -3940,14 +4009,14 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit
   );
 }
 
-class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+class _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+  _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
     this._res,
   );
 
@@ -3956,23 +4025,23 @@ class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId {
-  Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId({
+class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId {
+  Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+  factory Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId(
+    return Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
+          Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -3981,7 +4050,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$shared
 
   final String sharedDictionaryId;
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value
   value;
 
   final String $__typename;
@@ -4011,7 +4080,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$shared
       return true;
     }
     if (other
-            is! Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId ||
+            is! Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -4034,64 +4103,64 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$shared
   }
 }
 
-extension UtilityExtension$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId
+extension UtilityExtension$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId
     on
-        Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId {
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId<
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId
+        Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId {
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId<
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId
   >
   get copyWith =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId<
+abstract class CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 > {
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId
     instance,
     TRes Function(
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId,
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId,
     )
     then,
-  ) = _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId;
 
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId.stub(
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value?
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId(
     this._instance,
     this._then,
   );
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId
   _instance;
 
   final TRes Function(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId,
   )
   _then;
 
@@ -4102,7 +4171,7 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -4110,33 +4179,33 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value),
+                as Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
+    return CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId(
     this._res,
   );
 
@@ -4144,37 +4213,37 @@ class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$
 
   call({
     String? sharedDictionaryId,
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value?
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
         _res,
       );
 }
 
-class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value {
-  Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value({
+class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value {
+  Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
+  factory Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
+    return Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
+                : Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -4184,7 +4253,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$shared
   }
 
   final List<
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
   >
   nodes;
 
@@ -4215,7 +4284,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$shared
       return true;
     }
     if (other
-            is! Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value ||
+            is! Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -4240,50 +4309,50 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$shared
   }
 }
 
-extension UtilityExtension$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value
+extension UtilityExtension$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value
     on
-        Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value {
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value
+        Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value {
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value
   >
   get copyWith =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+abstract class CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 > {
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value
     instance,
     TRes Function(
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value,
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value;
+  ) = _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value;
 
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value;
+  ) = _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value;
 
   TRes call({
     List<
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-          Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
         >?
       >,
     )
@@ -4291,23 +4360,23 @@ abstract class CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$
   );
 }
 
-class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+class _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
           TRes
         > {
-  _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
+  _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
     this._instance,
     this._then,
   );
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value
   _instance;
 
   final TRes Function(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value,
   )
   _then;
 
@@ -4317,12 +4386,12 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+                  Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -4332,12 +4401,12 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit
 
   TRes nodes(
     Iterable<
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-          Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
         >?
       >,
     )
@@ -4347,7 +4416,7 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+            : CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -4356,14 +4425,14 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit
   );
 }
 
-class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+class _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
+  _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value(
     this._res,
   );
 
@@ -4371,7 +4440,7 @@ class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$
 
   call({
     List<
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -4380,18 +4449,18 @@ class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$
   nodes(_fn) => _res;
 }
 
-class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
-  Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes({
+class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
+  Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
+  factory Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    return Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -4423,7 +4492,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$shared
       return true;
     }
     if (other
-            is! Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes ||
+            is! Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -4441,55 +4510,55 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$shared
   }
 }
 
-extension UtilityExtension$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+extension UtilityExtension$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
     on
-        Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+abstract class CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
     instance,
     TRes Function(
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
+  ) = _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
 
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.stub(
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
+  ) = _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+class _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+  _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
   )
   _then;
 
@@ -4499,7 +4568,7 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -4510,14 +4579,14 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit
   );
 }
 
-class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+class _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+  _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit$labels$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
     this._res,
   );
 
@@ -4526,8 +4595,8 @@ class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user {
-  Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user({
+class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user {
+  Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user({
     required this.historyId,
     required this.infoStaffId,
     this.infoCompanyId,
@@ -4540,7 +4609,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user {
     this.$__typename = 'HistoryInfoStaff',
   });
 
-  factory Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user.fromJson(
+  factory Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$historyId = json['historyId'];
@@ -4553,7 +4622,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user {
     final l$privatePhone = json['privatePhone'];
     final l$name = json['name'];
     final l$$__typename = json['__typename'];
-    return Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user(
+    return Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
       infoCompanyId: (l$infoCompanyId as String?),
@@ -4564,7 +4633,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user {
       privatePhone: (l$privatePhone as String?),
       name: l$name == null
           ? null
-          : Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name.fromJson(
+          : Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name.fromJson(
               (l$name as Map<String, dynamic>),
             ),
       $__typename: (l$$__typename as String),
@@ -4587,7 +4656,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user {
 
   final String? privatePhone;
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name?
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name?
   name;
 
   final String $__typename;
@@ -4649,7 +4718,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user {
       return true;
     }
     if (other
-            is! Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user ||
+            is! Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -4707,33 +4776,33 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user {
   }
 }
 
-extension UtilityExtension$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user
-    on Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user {
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user<
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user
+extension UtilityExtension$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user
+    on Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user {
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user<
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user
   >
   get copyWith =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user<
+abstract class CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user<
   TRes
 > {
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user
     instance,
     TRes Function(
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user,
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user,
     )
     then,
-  ) = _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user;
+  ) = _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user;
 
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user.stub(
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user;
+  ) = _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user;
 
   TRes call({
     String? historyId,
@@ -4744,33 +4813,33 @@ abstract class CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name?
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name?
     name,
     String? $__typename,
   });
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name<
     TRes
   >
   get name;
 }
 
-class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user<
+class _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user<
           TRes
         > {
-  _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user(
+  _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user(
     this._instance,
     this._then,
   );
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user
   _instance;
 
   final TRes Function(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user,
   )
   _then;
 
@@ -4788,7 +4857,7 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$upda
     Object? name = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user(
       historyId: historyId == _undefined || historyId == null
           ? _instance.historyId
           : (historyId as String),
@@ -4808,37 +4877,37 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$upda
       name: name == _undefined
           ? _instance.name
           : (name
-                as Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name?),
+                as Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name<
     TRes
   >
   get name {
     final local$name = _instance.name;
     return local$name == null
-        ? CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name.stub(
+        ? CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name.stub(
             _then(_instance),
           )
-        : CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name(
+        : CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name(
             local$name,
             (e) => call(name: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user<
+class _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user<
           TRes
         > {
-  _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user(
+  _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user(
     this._res,
   );
 
@@ -4853,22 +4922,22 @@ class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name?
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name?
     name,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name<
     TRes
   >
   get name =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name.stub(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name.stub(
         _res,
       );
 }
 
-class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name {
-  Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name({
+class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name {
+  Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name({
     required this.sharedAppellationsId,
     this.sharedDictionaryBySharedDictionaryNameId,
     this.sharedDictionaryBySharedDictionaryPronunciationId,
@@ -4876,7 +4945,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name {
     this.$__typename = 'SharedAppellation',
   });
 
-  factory Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name.fromJson(
+  factory Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedAppellationsId = json['sharedAppellationsId'];
@@ -4887,26 +4956,26 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name {
     final l$sharedDictionaryBySharedDictionaryNicknameId =
         json['sharedDictionaryBySharedDictionaryNicknameId'];
     final l$$__typename = json['__typename'];
-    return Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name(
+    return Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name(
       sharedAppellationsId: (l$sharedAppellationsId as String),
       sharedDictionaryBySharedDictionaryNameId:
           l$sharedDictionaryBySharedDictionaryNameId == null
           ? null
-          : Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId.fromJson(
+          : Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNameId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryPronunciationId:
           l$sharedDictionaryBySharedDictionaryPronunciationId == null
           ? null
-          : Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+          : Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
               (l$sharedDictionaryBySharedDictionaryPronunciationId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryNicknameId:
           l$sharedDictionaryBySharedDictionaryNicknameId == null
           ? null
-          : Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+          : Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNicknameId
                   as Map<String, dynamic>),
             ),
@@ -4916,13 +4985,13 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name {
 
   final String sharedAppellationsId;
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId?
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId?
   sharedDictionaryBySharedDictionaryNameId;
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?
   sharedDictionaryBySharedDictionaryPronunciationId;
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?
   sharedDictionaryBySharedDictionaryNicknameId;
 
   final String $__typename;
@@ -4973,7 +5042,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name {
       return true;
     }
     if (other
-            is! Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name ||
+            is! Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -5015,75 +5084,75 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name {
   }
 }
 
-extension UtilityExtension$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name
-    on Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name {
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name<
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name
+extension UtilityExtension$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name
+    on Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name {
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name<
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name
   >
   get copyWith =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name<
+abstract class CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name<
   TRes
 > {
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name
     instance,
     TRes Function(
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name,
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name,
     )
     then,
-  ) = _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name;
+  ) = _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name;
 
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name.stub(
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name;
+  ) = _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name;
 
   TRes call({
     String? sharedAppellationsId,
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId?
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   });
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId;
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId;
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId;
 }
 
-class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name<
+class _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name<
           TRes
         > {
-  _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name(
+  _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name(
     this._instance,
     this._then,
   );
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name
   _instance;
 
   final TRes Function(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name,
   )
   _then;
 
@@ -5096,7 +5165,7 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$upda
     Object? sharedDictionaryBySharedDictionaryNicknameId = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name(
       sharedAppellationsId:
           sharedAppellationsId == _undefined || sharedAppellationsId == null
           ? _instance.sharedAppellationsId
@@ -5105,80 +5174,80 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$upda
           sharedDictionaryBySharedDictionaryNameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNameId
           : (sharedDictionaryBySharedDictionaryNameId
-                as Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId?),
+                as Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId?),
       sharedDictionaryBySharedDictionaryPronunciationId:
           sharedDictionaryBySharedDictionaryPronunciationId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryPronunciationId
           : (sharedDictionaryBySharedDictionaryPronunciationId
-                as Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?),
+                as Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?),
       sharedDictionaryBySharedDictionaryNicknameId:
           sharedDictionaryBySharedDictionaryNicknameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNicknameId
           : (sharedDictionaryBySharedDictionaryNicknameId
-                as Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?),
+                as Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId {
     final local$sharedDictionaryBySharedDictionaryNameId =
         _instance.sharedDictionaryBySharedDictionaryNameId;
     return local$sharedDictionaryBySharedDictionaryNameId == null
-        ? CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId.stub(
+        ? CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+        : CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
             local$sharedDictionaryBySharedDictionaryNameId,
             (e) => call(sharedDictionaryBySharedDictionaryNameId: e),
           );
   }
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId {
     final local$sharedDictionaryBySharedDictionaryPronunciationId =
         _instance.sharedDictionaryBySharedDictionaryPronunciationId;
     return local$sharedDictionaryBySharedDictionaryPronunciationId == null
-        ? CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+        ? CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+        : CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
             local$sharedDictionaryBySharedDictionaryPronunciationId,
             (e) => call(sharedDictionaryBySharedDictionaryPronunciationId: e),
           );
   }
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId {
     final local$sharedDictionaryBySharedDictionaryNicknameId =
         _instance.sharedDictionaryBySharedDictionaryNicknameId;
     return local$sharedDictionaryBySharedDictionaryNicknameId == null
-        ? CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.stub(
+        ? CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.stub(
             _then(_instance),
           )
-        : CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+        : CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
             local$sharedDictionaryBySharedDictionaryNicknameId,
             (e) => call(sharedDictionaryBySharedDictionaryNicknameId: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name<
+class _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name<
           TRes
         > {
-  _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name(
+  _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name(
     this._res,
   );
 
@@ -5186,57 +5255,57 @@ class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$
 
   call({
     String? sharedAppellationsId,
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId?
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId.stub(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId.stub(
         _res,
       );
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.stub(
         _res,
       );
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.stub(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.stub(
         _res,
       );
 }
 
-class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId {
-  Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId({
+class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId {
+  Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId.fromJson(
+  factory Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+    return Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
+          Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -5245,7 +5314,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$s
 
   final String sharedDictionaryId;
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
   value;
 
   final String $__typename;
@@ -5275,7 +5344,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$s
       return true;
     }
     if (other
-            is! Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId ||
+            is! Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -5298,64 +5367,64 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$s
   }
 }
 
-extension UtilityExtension$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId
+extension UtilityExtension$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId
     on
-        Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId {
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId
+        Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId {
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId
   >
   get copyWith =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+abstract class CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
   TRes
 > {
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId
     instance,
     TRes Function(
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId,
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId,
     )
     then,
-  ) = _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId;
 
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId.stub(
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value?
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
     this._instance,
     this._then,
   );
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId
   _instance;
 
   final TRes Function(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId,
   )
   _then;
 
@@ -5366,7 +5435,7 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$upda
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -5374,33 +5443,33 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$upda
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value),
+                as Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+    return CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId(
     this._res,
   );
 
@@ -5408,37 +5477,37 @@ class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$
 
   call({
     String? sharedDictionaryId,
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value?
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.stub(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.stub(
         _res,
       );
 }
 
-class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value {
-  Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value({
+class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value {
+  Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
+  factory Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+    return Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
+                : Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -5448,7 +5517,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$s
   }
 
   final List<
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
   >
   nodes;
 
@@ -5479,7 +5548,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$s
       return true;
     }
     if (other
-            is! Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value ||
+            is! Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -5504,50 +5573,50 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$s
   }
 }
 
-extension UtilityExtension$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
+extension UtilityExtension$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
     on
-        Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value {
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
+        Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value {
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
   >
   get copyWith =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+abstract class CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 > {
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
     instance,
     TRes Function(
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value,
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value;
+  ) = _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value;
 
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.stub(
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value;
+  ) = _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value;
 
   TRes call({
     List<
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-          Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
         >?
       >,
     )
@@ -5555,23 +5624,23 @@ abstract class CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$
   );
 }
 
-class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+class _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
           TRes
         > {
-  _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+  _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
     this._instance,
     this._then,
   );
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value
   _instance;
 
   final TRes Function(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value,
   )
   _then;
 
@@ -5581,12 +5650,12 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$upda
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+                  Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -5596,12 +5665,12 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$upda
 
   TRes nodes(
     Iterable<
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-          Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+          Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
         >?
       >,
     )
@@ -5611,7 +5680,7 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$upda
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+            : CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -5620,14 +5689,14 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$upda
   );
 }
 
-class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+class _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
+  _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value(
     this._res,
   );
 
@@ -5635,7 +5704,7 @@ class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$
 
   call({
     List<
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -5644,18 +5713,18 @@ class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$
   nodes(_fn) => _res;
 }
 
-class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes {
-  Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes({
+class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes {
+  Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
+  factory Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    return Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -5687,7 +5756,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$s
       return true;
     }
     if (other
-            is! Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes ||
+            is! Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -5705,55 +5774,55 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$s
   }
 }
 
-extension UtilityExtension$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
+extension UtilityExtension$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
     on
-        Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes {
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
+        Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes {
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+abstract class CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
     instance,
     TRes Function(
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes,
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes;
+  ) = _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes;
 
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes.stub(
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes;
+  ) = _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+class _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+  _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes,
   )
   _then;
 
@@ -5763,7 +5832,7 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$upda
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -5774,14 +5843,14 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$upda
   );
 }
 
-class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+class _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
+  _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNameId$value$nodes(
     this._res,
   );
 
@@ -5790,23 +5859,23 @@ class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId {
-  Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId({
+class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId {
+  Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+  factory Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+    return Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
+          Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -5815,7 +5884,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$s
 
   final String sharedDictionaryId;
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
   value;
 
   final String $__typename;
@@ -5845,7 +5914,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$s
       return true;
     }
     if (other
-            is! Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId ||
+            is! Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -5868,64 +5937,64 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$s
   }
 }
 
-extension UtilityExtension$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
+extension UtilityExtension$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
     on
-        Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId {
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
+        Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId {
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
   >
   get copyWith =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+abstract class CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 > {
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
     instance,
     TRes Function(
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId,
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId,
     )
     then,
-  ) = _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId;
 
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value?
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
     this._instance,
     this._then,
   );
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId
   _instance;
 
   final TRes Function(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId,
   )
   _then;
 
@@ -5936,7 +6005,7 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$upda
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -5944,33 +6013,33 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$upda
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value),
+                as Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    return CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId(
     this._res,
   );
 
@@ -5978,37 +6047,37 @@ class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$
 
   call({
     String? sharedDictionaryId,
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value?
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
         _res,
       );
 }
 
-class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value {
-  Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value({
+class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value {
+  Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
+  factory Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    return Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
+                : Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -6018,7 +6087,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$s
   }
 
   final List<
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
   >
   nodes;
 
@@ -6049,7 +6118,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$s
       return true;
     }
     if (other
-            is! Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value ||
+            is! Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -6074,50 +6143,50 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$s
   }
 }
 
-extension UtilityExtension$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
+extension UtilityExtension$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
     on
-        Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value {
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
+        Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value {
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
   >
   get copyWith =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+abstract class CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 > {
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
     instance,
     TRes Function(
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value,
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value;
+  ) = _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value;
 
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value;
+  ) = _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value;
 
   TRes call({
     List<
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-          Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
         >?
       >,
     )
@@ -6125,23 +6194,23 @@ abstract class CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$
   );
 }
 
-class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+class _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
           TRes
         > {
-  _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+  _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
     this._instance,
     this._then,
   );
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value
   _instance;
 
   final TRes Function(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value,
   )
   _then;
 
@@ -6151,12 +6220,12 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$upda
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+                  Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -6166,12 +6235,12 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$upda
 
   TRes nodes(
     Iterable<
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-          Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+          Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
         >?
       >,
     )
@@ -6181,7 +6250,7 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$upda
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+            : CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -6190,14 +6259,14 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$upda
   );
 }
 
-class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+class _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
+  _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value(
     this._res,
   );
 
@@ -6205,7 +6274,7 @@ class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$
 
   call({
     List<
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -6214,18 +6283,18 @@ class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$
   nodes(_fn) => _res;
 }
 
-class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
-  Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes({
+class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
+  Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
+  factory Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    return Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -6257,7 +6326,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$s
       return true;
     }
     if (other
-            is! Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes ||
+            is! Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -6275,55 +6344,55 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$s
   }
 }
 
-extension UtilityExtension$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+extension UtilityExtension$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
     on
-        Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+        Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes {
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+abstract class CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
     instance,
     TRes Function(
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
+  ) = _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
 
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.stub(
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
+  ) = _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+class _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+  _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes,
   )
   _then;
 
@@ -6333,7 +6402,7 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$upda
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -6344,14 +6413,14 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$upda
   );
 }
 
-class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+class _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
+  _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryPronunciationId$value$nodes(
     this._res,
   );
 
@@ -6360,23 +6429,23 @@ class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId {
-  Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId({
+class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId {
+  Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId({
     required this.sharedDictionaryId,
     required this.value,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+  factory Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
-    return Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+    return Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
       value:
-          Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
+          Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
             (l$value as Map<String, dynamic>),
           ),
       $__typename: (l$$__typename as String),
@@ -6385,7 +6454,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$s
 
   final String sharedDictionaryId;
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
   value;
 
   final String $__typename;
@@ -6415,7 +6484,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$s
       return true;
     }
     if (other
-            is! Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId ||
+            is! Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -6438,64 +6507,64 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$s
   }
 }
 
-extension UtilityExtension$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
+extension UtilityExtension$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
     on
-        Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId {
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
+        Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId {
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
   >
   get copyWith =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+abstract class CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 > {
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
     instance,
     TRes Function(
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId,
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId,
     )
     then,
-  ) = _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId;
 
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.stub(
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value?
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value?
     value,
     String? $__typename,
   });
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value;
 }
 
-class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
     this._instance,
     this._then,
   );
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId
   _instance;
 
   final TRes Function(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId,
   )
   _then;
 
@@ -6506,7 +6575,7 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$upda
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -6514,33 +6583,33 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$upda
       value: value == _undefined || value == null
           ? _instance.value
           : (value
-                as Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value),
+                as Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value {
     final local$value = _instance.value;
-    return CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+    return CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
       local$value,
       (e) => call(value: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId(
     this._res,
   );
 
@@ -6548,37 +6617,37 @@ class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$
 
   call({
     String? sharedDictionaryId,
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value?
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value?
     value,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
     TRes
   >
   get value =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
         _res,
       );
 }
 
-class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value {
-  Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value({
+class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value {
+  Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
+  factory Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+    return Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
+                : Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -6588,7 +6657,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$s
   }
 
   final List<
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
   >
   nodes;
 
@@ -6619,7 +6688,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$s
       return true;
     }
     if (other
-            is! Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value ||
+            is! Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -6644,50 +6713,50 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$s
   }
 }
 
-extension UtilityExtension$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
+extension UtilityExtension$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
     on
-        Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value {
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
+        Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value {
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
   >
   get copyWith =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+abstract class CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 > {
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
     instance,
     TRes Function(
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value,
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value,
     )
     then,
-  ) = _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value;
+  ) = _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value;
 
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value;
+  ) = _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value;
 
   TRes call({
     List<
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-          Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
         >?
       >,
     )
@@ -6695,23 +6764,23 @@ abstract class CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$
   );
 }
 
-class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+class _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
           TRes
         > {
-  _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+  _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
     this._instance,
     this._then,
   );
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value
   _instance;
 
   final TRes Function(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value,
   )
   _then;
 
@@ -6721,12 +6790,12 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$upda
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+                  Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -6736,12 +6805,12 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$upda
 
   TRes nodes(
     Iterable<
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-          Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+          Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
         >?
       >,
     )
@@ -6751,7 +6820,7 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$upda
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+            : CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
                 e,
                 (i) => i,
               ),
@@ -6760,14 +6829,14 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$upda
   );
 }
 
-class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+class _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value<
           TRes
         > {
-  _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
+  _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value(
     this._res,
   );
 
@@ -6775,7 +6844,7 @@ class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$
 
   call({
     List<
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes?
     >?
     nodes,
     String? $__typename,
@@ -6784,18 +6853,18 @@ class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$
   nodes(_fn) => _res;
 }
 
-class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
-  Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes({
+class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
+  Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
+  factory Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    return Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -6827,7 +6896,7 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$s
       return true;
     }
     if (other
-            is! Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes ||
+            is! Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -6845,55 +6914,55 @@ class Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$s
   }
 }
 
-extension UtilityExtension$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+extension UtilityExtension$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
     on
-        Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
-  CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+        Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes {
+  CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
   >
   get copyWith =>
-      CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+      CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+abstract class CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 > {
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
     instance,
     TRes Function(
-      Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
+      Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
     )
     then,
-  ) = _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
+  ) = _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
 
-  factory CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.stub(
+  factory CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
+  ) = _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+class _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
           TRes
         > {
-  _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+  _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
     this._instance,
     this._then,
   );
 
-  final Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes
   _instance;
 
   final TRes Function(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes,
   )
   _then;
 
@@ -6903,7 +6972,7 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$upda
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -6914,14 +6983,14 @@ class _CopyWithImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$upda
   );
 }
 
-class _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+class _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
   TRes
 >
     implements
-        CopyWith$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
+        CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
+  _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name$sharedDictionaryBySharedDictionaryNicknameId$value$nodes(
     this._res,
   );
 

@@ -4775,6 +4775,13 @@ const documentNodeQueryDepartmentPageRfe = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
+                        name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
                         name: NameNode(
                           value:
                               'infoDepartmentKindValuesByInfoDepartmentKindId',
@@ -34131,6 +34138,7 @@ class Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$kinds {
   Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$kinds({
     required this.infoDepartmentKindId,
     required this.infoDepartmentId,
+    this.remarks,
     required this.value,
     this.$__typename = 'InfoDepartmentKind',
   });
@@ -34140,11 +34148,13 @@ class Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$kinds {
   ) {
     final l$infoDepartmentKindId = json['infoDepartmentKindId'];
     final l$infoDepartmentId = json['infoDepartmentId'];
+    final l$remarks = json['remarks'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
     return Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$kinds(
       infoDepartmentKindId: (l$infoDepartmentKindId as String),
       infoDepartmentId: (l$infoDepartmentId as String),
+      remarks: (l$remarks as String?),
       value:
           Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$kinds$value.fromJson(
             (l$value as Map<String, dynamic>),
@@ -34157,6 +34167,8 @@ class Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$kinds {
 
   final String infoDepartmentId;
 
+  final String? remarks;
+
   final Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$kinds$value
   value;
 
@@ -34168,6 +34180,8 @@ class Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$kinds {
     _resultData['infoDepartmentKindId'] = l$infoDepartmentKindId;
     final l$infoDepartmentId = infoDepartmentId;
     _resultData['infoDepartmentId'] = l$infoDepartmentId;
+    final l$remarks = remarks;
+    _resultData['remarks'] = l$remarks;
     final l$value = value;
     _resultData['value'] = l$value.toJson();
     final l$$__typename = $__typename;
@@ -34179,11 +34193,13 @@ class Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$kinds {
   int get hashCode {
     final l$infoDepartmentKindId = infoDepartmentKindId;
     final l$infoDepartmentId = infoDepartmentId;
+    final l$remarks = remarks;
     final l$value = value;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoDepartmentKindId,
       l$infoDepartmentId,
+      l$remarks,
       l$value,
       l$$__typename,
     ]);
@@ -34207,6 +34223,11 @@ class Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$kinds {
     final l$infoDepartmentId = infoDepartmentId;
     final lOther$infoDepartmentId = other.infoDepartmentId;
     if (l$infoDepartmentId != lOther$infoDepartmentId) {
+      return false;
+    }
+    final l$remarks = remarks;
+    final lOther$remarks = other.remarks;
+    if (l$remarks != lOther$remarks) {
       return false;
     }
     final l$value = value;
@@ -34253,6 +34274,7 @@ abstract class CopyWith$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId
   TRes call({
     String? infoDepartmentKindId,
     String? infoDepartmentId,
+    String? remarks,
     Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$kinds$value? value,
     String? $__typename,
   });
@@ -34287,6 +34309,7 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$kin
   TRes call({
     Object? infoDepartmentKindId = _undefined,
     Object? infoDepartmentId = _undefined,
+    Object? remarks = _undefined,
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
@@ -34299,6 +34322,7 @@ class _CopyWithImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$kin
           infoDepartmentId == _undefined || infoDepartmentId == null
           ? _instance.infoDepartmentId
           : (infoDepartmentId as String),
+      remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       value: value == _undefined || value == null
           ? _instance.value
           : (value
@@ -34337,6 +34361,7 @@ class _CopyWithStubImpl$Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId
   call({
     String? infoDepartmentKindId,
     String? infoDepartmentId,
+    String? remarks,
     Query$DepartmentPageRfe$infoDepartmentByInfoDepartmentId$kinds$value? value,
     String? $__typename,
   }) => _res;

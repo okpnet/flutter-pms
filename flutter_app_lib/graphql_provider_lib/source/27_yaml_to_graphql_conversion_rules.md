@@ -295,6 +295,26 @@ CompanyPage:
 edit↔edit)のアームを選ぶこと。この不整合は本スキーマでは検証しない(点10と同じ方針、
 生成時・レビュー時に人手で確認する)。
 
+### 6-8. editツリー内の子の編集可否`editable`と、子の位置の`generateRfe`(要件0047)
+
+上記の注意の例外として、`kind: edit`のツリー内で**IDの割り当てのみ**を行う子(例: 力量の
+関連付けで、担当者・力量そのものは編集せずIDだけを付け替える)は、意図的に`read`の定義を
+参照する。意図的な参照とコピーによる修正モレを区別できるよう、子に`editable`を明示する。
+
+| 指定 | 参照先 | 書き込み(Edit) | 読み込み(RFE・Editの結果モデル) |
+|---|---|---|---|
+| `editable: false` | `read`(`<<: *XxxPage`等) | 子は書き込まない。親側の`using`(FK列)だけを引数・Patchに含める(生のFK列をcolumnsに書く必要はない) | 子のcolumnsを表示用に取得する(参照先Read画面と同型、言語はEdit/RFEと同じja/en) |
+| `editable: true` | `edit` | 子を親とともに入れ子で編集する | 子の編集対象列をすべて取得する(親のRFEに必ず含まれ、親のEditと相互変換できること、要件0046) |
+| 省略 | 参照先の`kind`に従う | editを参照する子は`true`として扱う | 同左 |
+
+- `read`を参照する子で`editable`を省略している場合は、要件0046の確認対象(修正モレの疑い)とする。
+- `editable: false`+`kind: edit`、`editable: true`+`kind: read`の組み合わせは`schema.json`で検出する
+  (YAMLのmerge後の`kind`に対して検証される)。
+- `generateRfe`は`columnEntry`(子の位置)でも書ける。editのトップレベルnode(`generateRfe`を持つ)を
+  子として`<<`でmergeしてもスキーマ違反にならず、子の位置で`generateRfe: false`を明示することもできる。
+  ただし子の位置では値に関わらず独立したRFEファイルは生成しない(RFEはトップレベルnodeごとに1つ)。
+  `editable: true`の子は、親とともに編集モデルと相互変換する必要があるため、常に親のRFEに含まれる。
+
 ## 7. `edit`での書き込み対象の表現
 
 書き込み対象は次の2通りの表現が併存する。生成側はどちらの形式にも対応する前提とし、1つの`node`内で混在させることも構造上は可能だが、可読性のため通常はどちらか一方に統一することを推奨する。
@@ -315,6 +335,9 @@ edit↔edit)のアームを選ぶこと。この不整合は本スキーマで�
 - ルートの絞り込みは、その`edit`ノードの`requiredWhere`(通常は主キー1列)をそのまま必須引数として使う。
 - `columns`ツリーの各要素は、「書き込み対象の列」としてではなく「SELECT対象の列」として解釈し直す。具体的には、`sharedAppellationToXxx: { updateBySharedAppellationsId: { ... } }`のような入れ子ミューテーション記法は、対応する`using`/`from`が指す関連先を辿る通常のSELECT(`sharedAppellationByXxx { ... }`)に読み替える。`deleteOthers`+`create`のような書き込み専用の入れ子(`sharedDictionaryValuesUsingSharedDictionaryId`等)は、読み込み側では対応する取得用フィールド(`sharedDictionaryValuesBySharedDictionaryId`、ja/en等必要な言語ぶん)に読み替える。この対応関係は`company_page_edit.graphql`/`company_page_rfe.graphql`の実例を参照。
 - `arrayType`/`using`/`pick`/`output`/`defaultWhere`/`where`/`requiredWhere`の解釈規則(3〜6章)は、書き込み対象・SELECT対象のどちらとして読むかに関わらず共通(生成側が列挙する対象が変わるだけ)。
+- (要件0046)生成後、RFEとEditのモデルが相互変換できることを条件とする。`test/rfe_edit_interconversion_test.dart`が全画面について、(T1)RFEのMapからEditの結果モデルを復元できること、(T2)Editの結果モデルのMapからRFEモデルを復元できること、(T3)Editの全引数をRFEのMapから組み立てられること、を`nested_map_flattener.dart`経由で検証する。引数とRFEの取得位置の対応は、ミューテーションのinputツリーの入れ子書き込み名(`xToY`/`xUsingY`)を読み込み側の`xByY`に読み替えて求めるため、画面ごとの対応表は持たない。変換できない場合は`view.yaml`を直接修正せず、修正案をログ(`docs/0046_rfe_edit_interconversion_log.md`形式)に出力する。
+- (要件0048)監査列(`update_at`/`update_user_id`/`update_user_history_id`/`remove`)はRFEでのみ取得し、Editの引数・Patch・結果モデルには含めない。`update_at`はトリガーで設定されるが、Editに含めるとプログラマが意図的に変更できてしまうため。保存後に最新の監査列が必要な場合はRFEを再取得する。したがって相互変換テストでこれらが「RFEにのみ存在する」(C1)と出るのは方針どおりであり、問題としない。
+- (要件0048)RFEは`$jaLanguageCodeId`/`$enLanguageCodeId`(UUID!、必須)でja/en両方を常時取得する。`$ja`/`$en: Boolean!`と`@include`による条件付き取得(要件0036以前の方式)は使わない(Editが両言語を必須引数で要求するため)。
 - 表示用の`read`(一覧・詳細表示)と`generateRfe`による読み込み専用クエリは**別物**であり、統合しない(要件0036参照)。前者は一覧表示のためページネーション・1言語のみの取得を基本とするのに対し、後者は編集フォームへのプリロードのため単一レコード・編集に必要な全ての言語・id一式の取得を必要とする。この要件の違いはkindの統一だけでは吸収できないため、意図的に別ドキュメントのままとする。
 
 ## 9. 実際に変換を試行して見つかった論点(2026-09-26 3〜6回目、すべて解決済み)

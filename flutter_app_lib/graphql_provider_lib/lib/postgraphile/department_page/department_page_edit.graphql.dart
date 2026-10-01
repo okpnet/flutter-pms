@@ -114,6 +114,7 @@ class Variables$Mutation$DepartmentPageEdit {
     kindsValueCreate,
     List<Input$InfoDepartmentKindValueInfoDepartmentKindValuePkcDelete>?
     kindsValueDelete,
+    String? kindsRemarks,
     String? remarks,
   }) => Variables$Mutation$DepartmentPageEdit._({
     r'infoDepartmentId': infoDepartmentId,
@@ -230,6 +231,7 @@ class Variables$Mutation$DepartmentPageEdit {
     if (kindsValueUpdate != null) r'kindsValueUpdate': kindsValueUpdate,
     if (kindsValueCreate != null) r'kindsValueCreate': kindsValueCreate,
     if (kindsValueDelete != null) r'kindsValueDelete': kindsValueDelete,
+    if (kindsRemarks != null) r'kindsRemarks': kindsRemarks,
     if (remarks != null) r'remarks': remarks,
   });
 
@@ -569,6 +571,10 @@ class Variables$Mutation$DepartmentPageEdit {
           )
           .toList();
     }
+    if (data.containsKey('kindsRemarks')) {
+      final l$kindsRemarks = data['kindsRemarks'];
+      result$data['kindsRemarks'] = (l$kindsRemarks as String?);
+    }
     if (data.containsKey('remarks')) {
       final l$remarks = data['remarks'];
       result$data['remarks'] = (l$remarks as String?);
@@ -846,6 +852,8 @@ class Variables$Mutation$DepartmentPageEdit {
           as List<
             Input$InfoDepartmentKindValueInfoDepartmentKindValuePkcDelete
           >?);
+
+  String? get kindsRemarks => (_$data['kindsRemarks'] as String?);
 
   String? get remarks => (_$data['remarks'] as String?);
 
@@ -1138,6 +1146,10 @@ class Variables$Mutation$DepartmentPageEdit {
       result$data['kindsValueDelete'] = l$kindsValueDelete
           ?.map((e) => e.toJson())
           .toList();
+    }
+    if (_$data.containsKey('kindsRemarks')) {
+      final l$kindsRemarks = kindsRemarks;
+      result$data['kindsRemarks'] = l$kindsRemarks;
     }
     if (_$data.containsKey('remarks')) {
       final l$remarks = remarks;
@@ -1838,6 +1850,15 @@ class Variables$Mutation$DepartmentPageEdit {
     } else if (l$kindsValueDelete != lOther$kindsValueDelete) {
       return false;
     }
+    final l$kindsRemarks = kindsRemarks;
+    final lOther$kindsRemarks = other.kindsRemarks;
+    if (_$data.containsKey('kindsRemarks') !=
+        other._$data.containsKey('kindsRemarks')) {
+      return false;
+    }
+    if (l$kindsRemarks != lOther$kindsRemarks) {
+      return false;
+    }
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (_$data.containsKey('remarks') != other._$data.containsKey('remarks')) {
@@ -1969,6 +1990,7 @@ class Variables$Mutation$DepartmentPageEdit {
     final l$kindsValueUpdate = kindsValueUpdate;
     final l$kindsValueCreate = kindsValueCreate;
     final l$kindsValueDelete = kindsValueDelete;
+    final l$kindsRemarks = kindsRemarks;
     final l$remarks = remarks;
     return Object.hashAll([
       l$infoDepartmentId,
@@ -2087,6 +2109,7 @@ class Variables$Mutation$DepartmentPageEdit {
                 ? null
                 : Object.hashAll(l$kindsValueDelete.map((v) => v))
           : const {},
+      _$data.containsKey('kindsRemarks') ? l$kindsRemarks : const {},
       _$data.containsKey('remarks') ? l$remarks : const {},
     ]);
   }
@@ -2209,6 +2232,7 @@ abstract class CopyWith$Variables$Mutation$DepartmentPageEdit<TRes> {
     kindsValueCreate,
     List<Input$InfoDepartmentKindValueInfoDepartmentKindValuePkcDelete>?
     kindsValueDelete,
+    String? kindsRemarks,
     String? remarks,
   });
 }
@@ -2329,6 +2353,7 @@ class _CopyWithImpl$Variables$Mutation$DepartmentPageEdit<TRes>
     Object? kindsValueUpdate = _undefined,
     Object? kindsValueCreate = _undefined,
     Object? kindsValueDelete = _undefined,
+    Object? kindsRemarks = _undefined,
     Object? remarks = _undefined,
   }) => _then(
     Variables$Mutation$DepartmentPageEdit._({
@@ -2615,6 +2640,7 @@ class _CopyWithImpl$Variables$Mutation$DepartmentPageEdit<TRes>
                 as List<
                   Input$InfoDepartmentKindValueInfoDepartmentKindValuePkcDelete
                 >?),
+      if (kindsRemarks != _undefined) 'kindsRemarks': (kindsRemarks as String?),
       if (remarks != _undefined) 'remarks': (remarks as String?),
     }),
   );
@@ -2734,6 +2760,7 @@ class _CopyWithStubImpl$Variables$Mutation$DepartmentPageEdit<TRes>
     kindsValueCreate,
     List<Input$InfoDepartmentKindValueInfoDepartmentKindValuePkcDelete>?
     kindsValueDelete,
+    String? kindsRemarks,
     String? remarks,
   }) => _res;
 }
@@ -3676,6 +3703,15 @@ const documentNodeMutationDepartmentPageEdit = DocumentNode(
               ),
               isNonNull: true,
             ),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'kindsRemarks')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
             isNonNull: false,
           ),
           defaultValue: DefaultValueNode(value: null),
@@ -7026,6 +7062,14 @@ const documentNodeMutationDepartmentPageEdit = DocumentNode(
                                         ),
                                         value: ObjectValueNode(
                                           fields: [
+                                            ObjectFieldNode(
+                                              name: NameNode(value: 'remarks'),
+                                              value: VariableNode(
+                                                name: NameNode(
+                                                  value: 'kindsRemarks',
+                                                ),
+                                              ),
+                                            ),
                                             ObjectFieldNode(
                                               name: NameNode(
                                                 value:
@@ -11800,6 +11844,13 @@ const documentNodeMutationDepartmentPageEdit = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(value: 'infoDepartmentId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'remarks'),
                               alias: null,
                               arguments: [],
                               directives: [],
@@ -41441,6 +41492,7 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$kinds({
     required this.infoDepartmentKindId,
     required this.infoDepartmentId,
+    this.remarks,
     required this.value,
     this.$__typename = 'InfoDepartmentKind',
   });
@@ -41450,11 +41502,13 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   ) {
     final l$infoDepartmentKindId = json['infoDepartmentKindId'];
     final l$infoDepartmentId = json['infoDepartmentId'];
+    final l$remarks = json['remarks'];
     final l$value = json['value'];
     final l$$__typename = json['__typename'];
     return Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$kinds(
       infoDepartmentKindId: (l$infoDepartmentKindId as String),
       infoDepartmentId: (l$infoDepartmentId as String),
+      remarks: (l$remarks as String?),
       value:
           Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$kinds$value.fromJson(
             (l$value as Map<String, dynamic>),
@@ -41467,6 +41521,8 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
 
   final String infoDepartmentId;
 
+  final String? remarks;
+
   final Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$kinds$value
   value;
 
@@ -41478,6 +41534,8 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
     _resultData['infoDepartmentKindId'] = l$infoDepartmentKindId;
     final l$infoDepartmentId = infoDepartmentId;
     _resultData['infoDepartmentId'] = l$infoDepartmentId;
+    final l$remarks = remarks;
+    _resultData['remarks'] = l$remarks;
     final l$value = value;
     _resultData['value'] = l$value.toJson();
     final l$$__typename = $__typename;
@@ -41489,11 +41547,13 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
   int get hashCode {
     final l$infoDepartmentKindId = infoDepartmentKindId;
     final l$infoDepartmentId = infoDepartmentId;
+    final l$remarks = remarks;
     final l$value = value;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoDepartmentKindId,
       l$infoDepartmentId,
+      l$remarks,
       l$value,
       l$$__typename,
     ]);
@@ -41517,6 +41577,11 @@ class Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDep
     final l$infoDepartmentId = infoDepartmentId;
     final lOther$infoDepartmentId = other.infoDepartmentId;
     if (l$infoDepartmentId != lOther$infoDepartmentId) {
+      return false;
+    }
+    final l$remarks = remarks;
+    final lOther$remarks = other.remarks;
+    if (l$remarks != lOther$remarks) {
       return false;
     }
     final l$value = value;
@@ -41565,6 +41630,7 @@ abstract class CopyWith$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   TRes call({
     String? infoDepartmentKindId,
     String? infoDepartmentId,
+    String? remarks,
     Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$kinds$value?
     value,
     String? $__typename,
@@ -41600,6 +41666,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
   TRes call({
     Object? infoDepartmentKindId = _undefined,
     Object? infoDepartmentId = _undefined,
+    Object? remarks = _undefined,
     Object? value = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
@@ -41612,6 +41679,7 @@ class _CopyWithImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepart
           infoDepartmentId == _undefined || infoDepartmentId == null
           ? _instance.infoDepartmentId
           : (infoDepartmentId as String),
+      remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       value: value == _undefined || value == null
           ? _instance.value
           : (value
@@ -41650,6 +41718,7 @@ class _CopyWithStubImpl$Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDe
   call({
     String? infoDepartmentKindId,
     String? infoDepartmentId,
+    String? remarks,
     Mutation$DepartmentPageEdit$updateInfoDepartmentByInfoDepartmentId$infoDepartment$kinds$value?
     value,
     String? $__typename,

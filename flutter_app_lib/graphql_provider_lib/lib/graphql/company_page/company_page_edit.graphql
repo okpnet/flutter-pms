@@ -35,11 +35,16 @@
 # 等)にそのまま従う(`infoProvisionPatch`には`sharedAppellationToNames`による名称の
 # 入れ子更新も含められる。呼び出し側がMap/JSONとして直接組み立てる想定で、
 # provision_page_edit.graphqlのような個別スカラー変数への分解は行っていない)。
+#
+# 要件0047(view.yaml修正に伴う再生成): 結果モデルの出力名をview.yamlに揃えた(会社名`labels`、
+# 住所`address`)。view.yamlの`CompanyPageEdit`に`symbol`が無いため、`$symbol`(引数・Patch・
+# 結果)を削除した(view.yamlに従う。symbolを編集対象とする場合はview.yamlへの追加が必要)。
+# 要件0048: symbolの欠落は修正モレと判断されたため、view.yamlに追加し`$symbol`(引数・Patch・結果)を戻した。
 
 mutation CompanyPageEdit(
   $infoCompanyId: UUID!
   $webPage: String
-  $symbol: String
+  $symbol: String # 要件0048: view.yamlのCompanyPageEditにsymbolを追加(修正モレ)
   $remarks: String
   $sharedAppellationsId: UUID!
   $jaLanguageCodeId: UUID!
@@ -389,7 +394,7 @@ mutation CompanyPageEdit(
       webPage
       symbol
       remarks
-      sharedAppellationByNames {
+      labels: sharedAppellationByNames {
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {
           sharedDictionaryId
@@ -497,7 +502,7 @@ mutation CompanyPageEdit(
           }
         }
       }
-      infoAddressByInfoAddressId {
+      address: infoAddressByInfoAddressId {
         infoAddressId
         iso31663
         zipCode

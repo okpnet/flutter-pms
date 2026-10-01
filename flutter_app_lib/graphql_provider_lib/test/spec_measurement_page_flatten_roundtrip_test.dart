@@ -1,14 +1,14 @@
-// 要件0044: spec_measurement画面(source/view.yaml #SpecMeasurement/#SpecMeasurementEdit)の
+// 要件0044(要件0047で改名): spec_measurement_page画面(source/view.yaml #SpecMeasurementPage/#SpecMeasurementEdit)の
 // GraphQLからbuild_runnerで生成されたモデルのnested_map_flattener.dart往復変換を検証する。
 
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:gqlprvlib/contents/spec_measurement_keyname.dart';
+import 'package:gqlprvlib/contents/spec_measurement_page_keyname.dart';
 import 'package:gqlprvlib/extensions/nested_map_flattener.dart';
-import 'package:gqlprvlib/postgraphile/spec_measurement/spec_measurement_edit.graphql.dart';
-import 'package:gqlprvlib/postgraphile/spec_measurement/spec_measurement_read.graphql.dart';
-import 'package:gqlprvlib/postgraphile/spec_measurement/spec_measurement_rfe.graphql.dart';
+import 'package:gqlprvlib/postgraphile/spec_measurement_page/spec_measurement_page_edit.graphql.dart';
+import 'package:gqlprvlib/postgraphile/spec_measurement_page/spec_measurement_page_read.graphql.dart';
+import 'package:gqlprvlib/postgraphile/spec_measurement_page/spec_measurement_page_rfe.graphql.dart';
 
 Map<String, dynamic> _dictionaryValueConnection(String? value) => {
   'nodes': value == null
@@ -80,7 +80,7 @@ Map<String, dynamic> _updateUserJson() => {
 };
 
 void main() {
-  test('要件0044: Query\$SpecMeasurementRead <-> Map 往復変換が元と一致する', () {
+  test('要件0044: Query\$SpecMeasurementPageRead <-> Map 往復変換が元と一致する', () {
     final raw = {
       'allMstrSpecMeasurements': {
         'totalCount': 1,
@@ -109,14 +109,14 @@ void main() {
       '__typename': 'Query',
     };
 
-    final model = Query$SpecMeasurementRead.fromJson(raw);
+    final model = Query$SpecMeasurementPageRead.fromJson(raw);
     final node = model.allMstrSpecMeasurements!.nodes.single!;
 
     final nodeMap = node.toJson();
     final flatMap = nodeMap.flatten();
     final restoredMap = flatMap.unflatten();
     final restoredNode =
-        Query$SpecMeasurementRead$allMstrSpecMeasurements$nodes.fromJson(
+        Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes.fromJson(
           restoredMap,
         );
 
@@ -125,7 +125,7 @@ void main() {
 
     final unitNameJa = nodeMap.flattenForColumns(
       [
-        SpecMeasurementKeyName
+        SpecMeasurementPageKeyName
             .unit_labels_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue
             .name,
       ],
@@ -134,7 +134,7 @@ void main() {
       },
     );
     expect(
-      unitNameJa[SpecMeasurementKeyName
+      unitNameJa[SpecMeasurementPageKeyName
           .unit_labels_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue
           .name],
       'ミリメートル',
@@ -144,7 +144,7 @@ void main() {
     print('SPEC_MEASUREMENT_READ_FLAT_MAP_JSON=${jsonEncode(flatMap)}');
   });
 
-  test('要件0044: Mutation\$SpecMeasurementEdit <-> Map 往復変換が元と一致する', () {
+  test('要件0044: Mutation\$SpecMeasurementPageEdit <-> Map 往復変換が元と一致する', () {
     final raw = {
       'updateMstrSpecMeasurementByMstrSpecMeasurementId': {
         'mstrSpecMeasurement': {
@@ -164,7 +164,7 @@ void main() {
       '__typename': 'Mutation',
     };
 
-    final model = Mutation$SpecMeasurementEdit.fromJson(raw);
+    final model = Mutation$SpecMeasurementPageEdit.fromJson(raw);
     final entity = model
         .updateMstrSpecMeasurementByMstrSpecMeasurementId!
         .mstrSpecMeasurement!;
@@ -173,7 +173,7 @@ void main() {
     final flatMap = entityMap.flatten();
     final restoredMap = flatMap.unflatten();
     final restoredModel =
-        Mutation$SpecMeasurementEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement.fromJson(
+        Mutation$SpecMeasurementPageEdit$updateMstrSpecMeasurementByMstrSpecMeasurementId$mstrSpecMeasurement.fromJson(
           restoredMap,
         );
 
@@ -181,7 +181,7 @@ void main() {
     expect(restoredModel, equals(entity));
   });
 
-  test('要件0044: Query\$SpecMeasurementRfe <-> Map 往復変換が元と一致する', () {
+  test('要件0044: Query\$SpecMeasurementPageRfe <-> Map 往復変換が元と一致する', () {
     final raw = {
       'mstrSpecMeasurementByMstrSpecMeasurementId': {
         'mstrSpecMeasurementId': 'm1111111-1111-1111-1111-111111111111',
@@ -201,14 +201,14 @@ void main() {
       '__typename': 'Query',
     };
 
-    final model = Query$SpecMeasurementRfe.fromJson(raw);
+    final model = Query$SpecMeasurementPageRfe.fromJson(raw);
     final entity = model.mstrSpecMeasurementByMstrSpecMeasurementId!;
 
     final entityMap = entity.toJson();
     final flatMap = entityMap.flatten();
     final restoredMap = flatMap.unflatten();
     final restoredModel =
-        Query$SpecMeasurementRfe$mstrSpecMeasurementByMstrSpecMeasurementId.fromJson(
+        Query$SpecMeasurementPageRfe$mstrSpecMeasurementByMstrSpecMeasurementId.fromJson(
           restoredMap,
         );
 

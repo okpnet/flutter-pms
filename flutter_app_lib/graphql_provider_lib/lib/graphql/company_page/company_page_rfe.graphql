@@ -24,6 +24,10 @@
 # `$enLanguageCodeId`を`UUID!`(必須)にしたうえで両方のフィールドを
 # 常時(`@include`無しで)取得するよう単純化した。値は呼び出し側が`SharedLanguageCode`を
 # `code`で解決して渡す(company_page_read.graphql / edit.graphqlと同じ方式)。
+#
+# 要件0047(view.yaml修正に伴う再生成): 要件0046で相互変換不可と判定された`provisions`欠落を
+# 解消するため、現行の`CompanyPageEdit`から再導出した(`provisions`を追加、出力名を`labels`・
+# `address`に揃え、view.yamlに無い`symbol`を削除)。
 
 query CompanyPageRfe(
   $infoCompanyId: UUID!
@@ -33,7 +37,7 @@ query CompanyPageRfe(
   infoCompanyByInfoCompanyId(infoCompanyId: $infoCompanyId) {
     infoCompanyId
     webPage
-    symbol
+    symbol # 要件0048: view.yamlのCompanyPageEditにsymbolを追加(修正モレ)
     remarks
     updateAt
     updateUserId
@@ -41,7 +45,7 @@ query CompanyPageRfe(
     remove
 
     # --- 会社名(共通名前仕様、shared_appellations経由) ------------------------
-    sharedAppellationByNames {
+    labels: sharedAppellationByNames {
       sharedAppellationsId
       sharedDictionaryBySharedDictionaryNameId {
         sharedDictionaryId
@@ -153,7 +157,7 @@ query CompanyPageRfe(
     }
 
     # --- 住所(要件0026でaddress1/address2/billがshared_appellations経由のFKに変更) ---
-    infoAddressByInfoAddressId {
+    address: infoAddressByInfoAddressId {
       infoAddressId
       iso31663
       zipCode
@@ -320,6 +324,76 @@ query CompanyPageRfe(
           ) {
             nodes {
               dictionaryValue
+            }
+          }
+        }
+      }
+    }
+
+    # --- 提供一覧(要件0047再生成: CompanyPageEdit.provisionsをSELECTとして導出。company_page_edit.graphqlの結果モデルと同型) ---
+    provisions: infoProvisionsByInfoCompanyId {
+      totalCount
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      nodes {
+        infoProvisionId
+        infoCompanyId
+        code
+        details
+        remarks
+        labels: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+          sharedDictionaryBySharedDictionaryPronunciationId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+          sharedDictionaryBySharedDictionaryNicknameId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
             }
           }
         }
