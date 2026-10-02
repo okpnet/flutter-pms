@@ -31,7 +31,8 @@ typedef ModelRoundTrip = Map<String, dynamic> Function(Map<String, dynamic> json
 class SchemaIndex {
   SchemaIndex._(this._objects, this._inputs, this._enums);
 
-  /// schema.graphql(約20MB)を解析する。数秒かかるためsetUpAllで1回だけ呼ぶこと。
+  /// スキーマを解析する。テストでは生成用スキーマ(lib/graphql/schema.graphql、絞り込み済み)を使う。
+  /// setUpAllで1回だけ呼ぶこと。
   factory SchemaIndex.load(String path) {
     final doc = parseString(File(path).readAsStringSync());
     final objects = <String, Map<String, TypeNode>>{};

@@ -1,239 +1,186 @@
-# gqlprvlib
-## 概要
-このライブラリは、アプリケーションに提供するGraphQLをとおして取得したデータをクエリクラスオブジェクト、ミューテーションクラスオブジェクト、JSON(Map<String,dynamic>)に相互変換し、アプリケーションからモデル管理の責務を分離します。
-##　バックエンド仕様
-1.  すべての構築が終わるまで認証であるKeyclaokは使いません。
-1.  GraphQLはPostgraphileを使います。filterとnestedのプラグインは導入済です。
-1.  Postgrapileとの通信はgqlibの責務です。
-1.  ドメインモデルはgraphql_generatorから生成します。
-##　フロントエンド仕様
-1.  ほぼすべての画面はTrinaGridを使用して、リスト、ツリー表示を行います。
-1.  レコードの編集や、登録画面は専用画面を使用します。
-    1.  GoRouterを使って遷移します
-    1.  TrinaGridのレコードからMapを取得して専用画面に渡します。
-##  このライブラリの仕様
-1.  ~~Postgrapileが生成したスキーマは容量が大きすぎる(10メガバイト)を超えるため、データベース生成用のクエリdocs/06_create_test.sqlを参照します。~~
-1.  ~~Postgrapileが生成したスキーマは source/schema.graphql を参照する。~~
-1.  Postgrapileが生成したスキーマは lib/graphql/schema.graphql を参照する(要件0014、graphql_codegenの既定構成に合わせるためlib配下へ移動。容量が大きいためgit管理対象外)。
-1.  アプリケーションの画面に提供するデータを取得、更新するデータを提供します。
-    1.  Postgrapileへ渡すデータ、受け取るデータはドメインモデルです。
-    1.  TrinaGridへ渡すデータはドメインモデルを変換したMapです
-    1.  編集、更新するミューテーションはドメインモデルです。
-    1.  TrinaGridの行データのMapからドメインモデルに変換して編集、更新する画面に渡します。
-1.  TrinaGridでは、ネストされているMapをfieldとして参照できないのでnested_map_flattener.dartをとおして平坦なMapに変換します。
-1.  graphql_generatorをとおしてbuildrunnerが生成したモデルのdartファイルのうち、サイズが5000KBを超えるもの、およびschema.graphql.dart(常に該当)は、環境が変わるたびにbuildrunnerで再生成される前提のため、必ずGitの無視リスト(.gitignore)に追加します(要件0015)。.gitignoreはファイルサイズでの動的な指定ができないため、要件0012(build_runner実行)のたびに生成物のサイズを確認し、該当するものを個別に追記する運用とします。
-### 構成
-+ lib
-    + converters
-        + _converters.dart//バレルファイル
-        + 使用画面フォルダ//[要件](#要件)で指定されたときの画面単位のフォルダ
-            + _使用画面フォルダ名.dart//バレルファイル
-    + postgraphile//graphql_generatorの出力先
-    + extensions//このライブラリが使用、または提供する拡張メソッド
-    + graphql//graphql_generatorの入力(要件0014でプロジェクト直下から移動。schema.graphqlを含む)
-        + 使用画面フォルダ//[要件](#要件)で指定されたときの画面単位のフォルダ
-    + gqlmdlib.dart//ライブラリのバレルファイル
+# gqlprvlib 要件定義
 
-##　進め方
-1つずつ解決していきます。そのため、このドキュメントの最後尾へ仕様として追記していきます。進め方に変更があった場合は、この項目に箇条として追加していきます。
-追加ルールは、「年月日_3桁の連番:変更内容」にします。
-##　仕様
-[要件](#要件)にまとめます。
-原則として、ローカルライブラリ「gqlib」で使用するIGraphQLConverterを実装したコンバーターは、[構成](#構成)に従ってlib/convertersnに保存します。
-graphqlの生成指示は、共通項として必ず"remarks"、"update_at"、"remove"、"(update_user_id,update_user_history_id)->info_staff(shared_appellations_id)->shared_appellations(shared_dictionary_name_id)"(以下、nameとする)を取得します。このとき、nameは[共通名前仕様](#共通名前仕様)として参照されます。
+要件0001〜0049を統合・整理した、現在有効な要件定義である(2026/10/02再構成)。
+各要件の原文と経緯は`docs/requirements_0001-0049_history.md`を参照する。
+本文中の`(0046)`のような番号は、根拠となった要件の通し番号である。
+新しい要件は末尾の「要件(0050以降)」へ追記する。
 
-### 共通名前仕様
-1. "shared_appellations"が呼び出されたとき、"shared_dictionary"の列"ja","en"は、アプリケーションがローカライズのを基に引数として与えます。この引数によって、返すクエリ、ミューテーションが異なります。
-1. "shared_appellations"は以下の構成になっており、"shared_dictionary"と各列は1対1で構成され、クエリモデルの場合には"nested_map_flattener.dart"によって平坦化のMap化され、ミューテーションモデルに変換するときに構造化します。
-+ shared_appellations
-    + shared_dictionary_name_id
-        + shared_dictionary
-            + ja//引数で返すか受け取るか決まる
-            + en//引数で返すか受け取るか決まる
-    + shared_dictionary_pronunciation_id
-        + shared_dictionary
-            + ja//引数で返すか受け取るか決まる
-            + en//引数で返すか受け取るか決まる
-    + shared_dictionary_nickname_id
-        + shared_dictionary
-            + ja//引数で返すか受け取るか決まる
-            + en//引数で返すか受け取るか決まる
-1.  shared_appellationsを参照するテーブルは、言語管理画面以外、指定しない限り全てこの1対1、平坦化、構造化の仕様です。
-### 画面仕様
-1.  ~~source/views.md~~"27_yaml_to_graphql_conversion_rules.md"、及び"schema.json"をもとに変換を行う。変換する対象は"view.yaml"による。//0033
-1. kindによって異なる//0033
-    1.  readは読み込み用クエリ、editはミューテーション
-    1.  editのツリー内の子は、IDの割り当てのみのときはreadを参照し"editable: false"を、親とともに編集するときはeditを参照し"editable: true"を指定する。"generateRfe"は子の位置にも書けるが、子の位置では独立したRFEを生成せず、editable: trueの子は常に親のRFEに含まれる(27_yaml_to_graphql_conversion_rules.md 6-8節)//0047
-    1.  ~~RFEはミューテーションを生成するための読み込み用クエリ//0033~~独立したkindとしてのRFEは廃止した。editのノードに"generateRfe: true"を指定すると、そのeditと全く同一のcolumnsツリーから、書き込み対象ではなく単純なSELECT対象として解釈した読み込み専用クエリ(旧RFE相当)を自動導出する。手書きの別ノード(旧"kind: RFE")を維持する必要が無くなり、editと読み込み専用クエリが構造的に乖離するリスクを排除する//0037
-####　画面仕様命名規則
-1.  ディリクトリ名、ファイル名はどちらもスネークケース
-1.  ~~「見出し2"##"」~~トップノードをディリクトリ名とする//0033
-1.  「~~見出し2"##"+"_"+見出し3"###"~~"トップノードのスネークケース"+"_"+"トップノード以下のkind"」をGraphQLのファイル名とする//0033
-    1.  ~~ただし、後述の"read for editng"のファイル名は「見出し2"##"+"\_"+見出し3"###"+"_"+"rfe"」とする~~
-    1.  "generateRfe: true"により自動導出される読み込み専用クエリ(旧RFE相当)のファイル名は「トップノードのスネークケース」+"_"+"rfe"とする(kindの値自体は"edit"のままだが、自動導出ぶんは別ファイルとして出力する)//0037
+## 1. 目的
 
-#### GraphQL変換ルール
-1.  GraphQLの出力はbuild.ymlに従う
-1.  指示全てのGraphQLを作成後、buildrunnerを実行し、モデルを生成する
-1.  "read for editing=>RFE"のリレーションシップの配列を取得するレコード数は、引数として受け取る。引数なしでは30件とする。
-1.  列(先頭)は1対多のとき、更新日時が最新の先頭1レコードを指す
-1.  列(結合)はカンマ区切りの文字列とする
-1.  GraphQLに変換したときの列の型は、Enumとして"GraphQLTypeKind(content_variable.dart参照)"に重複せずに追加する//0032
-    1.  Enumは文字列として型を受け取る
-    1.  文字列からEnumへ復元できる
-1.  nested_map_flattener.dartによってMapの平坦化、モデル復元ができること//0032
-    1.  モデル別のテストを作成する
-    1.  再生成のときはテストもレビューする
-    1.  平坦化したときのキーはコード補完できるようにする
-        1.  "lib/contents"配下に「~~見出し2"##"~~"トップノードのスネークケース"」+"_"+"keyname.dart"を作成する
-        1.  同ファイルに「~~見出し2"##"~~"トップノードのスネークケース"」+"KeyName"抽象クラスの~~"static const String"として~~"static const ContentVariable"の型(content_variable.dart参照)として、名前とGrapQLの型のペアで定数をもつ。
-        1.  定数名はセパレート文字列"||"が使えないので、"_"とキャメルケースで対応する
-1.  ~~read//0032~~//0033
-    1.  ~~ページネーションを使用する~~
-    1.  ~~取得する最大行数は引数で受け取る~~
-    1.  ~~使用する言語は引数で受け取る~~
-    1.  ~~検索条件はcondition(Map)で受け取る~~
-        +   ~~条件はNLLLもあり得る~~
-    1.  ~~クエリは"##見出し"最後尾の列の削除フラグを引数として取る。引数がないときはデフォルトはfalse。~~
-    1.  ~~リレーションシップがある列は個別指示する。~~
+このライブラリは、PostGraphile(GraphQL)とアプリケーション画面の間でデータの形を相互変換し、アプリケーションからモデル管理の責務を分離する。
 
-1.  edit//0032
-    1.  nested_map_flattener.dartによってMapの平坦化、モデル復元ができること
-        1.  モデル別のテストを作成する
-        1.  再生成のときはテストもレビューする
-        1.  ~~原則としてreadから生成されたモデルのMapから変換できる~~
-            1.  ~~列名が一致しないときはNullまたはデフォルト値~~
-            1.  ~~解決できないときは無視し、ログに記録する~~
+- PostGraphileとの受け渡しはドメインモデル(graphql_codegenが生成するクエリ・ミューテーションのクラス)で行う。
+- 一覧画面(TrinaGrid)にはドメインモデルを平坦なMap(`Map<String, dynamic>`)に変換して渡す。
+- 編集画面には、TrinaGridの行のMapからドメインモデルへ戻して渡し、編集・更新はミューテーションのモデルで行う。
 
-1.  read for editing=>RFE
-    1.  edit変換用に読み込むためのクエリ。
-    1.  ~~RFEの指示がなく、editが"##見出し"に存在するときは生成対象にするが、editがない場合は生成の対象にしない。~~
-    1.  ~~指示が無い限り、取得する情報はeditと同じでidが一致する1レコードのみを取得する(列の配列を除く)~~
-    1.  ~~先頭列のidを必須引数として受け取る。~~
-    1.  Mapの平坦化、editへのモデル復元ができること
-        1.  再生成のときはテストもレビューする
-        1.  平坦化したときのキーはコード補完できるようにする
-            1.  "lib/contents"配下にconst　stringは生成しない
-        1.  原則としてeditへMapをとおして変換できる
-            1.  editと列名を一致させる
-            1.  解決できないときは無視し、ログに記録する
-    1.  RFEとEditのモデルが相互変換できること(RFE→Editの結果モデル・引数モデル、Editの結果モデル→RFE)。test/rfe_edit_interconversion_test.dartで全画面を検証し、変換できないときはview.yamlの修正案をログに出力する//0046
-        
+## 2. 前提
 
-####　追記ルール
-追加ルールは、「年月日_4桁のとおし番号:追加内容」とします。要件に変更があったとき、変更のとおし番号を参照します。
-追加があったかどうかは、チャットでとおし番号を使った指示になります。年月日はいつ追加したかの記録です。
+### 2-1. バックエンド
 
-### 要件
+- GraphQLサーバーはPostGraphile。プラグイン`postgraphile-plugin-nested-mutations`・`postgraphile-plugin-connection-filter@2.3.0`を導入済み。
+- 認証(Keycloak)はすべての構築が終わるまで使わない。
+- PostGraphileとの通信は、ローカルライブラリ`gqlib`の責務とする。
+- ビュー(`v_*_descendants`等)と親テーブルの関連は、DB側のコメント(スマートタグ`@foreignKey`)でPostGraphileへ伝える。
 
-2026/09/08_0001:pubspec.ymlからローカルライブラリ「gqlib」へアクセスし、内容を理解できるか確認してください。
+### 2-2. フロントエンド(利用側アプリケーション)
 
-2026/09/08_0002:nested_map_flattener.dartがTrinaGridを参照していますが、このライブラリではTrinaGridを参照しないので、Columnを受け取るメソッドを削除してください。
+- ほぼすべての画面はTrinaGridで一覧・ツリーを表示する。
+- レコードの編集・登録は専用画面で行い、GoRouterで遷移する。遷移時はTrinaGridの行のMapを渡す。
+- このライブラリはTrinaGridを参照しない(0002)。
 
-2026/09/08_0003:このドキュメントをとおしてライブラリの作成、完成後の保守で大幅な変更が予測される領域をリスクとして抽出してください。また、リスクの低減処置で対応できるかどうかも判定してください(例えば、データベースを構成を変更、テーブルの一部変更)。低減処置で対応できないものは、仕様そのものの変更としてコミットします。
+## 3. 構成
 
-2026/09/08_0004:ライブラリの動作に影響を与えない、依頼した結果の生成物はdocsに追加する。ファイル名には、実施した通し番号を含めること。
+```
+lib/
+  converters/             gqlibのIGraphQLConverterを実装したコンバーター
+    _converters.dart        バレルファイル
+    <画面フォルダ>/          要件で指定されたときの画面単位のフォルダ(_<画面フォルダ名>.dart がバレル)
+  contents/               平坦化キーの定数(<画面>_keyname.dart)、content_variable.dart
+  extensions/             このライブラリが使用・提供する拡張メソッド(nested_map_flattener.dart等)
+  graphql/                graphql_codegenの入力
+    schema.graphql          生成用スキーマ(絞り込み済み、4-2節)
+    <画面フォルダ>/          画面ごとのGraphQL(read/edit/rfe)
+  postgraphile/           graphql_codegenの出力(生成モデル)
+  gqlmdlib.dart           ライブラリのバレルファイル
+source/
+  view.yaml               画面仕様(GraphQL生成の入力)
+  schema.json             view.yamlのJSON Schema
+  27_yaml_to_graphql_conversion_rules.md  view.yaml→GraphQLの変換規則
+  schema.full.graphql     PostGraphileから取得した全量のスキーマ(git対象外、4-1節)
+test/                     モデルごとの往復変換テスト、RFE/Edit相互変換テスト
+docs/                     要件ごとの実施ログ
+```
 
-2026/09/08_0005:[共通名前仕様](#共通名前仕様)を追加しました。それに伴い[仕様](#仕様)の共通項の最後が省略されました。
+## 4. スキーマとモデル生成
 
-2026/09/08_0006:[画面仕様](./source/views.md)は、画面別のGraphQLを作成する参照情報。Readは読み込み用クエリ、Editはミューテーションとする。graphqlフォルダ直下の、見出し2と同じ名前のフォルダに保存する。存在しない場合はフォルダを作成。ただし、graphql作成前に問題がある箇所はログを残す。ログは通し番号+"view_graphql_log"として保存する。
+### 4-1. 全量スキーマの取得(0026・0049)
 
-2026/09/08_0007:[画面仕様](./source/views.md)の"Company"の項目からGraphQLを作成する。
+- 取得先は`http://192.168.1.100:5000/graphql`とする。接続できない場合は`http://192.168.9.245:5000/graphql`へ切り替える。どちらにも接続できない場合は中止する。
+- 取得したSDLを現行の全量スキーマと比較し、差分があれば置き換える。差分(型の追加・削除・変更)はログに記録する。
+- 取得は`dart run tool/fetch_schema.dart`で行う(0049)。
+  - イントロスペクションで取得し、SDLへ変換して型単位で比較する。差分があれば`source/schema.full.graphql`を置き換える。
+  - 接続先の切り替えも自動で行う。Node.jsは不要。
+  - 置き換えた後は、4-2節の絞り込みとbuild_runnerを続けて実行する。
+- 全量スキーマ(約20MB、入力型約1万)は**git対象外**とする。
 
-2026/09/08_0008:[このライブラリの仕様](#このライブラリの仕様)へSchemaファイルを追加。以降、Postgrapileを使ってGraphQLを作成する。
+### 4-2. 生成用スキーマ(絞り込み)(2026/10/02、0014を置き換え)
 
-2026/09/08_0009:Postgrapileにはpostgraphile-plugin-nested-mutations postgraphile-plugin-connection-filter@2.3.0のプラグインを導入しているが、ネストしたオブジェクトとして1つのミューテーションでは更新できないか調査する。調査結果が可能と判断した場合は0007を実行。
+- 全量スキーマをそのままgraphql_codegenに渡すと、`schema.graphql.dart`(約1万の入力型、563MB)の生成に6GB超のメモリを要し、実行できない。
+- 代わりに、`lib/graphql/`配下の画面のGraphQLが**実際に使う型・フィールド・引数だけ**に絞り込んだスキーマを生成し、`lib/graphql/schema.graphql`としてgraphql_codegenに渡す。
+  - 絞り込みは`dart run tool/prune_schema.dart`で行う。入力型は約1万から約200、`schema.graphql.dart`は563MBから2MBになった。
+  - 変数で渡す入力型(一覧の入れ子編集等)には、スカラー・Enum・葉の入力型、入れ子書き込みの骨格(patch・updateBy等)、呼称の入れ子を残す。
+    それ以外の入れ子(他テーブルへの入れ子書き込み)を変数で渡す必要が出た場合は、ツールの規則に追加する。
+  - 全量スキーマは、graphql_codegenの読み込み対象外の場所(`source/schema.full.graphql`)に置く。
+- 全量スキーマの更新後、および画面のGraphQLを追加・変更した後は、必ず「絞り込み → build_runner」の順で実行する。
+- 生成用スキーマに含まれない型・フィールドは、生成モデルにも含まれない。新しい画面で使う場合は、絞り込みを再実行する。
 
-2026/09/09_0010:schema.graphqlを更新。0009を実行。
+### 4-3. build_runner(0012・0024・0042)
 
-2026/09/09_0011:0006のファイル命名規則のルールを変更。「見出し2"##"+"_"+見出し3"###"」のスネークケースをGraphQLのファイル名とし、Readは読み込み用クエリ、Editはミューテーションに変更はない。
+- 全量スキーマ(したがって生成用スキーマ)が変わった場合は、`schema.graphql.dart`を生成する(0024)。
+- 画面のGraphQLをすべて作成した後に、build_runnerでモデルを生成する。
+- 生成とテストは、結合を除き最小単位に分割して順次実行する(`--build-filter`で画面単位)。
+- 実行中は10分間隔でハングアップを監視する。停止状態なら原因を調査し、権限の範囲で除去(タスクキル等)して再評価する。
+- build_runnerが`Null check operator used on a null value`(`_writeBuildOutput`)で出力を書き込めない場合は、該当の既存出力を削除して再実行する(0047・0048)。
 
-2026/09/09_0012:buildrunnerを実行し、0066と0011の実行結果から、適切にモデルクラスが生成されるかを確認。失敗したときは状況をLogに追加。0011のGraphQLファイルを編集する。もし、build.ymlに問題があるときは以降の処置を停止し、Logに修正内容を記録すること。
+### 4-4. 大きな生成物の扱い(0015・0016)
 
-2026/09/09_0013:これは0012が成功した際に実行すること。生成されたモデルからnested_map_flattener.dartのモデルをMapに、Mapをモデルに変換するテストを作成、実行。実行結果とMapをJSONにしたテキストをLogに記録。変換が失敗したときは、nested_map_flattener.dartの変更方針をLogに記録し、処理を中断すること。
+- 生成モデルのうち5000KBを超えるもの、および`schema.graphql.dart`は、`.gitignore`に追加する。
+- 加えて、アナライザの除外(`analysis_options.yaml`)と、VS Codeの監視・検索の除外(`.vscode/settings.json`)にも加える。
+- `.gitignore`はサイズで動的に指定できないため、build_runnerを実行するたびに生成物のサイズを確認し、該当するものを個別に追記する。
 
-2026/09/09_0014:0012Logの案Aを採用。ただし、scheme.graphqlはサイズが大きいためgitの除外リストに追加すること。また、生成されたモデルもサイズが大きいためscheme.graphqlに関しては、Type宣言が不要など必要がなければbuild.ymlから除外すること。これらにあわせてbuild.ymlを編集し、Logを残す。
+## 5. 画面仕様からGraphQLへの変換
 
-2026/09/09_0015:0012の実行、またはGraphQLからgraphql_generatorをとおしてbuildrunnerを実行し、モデルのdartファイルを生成したファイルが大きいサイズ(5000KBを超える)、またはschema.graphql.dartは環境が変ったときにbuildrunnerを実行するため必ずGitの無視リストに追加する。
+### 5-1. 入力(0033)
 
-2026/09/10_0016:0015へ追加事項。1.当該ファイルをアナライザの除外リストに加える。2.当該ファイルを"vsocode"の監視除外に加える。
+- 変換の対象は`source/view.yaml`とする。
+- 規則は`source/schema.json`と`source/27_yaml_to_graphql_conversion_rules.md`に従う。
 
-2026/09/10_0017:[画面仕様](#画面仕様)のファイル名を'views.md'に変更。0006を追加した[画面仕様命名規則](#画面仕様命名規則)に定義。よって0006の実行は重複するので除外する。
+### 5-2. kindと生成物
 
-2026/09/10_0018:[GraphQL変換ルール](#GraphQL変換ルール)を追加した。以降はこの規則に従う。
+| 指定 | 生成物 |
+|---|---|
+| `kind: read` | 読み込み用クエリ |
+| `kind: edit` | ミューテーション |
+| `kind: edit`かつ`generateRfe: true` | 同じcolumnsツリーをSELECTとして解釈した読み込み専用クエリ(RFE: read for editing)を自動導出する(0037)。独立したkind:RFEは廃止 |
 
-2026/09/10_0019:指示の結果を評価するため、[画面仕様](./source/views.md)の"　info_company"の項目からGraphQLを作成する。
+- editのツリー内の子(0047):
+  - IDの割り当てのみの子は、readを参照し`editable: false`を指定する。子は書き込まず、親側の`using`のFK列だけを書き込む。
+  - 親とともに編集する子は、editを参照し`editable: true`を指定する。この子は常に親のRFEに含まれる。
+  - readを参照する子は、`editable: false`を省略しない。
+- `generateRfe`は子の位置にも書けるが、子の位置では独立したRFEを生成しない(0047)。
 
-2026/09/10_0020:指示が直前までの指示・実行済みの内容と重複しており、実行しても結果が変わらないと判断できる場合は、実行せずログを残したうえでスキップする。
+### 5-3. 命名(0033・0037)
 
-2026/09/10_0021:[画面仕様](./source/views.md)のGraphQLを作成する。生成済みの場合は更新されていなければ無視する。生成されたGraphQLのみ対象にコードを生成する。エラーが発生したものは無視し、ログに残す。
+- ディレクトリ名・ファイル名はスネークケースとする。
+- ディレクトリ名はトップノード名とする。
+- ファイル名は「トップノード名_kind」(`_read`/`_edit`)とし、自動導出するRFEは`_rfe`とする。
+- 平坦化キーの定数は`lib/contents/<トップノード名>_keyname.dart`に置き、クラス名は`<トップノード名>KeyName`とする(5-6節)。
 
-2026/09/11_0022:トークンの削減と齟齬防止のため、[画面仕様](./source/views.md)の定義の説明方法をネストにして、詳細を明確に、また、テーブルと列指定方法を論理名に統一した。この変更から、テーブルや列の特定ができない場合はログに残したうえで、テーブルそのものの処理をスキップする。
+### 5-4. 共通項(0005)
 
-2026/09/11_0023:docsの06_create_test.sqlを参照しないため削除。以降、コード生成に必要な場合は生成処理を停止し、ログに残す。
+- すべての取得に、`remarks`・`update_at`・`remove`・更新者(`update_user_id`+`update_user_history_id`→スタッフ→呼称)を含める。
+- 更新者の呼称は、5-5節の共通名前仕様として扱う。
+- readには削除フラグ(`remove`)の条件を含める。指定が無い場合はエラーとして記録する(0028)。
 
-2026/09/12_0024:schema.grapqlが変更されていれば、schhma.graphqlのみコード生成する。
+### 5-5. 共通名前仕様(shared_appellations)
 
-2026/09/12_0025:[画面仕様](./source/views.md)のGraphQLを作成するための評価を実施。この段階ではGraphQLは作成しない。
-GraphQLへの変換できないエラーは変換できない理由をログへ記録し、readがeditに変換(クエリ→Map→ミューテーション)にするために必要な、すべての参照をもつ列をshema.graphqlと比較しIDの出力を含んでいない場合はIDへの参照を追加し、追加ログにモレとして修正した内容を記録する。
-原則として、editが含む参照列は、各テーブルのidを含むオブジェクトへ変換できなければならない。
-これらの"##"に対して、変換にかかる提案が有る場合は、その"##"と提案内容を記録する。ただし、エラーとしては扱わない。提案を適用するときは"##"へ"###提案への指示"として指示を追加する。これらは変更として扱う。提案に対して採択しないときは何も記載しない。
-評価後、エラーが無い状態になったときにGraphQLを作成し、GraphQLからモデル生成を実行する。変更を含んでいる"##"を評価、生成の対象とする。
+- `shared_appellations`は、名前・読み・略称の3つの`shared_dictionary`を1対1で持つ。
+  - `shared_dictionary_name_id`・`shared_dictionary_pronunciation_id`・`shared_dictionary_nickname_id`
+  - 各辞書は言語ごとの値(ja/en)を持つ。
+- クエリのモデルは平坦化してMapにし、ミューテーションのモデルに変換するときに構造化する。
+- 言語管理画面以外で`shared_appellations`を参照するテーブルは、指定が無い限りすべてこの仕様に従う。
+- 言語の引数(0036・0048):
+  - read: 表示言語1つを`$languageCodeId`で受け取る。
+  - edit・RFE: `$jaLanguageCodeId`/`$enLanguageCodeId`(必須)で受け取り、ja/en両方を常に取得・更新する。
+  - `$ja`/`$en: Boolean!`と`@include`による条件付き取得は使わない。
 
-2026/09/12_0026:"http://192.168.1.100:5000/graphql"からshema.graphqlを取得して差分を比較し、変更があれば置き換え、0024を実行。最新は"http://192.168.1.100:5000/graphql"から取得したSDLである。接続できない場合は中止する。
+### 5-6. その他の変換規則(0018・0027・0032)
 
-2026/09/16_0027:[画面仕様命名規則](#画面仕様命名規則)、及び[GraphQL変換ルール](#GraphQL変換ルール)に"read for editng"を追加した。目的は、readとeditの変換する際に、idもれや表示に不要な配列を含むため、編集画面遷移のときに専用を読み込む方が良いと判断した。~~そのため、引き続き、readで配列を読み込む要求があるときはエラーとして記録すること。~~
+- RFEで関連の配列を取得する件数は引数で受け取る。引数が無い場合は30件とする。
+- 1対多の列(先頭)は、更新日時が最新の先頭1レコードを指す。
+- 列(結合)はカンマ区切りの文字列とする。
+- GraphQLの列の型は、`GraphQLTypeKind`(content_variable.dart)のEnumに重複せず追加する。Enumは文字列から型を受け取り、文字列へ復元できること。
+- 平坦化キーは、コード補完できるよう定数にする。
+  - 型は`static const ContentVariable`(名前とGraphQLの型の組)とする。
+  - 定数名は`||`を`_`に置き換えた名前とする。
+  - RFEの定数は作らない。
+- 監査列(`update_at`/`update_user_id`/`update_user_history_id`/`remove`)はRFEでのみ取得し、Editの引数・結果には含めない(0048)。
+  - `update_at`はトリガーで設定されるが、Editに含めるとプログラマが意図的に変更できてしまうため。
+  - 保存後に最新の監査列が必要な場合は、RFEを再取得する。
 
-2026/09/16_0028:[GraphQL変換ルール](#GraphQL変換ルール)の条件変更した。また、readに削除フラグの条件、RFEのidの条件を追加した。readに削除フラグ列の指定がないときは、エラーとして記録する。
-RFEのidを引数にとる条件が一意として成立しないときは、editと比較し必要なid列を追加する。解決できないときはedit(RFEの指示があるとはともに)に必要なid列を追加する。それでも解決できないときはエラーとして記録する。
+### 5-7. 評価・生成の進め方(0021・0022・0025・0034・0035・0044)
 
-2026/09/16_0029:view.mdの評価、参照で発見された提案は、doc以下だけではなくview.mdの該当項目に"##見出し"として追記する(トレースが困難になるため)。
+- GraphQLを作成する前に、view.yamlを評価する。
+  - 変換できない箇所は、理由をログに記録する。
+  - テーブル・列を特定できない場合は、ログに記録したうえでそのテーブルの処理をスキップする。
+- editが含む参照列は、各テーブルのIDを含むオブジェクトへ変換できなければならない。IDの漏れは追加し、ログに記録する。
+- 変換にかかる提案はログに記録し、view.yamlの該当箇所にも残す(0025・0029)。
+- エラーが無い状態になってからGraphQLを作成し、モデルを生成する。
+  - 対象は変更を含むノードとする。生成済みで変更が無いものは対象外とする。
+  - モデルの生成は、GraphQLの生成に成功したものだけを対象とする。
 
-2026/09/16_0030:0029を適用。GraphQLを生成せずに、views.mdをモレ、提案の必要性を評価する。
+## 6. テストと品質条件
 
-2026/09/18_0031:view.mdのoepration_editerを削除して、operationにRFEを追加した。`order`/`ship_order`/`purchase`が同じ方法で対応できるか可能性を評価する。
+| 条件 | 内容 |
+|---|---|
+| 往復変換(0013・0032・0044) | 生成モデルごとに、`nested_map_flattener.dart`で平坦化→復元して元と一致するテストを作る。再生成のときはテストも見直す |
+| RFE/Edit相互変換(0046・0048) | `test/rfe_edit_interconversion_test.dart`で全画面を検証する。RFE→Editの結果モデル・引数モデル、Editの結果モデル→RFEのいずれも変換できること。変換できない場合は、view.yamlの修正案をログに出力する。監査列がRFEにのみあるのは方針どおり(A1)とし、条件付き取得の混入は失敗(F6)とする |
+| nested_map_flattener.dartの扱い(0044) | 相互変換できないときだけ見直す。根本的な見直しが必要なら提案し、それ以外は対応できるよう修正する |
 
-2026/09/19_0032:"[GraphQL変換ルール](#GraphQL変換ルール)"のレビュー。
-変換ルール移動=>共通している項目を移動、KeyName条件の変更(ContentVariable適用)した。
-Enumのルールを追加した。
+## 7. 作業の進め方
 
-2026/09/24_0033:大幅な方針変更。[画面仕様](#画面仕様)を変更した。既存のGraphQL、生成物を一度削除し、GraphQLの再生成のテストを行い、問題が見つからなかった場合はCLAUD.mdの見え消し部分を削除する。問題、または発見したリスクはログに記録すること。テストのため一部のみInfoCompanyのみ実装している。この0033は1度のみ実行。
+- 要件は1つずつ解決する。チャットで通し番号を使って指示する。
+- 要件の追記形式は「年月日_4桁の通し番号:内容」とし、要件に変更があったときは変更の通し番号を参照する。
+- ライブラリの動作に影響しない成果物(ログ・調査結果等)は`docs/`に置き、ファイル名に通し番号を含める(0004)。
+- 直前までの指示・実行済みの内容と重複し、実行しても結果が変わらないと判断できる場合は、実行せずログを残してスキップする(0020)。
+- view.yaml内の要件コメント、および確認用のコメント(`要件0046確認`等)は、ユーザーが確認後に削除する。Claudeは定義の変更なしに削除しない(0045・0046)。
+- 生成やテストの実行が環境の制約(メモリ・ツールの欠如等)で完了しない場合は、状態を元に戻し、原因と対応案をログに残してユーザーの判断を仰ぐ。
 
-2026/09/25_0034:[画面仕様](#画面仕様)に従いGraphQLの再生成のテストを行い、GraphQLを作成するための評価を実施。この段階ではGraphQLは作成しない。
-GraphQLへの変換できないエラーは変換できない理由をログへ記録し、評価後、エラーが無い状態になったときにGraphQLを作成し、GraphQLからモデル生成を実行する。変更を含んでいる"##"を評価、生成の対象とする。
+## 8. 保留・既知の課題
 
-2026/09/25_0035:[画面仕様](#画面仕様)に従いGraphQLの再生成のテストを行い、GraphQLを作成するための評価を実施。エラーが無い状態になったときにGraphQLを作成し、GraphQLからモデル生成を実行する。
+- `DepartmentPage.descendants`: 0048で保留とした。0049でビューの関連がスキーマに追加され、取得できるようになった。view.yaml・GraphQLへの反映は未着手。
+- `CompanyPageEdit.provision`: `ProvisionPageEdit`のcolumnsを複製している(`requiredWhere`の扱いのため。docs/0048ログ3章)。
 
-2026/09/26_0036:出力されたGraphQLの引数に古い列指定パターンが含まれていたので生成パターンを修正する。"$ja: Boolean!,$en: Boolean!"->"$languageCode: String"のように言語コード("JA"や"EN")で受け取る。schema.jsonの変更が必要であれば修正する。
+## 要件(0050以降)
 
-2026/09/26_0037:readとeditのキー構造の非対称性(0036で発見)はkind:RFEの存在に起因し、RFEはeditのために読み込むデータをeditと相互変換する目的である以上、editがread相当のクエリになれば冗長性を回避できると判断した。独立したkind:RFEを廃止し、editのノードに"generateRfe: true"を指定すると、そのeditと全く同一のcolumnsツリーから読み込み専用クエリ(旧RFE相当)を自動導出する方式(案A)を採択した。[画面仕様](#画面仕様)・[画面仕様命名規則](#画面仕様命名規則)を訂正し、schema.jsonの"kind"enumから"RFE"を削除、"generateRfe"プロパティを新設した。
-
-2026/09/26_0038:test.yamlのCompanyPage.offices.update_user(history_info_staffへの複合FK、update_user_id+update_user_history_id)で"using"に配列を渡そうとしていたが、schema.jsonの"using"は単一文字列のみ対応でこの用法に未対応だった。加えて指定順が実スキーマのフィールド名(historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId、列順はupdate_user_history_id→update_user_id)と逆になっていた。schema.jsonの"using"を文字列または文字列配列に対応するよう修正し、27_yaml_to_graphql_conversion_rules.mdに複合FKの列順に関する注意を追記。test.yamlの列順を修正した。
-
-2026/09/28_0039:部署ツリー画面で子孫数からノードの展開可否を判断する必要があるが、DepartmentHierarchy案(ancestor_info_department_id<>descendant_info_department_idの除外、count(*)による子孫数集計)は標準のPostGraphile condition/filterでは列同士の比較も集計も表現できず、対応するAggregateプラグインも未導入のため実現不可と判明した。対応案(3.1 DBビュー作成/3.2 pg-aggregatesプラグイン導入/3.3 schema.jsonのみの変更/3.4 クライアント側集計)を提示し、3.1(DBビュー作成)を採択した。schema.jsonのoperatorに"<>"を追加し、test.yamlにビュー(hrchy_info_department_descendant_count、要DB側での作成)を参照する共有アームdepartmentDescendantCountを追加した。詳細はdocs/0039_department_hierarchy_descendant_count_log.md参照。
-
-2026/09/28_0040:"source/06_create_test.sql"からPostgrapileのスキーマを作成、SDLからschema.graphqlを取得して差分を比較し、変更があれば"lib/graphql/schema.json"置き換え、0024を実行。Postgrapileは"postgraphile-plugin-nested-mutations postgraphile-plugin-connection-filter@2.3.0"のプラグインを適用する。
-
-2026/09/28_0041:【翌日の課題】0026の実行(docs/0026_schema_fetch_log.md 追記14)で確定した"shared_appellations_id"→"names"(info_company・info_officeほか70件以上のテーブル)、及び"ceo"→"ceo_names"(info_companyのみ)のDB列名変更に対応する。生成済み5画面(company_page, staff_page, department_category, office_page, department_page)のGraphQL(read/edit/rfe計14ファイル)、lib/contents配下のkeyname.dart(5ファイル)、対応するflatten_roundtripテスト(5ファイル)、及びsource/view.yaml・source/test.yamlの"using: shared_appellations_id"(15+2箇所)・"using: ceo"(2箇所)を新しい列名に合わせて修正し、buildrunner再生成・テストを行う。詳細は上記ログ参照。
-
-2026/09/29_0042:生成およびテストは、結合を除き最小サイズに分割して順次行う。実行時はタスクのハングアップを10分間隔で監視し、状態を評価する。停止状態と判断した場合は、ハングアップなど進行を阻害する原因を調査し、権限の範囲で除去(タスクキルなど)し、再評価を行う。
-
-2026/09/29_0043:view.yamlのdictionaryLabelを子や孫に配置したとき、dictionaryLabelがとるWhereの引数"code"は親に同名の列が存在する場合があるので、dictionaryLabelに対するWhereである、あるいは親が他の子テーブルの同名の子列をWhereで絞り込むことができるようにschema.jsonをレビューする。
-
-2026/09/29_0044:view.yamlからGraphQLの生成、成功した場合にのみモデルを生成する。モデルがnested_map_flattener.dartによってフラット化、復元できるかもテストする。相互変換できないときだけnested_map_flattener.dartをレビューし、根本から見直しが必要な場合は提案、それ以外の場合は対応できるように修正する。
-
-2026/09/30_0045:view.yaml内の要件のコメントの定義を確認後、0044の実行。要件が実行できない場合は無視し、提案をログに出力。その際にview.yaml内の要件のコメントはユーザーが消去するためそのまま残すこと。
-
-2026/10/01_0046:view.yamlのGraphQLからモデル生成(以下、モデル)について、KindのRFEとEdit(以下、RFE、Edit)のモデルが相互変換ができることを条件に追加。生成後のテストで相互変換できないとき、view.yamlの修正を行うリストにまとめ提案としてログに出力する。Editのトップノード内で参照しているノードがEditではないとき、意図的な場合と修正モレの場合があるためコメントでマークし、ログに出力する。構造的な違いについて、schema.GraphQLを変更していない場合があるため、これも修正せず、コメントとして記録し、ログに確認用として出力する。ユーザーは修正後このコメントを削除することがある。
-
-2026/10/01_0047:view.yamlの修正。generateRfeについて、意図的に生成しないFalseの指定もできないためschema.jsonへの課題、意図的にIDだけを取得する場合にはReadを割り当て、意図的に編集可能にする場合はEditを使うため修正。親ノードとともに編集できる子ノードのとき、親とともに編集モデルと相互変換できるReadは必要である。
-・0046ログについて、以前のview.yaml修正後に再生成されずにエラー判定になったものを含むため、再生成が必要なyamlを再生成後に比較、相互変換テストを行う。その後、再度0046のとおり、相互変換テストを行う。
-・意図的な子ノードの編集が有効かどうかと、コピペの修正モレの判定の曖昧さを回避するため、"IDを割り当てるだけ"に該当する子ノードに対する編集可能を表すBool属性を追加する。命名はシンプルに。これは、上記実行前に行うこと。
-
-2026/10/01_0048:0047の結果"6. 変換不可・要確認(修正していないもの)"に対する方針を決定。
-・"1. **DepartmentPage.descendants(変換不可)**"は修正するまで保留。
-・"2. **監査列(全Edit共通、C1)**:"の"保存後はRFEを再取得する運用"について、再取得の可能性はあるが、Edit側では列に含めない。トリガーでUpdateAtがインサートされるが、プログラマ側で意図的に変更できてしまうため。
-・"3. **@includeによる条件付き取得(7画面、C2)**: "は0036以前の方式は修正する
-・"4. **ItemPageEdit.manufacture(`editable: true`)**:"採択。
-・"5. **CompanyPageEdit.provision**: "について、"requiredWhere: [info_provision_id]"は見つからなかった。
-・6. **company_pageの`symbol`**: 採択。修正モレ。
+追記形式: 年月日_4桁の通し番号:内容
