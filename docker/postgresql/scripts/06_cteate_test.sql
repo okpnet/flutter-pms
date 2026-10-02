@@ -20702,8 +20702,13 @@ FROM
    tests.hrchy_trans_container 
 WHERE
     remove = 'f' 
+    AND
+    ancestor_trans_container_id <> descendant_trans_container_id
 GROUP BY
     ancestor_trans_container_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_container_descendants is E'@foreignKey (ancestor_trans_container_id) references trans_container (trans_container_id)\n@unique ancestor_trans_container_id';
 
 drop view if exists tests.v_task_descendants;
 create view  tests.v_task_descendants as
@@ -20714,8 +20719,13 @@ FROM
    tests.hrchy_mstr_task 
 WHERE
     remove = 'f' 
+    AND
+    ancestor_mstr_task_id <> descendant_mstr_task_id
 GROUP BY
     ancestor_mstr_task_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_task_descendants is E'@foreignKey (ancestor_mstr_task_id) references mstr_task (mstr_task_id)\n@unique ancestor_mstr_task_id';
 
 drop view if exists tests.v_location_descendants;
 create view  tests.v_location_descendants as
@@ -20726,8 +20736,13 @@ FROM
    tests.hrchy_mstr_location 
 WHERE
     remove = 'f' 
+    AND
+    ancestor_mstr_location_id <> descendant_mstr_location_id
 GROUP BY
     ancestor_mstr_location_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_location_descendants is E'@foreignKey (ancestor_mstr_location_id) references mstr_location (mstr_location_id)\n@unique ancestor_mstr_location_id';
 
 drop view if exists tests.v_item_descendants;
 create view  tests.v_item_descendants as
@@ -20738,8 +20753,13 @@ FROM
    tests.hrchy_mstr_item 
 WHERE
     remove = 'f' 
+    AND
+    ancestor_mstr_item_id <> descendant_mstr_item_id
 GROUP BY
     ancestor_mstr_item_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_item_descendants is E'@foreignKey (ancestor_mstr_item_id) references mstr_item (mstr_item_id)\n@unique ancestor_mstr_item_id';
 
 drop view if exists tests.v_document_descendants;
 create view  tests.v_document_descendants as
@@ -20750,8 +20770,13 @@ FROM
    tests.hrchy_mstr_documet 
 WHERE
     remove = 'f' 
+    AND
+    ancestor_mstr_document_id <> descendant_mstr_document_id
 GROUP BY
     ancestor_mstr_document_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_document_descendants is E'@foreignKey (ancestor_mstr_document_id) references mstr_document (mstr_document_id)\n@unique ancestor_mstr_document_id';
 
 drop view if exists tests.v_document_content_descendants;
 create view  tests.v_document_content_descendants as
@@ -20762,8 +20787,13 @@ FROM
    tests.hrchy_mstr_document_content 
 WHERE
     remove = 'f' 
+    AND
+    ancestor_mstr_document_content_id <> descendant_mstr_document_content_id
 GROUP BY
     ancestor_mstr_document_content_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_document_content_descendants is E'@foreignKey (ancestor_mstr_document_content_id) references mstr_document_content (mstr_document_content_id)\n@unique ancestor_mstr_document_content_id';
 
 drop view if exists tests.v_department_descendants;
 create view  tests.v_department_descendants as
@@ -20778,3 +20808,6 @@ WHERE
     ancestor_info_department_id <> descendant_info_department_id
 GROUP BY
     ancestor_info_department_id;
+
+-- Postgraphile additional comment.
+comment on view tests.v_department_descendants is E'@foreignKey (ancestor_info_department_id) references info_department (info_department_id)\n@unique ancestor_info_department_id';

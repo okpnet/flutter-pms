@@ -1,7 +1,7 @@
 ﻿# A5:ER FORMAT:18
 # A5:ER ENCODING:UTF8
 # A5:ER Mk-1 Copyright © 2007 m.matsubara
-# A5:SQL Mk-2 Version 2.20.0 beta 20 Copyright © 1997 - 2024 m.matsubara
+# A5:SQL Mk-2 Version 2.20.0 beta 24 Copyright © 1997 - 2024 m.matsubara
 #  https://a5m2.mmatsubara.com
 
 [Manager]
@@ -17981,7 +17981,7 @@ ZOrder=1137
 [View]
 PName=v_department_descendants
 LName=組織子孫数
-Comment=@foreignKey (ancestor_info_department_id) references info_department (info_department_id)
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_department_descendants is E\q@foreignKey (ancestor_info_department_id) references info_department (info_department_id)\\n@unique ancestor_info_department_id\q;
 Query=SELECT\n    ancestor_info_department_id\n    , COUNT(descendant_info_department_id) AS descendant_count\nFROM\n    @schema.hrchy_info_department \nWHERE\n    remove = \qf\q \n    AND\n    ancestor_info_department_id <> descendant_info_department_id\nGROUP BY\n    ancestor_info_department_id
 LNameByComment=1
 Color=$000000
@@ -17995,8 +17995,8 @@ Top=350
 [View]
 PName=v_document_content_descendants
 LName=文書コンテンツ子孫数
-Comment=
-Query=SELECT\n    ancestor_mstr_document_content_id\n    , COUNT(descendant_mstr_document_content_id) AS descendant_count\nFROM\n    @schema.hrchy_mstr_document_content \nWHERE\n    remove = \qf\q \nGROUP BY\n    ancestor_mstr_document_content_id
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_document_content_descendants is E\q@foreignKey (ancestor_mstr_document_content_id) references mstr_document_content (mstr_document_content_id)\\n@unique ancestor_mstr_document_content_id\q;
+Query=SELECT\n    ancestor_mstr_document_content_id\n    , COUNT(descendant_mstr_document_content_id) AS descendant_count\nFROM\n    @schema.hrchy_mstr_document_content \nWHERE\n    remove = \qf\q \n    AND\n    ancestor_mstr_document_content_id <> descendant_mstr_document_content_id\nGROUP BY\n    ancestor_mstr_document_content_id
 LNameByComment=1
 Color=$000000
 BkColor=$FFFFFF
@@ -18009,8 +18009,8 @@ Top=550
 [View]
 PName=v_document_descendants
 LName=文書子孫数
-Comment=
-Query=SELECT\n    ancestor_mstr_document_id\n    , COUNT(descendant_mstr_document_id) AS descendant_count\nFROM\n    @schema.hrchy_mstr_documet \nWHERE\n    remove = \qf\q \nGROUP BY\n    ancestor_mstr_document_id
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_document_descendants is E\q@foreignKey (ancestor_mstr_document_id) references mstr_document (mstr_document_id)\\n@unique ancestor_mstr_document_id\q;
+Query=SELECT\n    ancestor_mstr_document_id\n    , COUNT(descendant_mstr_document_id) AS descendant_count\nFROM\n    @schema.hrchy_mstr_documet \nWHERE\n    remove = \qf\q \n    AND\n    ancestor_mstr_document_id <> descendant_mstr_document_id\nGROUP BY\n    ancestor_mstr_document_id
 LNameByComment=1
 Color=$000000
 BkColor=$FFFFFF
@@ -18023,8 +18023,8 @@ Top=750
 [View]
 PName=v_item_descendants
 LName=品目子孫数
-Comment=
-Query=SELECT\n    ancestor_mstr_item_id\n    , COUNT(descendant_mstr_item_id) AS descendant_count\nFROM\n    @schema.hrchy_mstr_item \nWHERE\n    remove = \qf\q \nGROUP BY\n    ancestor_mstr_item_id
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_item_descendants is E\q@foreignKey (ancestor_mstr_item_id) references mstr_item (mstr_item_id)\\n@unique ancestor_mstr_item_id\q;
+Query=SELECT\n    ancestor_mstr_item_id\n    , COUNT(descendant_mstr_item_id) AS descendant_count\nFROM\n    @schema.hrchy_mstr_item \nWHERE\n    remove = \qf\q \n    AND\n    ancestor_mstr_item_id <> descendant_mstr_item_id\nGROUP BY\n    ancestor_mstr_item_id
 LNameByComment=1
 Color=$000000
 BkColor=$FFFFFF
@@ -18037,8 +18037,8 @@ Top=950
 [View]
 PName=v_location_descendants
 LName=場所子孫数
-Comment=
-Query=SELECT\n    ancestor_mstr_location_id\n    , COUNT(descendant_mstr_location_id) AS descendant_count\nFROM\n    @schema.hrchy_mstr_location \nWHERE\n    remove = \qf\q \nGROUP BY\n    ancestor_mstr_location_id
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_location_descendants is E\q@foreignKey (ancestor_mstr_location_id) references mstr_location (mstr_location_id)\\n@unique ancestor_mstr_location_id\q;
+Query=SELECT\n    ancestor_mstr_location_id\n    , COUNT(descendant_mstr_location_id) AS descendant_count\nFROM\n    @schema.hrchy_mstr_location \nWHERE\n    remove = \qf\q \n    AND\n    ancestor_mstr_location_id <> descendant_mstr_location_id\nGROUP BY\n    ancestor_mstr_location_id
 LNameByComment=1
 Color=$000000
 BkColor=$FFFFFF
@@ -18051,8 +18051,8 @@ Top=1150
 [View]
 PName=v_task_descendants
 LName=工程子孫数
-Comment=
-Query=SELECT\n    ancestor_mstr_task_id\n    , COUNT(descendant_mstr_task_id) AS descendant_count\nFROM\n    @schema.hrchy_mstr_task \nWHERE\n    remove = \qf\q \nGROUP BY\n    ancestor_mstr_task_id
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_task_descendants is E\q@foreignKey (ancestor_mstr_task_id) references mstr_task (mstr_task_id)\\n@unique ancestor_mstr_task_id\q;
+Query=SELECT\n    ancestor_mstr_task_id\n    , COUNT(descendant_mstr_task_id) AS descendant_count\nFROM\n    @schema.hrchy_mstr_task \nWHERE\n    remove = \qf\q \n    AND\n    ancestor_mstr_task_id <> descendant_mstr_task_id\nGROUP BY\n    ancestor_mstr_task_id
 LNameByComment=1
 Color=$000000
 BkColor=$FFFFFF
@@ -18065,8 +18065,8 @@ Top=1350
 [View]
 PName=v_container_descendants
 LName=コンテナ子孫数
-Comment=
-Query=SELECT\n    ancestor_trans_container_id\n    , COUNT(descendant_trans_container_id) AS descendant_count\nFROM\n    @schema.hrchy_trans_container \nWHERE\n    remove = \qf\q \nGROUP BY\n    ancestor_trans_container_id
+Comment=-- Postgraphile additional comment.\ncomment on view @schema.v_container_descendants is E\q@foreignKey (ancestor_trans_container_id) references trans_container (trans_container_id)\\n@unique ancestor_trans_container_id\q;
+Query=SELECT\n    ancestor_trans_container_id\n    , COUNT(descendant_trans_container_id) AS descendant_count\nFROM\n    @schema.hrchy_trans_container \nWHERE\n    remove = \qf\q \n    AND\n    ancestor_trans_container_id <> descendant_trans_container_id\nGROUP BY\n    ancestor_trans_container_id
 LNameByComment=1
 Color=$000000
 BkColor=$FFFFFF

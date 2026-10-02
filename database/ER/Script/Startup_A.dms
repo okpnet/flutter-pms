@@ -271,7 +271,6 @@ class Trigger{
         //println(result);
         return result;
     }
-    
     function GetQuery(schema,parentEntity,childEntity){
         ///更新日時トリガー
         var result=GetUpdateQuery(schema,parentEntity) + CR;
@@ -295,7 +294,6 @@ class Trigger{
         }
         return result;
     }
-    
     //履歴トリガークエリ生成
     function GetHistoryQuery(schema,parentEntity,childEntity){
 //       	if(Relation == null)return GetUpdateQuery(schema,parentEntity);
@@ -371,7 +369,6 @@ class Trigger{
         result+="CREATE TRIGGER "+HISTORY_TRIGGER_PRIFX+"_"+Relation.entityPName1+" BEFORE INSERT OR UPDATE OR DELETE ON "+schema+"."+Relation.entityPName1+" FOR EACH ROW EXECUTE"+CR;
         result+="PROCEDURE "+schema+"."+HISTORY_TRIGGER_PRIFX+"_"+Relation.entityPName1+"();"+CR;
         result+=CR;
-//        println(result);
         return result;
     }
 }
@@ -403,7 +400,6 @@ class Entity{
             
             for(var index in entity.attributes)Columns.add(new Column(entity.attributes[index]));
             for(var index in commonAttrs)Columns.add(new Column(commonAttrs[index]));
-//            println(Name+':'+entity.lName);
             try{
             var rels=ext.toWhere(relations,function(e){return (e.entityPName1==Name && !new RegExp("^history_id").test(e.attributes1));});
             for(var index in rels){
@@ -418,13 +414,6 @@ class Entity{
                 println('erroe:'+ex);
             }
             var pkColumns=ext.toWhere(Columns,function(e){return e.Attr.keyIdx>=0;});
-//PKからユニークインデックスが生成されるので不要
-//            if(ext.count(pkColumns) > 0){
-//                var pkColumnStr=ext.join(ext.toSelect(pkColumns,function(e){return e.Attr.pName;}),",");
-//                UniqueIndexs.add(new UniqueIndex(Name,pkColumnStr,UniqueIndexs.length+1));
-//                //println(pkColumnStr);
-//            }
-
 
             for(var index in entity.indexes){
                 //ERに追加しているインデックス
@@ -432,12 +421,6 @@ class Entity{
                 if(entity.indexes[index].indexType==0) continue;
                 UniqueIndexs.add(new UniqueIndex(Name,entity.indexes[index].attributes,entity.indexes[index].indexType==1,UniqueIndexs.length+1));
             }
-//ユニークキーに外部キー単体を含めてしまうので削除
-//            for(var index in IsRelations){
-//                if(!ext.toAny(UniqueIndexs,function(e){return (e.Attr==IsRelations[index].attributes1);})){
-//                    UniqueIndexs.add(new UniqueIndex(Name,IsRelations[index].attributes1,UniqueIndexs.length+1));
-//                }
-//            }
 
             var triggerRel=ext.toFirst(relations,function(e){return (e.entityPName1==Name && e.entityPName2==("history_"+Name));});
             if(triggerRel != null){
@@ -452,7 +435,6 @@ class Entity{
             Comment=entity.comment;
             
         }
-//        println('donee');
     }
 	//テーブル全レコード削除
 	function GetDeleteQuery(schema){
@@ -470,17 +452,17 @@ class Entity{
     //コメントクエリ生成
     function GetCommentQuery(schema){
         var result="";
-                    println(Comment);
+        
         if(IsView){
             if(Comment.length==0){
-                break;
+                return result;
             }
-            println(Comment);
-            var reg=new RegExp("[\\s|^|\\t]@schema","i");
+            var reg=new RegExp("@schema","i");
+            reg.global=true;
 	        var comment=reg.replace(Comment,schema);
-            result="comment on view "+schema+"."+Name+" is E'"+comment+"';"+CR;
+            result+=CR+comment+CR;
         }else{
-	        result= "comment on table "+schema+"."+Name+" is E'"+lName+"';"+CR;
+	        result= "comment on table "+schema+"."+Name+" is '"+lName+"';"+CR;
 	        for(var index in Columns){
 	            var colComment=Columns[index].GetCommentQuery(schema,Name);
 	            if(colComment.length>0)result+=colComment;
@@ -1087,7 +1069,9 @@ class GeneratManager{
         var query="";
         for(var index in viewArray){
             query+=viewArray[index].GetQuery(IsSchema);
+            query+=viewArray[index].GetCommentQuery(IsSchema);
         }
+        
         return query;
     }
     //タブページ追加
