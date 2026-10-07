@@ -1,8 +1,8 @@
-# department_category画面 - Edit(ミューテーション)
+# department_category_page画面 - Edit(ミューテーション)
 #
-# 画面仕様: source/view.yaml #DepartmentCategoryEdit(組織区分、info_department_kind_value)
+# 画面仕様: source/view.yaml #DepartmentCategoryPageEdit(組織区分、info_department_kind_value)
 
-mutation DepartmentCategoryEdit(
+mutation DepartmentCategoryPageEdit(
   $infoDepartmentKindValueId: UUID!
   $remarks: String
   $sharedAppellationsId: UUID!

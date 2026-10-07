@@ -1,0 +1,352 @@
+// staff_capability_page_filter_spec.dart
+//
+// このファイルはtool/gen_filter_spec.dartが生成した検索条件の対応表です。直接編集しないでください。
+// lib/graphql/staff_capability_page/staff_capability_page_read.graphql の選択経路から、平坦化キー -> Filterの経路を作る。
+// 使い方: FlatFilterConverter(StaffCapabilityPageFilterSpec.spec).convert(平坦なMap, variables: {...})
+import '../extensions/flat_filter_converter.dart';
+
+abstract class StaffCapabilityPageFilterSpec {
+  static const FlatFilterSpec spec = FlatFilterSpec('InfoStaffFilter', {
+    'infoStaffId': FlatFilterPath([], 'infoStaffId'),
+    'infoCompanyId': FlatFilterPath([], 'infoCompanyId'),
+    'code': FlatFilterPath([], 'code'),
+    'sex': FlatFilterPath([], 'sex'),
+    'phone': FlatFilterPath([], 'phone'),
+    'privatePhone': FlatFilterPath([], 'privatePhone'),
+    'symbol': FlatFilterPath([], 'symbol'),
+    'remarks': FlatFilterPath([], 'remarks'),
+    'updateAt': FlatFilterPath([], 'updateAt'),
+    'remove': FlatFilterPath([], 'remove'),
+    'labels||sharedAppellationsId': FlatFilterPath([
+      FilterStep('sharedAppellationByNames'),
+    ], 'sharedAppellationsId'),
+    'labels||sharedDictionaryBySharedDictionaryNameId||sharedDictionaryId':
+        FlatFilterPath([
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNameId'),
+        ], 'sharedDictionaryId'),
+    'labels||sharedDictionaryBySharedDictionaryNameId||value||dictionaryValue':
+        FlatFilterPath([
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNameId'),
+          FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {
+            'sharedLanguageCodeId': 'languageCodeId',
+          }),
+        ], 'dictionaryValue'),
+    'labels||sharedDictionaryBySharedDictionaryPronunciationId||sharedDictionaryId':
+        FlatFilterPath([
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryPronunciationId'),
+        ], 'sharedDictionaryId'),
+    'labels||sharedDictionaryBySharedDictionaryPronunciationId||value||dictionaryValue':
+        FlatFilterPath([
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryPronunciationId'),
+          FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {
+            'sharedLanguageCodeId': 'languageCodeId',
+          }),
+        ], 'dictionaryValue'),
+    'labels||sharedDictionaryBySharedDictionaryNicknameId||sharedDictionaryId':
+        FlatFilterPath([
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNicknameId'),
+        ], 'sharedDictionaryId'),
+    'labels||sharedDictionaryBySharedDictionaryNicknameId||value||dictionaryValue':
+        FlatFilterPath([
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNicknameId'),
+          FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {
+            'sharedLanguageCodeId': 'languageCodeId',
+          }),
+        ], 'dictionaryValue'),
+    'capabilitys||mstrStaffCapabilityId': FlatFilterPath([
+      FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+    ], 'mstrStaffCapabilityId'),
+    'capabilitys||infoStaffId': FlatFilterPath([
+      FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+    ], 'infoStaffId'),
+    'capabilitys||value': FlatFilterPath([
+      FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+    ], 'value'),
+    'capabilitys||stop': FlatFilterPath([
+      FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+    ], 'stop'),
+    'capabilitys||capability||mstrCapabilityId': FlatFilterPath([
+      FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+      FilterStep('mstrCapabilityByMstrCapabilityId'),
+    ], 'mstrCapabilityId'),
+    'capabilitys||capability||code': FlatFilterPath([
+      FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+      FilterStep('mstrCapabilityByMstrCapabilityId'),
+    ], 'code'),
+    'capabilitys||capability||detail': FlatFilterPath([
+      FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+      FilterStep('mstrCapabilityByMstrCapabilityId'),
+    ], 'detail'),
+    'capabilitys||capability||referenceValue': FlatFilterPath([
+      FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+      FilterStep('mstrCapabilityByMstrCapabilityId'),
+    ], 'referenceValue'),
+    'capabilitys||capability||max': FlatFilterPath([
+      FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+      FilterStep('mstrCapabilityByMstrCapabilityId'),
+    ], 'max'),
+    'capabilitys||capability||min': FlatFilterPath([
+      FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+      FilterStep('mstrCapabilityByMstrCapabilityId'),
+    ], 'min'),
+    'capabilitys||capability||step': FlatFilterPath([
+      FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+      FilterStep('mstrCapabilityByMstrCapabilityId'),
+    ], 'step'),
+    'capabilitys||capability||symbol': FlatFilterPath([
+      FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+      FilterStep('mstrCapabilityByMstrCapabilityId'),
+    ], 'symbol'),
+    'capabilitys||capability||remarks': FlatFilterPath([
+      FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+      FilterStep('mstrCapabilityByMstrCapabilityId'),
+    ], 'remarks'),
+    'capabilitys||capability||updateAt': FlatFilterPath([
+      FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+      FilterStep('mstrCapabilityByMstrCapabilityId'),
+    ], 'updateAt'),
+    'capabilitys||capability||remove': FlatFilterPath([
+      FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+      FilterStep('mstrCapabilityByMstrCapabilityId'),
+    ], 'remove'),
+    'capabilitys||capability||labels||sharedAppellationsId': FlatFilterPath([
+      FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+      FilterStep('mstrCapabilityByMstrCapabilityId'),
+      FilterStep('sharedAppellationByNames'),
+    ], 'sharedAppellationsId'),
+    'capabilitys||capability||labels||sharedDictionaryBySharedDictionaryNameId||sharedDictionaryId':
+        FlatFilterPath([
+          FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+          FilterStep('mstrCapabilityByMstrCapabilityId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNameId'),
+        ], 'sharedDictionaryId'),
+    'capabilitys||capability||labels||sharedDictionaryBySharedDictionaryNameId||value||dictionaryValue':
+        FlatFilterPath([
+          FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+          FilterStep('mstrCapabilityByMstrCapabilityId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNameId'),
+          FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {
+            'sharedLanguageCodeId': 'languageCodeId',
+          }),
+        ], 'dictionaryValue'),
+    'capabilitys||capability||labels||sharedDictionaryBySharedDictionaryPronunciationId||sharedDictionaryId':
+        FlatFilterPath([
+          FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+          FilterStep('mstrCapabilityByMstrCapabilityId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryPronunciationId'),
+        ], 'sharedDictionaryId'),
+    'capabilitys||capability||labels||sharedDictionaryBySharedDictionaryPronunciationId||value||dictionaryValue':
+        FlatFilterPath([
+          FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+          FilterStep('mstrCapabilityByMstrCapabilityId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryPronunciationId'),
+          FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {
+            'sharedLanguageCodeId': 'languageCodeId',
+          }),
+        ], 'dictionaryValue'),
+    'capabilitys||capability||labels||sharedDictionaryBySharedDictionaryNicknameId||sharedDictionaryId':
+        FlatFilterPath([
+          FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+          FilterStep('mstrCapabilityByMstrCapabilityId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNicknameId'),
+        ], 'sharedDictionaryId'),
+    'capabilitys||capability||labels||sharedDictionaryBySharedDictionaryNicknameId||value||dictionaryValue':
+        FlatFilterPath([
+          FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+          FilterStep('mstrCapabilityByMstrCapabilityId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNicknameId'),
+          FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {
+            'sharedLanguageCodeId': 'languageCodeId',
+          }),
+        ], 'dictionaryValue'),
+    'capabilitys||capability||update_user||historyId': FlatFilterPath([
+      FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+      FilterStep('mstrCapabilityByMstrCapabilityId'),
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'historyId'),
+    'capabilitys||capability||update_user||infoStaffId': FlatFilterPath([
+      FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+      FilterStep('mstrCapabilityByMstrCapabilityId'),
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'infoStaffId'),
+    'capabilitys||capability||update_user||infoCompanyId': FlatFilterPath([
+      FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+      FilterStep('mstrCapabilityByMstrCapabilityId'),
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'infoCompanyId'),
+    'capabilitys||capability||update_user||code': FlatFilterPath([
+      FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+      FilterStep('mstrCapabilityByMstrCapabilityId'),
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'code'),
+    'capabilitys||capability||update_user||sex': FlatFilterPath([
+      FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+      FilterStep('mstrCapabilityByMstrCapabilityId'),
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'sex'),
+    'capabilitys||capability||update_user||phone': FlatFilterPath([
+      FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+      FilterStep('mstrCapabilityByMstrCapabilityId'),
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'phone'),
+    'capabilitys||capability||update_user||symbol': FlatFilterPath([
+      FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+      FilterStep('mstrCapabilityByMstrCapabilityId'),
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'symbol'),
+    'capabilitys||capability||update_user||privatePhone': FlatFilterPath([
+      FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+      FilterStep('mstrCapabilityByMstrCapabilityId'),
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'privatePhone'),
+    'capabilitys||capability||update_user||name||sharedAppellationsId':
+        FlatFilterPath([
+          FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+          FilterStep('mstrCapabilityByMstrCapabilityId'),
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+        ], 'sharedAppellationsId'),
+    'capabilitys||capability||update_user||name||sharedDictionaryBySharedDictionaryNameId||sharedDictionaryId':
+        FlatFilterPath([
+          FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+          FilterStep('mstrCapabilityByMstrCapabilityId'),
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNameId'),
+        ], 'sharedDictionaryId'),
+    'capabilitys||capability||update_user||name||sharedDictionaryBySharedDictionaryNameId||value||dictionaryValue':
+        FlatFilterPath([
+          FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+          FilterStep('mstrCapabilityByMstrCapabilityId'),
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNameId'),
+          FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {
+            'sharedLanguageCodeId': 'languageCodeId',
+          }),
+        ], 'dictionaryValue'),
+    'capabilitys||capability||update_user||name||sharedDictionaryBySharedDictionaryPronunciationId||sharedDictionaryId':
+        FlatFilterPath([
+          FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+          FilterStep('mstrCapabilityByMstrCapabilityId'),
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryPronunciationId'),
+        ], 'sharedDictionaryId'),
+    'capabilitys||capability||update_user||name||sharedDictionaryBySharedDictionaryPronunciationId||value||dictionaryValue':
+        FlatFilterPath([
+          FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+          FilterStep('mstrCapabilityByMstrCapabilityId'),
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryPronunciationId'),
+          FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {
+            'sharedLanguageCodeId': 'languageCodeId',
+          }),
+        ], 'dictionaryValue'),
+    'capabilitys||capability||update_user||name||sharedDictionaryBySharedDictionaryNicknameId||sharedDictionaryId':
+        FlatFilterPath([
+          FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+          FilterStep('mstrCapabilityByMstrCapabilityId'),
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNicknameId'),
+        ], 'sharedDictionaryId'),
+    'capabilitys||capability||update_user||name||sharedDictionaryBySharedDictionaryNicknameId||value||dictionaryValue':
+        FlatFilterPath([
+          FilterStep.many('mstrStaffCapabilitiesByInfoStaffId'),
+          FilterStep('mstrCapabilityByMstrCapabilityId'),
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNicknameId'),
+          FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {
+            'sharedLanguageCodeId': 'languageCodeId',
+          }),
+        ], 'dictionaryValue'),
+    'update_user||historyId': FlatFilterPath([
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'historyId'),
+    'update_user||infoStaffId': FlatFilterPath([
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'infoStaffId'),
+    'update_user||infoCompanyId': FlatFilterPath([
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'infoCompanyId'),
+    'update_user||code': FlatFilterPath([
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'code'),
+    'update_user||sex': FlatFilterPath([
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'sex'),
+    'update_user||phone': FlatFilterPath([
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'phone'),
+    'update_user||symbol': FlatFilterPath([
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'symbol'),
+    'update_user||privatePhone': FlatFilterPath([
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'privatePhone'),
+    'update_user||name||sharedAppellationsId': FlatFilterPath([
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+      FilterStep('sharedAppellationByNames'),
+    ], 'sharedAppellationsId'),
+    'update_user||name||sharedDictionaryBySharedDictionaryNameId||sharedDictionaryId':
+        FlatFilterPath([
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNameId'),
+        ], 'sharedDictionaryId'),
+    'update_user||name||sharedDictionaryBySharedDictionaryNameId||value||dictionaryValue':
+        FlatFilterPath([
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNameId'),
+          FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {
+            'sharedLanguageCodeId': 'languageCodeId',
+          }),
+        ], 'dictionaryValue'),
+    'update_user||name||sharedDictionaryBySharedDictionaryPronunciationId||sharedDictionaryId':
+        FlatFilterPath([
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryPronunciationId'),
+        ], 'sharedDictionaryId'),
+    'update_user||name||sharedDictionaryBySharedDictionaryPronunciationId||value||dictionaryValue':
+        FlatFilterPath([
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryPronunciationId'),
+          FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {
+            'sharedLanguageCodeId': 'languageCodeId',
+          }),
+        ], 'dictionaryValue'),
+    'update_user||name||sharedDictionaryBySharedDictionaryNicknameId||sharedDictionaryId':
+        FlatFilterPath([
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNicknameId'),
+        ], 'sharedDictionaryId'),
+    'update_user||name||sharedDictionaryBySharedDictionaryNicknameId||value||dictionaryValue':
+        FlatFilterPath([
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNicknameId'),
+          FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {
+            'sharedLanguageCodeId': 'languageCodeId',
+          }),
+        ], 'dictionaryValue'),
+  });
+}

@@ -16,7 +16,7 @@
 query LicenseHoldersPageRead(
   $first: Int!
   $offset: Int
-  $condition: MstrLicenseCondition
+  $filter: MstrLicenseFilter = {}
   $orderBy: [MstrLicensesOrderBy!] = [PRIMARY_KEY_ASC]
   $languageCodeId: UUID!
   $removed: Boolean = false
@@ -24,9 +24,8 @@ query LicenseHoldersPageRead(
   allMstrLicenses(
     first: $first
     offset: $offset
-    condition: $condition
     orderBy: $orderBy
-    filter: { remove: { equalTo: $removed } }
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
   ) {
     totalCount
     pageInfo {

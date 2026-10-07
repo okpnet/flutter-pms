@@ -9,7 +9,7 @@
 // 経由でinfo_staffへ)。要件0045で新規追加。Edit/RFEはlabels等をja/en個別フィールドで
 // 返すため既存のvalueキーとは別形状になる。CLAUDE.md GraphQL変換ルール(read for
 // editing)の方針に従い、Edit/RFE専用の定数は追加しない
-// (department_category_keyname.dartと同じ方針)。
+// (department_category_page_keyname.dartと同じ方針)。
 import 'content_variable.dart';
 
 abstract class LicenseHoldersPageKeyName {

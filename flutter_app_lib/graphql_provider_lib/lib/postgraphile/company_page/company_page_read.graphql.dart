@@ -9,7 +9,7 @@ class Variables$Query$CompanyPageRead {
   factory Variables$Query$CompanyPageRead({
     required int first,
     int? offset,
-    Input$InfoCompanyCondition? condition,
+    Input$InfoCompanyFilter? filter,
     List<Enum$InfoCompaniesOrderBy>? orderBy,
     required String languageCodeId,
     int? officesFirst,
@@ -18,7 +18,7 @@ class Variables$Query$CompanyPageRead {
   }) => Variables$Query$CompanyPageRead._({
     r'first': first,
     if (offset != null) r'offset': offset,
-    if (condition != null) r'condition': condition,
+    if (filter != null) r'filter': filter,
     if (orderBy != null) r'orderBy': orderBy,
     r'languageCodeId': languageCodeId,
     if (officesFirst != null) r'officesFirst': officesFirst,
@@ -36,12 +36,12 @@ class Variables$Query$CompanyPageRead {
       final l$offset = data['offset'];
       result$data['offset'] = (l$offset as int?);
     }
-    if (data.containsKey('condition')) {
-      final l$condition = data['condition'];
-      result$data['condition'] = l$condition == null
+    if (data.containsKey('filter')) {
+      final l$filter = data['filter'];
+      result$data['filter'] = l$filter == null
           ? null
-          : Input$InfoCompanyCondition.fromJson(
-              (l$condition as Map<String, dynamic>),
+          : Input$InfoCompanyFilter.fromJson(
+              (l$filter as Map<String, dynamic>),
             );
     }
     if (data.containsKey('orderBy')) {
@@ -73,8 +73,8 @@ class Variables$Query$CompanyPageRead {
 
   int? get offset => (_$data['offset'] as int?);
 
-  Input$InfoCompanyCondition? get condition =>
-      (_$data['condition'] as Input$InfoCompanyCondition?);
+  Input$InfoCompanyFilter? get filter =>
+      (_$data['filter'] as Input$InfoCompanyFilter?);
 
   List<Enum$InfoCompaniesOrderBy>? get orderBy =>
       (_$data['orderBy'] as List<Enum$InfoCompaniesOrderBy>?);
@@ -95,9 +95,9 @@ class Variables$Query$CompanyPageRead {
       final l$offset = offset;
       result$data['offset'] = l$offset;
     }
-    if (_$data.containsKey('condition')) {
-      final l$condition = condition;
-      result$data['condition'] = l$condition?.toJson();
+    if (_$data.containsKey('filter')) {
+      final l$filter = filter;
+      result$data['filter'] = l$filter?.toJson();
     }
     if (_$data.containsKey('orderBy')) {
       final l$orderBy = orderBy;
@@ -147,13 +147,12 @@ class Variables$Query$CompanyPageRead {
     if (l$offset != lOther$offset) {
       return false;
     }
-    final l$condition = condition;
-    final lOther$condition = other.condition;
-    if (_$data.containsKey('condition') !=
-        other._$data.containsKey('condition')) {
+    final l$filter = filter;
+    final lOther$filter = other.filter;
+    if (_$data.containsKey('filter') != other._$data.containsKey('filter')) {
       return false;
     }
-    if (l$condition != lOther$condition) {
+    if (l$filter != lOther$filter) {
       return false;
     }
     final l$orderBy = orderBy;
@@ -213,7 +212,7 @@ class Variables$Query$CompanyPageRead {
   int get hashCode {
     final l$first = first;
     final l$offset = offset;
-    final l$condition = condition;
+    final l$filter = filter;
     final l$orderBy = orderBy;
     final l$languageCodeId = languageCodeId;
     final l$officesFirst = officesFirst;
@@ -222,7 +221,7 @@ class Variables$Query$CompanyPageRead {
     return Object.hashAll([
       l$first,
       _$data.containsKey('offset') ? l$offset : const {},
-      _$data.containsKey('condition') ? l$condition : const {},
+      _$data.containsKey('filter') ? l$filter : const {},
       _$data.containsKey('orderBy')
           ? l$orderBy == null
                 ? null
@@ -248,7 +247,7 @@ abstract class CopyWith$Variables$Query$CompanyPageRead<TRes> {
   TRes call({
     int? first,
     int? offset,
-    Input$InfoCompanyCondition? condition,
+    Input$InfoCompanyFilter? filter,
     List<Enum$InfoCompaniesOrderBy>? orderBy,
     String? languageCodeId,
     int? officesFirst,
@@ -270,7 +269,7 @@ class _CopyWithImpl$Variables$Query$CompanyPageRead<TRes>
   TRes call({
     Object? first = _undefined,
     Object? offset = _undefined,
-    Object? condition = _undefined,
+    Object? filter = _undefined,
     Object? orderBy = _undefined,
     Object? languageCodeId = _undefined,
     Object? officesFirst = _undefined,
@@ -281,8 +280,7 @@ class _CopyWithImpl$Variables$Query$CompanyPageRead<TRes>
       ..._instance._$data,
       if (first != _undefined && first != null) 'first': (first as int),
       if (offset != _undefined) 'offset': (offset as int?),
-      if (condition != _undefined)
-        'condition': (condition as Input$InfoCompanyCondition?),
+      if (filter != _undefined) 'filter': (filter as Input$InfoCompanyFilter?),
       if (orderBy != _undefined)
         'orderBy': (orderBy as List<Enum$InfoCompaniesOrderBy>?),
       if (languageCodeId != _undefined && languageCodeId != null)
@@ -303,7 +301,7 @@ class _CopyWithStubImpl$Variables$Query$CompanyPageRead<TRes>
   call({
     int? first,
     int? offset,
-    Input$InfoCompanyCondition? condition,
+    Input$InfoCompanyFilter? filter,
     List<Enum$InfoCompaniesOrderBy>? orderBy,
     String? languageCodeId,
     int? officesFirst,
@@ -460,12 +458,12 @@ const documentNodeQueryCompanyPageRead = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'condition')),
+          variable: VariableNode(name: NameNode(value: 'filter')),
           type: NamedTypeNode(
-            name: NameNode(value: 'InfoCompanyCondition'),
+            name: NameNode(value: 'InfoCompanyFilter'),
             isNonNull: false,
           ),
-          defaultValue: DefaultValueNode(value: null),
+          defaultValue: DefaultValueNode(value: ObjectValueNode(fields: [])),
           directives: [],
         ),
         VariableDefinitionNode(
@@ -528,10 +526,6 @@ const documentNodeQueryCompanyPageRead = DocumentNode(
                 value: VariableNode(name: NameNode(value: 'offset')),
               ),
               ArgumentNode(
-                name: NameNode(value: 'condition'),
-                value: VariableNode(name: NameNode(value: 'condition')),
-              ),
-              ArgumentNode(
                 name: NameNode(value: 'orderBy'),
                 value: VariableNode(name: NameNode(value: 'orderBy')),
               ),
@@ -540,15 +534,27 @@ const documentNodeQueryCompanyPageRead = DocumentNode(
                 value: ObjectValueNode(
                   fields: [
                     ObjectFieldNode(
-                      name: NameNode(value: 'remove'),
-                      value: ObjectValueNode(
-                        fields: [
-                          ObjectFieldNode(
-                            name: NameNode(value: 'equalTo'),
-                            value: VariableNode(
-                              name: NameNode(value: 'removed'),
-                            ),
+                      name: NameNode(value: 'and'),
+                      value: ListValueNode(
+                        values: [
+                          ObjectValueNode(
+                            fields: [
+                              ObjectFieldNode(
+                                name: NameNode(value: 'remove'),
+                                value: ObjectValueNode(
+                                  fields: [
+                                    ObjectFieldNode(
+                                      name: NameNode(value: 'equalTo'),
+                                      value: VariableNode(
+                                        name: NameNode(value: 'removed'),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
+                          VariableNode(name: NameNode(value: 'filter')),
                         ],
                       ),
                     ),

@@ -1,15 +1,15 @@
-// 要件0035: department_category画面(source/view.yaml #DepartmentCategoryPage/
-// #DepartmentCategoryEdit)のGraphQLからbuild_runnerで生成されたモデルの
+// 要件0035: department_category_page画面(source/view.yaml #DepartmentCategoryPage/
+// #DepartmentCategoryPageEdit)のGraphQLからbuild_runnerで生成されたモデルの
 // nested_map_flattener.dart往復変換を検証する。
 
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:gqlprvlib/contents/department_category_keyname.dart';
+import 'package:gqlprvlib/contents/department_category_page_keyname.dart';
 import 'package:gqlprvlib/extensions/nested_map_flattener.dart';
-import 'package:gqlprvlib/postgraphile/department_category/department_category_edit.graphql.dart';
-import 'package:gqlprvlib/postgraphile/department_category/department_category_read.graphql.dart';
-import 'package:gqlprvlib/postgraphile/department_category/department_category_rfe.graphql.dart';
+import 'package:gqlprvlib/postgraphile/department_category_page/department_category_page_edit.graphql.dart';
+import 'package:gqlprvlib/postgraphile/department_category_page/department_category_page_read.graphql.dart';
+import 'package:gqlprvlib/postgraphile/department_category_page/department_category_page_rfe.graphql.dart';
 
 Map<String, dynamic> _dictionaryValueConnection(String? value) => {
   'nodes': value == null
@@ -80,7 +80,7 @@ Map<String, dynamic> _updateUserJson() => {
 };
 
 void main() {
-  test('要件0035: Query\$DepartmentCategoryRead <-> Map 往復変換が元と一致する', () {
+  test('要件0035: Query\$DepartmentCategoryPageRead <-> Map 往復変換が元と一致する', () {
     final raw = {
       'allInfoDepartmentKindValues': {
         'totalCount': 1,
@@ -110,14 +110,14 @@ void main() {
       '__typename': 'Query',
     };
 
-    final model = Query$DepartmentCategoryRead.fromJson(raw);
+    final model = Query$DepartmentCategoryPageRead.fromJson(raw);
     final node = model.allInfoDepartmentKindValues!.nodes.single!;
 
     final nodeMap = node.toJson();
     final flatMap = nodeMap.flatten();
     final restoredMap = flatMap.unflatten();
     final restoredNode =
-        Query$DepartmentCategoryRead$allInfoDepartmentKindValues$nodes.fromJson(
+        Query$DepartmentCategoryPageRead$allInfoDepartmentKindValues$nodes.fromJson(
           restoredMap,
         );
 
@@ -126,7 +126,7 @@ void main() {
 
     final labelsNameJa = nodeMap.flattenForColumns(
       [
-        DepartmentCategoryKeyName
+        DepartmentCategoryPageKeyName
             .labels_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue
             .name,
       ],
@@ -135,7 +135,7 @@ void main() {
       },
     );
     expect(
-      labelsNameJa[DepartmentCategoryKeyName
+      labelsNameJa[DepartmentCategoryPageKeyName
           .labels_sharedDictionaryBySharedDictionaryNameId_value_dictionaryValue
           .name],
       '本社',
@@ -145,7 +145,7 @@ void main() {
     print('DEPARTMENT_CATEGORY_READ_FLAT_MAP_JSON=${jsonEncode(flatMap)}');
   });
 
-  test('要件0035: Mutation\$DepartmentCategoryEdit <-> Map 往復変換が元と一致する', () {
+  test('要件0035: Mutation\$DepartmentCategoryPageEdit <-> Map 往復変換が元と一致する', () {
     final raw = {
       'updateInfoDepartmentKindValueByInfoDepartmentKindValueId': {
         'infoDepartmentKindValue': {
@@ -164,7 +164,7 @@ void main() {
       '__typename': 'Mutation',
     };
 
-    final model = Mutation$DepartmentCategoryEdit.fromJson(raw);
+    final model = Mutation$DepartmentCategoryPageEdit.fromJson(raw);
     final entity = model
         .updateInfoDepartmentKindValueByInfoDepartmentKindValueId!
         .infoDepartmentKindValue!;
@@ -173,7 +173,7 @@ void main() {
     final flatMap = entityMap.flatten();
     final restoredMap = flatMap.unflatten();
     final restoredModel =
-        Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue.fromJson(
+        Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue.fromJson(
           restoredMap,
         );
 
@@ -181,7 +181,7 @@ void main() {
     expect(restoredModel, equals(entity));
   });
 
-  test('要件0035: Query\$DepartmentCategoryRfe <-> Map 往復変換が元と一致する', () {
+  test('要件0035: Query\$DepartmentCategoryPageRfe <-> Map 往復変換が元と一致する', () {
     final raw = {
       'infoDepartmentKindValueByInfoDepartmentKindValueId': {
         'infoDepartmentKindValueId': 'k1111111-1111-1111-1111-111111111111',
@@ -199,14 +199,14 @@ void main() {
       '__typename': 'Query',
     };
 
-    final model = Query$DepartmentCategoryRfe.fromJson(raw);
+    final model = Query$DepartmentCategoryPageRfe.fromJson(raw);
     final entity = model.infoDepartmentKindValueByInfoDepartmentKindValueId!;
 
     final entityMap = entity.toJson();
     final flatMap = entityMap.flatten();
     final restoredMap = flatMap.unflatten();
     final restoredModel =
-        Query$DepartmentCategoryRfe$infoDepartmentKindValueByInfoDepartmentKindValueId.fromJson(
+        Query$DepartmentCategoryPageRfe$infoDepartmentKindValueByInfoDepartmentKindValueId.fromJson(
           restoredMap,
         );
 

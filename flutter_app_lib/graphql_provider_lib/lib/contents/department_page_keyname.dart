@@ -15,7 +15,7 @@
 // 設計方針どおり)。個別のラベルを取り出す場合はConnectionRecordsX
 // (extractFromEachRecord)を使う。Edit/RFEはlabels等をja/en個別フィールドで返すため
 // 既存のvalueキーとは別形状になる。CLAUDE.md GraphQL変換ルール(read for editing)の
-// 方針に従い、Edit/RFE専用の定数は追加しない(department_category_keyname.dartと
+// 方針に従い、Edit/RFE専用の定数は追加しない(department_category_page_keyname.dartと
 // 同じ方針)。
 import 'content_variable.dart';
 

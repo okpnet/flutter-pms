@@ -9,7 +9,7 @@
 query AssignPageRead(
   $first: Int!
   $offset: Int
-  $condition: InfoAssignCondition
+  $filter: InfoAssignFilter = {}
   $orderBy: [InfoAssignsOrderBy!] = [PRIMARY_KEY_ASC]
   $languageCodeId: UUID!
   $removed: Boolean = false
@@ -17,9 +17,8 @@ query AssignPageRead(
   allInfoAssigns(
     first: $first
     offset: $offset
-    condition: $condition
     orderBy: $orderBy
-    filter: { remove: { equalTo: $removed } }
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
   ) {
     totalCount
     pageInfo {

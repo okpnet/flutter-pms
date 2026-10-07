@@ -4,8 +4,8 @@ import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
 import 'package:graphql_flutter/graphql_flutter.dart' as graphql_flutter;
 
-class Variables$Mutation$DepartmentCategoryEdit {
-  factory Variables$Mutation$DepartmentCategoryEdit({
+class Variables$Mutation$DepartmentCategoryPageEdit {
+  factory Variables$Mutation$DepartmentCategoryPageEdit({
     required String infoDepartmentKindValueId,
     String? remarks,
     required String sharedAppellationsId,
@@ -20,7 +20,7 @@ class Variables$Mutation$DepartmentCategoryEdit {
     required String nicknameSharedDictionaryId,
     required String nicknameJa,
     required String nicknameEn,
-  }) => Variables$Mutation$DepartmentCategoryEdit._({
+  }) => Variables$Mutation$DepartmentCategoryPageEdit._({
     r'infoDepartmentKindValueId': infoDepartmentKindValueId,
     if (remarks != null) r'remarks': remarks,
     r'sharedAppellationsId': sharedAppellationsId,
@@ -37,9 +37,9 @@ class Variables$Mutation$DepartmentCategoryEdit {
     r'nicknameEn': nicknameEn,
   });
 
-  Variables$Mutation$DepartmentCategoryEdit._(this._$data);
+  Variables$Mutation$DepartmentCategoryPageEdit._(this._$data);
 
-  factory Variables$Mutation$DepartmentCategoryEdit.fromJson(
+  factory Variables$Mutation$DepartmentCategoryPageEdit.fromJson(
     Map<String, dynamic> data,
   ) {
     final result$data = <String, dynamic>{};
@@ -78,7 +78,7 @@ class Variables$Mutation$DepartmentCategoryEdit {
     result$data['nicknameJa'] = (l$nicknameJa as String);
     final l$nicknameEn = data['nicknameEn'];
     result$data['nicknameEn'] = (l$nicknameEn as String);
-    return Variables$Mutation$DepartmentCategoryEdit._(result$data);
+    return Variables$Mutation$DepartmentCategoryPageEdit._(result$data);
   }
 
   Map<String, dynamic> _$data;
@@ -151,18 +151,18 @@ class Variables$Mutation$DepartmentCategoryEdit {
     return result$data;
   }
 
-  CopyWith$Variables$Mutation$DepartmentCategoryEdit<
-    Variables$Mutation$DepartmentCategoryEdit
+  CopyWith$Variables$Mutation$DepartmentCategoryPageEdit<
+    Variables$Mutation$DepartmentCategoryPageEdit
   >
   get copyWith =>
-      CopyWith$Variables$Mutation$DepartmentCategoryEdit(this, (i) => i);
+      CopyWith$Variables$Mutation$DepartmentCategoryPageEdit(this, (i) => i);
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Variables$Mutation$DepartmentCategoryEdit ||
+    if (other is! Variables$Mutation$DepartmentCategoryPageEdit ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -279,14 +279,15 @@ class Variables$Mutation$DepartmentCategoryEdit {
   }
 }
 
-abstract class CopyWith$Variables$Mutation$DepartmentCategoryEdit<TRes> {
-  factory CopyWith$Variables$Mutation$DepartmentCategoryEdit(
-    Variables$Mutation$DepartmentCategoryEdit instance,
-    TRes Function(Variables$Mutation$DepartmentCategoryEdit) then,
-  ) = _CopyWithImpl$Variables$Mutation$DepartmentCategoryEdit;
+abstract class CopyWith$Variables$Mutation$DepartmentCategoryPageEdit<TRes> {
+  factory CopyWith$Variables$Mutation$DepartmentCategoryPageEdit(
+    Variables$Mutation$DepartmentCategoryPageEdit instance,
+    TRes Function(Variables$Mutation$DepartmentCategoryPageEdit) then,
+  ) = _CopyWithImpl$Variables$Mutation$DepartmentCategoryPageEdit;
 
-  factory CopyWith$Variables$Mutation$DepartmentCategoryEdit.stub(TRes res) =
-      _CopyWithStubImpl$Variables$Mutation$DepartmentCategoryEdit;
+  factory CopyWith$Variables$Mutation$DepartmentCategoryPageEdit.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Variables$Mutation$DepartmentCategoryPageEdit;
 
   TRes call({
     String? infoDepartmentKindValueId,
@@ -306,16 +307,16 @@ abstract class CopyWith$Variables$Mutation$DepartmentCategoryEdit<TRes> {
   });
 }
 
-class _CopyWithImpl$Variables$Mutation$DepartmentCategoryEdit<TRes>
-    implements CopyWith$Variables$Mutation$DepartmentCategoryEdit<TRes> {
-  _CopyWithImpl$Variables$Mutation$DepartmentCategoryEdit(
+class _CopyWithImpl$Variables$Mutation$DepartmentCategoryPageEdit<TRes>
+    implements CopyWith$Variables$Mutation$DepartmentCategoryPageEdit<TRes> {
+  _CopyWithImpl$Variables$Mutation$DepartmentCategoryPageEdit(
     this._instance,
     this._then,
   );
 
-  final Variables$Mutation$DepartmentCategoryEdit _instance;
+  final Variables$Mutation$DepartmentCategoryPageEdit _instance;
 
-  final TRes Function(Variables$Mutation$DepartmentCategoryEdit) _then;
+  final TRes Function(Variables$Mutation$DepartmentCategoryPageEdit) _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
@@ -335,7 +336,7 @@ class _CopyWithImpl$Variables$Mutation$DepartmentCategoryEdit<TRes>
     Object? nicknameJa = _undefined,
     Object? nicknameEn = _undefined,
   }) => _then(
-    Variables$Mutation$DepartmentCategoryEdit._({
+    Variables$Mutation$DepartmentCategoryPageEdit._({
       ..._instance._$data,
       if (infoDepartmentKindValueId != _undefined &&
           infoDepartmentKindValueId != null)
@@ -371,9 +372,9 @@ class _CopyWithImpl$Variables$Mutation$DepartmentCategoryEdit<TRes>
   );
 }
 
-class _CopyWithStubImpl$Variables$Mutation$DepartmentCategoryEdit<TRes>
-    implements CopyWith$Variables$Mutation$DepartmentCategoryEdit<TRes> {
-  _CopyWithStubImpl$Variables$Mutation$DepartmentCategoryEdit(this._res);
+class _CopyWithStubImpl$Variables$Mutation$DepartmentCategoryPageEdit<TRes>
+    implements CopyWith$Variables$Mutation$DepartmentCategoryPageEdit<TRes> {
+  _CopyWithStubImpl$Variables$Mutation$DepartmentCategoryPageEdit(this._res);
 
   TRes _res;
 
@@ -395,21 +396,23 @@ class _CopyWithStubImpl$Variables$Mutation$DepartmentCategoryEdit<TRes>
   }) => _res;
 }
 
-class Mutation$DepartmentCategoryEdit {
-  Mutation$DepartmentCategoryEdit({
+class Mutation$DepartmentCategoryPageEdit {
+  Mutation$DepartmentCategoryPageEdit({
     this.updateInfoDepartmentKindValueByInfoDepartmentKindValueId,
     this.$__typename = 'Mutation',
   });
 
-  factory Mutation$DepartmentCategoryEdit.fromJson(Map<String, dynamic> json) {
+  factory Mutation$DepartmentCategoryPageEdit.fromJson(
+    Map<String, dynamic> json,
+  ) {
     final l$updateInfoDepartmentKindValueByInfoDepartmentKindValueId =
         json['updateInfoDepartmentKindValueByInfoDepartmentKindValueId'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentCategoryEdit(
+    return Mutation$DepartmentCategoryPageEdit(
       updateInfoDepartmentKindValueByInfoDepartmentKindValueId:
           l$updateInfoDepartmentKindValueByInfoDepartmentKindValueId == null
           ? null
-          : Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId.fromJson(
+          : Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId.fromJson(
               (l$updateInfoDepartmentKindValueByInfoDepartmentKindValueId
                   as Map<String, dynamic>),
             ),
@@ -417,7 +420,7 @@ class Mutation$DepartmentCategoryEdit {
     );
   }
 
-  final Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId?
+  final Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId?
   updateInfoDepartmentKindValueByInfoDepartmentKindValueId;
 
   final String $__typename;
@@ -449,7 +452,7 @@ class Mutation$DepartmentCategoryEdit {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Mutation$DepartmentCategoryEdit ||
+    if (other is! Mutation$DepartmentCategoryPageEdit ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -470,39 +473,41 @@ class Mutation$DepartmentCategoryEdit {
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentCategoryEdit
-    on Mutation$DepartmentCategoryEdit {
-  CopyWith$Mutation$DepartmentCategoryEdit<Mutation$DepartmentCategoryEdit>
-  get copyWith => CopyWith$Mutation$DepartmentCategoryEdit(this, (i) => i);
+extension UtilityExtension$Mutation$DepartmentCategoryPageEdit
+    on Mutation$DepartmentCategoryPageEdit {
+  CopyWith$Mutation$DepartmentCategoryPageEdit<
+    Mutation$DepartmentCategoryPageEdit
+  >
+  get copyWith => CopyWith$Mutation$DepartmentCategoryPageEdit(this, (i) => i);
 }
 
-abstract class CopyWith$Mutation$DepartmentCategoryEdit<TRes> {
-  factory CopyWith$Mutation$DepartmentCategoryEdit(
-    Mutation$DepartmentCategoryEdit instance,
-    TRes Function(Mutation$DepartmentCategoryEdit) then,
-  ) = _CopyWithImpl$Mutation$DepartmentCategoryEdit;
+abstract class CopyWith$Mutation$DepartmentCategoryPageEdit<TRes> {
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit(
+    Mutation$DepartmentCategoryPageEdit instance,
+    TRes Function(Mutation$DepartmentCategoryPageEdit) then,
+  ) = _CopyWithImpl$Mutation$DepartmentCategoryPageEdit;
 
-  factory CopyWith$Mutation$DepartmentCategoryEdit.stub(TRes res) =
-      _CopyWithStubImpl$Mutation$DepartmentCategoryEdit;
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit.stub(TRes res) =
+      _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit;
 
   TRes call({
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId?
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId?
     updateInfoDepartmentKindValueByInfoDepartmentKindValueId,
     String? $__typename,
   });
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId<
     TRes
   >
   get updateInfoDepartmentKindValueByInfoDepartmentKindValueId;
 }
 
-class _CopyWithImpl$Mutation$DepartmentCategoryEdit<TRes>
-    implements CopyWith$Mutation$DepartmentCategoryEdit<TRes> {
-  _CopyWithImpl$Mutation$DepartmentCategoryEdit(this._instance, this._then);
+class _CopyWithImpl$Mutation$DepartmentCategoryPageEdit<TRes>
+    implements CopyWith$Mutation$DepartmentCategoryPageEdit<TRes> {
+  _CopyWithImpl$Mutation$DepartmentCategoryPageEdit(this._instance, this._then);
 
-  final Mutation$DepartmentCategoryEdit _instance;
+  final Mutation$DepartmentCategoryPageEdit _instance;
 
-  final TRes Function(Mutation$DepartmentCategoryEdit) _then;
+  final TRes Function(Mutation$DepartmentCategoryPageEdit) _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
@@ -511,19 +516,19 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit<TRes>
         _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentCategoryEdit(
+    Mutation$DepartmentCategoryPageEdit(
       updateInfoDepartmentKindValueByInfoDepartmentKindValueId:
           updateInfoDepartmentKindValueByInfoDepartmentKindValueId == _undefined
           ? _instance.updateInfoDepartmentKindValueByInfoDepartmentKindValueId
           : (updateInfoDepartmentKindValueByInfoDepartmentKindValueId
-                as Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId?),
+                as Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId<
     TRes
   >
   get updateInfoDepartmentKindValueByInfoDepartmentKindValueId {
@@ -531,10 +536,10 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit<TRes>
         _instance.updateInfoDepartmentKindValueByInfoDepartmentKindValueId;
     return local$updateInfoDepartmentKindValueByInfoDepartmentKindValueId ==
             null
-        ? CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId.stub(
+        ? CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId.stub(
             _then(_instance),
           )
-        : CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId(
+        : CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId(
             local$updateInfoDepartmentKindValueByInfoDepartmentKindValueId,
             (e) => call(
               updateInfoDepartmentKindValueByInfoDepartmentKindValueId: e,
@@ -543,32 +548,32 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit<TRes>
   }
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit<TRes>
-    implements CopyWith$Mutation$DepartmentCategoryEdit<TRes> {
-  _CopyWithStubImpl$Mutation$DepartmentCategoryEdit(this._res);
+class _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit<TRes>
+    implements CopyWith$Mutation$DepartmentCategoryPageEdit<TRes> {
+  _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit(this._res);
 
   TRes _res;
 
   call({
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId?
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId?
     updateInfoDepartmentKindValueByInfoDepartmentKindValueId,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId<
     TRes
   >
   get updateInfoDepartmentKindValueByInfoDepartmentKindValueId =>
-      CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId.stub(
+      CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId.stub(
         _res,
       );
 }
 
-const documentNodeMutationDepartmentCategoryEdit = DocumentNode(
+const documentNodeMutationDepartmentCategoryPageEdit = DocumentNode(
   definitions: [
     OperationDefinitionNode(
       type: OperationType.mutation,
-      name: NameNode(value: 'DepartmentCategoryEdit'),
+      name: NameNode(value: 'DepartmentCategoryPageEdit'),
       variableDefinitions: [
         VariableDefinitionNode(
           variable: VariableNode(
@@ -1654,28 +1659,28 @@ const documentNodeMutationDepartmentCategoryEdit = DocumentNode(
     ),
   ],
 );
-Mutation$DepartmentCategoryEdit _parserFn$Mutation$DepartmentCategoryEdit(
-  Map<String, dynamic> data,
-) => Mutation$DepartmentCategoryEdit.fromJson(data);
-typedef OnMutationCompleted$Mutation$DepartmentCategoryEdit =
+Mutation$DepartmentCategoryPageEdit
+_parserFn$Mutation$DepartmentCategoryPageEdit(Map<String, dynamic> data) =>
+    Mutation$DepartmentCategoryPageEdit.fromJson(data);
+typedef OnMutationCompleted$Mutation$DepartmentCategoryPageEdit =
     FutureOr<void> Function(
       Map<String, dynamic>?,
-      Mutation$DepartmentCategoryEdit?,
+      Mutation$DepartmentCategoryPageEdit?,
     );
 
-class Options$Mutation$DepartmentCategoryEdit
-    extends graphql.MutationOptions<Mutation$DepartmentCategoryEdit> {
-  Options$Mutation$DepartmentCategoryEdit({
+class Options$Mutation$DepartmentCategoryPageEdit
+    extends graphql.MutationOptions<Mutation$DepartmentCategoryPageEdit> {
+  Options$Mutation$DepartmentCategoryPageEdit({
     String? operationName,
-    required Variables$Mutation$DepartmentCategoryEdit variables,
+    required Variables$Mutation$DepartmentCategoryPageEdit variables,
     graphql.FetchPolicy? fetchPolicy,
     graphql.ErrorPolicy? errorPolicy,
     graphql.CacheRereadPolicy? cacheRereadPolicy,
     Object? optimisticResult,
-    Mutation$DepartmentCategoryEdit? typedOptimisticResult,
+    Mutation$DepartmentCategoryPageEdit? typedOptimisticResult,
     graphql.Context? context,
-    OnMutationCompleted$Mutation$DepartmentCategoryEdit? onCompleted,
-    graphql.OnMutationUpdate<Mutation$DepartmentCategoryEdit>? update,
+    OnMutationCompleted$Mutation$DepartmentCategoryPageEdit? onCompleted,
+    graphql.OnMutationUpdate<Mutation$DepartmentCategoryPageEdit>? update,
     graphql.OnError? onError,
   }) : onCompletedWithParsed = onCompleted,
        super(
@@ -1692,15 +1697,15 @@ class Options$Mutation$DepartmentCategoryEdit
                  data,
                  data == null
                      ? null
-                     : _parserFn$Mutation$DepartmentCategoryEdit(data),
+                     : _parserFn$Mutation$DepartmentCategoryPageEdit(data),
                ),
          update: update,
          onError: onError,
-         document: documentNodeMutationDepartmentCategoryEdit,
-         parserFn: _parserFn$Mutation$DepartmentCategoryEdit,
+         document: documentNodeMutationDepartmentCategoryPageEdit,
+         parserFn: _parserFn$Mutation$DepartmentCategoryPageEdit,
        );
 
-  final OnMutationCompleted$Mutation$DepartmentCategoryEdit?
+  final OnMutationCompleted$Mutation$DepartmentCategoryPageEdit?
   onCompletedWithParsed;
 
   @override
@@ -1712,16 +1717,16 @@ class Options$Mutation$DepartmentCategoryEdit
   ];
 }
 
-class WatchOptions$Mutation$DepartmentCategoryEdit
-    extends graphql.WatchQueryOptions<Mutation$DepartmentCategoryEdit> {
-  WatchOptions$Mutation$DepartmentCategoryEdit({
+class WatchOptions$Mutation$DepartmentCategoryPageEdit
+    extends graphql.WatchQueryOptions<Mutation$DepartmentCategoryPageEdit> {
+  WatchOptions$Mutation$DepartmentCategoryPageEdit({
     String? operationName,
-    required Variables$Mutation$DepartmentCategoryEdit variables,
+    required Variables$Mutation$DepartmentCategoryPageEdit variables,
     graphql.FetchPolicy? fetchPolicy,
     graphql.ErrorPolicy? errorPolicy,
     graphql.CacheRereadPolicy? cacheRereadPolicy,
     Object? optimisticResult,
-    Mutation$DepartmentCategoryEdit? typedOptimisticResult,
+    Mutation$DepartmentCategoryPageEdit? typedOptimisticResult,
     graphql.Context? context,
     Duration? pollInterval,
     bool? eagerlyFetchResults,
@@ -1735,43 +1740,44 @@ class WatchOptions$Mutation$DepartmentCategoryEdit
          cacheRereadPolicy: cacheRereadPolicy,
          optimisticResult: optimisticResult ?? typedOptimisticResult?.toJson(),
          context: context,
-         document: documentNodeMutationDepartmentCategoryEdit,
+         document: documentNodeMutationDepartmentCategoryPageEdit,
          pollInterval: pollInterval,
          eagerlyFetchResults: eagerlyFetchResults,
          carryForwardDataOnException: carryForwardDataOnException,
          fetchResults: fetchResults,
-         parserFn: _parserFn$Mutation$DepartmentCategoryEdit,
+         parserFn: _parserFn$Mutation$DepartmentCategoryPageEdit,
        );
 }
 
-extension ClientExtension$Mutation$DepartmentCategoryEdit
+extension ClientExtension$Mutation$DepartmentCategoryPageEdit
     on graphql.GraphQLClient {
-  Future<graphql.QueryResult<Mutation$DepartmentCategoryEdit>>
-  mutate$DepartmentCategoryEdit(
-    Options$Mutation$DepartmentCategoryEdit options,
+  Future<graphql.QueryResult<Mutation$DepartmentCategoryPageEdit>>
+  mutate$DepartmentCategoryPageEdit(
+    Options$Mutation$DepartmentCategoryPageEdit options,
   ) async => await this.mutate(options);
 
-  graphql.ObservableQuery<Mutation$DepartmentCategoryEdit>
-  watchMutation$DepartmentCategoryEdit(
-    WatchOptions$Mutation$DepartmentCategoryEdit options,
+  graphql.ObservableQuery<Mutation$DepartmentCategoryPageEdit>
+  watchMutation$DepartmentCategoryPageEdit(
+    WatchOptions$Mutation$DepartmentCategoryPageEdit options,
   ) => this.watchMutation(options);
 }
 
-class Mutation$DepartmentCategoryEdit$HookResult {
-  Mutation$DepartmentCategoryEdit$HookResult(this.runMutation, this.result);
+class Mutation$DepartmentCategoryPageEdit$HookResult {
+  Mutation$DepartmentCategoryPageEdit$HookResult(this.runMutation, this.result);
 
-  final RunMutation$Mutation$DepartmentCategoryEdit runMutation;
+  final RunMutation$Mutation$DepartmentCategoryPageEdit runMutation;
 
-  final graphql.QueryResult<Mutation$DepartmentCategoryEdit> result;
+  final graphql.QueryResult<Mutation$DepartmentCategoryPageEdit> result;
 }
 
-Mutation$DepartmentCategoryEdit$HookResult useMutation$DepartmentCategoryEdit([
-  WidgetOptions$Mutation$DepartmentCategoryEdit? options,
+Mutation$DepartmentCategoryPageEdit$HookResult
+useMutation$DepartmentCategoryPageEdit([
+  WidgetOptions$Mutation$DepartmentCategoryPageEdit? options,
 ]) {
   final result = graphql_flutter.useMutation(
-    options ?? WidgetOptions$Mutation$DepartmentCategoryEdit(),
+    options ?? WidgetOptions$Mutation$DepartmentCategoryPageEdit(),
   );
-  return Mutation$DepartmentCategoryEdit$HookResult(
+  return Mutation$DepartmentCategoryPageEdit$HookResult(
     (variables, {optimisticResult, typedOptimisticResult}) =>
         result.runMutation(
           variables.toJson(),
@@ -1781,23 +1787,23 @@ Mutation$DepartmentCategoryEdit$HookResult useMutation$DepartmentCategoryEdit([
   );
 }
 
-graphql.ObservableQuery<Mutation$DepartmentCategoryEdit>
-useWatchMutation$DepartmentCategoryEdit(
-  WatchOptions$Mutation$DepartmentCategoryEdit options,
+graphql.ObservableQuery<Mutation$DepartmentCategoryPageEdit>
+useWatchMutation$DepartmentCategoryPageEdit(
+  WatchOptions$Mutation$DepartmentCategoryPageEdit options,
 ) => graphql_flutter.useWatchMutation(options);
 
-class WidgetOptions$Mutation$DepartmentCategoryEdit
-    extends graphql.MutationOptions<Mutation$DepartmentCategoryEdit> {
-  WidgetOptions$Mutation$DepartmentCategoryEdit({
+class WidgetOptions$Mutation$DepartmentCategoryPageEdit
+    extends graphql.MutationOptions<Mutation$DepartmentCategoryPageEdit> {
+  WidgetOptions$Mutation$DepartmentCategoryPageEdit({
     String? operationName,
     graphql.FetchPolicy? fetchPolicy,
     graphql.ErrorPolicy? errorPolicy,
     graphql.CacheRereadPolicy? cacheRereadPolicy,
     Object? optimisticResult,
-    Mutation$DepartmentCategoryEdit? typedOptimisticResult,
+    Mutation$DepartmentCategoryPageEdit? typedOptimisticResult,
     graphql.Context? context,
-    OnMutationCompleted$Mutation$DepartmentCategoryEdit? onCompleted,
-    graphql.OnMutationUpdate<Mutation$DepartmentCategoryEdit>? update,
+    OnMutationCompleted$Mutation$DepartmentCategoryPageEdit? onCompleted,
+    graphql.OnMutationUpdate<Mutation$DepartmentCategoryPageEdit>? update,
     graphql.OnError? onError,
   }) : onCompletedWithParsed = onCompleted,
        super(
@@ -1813,15 +1819,15 @@ class WidgetOptions$Mutation$DepartmentCategoryEdit
                  data,
                  data == null
                      ? null
-                     : _parserFn$Mutation$DepartmentCategoryEdit(data),
+                     : _parserFn$Mutation$DepartmentCategoryPageEdit(data),
                ),
          update: update,
          onError: onError,
-         document: documentNodeMutationDepartmentCategoryEdit,
-         parserFn: _parserFn$Mutation$DepartmentCategoryEdit,
+         document: documentNodeMutationDepartmentCategoryPageEdit,
+         parserFn: _parserFn$Mutation$DepartmentCategoryPageEdit,
        );
 
-  final OnMutationCompleted$Mutation$DepartmentCategoryEdit?
+  final OnMutationCompleted$Mutation$DepartmentCategoryPageEdit?
   onCompletedWithParsed;
 
   @override
@@ -1833,27 +1839,28 @@ class WidgetOptions$Mutation$DepartmentCategoryEdit
   ];
 }
 
-typedef RunMutation$Mutation$DepartmentCategoryEdit =
-    graphql.MultiSourceResult<Mutation$DepartmentCategoryEdit> Function(
-      Variables$Mutation$DepartmentCategoryEdit, {
+typedef RunMutation$Mutation$DepartmentCategoryPageEdit =
+    graphql.MultiSourceResult<Mutation$DepartmentCategoryPageEdit> Function(
+      Variables$Mutation$DepartmentCategoryPageEdit, {
       Object? optimisticResult,
-      Mutation$DepartmentCategoryEdit? typedOptimisticResult,
+      Mutation$DepartmentCategoryPageEdit? typedOptimisticResult,
     });
-typedef Builder$Mutation$DepartmentCategoryEdit =
+typedef Builder$Mutation$DepartmentCategoryPageEdit =
     widgets.Widget Function(
-      RunMutation$Mutation$DepartmentCategoryEdit,
-      graphql.QueryResult<Mutation$DepartmentCategoryEdit>?,
+      RunMutation$Mutation$DepartmentCategoryPageEdit,
+      graphql.QueryResult<Mutation$DepartmentCategoryPageEdit>?,
     );
 
-class Mutation$DepartmentCategoryEdit$Widget
-    extends graphql_flutter.Mutation<Mutation$DepartmentCategoryEdit> {
-  Mutation$DepartmentCategoryEdit$Widget({
+class Mutation$DepartmentCategoryPageEdit$Widget
+    extends graphql_flutter.Mutation<Mutation$DepartmentCategoryPageEdit> {
+  Mutation$DepartmentCategoryPageEdit$Widget({
     widgets.Key? key,
-    WidgetOptions$Mutation$DepartmentCategoryEdit? options,
-    required Builder$Mutation$DepartmentCategoryEdit builder,
+    WidgetOptions$Mutation$DepartmentCategoryPageEdit? options,
+    required Builder$Mutation$DepartmentCategoryPageEdit builder,
   }) : super(
          key: key,
-         options: options ?? WidgetOptions$Mutation$DepartmentCategoryEdit(),
+         options:
+             options ?? WidgetOptions$Mutation$DepartmentCategoryPageEdit(),
          builder: (run, result) => builder(
            (variables, {optimisticResult, typedOptimisticResult}) => run(
              variables.toJson(),
@@ -1865,28 +1872,28 @@ class Mutation$DepartmentCategoryEdit$Widget
        );
 }
 
-class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId {
-  Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId({
+class Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId {
+  Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId({
     this.infoDepartmentKindValue,
     this.$__typename = 'UpdateInfoDepartmentKindValuePayload',
   });
 
-  factory Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId.fromJson(
+  factory Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$infoDepartmentKindValue = json['infoDepartmentKindValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId(
+    return Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId(
       infoDepartmentKindValue: l$infoDepartmentKindValue == null
           ? null
-          : Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue.fromJson(
+          : Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue.fromJson(
               (l$infoDepartmentKindValue as Map<String, dynamic>),
             ),
       $__typename: (l$$__typename as String),
     );
   }
 
-  final Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue?
+  final Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue?
   infoDepartmentKindValue;
 
   final String $__typename;
@@ -1914,7 +1921,7 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
       return true;
     }
     if (other
-            is! Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId ||
+            is! Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -1932,63 +1939,63 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId
+extension UtilityExtension$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId
     on
-        Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId {
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId<
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId
+        Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId {
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId<
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId(
+      CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId<
+abstract class CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId
     instance,
     TRes Function(
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId,
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId;
+  ) = _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId;
 
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId.stub(
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId;
+  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId;
 
   TRes call({
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue?
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue?
     infoDepartmentKindValue,
     String? $__typename,
   });
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue<
     TRes
   >
   get infoDepartmentKindValue;
 }
 
-class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId<
+class _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId(
+  _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId
+  final Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId,
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId,
   )
   _then;
 
@@ -1998,82 +2005,82 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
     Object? infoDepartmentKindValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId(
       infoDepartmentKindValue: infoDepartmentKindValue == _undefined
           ? _instance.infoDepartmentKindValue
           : (infoDepartmentKindValue
-                as Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue?),
+                as Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue<
     TRes
   >
   get infoDepartmentKindValue {
     final local$infoDepartmentKindValue = _instance.infoDepartmentKindValue;
     return local$infoDepartmentKindValue == null
-        ? CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue.stub(
+        ? CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue.stub(
             _then(_instance),
           )
-        : CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue(
+        : CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue(
             local$infoDepartmentKindValue,
             (e) => call(infoDepartmentKindValue: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId<
+class _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId(
+  _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId(
     this._res,
   );
 
   TRes _res;
 
   call({
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue?
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue?
     infoDepartmentKindValue,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue<
     TRes
   >
   get infoDepartmentKindValue =>
-      CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue.stub(
+      CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue.stub(
         _res,
       );
 }
 
-class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue {
-  Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue({
+class Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue {
+  Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue({
     required this.infoDepartmentKindValueId,
     this.remarks,
     this.labels,
     this.$__typename = 'InfoDepartmentKindValue',
   });
 
-  factory Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue.fromJson(
+  factory Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$infoDepartmentKindValueId = json['infoDepartmentKindValueId'];
     final l$remarks = json['remarks'];
     final l$labels = json['labels'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue(
+    return Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue(
       infoDepartmentKindValueId: (l$infoDepartmentKindValueId as String),
       remarks: (l$remarks as String?),
       labels: l$labels == null
           ? null
-          : Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels.fromJson(
+          : Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels.fromJson(
               (l$labels as Map<String, dynamic>),
             ),
       $__typename: (l$$__typename as String),
@@ -2084,7 +2091,7 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
 
   final String? remarks;
 
-  final Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels?
+  final Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels?
   labels;
 
   final String $__typename;
@@ -2122,7 +2129,7 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
       return true;
     }
     if (other
-            is! Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue ||
+            is! Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -2150,65 +2157,65 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue
+extension UtilityExtension$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue
     on
-        Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue {
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue<
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue
+        Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue {
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue<
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue(
+      CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue<
+abstract class CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue
     instance,
     TRes Function(
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue,
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue;
+  ) = _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue;
 
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue.stub(
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue;
+  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue;
 
   TRes call({
     String? infoDepartmentKindValueId,
     String? remarks,
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels?
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels?
     labels,
     String? $__typename,
   });
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels<
     TRes
   >
   get labels;
 }
 
-class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue<
+class _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue(
+  _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue
+  final Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue,
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue,
   )
   _then;
 
@@ -2220,7 +2227,7 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
     Object? labels = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue(
       infoDepartmentKindValueId:
           infoDepartmentKindValueId == _undefined ||
               infoDepartmentKindValueId == null
@@ -2230,37 +2237,37 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
       labels: labels == _undefined
           ? _instance.labels
           : (labels
-                as Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels?),
+                as Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels<
     TRes
   >
   get labels {
     final local$labels = _instance.labels;
     return local$labels == null
-        ? CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels.stub(
+        ? CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels.stub(
             _then(_instance),
           )
-        : CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels(
+        : CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels(
             local$labels,
             (e) => call(labels: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue<
+class _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue(
+  _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue(
     this._res,
   );
 
@@ -2269,22 +2276,22 @@ class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKind
   call({
     String? infoDepartmentKindValueId,
     String? remarks,
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels?
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels?
     labels,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels<
     TRes
   >
   get labels =>
-      CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels.stub(
+      CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels.stub(
         _res,
       );
 }
 
-class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels {
-  Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels({
+class Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels {
+  Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels({
     required this.sharedAppellationsId,
     this.sharedDictionaryBySharedDictionaryNameId,
     this.sharedDictionaryBySharedDictionaryPronunciationId,
@@ -2292,7 +2299,7 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
     this.$__typename = 'SharedAppellation',
   });
 
-  factory Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels.fromJson(
+  factory Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedAppellationsId = json['sharedAppellationsId'];
@@ -2303,26 +2310,26 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
     final l$sharedDictionaryBySharedDictionaryNicknameId =
         json['sharedDictionaryBySharedDictionaryNicknameId'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels(
+    return Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels(
       sharedAppellationsId: (l$sharedAppellationsId as String),
       sharedDictionaryBySharedDictionaryNameId:
           l$sharedDictionaryBySharedDictionaryNameId == null
           ? null
-          : Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId.fromJson(
+          : Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNameId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryPronunciationId:
           l$sharedDictionaryBySharedDictionaryPronunciationId == null
           ? null
-          : Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+          : Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
               (l$sharedDictionaryBySharedDictionaryPronunciationId
                   as Map<String, dynamic>),
             ),
       sharedDictionaryBySharedDictionaryNicknameId:
           l$sharedDictionaryBySharedDictionaryNicknameId == null
           ? null
-          : Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+          : Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
               (l$sharedDictionaryBySharedDictionaryNicknameId
                   as Map<String, dynamic>),
             ),
@@ -2332,13 +2339,13 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
 
   final String sharedAppellationsId;
 
-  final Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId?
+  final Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId?
   sharedDictionaryBySharedDictionaryNameId;
 
-  final Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId?
+  final Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId?
   sharedDictionaryBySharedDictionaryPronunciationId;
 
-  final Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId?
+  final Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId?
   sharedDictionaryBySharedDictionaryNicknameId;
 
   final String $__typename;
@@ -2389,7 +2396,7 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
       return true;
     }
     if (other
-            is! Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels ||
+            is! Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -2431,76 +2438,76 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels
+extension UtilityExtension$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels
     on
-        Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels {
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels<
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels
+        Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels {
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels<
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels(
+      CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels<
+abstract class CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels
     instance,
     TRes Function(
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels,
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels;
+  ) = _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels;
 
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels.stub(
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels;
+  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels;
 
   TRes call({
     String? sharedAppellationsId,
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId?
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId?
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId?
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   });
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId;
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId;
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId;
 }
 
-class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels<
+class _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels(
+  _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels
+  final Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels,
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels,
   )
   _then;
 
@@ -2513,7 +2520,7 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
     Object? sharedDictionaryBySharedDictionaryNicknameId = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels(
       sharedAppellationsId:
           sharedAppellationsId == _undefined || sharedAppellationsId == null
           ? _instance.sharedAppellationsId
@@ -2522,80 +2529,80 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
           sharedDictionaryBySharedDictionaryNameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNameId
           : (sharedDictionaryBySharedDictionaryNameId
-                as Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId?),
+                as Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId?),
       sharedDictionaryBySharedDictionaryPronunciationId:
           sharedDictionaryBySharedDictionaryPronunciationId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryPronunciationId
           : (sharedDictionaryBySharedDictionaryPronunciationId
-                as Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId?),
+                as Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId?),
       sharedDictionaryBySharedDictionaryNicknameId:
           sharedDictionaryBySharedDictionaryNicknameId == _undefined
           ? _instance.sharedDictionaryBySharedDictionaryNicknameId
           : (sharedDictionaryBySharedDictionaryNicknameId
-                as Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId?),
+                as Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId {
     final local$sharedDictionaryBySharedDictionaryNameId =
         _instance.sharedDictionaryBySharedDictionaryNameId;
     return local$sharedDictionaryBySharedDictionaryNameId == null
-        ? CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId.stub(
+        ? CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId.stub(
             _then(_instance),
           )
-        : CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId(
+        : CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId(
             local$sharedDictionaryBySharedDictionaryNameId,
             (e) => call(sharedDictionaryBySharedDictionaryNameId: e),
           );
   }
 
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId {
     final local$sharedDictionaryBySharedDictionaryPronunciationId =
         _instance.sharedDictionaryBySharedDictionaryPronunciationId;
     return local$sharedDictionaryBySharedDictionaryPronunciationId == null
-        ? CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+        ? CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId.stub(
             _then(_instance),
           )
-        : CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+        : CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId(
             local$sharedDictionaryBySharedDictionaryPronunciationId,
             (e) => call(sharedDictionaryBySharedDictionaryPronunciationId: e),
           );
   }
 
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId {
     final local$sharedDictionaryBySharedDictionaryNicknameId =
         _instance.sharedDictionaryBySharedDictionaryNicknameId;
     return local$sharedDictionaryBySharedDictionaryNicknameId == null
-        ? CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId.stub(
+        ? CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId.stub(
             _then(_instance),
           )
-        : CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId(
+        : CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId(
             local$sharedDictionaryBySharedDictionaryNicknameId,
             (e) => call(sharedDictionaryBySharedDictionaryNicknameId: e),
           );
   }
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels<
+class _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels(
+  _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels(
     this._res,
   );
 
@@ -2603,61 +2610,61 @@ class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKind
 
   call({
     String? sharedAppellationsId,
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId?
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId?
     sharedDictionaryBySharedDictionaryNameId,
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId?
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId?
     sharedDictionaryBySharedDictionaryPronunciationId,
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId?
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId?
     sharedDictionaryBySharedDictionaryNicknameId,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNameId =>
-      CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId.stub(
+      CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId.stub(
         _res,
       );
 
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryPronunciationId =>
-      CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+      CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId.stub(
         _res,
       );
 
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId<
     TRes
   >
   get sharedDictionaryBySharedDictionaryNicknameId =>
-      CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId.stub(
+      CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId.stub(
         _res,
       );
 }
 
-class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId {
-  Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId({
+class Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId {
+  Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId({
     required this.sharedDictionaryId,
     required this.ja,
     required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId.fromJson(
+  factory Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$ja = json['ja'];
     final l$en = json['en'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId(
+    return Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
+      ja: Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
         (l$ja as Map<String, dynamic>),
       ),
-      en: Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
+      en: Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
         (l$en as Map<String, dynamic>),
       ),
       $__typename: (l$$__typename as String),
@@ -2666,10 +2673,10 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
 
   final String sharedDictionaryId;
 
-  final Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja
+  final Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja
   ja;
 
-  final Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en
+  final Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en
   en;
 
   final String $__typename;
@@ -2702,7 +2709,7 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
       return true;
     }
     if (other
-            is! Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId ||
+            is! Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -2730,70 +2737,70 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId
+extension UtilityExtension$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId
     on
-        Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId {
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId<
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId
+        Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId {
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId<
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId(
+      CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId<
+abstract class CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId
     instance,
     TRes Function(
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId,
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId;
 
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId.stub(
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId;
+  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja?
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja?
     ja,
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en?
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en?
     en,
     String? $__typename,
   });
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja<
     TRes
   >
   get ja;
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en<
     TRes
   >
   get en;
 }
 
-class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId
+  final Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId,
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId,
   )
   _then;
 
@@ -2805,7 +2812,7 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
     Object? en = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -2813,48 +2820,48 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
       ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja),
+                as Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en),
+                as Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja<
     TRes
   >
   get ja {
     final local$ja = _instance.ja;
-    return CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja(
+    return CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja(
       local$ja,
       (e) => call(ja: e),
     );
   }
 
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en<
     TRes
   >
   get en {
     final local$en = _instance.en;
-    return CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en(
+    return CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en(
       local$en,
       (e) => call(en: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId<
+class _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId(
+  _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId(
     this._res,
   );
 
@@ -2862,47 +2869,47 @@ class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKind
 
   call({
     String? sharedDictionaryId,
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja?
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja?
     ja,
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en?
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en?
     en,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja<
     TRes
   >
   get ja =>
-      CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja.stub(
+      CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja.stub(
         _res,
       );
 
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en<
     TRes
   >
   get en =>
-      CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en.stub(
+      CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en.stub(
         _res,
       );
 }
 
-class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja {
-  Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja({
+class Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja {
+  Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
+  factory Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja(
+    return Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
+                : Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -2912,7 +2919,7 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
   }
 
   final List<
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
   >
   nodes;
 
@@ -2943,7 +2950,7 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
       return true;
     }
     if (other
-            is! Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja ||
+            is! Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -2968,50 +2975,50 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja
+extension UtilityExtension$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja
     on
-        Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja {
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja<
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja
+        Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja {
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja<
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja(
+      CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja<
+abstract class CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja
     instance,
     TRes Function(
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja,
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja;
+  ) = _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja;
 
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja.stub(
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja;
+  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja;
 
   TRes call({
     List<
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
-          Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+          Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes
         >?
       >,
     )
@@ -3019,23 +3026,23 @@ abstract class CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKind
   );
 }
 
-class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja<
+class _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja(
+  _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja
+  final Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja,
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja,
   )
   _then;
 
@@ -3045,12 +3052,12 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+                  Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -3060,12 +3067,12 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
 
   TRes nodes(
     Iterable<
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
-          Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+          Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes
         >?
       >,
     )
@@ -3075,7 +3082,7 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+            : CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
                 e,
                 (i) => i,
               ),
@@ -3084,14 +3091,14 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja<
+class _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja(
+  _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja(
     this._res,
   );
 
@@ -3099,7 +3106,7 @@ class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKind
 
   call({
     List<
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes?
     >?
     nodes,
     String? $__typename,
@@ -3108,18 +3115,18 @@ class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKind
   nodes(_fn) => _res;
 }
 
-class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
-  Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes({
+class Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
+  Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
+  factory Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+    return Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -3151,7 +3158,7 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
       return true;
     }
     if (other
-            is! Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes ||
+            is! Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -3169,55 +3176,55 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+extension UtilityExtension$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes
     on
-        Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+        Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes {
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+      CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+abstract class CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes
     instance,
     TRes Function(
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
+  ) = _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
 
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes.stub(
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
+  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+class _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+  _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes
+  final Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes,
   )
   _then;
 
@@ -3227,7 +3234,7 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -3238,14 +3245,14 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+class _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
+  _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$ja$nodes(
     this._res,
   );
 
@@ -3254,23 +3261,23 @@ class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKind
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en {
-  Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en({
+class Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en {
+  Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
+  factory Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en(
+    return Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
+                : Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -3280,7 +3287,7 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
   }
 
   final List<
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes?
   >
   nodes;
 
@@ -3311,7 +3318,7 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
       return true;
     }
     if (other
-            is! Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en ||
+            is! Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -3336,50 +3343,50 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en
+extension UtilityExtension$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en
     on
-        Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en {
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en<
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en
+        Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en {
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en<
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en(
+      CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en<
+abstract class CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en
     instance,
     TRes Function(
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en,
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en;
+  ) = _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en;
 
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en.stub(
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en;
+  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en;
 
   TRes call({
     List<
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes<
-          Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+          Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes
         >?
       >,
     )
@@ -3387,23 +3394,23 @@ abstract class CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKind
   );
 }
 
-class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en<
+class _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en(
+  _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en
+  final Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en,
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en,
   )
   _then;
 
@@ -3413,12 +3420,12 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+                  Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -3428,12 +3435,12 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
 
   TRes nodes(
     Iterable<
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes<
-          Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+          Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes
         >?
       >,
     )
@@ -3443,7 +3450,7 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+            : CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes(
                 e,
                 (i) => i,
               ),
@@ -3452,14 +3459,14 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en<
+class _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en(
+  _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en(
     this._res,
   );
 
@@ -3467,7 +3474,7 @@ class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKind
 
   call({
     List<
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes?
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes?
     >?
     nodes,
     String? $__typename,
@@ -3476,18 +3483,18 @@ class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKind
   nodes(_fn) => _res;
 }
 
-class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes {
-  Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes({
+class Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes {
+  Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
+  factory Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+    return Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -3519,7 +3526,7 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
       return true;
     }
     if (other
-            is! Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes ||
+            is! Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -3537,55 +3544,55 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes
+extension UtilityExtension$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes
     on
-        Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes {
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes<
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes
+        Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes {
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+      CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+abstract class CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes
     instance,
     TRes Function(
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes,
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes;
+  ) = _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes;
 
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes.stub(
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes;
+  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+class _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+  _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes
+  final Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes,
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes,
   )
   _then;
 
@@ -3595,7 +3602,7 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -3606,14 +3613,14 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+class _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes(
+  _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNameId$en$nodes(
     this._res,
   );
 
@@ -3622,27 +3629,27 @@ class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKind
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId {
-  Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId({
+class Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId {
+  Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId({
     required this.sharedDictionaryId,
     required this.ja,
     required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
+  factory Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$ja = json['ja'];
     final l$en = json['en'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+    return Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
+      ja: Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
         (l$ja as Map<String, dynamic>),
       ),
-      en: Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
+      en: Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
         (l$en as Map<String, dynamic>),
       ),
       $__typename: (l$$__typename as String),
@@ -3651,10 +3658,10 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
 
   final String sharedDictionaryId;
 
-  final Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja
+  final Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja
   ja;
 
-  final Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en
+  final Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en
   en;
 
   final String $__typename;
@@ -3687,7 +3694,7 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
       return true;
     }
     if (other
-            is! Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId ||
+            is! Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -3715,70 +3722,70 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId
+extension UtilityExtension$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId
     on
-        Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId {
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId<
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId
+        Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId {
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+      CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+abstract class CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId
     instance,
     TRes Function(
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId,
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId;
 
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId.stub(
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId;
+  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId;
 
   TRes call({
     String? sharedDictionaryId,
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja?
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja?
     ja,
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en?
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en?
     en,
     String? $__typename,
   });
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja<
     TRes
   >
   get ja;
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en<
     TRes
   >
   get en;
 }
 
-class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId
+  final Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId,
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId,
   )
   _then;
 
@@ -3790,7 +3797,7 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
     Object? en = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -3798,48 +3805,48 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
       ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
+                as Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja),
       en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
+                as Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja<
     TRes
   >
   get ja {
     final local$ja = _instance.ja;
-    return CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    return CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja(
       local$ja,
       (e) => call(ja: e),
     );
   }
 
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en<
     TRes
   >
   get en {
     final local$en = _instance.en;
-    return CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    return CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en(
       local$en,
       (e) => call(en: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+class _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId(
+  _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId(
     this._res,
   );
 
@@ -3847,47 +3854,47 @@ class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKind
 
   call({
     String? sharedDictionaryId,
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja?
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja?
     ja,
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en?
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en?
     en,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja<
     TRes
   >
   get ja =>
-      CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
+      CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
         _res,
       );
 
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en<
     TRes
   >
   get en =>
-      CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
+      CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
         _res,
       );
 }
 
-class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja {
-  Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja({
+class Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja {
+  Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
+  factory Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    return Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
+                : Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -3897,7 +3904,7 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
   }
 
   final List<
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
   >
   nodes;
 
@@ -3928,7 +3935,7 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
       return true;
     }
     if (other
-            is! Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja ||
+            is! Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -3953,50 +3960,50 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja
+extension UtilityExtension$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja
     on
-        Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja {
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja<
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja
+        Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja {
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+      CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+abstract class CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja
     instance,
     TRes Function(
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja,
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja;
+  ) = _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja;
 
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja;
+  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja;
 
   TRes call({
     List<
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
-          Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+          Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
         >?
       >,
     )
@@ -4004,23 +4011,23 @@ abstract class CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKind
   );
 }
 
-class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+class _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+  _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja
+  final Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja,
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja,
   )
   _then;
 
@@ -4030,12 +4037,12 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+                  Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -4045,12 +4052,12 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
 
   TRes nodes(
     Iterable<
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
-          Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+          Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
         >?
       >,
     )
@@ -4060,7 +4067,7 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+            : CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
                 e,
                 (i) => i,
               ),
@@ -4069,14 +4076,14 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+class _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja(
+  _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja(
     this._res,
   );
 
@@ -4084,7 +4091,7 @@ class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKind
 
   call({
     List<
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes?
     >?
     nodes,
     String? $__typename,
@@ -4093,18 +4100,18 @@ class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKind
   nodes(_fn) => _res;
 }
 
-class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
-  Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes({
+class Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
+  Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
+  factory Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+    return Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -4136,7 +4143,7 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
       return true;
     }
     if (other
-            is! Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes ||
+            is! Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -4154,55 +4161,55 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+extension UtilityExtension$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
     on
-        Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+        Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes {
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+      CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+abstract class CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
     instance,
     TRes Function(
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
+  ) = _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
 
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.stub(
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
+  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+class _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+  _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
+  final Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes,
   )
   _then;
 
@@ -4212,7 +4219,7 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -4223,14 +4230,14 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+class _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
+  _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$ja$nodes(
     this._res,
   );
 
@@ -4239,23 +4246,23 @@ class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKind
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en {
-  Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en({
+class Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en {
+  Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
+  factory Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    return Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
+                : Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -4265,7 +4272,7 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
   }
 
   final List<
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
   >
   nodes;
 
@@ -4296,7 +4303,7 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
       return true;
     }
     if (other
-            is! Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en ||
+            is! Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -4321,50 +4328,50 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en
+extension UtilityExtension$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en
     on
-        Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en {
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en<
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en
+        Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en {
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en<
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en(
+      CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en<
+abstract class CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en
     instance,
     TRes Function(
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en,
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en;
+  ) = _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en;
 
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en;
+  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en;
 
   TRes call({
     List<
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
-          Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+          Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
         >?
       >,
     )
@@ -4372,23 +4379,23 @@ abstract class CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKind
   );
 }
 
-class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en<
+class _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en(
+  _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en
+  final Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en,
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en,
   )
   _then;
 
@@ -4398,12 +4405,12 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+                  Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -4413,12 +4420,12 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
 
   TRes nodes(
     Iterable<
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
-          Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+          Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
         >?
       >,
     )
@@ -4428,7 +4435,7 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+            : CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
                 e,
                 (i) => i,
               ),
@@ -4437,14 +4444,14 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en<
+class _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en(
+  _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en(
     this._res,
   );
 
@@ -4452,7 +4459,7 @@ class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKind
 
   call({
     List<
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes?
     >?
     nodes,
     String? $__typename,
@@ -4461,18 +4468,18 @@ class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKind
   nodes(_fn) => _res;
 }
 
-class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
-  Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes({
+class Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
+  Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
+  factory Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+    return Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -4504,7 +4511,7 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
       return true;
     }
     if (other
-            is! Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes ||
+            is! Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -4522,55 +4529,55 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+extension UtilityExtension$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
     on
-        Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+        Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes {
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+      CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+abstract class CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
     instance,
     TRes Function(
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
+  ) = _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
 
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.stub(
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
+  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+class _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+  _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
+  final Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes,
   )
   _then;
 
@@ -4580,7 +4587,7 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -4591,14 +4598,14 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+class _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
+  _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryPronunciationId$en$nodes(
     this._res,
   );
 
@@ -4607,27 +4614,27 @@ class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKind
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId {
-  Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId({
+class Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId {
+  Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId({
     required this.sharedDictionaryId,
     required this.ja,
     required this.en,
     this.$__typename = 'SharedDictionary',
   });
 
-  factory Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
+  factory Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$sharedDictionaryId = json['sharedDictionaryId'];
     final l$ja = json['ja'];
     final l$en = json['en'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId(
+    return Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId: (l$sharedDictionaryId as String),
-      ja: Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
+      ja: Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
         (l$ja as Map<String, dynamic>),
       ),
-      en: Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
+      en: Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
         (l$en as Map<String, dynamic>),
       ),
       $__typename: (l$$__typename as String),
@@ -4636,10 +4643,10 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
 
   final String sharedDictionaryId;
 
-  final Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja
+  final Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja
   ja;
 
-  final Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en
+  final Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en
   en;
 
   final String $__typename;
@@ -4672,7 +4679,7 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
       return true;
     }
     if (other
-            is! Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId ||
+            is! Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -4700,70 +4707,70 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId
+extension UtilityExtension$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId
     on
-        Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId {
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId<
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId
+        Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId {
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId<
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId(
+      CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId<
+abstract class CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId
     instance,
     TRes Function(
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId,
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId;
 
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId.stub(
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId;
+  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId;
 
   TRes call({
     String? sharedDictionaryId,
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja?
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja?
     ja,
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en?
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en?
     en,
     String? $__typename,
   });
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja<
     TRes
   >
   get ja;
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en<
     TRes
   >
   get en;
 }
 
-class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId
+  final Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId,
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId,
   )
   _then;
 
@@ -4775,7 +4782,7 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
     Object? en = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId(
       sharedDictionaryId:
           sharedDictionaryId == _undefined || sharedDictionaryId == null
           ? _instance.sharedDictionaryId
@@ -4783,48 +4790,48 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
       ja: ja == _undefined || ja == null
           ? _instance.ja
           : (ja
-                as Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
+                as Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja),
       en: en == _undefined || en == null
           ? _instance.en
           : (en
-                as Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
+                as Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
 
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja<
     TRes
   >
   get ja {
     final local$ja = _instance.ja;
-    return CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja(
+    return CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja(
       local$ja,
       (e) => call(ja: e),
     );
   }
 
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en<
     TRes
   >
   get en {
     final local$en = _instance.en;
-    return CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en(
+    return CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en(
       local$en,
       (e) => call(en: e),
     );
   }
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId<
+class _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId(
+  _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId(
     this._res,
   );
 
@@ -4832,47 +4839,47 @@ class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKind
 
   call({
     String? sharedDictionaryId,
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja?
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja?
     ja,
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en?
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en?
     en,
     String? $__typename,
   }) => _res;
 
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja<
     TRes
   >
   get ja =>
-      CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
+      CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
         _res,
       );
 
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en<
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en<
     TRes
   >
   get en =>
-      CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
+      CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
         _res,
       );
 }
 
-class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja {
-  Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja({
+class Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja {
+  Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
+  factory Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja(
+    return Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.fromJson(
+                : Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -4882,7 +4889,7 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
   }
 
   final List<
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
   >
   nodes;
 
@@ -4913,7 +4920,7 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
       return true;
     }
     if (other
-            is! Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja ||
+            is! Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -4938,50 +4945,50 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja
+extension UtilityExtension$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja
     on
-        Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja {
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja<
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja
+        Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja {
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja<
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja(
+      CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja<
+abstract class CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja
     instance,
     TRes Function(
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja,
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja;
+  ) = _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja;
 
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja;
+  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja;
 
   TRes call({
     List<
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
-          Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+          Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
         >?
       >,
     )
@@ -4989,23 +4996,23 @@ abstract class CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKind
   );
 }
 
-class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja<
+class _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja(
+  _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja
+  final Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja,
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja,
   )
   _then;
 
@@ -5015,12 +5022,12 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+                  Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -5030,12 +5037,12 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
 
   TRes nodes(
     Iterable<
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
-          Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+          Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
         >?
       >,
     )
@@ -5045,7 +5052,7 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+            : CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
                 e,
                 (i) => i,
               ),
@@ -5054,14 +5061,14 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja<
+class _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja(
+  _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja(
     this._res,
   );
 
@@ -5069,7 +5076,7 @@ class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKind
 
   call({
     List<
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes?
     >?
     nodes,
     String? $__typename,
@@ -5078,18 +5085,18 @@ class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKind
   nodes(_fn) => _res;
 }
 
-class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes {
-  Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes({
+class Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes {
+  Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.fromJson(
+  factory Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+    return Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -5121,7 +5128,7 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
       return true;
     }
     if (other
-            is! Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes ||
+            is! Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -5139,55 +5146,55 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+extension UtilityExtension$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
     on
-        Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes {
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+        Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes {
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+      CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+abstract class CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
     instance,
     TRes Function(
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes,
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes;
+  ) = _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes;
 
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.stub(
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes;
+  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+class _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+  _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
+  final Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes,
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes,
   )
   _then;
 
@@ -5197,7 +5204,7 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -5208,14 +5215,14 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+class _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
+  _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$ja$nodes(
     this._res,
   );
 
@@ -5224,23 +5231,23 @@ class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKind
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
-class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en {
-  Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en({
+class Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en {
+  Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en({
     required this.nodes,
     this.$__typename = 'SharedDictionaryValuesConnection',
   });
 
-  factory Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
+  factory Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$nodes = json['nodes'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en(
+    return Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en(
       nodes: (l$nodes as List<dynamic>)
           .map(
             (e) => e == null
                 ? null
-                : Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.fromJson(
+                : Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.fromJson(
                     (e as Map<String, dynamic>),
                   ),
           )
@@ -5250,7 +5257,7 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
   }
 
   final List<
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
   >
   nodes;
 
@@ -5281,7 +5288,7 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
       return true;
     }
     if (other
-            is! Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en ||
+            is! Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -5306,50 +5313,50 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en
+extension UtilityExtension$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en
     on
-        Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en {
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en<
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en
+        Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en {
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en<
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en(
+      CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en<
+abstract class CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en
     instance,
     TRes Function(
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en,
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en;
+  ) = _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en;
 
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en;
+  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en;
 
   TRes call({
     List<
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
     >?
     nodes,
     String? $__typename,
   });
   TRes nodes(
     Iterable<
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
-          Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+          Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
         >?
       >,
     )
@@ -5357,23 +5364,23 @@ abstract class CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKind
   );
 }
 
-class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en<
+class _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en(
+  _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en
+  final Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en,
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en,
   )
   _then;
 
@@ -5383,12 +5390,12 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
     Object? nodes = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en(
       nodes: nodes == _undefined || nodes == null
           ? _instance.nodes
           : (nodes
                 as List<
-                  Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+                  Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
                 >),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
@@ -5398,12 +5405,12 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
 
   TRes nodes(
     Iterable<
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
     >
     Function(
       Iterable<
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
-          Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+          Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
         >?
       >,
     )
@@ -5413,7 +5420,7 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
       _instance.nodes.map(
         (e) => e == null
             ? null
-            : CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+            : CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
                 e,
                 (i) => i,
               ),
@@ -5422,14 +5429,14 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en<
+class _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en(
+  _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en(
     this._res,
   );
 
@@ -5437,7 +5444,7 @@ class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKind
 
   call({
     List<
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes?
     >?
     nodes,
     String? $__typename,
@@ -5446,18 +5453,18 @@ class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKind
   nodes(_fn) => _res;
 }
 
-class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes {
-  Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes({
+class Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes {
+  Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes({
     required this.dictionaryValue,
     this.$__typename = 'SharedDictionaryValue',
   });
 
-  factory Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.fromJson(
+  factory Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.fromJson(
     Map<String, dynamic> json,
   ) {
     final l$dictionaryValue = json['dictionaryValue'];
     final l$$__typename = json['__typename'];
-    return Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+    return Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
       dictionaryValue: (l$dictionaryValue as String),
       $__typename: (l$$__typename as String),
     );
@@ -5489,7 +5496,7 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
       return true;
     }
     if (other
-            is! Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes ||
+            is! Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -5507,55 +5514,55 @@ class Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartm
   }
 }
 
-extension UtilityExtension$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+extension UtilityExtension$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
     on
-        Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes {
-  CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+        Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes {
+  CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
   >
   get copyWith =>
-      CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+      CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+abstract class CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
   TRes
 > {
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
     instance,
     TRes Function(
-      Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes,
+      Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes,
     )
     then,
-  ) = _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes;
+  ) = _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes;
 
-  factory CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.stub(
+  factory CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes.stub(
     TRes res,
-  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes;
+  ) = _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes;
 
   TRes call({String? dictionaryValue, String? $__typename});
 }
 
-class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+class _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
           TRes
         > {
-  _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+  _CopyWithImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
     this._instance,
     this._then,
   );
 
-  final Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
+  final Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes
   _instance;
 
   final TRes Function(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes,
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes,
   )
   _then;
 
@@ -5565,7 +5572,7 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
     Object? dictionaryValue = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
-    Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+    Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
       dictionaryValue: dictionaryValue == _undefined || dictionaryValue == null
           ? _instance.dictionaryValue
           : (dictionaryValue as String),
@@ -5576,14 +5583,14 @@ class _CopyWithImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValu
   );
 }
 
-class _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+class _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
   TRes
 >
     implements
-        CopyWith$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
+        CopyWith$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes<
           TRes
         > {
-  _CopyWithStubImpl$Mutation$DepartmentCategoryEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
+  _CopyWithStubImpl$Mutation$DepartmentCategoryPageEdit$updateInfoDepartmentKindValueByInfoDepartmentKindValueId$infoDepartmentKindValue$labels$sharedDictionaryBySharedDictionaryNicknameId$en$nodes(
     this._res,
   );
 

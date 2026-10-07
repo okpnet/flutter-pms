@@ -8,7 +8,7 @@
 query PositionPageRead(
   $first: Int!
   $offset: Int
-  $condition: InfoPositionCondition
+  $filter: InfoPositionFilter = {}
   $orderBy: [InfoPositionsOrderBy!] = [PRIMARY_KEY_ASC]
   $languageCodeId: UUID!
   $removed: Boolean = false
@@ -16,9 +16,8 @@ query PositionPageRead(
   allInfoPositions(
     first: $first
     offset: $offset
-    condition: $condition
     orderBy: $orderBy
-    filter: { remove: { equalTo: $removed } }
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
   ) {
     totalCount
     pageInfo {

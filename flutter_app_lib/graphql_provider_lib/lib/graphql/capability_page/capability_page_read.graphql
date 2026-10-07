@@ -10,7 +10,7 @@
 query CapabilityPageRead(
   $first: Int!
   $offset: Int
-  $condition: MstrCapabilityCondition
+  $filter: MstrCapabilityFilter = {}
   $orderBy: [MstrCapabilitiesOrderBy!] = [PRIMARY_KEY_ASC]
   $languageCodeId: UUID!
   $removed: Boolean = false
@@ -18,9 +18,8 @@ query CapabilityPageRead(
   allMstrCapabilities(
     first: $first
     offset: $offset
-    condition: $condition
     orderBy: $orderBy
-    filter: { remove: { equalTo: $removed } }
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
   ) {
     totalCount
     pageInfo {

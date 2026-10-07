@@ -1,14 +1,12 @@
-// 要件0047: staff_capability(source/view.yaml #StaffCapabilityEdit)のEdit/RFEモデルの
+// 要件0050: capable_staff_page画面(source/view.yaml #CapableStaffPageEdit)のEdit/RFEモデルの
 // nested_map_flattener.dart往復変換を検証する。
-// view.yamlでStaffCapabilityPageEdit/CapableStaffPageEditが不要としてコメントアウトされたため、
-// 両画面のEdit/RFE(内容は同一)を1組(staff_capability_edit/staff_capability_rfe)に統合した。
-// 本テストは旧staff_capability_page_flatten_roundtrip_test.dartのEdit/RFEテスト(要件0045)を
-// 引き継ぎ、Editの結果モデルに追加したremarksを含める。
+// StaffCapabilityEditFieldsを取り込む2つの~PageEdit(StaffCapabilityPageEdit・CapableStaffPageEdit)の
+// 内容は同一のため、テストも同じ内容(旧staff_capability_flatten_roundtrip_test.dart、要件0047)を引き継ぐ。
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gqlprvlib/extensions/nested_map_flattener.dart';
-import 'package:gqlprvlib/postgraphile/staff_capability/staff_capability_edit.graphql.dart';
-import 'package:gqlprvlib/postgraphile/staff_capability/staff_capability_rfe.graphql.dart';
+import 'package:gqlprvlib/postgraphile/capable_staff_page/capable_staff_page_edit.graphql.dart';
+import 'package:gqlprvlib/postgraphile/capable_staff_page/capable_staff_page_rfe.graphql.dart';
 
 Map<String, dynamic> _dictionaryValueConnection(String? value) => {
   'nodes': value == null
@@ -59,7 +57,7 @@ Map<String, dynamic> _updateUserJsonJaEn() => {
 
 void main() {
   test(
-    '要件0047(要件0045から移設): Mutation\$StaffCapabilityEdit <-> Map 往復変換が元と一致する',
+    '要件0047(要件0045から移設): Mutation\$CapableStaffPageEdit <-> Map 往復変換が元と一致する',
     () {
       final raw = {
         'updateMstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId': {
@@ -115,7 +113,7 @@ void main() {
         '__typename': 'Mutation',
       };
 
-      final model = Mutation$StaffCapabilityEdit.fromJson(raw);
+      final model = Mutation$CapableStaffPageEdit.fromJson(raw);
       final entity = model
           .updateMstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId!
           .mstrStaffCapability!;
@@ -124,7 +122,7 @@ void main() {
       final flatMap = entityMap.flatten();
       final restoredMap = flatMap.unflatten();
       final restoredModel =
-          Mutation$StaffCapabilityEdit$updateMstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$mstrStaffCapability.fromJson(
+          Mutation$CapableStaffPageEdit$updateMstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$mstrStaffCapability.fromJson(
             restoredMap,
           );
 
@@ -133,7 +131,7 @@ void main() {
     },
   );
 
-  test('要件0047(要件0045から移設): Query\$StaffCapabilityRfe <-> Map 往復変換が元と一致する', () {
+  test('要件0047(要件0045から移設): Query\$CapableStaffPageRfe <-> Map 往復変換が元と一致する', () {
     final raw = {
       'mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId': {
         'mstrStaffCapabilityId': 'sc1111111-1111-1111-1111-11111111111',
@@ -188,7 +186,7 @@ void main() {
       '__typename': 'Query',
     };
 
-    final model = Query$StaffCapabilityRfe.fromJson(raw);
+    final model = Query$CapableStaffPageRfe.fromJson(raw);
     final entity =
         model.mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId!;
 
@@ -196,7 +194,7 @@ void main() {
     final flatMap = entityMap.flatten();
     final restoredMap = flatMap.unflatten();
     final restoredModel =
-        Query$StaffCapabilityRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId.fromJson(
+        Query$CapableStaffPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId.fromJson(
           restoredMap,
         );
 

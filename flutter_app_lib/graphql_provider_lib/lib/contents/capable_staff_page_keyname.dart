@@ -9,7 +9,7 @@
 // リネーム。力量→担当者、mstr_capability起点)。要件0045でCapableStaffPageEdit/RFEを
 // 追加したが、Edit/RFEはlabels等をja/en個別フィールドで返すため既存のvalueキーとは
 // 別形状になる。CLAUDE.md GraphQL変換ルール(read for editing)の方針に従い、Edit/RFE
-// 専用の定数は追加しない(department_category_keyname.dartと同じ方針)。
+// 専用の定数は追加しない(department_category_page_keyname.dartと同じ方針)。
 import 'content_variable.dart';
 
 abstract class CapableStaffPageKeyName {

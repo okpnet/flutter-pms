@@ -50,7 +50,7 @@
 query CompanyPageRead(
   $first: Int!
   $offset: Int
-  $condition: InfoCompanyCondition
+  $filter: InfoCompanyFilter = {}
   $orderBy: [InfoCompaniesOrderBy!] = [PRIMARY_KEY_ASC]
   $languageCodeId: UUID!
   $officesFirst: Int = 50
@@ -60,9 +60,8 @@ query CompanyPageRead(
   allInfoCompanies(
     first: $first
     offset: $offset
-    condition: $condition
     orderBy: $orderBy
-    filter: { remove: { equalTo: $removed } }
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
   ) {
     totalCount
     pageInfo {

@@ -22,7 +22,7 @@
 query DepartmentPageRead(
   $first: Int!
   $offset: Int
-  $condition: InfoDepartmentCondition
+  $filter: InfoDepartmentFilter = {}
   $orderBy: [InfoDepartmentsOrderBy!] = [PRIMARY_KEY_ASC]
   $languageCodeId: UUID!
   $removed: Boolean = false
@@ -30,9 +30,8 @@ query DepartmentPageRead(
   allInfoDepartments(
     first: $first
     offset: $offset
-    condition: $condition
     orderBy: $orderBy
-    filter: { remove: { equalTo: $removed } }
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
   ) {
     totalCount
     pageInfo {

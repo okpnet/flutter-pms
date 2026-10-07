@@ -14,6 +14,10 @@
 //       * 入れ子を持たない「葉」の入力型(BooleanFilter・IntervalInput等)
 //       * 入れ子書き込みの骨格(patch/*Patch、updateBy*、connectBy*、create、deleteBy*)
 //       * 呼称(sharedAppellationTo*、sharedDictionaryTo*、sharedDictionaryValuesUsing*)の入れ子
+//       * 関連フィルタ(`<テーブル>Filter`型の変数、CLAUDE.md 4-2節・要件0050)は、その操作の選択経路に沿って残す。
+//         自テーブルの列(スカラー用のフィルタ)とand/or/notに加え、選択セットに現れる関連
+//         (前方の関連、1対多は some/every/none)を辿り、辿った先の`<テーブル>Filter`でも同様に残す。
+//         全量には約760のFilter型があり、すべてを残すと入力型が再び肥大化するため、経路に限る。
 //   - 上記から参照されるEnum・スカラー。説明文は出力しない。
 //
 // 使い方(パッケージのルートで実行):
@@ -85,6 +89,7 @@ class _Pruner {
       _keepVariableType(_named(v.type));
     }
     _walkSelection(op.selectionSet, _rootTypes[op.type]!, fragments);
+    _keepRelationFilters(op, fragments);
   }
 
   void _walkSelection(
@@ -168,6 +173,115 @@ class _Pruner {
       _keepValue(f.value, fieldDef.type);
     }
   }
+
+  // ---- 関連フィルタ(変数で渡す`<テーブル>Filter`) ---------------------------
+
+  /// 操作の変数のうち`<テーブル>Filter`型のものを、それを`filter`引数に渡しているルートの
+  /// フィールドの選択経路に沿って残す。
+  void _keepRelationFilters(
+    OperationDefinitionNode op,
+    Map<String, FragmentDefinitionNode> fragments,
+  ) {
+    final filterVars = {
+      for (final v in op.variableDefinitions)
+        if (_named(v.type).endsWith('Filter') && _inputs.containsKey(_named(v.type)))
+          v.variable.name.value: _named(v.type),
+    };
+    if (filterVars.isEmpty) return;
+    final rootType = _rootTypes[op.type]!;
+    for (final root in _selectedFields(op.selectionSet, fragments)) {
+      final filterArg = root.arguments.where((a) => a.name.value == 'filter');
+      if (filterArg.isEmpty) continue;
+      final printed = printNode(filterArg.first.value);
+      for (final e in filterVars.entries) {
+        if (!RegExp(r'\$' + e.key + r'\b').hasMatch(printed)) continue;
+        final conn = _fieldOf(rootType, root.name.value);
+        if (conn == null || root.selectionSet == null) continue;
+        final nodes = _selectedFields(root.selectionSet!, fragments)
+            .where((f) => f.name.value == 'nodes');
+        if (nodes.isEmpty) continue;
+        final nodeType = _named(_fieldOf(_named(conn.type), 'nodes')!.type);
+        _keepFilterAlong(
+          e.value,
+          nodeType,
+          _selectedFields(nodes.first.selectionSet!, fragments),
+          fragments,
+        );
+      }
+    }
+  }
+
+  /// `Filter`型[filterName](対象のオブジェクト型は[objectName])について、自テーブルの列と
+  /// and/or/notを残し、[selected]に現れる関連だけを辿って、辿った先も同様に残す。
+  void _keepFilterAlong(
+    String filterName,
+    String objectName,
+    List<FieldNode> selected,
+    Map<String, FragmentDefinitionNode> fragments,
+  ) {
+    final def = _inputs[filterName]!;
+    final kept = _keptInputFields.putIfAbsent(filterName, () => <String>{});
+    for (final f in def.fields) {
+      final name = f.name.value;
+      final t = _named(f.type);
+      if (name == 'and' || name == 'or' || name == 'not') {
+        kept.add(name);
+      } else if (!_inputs.containsKey(t)) {
+        kept.add(name);
+        _keepLeafType(t);
+      } else if (_isLeafInput(t)) {
+        kept.add(name);
+        _keepVariableType(t);
+      }
+    }
+    for (final s in selected) {
+      final relField = def.fields.where((f) => f.name.value == s.name.value);
+      final objField = _fieldOf(objectName, s.name.value);
+      if (relField.isEmpty || objField == null || s.selectionSet == null) continue;
+      final relType = _named(relField.first.type);
+      if (!_inputs.containsKey(relType) || _isLeafInput(relType)) continue;
+      kept.add(s.name.value);
+      final relDef = _inputs[relType]!;
+      final isMany = relDef.fields.any((f) => f.name.value == 'some');
+      final inner = _selectedFields(s.selectionSet!, fragments);
+      if (!isMany) {
+        _keepFilterAlong(relType, _named(objField.type), inner, fragments);
+        continue;
+      }
+      // 1対多: <親>ToMany<子>Filter { some / every / none }。選択セットはnodesの中を辿る。
+      final manyKept = _keptInputFields.putIfAbsent(relType, () => <String>{});
+      String? elementFilter;
+      for (final q in ['some', 'every', 'none']) {
+        final qf = relDef.fields.where((f) => f.name.value == q);
+        if (qf.isEmpty) continue;
+        manyKept.add(q);
+        elementFilter = _named(qf.first.type);
+      }
+      final nodes = inner.where((f) => f.name.value == 'nodes');
+      final nodesField = _fieldOf(_named(objField.type), 'nodes');
+      if (elementFilter == null || nodes.isEmpty || nodesField == null) continue;
+      _keepFilterAlong(
+        elementFilter,
+        _named(nodesField.type),
+        _selectedFields(nodes.first.selectionSet!, fragments),
+        fragments,
+      );
+    }
+  }
+
+  /// 選択セットのフィールドを、インライン・名前付きフラグメントを展開して列挙する。
+  List<FieldNode> _selectedFields(
+    SelectionSetNode sel,
+    Map<String, FragmentDefinitionNode> fragments,
+  ) => [
+    for (final s in sel.selections)
+      if (s is FieldNode)
+        s
+      else if (s is InlineFragmentNode)
+        ..._selectedFields(s.selectionSet, fragments)
+      else if (s is FragmentSpreadNode)
+        ..._selectedFields(fragments[s.name.value]!.selectionSet, fragments),
+  ];
 
   // ---- 変数で渡す入力型 ----------------------------------------------------
 

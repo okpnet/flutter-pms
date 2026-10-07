@@ -10,7 +10,7 @@
 query ProvisionPageRead(
   $first: Int!
   $offset: Int
-  $condition: InfoProvisionCondition
+  $filter: InfoProvisionFilter = {}
   $orderBy: [InfoProvisionsOrderBy!] = [PRIMARY_KEY_ASC]
   $languageCodeId: UUID!
   $removed: Boolean = false
@@ -18,9 +18,8 @@ query ProvisionPageRead(
   allInfoProvisions(
     first: $first
     offset: $offset
-    condition: $condition
     orderBy: $orderBy
-    filter: { remove: { equalTo: $removed } }
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
   ) {
     totalCount
     pageInfo {

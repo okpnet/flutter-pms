@@ -1,0 +1,363 @@
+// staff_held_license_page_filter_spec.dart
+//
+// このファイルはtool/gen_filter_spec.dartが生成した検索条件の対応表です。直接編集しないでください。
+// lib/graphql/staff_held_license_page/staff_held_license_page_read.graphql の選択経路から、平坦化キー -> Filterの経路を作る。
+// 使い方: FlatFilterConverter(StaffHeldLicensePageFilterSpec.spec).convert(平坦なMap, variables: {...})
+import '../extensions/flat_filter_converter.dart';
+
+abstract class StaffHeldLicensePageFilterSpec {
+  static const FlatFilterSpec spec = FlatFilterSpec('InfoStaffFilter', {
+    'infoStaffId': FlatFilterPath([], 'infoStaffId'),
+    'infoCompanyId': FlatFilterPath([], 'infoCompanyId'),
+    'code': FlatFilterPath([], 'code'),
+    'sex': FlatFilterPath([], 'sex'),
+    'phone': FlatFilterPath([], 'phone'),
+    'privatePhone': FlatFilterPath([], 'privatePhone'),
+    'symbol': FlatFilterPath([], 'symbol'),
+    'remarks': FlatFilterPath([], 'remarks'),
+    'updateAt': FlatFilterPath([], 'updateAt'),
+    'remove': FlatFilterPath([], 'remove'),
+    'labels||sharedAppellationsId': FlatFilterPath([
+      FilterStep('sharedAppellationByNames'),
+    ], 'sharedAppellationsId'),
+    'labels||sharedDictionaryBySharedDictionaryNameId||sharedDictionaryId':
+        FlatFilterPath([
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNameId'),
+        ], 'sharedDictionaryId'),
+    'labels||sharedDictionaryBySharedDictionaryNameId||value||dictionaryValue':
+        FlatFilterPath([
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNameId'),
+          FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {
+            'sharedLanguageCodeId': 'languageCodeId',
+          }),
+        ], 'dictionaryValue'),
+    'labels||sharedDictionaryBySharedDictionaryPronunciationId||sharedDictionaryId':
+        FlatFilterPath([
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryPronunciationId'),
+        ], 'sharedDictionaryId'),
+    'labels||sharedDictionaryBySharedDictionaryPronunciationId||value||dictionaryValue':
+        FlatFilterPath([
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryPronunciationId'),
+          FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {
+            'sharedLanguageCodeId': 'languageCodeId',
+          }),
+        ], 'dictionaryValue'),
+    'labels||sharedDictionaryBySharedDictionaryNicknameId||sharedDictionaryId':
+        FlatFilterPath([
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNicknameId'),
+        ], 'sharedDictionaryId'),
+    'labels||sharedDictionaryBySharedDictionaryNicknameId||value||dictionaryValue':
+        FlatFilterPath([
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNicknameId'),
+          FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {
+            'sharedLanguageCodeId': 'languageCodeId',
+          }),
+        ], 'dictionaryValue'),
+    'holdeLicense||mstrStaffLicenseId': FlatFilterPath([
+      FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+    ], 'mstrStaffLicenseId'),
+    'holdeLicense||infoStaffId': FlatFilterPath([
+      FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+    ], 'infoStaffId'),
+    'holdeLicense||mstrLicenseId': FlatFilterPath([
+      FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+    ], 'mstrLicenseId'),
+    'holdeLicense||startAt': FlatFilterPath([
+      FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+    ], 'startAt'),
+    'holdeLicense||stopAt': FlatFilterPath([
+      FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+    ], 'stopAt'),
+    'holdeLicense||abeyance': FlatFilterPath([
+      FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+    ], 'abeyance'),
+    'holdeLicense||abeyanceAt': FlatFilterPath([
+      FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+    ], 'abeyanceAt'),
+    'holdeLicense||revocation': FlatFilterPath([
+      FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+    ], 'revocation'),
+    'holdeLicense||revocationAt': FlatFilterPath([
+      FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+    ], 'revocationAt'),
+    'holdeLicense||license||mstrLicenseId': FlatFilterPath([
+      FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+      FilterStep('mstrLicenseByMstrLicenseId'),
+    ], 'mstrLicenseId'),
+    'holdeLicense||license||code': FlatFilterPath([
+      FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+      FilterStep('mstrLicenseByMstrLicenseId'),
+    ], 'code'),
+    'holdeLicense||license||detail': FlatFilterPath([
+      FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+      FilterStep('mstrLicenseByMstrLicenseId'),
+    ], 'detail'),
+    'holdeLicense||license||publicLicense': FlatFilterPath([
+      FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+      FilterStep('mstrLicenseByMstrLicenseId'),
+    ], 'publicLicense'),
+    'holdeLicense||license||customerLicense': FlatFilterPath([
+      FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+      FilterStep('mstrLicenseByMstrLicenseId'),
+    ], 'customerLicense'),
+    'holdeLicense||license||organizationLicense': FlatFilterPath([
+      FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+      FilterStep('mstrLicenseByMstrLicenseId'),
+    ], 'organizationLicense'),
+    'holdeLicense||license||symbol': FlatFilterPath([
+      FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+      FilterStep('mstrLicenseByMstrLicenseId'),
+    ], 'symbol'),
+    'holdeLicense||license||remarks': FlatFilterPath([
+      FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+      FilterStep('mstrLicenseByMstrLicenseId'),
+    ], 'remarks'),
+    'holdeLicense||license||updateAt': FlatFilterPath([
+      FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+      FilterStep('mstrLicenseByMstrLicenseId'),
+    ], 'updateAt'),
+    'holdeLicense||license||remove': FlatFilterPath([
+      FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+      FilterStep('mstrLicenseByMstrLicenseId'),
+    ], 'remove'),
+    'holdeLicense||license||labels||sharedAppellationsId': FlatFilterPath([
+      FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+      FilterStep('mstrLicenseByMstrLicenseId'),
+      FilterStep('sharedAppellationByNames'),
+    ], 'sharedAppellationsId'),
+    'holdeLicense||license||labels||sharedDictionaryBySharedDictionaryNameId||sharedDictionaryId':
+        FlatFilterPath([
+          FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+          FilterStep('mstrLicenseByMstrLicenseId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNameId'),
+        ], 'sharedDictionaryId'),
+    'holdeLicense||license||labels||sharedDictionaryBySharedDictionaryNameId||value||dictionaryValue':
+        FlatFilterPath([
+          FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+          FilterStep('mstrLicenseByMstrLicenseId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNameId'),
+          FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {
+            'sharedLanguageCodeId': 'languageCodeId',
+          }),
+        ], 'dictionaryValue'),
+    'holdeLicense||license||labels||sharedDictionaryBySharedDictionaryPronunciationId||sharedDictionaryId':
+        FlatFilterPath([
+          FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+          FilterStep('mstrLicenseByMstrLicenseId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryPronunciationId'),
+        ], 'sharedDictionaryId'),
+    'holdeLicense||license||labels||sharedDictionaryBySharedDictionaryPronunciationId||value||dictionaryValue':
+        FlatFilterPath([
+          FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+          FilterStep('mstrLicenseByMstrLicenseId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryPronunciationId'),
+          FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {
+            'sharedLanguageCodeId': 'languageCodeId',
+          }),
+        ], 'dictionaryValue'),
+    'holdeLicense||license||labels||sharedDictionaryBySharedDictionaryNicknameId||sharedDictionaryId':
+        FlatFilterPath([
+          FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+          FilterStep('mstrLicenseByMstrLicenseId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNicknameId'),
+        ], 'sharedDictionaryId'),
+    'holdeLicense||license||labels||sharedDictionaryBySharedDictionaryNicknameId||value||dictionaryValue':
+        FlatFilterPath([
+          FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+          FilterStep('mstrLicenseByMstrLicenseId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNicknameId'),
+          FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {
+            'sharedLanguageCodeId': 'languageCodeId',
+          }),
+        ], 'dictionaryValue'),
+    'holdeLicense||license||update_user||historyId': FlatFilterPath([
+      FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+      FilterStep('mstrLicenseByMstrLicenseId'),
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'historyId'),
+    'holdeLicense||license||update_user||infoStaffId': FlatFilterPath([
+      FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+      FilterStep('mstrLicenseByMstrLicenseId'),
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'infoStaffId'),
+    'holdeLicense||license||update_user||infoCompanyId': FlatFilterPath([
+      FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+      FilterStep('mstrLicenseByMstrLicenseId'),
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'infoCompanyId'),
+    'holdeLicense||license||update_user||code': FlatFilterPath([
+      FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+      FilterStep('mstrLicenseByMstrLicenseId'),
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'code'),
+    'holdeLicense||license||update_user||sex': FlatFilterPath([
+      FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+      FilterStep('mstrLicenseByMstrLicenseId'),
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'sex'),
+    'holdeLicense||license||update_user||phone': FlatFilterPath([
+      FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+      FilterStep('mstrLicenseByMstrLicenseId'),
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'phone'),
+    'holdeLicense||license||update_user||symbol': FlatFilterPath([
+      FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+      FilterStep('mstrLicenseByMstrLicenseId'),
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'symbol'),
+    'holdeLicense||license||update_user||privatePhone': FlatFilterPath([
+      FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+      FilterStep('mstrLicenseByMstrLicenseId'),
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'privatePhone'),
+    'holdeLicense||license||update_user||name||sharedAppellationsId':
+        FlatFilterPath([
+          FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+          FilterStep('mstrLicenseByMstrLicenseId'),
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+        ], 'sharedAppellationsId'),
+    'holdeLicense||license||update_user||name||sharedDictionaryBySharedDictionaryNameId||sharedDictionaryId':
+        FlatFilterPath([
+          FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+          FilterStep('mstrLicenseByMstrLicenseId'),
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNameId'),
+        ], 'sharedDictionaryId'),
+    'holdeLicense||license||update_user||name||sharedDictionaryBySharedDictionaryNameId||value||dictionaryValue':
+        FlatFilterPath([
+          FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+          FilterStep('mstrLicenseByMstrLicenseId'),
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNameId'),
+          FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {
+            'sharedLanguageCodeId': 'languageCodeId',
+          }),
+        ], 'dictionaryValue'),
+    'holdeLicense||license||update_user||name||sharedDictionaryBySharedDictionaryPronunciationId||sharedDictionaryId':
+        FlatFilterPath([
+          FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+          FilterStep('mstrLicenseByMstrLicenseId'),
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryPronunciationId'),
+        ], 'sharedDictionaryId'),
+    'holdeLicense||license||update_user||name||sharedDictionaryBySharedDictionaryPronunciationId||value||dictionaryValue':
+        FlatFilterPath([
+          FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+          FilterStep('mstrLicenseByMstrLicenseId'),
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryPronunciationId'),
+          FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {
+            'sharedLanguageCodeId': 'languageCodeId',
+          }),
+        ], 'dictionaryValue'),
+    'holdeLicense||license||update_user||name||sharedDictionaryBySharedDictionaryNicknameId||sharedDictionaryId':
+        FlatFilterPath([
+          FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+          FilterStep('mstrLicenseByMstrLicenseId'),
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNicknameId'),
+        ], 'sharedDictionaryId'),
+    'holdeLicense||license||update_user||name||sharedDictionaryBySharedDictionaryNicknameId||value||dictionaryValue':
+        FlatFilterPath([
+          FilterStep.many('mstrStaffLicensesByInfoStaffId'),
+          FilterStep('mstrLicenseByMstrLicenseId'),
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNicknameId'),
+          FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {
+            'sharedLanguageCodeId': 'languageCodeId',
+          }),
+        ], 'dictionaryValue'),
+    'update_user||historyId': FlatFilterPath([
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'historyId'),
+    'update_user||infoStaffId': FlatFilterPath([
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'infoStaffId'),
+    'update_user||infoCompanyId': FlatFilterPath([
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'infoCompanyId'),
+    'update_user||code': FlatFilterPath([
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'code'),
+    'update_user||sex': FlatFilterPath([
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'sex'),
+    'update_user||phone': FlatFilterPath([
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'phone'),
+    'update_user||symbol': FlatFilterPath([
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'symbol'),
+    'update_user||privatePhone': FlatFilterPath([
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+    ], 'privatePhone'),
+    'update_user||name||sharedAppellationsId': FlatFilterPath([
+      FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+      FilterStep('sharedAppellationByNames'),
+    ], 'sharedAppellationsId'),
+    'update_user||name||sharedDictionaryBySharedDictionaryNameId||sharedDictionaryId':
+        FlatFilterPath([
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNameId'),
+        ], 'sharedDictionaryId'),
+    'update_user||name||sharedDictionaryBySharedDictionaryNameId||value||dictionaryValue':
+        FlatFilterPath([
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNameId'),
+          FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {
+            'sharedLanguageCodeId': 'languageCodeId',
+          }),
+        ], 'dictionaryValue'),
+    'update_user||name||sharedDictionaryBySharedDictionaryPronunciationId||sharedDictionaryId':
+        FlatFilterPath([
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryPronunciationId'),
+        ], 'sharedDictionaryId'),
+    'update_user||name||sharedDictionaryBySharedDictionaryPronunciationId||value||dictionaryValue':
+        FlatFilterPath([
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryPronunciationId'),
+          FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {
+            'sharedLanguageCodeId': 'languageCodeId',
+          }),
+        ], 'dictionaryValue'),
+    'update_user||name||sharedDictionaryBySharedDictionaryNicknameId||sharedDictionaryId':
+        FlatFilterPath([
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNicknameId'),
+        ], 'sharedDictionaryId'),
+    'update_user||name||sharedDictionaryBySharedDictionaryNicknameId||value||dictionaryValue':
+        FlatFilterPath([
+          FilterStep('historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId'),
+          FilterStep('sharedAppellationByNames'),
+          FilterStep('sharedDictionaryBySharedDictionaryNicknameId'),
+          FilterStep.many('sharedDictionaryValuesBySharedDictionaryId', {
+            'sharedLanguageCodeId': 'languageCodeId',
+          }),
+        ], 'dictionaryValue'),
+  });
+}

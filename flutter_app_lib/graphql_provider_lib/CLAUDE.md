@@ -35,8 +35,8 @@ lib/
   converters/             gqlibのIGraphQLConverterを実装したコンバーター
     _converters.dart        バレルファイル
     <画面フォルダ>/          要件で指定されたときの画面単位のフォルダ(_<画面フォルダ名>.dart がバレル)
-  contents/               平坦化キーの定数(<画面>_keyname.dart)、content_variable.dart
-  extensions/             このライブラリが使用・提供する拡張メソッド(nested_map_flattener.dart等)
+  contents/               平坦化キーの定数(<画面>_keyname.dart)、検索条件の対応表(<画面>_filter_spec.dart、生成物、4-5節)、content_variable.dart
+  extensions/             このライブラリが使用・提供する拡張メソッド(nested_map_flattener.dart等)、検索条件のコンバーター(flat_filter_converter.dart、4-5節)
   graphql/                graphql_codegenの入力
     schema.graphql          生成用スキーマ(絞り込み済み、4-2節)
     <画面フォルダ>/          画面ごとのGraphQL(read/edit/rfe)
@@ -47,6 +47,10 @@ source/
   schema.json             view.yamlのJSON Schema
   27_yaml_to_graphql_conversion_rules.md  view.yaml→GraphQLの変換規則
   schema.full.graphql     PostGraphileから取得した全量のスキーマ(git対象外、4-1節)
+tool/
+  fetch_schema.dart       全量スキーマの取得(4-1節)
+  prune_schema.dart       生成用スキーマの絞り込み(4-2節)
+  gen_filter_spec.dart    検索条件の対応表の生成(4-5節)
 test/                     モデルごとの往復変換テスト、RFE/Edit相互変換テスト
 docs/                     要件ごとの実施ログ
 ```
@@ -67,11 +71,12 @@ docs/                     要件ごとの実施ログ
 
 - 全量スキーマをそのままgraphql_codegenに渡すと、`schema.graphql.dart`(約1万の入力型、563MB)の生成に6GB超のメモリを要し、実行できない。
 - 代わりに、`lib/graphql/`配下の画面のGraphQLが**実際に使う型・フィールド・引数だけ**に絞り込んだスキーマを生成し、`lib/graphql/schema.graphql`としてgraphql_codegenに渡す。
-  - 絞り込みは`dart run tool/prune_schema.dart`で行う。入力型は約1万から約200、`schema.graphql.dart`は563MBから2MBになった。
+  - 絞り込みは`dart run tool/prune_schema.dart`で行う。入力型は約1万から約200、`schema.graphql.dart`は563MBから2MB(0050の関連フィルタを含めて3.8MB)になった。
   - 変数で渡す入力型(一覧の入れ子編集等)には、スカラー・Enum・葉の入力型、入れ子書き込みの骨格(patch・updateBy等)、呼称の入れ子を残す。
     それ以外の入れ子(他テーブルへの入れ子書き込み)を変数で渡す必要が出た場合は、ツールの規則に追加する。
+  - 関連フィルタ(`$filter: <テーブル>Filter`、0050)は、そのクエリの選択経路に沿って残す。自テーブルの列(列用のフィルタ)とand/or/notに加え、選択セットに現れる関連(前方の関連、1対多はsome/every/none)を辿り、辿った先でも同様に残す。全量には約760のFilter型があり、すべて残すと入力型が再び肥大化するため、経路に限る。選択セットに無い関連では検索できない。
   - 全量スキーマは、graphql_codegenの読み込み対象外の場所(`source/schema.full.graphql`)に置く。
-- 全量スキーマの更新後、および画面のGraphQLを追加・変更した後は、必ず「絞り込み → build_runner」の順で実行する。
+- 全量スキーマの更新後、および画面のGraphQLを追加・変更した後は、必ず「絞り込み → 検索条件の対応表の生成(4-5節) → build_runner」の順で実行する。
 - 生成用スキーマに含まれない型・フィールドは、生成モデルにも含まれない。新しい画面で使う場合は、絞り込みを再実行する。
 
 ### 4-3. build_runner(0012・0024・0042)
@@ -87,6 +92,24 @@ docs/                     要件ごとの実施ログ
 - 生成モデルのうち5000KBを超えるもの、および`schema.graphql.dart`は、`.gitignore`に追加する。
 - 加えて、アナライザの除外(`analysis_options.yaml`)と、VS Codeの監視・検索の除外(`.vscode/settings.json`)にも加える。
 - `.gitignore`はサイズで動的に指定できないため、build_runnerを実行するたびに生成物のサイズを確認し、該当するものを個別に追記する。
+
+### 4-5. 検索条件(平坦なMap → Filter)(0050)
+
+- readの`$filter: <テーブル>Filter`(= {}が既定値)は、`filter: { and: [{ remove: { equalTo: $removed } }, $filter] }`の形で渡す。`$filter`が省略されても、`remove`の条件は常に効く。
+- 呼び出し側は、検索条件を平坦なMap(キーは平坦化キーの定数、値はconnection-filterの演算子のMap)で渡す。`FlatFilterConverter`(`lib/extensions/flat_filter_converter.dart`)が、入れ子の`<テーブル>Filter`のMapへ展開する。結果は`Input$<テーブル>Filter.fromJson`へ渡せる。
+  ```dart
+  final filter = FlatFilterConverter(OfficePageFilterSpec.spec).convert(
+    {'address||zipCode': {'startsWith': '100'}},
+    variables: {'languageCodeId': languageCodeId},
+  );
+  ```
+- 展開の対応表(`lib/contents/<画面>_filter_spec.dart`)は、`dart run tool/gen_filter_spec.dart`が、各画面のreadの選択経路から生成する(生成物。直接編集しない)。
+  - 平坦化キーは、各階層のエイリアス(無ければフィールド名)を`||`で結ぶ。1対多(Connection)は`nodes`を飛ばし、エイリアスの次に子のフィールドを続ける(nested_map_flattener.dartの`collapseSingleRecordPaths`と同じ形)。
+  - 1対1は前方の関連フィールドで辿り、1対多は`some`で辿る。
+  - 1対多のフィールドに変数による`condition`(呼称の辞書の値の`sharedLanguageCodeId: $languageCodeId`)が付いている場合は、同じ条件を`some`の中へ加える。この変数の値は`variables`で渡す(5-5節の言語の条件)。
+  - 同じ`some`に複数の列の条件を指定すると、同じ1件の子が全部を満たす条件になる。
+- 対応表に無いキー、演算子のMapでない値、必要な変数の欠落は`ArgumentError`とする。値がnullまたは空のMapの条件は無視する。
+- edit・RFEには検索条件が無い。
 
 ## 5. 画面仕様からGraphQLへの変換
 
@@ -171,6 +194,7 @@ docs/                     要件ごとの実施ログ
 | 往復変換(0013・0032・0044) | 生成モデルごとに、`nested_map_flattener.dart`で平坦化→復元して元と一致するテストを作る。再生成のときはテストも見直す |
 | RFE/Edit相互変換(0046・0048) | `test/rfe_edit_interconversion_test.dart`で全画面を検証する。RFE→Editの結果モデル・引数モデル、Editの結果モデル→RFEのいずれも変換できること。変換できない場合は、view.yamlの修正案をログに出力する。監査列がRFEにのみあるのは方針どおり(A1)とし、条件付き取得の混入は失敗(F6)とする |
 | nested_map_flattener.dartの扱い(0044) | 相互変換できないときだけ見直す。根本的な見直しが必要なら提案し、それ以外は対応できるよう修正する |
+| 検索条件(0050) | `test/flat_filter_converter_test.dart`で、コンバーター単体の挙動、全画面の対応表のすべてのキーが生成モデル`Input$<テーブル>Filter`のfromJson/toJsonで欠落なく往復できること、OfficePageの実例を検証する |
 
 ## 7. 作業の進め方
 
@@ -185,11 +209,8 @@ docs/                     要件ごとの実施ログ
 
 - `DepartmentPage.descendants`: 0048で保留とした。0049でビューの関連がスキーマに追加され、取得できるようになった。view.yaml・GraphQLへの反映は未着手。
 - `CompanyPageEdit.provision`: `ProvisionPageEdit`のcolumnsを複製している(`requiredWhere`の扱いのため。docs/0048ログ3章)。
-- 0050の生成以降が未実施(docs/0050ログ):
-  - view.yaml・schema.json・変換規則・5-3節の反映は済み。GraphQL・生成モデル・KeyName・テストは旧名・旧`$condition`のまま。
-  - PostGraphileの関連フィルタ(`connectionFilterRelations`)が、取得時点のサーバーでは未適用だった。設定ファイルは`docker/postgraphile/.postgraphilerc.js`に改名済み(`docker-compose.yml`のマウントと一致)。コンテナを作り直して適用を確認した後、全量スキーマを再取得する(4-1節)。
-  - 全量スキーマの再取得は、イントロスペクションが5分でタイムアウトして失敗した。再度タイムアウトする場合は`tool/fetch_schema.dart`の待ち時間を延ばす。
-  - 再取得後に、prune_schema.dartへ関連フィルタの入力型を残す規則の追加、GraphQLの再生成、平坦なMap→Filterのコンバーターの作成、build_runner、テストの見直しを行う。
+- 0050は完了した(docs/0050ログ)。全量スキーマの再取得・GraphQLの再生成・コンバーター・build_runner・テストの見直しまで実施済み。
+  - `schema.full.graphql`は、コンテナの作り直し後に再取得した(関連フィルタが有効)。イントロスペクションは約45秒で、タイムアウト(5分)は問題にならなかった。
 - 言語の引数の一般化(ISO 639-1準拠、言語の数を限定しない、ja/enの固定の廃止)と5-5節の見直し: 0050の対象外とし、別の要件として扱う。
 
 ## 要件(0050以降)

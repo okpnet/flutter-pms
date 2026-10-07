@@ -1,15 +1,14 @@
-# department_category画面 - Read(一覧取得クエリ)
+# department_category_page画面 - Read(一覧取得クエリ)
 #
 # 画面仕様: source/view.yaml #DepartmentCategoryPage(組織区分、info_department_kind_value)
-# 命名規則: CLAUDE.md 画面仕様命名規則(要件0033)により`department_category`をファイル名にする
-#   (view.yamlのトップノード名は誤字修正後の`DepartmentCategoryPage`のスネークケース)。
+# 命名規則: 要件0050により、ディレクトリ・ファイル名は`snake(DepartmentCategoryPage)`=`department_category_page`。
 #
 # 言語解決はcompany_page_read.graphqlと同じ方式(要件0036、$languageCodeId: UUID!)。
 
-query DepartmentCategoryRead(
+query DepartmentCategoryPageRead(
   $first: Int!
   $offset: Int
-  $condition: InfoDepartmentKindValueCondition
+  $filter: InfoDepartmentKindValueFilter = {}
   $orderBy: [InfoDepartmentKindValuesOrderBy!] = [PRIMARY_KEY_ASC]
   $languageCodeId: UUID!
   $removed: Boolean = false
@@ -17,9 +16,8 @@ query DepartmentCategoryRead(
   allInfoDepartmentKindValues(
     first: $first
     offset: $offset
-    condition: $condition
     orderBy: $orderBy
-    filter: { remove: { equalTo: $removed } }
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
   ) {
     totalCount
     pageInfo {

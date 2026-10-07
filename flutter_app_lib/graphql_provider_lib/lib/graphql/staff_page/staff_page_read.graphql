@@ -14,7 +14,7 @@
 query StaffPageRead(
   $first: Int!
   $offset: Int
-  $condition: InfoStaffCondition
+  $filter: InfoStaffFilter = {}
   $orderBy: [InfoStaffsOrderBy!] = [PRIMARY_KEY_ASC]
   $languageCodeId: UUID!
   $removed: Boolean = false
@@ -22,9 +22,8 @@ query StaffPageRead(
   allInfoStaffs(
     first: $first
     offset: $offset
-    condition: $condition
     orderBy: $orderBy
-    filter: { remove: { equalTo: $removed } }
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
   ) {
     totalCount
     pageInfo {

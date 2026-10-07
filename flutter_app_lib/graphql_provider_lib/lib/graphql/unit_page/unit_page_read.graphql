@@ -8,7 +8,7 @@
 query UnitPageRead(
   $first: Int!
   $offset: Int
-  $condition: SharedUnitCondition
+  $filter: SharedUnitFilter = {}
   $orderBy: [SharedUnitsOrderBy!] = [PRIMARY_KEY_ASC]
   $languageCodeId: UUID!
   $removed: Boolean = false
@@ -16,9 +16,8 @@ query UnitPageRead(
   allSharedUnits(
     first: $first
     offset: $offset
-    condition: $condition
     orderBy: $orderBy
-    filter: { remove: { equalTo: $removed } }
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
   ) {
     totalCount
     pageInfo {

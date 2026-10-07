@@ -1,15 +1,15 @@
-// department_category_keyname.dart
+// department_category_page_keyname.dart
 //
 // ignore_for_file: constant_identifier_names
-// lib/graphql/department_category/department_category_read.graphql /
-// department_category_edit.graphql の結果を nested_map_flattener.dart で
+// lib/graphql/department_category_page/department_category_page_read.graphql /
+// department_category_page_edit.graphql の結果を nested_map_flattener.dart で
 // 平坦化したときのキー文字列の定数クラス。
 //
-// 対象画面: source/view.yaml #DepartmentCategoryPage / #DepartmentCategoryEdit
+// 対象画面: source/view.yaml #DepartmentCategoryPage / #DepartmentCategoryPageEdit
 // (組織区分、info_department_kind_value)
 import 'content_variable.dart';
 
-abstract class DepartmentCategoryKeyName {
+abstract class DepartmentCategoryPageKeyName {
   static const ContentVariable infoDepartmentKindValueId = ContentVariable(
     'infoDepartmentKindValueId',
     GraphQLTypeKind.uuid,

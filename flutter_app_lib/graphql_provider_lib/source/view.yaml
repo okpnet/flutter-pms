@@ -2237,3 +2237,4 @@ EquipmentPage:
       using: [update_user_history_id,update_user_id]
       arrayType: toFirstOne
       <<: *UpdateStaffReadFields
+

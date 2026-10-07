@@ -85,3 +85,52 @@
   再取得でまたタイムアウトする場合は、`tool/fetch_schema.dart`のタイムアウト(5分)の延長を検討する。
 - 全量スキーマは置き換えていない(取得に失敗したため)。
 - 追記(2026-10-07): コミット時点で、設定ファイルはユーザーにより`.postgraphilerc.js`へ改名済み。サーバーへの適用(コンテナの作り直し)と全量スキーマの再取得は未確認。
+
+## 6. 後半の実施(2026-10-07、全量スキーマの再取得以降)
+
+### 6-1. 全量スキーマの再取得
+
+- `http://192.168.1.100:5000/graphql`へ接続でき、関連フィルタ(`connectionFilterRelations`)が有効になっていることを`InfoOfficeFilter`のフィールド(`infoAddressByInfoAddressId`等)で確認した。
+- `dart run tool/fetch_schema.dart`が約45秒で成功した(型12,605。`source/schema.full.graphql`が無かったため、比較は全型が追加扱い)。前回(5章)はタイムアウトしたが、今回は待ち時間を延ばさずに成功した(前回との差の原因は未確認。サーバー側の設定の適用状態による可能性がある)(一時的に30分へ延ばして実行したが、元に戻した)。
+- Filter型は759。関連フィルタの有効化で、`<テーブル>Filter`に前方の関連・`<親>ToMany<子>Filter`(some/every/none)が加わった。
+
+### 6-2. prune_schema.dartの規則(4-2節)
+
+- 全Filter型を残すと再び肥大化するため、`$filter: <テーブル>Filter`の変数を持つ操作では、**そのクエリの選択経路に沿って**関連フィルタを残す。
+  - 自テーブルの列(列用のフィルタ、`...Exist(s)`のBoolean)とand/or/notを残す。
+  - 選択セットに現れる関連のうち、前方の関連は同名のFilterフィールドで、1対多は`some/every/none`で辿り、辿った先でも同様に残す(エイリアスではなく実フィールド名で照合)。
+- 結果: 入力型 約1万(11,024)→215(うちFilter 41)、生成用スキーマ約106KB、`schema.graphql.dart`は3.8MB(絞り込み前の全量では563MB。CLAUDE.md 4-2節の約2MBから、関連フィルタ分が増えた)。
+- 選択セットに無い関連では検索できない。必要になった場合は、view.yaml・GraphQLに関連を加える(出力しない関連は`output: false`で表現できる)。
+
+### 6-3. GraphQLの再生成(要件0050 7-1)
+
+| 対象 | 内容 |
+|---|---|
+| `department_category/` → `department_category_page/` | ファイル名`department_category_page_{read,edit,rfe}.graphql`、操作名`DepartmentCategoryPageRead`/`PageEdit`/`PageRfe`。旧生成物・旧KeyName・旧テストを削除し改名 |
+| `staff_capability/`(`StaffCapabilityEdit`・`StaffCapabilityRfe`) | 廃止。`staff_capability_page/`に`StaffCapabilityPageEdit`・`StaffCapabilityPageRfe`、`capable_staff_page/`に`CapableStaffPageEdit`・`CapableStaffPageRfe`を新設(内容は同一、操作名だけ違う) |
+| 全read(18本) | `$condition: <テーブル>Condition`を`$filter: <テーブル>Filter = {}`へ変更。`filter: { and: [{ remove: { equalTo: $removed } }, $filter] }`で`remove`の条件と結ぶ。`$filter`の既定値`{}`は、`and`の要素(非null)へNull許容の変数を渡せるようにするため。省略時はキーを送らないため`{}`が使われる |
+
+- 子ページ(`filter`を持つ子)は独立した変数を作らない。親の`$filter`の関連の経路で検索する(5章)。
+- 呼称の辞書の値(`sharedDictionaryValuesBy...(condition: { sharedLanguageCodeId: $languageCodeId })`)の`condition`は、行の絞り込みではなく表示言語の指定なので、そのまま残した。
+
+### 6-4. コンバーター(要件0050 7-2)
+
+- `lib/extensions/flat_filter_converter.dart`: `FlatFilterConverter`(平坦なMap→入れ子のFilterのMap)。1対1は前方の関連、1対多は`some`、`some`の変数条件(表示言語)を同じ`some`へ加える。展開できないキー・演算子のMapでない値・変数の欠落は`ArgumentError`。
+- `tool/gen_filter_spec.dart`: 各readの選択経路から、平坦化キー→Filterの経路の対応表(`lib/contents/<画面>_filter_spec.dart`、18画面、生成物)を作る。
+- 対応表は、view.yamlの経路(`as`・`using`・`from`)から作ったGraphQLを正とする。view.yamlから直接ではなくGraphQLから作るのは、GraphQLの選択経路と生成用スキーマ(6-2)が常に一致し、検索できる列と取得できる列が食い違わないようにするため。
+
+### 6-5. build_runner・テスト
+
+- `dart run build_runner build --delete-conflicting-outputs`: schema.graphql.dart(3.8MB)を含め、全体で約50秒。`Null check operator`のエラーは発生しなかった。5000KBを超える生成物は無く(最大は`approval_operation_page_edit.graphql.dart`の約4.2MB)、`.gitignore`への追記は不要。
+- テストの見直し:
+  - `department_category_flatten_roundtrip_test.dart` → `department_category_page_flatten_roundtrip_test.dart`(新名に追随)
+  - `staff_capability_flatten_roundtrip_test.dart` → `staff_capability_page_edit_flatten_roundtrip_test.dart`・`capable_staff_page_edit_flatten_roundtrip_test.dart`に分割
+  - `rfe_edit_interconversion_test.dart`: `department_category`→`department_category_page`、`staff_capability`→`staff_capability_page`・`capable_staff_page`(18ペア)
+  - 新規`flat_filter_converter_test.dart`(27件): 単体、全18画面の対応表の全キーが`Input$<テーブル>Filter`のfromJson/toJsonで欠落なく往復すること、OfficePageの実例
+- 結果: `test/`の23ファイルを1ファイルずつ実行し、すべて成功した。
+- 環境の注意: Flutter 3.47.6(Windows、SDKのパスに日本語を含む)では、`flutter test`がシェーダーのコンパイル(`flutter/runtime_effect.glsl`が見つからない)で落ちる。アセットを使わないテストなので`flutter test --no-test-assets <ファイル>`で実行する。
+
+### 6-6. 未対応(別の要件)
+
+- 言語の引数の一般化(ja/en固定の廃止)。
+- `DepartmentPage.descendants`のview.yaml・GraphQLへの反映(CLAUDE.md 8章)。

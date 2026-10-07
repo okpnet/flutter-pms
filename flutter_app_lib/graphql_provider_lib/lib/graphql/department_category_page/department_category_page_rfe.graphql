@@ -1,11 +1,11 @@
-# department_category画面 - RFE(read for editing、要件0037:
+# department_category_page画面 - RFE(read for editing、要件0037:
 #   DepartmentCategoryEditのgenerateRfe: trueから導出)
 
 # 要件0048: 要件0036以前の方式($ja/$en: Boolean!と@includeによる条件付き取得)を、
 # company_page_rfe.graphqlと同じ方式($jaLanguageCodeId/$enLanguageCodeIdをUUID!(必須)とし、
 # ja/en両方を常時取得)へ修正した。Editは両言語を必須引数で要求するため、RFEも常に両方を取得する(要件0046のC2)。
 
-query DepartmentCategoryRfe(
+query DepartmentCategoryPageRfe(
   $infoDepartmentKindValueId: UUID!
   $jaLanguageCodeId: UUID!
   $enLanguageCodeId: UUID!

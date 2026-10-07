@@ -19,7 +19,7 @@
 query SpecMeasurementPageRead(
   $first: Int!
   $offset: Int
-  $condition: MstrSpecMeasurementCondition
+  $filter: MstrSpecMeasurementFilter = {}
   $orderBy: [MstrSpecMeasurementsOrderBy!] = [PRIMARY_KEY_ASC]
   $languageCodeId: UUID!
   $removed: Boolean = false
@@ -27,9 +27,8 @@ query SpecMeasurementPageRead(
   allMstrSpecMeasurements(
     first: $first
     offset: $offset
-    condition: $condition
     orderBy: $orderBy
-    filter: { remove: { equalTo: $removed } }
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
   ) {
     totalCount
     pageInfo {

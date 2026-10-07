@@ -1,7 +1,6 @@
 // 要件0044: capable_staff_page画面(source/view.yaml #CapableStaffPage)の
 // GraphQLからbuild_runnerで生成されたモデルのnested_map_flattener.dart往復変換を検証する。
-// 要件0047: Edit/RFE(要件0045で追加)はview.yamlのCapableStaffPageEditがコメントアウトされたため廃止し、
-// staff_capability(StaffCapabilityEdit)に統合した(test/staff_capability_flatten_roundtrip_test.dart)。
+// 要件0050: Edit/RFEはCapableStaffPageEdit(StaffCapabilityEditFieldsを取り込む)として新設した(test/capable_staff_page_edit_flatten_roundtrip_test.dart)。
 
 import 'dart:convert';
 

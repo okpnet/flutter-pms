@@ -15,10 +15,12 @@ import 'package:gqlprvlib/postgraphile/assign_page/assign_page_edit.graphql.dart
 import 'package:gqlprvlib/postgraphile/assign_page/assign_page_rfe.graphql.dart' as assign_page_rfe;
 import 'package:gqlprvlib/postgraphile/capability_page/capability_page_edit.graphql.dart' as capability_page_edit;
 import 'package:gqlprvlib/postgraphile/capability_page/capability_page_rfe.graphql.dart' as capability_page_rfe;
+import 'package:gqlprvlib/postgraphile/capable_staff_page/capable_staff_page_edit.graphql.dart' as capable_staff_page_edit;
+import 'package:gqlprvlib/postgraphile/capable_staff_page/capable_staff_page_rfe.graphql.dart' as capable_staff_page_rfe;
 import 'package:gqlprvlib/postgraphile/company_page/company_page_edit.graphql.dart' as company_page_edit;
 import 'package:gqlprvlib/postgraphile/company_page/company_page_rfe.graphql.dart' as company_page_rfe;
-import 'package:gqlprvlib/postgraphile/department_category/department_category_edit.graphql.dart' as department_category_edit;
-import 'package:gqlprvlib/postgraphile/department_category/department_category_rfe.graphql.dart' as department_category_rfe;
+import 'package:gqlprvlib/postgraphile/department_category_page/department_category_page_edit.graphql.dart' as department_category_page_edit;
+import 'package:gqlprvlib/postgraphile/department_category_page/department_category_page_rfe.graphql.dart' as department_category_page_rfe;
 import 'package:gqlprvlib/postgraphile/department_page/department_page_edit.graphql.dart' as department_page_edit;
 import 'package:gqlprvlib/postgraphile/department_page/department_page_rfe.graphql.dart' as department_page_rfe;
 import 'package:gqlprvlib/postgraphile/item_kind_page/item_kind_page_edit.graphql.dart' as item_kind_page_edit;
@@ -35,8 +37,8 @@ import 'package:gqlprvlib/postgraphile/provision_page/provision_page_edit.graphq
 import 'package:gqlprvlib/postgraphile/provision_page/provision_page_rfe.graphql.dart' as provision_page_rfe;
 import 'package:gqlprvlib/postgraphile/spec_measurement_page/spec_measurement_page_edit.graphql.dart' as spec_measurement_page_edit;
 import 'package:gqlprvlib/postgraphile/spec_measurement_page/spec_measurement_page_rfe.graphql.dart' as spec_measurement_page_rfe;
-import 'package:gqlprvlib/postgraphile/staff_capability/staff_capability_edit.graphql.dart' as staff_capability_edit;
-import 'package:gqlprvlib/postgraphile/staff_capability/staff_capability_rfe.graphql.dart' as staff_capability_rfe;
+import 'package:gqlprvlib/postgraphile/staff_capability_page/staff_capability_page_edit.graphql.dart' as staff_capability_page_edit;
+import 'package:gqlprvlib/postgraphile/staff_capability_page/staff_capability_page_rfe.graphql.dart' as staff_capability_page_rfe;
 import 'package:gqlprvlib/postgraphile/staff_held_license_page/staff_held_license_page_edit.graphql.dart' as staff_held_license_page_edit;
 import 'package:gqlprvlib/postgraphile/staff_held_license_page/staff_held_license_page_rfe.graphql.dart' as staff_held_license_page_rfe;
 import 'package:gqlprvlib/postgraphile/staff_page/staff_page_edit.graphql.dart' as staff_page_edit;
@@ -69,6 +71,13 @@ final _pairs = <RfeEditPair>[
         capability_page_edit.Variables$Mutation$CapabilityPageEdit.fromJson(j).toJson(),
   ),
   RfeEditPair(
+    page: 'capable_staff_page',
+    rfeFromJson: (j) => capable_staff_page_rfe.Query$CapableStaffPageRfe.fromJson(j).toJson(),
+    editFromJson: (j) => capable_staff_page_edit.Mutation$CapableStaffPageEdit.fromJson(j).toJson(),
+    editVariablesFromJson: (j) =>
+        capable_staff_page_edit.Variables$Mutation$CapableStaffPageEdit.fromJson(j).toJson(),
+  ),
+  RfeEditPair(
     page: 'company_page',
     rfeFromJson: (j) => company_page_rfe.Query$CompanyPageRfe.fromJson(j).toJson(),
     editFromJson: (j) => company_page_edit.Mutation$CompanyPageEdit.fromJson(j).toJson(),
@@ -76,11 +85,11 @@ final _pairs = <RfeEditPair>[
         company_page_edit.Variables$Mutation$CompanyPageEdit.fromJson(j).toJson(),
   ),
   RfeEditPair(
-    page: 'department_category',
-    rfeFromJson: (j) => department_category_rfe.Query$DepartmentCategoryRfe.fromJson(j).toJson(),
-    editFromJson: (j) => department_category_edit.Mutation$DepartmentCategoryEdit.fromJson(j).toJson(),
+    page: 'department_category_page',
+    rfeFromJson: (j) => department_category_page_rfe.Query$DepartmentCategoryPageRfe.fromJson(j).toJson(),
+    editFromJson: (j) => department_category_page_edit.Mutation$DepartmentCategoryPageEdit.fromJson(j).toJson(),
     editVariablesFromJson: (j) =>
-        department_category_edit.Variables$Mutation$DepartmentCategoryEdit.fromJson(j).toJson(),
+        department_category_page_edit.Variables$Mutation$DepartmentCategoryPageEdit.fromJson(j).toJson(),
   ),
   RfeEditPair(
     page: 'department_page',
@@ -139,11 +148,11 @@ final _pairs = <RfeEditPair>[
         spec_measurement_page_edit.Variables$Mutation$SpecMeasurementPageEdit.fromJson(j).toJson(),
   ),
   RfeEditPair(
-    page: 'staff_capability',
-    rfeFromJson: (j) => staff_capability_rfe.Query$StaffCapabilityRfe.fromJson(j).toJson(),
-    editFromJson: (j) => staff_capability_edit.Mutation$StaffCapabilityEdit.fromJson(j).toJson(),
+    page: 'staff_capability_page',
+    rfeFromJson: (j) => staff_capability_page_rfe.Query$StaffCapabilityPageRfe.fromJson(j).toJson(),
+    editFromJson: (j) => staff_capability_page_edit.Mutation$StaffCapabilityPageEdit.fromJson(j).toJson(),
     editVariablesFromJson: (j) =>
-        staff_capability_edit.Variables$Mutation$StaffCapabilityEdit.fromJson(j).toJson(),
+        staff_capability_page_edit.Variables$Mutation$StaffCapabilityPageEdit.fromJson(j).toJson(),
   ),
   RfeEditPair(
     page: 'staff_held_license_page',

@@ -10,7 +10,7 @@
 query OfficePageRead(
   $first: Int!
   $offset: Int
-  $condition: InfoOfficeCondition
+  $filter: InfoOfficeFilter = {}
   $orderBy: [InfoOfficesOrderBy!] = [PRIMARY_KEY_ASC]
   $languageCodeId: UUID!
   $removed: Boolean = false
@@ -18,9 +18,8 @@ query OfficePageRead(
   allInfoOffices(
     first: $first
     offset: $offset
-    condition: $condition
     orderBy: $orderBy
-    filter: { remove: { equalTo: $removed } }
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
   ) {
     totalCount
     pageInfo {
