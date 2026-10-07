@@ -4,8 +4,8 @@
 # shared_appellationsが持つ3本のFK(shared_dictionary_name_id / _pronunciation_id / _nickname_id)は
 # いずれも「shared_dictionaryへのFK1本を辿ってJA表示名を得る」という同じ形をしている。
 # using(どのFK列を使うか)だけを変えて使い回せるよう、shared_dictionary以下を1本の
-# 共有アームとして定義する(test.yamlのdictionaryLabelと同型)。
-dictionaryLabel: &dictionaryLabel
+# 共有アームとして定義する(test.yamlのDictionaryLabelReadFieldsと同型)。
+DictionaryLabelReadFields: &DictionaryLabelReadFields
   kind: read
   from: shared_dictionary
   defaultWhere:
@@ -26,10 +26,10 @@ dictionaryLabel: &dictionaryLabel
         # codeは呼び出し側が必ず指定する引数(requiredWhere)であり、ハードコードしない。
         # output: false … 常に出力から除外する。where/requiredWhere/defaultWhereはpickと違い
         # 除外されず、親(value)のLATERALサブクエリのJOIN/WHERE句の構築には使われ続ける。
-        # 要件0043: dictionaryLabelは画面のツリーの深い位置(子・孫)で使い回されるため、
+        # 要件0043: DictionaryLabelReadFieldsは画面のツリーの深い位置(子・孫)で使い回されるため、
         # 祖先・兄弟の別ノードが持つ同名列(例: 各マスタ自身のcode列)とGraphQL引数名が
         # 衝突しうる。{column, as}でこの1箇所だけ明示的にlanguageCodeへ改名しておけば、
-        # dictionaryLabelを経由する全画面に自動的に反映され、各画面での個別対応は不要になる。
+        # DictionaryLabelReadFieldsを経由する全画面に自動的に反映され、各画面での個別対応は不要になる。
         - name: language
           arrayType: toFirstOne
           from: shared_language_code
@@ -43,9 +43,9 @@ dictionaryLabel: &dictionaryLabel
               value: false
 
 # --- Edit用アーム: shared_dictionary配下の言語別値(shared_dictionary_value)をまとめて編集する。
-#     1辞書エントリは言語の数だけ行を持つ(1対N)ため、ReadのdictionaryLabelとは異なりarrayType: toMany(複数件)にする。
+#     1辞書エントリは言語の数だけ行を持つ(1対N)ため、ReadのDictionaryLabelReadFieldsとは異なりarrayType: toMany(複数件)にする。
 #     (下書きではtoFirstOneになっていたが、複数言語を同時に編集できなくなるため修正)
-dictionaryEdit: &dictionaryEdit
+DictionaryEditFields: &DictionaryEditFields
   kind: edit
   from: shared_dictionary
   columns:
@@ -68,7 +68,7 @@ dictionaryEdit: &dictionaryEdit
 
 # --- edit: shared_appellations 更新/新規作成。name/pronunciation/nicknameそれぞれの
 #     shared_dictionary(と配下のshared_dictionary_value)も同時に編集する。 ---
-appellationLabelsEdit: &appellationLabelsEdit
+AppellationLabelsEditFields: &AppellationLabelsEditFields
   kind: edit
   from: shared_appellations
   requiredWhere:
@@ -82,24 +82,24 @@ appellationLabelsEdit: &appellationLabelsEdit
       as: name
       using: shared_dictionary_name_id
       arrayType: toFirstOne
-      <<: *dictionaryEdit
+      <<: *DictionaryEditFields
     - name: pronunciatione
       as: pronunciation
       using: shared_dictionary_pronunciation_id
       arrayType: toFirstOne
-      <<: *dictionaryEdit
+      <<: *DictionaryEditFields
     - name: nicknam
       as: nickname
       using: shared_dictionary_nickname_id
       arrayType: toFirstOne
-      <<: *dictionaryEdit
+      <<: *DictionaryEditFields
     - remarks
     - update_user_id
     - update_user_history_id
     - remove
 
 # --- read: shared_appellations 詳細(name/pronunciation/nicknameのJA表示名を取得) ---
-appellationLabels: &appellationLabels
+AppellationLabelsReadFields: &AppellationLabelsReadFields
   kind: read
   from: shared_appellations
   defaultWhere:
@@ -112,21 +112,21 @@ appellationLabels: &appellationLabels
       as: name
       using: shared_dictionary_name_id 
       arrayType: toFirstOne
-      <<: *dictionaryLabel
+      <<: *DictionaryLabelReadFields
     - name: npronunciatione
       as: pronunciation
       using: shared_dictionary_pronunciation_id
       arrayType: toFirstOne
-      <<: *dictionaryLabel
+      <<: *DictionaryLabelReadFields
     - name: nickname
       as: nickname
       using: shared_dictionary_nickname_id
       arrayType: toFirstOne
-      <<: *dictionaryLabel
+      <<: *DictionaryLabelReadFields
 
 # 共有(参照)定義: 住所情報 (点8) — info_address由来。company以外からも参照されうるため独立定義し、
-# 実際の利用箇所ではYAMLエイリアス(*addressFields)で共有参照する。
-addressFields: &addressFields
+# 実際の利用箇所ではYAMLエイリアス(*AddressReadFields)で共有参照する。
+AddressReadFields: &AddressReadFields
   kind: read
   from: info_address
   columns:
@@ -140,7 +140,7 @@ addressFields: &addressFields
         - name
         - pronunciation
         - nickname
-      <<: *appellationLabels
+      <<: *AppellationLabelsReadFields
     - name: address2
       as: address2
       using: address2
@@ -149,7 +149,7 @@ addressFields: &addressFields
         - name
         - pronunciation
         - nickname
-      <<: *appellationLabels
+      <<: *AppellationLabelsReadFields
     - name: bill
       as: bill_name
       using: bill
@@ -158,11 +158,11 @@ addressFields: &addressFields
         - name
         - pronunciation
         - nickname
-      <<: *appellationLabels
+      <<: *AppellationLabelsReadFields
     - phone
     - fax_number
 
-addressEditFields: &addressEditFields
+AddressEditFields: &AddressEditFields
   kind: edit
   from: info_address
   columns:
@@ -172,16 +172,16 @@ addressEditFields: &addressEditFields
     - name: address1
       using: address1
       arrayType: toFirstOne
-      <<: *appellationLabelsEdit
+      <<: *AppellationLabelsEditFields
     - name: address2
       using: address2
       arrayType: toFirstOne
-      <<: *appellationLabelsEdit
+      <<: *AppellationLabelsEditFields
     - name: bill
       as: bill_name
       using: bill
       arrayType: toFirstOne
-      <<: *appellationLabelsEdit
+      <<: *AppellationLabelsEditFields
     - phone
     - fax_number
     - remarks
@@ -189,7 +189,7 @@ addressEditFields: &addressEditFields
     - update_user_history_id
     - remove 
 
-languageCodeEdit: &languageCodeEdit
+LanguageCodeEditFields: &LanguageCodeEditFields
   kind: edit
   from: shared_language_code
   columns:
@@ -205,7 +205,7 @@ languageCodeEdit: &languageCodeEdit
 
 # スタッフ履歴
 # update_userに使用
-updateStaff: &updateStaff
+UpdateStaffReadFields: &UpdateStaffReadFields
   kind: read
   from: history_info_staff
   columns:
@@ -221,7 +221,7 @@ updateStaff: &updateStaff
         - name
         - pronunciation
         - nickname
-      <<: *appellationLabels
+      <<: *AppellationLabelsReadFields
     - sex
     - phone
     - symbol
@@ -229,7 +229,7 @@ updateStaff: &updateStaff
 
 # 単位の読み込み
 # 参照用の単位
-Unit: &Unit
+UnitReadFields: &UnitReadFields
   kind: read
   from: shared_unit
   defaultWhere:
@@ -246,12 +246,12 @@ Unit: &Unit
         - name
         - pronunciation
         - nickname
-      <<: *appellationLabels
+      <<: *AppellationLabelsReadFields
 
 UnitPage:
   kind: read
   from: shared_unit
-  condition: true # 要件0044レビュー: 他の全Read画面と同様に付与されるべきだが欠落していた
+  filter: true # 要件0044レビュー: 他の全Read画面と同様に付与されるべきだが欠落していた
   requiredWhere:
     - languageCode # 要件0044レビュー: labels解決に必要、他の全Read画面と同様に欠落していた
   defaultWhere:
@@ -268,7 +268,7 @@ UnitPage:
         - name
         - pronunciation
         - nickname
-      <<: *appellationLabels
+      <<: *AppellationLabelsReadFields
     - description 
     - symbol
     - remarks
@@ -277,7 +277,7 @@ UnitPage:
       as: update_user
       using: [update_user_history_id,update_user_id]
       arrayType: toFirstOne
-      <<: *updateStaff
+      <<: *UpdateStaffReadFields
 
 # 単位の書き込み
 UnitPageEdit:
@@ -291,7 +291,7 @@ UnitPageEdit:
     - name: labels
       arrayType: toFirstOne
       using: names
-      <<: *appellationLabelsEdit # 要件0044レビュー: 読み込み用アーム(appellationLabels)
+      <<: *AppellationLabelsEditFields # 要件0044レビュー: 読み込み用アーム(AppellationLabelsReadFields)
         # が誤って参照されていたため編集用アームに修正(他のEdit画面と同じ既知のパターン)
     - description
     - remarks
@@ -303,7 +303,7 @@ UnitPageEdit:
 ProvisionPage: &ProvisionPage
   kind: read
   from: info_provision
-  condition: true
+  filter: true
   requiredWhere:
     - languageCode
   defaultWhere:
@@ -322,7 +322,7 @@ ProvisionPage: &ProvisionPage
         - name
         - pronunciation
         - nickname
-      <<: *appellationLabels
+      <<: *AppellationLabelsReadFields
     - details
     - symbol
     - remarks
@@ -331,7 +331,7 @@ ProvisionPage: &ProvisionPage
       as: update_user
       using: [update_user_history_id,update_user_id]
       arrayType: toFirstOne
-      <<: *updateStaff
+      <<: *UpdateStaffReadFields
 
 # 提供の書き込み　2026/09/29　追加
 ProvisionPageEdit:
@@ -346,7 +346,7 @@ ProvisionPageEdit:
     - name: labels
       arrayType: toFirstOne
       using: names
-      <<: *appellationLabelsEdit
+      <<: *AppellationLabelsEditFields
     - details
     - remarks
     - update_user_id
@@ -361,7 +361,7 @@ ProvisionPageEdit:
 OfficePage: &OfficePage
   kind: read
   from: info_office
-  condition: true
+  filter: true
   requiredWhere:
     - languageCode
   defaultWhere:
@@ -380,12 +380,12 @@ OfficePage: &OfficePage
         - name
         - pronunciation
         - nickname
-      <<: *appellationLabels
+      <<: *AppellationLabelsReadFields
     - name: info_address_id
       as: address
       arrayType: toFirstOne
       using: info_address_id
-      <<: *addressFields
+      <<: *AddressReadFields
     - symbol
     - remarks
     - update_at
@@ -393,7 +393,7 @@ OfficePage: &OfficePage
       as: update_user
       using: [update_user_history_id,update_user_id]
       arrayType: toFirstOne
-      <<: *updateStaff
+      <<: *UpdateStaffReadFields
 
 # 事業所編集
 OfficePageEdit:
@@ -409,11 +409,11 @@ OfficePageEdit:
     - name: labels
       arrayType: toFirstOne
       using: names
-      <<: *appellationLabelsEdit
+      <<: *AppellationLabelsEditFields
     - name: address
       arrayType: toFirstOne
       using: info_address_id
-      <<: *addressEditFields
+      <<: *AddressEditFields
     - remarks
     - update_user_id
     - update_user_history_id
@@ -423,7 +423,7 @@ OfficePageEdit:
 CompanyPage:
   kind: read
   from: info_company
-  condition: true
+  filter: true
   requiredWhere:
     - languageCode
   defaultWhere:
@@ -442,7 +442,7 @@ CompanyPage:
         - name
         - pronunciation
         - nickname
-      <<: *appellationLabels
+      <<: *AppellationLabelsReadFields
     - web_page
     - name: ceo
       as: ceo_labels
@@ -452,7 +452,7 @@ CompanyPage:
         - name
         - pronunciation
         - nickname
-      <<: *appellationLabels
+      <<: *AppellationLabelsReadFields
     - name: provision #2026/09/29　追加
       arrayType: toMany
       as: provisions
@@ -463,7 +463,7 @@ CompanyPage:
       as: address
       arrayType: toFirstOne
       using: info_address_id
-      <<: *addressFields
+      <<: *AddressReadFields
       defaultWhere:
       - column: remove
         operator: "="
@@ -478,7 +478,7 @@ CompanyPage:
       as: update_user
       using: [update_user_history_id,update_user_id]
       arrayType: toFirstOne
-      <<: *updateStaff
+      <<: *UpdateStaffReadFields
 
 # --- edit: 会社情報(info_company) 更新/新規作成
 #     要件0037: generateRfe: trueにより、このcolumnsツリーから読み込み専用の
@@ -497,20 +497,20 @@ CompanyPageEdit:
     - name: labels
       arrayType: toFirstOne
       using: names
-      <<: *appellationLabelsEdit
+      <<: *AppellationLabelsEditFields
     # 要件0047: 子の名前がFK列名(info_address_id)と同じで、出力名がFK列と衝突するため、
     # OfficePageEdit等と同じaddressに改名した。
     - name: address
       arrayType: toFirstOne
       using: info_address_id
-      <<: *addressEditFields
+      <<: *AddressEditFields
     - web_page
     # 0048の指示結果が逆。symbolは不要。
     #- symbol # 要件0048: 修正モレ(要件0047ログ6章の6)。会社の記号を編集対象に追加.
     - name: ceo
       arrayType: toFirstOne
       using: ceo_names
-      <<: *appellationLabelsEdit
+      <<: *AppellationLabelsEditFields
     - name: provision #2026/09/29　追加(CompanyPage.provisionsの入れ子編集)
       # ProvisionPageEdit(トップノード)をそのまま<<でmergeすると、node専用の
       # generateRfeプロパティがcolumnEntry位置では許可されずスキーマ違反になるため
@@ -528,7 +528,7 @@ CompanyPageEdit:
         - name: labels
           arrayType: toFirstOne
           using: names
-          <<: *appellationLabelsEdit
+          <<: *AppellationLabelsEditFields
         - details
         - remarks
         - update_user_id
@@ -543,7 +543,7 @@ CompanyPageEdit:
 StaffPage: &StaffPage
   kind: read
   from: info_staff
-  condition: true
+  filter: true
   requiredWhere:
     - languageCode
   defaultWhere:
@@ -562,7 +562,7 @@ StaffPage: &StaffPage
         - name
         - pronunciation
         - nickname
-      <<: *appellationLabels
+      <<: *AppellationLabelsReadFields
     - sex
     - phone
     - private_phone
@@ -573,7 +573,7 @@ StaffPage: &StaffPage
       as: update_user
       using: [update_user_history_id,update_user_id]
       arrayType: toFirstOne
-      <<: *updateStaff
+      <<: *UpdateStaffReadFields
 
 # 担当者編集
 StaffPageEdit:
@@ -589,7 +589,7 @@ StaffPageEdit:
     - name: labels
       arrayType: toFirstOne
       using: names
-      <<: *appellationLabelsEdit
+      <<: *AppellationLabelsEditFields
     - sex
     - phone
     - private_phone
@@ -602,7 +602,7 @@ StaffPageEdit:
 DepartmentCategoryPage: &DepartmentCategoryPage
   kind: read
   from: info_department_kind_value
-  condition: true
+  filter: true
   requiredWhere:
     - languageCode
   defaultWhere:
@@ -618,7 +618,7 @@ DepartmentCategoryPage: &DepartmentCategoryPage
         - name
         - pronunciation
         - nickname
-      <<: *appellationLabels
+      <<: *AppellationLabelsReadFields
     - symbol
     - remarks
     - update_at
@@ -626,10 +626,10 @@ DepartmentCategoryPage: &DepartmentCategoryPage
       as: update_user
       using: [update_user_history_id,update_user_id]
       arrayType: toFirstOne
-      <<: *updateStaff
+      <<: *UpdateStaffReadFields
 
 # 組織区分編集
-DepartmentCategoryEdit:
+DepartmentCategoryPageEdit:
   kind: edit
   from: info_department_kind_value
   requiredWhere:
@@ -640,7 +640,7 @@ DepartmentCategoryEdit:
     - name: labels
       arrayType: toFirstOne
       using: names
-      <<: *appellationLabelsEdit
+      <<: *AppellationLabelsEditFields
     - remarks
     - update_user_id
     - update_user_history_id
@@ -650,7 +650,7 @@ DepartmentCategoryEdit:
 DepartmentPage: &DepartmentPage
   kind: read
   from: info_department
-  condition: true
+  filter: true
   requiredWhere:
     - languageCode
   defaultWhere:
@@ -701,11 +701,11 @@ DepartmentPage: &DepartmentPage
         - name
         - pronunciation
         - nickname
-      <<: *appellationLabels
+      <<: *AppellationLabelsReadFields
     - name: address
       arrayType: toFirstOne
       using: info_address_id
-      <<: *addressFields
+      <<: *AddressReadFields
     - name: kinds # 要件0045レビュー: info_department_kindはinfo_department_idに一意制約
       # (Ix1)を持つ1対1(schema.graphqlのInfoDepartmentKindInfoDepartmentKindIx1Connect
       # 参照)。旧`infoDepartmentKindsByInfoDepartmentId`は非推奨(@deprecated、
@@ -727,7 +727,7 @@ DepartmentPage: &DepartmentPage
             - name: labels
               arrayType: toFirstOne
               using: names
-              <<: *appellationLabels
+              <<: *AppellationLabelsReadFields
               defaultWhere:
                 - column: remove
                   operator: "="
@@ -740,7 +740,7 @@ DepartmentPage: &DepartmentPage
           as: update_user
           using: [update_user_history_id,update_user_id]
           arrayType: toFirstOne
-          <<: *updateStaff
+          <<: *UpdateStaffReadFields
           defaultWhere:
           - column: remove
             operator: "="
@@ -752,7 +752,7 @@ DepartmentPage: &DepartmentPage
       as: update_user
       using: [update_user_history_id,update_user_id]
       arrayType: toFirstOne
-      <<: *updateStaff
+      <<: *UpdateStaffReadFields
 
 # 組織編集
 DepartmentPageEdit:
@@ -789,11 +789,11 @@ DepartmentPageEdit:
         - name: labels
           arrayType: toFirstOne
           using: names
-          <<: *appellationLabelsEdit
+          <<: *AppellationLabelsEditFields
         - name: address
           arrayType: toFirstOne
           using: info_address_id
-          <<: *addressEditFields
+          <<: *AddressEditFields
         - remarks
         - update_user_id
         - update_user_history_id
@@ -802,11 +802,11 @@ DepartmentPageEdit:
     - name: labels
       arrayType: toFirstOne
       using: names
-      <<: *appellationLabelsEdit
+      <<: *AppellationLabelsEditFields
     - name: address
       arrayType: toFirstOne
       using: info_address_id
-      <<: *addressEditFields
+      <<: *AddressEditFields
     - name: kinds
       # 要件0047: info_department_kindはinfo_department_idに一意制約(Ix1)を持つ1対1のため
       # toFirstOneに修正(要件0045でDepartmentPage(read)とGraphQLは修正済みだったが、
@@ -826,7 +826,7 @@ DepartmentPageEdit:
             - name: labels
               arrayType: toFirstOne
               using: names
-              <<: *appellationLabelsEdit
+              <<: *AppellationLabelsEditFields
         - info_department_id
         - remarks
         - update_user_id
@@ -842,7 +842,7 @@ DepartmentPageEdit:
 CapabilityPage: &CapabilityPage
   kind: read
   from: mstr_capability
-  condition: true
+  filter: true
   requiredWhere:
     - languageCode
   defaultWhere:
@@ -860,7 +860,7 @@ CapabilityPage: &CapabilityPage
         - name
         - pronunciation
         - nickname
-      <<: *appellationLabels
+      <<: *AppellationLabelsReadFields
     - detail
     - reference_value
     - max
@@ -873,7 +873,7 @@ CapabilityPage: &CapabilityPage
       as: update_user
       using: [update_user_history_id,update_user_id]
       arrayType: toFirstOne
-      <<: *updateStaff
+      <<: *UpdateStaffReadFields
 
 # 力量書き込み
 # 力量評価項目を定義する
@@ -889,7 +889,7 @@ CapabilityPageEdit:
     - name: labels
       arrayType: toFirstOne
       using: names
-      <<: *appellationLabelsEdit
+      <<: *AppellationLabelsEditFields
     - detail
     - reference_value
     - max
@@ -905,7 +905,7 @@ CapabilityPageEdit:
 LicensePage: &LicensePage
   kind: read
   from: mstr_license
-  condition: true
+  filter: true
   requiredWhere:
     - languageCode
   defaultWhere:
@@ -923,7 +923,7 @@ LicensePage: &LicensePage
         - name
         - pronunciation
         - nickname
-      <<: *appellationLabels
+      <<: *AppellationLabelsReadFields
     - detail
     - public_license
     - customer_license
@@ -936,7 +936,7 @@ LicensePage: &LicensePage
       as: update_user
       using: [update_user_history_id,update_user_id]
       arrayType: toFirstOne
-      <<: *updateStaff
+      <<: *UpdateStaffReadFields
 
 # 資格書き込み
 # 作業に必要な公的、私的をとわず資格を定義する
@@ -952,7 +952,7 @@ LicensePageEdit:
     - name: labels
       arrayType: toFirstOne
       using: names
-      <<: *appellationLabelsEdit
+      <<: *AppellationLabelsEditFields
     - detail
     - public_license
     - customer_license
@@ -985,7 +985,7 @@ PositionPage: &PositionPage
         - name
         - pronunciation
         - nickname
-      <<: *appellationLabels
+      <<: *AppellationLabelsReadFields
     - symbol
     - remarks
     - update_at
@@ -993,7 +993,7 @@ PositionPage: &PositionPage
       as: update_user
       using: [update_user_history_id,update_user_id]
       arrayType: toFirstOne
-      <<: *updateStaff
+      <<: *UpdateStaffReadFields
 
 # 役割書き込み
 # 組織の役職名や順位、エスカレーションを定義する
@@ -1009,7 +1009,7 @@ PositionPageEdit:
     - name: labels
       arrayType: toFirstOne
       using: names
-      <<: *appellationLabelsEdit
+      <<: *AppellationLabelsEditFields
     - remarks
     - update_user_id
     - update_user_history_id
@@ -1020,7 +1020,7 @@ PositionPageEdit:
 AssignPage:
   kind: read
   from: info_assign
-  condition: true
+  filter: true
   requiredWhere:
     - languageCode
   defaultWhere:
@@ -1046,7 +1046,7 @@ AssignPage:
       as: update_user
       using: [update_user_history_id,update_user_id]
       arrayType: toFirstOne
-      <<: *updateStaff
+      <<: *UpdateStaffReadFields
 
 # 担当者の組織割り当て書き込み
 # 組織の役職名や順位、エスカレーションを担当者に割り当てる責任と権限の付与
@@ -1076,7 +1076,7 @@ AssignPageEdit:
 StaffCapabilityPage:
   kind: read
   from: info_staff
-  condition: true
+  filter: true
   requiredWhere:
     - languageCode
   defaultWhere:
@@ -1095,7 +1095,7 @@ StaffCapabilityPage:
         - name
         - pronunciation
         - nickname
-      <<: *appellationLabels
+      <<: *AppellationLabelsReadFields
     - sex
     - phone
     - private_phone
@@ -1121,7 +1121,7 @@ StaffCapabilityPage:
       as: update_user
       using: [update_user_history_id,update_user_id]
       arrayType: toFirstOne
-      <<: *updateStaff
+      <<: *UpdateStaffReadFields
 
 # 力量と担当者の読み込み
 # 担当者に適用した力量項目、及び力量評価結果を反映する
@@ -1130,7 +1130,7 @@ StaffCapabilityPage:
 CapableStaffPage:
   kind: read
   from: mstr_capability
-  condition: true
+  filter: true
   requiredWhere:
     - languageCode
   defaultWhere:
@@ -1148,7 +1148,7 @@ CapableStaffPage:
         - name
         - pronunciation
         - nickname
-      <<: *appellationLabels
+      <<: *AppellationLabelsReadFields
     - detail
     - reference_value
     - max
@@ -1180,20 +1180,15 @@ CapableStaffPage:
       as: update_user
       using: [update_user_history_id,update_user_id]
       arrayType: toFirstOne
-      <<: *updateStaff
+      <<: *UpdateStaffReadFields
 
 # 力量と担当者の書き込み
 # 力量と担当者を関連付けする
-StaffCapabilityEdit: &StaffCapabilityEdit
+StaffCapabilityEditFields: &StaffCapabilityEditFields
   kind: edit
   from: mstr_staff_capability
-  requiredWhere: # 要件0028: 元は未指定だったため追記。mstr_staff_capabilityは
-    # info_staff_idでパーティショニングされておりPostgraphileの一意キー更新は
-    # ByMstrStaffCapabilityIdAndInfoStaffId(複合)のみ生成されるため、schema.graphqlを
-    # 確認しrequiredWhereも複合にした(単独PKのミューテーションは存在しない)。
-    - mstr_staff_capability_id
-    - info_staff_id
-  generateRfe: true
+  # 要件0050: requiredWhere・generateRfeは共有する本体(~EditFields)には書かず、
+  # 取り込む側の各~PageEdit(StaffCapabilityPageEdit・CapableStaffPageEdit)に書く。
   columns:
     - mstr_staff_capability_id
     #- info_staff_id
@@ -1216,24 +1211,40 @@ StaffCapabilityEdit: &StaffCapabilityEdit
     - remove
 
 # 担当者の力量の書き込み(StaffCapabilityPage側の編集画面)
-# 力量と担当者の関連付けの実体はmstr_staff_capabilityのため、StaffCapabilityEditと
+# 力量と担当者の関連付けの実体はmstr_staff_capabilityのため、StaffCapabilityEditFieldsと
 # 完全に同一の内容をそのまま参照する。
 # 0047:不要と判断した
-#StaffCapabilityPageEdit:
-#  <<: *StaffCapabilityEdit
+# 0050: 7-2-3により、共有する本体をStaffCapabilityEditFieldsとし、各ページの編集画面として新設した。
+StaffCapabilityPageEdit:
+  <<: *StaffCapabilityEditFields
+  requiredWhere: # 要件0028: 元は未指定だったため追記。mstr_staff_capabilityは
+    # info_staff_idでパーティショニングされておりPostgraphileの一意キー更新は
+    # ByMstrStaffCapabilityIdAndInfoStaffId(複合)のみ生成されるため、schema.graphqlを
+    # 確認しrequiredWhereも複合にした(単独PKのミューテーションは存在しない)。
+    - mstr_staff_capability_id
+    - info_staff_id
+  generateRfe: true
 
 # 力量と担当者の書き込み(CapableStaffPage側の編集画面)
-# 上記と同じ理由でStaffCapabilityEditをそのまま参照する。
+# 上記と同じ理由でStaffCapabilityEditFieldsをそのまま参照する。
 # 0047:不要と判断した
-#CapableStaffPageEdit:
-#  <<: *StaffCapabilityEdit
+# 0050: 7-2-3により新設した(StaffCapabilityPageEditと同じ)。
+CapableStaffPageEdit:
+  <<: *StaffCapabilityEditFields
+  requiredWhere: # 要件0028: 元は未指定だったため追記。mstr_staff_capabilityは
+    # info_staff_idでパーティショニングされておりPostgraphileの一意キー更新は
+    # ByMstrStaffCapabilityIdAndInfoStaffId(複合)のみ生成されるため、schema.graphqlを
+    # 確認しrequiredWhereも複合にした(単独PKのミューテーションは存在しない)。
+    - mstr_staff_capability_id
+    - info_staff_id
+  generateRfe: true
 
 # 担当者の資格の読み込み
 # 担当者が持つ資格が該当する
 StaffHeldLicensePage:
   kind: read
   from: info_staff
-  condition: true
+  filter: true
   requiredWhere:
     - languageCode
   defaultWhere:
@@ -1252,7 +1263,7 @@ StaffHeldLicensePage:
         - name
         - pronunciation
         - nickname
-      <<: *appellationLabels
+      <<: *AppellationLabelsReadFields
     - sex
     - phone
     - private_phone
@@ -1290,14 +1301,14 @@ StaffHeldLicensePage:
       as: update_user
       using: [update_user_history_id,update_user_id]
       arrayType: toFirstOne
-      <<: *updateStaff
+      <<: *UpdateStaffReadFields
 
 # 資格を持つ担当者の読み込み
 # 資格を持っている担当者が該当する
 LicenseHoldersPage:
   kind: read
   from: mstr_license
-  condition: true
+  filter: true
   requiredWhere:
     - languageCode
   defaultWhere:
@@ -1315,7 +1326,7 @@ LicenseHoldersPage:
         - name
         - pronunciation
         - nickname
-      <<: *appellationLabels
+      <<: *AppellationLabelsReadFields
     - detail
     - public_license
     - customer_license
@@ -1359,17 +1370,15 @@ LicenseHoldersPage:
       as: update_user
       using: [update_user_history_id,update_user_id]
       arrayType: toFirstOne
-      <<: *updateStaff
+      <<: *UpdateStaffReadFields
 
 # 資格と担当者の紐付け書き込み
 # 資格と担当者を関連付けする
-StaffLicenseEdit: &StaffLicenseEdit
+StaffLicenseEditFields: &StaffLicenseEditFields
   kind: edit
   from: mstr_staff_license
-  requiredWhere: # 要件0028: info_staff_idは1対多で非一意のためRFEの単一レコード取得条件に
-    # 使えない。from自身のPKに修正(元はinfo_staff_idだった)。
-    - mstr_staff_license_id
-  generateRfe: true
+  # 要件0050: requiredWhere・generateRfeは共有する本体(~EditFields)には書かず、
+  # 取り込む側の各~PageEdit(StaffHeldLicensePageEdit・LicenseHoldersPageEdit)に書く。
   columns:
     - mstr_staff_license_id
     #- info_staff_id
@@ -1396,24 +1405,32 @@ StaffLicenseEdit: &StaffLicenseEdit
     - remove
 
 # 担当者が持つ資格の書き込み(StaffHeldLicensePage側の編集画面)
-# 資格と担当者の関連付けの実体はmstr_staff_licenseのため、StaffLicenseEditと
+# 資格と担当者の関連付けの実体はmstr_staff_licenseのため、StaffLicenseEditFieldsと
 # 完全に同一の内容をそのまま参照する。
 StaffHeldLicensePageEdit:
-  <<: *StaffLicenseEdit
+  <<: *StaffLicenseEditFields
+  requiredWhere: # 要件0028: info_staff_idは1対多で非一意のためRFEの単一レコード取得条件に
+    # 使えない。from自身のPKに修正(元はinfo_staff_idだった)。
+    - mstr_staff_license_id
+  generateRfe: true
 
 # 資格を持つ担当者の書き込み(LicenseHoldersPage側の編集画面)
-# 上記と同じ理由でStaffLicenseEditをそのまま参照する。
+# 上記と同じ理由でStaffLicenseEditFieldsをそのまま参照する。
 LicenseHoldersPageEdit:
-  <<: *StaffLicenseEdit
+  <<: *StaffLicenseEditFields
+  requiredWhere: # 要件0028: info_staff_idは1対多で非一意のためRFEの単一レコード取得条件に
+    # 使えない。from自身のPKに修正(元はinfo_staff_idだった)。
+    - mstr_staff_license_id
+  generateRfe: true
 
 ######  承認
 
 # 承認の読み込み
 # 必ず参照で使用するためPageにはしない
-ApprovalRead: &ApprovalRead
+ApprovalReadFields: &ApprovalReadFields
   kind: read
   from: mstr_approval
-  condition: true
+  filter: true
   requiredWhere: # 要件確認: labels(shared_appellations)がlanguageCodeを要求するため、
     # 他のRead画面と同様にルートでも明示する。
     - languageCode
@@ -1438,7 +1455,7 @@ ApprovalRead: &ApprovalRead
         - name
         - pronunciation
         - nickname
-      <<: *appellationLabels
+      <<: *AppellationLabelsReadFields
     - symbol
     - remarks
     - update_at
@@ -1446,19 +1463,19 @@ ApprovalRead: &ApprovalRead
       as: update_user
       using: [update_user_history_id,update_user_id]
       arrayType: toFirstOne
-      <<: *updateStaff
+      <<: *UpdateStaffReadFields
 
 # 承認の編集
 # 必ず参照で使用するためPageにはしない
-ApprovalEdit: &ApprovalEdit
+ApprovalEditFields: &ApprovalEditFields
   kind: edit
   from: mstr_approval
   requiredWhere:
     - mstr_approval_id
-  # 要件0044レビュー: generateRfe: trueが付いていたが、ApprovalEditは常に
-  # ApprovalDetailEdit.approvalへのcolumnEntryとしてのみ参照され(単独のトップレベル
+  # 要件0044レビュー: generateRfe: trueが付いていたが、ApprovalEditFieldsは常に
+  # ApprovalDetailEditFields.approvalへのcolumnEntryとしてのみ参照され(単独のトップレベル
   # 操作としては使われない、本ノード冒頭コメント参照)、generateRfeはnode専用の
-  # プロパティでcolumnEntryでは許可されない(schema.json)。マージ先(ApprovalDetailEdit)
+  # プロパティでcolumnEntryでは許可されない(schema.json)。マージ先(ApprovalDetailEditFields)
   # 自身が既にgenerateRfe: trueを持ちRFEを導出するため、ここでの指定は不要かつ
   # スキーマ違反になるため削除した。
   columns:
@@ -1470,7 +1487,7 @@ ApprovalEdit: &ApprovalEdit
       using: info_department_id
       editable: false # 要件0047: IDの割り当てのみ(子は書き込まず、usingのFK列だけを書き込む)
       <<: *DepartmentPage #IDを割り当てるだけ
-    - info_position_id # 要件0026追記15で解消(ApprovalRead参照、詳細は同箇所のコメント)
+    - info_position_id # 要件0026追記15で解消(ApprovalReadFields参照、詳細は同箇所のコメント)
     - name: position
       arrayType: toFirstOne
       as: position
@@ -1481,7 +1498,7 @@ ApprovalEdit: &ApprovalEdit
     - name: labels
       arrayType: toFirstOne
       using: names
-      <<: *appellationLabelsEdit
+      <<: *AppellationLabelsEditFields
     - remarks
     - update_user_id
     - update_user_history_id
@@ -1490,10 +1507,10 @@ ApprovalEdit: &ApprovalEdit
 # 承認読み込み
 # 役職順に行う承認順序、エスカレーションのペア
 # 必ず参照で使用するためPageにはしない
-ApprovalDetailRead: &ApprovalDetailRead
+ApprovalDetailReadFields: &ApprovalDetailReadFields
   kind: read
   from: mstr_approval_pattern_detail
-  condition: true
+  filter: true
   defaultWhere:
     - column: remove
       operator: =
@@ -1504,7 +1521,7 @@ ApprovalDetailRead: &ApprovalDetailRead
     - name: approval
       arrayType: toFirstOne
       using: mstr_approval_id
-      <<: *ApprovalRead
+      <<: *ApprovalReadFields
     - mstr_approval_pattern_id
     - symbol
     - remarks
@@ -1513,21 +1530,20 @@ ApprovalDetailRead: &ApprovalDetailRead
       as: update_user
       using: [update_user_history_id,update_user_id]
       arrayType: toFirstOne
-      <<: *updateStaff
+      <<: *UpdateStaffReadFields
 
 # 承認書き込み
 # 役職順に行う承認順序、エスカレーションのペア
 # 必ず参照で使用するためPageにはしない
 # 0047:generateRfe: trueを追加。インテリセンスの許可されていない問題、及び0044と競合しているが、明示的に生成しない/したくない場合があるためschema.jsonへの課題がある。
-ApprovalDetailEdit: &ApprovalDetailEdit
+ApprovalDetailEditFields: &ApprovalDetailEditFields
   kind: edit
   from: mstr_approval_pattern_detail
   requiredWhere:
     - mstr_approval_pattern_detail_id
-  generateRfe: false
-  # 要件0044レビュー: ApprovalEditと同じ理由(冒頭コメント参照)でgenerateRfe: trueを
-  # 削除した。アンカー未定義(&ApprovalDetailEdit欠落)でApprovalOperationPageEditからの
-  # `<<: *ApprovalDetailEdit`参照がYAMLパースエラーになっていたため、あわせて追加した。
+  # 要件0044レビュー: ApprovalEditFieldsと同じ理由(冒頭コメント参照)でgenerateRfe: trueを
+  # 削除した。アンカー未定義(&ApprovalDetailEditFields欠落)でApprovalOperationPageEditからの
+  # `<<: *ApprovalDetailEditFields`参照がYAMLパースエラーになっていたため、あわせて追加した。
   columns:
     - mstr_approval_pattern_detail_id
     - mstr_approval_id
@@ -1535,7 +1551,7 @@ ApprovalDetailEdit: &ApprovalDetailEdit
       arrayType: toFirstOne
       using: mstr_approval_id
       editable: true # 要件0047: 親とともに編集する(親のRFEにも含まれる)
-      <<: *ApprovalEdit
+      <<: *ApprovalEditFields
     - mstr_approval_pattern_id
     - remarks
     - update_user_id
@@ -1546,7 +1562,7 @@ ApprovalDetailEdit: &ApprovalDetailEdit
 ApprovalOperationPage:
   kind: read
   from: mstr_approval_pattern
-  condition: true
+  filter: true
   requiredWhere:
     - languageCode
   defaultWhere:
@@ -1563,12 +1579,12 @@ ApprovalOperationPage:
         - name
         - pronunciation
         - nickname
-      <<: *appellationLabels
+      <<: *AppellationLabelsReadFields
     - name: pattern_detail
       as: pattern_detail
       arrayType: toMany
       using: mstr_approval_pattern_id
-      <<: *ApprovalDetailRead
+      <<: *ApprovalDetailReadFields
     - symbol
     - remarks
     - update_at
@@ -1576,7 +1592,7 @@ ApprovalOperationPage:
       as: update_user
       using: [update_user_history_id,update_user_id]
       arrayType: toFirstOne
-      <<: *updateStaff
+      <<: *UpdateStaffReadFields
 
 #承認オペレーション書き込み
 ApprovalOperationPageEdit:
@@ -1587,15 +1603,15 @@ ApprovalOperationPageEdit:
   generateRfe: true
   columns:
     - mstr_approval_pattern_id
-    - name: labels # 要件確認: 誤って`name`にアンカー参照(*appellationLabelsEdit)自体を
+    - name: labels # 要件確認: 誤って`name`にアンカー参照(*AppellationLabelsEditFields)自体を
       # 指定していた(単純な識別子文字列であるべき)ため修正
       arrayType: toFirstOne
       using: names
-      <<: *appellationLabelsEdit
+      <<: *AppellationLabelsEditFields
     - name: pattern_detail
       arrayType: toMany
       using: mstr_approval_pattern_id 
-      <<: *ApprovalDetailEdit
+      <<: *ApprovalDetailEditFields
     - remarks
     - update_user_id
     - update_user_history_id
@@ -1609,7 +1625,7 @@ ApprovalOperationPageEdit:
 SpecMeasurementPage:  &SpecMeasurementPage
   kind: read
   from: mstr_spec_measurement
-  condition: true
+  filter: true
   requiredWhere:
     - languageCode
   defaultWhere:
@@ -1622,10 +1638,10 @@ SpecMeasurementPage:  &SpecMeasurementPage
     # 要件0044フィードバック: 生のshared_unit_id列とunit(呼称アーム、内部で
     # sharedUnitIdを出力する)が同じ値を二重に持っていたため、列数が少なくデータが
     # 小さくなる後者のみに統一し、前者を削除した(差は軽微だが冗長なため)。
-    - name: unit # IDの解決のみ(Unitは参照用アーム)
+    - name: unit # IDの解決のみ(UnitReadFieldsは参照用アーム)
       arrayType: toFirstOne
       using:  shared_unit_id
-      <<: *Unit
+      <<: *UnitReadFields
     - symbol
     - remarks
     - update_at
@@ -1633,10 +1649,10 @@ SpecMeasurementPage:  &SpecMeasurementPage
       as: update_user
       using: [update_user_history_id,update_user_id]
       arrayType: toFirstOne
-      <<: *updateStaff
+      <<: *UpdateStaffReadFields
 
 # 梱包サイズ書き込み
-SpecMeasurementEdit:  &SpecMeasurementEdit
+SpecMeasurementPageEdit:  &SpecMeasurementPageEdit
   kind: edit
   from: mstr_spec_measurement
   requiredWhere: # 要件0044レビュー: readのrequiredWhereをそのままコピーしたためlanguageCode
@@ -1659,7 +1675,7 @@ SpecMeasurementEdit:  &SpecMeasurementEdit
       arrayType: toFirstOne
       using:  shared_unit_id
       editable: false # 要件0047: IDの割り当てのみ(子は書き込まず、usingのFK列だけを書き込む)
-      <<: *Unit #IDを割り当てるだけ
+      <<: *UnitReadFields #IDを割り当てるだけ
     - remarks
     - update_user_id
     - update_user_history_id
@@ -1670,7 +1686,7 @@ SpecMeasurementEdit:  &SpecMeasurementEdit
 ManufacturePage: &ManufacturePage
   kind: read
   from: mstr_manufacturer
-  condition: true
+  filter: true
   requiredWhere:
     - languageCode
   defaultWhere:
@@ -1688,7 +1704,7 @@ ManufacturePage: &ManufacturePage
         - name
         - pronunciation
         - nickname
-      <<: *appellationLabels
+      <<: *AppellationLabelsReadFields
     - symbol
     - remarks
     - update_at
@@ -1696,7 +1712,7 @@ ManufacturePage: &ManufacturePage
       as: update_user
       using: [update_user_history_id,update_user_id]
       arrayType: toFirstOne
-      <<: *updateStaff
+      <<: *UpdateStaffReadFields
 
 # 製造元の書き込み
 ManufacturePageEdit:  &ManufacturePageEdit
@@ -1715,7 +1731,7 @@ ManufacturePageEdit:  &ManufacturePageEdit
     - name: labels
       arrayType: toFirstOne
       using: names
-      <<: *appellationLabelsEdit
+      <<: *AppellationLabelsEditFields
     - remarks
     - update_user_id
     - update_user_history_id
@@ -1723,10 +1739,10 @@ ManufacturePageEdit:  &ManufacturePageEdit
 
 
 # 品目区分読み込み。参照用。
-ItemKind: &ItemKind
+ItemKindReadFields: &ItemKindReadFields
   kind: read
   from: mstr_item_kind
-  condition: true
+  filter: true
   requiredWhere:
     - languageCode
   defaultWhere:
@@ -1744,13 +1760,13 @@ ItemKind: &ItemKind
         - name
         - pronunciation
         - nickname
-      <<: *appellationLabels
+      <<: *AppellationLabelsReadFields
 
 # 品目区分読み込み
 ItemKindPage:
   kind: read
   from: mstr_item_kind
-  condition: true
+  filter: true
   requiredWhere:
     - languageCode
   defaultWhere:
@@ -1768,7 +1784,7 @@ ItemKindPage:
         - name
         - pronunciation
         - nickname
-      <<: *appellationLabels
+      <<: *AppellationLabelsReadFields
     - symbol
     - remarks
     - update_at
@@ -1776,7 +1792,7 @@ ItemKindPage:
       as: update_user
       using: [update_user_history_id,update_user_id]
       arrayType: toFirstOne
-      <<: *updateStaff
+      <<: *UpdateStaffReadFields
 
 # 品目区分書き込み
 ItemKindPageEdit:
@@ -1793,16 +1809,16 @@ ItemKindPageEdit:
       using: names # 要件0044レビュー: `ceo_names`(CompanyPageEditからのコピー&ペースト
         # 起因の誤り)になっていた。mstr_item_kindはcompanyのような複数呼称セットを
         # 持たないテーブルのため、他画面と同様の汎用列名`names`に修正した。
-      <<: *appellationLabelsEdit
+      <<: *AppellationLabelsEditFields
     - remarks
     - update_user_id
     - update_user_history_id
     - remove
 
 # 品目のうち、設備などネストオブジェクトになるモノの読込
-ItemRead: &ItemRead
+ItemReadFields: &ItemReadFields
   kind: read
-  condition: true
+  filter: true
   requiredWhere:
     - languageCode
   defaultWhere:
@@ -1816,7 +1832,7 @@ ItemRead: &ItemRead
       arrayType: toFirstOne
       as: kinds
       using: mstr_item_kind_id
-      <<: *ItemKind
+      <<: *ItemKindReadFields
     - code
     - identification
     - control_code
@@ -1833,13 +1849,13 @@ ItemRead: &ItemRead
         - name
         - pronunciation
         - nickname
-      <<: *appellationLabels
+      <<: *AppellationLabelsReadFields
     - label_code
     - description
-    - name: unit # IDの解決のみ(Unitは参照用アーム)
+    - name: unit # IDの解決のみ(UnitReadFieldsは参照用アーム)
       arrayType: toFirstOne
       using:  shared_unit_id
-      <<: *Unit
+      <<: *UnitReadFields
     - increment
     - lot
     - stock_quantity 
@@ -1850,13 +1866,13 @@ ItemRead: &ItemRead
       as: update_user
       using: [update_user_history_id,update_user_id]
       arrayType: toFirstOne
-      <<: *updateStaff
+      <<: *UpdateStaffReadFields
 
 # 品目ツリーの読込
 ItemPage:
   kind: read
   from: mstr_item
-  condition: true
+  filter: true
   requiredWhere:
     - languageCode
   defaultWhere:
@@ -1892,7 +1908,7 @@ ItemPage:
       arrayType: toFirstOne
       as: kinds
       using: mstr_item_kind_id
-      <<: *ItemKind
+      <<: *ItemKindReadFields
     - code
     - identification
     - control_code
@@ -1909,13 +1925,13 @@ ItemPage:
         - name
         - pronunciation
         - nickname
-      <<: *appellationLabels
+      <<: *AppellationLabelsReadFields
     - label_code
     - description
-    - name: unit # IDの解決のみ(Unitは参照用アーム)
+    - name: unit # IDの解決のみ(UnitReadFieldsは参照用アーム)
       arrayType: toFirstOne
       using:  shared_unit_id
-      <<: *Unit
+      <<: *UnitReadFields
     - increment
     - lot
     - stock_quantity 
@@ -1926,9 +1942,10 @@ ItemPage:
       as: update_user
       using: [update_user_history_id,update_user_id]
       arrayType: toFirstOne
-      <<: *updateStaff
+      <<: *UpdateStaffReadFields
 
 #品目の書き込み
+# ツリーから選択したもの、設備など参照から選択されたものが編集として該当する
 ItemPageEdit:
   kind: edit
   from: mstr_item
@@ -1953,7 +1970,7 @@ ItemPageEdit:
         - name: labels
           arrayType: toFirstOne
           using: names
-          <<: *appellationLabelsEdit
+          <<: *AppellationLabelsEditFields
         - quantity
         - detail 
       defaultWhere:
@@ -1972,10 +1989,11 @@ ItemPageEdit:
       arrayType: toFirstOne
       using: mstr_item_kind_id
       editable: false # 要件0047: IDの割り当てのみ(子は書き込まず、usingのFK列だけを書き込む)
-      <<: *ItemKind #IDの取得のみ
+      <<: *ItemKindReadFields #IDの取得のみ
     - code
     - identification
     - control_code
+    # 製造元
     - name: manufacture
       arrayType: toFirstOne
       using: mstr_manufacturer_id
@@ -1984,14 +2002,19 @@ ItemPageEdit:
     - name: labels
       arrayType: toFirstOne
       using: names
-      <<: *appellationLabelsEdit
+      <<: *AppellationLabelsEditFields
     - label_code
     - description
-    - name: unit # IDの解決のみ(Unitは参照用アーム)
+    - name: unit # IDの解決のみ(UnitReadFieldsは参照用アーム)
       arrayType: toFirstOne
       using:  shared_unit_id
       editable: false # 要件0047: IDの割り当てのみ(子は書き込まず、usingのFK列だけを書き込む)
-      <<: *Unit
+      <<: *UnitReadFields
+    # 梱包サイズ
+    - name: spec
+      arrayType: toFirstOne
+      using: mstr_item_id
+      <<: *SpecMeasurementPageEdit
     - increment
     - lot
     - stock_quantity 
@@ -2000,8 +2023,217 @@ ItemPageEdit:
     - update_user_history_id
     - remove
 
+##### 場所
+
+LocationPage: &LocationPage
+  kind: read
+  from: mstr_location
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_location_id
+    - name: parent
+      arrayType: toFirstOne
+      as: parent
+      using: mstr_location_id
+      from: mstr_location_tree
+      # NULL許容(呼び出し側がNULLを渡したときは組織テーブルのトップノードを表す)。
+      requiredWhere:
+        - parent_mstr_location_id
+      columns:
+        - mmstr_location_tree_idd
+        - parent_mstr_location_id
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+    - name: descendants #子の数
+      arrayType: toFirstOne
+      as: descendants
+      using: mstr_location_id
+      pick:
+        - descendant_count
+      from: v_location_descendants
+    - code
+    - info_department_id
+    - name: department
+      arrayType: toFirstOne
+      as: department
+      using: info_department_id
+      <<: *DepartmentPage
+    - control_code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - info_address_id
+    - name: info_address_id
+      as: address
+      arrayType: toFirstOne
+      using: info_address_id
+      <<: *AddressReadFields
+    - available
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+#場所便臭
+LocationPageEdit:
+  kind: edit
+  from: mstr_location
+  requiredWhere:
+    - mstr_location_id
+  generateRfe: true
+  columns:
+    - mstr_location_id
+    - name: parent
+      arrayType: toFirstOne
+      as: parent
+      using: mstr_location_id
+      from: mstr_location_tree
+      # NULL許容(呼び出し側がNULLを渡したときは組織テーブルのトップノードを表す)。
+      requiredWhere:
+        - parent_mstr_location_id
+      columns:
+        - mmstr_location_tree_idd
+        - parent_mstr_location_id
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+    - code
+    - info_department_id
+    - name: department  #IDの変更のみ
+      arrayType: toFirstOne
+      as: department
+      using: info_department_id
+      <<: *DepartmentPage
+    - control_code
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    - info_address_id
+    - name: info_address_id
+      arrayType: toFirstOne
+      using: info_address_id
+      <<: *AddressEditFields
+    - available
+    - remarks
+    - update_at
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
 ##### 設備
 
+# 設備区分
+EquipmentCategoryPage: &EquipmentCategoryPage
+  kind: read
+  from: mstr_equipment_kind
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_equipment_kind_id
+    - kind_code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - start_at
+    - stop_at 
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 設備区分編集
+EquipmentCategoryPageEdit:
+  kind: edit
+  from: mstr_equipment_kind
+  requiredWhere:
+    - mstr_equipment_kind_id
+  generateRfe: true
+  columns:
+    - mstr_equipment_kind_id
+    - kind_code
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    - start_at
+    - stop_at 
+    - remarks
+    - update_at
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 設備
 EquipmentPage:
   kind: read
-  from: 
+  from: mstr_equipment
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_equipment_id
+    - mstr_item_id
+    - name: item
+      arrayType: toFirstOne
+      as: item
+      using: mstr_item_id
+      <<: *ItemReadFields
+    - mstr_equipment_category_id
+    - name: kinds
+      arrayType: toFirstOne
+      as: kinds
+      using: mstr_equipment_category_id
+      <<: *EquipmentCategoryPage
+    - code
+    - control_code
+    - label_code
+    - mstr_location_id 
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields

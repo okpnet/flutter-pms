@@ -13,7 +13,7 @@ YAMLの各プロパティは「GraphQLの引数として呼び出し側に公開
 | 呼び出し側に公開する(引数化する) | 呼び出し側には公開しない(生成時に固定) |
 |---|---|
 | `where` / `requiredWhere`(任意/必須の引数) | `defaultWhere`(常に適用される固定条件) |
-| `condition`(trueのときNull許容の`condition`引数を追加するフラグ) | — |
+| `filter`(trueのときNull許容の`$filter`引数を追加するフラグ。要件0050で旧`condition`から改名、5章) | — |
 | `pagination`(trueのとき`first`/`offset`等のページネーション引数を追加するフラグ) | `limit`/`offset`(呼び出し側が指定しなかった場合のデフォルト値。paginationが無ければ完全固定) |
 
 `defaultWhere`に列挙した条件(例: `remove = false`)はSQL/GraphQLリゾルバ側に直接埋め込まれ、呼び出し側からは変更できない。逆に`where`/`requiredWhere`に列挙した列名は、呼び出し側が値を指定できる引数になる。**同じ列に対して`defaultWhere`と`where`/`requiredWhere`を同時に指定することはしない**(用途が矛盾するため)。
@@ -50,9 +50,9 @@ YAMLの各プロパティは「GraphQLの引数として呼び出し側に公開
 引数名だけを変えたい場合、あるいはその逆も、それぞれ独立して指定できる)。
 
 理由: `where`/`requiredWhere`を持つ`columnEntry`が共有アーム経由で複数箇所に再利用される場合
-(例: `dictionaryLabel.language`(`requiredWhere: [code]`)が`appellationLabels`のname/
+(例: `DictionaryLabelReadFields.language`(`requiredWhere: [code]`)が`AppellationLabelsReadFields`のname/
 pronunciation/nicknameの3箇所で使われる場合)、素朴には`code`という同じ引数名が複数箇所で
-必要になり得る。さらに、`dictionaryLabel`が画面のツリー構造の深い位置(子・孫)に配置された
+必要になり得る。さらに、`DictionaryLabelReadFields`が画面のツリー構造の深い位置(子・孫)に配置された
 場合、祖先や兄弟の別ノードが持つ同名の列(例: マスタテーブル自身の`code`列)ともGraphQL
 引数名が衝突しうる(要件0043で指摘)。この衝突は**YAML/スキーマの検証範囲外とし、GraphQL
 変換時に実際に引数名が重複した場合はそこで初めてエラーとして検出する**(点10と同じ
@@ -66,7 +66,7 @@ pronunciation/nicknameの3箇所で使われる場合)、素朴には`code`と�
 生成される引数名を明示的に分ける。
 
 ```yaml
-# dictionaryLabelが画面の深い位置(子・孫)に配置され、祖先(マスタ自身)の`code`列と
+# DictionaryLabelReadFieldsが画面の深い位置(子・孫)に配置され、祖先(マスタ自身)の`code`列と
 # 引数名が衝突する場合の回避例
 - name: language
   arrayType: toFirstOne
@@ -76,6 +76,16 @@ pronunciation/nicknameの3箇所で使われる場合)、素朴には`code`と�
     - column: code
       as: languageCode   # 生成される引数名は $code ではなく $languageCode になる
 ```
+
+**(要件0050で明文化)** 上の2つの記述(「重複は生成時エラー」と「同じ値なら変数を再利用できる」)は、
+次のとおり整理する。
+
+- 同じ名前で同じ型の引数は、1つの変数として親と子で共有する。これを、親の条件を列単位で子へ伝える
+  手段とする(例: `$languageCodeId`、`$removed`)。
+- 型が違う場合、または親と子で別の値を渡す場合は、`{column, as}`で引数名を分ける。分けずに
+  重複した場合は、生成時にエラーとする。
+- `pagination`の変数(`$<子の出力名>First`/`$<子の出力名>Offset`)は、本節の「自動で接頭辞を
+  付けない」の例外とする。
 
 ## 4. `defaultWhere` → 固定条件(ハードコード)
 
@@ -97,11 +107,37 @@ pronunciation/nicknameの3箇所で使われる場合)、素朴には`code`と�
 - `defaultWhere`に列挙した条件は、この外部検索のうち常に固定で適用される条件になる(4節の役割はそのまま)。
 - 両者は同じ外部検索のWHERE句を構成する対等な要素であり、`requiredWhere`だから/`defaultWhere`だから区別して一方だけを親へ引き継ぐ、といった扱いの違いは無い。
 
-典型例(`dictionaryLabel.value.language`): `from: shared_language_code`、`requiredWhere: [code]`、`defaultWhere: [remove = false]`は、「`shared_language_code`から`code = $code AND remove = false`を満たす1件を外部で検索し、そのIDを親(`shared_dictionary_value`)の`shared_language_code_id`列への条件として使う」という意味になる。呼び出し側(またはその手前の解決処理)は`$code`(例:`"ja"`)を受け取り、`shared_language_code_id`(UUID)を解決してから本体のGraphQLクエリに渡す(要件0033の`$jaLanguageCodeId`/`$enLanguageCodeId`と同じ方式)。この解決処理自体は生成されるGraphQL/`view.yaml`の表現範囲外である。
+典型例(`DictionaryLabelReadFields.value.language`): `from: shared_language_code`、`requiredWhere: [code]`、`defaultWhere: [remove = false]`は、「`shared_language_code`から`code = $code AND remove = false`を満たす1件を外部で検索し、そのIDを親(`shared_dictionary_value`)の`shared_language_code_id`列への条件として使う」という意味になる。呼び出し側(またはその手前の解決処理)は`$code`(例:`"ja"`)を受け取り、`shared_language_code_id`(UUID)を解決してから本体のGraphQLクエリに渡す(要件0033の`$jaLanguageCodeId`/`$enLanguageCodeId`と同じ方式)。この解決処理自体は生成されるGraphQL/`view.yaml`の表現範囲外である。
 
 この規則が成立するのは、6-1節(a)の「外向きの関係」(このcolumnEntryを含む側のテーブルが`from`への実在するFK列を持つ)の場合に限られる。6-1節(b)の「内向きの関係」(参照先テーブルがFK列を持つ)では親側に対応する列が存在しないため、この方式では解決できない(未対応のまま)。
 
-## 5. `condition` → GraphQL引数の追加フラグ(再設計)
+## 5. `filter` → 検索条件の引数(要件0050で`condition`を置き換え)
+
+**(2026-10-07、要件0050)** YAMLのキーを`condition`から`filter`へ改め、GraphQLの引数も
+PostGraphile標準の`condition`から、`postgraphile-plugin-connection-filter`の`filter`へ変えた。
+標準の`condition`は自テーブルの列の完全一致しか表現できず、子・孫の値(例: 事業所の住所)で
+親の行を絞り込めないため。前提として、PostGraphileで関連フィルタ(`connectionFilterRelations: true`)
+が有効になっていること。
+
+- `filter: true` … トップの操作に、Null許容の`$filter: <テーブル>Filter`を追加する。
+- `defaultWhere`の固定条件(`remove = false`等)は、`$filter`と`and`で結合する
+  (例: `filter: { and: [{ remove: { equalTo: false } }, $filter] }`の形。具体の書き方は生成時に決める)。
+- 子として流用したページ(6-7節)の`filter`は、子に独立した変数を作らない。親の`$filter`の中に
+  関連の経路として展開する。
+  - `toFirstOne`の子は、前方の関連フィールド(例: `infoAddressByInfoAddressId`)で辿る。
+  - `toMany`の子は、`some`で辿る(子のいずれかが一致する親を取得する)。
+- 呼び出し側は、検索条件を平坦なMap(キーは平坦化キーの定数、値はconnection-filterの演算子の
+  Map。例: `{ "address||address1||name": { "includes": "東京" } }`)で渡す。ライブラリは、
+  view.yamlの経路(`as`・`using`・`from`)から生成時に作った対応に従い、入れ子の`<テーブル>Filter`
+  へ展開する。展開できないキーはエラーとする。
+- 呼称(`shared_appellations`)を経由する列の条件には、言語の条件(CLAUDE.md 5-5節)を同じ経路の
+  中に加える。
+- edit・RFEでは、引き継いだ`filter`を無視する。
+- 子の行だけを絞り込み、親の行を絞り込まない検索は対象外とする。
+
+以下は要件0050より前の`condition`の記述(履歴として残す)。
+
+### 5-旧. `condition` → GraphQL引数の追加フラグ(再設計、要件0050で廃止)
 
 **(2026-09-26改訂)** `condition`はYAML上ではMap等の構造を一切表現しない、単純な真偽値フラグに変更した。
 
@@ -134,7 +170,7 @@ pronunciation/nicknameの3箇所で使われる場合)、素朴には`code`と�
 
 ### 6-3. `as` → 出力フィールド名の上書き
 
-`name`は結合・マージ元を識別するための識別子として使う。GraphQL出力に実際に現れるフィールド名は、`as`があればその値、無ければ`name`をそのまま使う。共有(参照)定義をYAMLアンカーで複数箇所に使い回す際、出力フィールド名の重複を避けるために使う(`test.yaml`の`dictionaryLabel`をname/pronunciation/nicknameの3か所で使い回す例を参照)。
+`name`は結合・マージ元を識別するための識別子として使う。GraphQL出力に実際に現れるフィールド名は、`as`があればその値、無ければ`name`をそのまま使う。共有(参照)定義をYAMLアンカーで複数箇所に使い回す際、出力フィールド名の重複を避けるために使う(`test.yaml`の`DictionaryLabelReadFields`をname/pronunciation/nicknameの3か所で使い回す例を参照)。
 
 ### 6-4. `pick` → 継承したcolumnsの絞り込み
 
@@ -143,7 +179,7 @@ YAMLのマージキー(`<<`)は**キー単位で全部か無しか**の挙動し
 これを解決するのが`pick`(`node`/`columnEntry`の両方に指定可能)。`pick`はYAMLのマージが完了した**あと**の生成段階で適用するフィルタで、その時点で確定している`columns`(ローカル指定 or マージ継承のどちらか)のうち、出力名(`as`の値。`as`が無ければ`name`。プレーン文字列要素はその文字列自身)が`pick`の配列に含まれる要素だけを残す。
 
 ```yaml
-appellationLabels: &appellationLabels
+AppellationLabelsReadFields: &AppellationLabelsReadFields
   kind: read
   from: shared_appellations
   columns:
@@ -151,29 +187,29 @@ appellationLabels: &appellationLabels
       as: name
       using: shared_dictionary_name_id
       arrayType: toFirstOne
-      <<: *dictionaryLabel
+      <<: *DictionaryLabelReadFields
     - name: name
       as: pronunciation
       using: shared_dictionary_pronunciation_id
       arrayType: toFirstOne
-      <<: *dictionaryLabel
+      <<: *DictionaryLabelReadFields
     - name: name
       as: nickname
       using: shared_dictionary_nickname_id
       arrayType: toFirstOne
-      <<: *dictionaryLabel
+      <<: *DictionaryLabelReadFields
 
-# 呼び出し側: 3列すべてを持つappellationLabelsを丸ごとマージしつつ、
+# 呼び出し側: 3列すべてを持つAppellationLabelsReadFieldsを丸ごとマージしつつ、
 # このページではnameだけ表示したいのでpickで絞り込む(pronunciation/nicknameを手作業で書き直す必要が無い)
 - name: ceo
   using: ceo
   arrayType: toFirstOne
   pick:
     - name
-  <<: *appellationLabels
+  <<: *AppellationLabelsReadFields
 ```
 
-`pick`が指す名前の実在性(`columns`側に本当にその出力名が存在するか)はここでは検証しない(生成時エラー、点10と同じ方針)。`columns`をローカルで手書きし直す(`appellationLabels`の内部構造を`using`/`from`/`arrayType`無しの素のスタブで再現しようとする)のは、その時点でFK解決に必要な構造(`using`/`from`/`arrayType`)が失われて機能しなくなるため避けること。列を絞り込みたいときは必ず`pick`を使う。
+`pick`が指す名前の実在性(`columns`側に本当にその出力名が存在するか)はここでは検証しない(生成時エラー、点10と同じ方針)。`columns`をローカルで手書きし直す(`AppellationLabelsReadFields`の内部構造を`using`/`from`/`arrayType`無しの素のスタブで再現しようとする)のは、その時点でFK解決に必要な構造(`using`/`from`/`arrayType`)が失われて機能しなくなるため避けること。列を絞り込みたいときは必ず`pick`を使う。
 
 `pick`はプレーン文字列要素(`shared_appellations_id`のような単純スカラー列)にも同じ規則で適用される。`pick`の配列に含まれない出力名は、それがネストしたリレーションであっても単純スカラーであっても等しく除外される。
 
@@ -185,10 +221,10 @@ appellationLabels: &appellationLabels
 
 一方で`where`/`requiredWhere`/`defaultWhere`(およびさらにネストした構造)は除外されず、**常に処理されて親の絞り込み条件(JOIN/WHERE句)として使われ続ける**。効果の範囲は常に、そのエントリが属する直近の`columns`(=対応するSELECT句。ルート直下ならクエリ全体、ネストした`columnEntry`配下ならそのLATERALサブクエリ等)に限定され、他の階層には影響しない。
 
-典型例: `dictionaryLabel.value`配下の`language`(`shared_dictionary_value` → `shared_language_code`、表示言語で絞り込むためだけのJOINで、それ自体は出力しない)。
+典型例: `DictionaryLabelReadFields.value`配下の`language`(`shared_dictionary_value` → `shared_language_code`、表示言語で絞り込むためだけのJOINで、それ自体は出力しない)。
 
 ```yaml
-dictionaryLabel: &dictionaryLabel
+DictionaryLabelReadFields: &DictionaryLabelReadFields
   kind: read
   from: shared_dictionary
   columns:
@@ -257,22 +293,22 @@ offices: infoOfficesByInfoCompanyId(
 
 ### 6-7. トップレベルのnode(画面)を、別の画面の`columnEntry`として再利用する(要件0038で確認)
 
-`columnEntry`は`node`とほぼ同じプロパティ(`kind`/`from`/`condition`/`columns`等)を持てる
+`columnEntry`は`node`とほぼ同じプロパティ(`kind`/`from`/`filter`/`columns`等)を持てる
 「汎用フィールド共存型」であるため、独立した画面(トップレベルの`node`、例:一覧画面
 `OfficePage`)をYAMLアンカーで定義しておけば、別の画面の`columns`内から
 `<<: *OfficePage`でそのまま`columnEntry`として merge できる。ローカルで指定する
-`name`(必須)・`arrayType`・`limit`等と、mergeされる`kind`/`from`/`condition`/`columns`は
+`name`(必須)・`arrayType`・`limit`等と、mergeされる`kind`/`from`/`filter`/`columns`は
 プロパティ名が重複しないため衝突しない。
 
 これにより、「単独の一覧画面」と「親画面に埋め込むtoManyの子リスト」で同じ列構成を
 2箇所に書く必要がなくなる(`shared_appellations`/`shared_dictionary`のような共有アーム専用
-定義(`appellationLabels`等)と同じ考え方を、`Page`単位の定義にも適用したもの)。
+定義(`AppellationLabelsReadFields`等)と同じ考え方を、`Page`単位の定義にも適用したもの)。
 
 ```yaml
 OfficePage: &OfficePage
   kind: read
   from: info_office
-  condition: true
+  filter: true
   columns:
     - info_office_id
     # ...
@@ -290,10 +326,16 @@ CompanyPage:
 **注意**: merge元・merge先の`kind`が一致しない場合(例: `kind: read`の画面へ`kind: edit`の
 アームを紛れ込ませる)、生成側は`kind`を区別せず同じ構造として解釈するため、
 構文エラーにはならないが**意味的に誤った変換になる**(read画面にedit用の入れ子書き込み
-構造が混入する等)。共有アーム(`appellationLabels`/`appellationLabelsEdit`、
-`addressFields`/`addressEditFields`)を参照する際は、常に参照元と同じkind(read↔read、
+構造が混入する等)。共有アーム(`AppellationLabelsReadFields`/`AppellationLabelsEditFields`、
+`AddressReadFields`/`AddressEditFields`)を参照する際は、常に参照元と同じkind(read↔read、
 edit↔edit)のアームを選ぶこと。この不整合は本スキーマでは検証しない(点10と同じ方針、
 生成時・レビュー時に人手で確認する)。
+
+**引き継ぎ(要件0050)**: `~Page`・`~PageEdit`・`~ReadFields`・`~EditFields`を子として`<<`で
+取り込むと、`where`・`requiredWhere`・`defaultWhere`・`filter`・`pagination`を引き継ぐ。
+子の側で同じキーを書くと、引き継いだ値はキー単位で丸ごと置き換わる(YAMLのマージ)。引き継ぎの
+例外は、この方法で指定する。引数名は3-1節、`filter`の展開は5章に従う。editのツリー内(RFEを含む)で
+readを参照する子は、引き継いだ言語の条件を、edit・RFEの言語引数(CLAUDE.md 5-5節)に読み替える。
 
 ### 6-8. editツリー内の子の編集可否`editable`と、子の位置の`generateRfe`(要件0047)
 
@@ -326,7 +368,7 @@ edit↔edit)のアームを選ぶこと。この不整合は本スキーマで�
 
 ## 8. `generateRfe`による読み込み専用クエリの自動導出方針(要件0037、旧`RFE`の後継)
 
-**背景**: 当初は`kind: "RFE"`という独立したkindを設け、`edit`と同じ`columns`ツリーを持つノードを別途YAMLへ手書きし、`<<: *〇〇Edit`で丸ごと参照する設計だった(旧8章)。しかし実装(`company_page`)を通じて、この方式には「`RFE`ノードが対応する`edit`と無関係な定義を誤って参照してしまう」という構造的リスクがあることが判明した(`CompanyPageRFE`が`CompanyPageEdit`ではなく無関係な`dictionaryEdit`を参照していた事故。`0034_view_yaml_graphql_evaluation_log.md`参照)。根本原因は、`edit`と`RFE`という**同一であるべき定義が、YAML上は独立した2箇所に書けてしまう**ことにあった。
+**背景**: 当初は`kind: "RFE"`という独立したkindを設け、`edit`と同じ`columns`ツリーを持つノードを別途YAMLへ手書きし、`<<: *〇〇Edit`で丸ごと参照する設計だった(旧8章)。しかし実装(`company_page`)を通じて、この方式には「`RFE`ノードが対応する`edit`と無関係な定義を誤って参照してしまう」という構造的リスクがあることが判明した(`CompanyPageRFE`が`CompanyPageEdit`ではなく無関係な`DictionaryEditFields`を参照していた事故。`0034_view_yaml_graphql_evaluation_log.md`参照)。根本原因は、`edit`と`RFE`という**同一であるべき定義が、YAML上は独立した2箇所に書けてしまう**ことにあった。
 
 **方針**: `kind: "RFE"`を廃止し、`kind: "edit"`のノードに`generateRfe: true`を指定する方式に変更した。これにより「読み込み専用クエリ」は独立したYAMLノードとして存在せず、**対応する`edit`ノードの`columns`ツリーを、生成時に2通りに解釈した副産物**として扱われる。定義が1箇所に集約されるため、構造的に乖離しようがない。
 
@@ -346,16 +388,16 @@ edit↔edit)のアームを選ぶこと。この不整合は本スキーマで�
 
 ### 9-1. YAMLパースを破壊する`<<: &name`の実例
 
-`<<: &appellationLabels`(既存アンカーの参照ではなく再定義)が同一ドキュメント内で3回出現した実例で、PyYAMLの`safe_load`が例外を投げて**ファイルが一切パースできない**ことを実機で確認した。
+`<<: &AppellationLabelsReadFields`(既存アンカーの参照ではなく再定義)が同一ドキュメント内で3回出現した実例で、PyYAMLの`safe_load`が例外を投げて**ファイルが一切パースできない**ことを実機で確認した。
 
 ```
-yaml.composer.ComposerError: found duplicate anchor 'appellationLabels'; first occurrence
+yaml.composer.ComposerError: found duplicate anchor 'AppellationLabelsReadFields'; first occurrence
   in "<unicode string>", line 103, column 20
 second occurrence
   in "<unicode string>", line 143, column 11
 ```
 
-**メカニズム**: YAMLのアンカー(`&name`)はドキュメント全体のスコープで「名前→ノード」の対応を作る。エイリアス(`*name`)はその対応を参照(dereference)するだけで、新たな対応は作らない。`<<: &appellationLabels`(直後に値が続かない)は、(a)まず`&appellationLabels`という**新しいアンカー定義**を試みる(値は何も続かないためnull)。この時点で同名のアンカーが既にドキュメント内に存在するため、PyYAMLのComposerは「同名アンカーの重複定義」としてただちに`ComposerError`を送出する。(b) 仮にこの重複チェックが無かったとしても、マージキー`<<`はマッピング(またはマッピングへのエイリアスの配列)を値として要求するため、null値を渡すこと自体が別の意味エラーになる。つまりこのタイプミスは「アンカー名の重複」と「マージキーへの不正な値」という2つの誤りが重なったものである。
+**メカニズム**: YAMLのアンカー(`&name`)はドキュメント全体のスコープで「名前→ノード」の対応を作る。エイリアス(`*name`)はその対応を参照(dereference)するだけで、新たな対応は作らない。`<<: &AppellationLabelsReadFields`(直後に値が続かない)は、(a)まず`&AppellationLabelsReadFields`という**新しいアンカー定義**を試みる(値は何も続かないためnull)。この時点で同名のアンカーが既にドキュメント内に存在するため、PyYAMLのComposerは「同名アンカーの重複定義」としてただちに`ComposerError`を送出する。(b) 仮にこの重複チェックが無かったとしても、マージキー`<<`はマッピング(またはマッピングへのエイリアスの配列)を値として要求するため、null値を渡すこと自体が別の意味エラーになる。つまりこのタイプミスは「アンカー名の重複」と「マージキーへの不正な値」という2つの誤りが重なったものである。
 
 なお、YAML仕様(1.1/1.2)自体はアンカーの重複定義そのものを明確に禁止しているわけではなく、パーサによっては「後勝ち」として許容する可能性もある。PyYAMLがここで例外を投げるのは実装上の安全策(明らかなミスを早期に検出するため)であり、実際の生成パイプラインで使うYAMLライブラリ(JS/TS製など)が同じ挙動をするとは限らないため、生成側で使用するライブラリでも同様に検証することを推奨する。
 
@@ -367,7 +409,7 @@ second occurrence
 
 ### 9-3. 「絞り込み専用・出力列なし」の`columnEntry`の表現(6-5節で解決)
 
-`dictionaryLabel`内の`language`(`requiredWhere: [code]`)は「絞り込み専用のJOIN。出力列は無い」。当初`pick`で解決しようとしたが、`pick`は「除外された要素は丸ごと不要」という前提のため、`language`をpick対象にすると`requiredWhere`ごと失われ、PostGraphileが生成するJOIN LATERALサブクエリ内のJOIN/WHERE句(言語での絞り込み)が構築できなくなるという致命的なリスクがあることが分かった(詳細な検討過程・SQLレベルの具体例は6-5節を参照)。
+`DictionaryLabelReadFields`内の`language`(`requiredWhere: [code]`)は「絞り込み専用のJOIN。出力列は無い」。当初`pick`で解決しようとしたが、`pick`は「除外された要素は丸ごと不要」という前提のため、`language`をpick対象にすると`requiredWhere`ごと失われ、PostGraphileが生成するJOIN LATERALサブクエリ内のJOIN/WHERE句(言語での絞り込み)が構築できなくなるという致命的なリスクがあることが分かった(詳細な検討過程・SQLレベルの具体例は6-5節を参照)。
 
 **解決策**: 新しいプロパティ`output`(6-5節)を追加した。`output: false`は出力からの除外のみを表し、`where`/`requiredWhere`/`defaultWhere`の処理(親のJOIN/WHERE句への反映)には影響しない。`pick`と`output`は独立したプロパティとして併存させ、役割を分離した:「表示するかどうかを選べる、それ自体で完結した関係」の絞り込みは`pick`、「親を絞り込むためだけに存在し常に処理が必要な関係」を隠すには`output`。
 
@@ -379,11 +421,37 @@ second occurrence
 
 ### 9-5. `pick`とプレーン文字列列の相互作用(実例で確認・仕様通り・採択済み)
 
-`appellationLabels`の`shared_appellations_id`(プレーン文字列列)は、`pick: [name, pronunciation, nickname]`によって出力から除外されることを実際に確認した。設計通りの挙動(6-4節参照)。追加対応不要。
+`AppellationLabelsReadFields`の`shared_appellations_id`(プレーン文字列列)は、`pick: [name, pronunciation, nickname]`によって出力から除外されることを実際に確認した。設計通りの挙動(6-4節参照)。追加対応不要。
+
+---
+
+## 10. トップノードの命名と生成対象(要件0050)
+
+| 接尾辞 | 用途 | kind | 生成 |
+|---|---|---|---|
+| `~Page` | ページの読み込み | read | する(`<dir>_read.graphql`) |
+| `~PageEdit` | ページの編集 | edit | する(`<dir>_edit.graphql`、`generateRfe: true`なら`<dir>_rfe.graphql`) |
+| `~ReadFields` | 共通定義の読み込み | read | しない(子としてだけ使う) |
+| `~EditFields` | 共通定義の編集 | edit | しない(子としてだけ使う。`generateRfe`を付けない) |
+
+- ページは、編集・閲覧を問わず、GoRouterの遷移先1つあたりの単位とする。
+- トップノード名はPascalCaseとし、アンカー名はトップノード名と同じにする。
+- `<dir>`は`snake(~Page)`とし、`~Page`と`~PageEdit`は同じディレクトリに置く。対応する`~Page`が
+  無い`~PageEdit`は、末尾の「Edit」を除いた名前のスネークケースとする。操作名は
+  `PascalCase(<dir>)`+`Read`/`Edit`/`Rfe`とする。
+- 1つのeditを複数の`~PageEdit`で共有する場合は、本体を`~EditFields`とし、各`~PageEdit`から`<<`で
+  取り込む。`generateRfe`と`requiredWhere`は各`~PageEdit`側に書く(readの共有も同様に`~ReadFields`)。
+- 接尾辞・kindの一致は`schema.json`(`patternProperties`)で検査する。違反はエラーとしてログに記録し、
+  生成しない。
 
 ---
 
 ## 変更履歴
+
+- 2026-10-07(要件0050): トップノードの命名規則と生成対象を10章として追加。`condition`を`filter`に
+  改め、5章を書き換えた(connection-filterの`$filter`、子の条件は親の`$filter`へ関連の経路として展開、
+  平坦なMapからの展開)。3-1節に変数の共有と`pagination`の例外、6-7節に引き継ぎの規則を追記した。
+  本文中のノード名を新しい名前(`AppellationLabelsReadFields`等)に置き換えた(変更履歴は旧名のまま)。
 
 - 2026-09-29(要件0043): `dictionaryLabel`を画面の深い位置(子・孫)に配置した場合、
   祖先・兄弟の別ノードが持つ同名の列(例: マスタ自身の`code`列)とGraphQL引数名が衝突しうる

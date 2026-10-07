@@ -7,6 +7,8 @@ services:
     restart: always
     ports:
       - "5000:5000"
+    volumes: 
+      - ./.postgraphilerc.js:/.postgraphilerc.js
     command:
       - "--connection"
       - "postgres://${DB_APP_UID}:${DB_APP_PWD}@${DB_IP}:${DB_PORT}/${DB_APP_NAME}"

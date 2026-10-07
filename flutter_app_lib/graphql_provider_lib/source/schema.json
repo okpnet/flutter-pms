@@ -5,9 +5,25 @@
   "description": "PostGraphile向けにread(クエリ)/edit(ミューテーション)をYAMLでまとめて表記するためのスキーマ。read/editは同一のnode構造(kindはenumとして持つのみ)を共有し、kindによるプロパティの出し分けはスキーマ側では強制しない(どのプロパティを使うかは生成側の解釈に委ねる)。read/editを他の定義から共有(参照)する場合はYAMLのアンカー(&name)/エイリアス(*name)を前提とし、本スキーマには参照専用のキーワードを設けていない。列・子テーブルの外部キー整合性チェックは本スキーマの検証範囲外とし、コード生成時にエラーとする方針とする(構造の妥当性のみを検証する)。要件0037により、独立したkind:RFEは廃止した。編集画面のプリロード用クエリ(旧RFE)は、kind:editのノードにgenerateRfe:trueを指定することで、同一のcolumnsツリーから自動導出する(手書きの別ノードを維持する必要が無くなり、editとRFEが構造的に乖離するリスクを排除する)。",
   "type": "object",
   "minProperties": 1,
-  "additionalProperties": {
-    "$ref": "#/$defs/node"
+  "patternProperties": {
+    "^[A-Z][A-Za-z0-9]*Page$": {
+      "description": "要件0050: ページの読み込み(生成対象)。kindはreadでなければならない。",
+      "allOf": [{ "$ref": "#/$defs/node" }, { "required": ["kind"], "properties": { "kind": { "const": "read" } } }]
+    },
+    "^[A-Z][A-Za-z0-9]*PageEdit$": {
+      "description": "要件0050: ページの編集(生成対象)。kindはeditでなければならない。",
+      "allOf": [{ "$ref": "#/$defs/node" }, { "required": ["kind"], "properties": { "kind": { "const": "edit" } } }]
+    },
+    "^[A-Z][A-Za-z0-9]*ReadFields$": {
+      "description": "要件0050: 共通定義の読み込み(単体では生成せず、他のノードの子としてだけ使う)。kindはreadでなければならない。",
+      "allOf": [{ "$ref": "#/$defs/node" }, { "required": ["kind"], "properties": { "kind": { "const": "read" } } }, { "not": { "required": ["generateRfe"] } }]
+    },
+    "^[A-Z][A-Za-z0-9]*EditFields$": {
+      "description": "要件0050: 共通定義の編集(単体では生成せず、他のノードの子としてだけ使う)。kindはeditでなければならず、generateRfeは付けない。",
+      "allOf": [{ "$ref": "#/$defs/node" }, { "required": ["kind"], "properties": { "kind": { "const": "edit" } } }, { "not": { "required": ["generateRfe"] } }]
+    }
   },
+  "additionalProperties": false,
   "$defs": {
     "kind": {
       "type": "string",
@@ -64,9 +80,9 @@
       "items": { "$ref": "#/$defs/defaultWhereEntry" },
       "minItems": 1
     },
-    "condition": {
+    "filter": {
       "type": "boolean",
-      "description": "trueのとき、GraphQL変換時にこのクエリ/ミューテーションへPostGraphile標準のNull許容'condition'引数を追加する(値の中身はYAML側では一切表現しない。既にwhere/requiredWhere/defaultWhereで条件を表現できるため、conditionはあくまで生成されるGraphQLの引数シグネチャにcondition引数を持たせるかどうかだけのフラグ)。省略時(falseと同義)は'condition'引数自体を生成しない。"
+      "description": "trueのとき、ページが検索条件を受け取ることを示す(要件0050で旧conditionから改名)。GraphQL変換時に、トップの操作へNull許容の'$filter: <テーブル>Filter'(postgraphile-plugin-connection-filter)引数を追加する。PostGraphile標準のcondition引数は使わない。defaultWhereの固定条件は$filterとandで結合する。子として流用したページのfilterは、子に独立した変数を作らず、親の$filterの中に関連の経路(toFirstOneは前方の関連フィールド、toManyはsome)として展開する。呼び出し側は検索条件を平坦なMap(キーは平坦化キーの定数、値はconnection-filterの演算子のMap)で渡し、ライブラリが入れ子のFilterへ展開する。edit・RFEでは無視する。省略時(falseと同義)はfilter引数自体を生成しない。前提: PostGraphileのconnectionFilterRelationsが有効であること。"
     },
     "limit": {
       "type": "integer",
@@ -80,7 +96,7 @@
     },
     "pagination": {
       "type": "boolean",
-      "description": "trueのとき、GraphQL変換時にPostGraphile標準のページネーション引数(first/offset、またはfirst/last/before/after)をこのクエリ/コネクションの引数シグネチャに追加する(conditionと同じ、値の中身はYAML側では表現しないフラグ)。呼び出し側がこれらの引数を指定しなかった場合、limit/offsetに指定した値がデフォルトとして使われる。kind(read/edit)を問わず、arrayType: toManyを持つnode/columnEntryであればどこにでも指定できる(例: 1件編集が対象のeditの内部で、ネストしたtoMany関係だけをページネーション対象にする。generateRfe:trueで自動導出される読み込み側にもそのまま引き継がれる)。省略時(falseと同義)はページネーション引数自体を生成しない(limit/offsetを固定値のまま使う、従来通り)。"
+      "description": "trueのとき、GraphQL変換時にPostGraphile標準のページネーション引数(first/offset、またはfirst/last/before/after)をこのクエリ/コネクションの引数シグネチャに追加する(filterと同じ、値の中身はYAML側では表現しないフラグ)。呼び出し側がこれらの引数を指定しなかった場合、limit/offsetに指定した値がデフォルトとして使われる。kind(read/edit)を問わず、arrayType: toManyを持つnode/columnEntryであればどこにでも指定できる(例: 1件編集が対象のeditの内部で、ネストしたtoMany関係だけをページネーション対象にする。generateRfe:trueで自動導出される読み込み側にもそのまま引き継がれる)。省略時(falseと同義)はページネーション引数自体を生成しない(limit/offsetを固定値のまま使う、従来通り)。"
     },
     "generateRfe": {
       "type": "boolean",
@@ -141,7 +157,7 @@
         "requiredWhere": { "$ref": "#/$defs/whereList" },
         "where": { "$ref": "#/$defs/whereList" },
         "defaultWhere": { "$ref": "#/$defs/defaultWhereList" },
-        "condition": { "$ref": "#/$defs/condition" },
+        "filter": { "$ref": "#/$defs/filter" },
         "columns": { "$ref": "#/$defs/columnsList" },
         "pick": { "$ref": "#/$defs/pick" },
         "limit": { "$ref": "#/$defs/limit" },
@@ -189,7 +205,7 @@
             "requiredWhere": { "$ref": "#/$defs/whereList" },
             "where": { "$ref": "#/$defs/whereList" },
             "defaultWhere": { "$ref": "#/$defs/defaultWhereList" },
-            "condition": { "$ref": "#/$defs/condition" },
+            "filter": { "$ref": "#/$defs/filter" },
             "columns": { "$ref": "#/$defs/columnsList" },
             "pick": { "$ref": "#/$defs/pick" },
             "output": { "$ref": "#/$defs/output" },

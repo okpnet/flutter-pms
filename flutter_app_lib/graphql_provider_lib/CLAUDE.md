@@ -109,12 +109,17 @@ docs/                     要件ごとの実施ログ
   - readを参照する子は、`editable: false`を省略しない。
 - `generateRfe`は子の位置にも書けるが、子の位置では独立したRFEを生成しない(0047)。
 
-### 5-3. 命名(0033・0037)
+### 5-3. 命名(0033・0037・0050)
 
+- トップノード名はPascalCaseとし、接尾辞`~Page`(read)・`~PageEdit`(edit)・`~ReadFields`(read)・`~EditFields`(edit)のいずれかを付ける。アンカー名はトップノード名と同じにする。
+  - ページは、編集・閲覧を問わず、GoRouterの遷移先1つあたりの単位とする。
+  - 生成対象は`~Page`と`~PageEdit`だけとする。`~ReadFields`・`~EditFields`は共通定義(他のノードの子としてだけ使う)で、生成しない。`~EditFields`には`generateRfe`を付けない。
+  - 1つのeditを複数の`~PageEdit`で共有する場合は、本体を`~EditFields`とし、各`~PageEdit`から`<<`で取り込む(`generateRfe`・`requiredWhere`は各`~PageEdit`側に書く)。
+  - 接尾辞が無い、またはkindが一致しないノードはエラーとしてログに記録し、生成しない(`schema.json`で検査する)。
 - ディレクトリ名・ファイル名はスネークケースとする。
-- ディレクトリ名はトップノード名とする。
-- ファイル名は「トップノード名_kind」(`_read`/`_edit`)とし、自動導出するRFEは`_rfe`とする。
-- 平坦化キーの定数は`lib/contents/<トップノード名>_keyname.dart`に置き、クラス名は`<トップノード名>KeyName`とする(5-6節)。
+- ディレクトリ名`<dir>`は`snake(~Page)`とし、`~Page`と`~PageEdit`は同じディレクトリに置く。対応する`~Page`が無い`~PageEdit`は、末尾の「Edit」を除いた名前のスネークケースとする。
+- ファイル名は`<dir>_read`/`<dir>_edit`とし、自動導出するRFEは`<dir>_rfe`とする。操作名は`PascalCase(<dir>)`+`Read`/`Edit`/`Rfe`とする。
+- 平坦化キーの定数は`lib/contents/<dir>_keyname.dart`に置き、クラス名は`PascalCase(<dir>)KeyName`とする(5-6節)。
 
 ### 5-4. 共通項(0005)
 
@@ -180,7 +185,100 @@ docs/                     要件ごとの実施ログ
 
 - `DepartmentPage.descendants`: 0048で保留とした。0049でビューの関連がスキーマに追加され、取得できるようになった。view.yaml・GraphQLへの反映は未着手。
 - `CompanyPageEdit.provision`: `ProvisionPageEdit`のcolumnsを複製している(`requiredWhere`の扱いのため。docs/0048ログ3章)。
+- 0050の生成以降が未実施(docs/0050ログ):
+  - view.yaml・schema.json・変換規則・5-3節の反映は済み。GraphQL・生成モデル・KeyName・テストは旧名・旧`$condition`のまま。
+  - PostGraphileの関連フィルタ(`connectionFilterRelations`)が、取得時点のサーバーでは未適用だった。設定ファイルは`docker/postgraphile/.postgraphilerc.js`に改名済み(`docker-compose.yml`のマウントと一致)。コンテナを作り直して適用を確認した後、全量スキーマを再取得する(4-1節)。
+  - 全量スキーマの再取得は、イントロスペクションが5分でタイムアウトして失敗した。再度タイムアウトする場合は`tool/fetch_schema.dart`の待ち時間を延ばす。
+  - 再取得後に、prune_schema.dartへ関連フィルタの入力型を残す規則の追加、GraphQLの再生成、平坦なMap→Filterのコンバーターの作成、build_runner、テストの見直しを行う。
+- 言語の引数の一般化(ISO 639-1準拠、言語の数を限定しない、ja/enの固定の廃止)と5-5節の見直し: 0050の対象外とし、別の要件として扱う。
 
 ## 要件(0050以降)
 
 追記形式: 年月日_4桁の通し番号:内容
+
+2026/10/07_0050:view.yamlのトップノードの命名規則、ページを子として流用するときの引き継ぎ規則、および平坦なMapによる検索条件を定める。
+
+1. 用語
+    1. ページ: 編集・閲覧を問わず、GoRouterの遷移先1つあたりの単位。
+    2. 共通定義: 単体では生成せず、他のノードの子としてだけ使うノード(区分・種類等の列の一部になる参照、呼称・住所・更新者等)。
+2. トップノードの命名
+    1. 次の4つの接尾辞のいずれかを付ける。kindは接尾辞と一致しなければならない。
+
+        | 接尾辞 | 用途 | kind |
+        |---|---|---|
+        | ~Page | ページの読み込み | read |
+        | ~PageEdit | ページの編集 | edit |
+        | ~ReadFields | 共通定義の読み込み | read |
+        | ~EditFields | 共通定義の編集 | edit |
+
+    2. ページとして編集するものは、~EditFieldsではなく~PageEditとする。
+    3. 同じテーブルについて、共通定義とページの両方を定義してよい(例: UnitReadFieldsとUnitPage)。
+    4. トップノード名は先頭大文字(PascalCase)とし、アンカー名はトップノード名と同じにする。
+    5. 接尾辞が無い、またはkindが一致しないノードはエラーとしてログに記録し、生成しない(5-7節)。
+3. 生成対象と出力先(5-3節を置き換える)
+    1. 生成対象は~Pageと~PageEditだけとする。~ReadFieldsと~EditFieldsは生成しない。
+    2. ~EditFieldsにはgenerateRfeを付けない(単体のRFEも作らない)。
+    3. ディレクトリ名
+        1. ~Pageと~PageEditは、snake(~Page)の同じディレクトリに置く。
+        2. 対応する~Pageが無い~PageEditは、末尾の「Edit」を除いた名前をスネークケースにしたディレクトリに置く。
+    4. ファイル名は<ディレクトリ名>_read.graphql、_edit.graphql、_rfe.graphqlとし、操作名はPascalCase(<ディレクトリ名>)+Read/Edit/Rfeとする。
+    5. 平坦化キーの定数は、lib/contents/<ディレクトリ名>_keyname.dartに置く。
+4. 共有
+    1. 1つのeditを複数の~PageEditで共有する場合は、本体を~EditFieldsとし、各~PageEditから<<で取り込む。generateRfeとrequiredWhereは、各~PageEdit側に書く。
+    2. readを複数の~Pageで共有する場合も同様に、本体を~ReadFieldsとする。
+5. 子として流用するときの引き継ぎ
+    1. ~Page・~PageEdit・~ReadFields・~EditFieldsを子として<<で取り込むと、where・requiredWhere・defaultWhere・filter・paginationを引き継ぐ。
+    2. 子の側で同じキーを書くと、引き継いだ値はキー単位で丸ごと置き換わる(YAMLのマージ)。引き継ぎの例外は、この方法で指定する。
+    3. 引数名は0043(27章3-1節)に従う。
+        1. 同じ名前で同じ型の引数は、1つの変数として親と子で共有する。これを、親の条件を列単位で子へ伝える手段とする。
+        2. 型が違う場合、または親と子で別の値を渡す場合は、{column, as}で引数名を分ける。分けずに重複した場合は、生成時にエラーとする。
+    4. paginationは、現行どおり「$<子の出力名>First」「$<子の出力名>Offset」とする。この変数名は、27章3-1節の「自動で接頭辞を付けない」の例外とする。
+    5. editのツリー内(RFEを含む)でreadを参照する子は、引き継いだ言語の条件を、5-5節のedit・RFEの言語引数に読み替える。
+6. 検索条件(filter)
+    1. view.yamlの`condition`キーを`filter`キーに改める。`filter: true`は「ページが検索条件を受け取る」ことを示す。GraphQLでは、トップの操作にNull許容の「$filter: <テーブル>Filter」(postgraphile-plugin-connection-filter)を生成する。PostGraphile標準のcondition引数は使わない。
+    2. defaultWhere(remove等)の固定条件は、$filterとandで結合する。
+    3. 子として流用したページのfilterは、子に独立した変数を作らず、親の$filterの中に関連の経路として展開する。
+        1. toFirstOneの子は、前方の関連フィールド(例: infoAddressByInfoAddressId)で辿る。
+        2. toManyの子は、someで辿る(子のいずれかが一致する親を取得する)。
+    4. 呼び出し側は、検索条件を平坦なMap(キーは平坦化キーの定数、値はconnection-filterの演算子のMap。例: {includes: "東京"})で渡す。ライブラリは、view.yamlの経路(as・using・from)に従い、入れ子の<テーブル>Filterへ展開する。
+        1. 平坦化キーから関連フィールドの経路への対応は生成時に作り、KeyNameの定数(ContentVariable)に持たせる。
+        2. 展開できないキーはエラーとする。
+    5. 呼称(shared_appellations)を経由する列の条件には、5-5節の言語の条件を同じ経路の中に加える。
+    6. edit・RFEでは、引き継いだfilterを無視する。
+    7. 子の行だけを絞り込み、親の行を絞り込まない検索は、本要件の対象外とする。
+7. 移行
+    1. 既存ノードの変更前・変更後の対応表と、影響する生成物を、docs/0050のログにまとめてから着手する。
+    2. 生成物(ディレクトリ・操作名・生成クラス・KeyName)が変わるもの
+        1. DepartmentCategoryPage(ディレクトリ department_category → department_category_page)
+        2. DepartmentCategoryEdit → DepartmentCategoryPageEdit(同上)
+        3. StaffCapabilityEdit → StaffCapabilityEditFields。StaffCapabilityPageEditとCapableStaffPageEditを新設し、それぞれから取り込む。staff_capability/は廃止する。
+        4. condition: trueを持つすべてのread: view.yamlのキーをfilter: trueに改め、GraphQLの$condition(<テーブル>Condition)を$filter(<テーブル>Filter)へ変える。
+    3. 名前だけが変わるもの(生成物は変わらない)
+        - dictionaryLabel → DictionaryLabelReadFields
+        - dictionaryEdit → DictionaryEditFields
+        - appellationLabels → AppellationLabelsReadFields
+        - appellationLabelsEdit → AppellationLabelsEditFields
+        - addressFields → AddressReadFields
+        - addressEditFields → AddressEditFields
+        - languageCodeEdit → LanguageCodeEditFields
+        - updateStaff → UpdateStaffReadFields
+        - Unit → UnitReadFields
+        - ItemKind → ItemKindReadFields
+        - ItemRead → ItemReadFields
+        - ApprovalRead → ApprovalReadFields
+        - ApprovalEdit → ApprovalEditFields
+        - ApprovalDetailRead → ApprovalDetailReadFields
+        - ApprovalDetailEdit → ApprovalDetailEditFields
+        - StaffLicenseEdit → StaffLicenseEditFields
+        - SpecMeasurementEdit → SpecMeasurementPageEdit(生成物はすでにspec_measurement_page/SpecMeasurementPageEditのため変わらない)
+    4. 手順は「view.yamlの修正 → 評価 → GraphQLの生成 → 絞り込み → build_runner → テストの見直し」の順とし、生成クラス名・引数の変更は、利用側のアプリへの影響としてログに記録する。
+8. 反映先
+    1. CLAUDE.mdの5-3節を、本要件の2・3で置き換える。
+    2. 27_yaml_to_graphql_conversion_rules.mdの3-1節・5章(conditionをfilterに改める)・6-7節に、5・6の内容を反映する。
+    3. schema.jsonで、トップノードの接尾辞とkindの一致を検査する(patternProperties、if/then)。conditionプロパティをfilterに改め、説明を6-1に合わせる。
+    4. prune_schema.dartの規則に、関連フィルタの入力型(<テーブル>Filterの関連フィールド、some/every/none)を残す設定を加える(4-2節)。
+    5. 平坦なMapから<テーブル>Filterへ展開するコンバーターを、lib/extensions/に追加する。往復変換のテストと同様に、画面ごとのテストを作る。
+9. 前提
+    1. PostGraphileで、postgraphile-plugin-connection-filterの関連フィルタ(connectionFilterRelations: true)が有効になっていること。有効化と全量スキーマの再取得(4-1節)は別途行う。
+10. 対象外
+    1. 言語の引数の一般化(ISO 639-1準拠、言語の数を限定しない、ja/enの固定の廃止)と、5-5節の見直しは、別の要件とする。
