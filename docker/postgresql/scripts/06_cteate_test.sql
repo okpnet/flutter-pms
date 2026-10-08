@@ -66,7 +66,38 @@ END;
 $BODY$
 LANGUAGE plpgsql;
 
---220.create tables
+--222.create tables
+create table tests.history_mstr_item_lot (
+    history_id uuid default gen_random_uuid(),
+    mstr_item_lot_id uuid not null,
+    safety_inventory decimal(10,2) default 0,
+    lot_size decimal(10,2) default 0,
+    batch_size decimal(10,2) default 0,
+    shared_unit_id uuid not null,
+    mstr_packing_spec_id uuid default null,
+    revision integer default 1,
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
+create table tests.mstr_item_lot (
+    mstr_item_lot_id uuid default gen_random_uuid(),
+    safety_inventory decimal(10,2) default 0,
+    lot_size decimal(10,2) default 0,
+    batch_size decimal(10,2) default 0,
+    shared_unit_id uuid not null,
+    mstr_packing_spec_id uuid default null,
+    revision integer default 1,
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
 create table tests.history_info_department_kind (
     history_id uuid default gen_random_uuid(),
     info_department_kind_id uuid not null,
@@ -210,7 +241,6 @@ create table tests.mstr_inspection_kind (
 create table tests.history_mstr_packing_spec (
     history_id uuid default gen_random_uuid(),
     mstr_packing_spec_id uuid not null,
-    mstr_item_id uuid default null,
     length_id uuid not null,
     wide_id uuid not null,
     height_id uuid not null,
@@ -279,7 +309,6 @@ create table tests.mstr_spec_measurement (
 );
 create table tests.mstr_packing_spec (
     mstr_packing_spec_id uuid default gen_random_uuid(),
-    mstr_item_id uuid default null,
     length_id uuid not null,
     wide_id uuid not null,
     height_id uuid not null,
@@ -1311,9 +1340,7 @@ create table tests.history_mstr_item (
     label_code varchar(255) default null,
     description varchar(255) default null,
     shared_unit_id uuid default null,
-    increment decimal(10,2) default 0,
-    lot boolean default 'f',
-    stock_quantity decimal(10,2) default 0,
+    mstr_item_lot_id uuid default null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -3021,9 +3048,7 @@ create table tests.mstr_item (
     label_code varchar(255) default null,
     description varchar(255) default null,
     shared_unit_id uuid default null,
-    increment decimal(10,2) default 0,
-    lot boolean default 'f',
-    stock_quantity decimal(10,2) default 0,
+    mstr_item_lot_id uuid default null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -3259,7 +3284,36 @@ create table tests.info_office (
     update_user_history_id uuid default null,
     remove boolean default 'f'
 );
---220.add table comments
+--222.add table comments
+comment on table tests.history_mstr_item_lot is '品目ロットマスタ履歴';
+comment on column tests.history_mstr_item_lot.history_id is '履歴ID';
+comment on column tests.history_mstr_item_lot.mstr_item_lot_id is '品目ロットID';
+comment on column tests.history_mstr_item_lot.safety_inventory is '最小在庫数量';
+comment on column tests.history_mstr_item_lot.lot_size is 'ロットサイズ';
+comment on column tests.history_mstr_item_lot.batch_size is 'バッチサイズ';
+comment on column tests.history_mstr_item_lot.shared_unit_id is 'ロット単位';
+comment on column tests.history_mstr_item_lot.mstr_packing_spec_id is '梱包サイズ';
+comment on column tests.history_mstr_item_lot.revision is 'レビジョン';
+comment on column tests.history_mstr_item_lot.symbol is 'リニアシンボル';
+comment on column tests.history_mstr_item_lot.remarks is '備考';
+comment on column tests.history_mstr_item_lot.update_at is '更新日時';
+comment on column tests.history_mstr_item_lot.update_user_id is '更新者ID';
+comment on column tests.history_mstr_item_lot.update_user_history_id is '更新者履歴ID';
+comment on column tests.history_mstr_item_lot.remove is '削除';
+comment on table tests.mstr_item_lot is '品目ロットマスタ';
+comment on column tests.mstr_item_lot.mstr_item_lot_id is '品目ロットID';
+comment on column tests.mstr_item_lot.safety_inventory is '最小在庫数量';
+comment on column tests.mstr_item_lot.lot_size is 'ロットサイズ';
+comment on column tests.mstr_item_lot.batch_size is 'バッチサイズ';
+comment on column tests.mstr_item_lot.shared_unit_id is 'ロット単位';
+comment on column tests.mstr_item_lot.mstr_packing_spec_id is '梱包サイズ';
+comment on column tests.mstr_item_lot.revision is 'レビジョン';
+comment on column tests.mstr_item_lot.symbol is 'リニアシンボル';
+comment on column tests.mstr_item_lot.remarks is '備考';
+comment on column tests.mstr_item_lot.update_at is '更新日時';
+comment on column tests.mstr_item_lot.update_user_id is '更新者ID';
+comment on column tests.mstr_item_lot.update_user_history_id is '更新者履歴ID';
+comment on column tests.mstr_item_lot.remove is '削除';
 comment on table tests.history_info_department_kind is '組織区分情報履歴';
 comment on column tests.history_info_department_kind.history_id is '履歴ID';
 comment on column tests.history_info_department_kind.info_department_kind_id is '組織区分ID';
@@ -3392,7 +3446,6 @@ comment on column tests.mstr_inspection_kind.remove is '削除';
 comment on table tests.history_mstr_packing_spec is '梱包サイズマスタ履歴';
 comment on column tests.history_mstr_packing_spec.history_id is '履歴ID';
 comment on column tests.history_mstr_packing_spec.mstr_packing_spec_id is '梱包サイズID';
-comment on column tests.history_mstr_packing_spec.mstr_item_id is '品目ID';
 comment on column tests.history_mstr_packing_spec.length_id is '縦';
 comment on column tests.history_mstr_packing_spec.wide_id is '幅';
 comment on column tests.history_mstr_packing_spec.height_id is '高さ';
@@ -3456,7 +3509,6 @@ comment on column tests.mstr_spec_measurement.update_user_history_id is '更新�
 comment on column tests.mstr_spec_measurement.remove is '削除';
 comment on table tests.mstr_packing_spec is '梱包サイズマスタ';
 comment on column tests.mstr_packing_spec.mstr_packing_spec_id is '梱包サイズID';
-comment on column tests.mstr_packing_spec.mstr_item_id is '品目ID';
 comment on column tests.mstr_packing_spec.length_id is '縦';
 comment on column tests.mstr_packing_spec.wide_id is '幅';
 comment on column tests.mstr_packing_spec.height_id is '高さ';
@@ -3978,9 +4030,9 @@ comment on column tests.mstr_inspection_operation.update_at is '更新日時';
 comment on column tests.mstr_inspection_operation.update_user_id is '更新者ID';
 comment on column tests.mstr_inspection_operation.update_user_history_id is '更新者履歴ID';
 comment on column tests.mstr_inspection_operation.remove is '削除';
-comment on table tests.history_mstr_inspection_operation_task is '点検整備運用課題マスタ履歴';
+comment on table tests.history_mstr_inspection_operation_task is '点検整備運用明細マスタ履歴';
 comment on column tests.history_mstr_inspection_operation_task.history_id is '履歴ID';
-comment on column tests.history_mstr_inspection_operation_task.mstr_inspection_operation_task_id is '点検整備運用課題ID';
+comment on column tests.history_mstr_inspection_operation_task.mstr_inspection_operation_task_id is '点検整備運用明細ID';
 comment on column tests.history_mstr_inspection_operation_task.mstr_inspection_operation_id is '点検整備運用ID';
 comment on column tests.history_mstr_inspection_operation_task.mstr_inspection_id is '点検整備ID';
 comment on column tests.history_mstr_inspection_operation_task.sequence is '順';
@@ -3993,8 +4045,8 @@ comment on column tests.history_mstr_inspection_operation_task.update_at is '更
 comment on column tests.history_mstr_inspection_operation_task.update_user_id is '更新者ID';
 comment on column tests.history_mstr_inspection_operation_task.update_user_history_id is '更新者履歴ID';
 comment on column tests.history_mstr_inspection_operation_task.remove is '削除';
-comment on table tests.mstr_inspection_operation_task is '点検整備運用課題マスタ';
-comment on column tests.mstr_inspection_operation_task.mstr_inspection_operation_task_id is '点検整備運用課題ID';
+comment on table tests.mstr_inspection_operation_task is '点検整備運用明細マスタ';
+comment on column tests.mstr_inspection_operation_task.mstr_inspection_operation_task_id is '点検整備運用明細ID';
 comment on column tests.mstr_inspection_operation_task.mstr_inspection_operation_id is '点検整備運用ID';
 comment on column tests.mstr_inspection_operation_task.mstr_inspection_id is '点検整備ID';
 comment on column tests.mstr_inspection_operation_task.sequence is '順';
@@ -4172,9 +4224,9 @@ comment on column tests.trans_announcement.update_at is '更新日時';
 comment on column tests.trans_announcement.update_user_id is '更新者ID';
 comment on column tests.trans_announcement.update_user_history_id is '更新者履歴ID';
 comment on column tests.trans_announcement.remove is '削除';
-comment on table tests.history_mstr_operation_task is '工程運用課題履歴';
+comment on table tests.history_mstr_operation_task is '工程運用明細マスタ履歴';
 comment on column tests.history_mstr_operation_task.history_id is '履歴ID';
-comment on column tests.history_mstr_operation_task.mstr_operation_task_id is '工程運用課題ID';
+comment on column tests.history_mstr_operation_task.mstr_operation_task_id is '工程運用明細ID';
 comment on column tests.history_mstr_operation_task.mstr_operation_id is '工程運用ID';
 comment on column tests.history_mstr_operation_task.mstr_task_id is '工程ID';
 comment on column tests.history_mstr_operation_task.sequence is '順';
@@ -4203,10 +4255,10 @@ comment on column tests.history_mstr_report.update_at is '更新日時';
 comment on column tests.history_mstr_report.update_user_id is '更新者ID';
 comment on column tests.history_mstr_report.update_user_history_id is '更新者履歴ID';
 comment on column tests.history_mstr_report.remove is '削除';
-comment on table tests.history_mstr_item_operation_task is '品目工程運用課題マスタ履歴';
+comment on table tests.history_mstr_item_operation_task is '品目工程運用明細マスタ履歴';
 comment on column tests.history_mstr_item_operation_task.history_id is '履歴ID';
-comment on column tests.history_mstr_item_operation_task.mstr_item_operation_task_id is '品目工程運用課題ID';
-comment on column tests.history_mstr_item_operation_task.mstr_operation_task_id is '工程運用課題ID';
+comment on column tests.history_mstr_item_operation_task.mstr_item_operation_task_id is '品目工程運用明細ID';
+comment on column tests.history_mstr_item_operation_task.mstr_operation_task_id is '工程運用明細ID';
 comment on column tests.history_mstr_item_operation_task.mstr_item_id is '品目ID';
 comment on column tests.history_mstr_item_operation_task.sequence is '順';
 comment on column tests.history_mstr_item_operation_task.default_interval is '標準時間';
@@ -4414,10 +4466,8 @@ comment on column tests.history_mstr_item.mstr_manufacturer_id is '製造元ID';
 comment on column tests.history_mstr_item.names is '品目名称';
 comment on column tests.history_mstr_item.label_code is '表示コード';
 comment on column tests.history_mstr_item.description is '詳細';
-comment on column tests.history_mstr_item.shared_unit_id is '単位ID';
-comment on column tests.history_mstr_item.increment is '刻み';
-comment on column tests.history_mstr_item.lot is 'ロット';
-comment on column tests.history_mstr_item.stock_quantity is '最少在庫数量';
+comment on column tests.history_mstr_item.shared_unit_id is '個別単位';
+comment on column tests.history_mstr_item.mstr_item_lot_id is 'ロット';
 comment on column tests.history_mstr_item.revision is 'レビジョン';
 comment on column tests.history_mstr_item.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_item.remarks is '備考';
@@ -5697,8 +5747,8 @@ comment on column tests.trans_file.update_at is '更新日時';
 comment on column tests.trans_file.update_user_id is '更新者ID';
 comment on column tests.trans_file.update_user_history_id is '更新者履歴ID';
 comment on column tests.trans_file.remove is '削除';
-comment on table tests.mstr_operation_task is '工程運用課題';
-comment on column tests.mstr_operation_task.mstr_operation_task_id is '工程運用課題ID';
+comment on table tests.mstr_operation_task is '工程運用明細マスタ';
+comment on column tests.mstr_operation_task.mstr_operation_task_id is '工程運用明細ID';
 comment on column tests.mstr_operation_task.mstr_operation_id is '工程運用ID';
 comment on column tests.mstr_operation_task.mstr_task_id is '工程ID';
 comment on column tests.mstr_operation_task.sequence is '順';
@@ -5958,9 +6008,9 @@ comment on column tests.trans_order.update_at is '更新日時';
 comment on column tests.trans_order.update_user_id is '更新者ID';
 comment on column tests.trans_order.update_user_history_id is '更新者履歴ID';
 comment on column tests.trans_order.remove is '削除';
-comment on table tests.mstr_item_operation_task is '品目工程運用課題マスタ';
-comment on column tests.mstr_item_operation_task.mstr_item_operation_task_id is '品目工程運用課題ID';
-comment on column tests.mstr_item_operation_task.mstr_operation_task_id is '工程運用課題ID';
+comment on table tests.mstr_item_operation_task is '品目工程運用明細マスタ';
+comment on column tests.mstr_item_operation_task.mstr_item_operation_task_id is '品目工程運用明細ID';
+comment on column tests.mstr_item_operation_task.mstr_operation_task_id is '工程運用明細ID';
 comment on column tests.mstr_item_operation_task.mstr_item_id is '品目ID';
 comment on column tests.mstr_item_operation_task.sequence is '順';
 comment on column tests.mstr_item_operation_task.default_interval is '標準時間';
@@ -6008,10 +6058,8 @@ comment on column tests.mstr_item.mstr_manufacturer_id is '製造元ID';
 comment on column tests.mstr_item.names is '品目名称';
 comment on column tests.mstr_item.label_code is '表示コード';
 comment on column tests.mstr_item.description is '詳細';
-comment on column tests.mstr_item.shared_unit_id is '単位ID';
-comment on column tests.mstr_item.increment is '刻み';
-comment on column tests.mstr_item.lot is 'ロット';
-comment on column tests.mstr_item.stock_quantity is '最少在庫数量';
+comment on column tests.mstr_item.shared_unit_id is '個別単位';
+comment on column tests.mstr_item.mstr_item_lot_id is 'ロット';
 comment on column tests.mstr_item.revision is 'レビジョン';
 comment on column tests.mstr_item.symbol is 'リニアシンボル';
 comment on column tests.mstr_item.remarks is '備考';
@@ -6232,7 +6280,19 @@ comment on column tests.info_office.update_at is '更新日時';
 comment on column tests.info_office.update_user_id is '更新者ID';
 comment on column tests.info_office.update_user_history_id is '更新者履歴ID';
 comment on column tests.info_office.remove is '削除';
---220.add table primary key and index
+--222.add table primary key and index
+create unique index history_mstr_item_lot_PKI
+    on tests.history_mstr_item_lot(history_id,mstr_item_lot_id);
+alter table tests.history_mstr_item_lot
+    add constraint history_mstr_item_lot_PKC primary key (history_id,mstr_item_lot_id);
+alter table tests.history_mstr_item_lot
+     add constraint history_mstr_item_lot_IX1 unique (mstr_item_lot_id,revision);
+create unique index mstr_item_lot_PKI
+    on tests.mstr_item_lot(mstr_item_lot_id);
+alter table tests.mstr_item_lot
+    add constraint mstr_item_lot_PKC primary key (mstr_item_lot_id);
+alter table tests.mstr_item_lot
+     add constraint mstr_item_lot_IX1 unique (symbol);
 create unique index history_info_department_kind_PKI
     on tests.history_info_department_kind(history_id,info_department_kind_id);
 alter table tests.history_info_department_kind
@@ -7574,7 +7634,12 @@ alter table tests.info_office
     add constraint info_office_PKC primary key (info_office_id);
 alter table tests.info_office
      add constraint info_office_IX1 unique (symbol);
---220.add table foreign key
+--222.add table foreign key
+alter table tests.history_mstr_item_lot add constraint history_mstr_item_lot_FK1 foreign key (mstr_item_lot_id) references tests.mstr_item_lot (mstr_item_lot_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.history_mstr_item_lot add constraint history_mstr_item_lot_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item_lot add constraint mstr_item_lot_FK1 foreign key (mstr_packing_spec_id) references tests.mstr_packing_spec (mstr_packing_spec_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item_lot add constraint mstr_item_lot_FK2 foreign key (shared_unit_id) references tests.shared_unit (shared_unit_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item_lot add constraint mstr_item_lot_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_info_department_kind add constraint history_info_department_kind_FK1 foreign key (info_department_kind_id) references tests.info_department_kind (info_department_kind_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_info_department_kind add constraint history_info_department_kind_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_info_department_kind_value add constraint history_info_department_kind_value_FK1 foreign key (info_department_kind_value_id) references tests.info_department_kind_value (info_department_kind_value_id) DEFERRABLE INITIALLY DEFERRED;
@@ -7611,8 +7676,7 @@ alter table tests.mstr_packing_spec add constraint mstr_packing_spec_FK1 foreign
 alter table tests.mstr_packing_spec add constraint mstr_packing_spec_FK2 foreign key (height_id) references tests.mstr_spec_measurement (mstr_spec_measurement_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_packing_spec add constraint mstr_packing_spec_FK3 foreign key (wide_id) references tests.mstr_spec_measurement (mstr_spec_measurement_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_packing_spec add constraint mstr_packing_spec_FK4 foreign key (length_id) references tests.mstr_spec_measurement (mstr_spec_measurement_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_packing_spec add constraint mstr_packing_spec_FK5 foreign key (mstr_item_id) references tests.mstr_item (mstr_item_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_packing_spec add constraint mstr_packing_spec_FK6 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_packing_spec add constraint mstr_packing_spec_FK5 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_envelope_measurement add constraint mstr_envelope_measurement_FK1 foreign key (shared_unit_id) references tests.shared_unit (shared_unit_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_envelope_measurement add constraint mstr_envelope_measurement_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_equipment_envelope add constraint mstr_equipment_envelope_FK1 foreign key (weight_id) references tests.mstr_envelope_measurement (mstr_envelope_measurement_id) DEFERRABLE INITIALLY DEFERRED;
@@ -7778,8 +7842,9 @@ alter table tests.history_mstr_item_actual_size add constraint history_mstr_item
 alter table tests.history_mstr_item_actual_size add constraint history_mstr_item_actual_size_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_item_tree add constraint history_mstr_item_tree_FK1 foreign key (mstr_item_tree_id) references tests.mstr_item_tree (mstr_item_tree_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_item_tree add constraint history_mstr_item_tree_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.history_mstr_item add constraint history_mstr_item_FK1 foreign key (mstr_item_id) references tests.mstr_item (mstr_item_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.history_mstr_item add constraint history_mstr_item_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.history_mstr_item add constraint history_mstr_item_FK1 foreign key (mstr_item_lot_id) references tests.mstr_item_lot (mstr_item_lot_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.history_mstr_item add constraint history_mstr_item_FK2 foreign key (mstr_item_id) references tests.mstr_item (mstr_item_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.history_mstr_item add constraint history_mstr_item_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_audit_std_checkitem add constraint history_mstr_audit_std_checkitem_FK1 foreign key (mstr_audit_std_checkitem_id,mstr_audit_std_id) references tests.mstr_audit_std_checkitem (mstr_audit_std_checkitem_id,mstr_audit_std_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_audit_std_checkitem add constraint history_mstr_audit_std_checkitem_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_audit_std add constraint history_mstr_audit_std_FK1 foreign key (mstr_audit_std_id) references tests.mstr_audit_std (mstr_audit_std_id) DEFERRABLE INITIALLY DEFERRED;
@@ -8074,11 +8139,12 @@ alter table tests.mstr_item_tree add constraint mstr_item_tree_FK3 foreign key (
 alter table tests.mstr_item_tree add constraint mstr_item_tree_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.shared_unit add constraint shared_unit_FK1 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.shared_unit add constraint shared_unit_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_item add constraint mstr_item_FK1 foreign key (mstr_item_kind_id) references tests.mstr_item_kind (mstr_item_kind_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_item add constraint mstr_item_FK2 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_item add constraint mstr_item_FK3 foreign key (shared_unit_id) references tests.shared_unit (shared_unit_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_item add constraint mstr_item_FK4 foreign key (mstr_manufacturer_id) references tests.mstr_manufacturer (mstr_manufacturer_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_item add constraint mstr_item_FK5 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item add constraint mstr_item_FK1 foreign key (shared_unit_id) references tests.shared_unit (shared_unit_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item add constraint mstr_item_FK2 foreign key (mstr_item_lot_id) references tests.mstr_item_lot (mstr_item_lot_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item add constraint mstr_item_FK3 foreign key (mstr_item_kind_id) references tests.mstr_item_kind (mstr_item_kind_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item add constraint mstr_item_FK4 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item add constraint mstr_item_FK5 foreign key (mstr_manufacturer_id) references tests.mstr_manufacturer (mstr_manufacturer_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item add constraint mstr_item_FK6 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_task_tree add constraint mstr_task_tree_FK1 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_task_tree add constraint mstr_task_tree_FK2 foreign key (parent_mstr_task_id) references tests.mstr_task (mstr_task_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_task_tree add constraint mstr_task_tree_FK3 foreign key (mstr_task_id) references tests.mstr_task (mstr_task_id) DEFERRABLE INITIALLY DEFERRED;
@@ -8129,7 +8195,134 @@ alter table tests.info_office add constraint info_office_FK1 foreign key (names)
 alter table tests.info_office add constraint info_office_FK2 foreign key (info_company_id) references tests.info_company (info_company_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_office add constraint info_office_FK3 foreign key (info_address_id) references tests.info_address (info_address_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_office add constraint info_office_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
---220.add table trigger
+--222.add table trigger
+-- history_mstr_item_lot update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_item_lot() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.history_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_history_mstr_item_lot BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_item_lot FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_history_mstr_item_lot();
+
+
+CREATE TRIGGER trg_04_symbol_history_mstr_item_lot BEFORE INSERT ON tests.history_mstr_item_lot FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_item_lot update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_item_lot() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.mstr_item_lot_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_mstr_item_lot BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_item_lot FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_mstr_item_lot();
+
+
+CREATE TRIGGER trg_04_symbol_mstr_item_lot BEFORE INSERT ON tests.mstr_item_lot FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- mstr_item_lot history trigger
+CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_item_lot() RETURNS trigger AS
+$BODY$
+DECLARE
+    revisions int;
+BEGIN
+    IF (TG_OP = 'UPDATE') OR (TG_OP='INSERT') THEN
+        SELECT Max(revision) INTO revisions FROM tests.history_mstr_item_lot WHERE mstr_item_lot_id=NEW.mstr_item_lot_id;
+        IF (revisions >= 0) THEN
+            IF (
+                NEW.mstr_item_lot_id,
+                NEW.safety_inventory,
+                NEW.lot_size,
+                NEW.batch_size,
+                NEW.shared_unit_id,
+                NEW.mstr_packing_spec_id,
+                NEW.symbol,
+                NEW.remarks,
+                NEW.remove
+            ) IS NOT DISTINCT FROM (
+                OLD.mstr_item_lot_id,
+                OLD.safety_inventory,
+                OLD.lot_size,
+                OLD.batch_size,
+                OLD.shared_unit_id,
+                OLD.mstr_packing_spec_id,
+                OLD.symbol,
+                OLD.remarks,
+                OLD.remove
+            )
+            THEN
+                RETURN NULL;
+            END IF;
+            NEW.revision := revisions + 1;
+        ELSE
+            NEW.revision := 1;
+        END IF;
+        INSERT INTO tests.history_mstr_item_lot (
+            mstr_item_lot_id,
+            safety_inventory,
+            lot_size,
+            batch_size,
+            shared_unit_id,
+            mstr_packing_spec_id,
+            revision,
+            symbol,
+            remarks,
+            update_at,
+            update_user_id,
+            update_user_history_id,
+            remove
+        )
+        VALUES
+        (
+            NEW.mstr_item_lot_id,
+            NEW.safety_inventory,
+            NEW.lot_size,
+            NEW.batch_size,
+            NEW.shared_unit_id,
+            NEW.mstr_packing_spec_id,
+            NEW.revision,
+            NEW.symbol,
+            NEW.remarks,
+            NEW.update_at,
+            NEW.update_user_id,
+            NEW.update_user_history_id,
+            NEW.remove
+        );
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_02_history_mstr_item_lot BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_item_lot FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_02_history_mstr_item_lot();
+
+
 -- history_info_department_kind update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_info_department_kind() RETURNS trigger AS
 $BODY$
@@ -8957,7 +9150,6 @@ BEGIN
         IF (revisions >= 0) THEN
             IF (
                 NEW.mstr_packing_spec_id,
-                NEW.mstr_item_id,
                 NEW.length_id,
                 NEW.wide_id,
                 NEW.height_id,
@@ -8967,7 +9159,6 @@ BEGIN
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.mstr_packing_spec_id,
-                OLD.mstr_item_id,
                 OLD.length_id,
                 OLD.wide_id,
                 OLD.height_id,
@@ -8985,7 +9176,6 @@ BEGIN
         END IF;
         INSERT INTO tests.history_mstr_packing_spec (
             mstr_packing_spec_id,
-            mstr_item_id,
             length_id,
             wide_id,
             height_id,
@@ -9001,7 +9191,6 @@ BEGIN
         VALUES
         (
             NEW.mstr_packing_spec_id,
-            NEW.mstr_item_id,
             NEW.length_id,
             NEW.wide_id,
             NEW.height_id,
@@ -17567,9 +17756,7 @@ BEGIN
                 NEW.label_code,
                 NEW.description,
                 NEW.shared_unit_id,
-                NEW.increment,
-                NEW.lot,
-                NEW.stock_quantity,
+                NEW.mstr_item_lot_id,
                 NEW.symbol,
                 NEW.remarks,
                 NEW.remove
@@ -17584,9 +17771,7 @@ BEGIN
                 OLD.label_code,
                 OLD.description,
                 OLD.shared_unit_id,
-                OLD.increment,
-                OLD.lot,
-                OLD.stock_quantity,
+                OLD.mstr_item_lot_id,
                 OLD.symbol,
                 OLD.remarks,
                 OLD.remove
@@ -17609,9 +17794,7 @@ BEGIN
             label_code,
             description,
             shared_unit_id,
-            increment,
-            lot,
-            stock_quantity,
+            mstr_item_lot_id,
             revision,
             symbol,
             remarks,
@@ -17632,9 +17815,7 @@ BEGIN
             NEW.label_code,
             NEW.description,
             NEW.shared_unit_id,
-            NEW.increment,
-            NEW.lot,
-            NEW.stock_quantity,
+            NEW.mstr_item_lot_id,
             NEW.revision,
             NEW.symbol,
             NEW.remarks,
