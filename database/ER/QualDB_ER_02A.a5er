@@ -1,7 +1,7 @@
 ﻿# A5:ER FORMAT:18
 # A5:ER ENCODING:UTF8
 # A5:ER Mk-1 Copyright © 2007 m.matsubara
-# A5:SQL Mk-2 Version 2.20.0 beta 24 Copyright © 1997 - 2024 m.matsubara
+# A5:SQL Mk-2 Version 2.20.0 beta 20 Copyright © 1997 - 2024 m.matsubara
 #  https://a5m2.mmatsubara.com
 
 [Manager]
@@ -2122,7 +2122,7 @@ Page=トラザクション
 Left=450
 Top=4250
 Field="点検整備実施ID","trans_inspect_record_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
-Field="点検整備予定詳細ID","trans_inspect_sch_detail_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="点検整備予定明細ID","trans_inspect_sch_detail_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="実施開始日","implement_start_date","*@DATETIME","NOT NULL",,"now()","",$FFFFFFFF,""
 Field="実施終了日","implement_stop_date","*@DATETIME","NOT NULL",,"now()","",$FFFFFFFF,""
 Field="測定値","result_value","*@JSONB",,,"","",$FFFFFFFF,""
@@ -2135,7 +2135,7 @@ Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260912194802
+ModifiedDateTime=20261008213543
 Position="トラザクション",450,4250
 ZOrder=247
 
@@ -3522,7 +3522,7 @@ Left=5800
 Top=1700
 Field="レポートID","mstr_report_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="ファイルID","trans_file_id","*@UUID",,,"","",$FFFFFFFF,""
-Field="名前","name","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="名前","names","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="コード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="デフォルト","is_default","*@BOOL","NOT NULL",,"\qt\q","",$FFFFFFFF,""
 Field="アクセスパスID","info_access_path_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
@@ -3533,7 +3533,7 @@ EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260928111348
+ModifiedDateTime=20261008212134
 Position="文書",5800,1700
 ZOrder=482
 
@@ -7313,7 +7313,7 @@ Top=1400
 Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="レポートID","mstr_report_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="ファイルID","trans_file_id","*@UUID",,,"","",$FFFFFFFF,""
-Field="名前","name","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
+Field="名前","names","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="コード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
 Field="デフォルト","is_default","*@BOOL","NOT NULL",,"\qt\q","",$FFFFFFFF,""
 Field="アクセスパスID","info_access_path_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
@@ -7324,7 +7324,7 @@ EffectMode=None
 Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260928111401
+ModifiedDateTime=20261008212138
 Position="文書",4100,1400
 ZOrder=756
 
@@ -18263,7 +18263,7 @@ Entity2=mstr_report
 RelationType1=2
 RelationType2=2
 Fields1=shared_appellations_id
-Fields2=name
+Fields2=names
 Cardinarity1=
 Cardinarity2=
 Position="共有",0,3534,6466,1273,R,R,""
@@ -18592,9 +18592,9 @@ Caption=
 PName=
 ModifiedDateTime=20261008104046
 LineMode=0
-Bar1=416
-Bar2=584
-Bar3=292
+Bar1=50
+Bar2=950
+Bar3=117
 TermPos1=R
 TermPos2=R
 ZOrder=1171
