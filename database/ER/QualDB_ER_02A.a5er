@@ -1,7 +1,7 @@
 ﻿# A5:ER FORMAT:18
 # A5:ER ENCODING:UTF8
 # A5:ER Mk-1 Copyright © 2007 m.matsubara
-# A5:SQL Mk-2 Version 2.20.0 beta 20 Copyright © 1997 - 2024 m.matsubara
+# A5:SQL Mk-2 Version 2.20.0 beta 24 Copyright © 1997 - 2024 m.matsubara
 #  https://a5m2.mmatsubara.com
 
 [Manager]
@@ -2050,7 +2050,7 @@ Left=250
 Top=2650
 Field="点検整備予定ID","trans_inspect_sch_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="管理コード","code","*@VARCHAR255",,,"","",$FFFFFFFF,""
-Field="予定名称","names","*@UUID","NOT NULL",,"gen_random_uuid()","",$FFFFFFFF,""
+Field="予定名称","names","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="設備履歴ID","history_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="設備ID","mstr_equipment_id","*@UUID","NOT NULL",,"","",$FFFFFFFF,""
 Field="要求事項","requirements","*@VARCHAR1024",,,"","",$FFFFFFFF,""
@@ -2061,7 +2061,7 @@ Index==2,symbol
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20260928150943
+ModifiedDateTime=20261009073924
 Position="トラザクション",250,2650
 ZOrder=238
 
@@ -6499,8 +6499,8 @@ Comment=
 TableInnerOption=
 TableOption=
 Page=マスタ設備
-Left=6650
-Top=1350
+Left=6350
+Top=1150
 Field="履歴ID","history_id","*@UUID","NOT NULL",0,"gen_random_uuid()","",$FFFFFFFF,""
 Field="点検整備マスタID","mstr_inspection_id","*@UUID","NOT NULL",1,"","",$FFFFFFFF,""
 Field="点検コード","code","*@VARCHAR255","NOT NULL",,"","",$FFFFFFFF,""
@@ -6519,7 +6519,7 @@ Tag=3.Resource
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20260928151216
-Position="マスタ設備",6650,1350
+Position="マスタ設備",6350,1150
 ZOrder=706
 
 [Relation]
@@ -6531,7 +6531,7 @@ Fields1=mstr_inspection_id
 Fields2=mstr_inspection_id
 Cardinarity1=
 Cardinarity2=
-Position="マスタ設備",0,5000,5000,5000,R,R,""
+Position="マスタ設備",0,5000,5000,5012,R,R,""
 Dependence=1
 Caption=
 PName=
@@ -6541,7 +6541,7 @@ ModifiedDateTime=20260905224921
 LineMode=0
 Bar1=500
 Bar2=500
-Bar3=500
+Bar3=501
 TermPos1=R
 TermPos2=R
 ZOrder=707
@@ -6556,7 +6556,7 @@ Fields2=history_id,mstr_stakeholder_id
 Cardinarity1=
 Cardinarity2=
 Position="マスタ資源",0,1019,8981,2073,R,R,""
-Position="トラザクション",0,1104,8896,6332,R,R,""
+Position="トラザクション",0,1104,8896,6835,R,R,""
 Dependence=0
 Caption=
 PName=
@@ -11639,7 +11639,7 @@ Position="マスタ設備",0,2307,7644,2676,R,R,""
 Dependence=1
 Caption=
 PName=
-ModifiedDateTime=20260829121623
+ModifiedDateTime=20261009083752
 LineMode=0
 Bar1=231
 Bar2=764

@@ -62,6 +62,7 @@ var select=function(array,func){
         return result;
     };
 
+///Historyテーブルにユニーク制約をつける
 var create=function(doc){
     //除くテーブルセット
     var entityArray=ext.toSelect(doc.objects,function(e){

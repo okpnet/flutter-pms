@@ -93,13 +93,6 @@ var create=function(doc){
     };
     //重複の削除
     ext.toFor(entityArray,function(index,entity){
-        //メンテナンス用ループ
-//        var relsTemp=ext.toWhere(relArray,function(e){
-//            if(e.entityPName2==entity.pName)return e;
-//        });
-//        ext.toFor(relsTemp,function(i,e){
-//            println(e.entityPName2+"\t"+e.entityPName1+"\t"+e.attributes1+"\t"+e.attributes2+"\t"+e.relationCaption);
-//        });
         
         //除外するすでにあるリスト生成
         var rels=ext.toWhere(relArray,function(e){
@@ -108,10 +101,6 @@ var create=function(doc){
                 e.attributes1=="history_id,info_staff_id" &&
                 e.attributes2=="update_user_history_id,update_user_id")return e;
         });
-//        println(rels.length+' '+entity.pName);
-//        ext.toFor(rels,function(i,e){
-//            println(e.entityPName2+"\t"+e.entityPName1+"\t"+e.attributes1+"\t"+e.attributes2+"\t"+e.relationCaption);
-//        });
 
         if(rels.length==0){
             ext.toFor(rels,function(i,rel){
