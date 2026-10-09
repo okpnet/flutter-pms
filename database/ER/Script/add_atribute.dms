@@ -63,7 +63,7 @@ var select=function(array,func){
     };
 
 ///Historyテーブルにユニーク制約をつける
-var create=function(doc){
+var addUniqToHistory=function(doc){
     //除くテーブルセット
     var entityArray=ext.toSelect(doc.objects,function(e){
         var reg=new RegExp("^history_");
@@ -89,5 +89,23 @@ var create=function(doc){
     println("Done!!");
 };
 
+//リレーションシップのモレチェック
+var checkFromRel=function(doc){
+    //shared_appellationsテーブルから生えているリレーションシップ
+    var rels=ext.toSelect(doc.objects,function(e){
+        var reg=new RegExp("^shared_appellations");
+        if(e.objectType=="Relation")return e;
+    });
+    ext.toFor(rels,function(index,rel){
+        if(rel.attributes1.length==0 || rel.attributes2.length==0){
+            println("Entity: "+ rel.entityPName1 + " to " + rel.entityPName2);
+        }
+    });
 
-create(frmER.document);
+
+    println("Done!!");
+};
+
+///Historyテーブルにユニーク制約をつける
+//addUniqToHistory(frmER.document);
+checkFromRel(frmER.document);
