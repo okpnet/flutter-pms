@@ -66,7 +66,122 @@ END;
 $BODY$
 LANGUAGE plpgsql;
 
---222.create tables
+--231.create tables
+create table tests.trans_text (
+    trans_text_id uuid default gen_random_uuid(),
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
+create table tests.trans_text_value (
+    trans_text_value_id uuid default gen_random_uuid(),
+    trans_text_id uuid not null,
+    shared_language_code_id uuid not null,
+    text_value text default '',
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
+create table tests.trans_label_value (
+    trans_label_value_id uuid default gen_random_uuid(),
+    trans_label_id uuid not null,
+    shared_language_code_id uuid not null,
+    dictionary_value varchar(255) not null,
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
+create table tests.history_shared_text_value (
+    history_id uuid default gen_random_uuid(),
+    shared_text_value_id uuid not null,
+    shared_language_code_id uuid not null,
+    shared_text_id uuid not null,
+    text_value text default '',
+    revision integer default 1,
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
+create table tests.trans_label (
+    trans_label_id uuid default gen_random_uuid(),
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
+create table tests.trans_complaint_receive (
+    trans_complaint_receive_id uuid default gen_random_uuid(),
+    trans_complaint_id uuid not null,
+    receive_at timestamp default now(),
+    receive_history_id uuid not null,
+    receive_staff_id uuid not null,
+    details uuid not null,
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
+create table tests.trans_complaint_file (
+    trans_complaint_file_id uuid default gen_random_uuid(),
+    trans_complaint_id uuid not null,
+    trans_file_id uuid not null,
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
+create table tests.history_shared_text (
+    history_id uuid default gen_random_uuid(),
+    shared_text_id uuid not null,
+    revision integer default 1,
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
+create table tests.shared_text (
+    shared_text_id uuid default gen_random_uuid(),
+    revision integer default 1,
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
+create table tests.shared_text_value (
+    shared_text_value_id uuid default gen_random_uuid(),
+    shared_language_code_id uuid not null,
+    shared_text_id uuid not null,
+    text_value text default '',
+    revision integer default 1,
+    symbol varchar(16) default '',
+    remarks varchar(1024) default null,
+    update_at timestamp default now(),
+    update_user_id uuid default null,
+    update_user_history_id uuid default null,
+    remove boolean default 'f'
+);
 create table tests.history_mstr_item_lot (
     history_id uuid default gen_random_uuid(),
     mstr_item_lot_id uuid not null,
@@ -1356,7 +1471,7 @@ create table tests.history_mstr_audit_std_checkitem (
     code varchar(255) default null,
     control_code varchar(255) default null,
     names uuid not null,
-    detail varchar(1024) default null,
+    details uuid default null,
     type_class smallint not null,
     formula_class smallint not null,
     arg_class jsonb default '{}',
@@ -1375,7 +1490,7 @@ create table tests.history_mstr_audit_std (
     control_code varchar(255) default null,
     category smallint default 0,
     names uuid not null,
-    detail varchar(1024) default null,
+    details uuid default null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -2050,9 +2165,9 @@ create table tests.trans_approved (
     trans_preapproval_id uuid not null,
     approved boolean default 'f',
     status jsonb default null,
-    symbol varchar(16) default '',
     approver_history_id uuid not null,
     approver_info_staff_id uuid not null,
+    symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2134,7 +2249,6 @@ create table tests.trans_audit_member (
 );
 create table tests.trans_auditor (
     trans_auditor_id uuid default gen_random_uuid(),
-    trans_audit_id uuid not null,
     trans_audit_team_id uuid not null,
     audit_history_id uuid not null,
     mstr_audit_std_id uuid not null,
@@ -2151,7 +2265,7 @@ create table tests.trans_auditor (
 create table tests.trans_audit_team (
     trans_audit_team_id uuid default gen_random_uuid(),
     trans_audit_id uuid not null,
-    name varchar(255) not null,
+    names uuid not null,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -2163,14 +2277,12 @@ create table tests.trans_audit (
     trans_audit_id uuid default gen_random_uuid(),
     audit_history_id uuid not null,
     mstr_audit_std_id uuid not null,
-    staff_history_id uuid default null,
-    info_staff_id uuid default null,
+    staff_history_id uuid not null,
+    info_staff_id uuid not null,
     scheduled_start_date timestamp default null,
     expected_end_date timestamp default null,
-    name varchar(255) default null,
-    number varchar(255) default null,
-    title varchar(255) default null,
-    detail varchar(1024) default null,
+    titles uuid not null,
+    details uuid not null,
     info_department_id uuid default null,
     mstr_stakeholder_id uuid default null,
     symbol varchar(16) default '',
@@ -2184,10 +2296,6 @@ create table tests.trans_task_risk (
     trans_task_risk_id uuid default gen_random_uuid(),
     mstr_task_id uuid not null,
     risk_id uuid not null,
-    name varchar(255) default null,
-    number varchar(255) default null,
-    title varchar(255) default null,
-    detail varchar(1024) default null,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -2201,10 +2309,6 @@ create table tests.trans_order_detail_risk (
     risk_id uuid not null,
     order_id uuid default null,
     mstr_item_id uuid default null,
-    name varchar(255) default null,
-    number varchar(255) default null,
-    title varchar(255) default null,
-    detail varchar(1024) default null,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -2221,8 +2325,8 @@ create table tests.trans_prevention_detail (
     stop_at timestamp default null,
     name varchar(255) default null,
     number varchar(255) default null,
-    title varchar(255) default null,
-    detail varchar(1024) default null,
+    titles uuid not null,
+    details uuid not null,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -2232,11 +2336,11 @@ create table tests.trans_prevention_detail (
 );
 create table tests.trans_prevention (
     trans_prevention_id uuid default gen_random_uuid(),
-    trans_risk_id uuid not null,
+    trans_risk_id uuid default null,
     name varchar(255) not null,
     number varchar(255) default null,
-    title varchar(255) default null,
-    detail varchar(1024) not null,
+    titles uuid not null,
+    details uuid not null,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -2248,10 +2352,6 @@ create table tests.trans_order_risk (
     trans_order_risk_id uuid default gen_random_uuid(),
     trans_order_id uuid not null,
     trans_risk_id uuid not null,
-    name varchar(255) default null,
-    number varchar(255) default null,
-    title varchar(255) default null,
-    detail varchar(1024) default null,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -2284,31 +2384,13 @@ create table tests.hrchy_mstr_location (
     update_user_history_id uuid default null,
     remove boolean default 'f'
 );
-create table tests.trans_disposal_detail (
-    trans_disposal_detail_id uuid default gen_random_uuid(),
-    trans_disposal_id uuid not null,
-    trans_complaint_id uuid not null,
-    location_id uuid default null,
-    info_company_id uuid default null,
-    info_department_id uuid default null,
-    name varchar(255) default null,
-    number varchar(255) default null,
-    title varchar(255) default null,
-    detail varchar(1024) default null,
-    symbol varchar(16) default '',
-    remarks varchar(1024) default null,
-    update_at timestamp default now(),
-    update_user_id uuid default null,
-    update_user_history_id uuid default null,
-    remove boolean default 'f'
-);
 create table tests.mstr_audit_std_checkitem (
     mstr_audit_std_checkitem_id uuid default gen_random_uuid(),
     mstr_audit_std_id uuid not null,
     code varchar(255) default null,
     control_code varchar(255) default null,
     names uuid not null,
-    detail varchar(1024) default null,
+    details uuid default null,
     type_class smallint not null,
     formula_class smallint not null,
     arg_class jsonb default '{}',
@@ -2326,7 +2408,7 @@ create table tests.mstr_audit_std (
     control_code varchar(255) default null,
     category smallint default 0,
     names uuid not null,
-    detail varchar(1024) default null,
+    details uuid default null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -2338,9 +2420,8 @@ create table tests.mstr_audit_std (
 create table tests.trans_risk (
     trans_risk_id uuid default gen_random_uuid(),
     name varchar(255) default null,
-    title varchar(255) default null,
-    number varchar(255) default null,
-    detail varchar(1024) default null,
+    titles uuid not null,
+    details uuid not null,
     frequency decimal(10,4) default null,
     momentous decimal(10,4) default null,
     action smallint default null,
@@ -2376,44 +2457,34 @@ create table tests.trans_observer_disposal (
     update_user_history_id uuid default null,
     remove boolean default 'f'
 );
-create table tests.trans_complaint_stakeholder_adapter (
-    trans_complaint_stakeholder_adapter_id uuid default gen_random_uuid(),
+create table tests.trans_complaint_stakeholder (
+    trans_complaint_stakeholder_id uuid default gen_random_uuid(),
     trans_complaint_id uuid not null,
-    mstr_stakeholder_id uuid not null,
-    name varchar(255) default null,
-    number varchar(255) default null,
-    title varchar(1024) default null,
-    detail varchar(1024) default null,
     symbol varchar(16) default '',
+    stakeholder_history_id uuid not null,
+    stakeholder_id uuid not null,
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
     update_user_history_id uuid default null,
     remove boolean default 'f'
 );
-create table tests.trans_complaint_equipment_adapter (
-    trans_complaint_equipment_adapter_id uuid default gen_random_uuid(),
+create table tests.trans_complaint_equipment (
+    trans_complaint_equipment_id uuid default gen_random_uuid(),
     trans_complaint_id uuid not null,
-    mstr_equipment_id uuid not null,
-    name varchar(255) default null,
-    number varchar(255) default null,
-    title varchar(255) default null,
-    detail varchar(1024) default null,
     symbol varchar(16) default '',
+    equipment_history_id uuid not null,
+    equipment_id uuid not null,
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
     update_user_history_id uuid default null,
     remove boolean default 'f'
 );
-create table tests.trans_complaint_process_adapter (
-    trans_complaint_process_adapter_id uuid not null,
+create table tests.trans_complaint_process (
+    trans_complaint_process_id uuid default gen_random_uuid(),
     trans_complaint_id uuid not null,
     mstr_task_id uuid not null,
-    name varchar(255) default null,
-    number varchar(255) default null,
-    title varchar(255) default null,
-    detail varchar(1024) default null,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -2421,14 +2492,10 @@ create table tests.trans_complaint_process_adapter (
     update_user_history_id uuid default null,
     remove boolean default 'f'
 );
-create table tests.trans_complaint_order_adapter (
-    trans_complaint_order_adapter_id uuid default gen_random_uuid(),
+create table tests.trans_complaint_order (
+    trans_complaint_order_id uuid default gen_random_uuid(),
     trans_complaint_id uuid not null,
     trans_order_id uuid not null,
-    name varchar(255) default null,
-    number varchar(255) default null,
-    title varchar(255) default null,
-    detail varchar(1024) default null,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -2440,13 +2507,16 @@ create table tests.trans_disposal (
     trans_disposal_id uuid default gen_random_uuid(),
     trans_complaint_id uuid not null,
     disposal_at timestamp default now(),
-    name varchar(255) default null,
-    number varchar(255) default null,
-    title varchar(255) not null,
-    detail varchar(1024) not null,
+    titles uuid not null,
+    details uuid not null,
     approval uuid default null,
     approval_at timestamp default null,
+    department_history_id uuid not null,
+    department_id uuid not null,
+    operation_staff_history_id uuid not null,
+    operation_staff_id uuid not null,
     symbol varchar(16) default '',
+    approvals uuid not null,
     remarks varchar(1024) default null,
     update_at timestamp default now(),
     update_user_id uuid default null,
@@ -2455,14 +2525,13 @@ create table tests.trans_disposal (
 );
 create table tests.trans_recurrence_prevention (
     trans_recurrence_prevention_id uuid default gen_random_uuid(),
-    trans_complaint_id uuid not null,
     trans_disposal_id uuid not null,
     occurent_at timestamp default now(),
-    title varchar(255) not null,
-    detail varchar(1024) not null,
-    reporter uuid not null,
-    recipient uuid default null,
-    approved uuid default null,
+    approvals uuid default null,
+    titles uuid not null,
+    details uuid not null,
+    operation_staff_history_id uuid not null,
+    operation_staff_id uuid not null,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -2473,11 +2542,11 @@ create table tests.trans_recurrence_prevention (
 create table tests.trans_complaint (
     trans_complaint_id uuid default gen_random_uuid(),
     occurent_at timestamp default now(),
-    title varchar(255) not null,
-    detail varchar(1024) not null,
-    reporter uuid not null,
-    recipient uuid default null,
-    approved uuid default null,
+    titles uuid not null,
+    details uuid not null,
+    reporter_history_id uuid not null,
+    reporter_staff_id uuid not null,
+    approvals uuid default null,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -2566,8 +2635,8 @@ create table tests.mstr_inspection (
     time_interval interval default '0 0:00:00',
     external_inspection uuid default null,
     inspection_formula_id uuid default null,
-    revision integer default 1,
     mstr_item_id uuid not null,
+    revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -2714,9 +2783,7 @@ create table tests.trans_file (
     trans_file_id uuid default gen_random_uuid(),
     binary_data text not null,
     name varchar(255) not null,
-    number varchar(255) default null,
-    title varchar(255) default null,
-    detail varchar(1024) default null,
+    media_type varchar(255) default '',
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -3294,7 +3361,112 @@ create table tests.info_office (
     update_user_history_id uuid default null,
     remove boolean default 'f'
 );
---222.add table comments
+--231.add table comments
+comment on table tests.trans_text is 'テキスト';
+comment on column tests.trans_text.trans_text_id is 'テキストID';
+comment on column tests.trans_text.symbol is 'リニアシンボル';
+comment on column tests.trans_text.remarks is '備考';
+comment on column tests.trans_text.update_at is '更新日時';
+comment on column tests.trans_text.update_user_id is '更新者ID';
+comment on column tests.trans_text.update_user_history_id is '更新者履歴ID';
+comment on column tests.trans_text.remove is '削除';
+comment on table tests.trans_text_value is 'テキストバリュー';
+comment on column tests.trans_text_value.trans_text_value_id is 'テキストバリューID';
+comment on column tests.trans_text_value.trans_text_id is 'テキストID';
+comment on column tests.trans_text_value.shared_language_code_id is '言語コードID';
+comment on column tests.trans_text_value.text_value is 'テキスト';
+comment on column tests.trans_text_value.symbol is 'リニアシンボル';
+comment on column tests.trans_text_value.remarks is '備考';
+comment on column tests.trans_text_value.update_at is '更新日時';
+comment on column tests.trans_text_value.update_user_id is '更新者ID';
+comment on column tests.trans_text_value.update_user_history_id is '更新者履歴ID';
+comment on column tests.trans_text_value.remove is '削除';
+comment on table tests.trans_label_value is 'ラベルバリュー';
+comment on column tests.trans_label_value.trans_label_value_id is '共有辞書バリューID';
+comment on column tests.trans_label_value.trans_label_id is 'ラベル辞書ID';
+comment on column tests.trans_label_value.shared_language_code_id is '言語コードID';
+comment on column tests.trans_label_value.dictionary_value is '値';
+comment on column tests.trans_label_value.symbol is 'リニアシンボル';
+comment on column tests.trans_label_value.remarks is '備考';
+comment on column tests.trans_label_value.update_at is '更新日時';
+comment on column tests.trans_label_value.update_user_id is '更新者ID';
+comment on column tests.trans_label_value.update_user_history_id is '更新者履歴ID';
+comment on column tests.trans_label_value.remove is '削除';
+comment on table tests.history_shared_text_value is '共有テキストバリュー履歴';
+comment on column tests.history_shared_text_value.history_id is '履歴ID';
+comment on column tests.history_shared_text_value.shared_text_value_id is 'テキストバリューID';
+comment on column tests.history_shared_text_value.shared_language_code_id is '言語コードID';
+comment on column tests.history_shared_text_value.shared_text_id is '共有テキストID';
+comment on column tests.history_shared_text_value.text_value is 'テキスト';
+comment on column tests.history_shared_text_value.revision is 'レビジョン';
+comment on column tests.history_shared_text_value.symbol is 'リニアシンボル';
+comment on column tests.history_shared_text_value.remarks is '備考';
+comment on column tests.history_shared_text_value.update_at is '更新日時';
+comment on column tests.history_shared_text_value.update_user_id is '更新者ID';
+comment on column tests.history_shared_text_value.update_user_history_id is '更新者履歴ID';
+comment on column tests.history_shared_text_value.remove is '削除';
+comment on table tests.trans_label is 'ラベル';
+comment on column tests.trans_label.trans_label_id is 'ラベル辞書ID';
+comment on column tests.trans_label.symbol is 'リニアシンボル';
+comment on column tests.trans_label.remarks is '備考';
+comment on column tests.trans_label.update_at is '更新日時';
+comment on column tests.trans_label.update_user_id is '更新者ID';
+comment on column tests.trans_label.update_user_history_id is '更新者履歴ID';
+comment on column tests.trans_label.remove is '削除';
+comment on table tests.trans_complaint_receive is '異常報告受領';
+comment on column tests.trans_complaint_receive.trans_complaint_receive_id is '異常報告受領ID';
+comment on column tests.trans_complaint_receive.trans_complaint_id is '異常ID';
+comment on column tests.trans_complaint_receive.receive_at is '受領日';
+comment on column tests.trans_complaint_receive.receive_history_id is '受領者履歴ID';
+comment on column tests.trans_complaint_receive.receive_staff_id is '受領者ID';
+comment on column tests.trans_complaint_receive.details is '詳細';
+comment on column tests.trans_complaint_receive.symbol is 'リニアシンボル';
+comment on column tests.trans_complaint_receive.remarks is '備考';
+comment on column tests.trans_complaint_receive.update_at is '更新日時';
+comment on column tests.trans_complaint_receive.update_user_id is '更新者ID';
+comment on column tests.trans_complaint_receive.update_user_history_id is '更新者履歴ID';
+comment on column tests.trans_complaint_receive.remove is '削除';
+comment on table tests.trans_complaint_file is '異常報告ファイル';
+comment on column tests.trans_complaint_file.trans_complaint_file_id is '異常報告書ID';
+comment on column tests.trans_complaint_file.trans_complaint_id is '異常ID';
+comment on column tests.trans_complaint_file.trans_file_id is 'ファイルID';
+comment on column tests.trans_complaint_file.symbol is 'リニアシンボル';
+comment on column tests.trans_complaint_file.remarks is '備考';
+comment on column tests.trans_complaint_file.update_at is '更新日時';
+comment on column tests.trans_complaint_file.update_user_id is '更新者ID';
+comment on column tests.trans_complaint_file.update_user_history_id is '更新者履歴ID';
+comment on column tests.trans_complaint_file.remove is '削除';
+comment on table tests.history_shared_text is '共有テキスト履歴';
+comment on column tests.history_shared_text.history_id is '履歴ID';
+comment on column tests.history_shared_text.shared_text_id is '共有テキストID';
+comment on column tests.history_shared_text.revision is 'レビジョン';
+comment on column tests.history_shared_text.symbol is 'リニアシンボル';
+comment on column tests.history_shared_text.remarks is '備考';
+comment on column tests.history_shared_text.update_at is '更新日時';
+comment on column tests.history_shared_text.update_user_id is '更新者ID';
+comment on column tests.history_shared_text.update_user_history_id is '更新者履歴ID';
+comment on column tests.history_shared_text.remove is '削除';
+comment on table tests.shared_text is '共有テキスト';
+comment on column tests.shared_text.shared_text_id is '共有テキストID';
+comment on column tests.shared_text.revision is 'レビジョン';
+comment on column tests.shared_text.symbol is 'リニアシンボル';
+comment on column tests.shared_text.remarks is '備考';
+comment on column tests.shared_text.update_at is '更新日時';
+comment on column tests.shared_text.update_user_id is '更新者ID';
+comment on column tests.shared_text.update_user_history_id is '更新者履歴ID';
+comment on column tests.shared_text.remove is '削除';
+comment on table tests.shared_text_value is '共有テキストバリュー';
+comment on column tests.shared_text_value.shared_text_value_id is 'テキストバリューID';
+comment on column tests.shared_text_value.shared_language_code_id is '言語コードID';
+comment on column tests.shared_text_value.shared_text_id is '共有テキストID';
+comment on column tests.shared_text_value.text_value is 'テキスト';
+comment on column tests.shared_text_value.revision is 'レビジョン';
+comment on column tests.shared_text_value.symbol is 'リニアシンボル';
+comment on column tests.shared_text_value.remarks is '備考';
+comment on column tests.shared_text_value.update_at is '更新日時';
+comment on column tests.shared_text_value.update_user_id is '更新者ID';
+comment on column tests.shared_text_value.update_user_history_id is '更新者履歴ID';
+comment on column tests.shared_text_value.remove is '削除';
 comment on table tests.history_mstr_item_lot is '品目ロットマスタ履歴';
 comment on column tests.history_mstr_item_lot.history_id is '履歴ID';
 comment on column tests.history_mstr_item_lot.mstr_item_lot_id is '品目ロットID';
@@ -4492,7 +4664,7 @@ comment on column tests.history_mstr_audit_std_checkitem.mstr_audit_std_id is '�
 comment on column tests.history_mstr_audit_std_checkitem.code is '監査標準項目コード';
 comment on column tests.history_mstr_audit_std_checkitem.control_code is '管理コード';
 comment on column tests.history_mstr_audit_std_checkitem.names is '標準項目名称';
-comment on column tests.history_mstr_audit_std_checkitem.detail is '詳細';
+comment on column tests.history_mstr_audit_std_checkitem.details is '詳細';
 comment on column tests.history_mstr_audit_std_checkitem.type_class is '型';
 comment on column tests.history_mstr_audit_std_checkitem.formula_class is '式';
 comment on column tests.history_mstr_audit_std_checkitem.arg_class is '引数';
@@ -4510,7 +4682,7 @@ comment on column tests.history_mstr_audit_std.code is '監査標準コード';
 comment on column tests.history_mstr_audit_std.control_code is '管理コード';
 comment on column tests.history_mstr_audit_std.category is '区分';
 comment on column tests.history_mstr_audit_std.names is '監査標準名称';
-comment on column tests.history_mstr_audit_std.detail is '詳細';
+comment on column tests.history_mstr_audit_std.details is '詳細';
 comment on column tests.history_mstr_audit_std.revision is 'レビジョン';
 comment on column tests.history_mstr_audit_std.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_audit_std.remarks is '備考';
@@ -5139,9 +5311,9 @@ comment on column tests.trans_approved.trans_approved_id is '承認結果ID';
 comment on column tests.trans_approved.trans_preapproval_id is '承認前ID';
 comment on column tests.trans_approved.approved is '承認適用';
 comment on column tests.trans_approved.status is '状態';
-comment on column tests.trans_approved.symbol is 'リニアシンボル';
 comment on column tests.trans_approved.approver_history_id is '承認者履歴ID';
 comment on column tests.trans_approved.approver_info_staff_id is '承認者担当者ID';
+comment on column tests.trans_approved.symbol is 'リニアシンボル';
 comment on column tests.trans_approved.remarks is '備考';
 comment on column tests.trans_approved.update_at is '更新日時';
 comment on column tests.trans_approved.update_user_id is '更新者ID';
@@ -5216,7 +5388,6 @@ comment on column tests.trans_audit_member.update_user_history_id is '更新者�
 comment on column tests.trans_audit_member.remove is '削除';
 comment on table tests.trans_auditor is '監査員';
 comment on column tests.trans_auditor.trans_auditor_id is '監査員ID';
-comment on column tests.trans_auditor.trans_audit_id is '監査ID';
 comment on column tests.trans_auditor.trans_audit_team_id is 'チームID';
 comment on column tests.trans_auditor.audit_history_id is '監査標準履歴ID';
 comment on column tests.trans_auditor.mstr_audit_std_id is '監査標準ID';
@@ -5232,7 +5403,7 @@ comment on column tests.trans_auditor.remove is '削除';
 comment on table tests.trans_audit_team is '監査チーム';
 comment on column tests.trans_audit_team.trans_audit_team_id is 'チームID';
 comment on column tests.trans_audit_team.trans_audit_id is '監査ID';
-comment on column tests.trans_audit_team.name is 'チーム名';
+comment on column tests.trans_audit_team.names is 'チーム名';
 comment on column tests.trans_audit_team.symbol is 'リニアシンボル';
 comment on column tests.trans_audit_team.remarks is '備考';
 comment on column tests.trans_audit_team.update_at is '更新日時';
@@ -5247,10 +5418,8 @@ comment on column tests.trans_audit.staff_history_id is '監査責任者履歴ID
 comment on column tests.trans_audit.info_staff_id is '監査責任者ID';
 comment on column tests.trans_audit.scheduled_start_date is '開始予定日';
 comment on column tests.trans_audit.expected_end_date is '終了予定日';
-comment on column tests.trans_audit.name is '名前';
-comment on column tests.trans_audit.number is '番号';
-comment on column tests.trans_audit.title is 'タイトル';
-comment on column tests.trans_audit.detail is '詳細';
+comment on column tests.trans_audit.titles is 'タイトル';
+comment on column tests.trans_audit.details is '詳細';
 comment on column tests.trans_audit.info_department_id is '組織情報ID';
 comment on column tests.trans_audit.mstr_stakeholder_id is '利害関係者ID';
 comment on column tests.trans_audit.symbol is 'リニアシンボル';
@@ -5263,10 +5432,6 @@ comment on table tests.trans_task_risk is '工程リスク';
 comment on column tests.trans_task_risk.trans_task_risk_id is '工程リスクID';
 comment on column tests.trans_task_risk.mstr_task_id is '工程ID';
 comment on column tests.trans_task_risk.risk_id is 'リスクID';
-comment on column tests.trans_task_risk.name is '名前';
-comment on column tests.trans_task_risk.number is '番号';
-comment on column tests.trans_task_risk.title is 'タイトル';
-comment on column tests.trans_task_risk.detail is '詳細';
 comment on column tests.trans_task_risk.symbol is 'リニアシンボル';
 comment on column tests.trans_task_risk.remarks is '備考';
 comment on column tests.trans_task_risk.update_at is '更新日時';
@@ -5279,10 +5444,6 @@ comment on column tests.trans_order_detail_risk.trans_order_detail_id is '受注
 comment on column tests.trans_order_detail_risk.risk_id is 'リスクID';
 comment on column tests.trans_order_detail_risk.order_id is '受注ID';
 comment on column tests.trans_order_detail_risk.mstr_item_id is '品目ID';
-comment on column tests.trans_order_detail_risk.name is '名前';
-comment on column tests.trans_order_detail_risk.number is '番号';
-comment on column tests.trans_order_detail_risk.title is 'タイトル';
-comment on column tests.trans_order_detail_risk.detail is '詳細';
 comment on column tests.trans_order_detail_risk.symbol is 'リニアシンボル';
 comment on column tests.trans_order_detail_risk.remarks is '備考';
 comment on column tests.trans_order_detail_risk.update_at is '更新日時';
@@ -5298,8 +5459,8 @@ comment on column tests.trans_prevention_detail.start_at is '開始日';
 comment on column tests.trans_prevention_detail.stop_at is '終了日';
 comment on column tests.trans_prevention_detail.name is '名前';
 comment on column tests.trans_prevention_detail.number is '番号';
-comment on column tests.trans_prevention_detail.title is 'タイトル';
-comment on column tests.trans_prevention_detail.detail is '詳細';
+comment on column tests.trans_prevention_detail.titles is 'タイトル';
+comment on column tests.trans_prevention_detail.details is '詳細';
 comment on column tests.trans_prevention_detail.symbol is 'リニアシンボル';
 comment on column tests.trans_prevention_detail.remarks is '備考';
 comment on column tests.trans_prevention_detail.update_at is '更新日時';
@@ -5311,8 +5472,8 @@ comment on column tests.trans_prevention.trans_prevention_id is '未然防止ID'
 comment on column tests.trans_prevention.trans_risk_id is 'リスクID';
 comment on column tests.trans_prevention.name is '名前';
 comment on column tests.trans_prevention.number is '番号';
-comment on column tests.trans_prevention.title is 'タイトル';
-comment on column tests.trans_prevention.detail is '詳細';
+comment on column tests.trans_prevention.titles is 'タイトル';
+comment on column tests.trans_prevention.details is '詳細';
 comment on column tests.trans_prevention.symbol is 'リニアシンボル';
 comment on column tests.trans_prevention.remarks is '備考';
 comment on column tests.trans_prevention.update_at is '更新日時';
@@ -5323,10 +5484,6 @@ comment on table tests.trans_order_risk is '注文リスク';
 comment on column tests.trans_order_risk.trans_order_risk_id is '注文リスクID';
 comment on column tests.trans_order_risk.trans_order_id is '注文ID';
 comment on column tests.trans_order_risk.trans_risk_id is 'リスクID';
-comment on column tests.trans_order_risk.name is '名前';
-comment on column tests.trans_order_risk.number is '番号';
-comment on column tests.trans_order_risk.title is 'タイトル';
-comment on column tests.trans_order_risk.detail is '詳細';
 comment on column tests.trans_order_risk.symbol is 'リニアシンボル';
 comment on column tests.trans_order_risk.remarks is '備考';
 comment on column tests.trans_order_risk.update_at is '更新日時';
@@ -5356,30 +5513,13 @@ comment on column tests.hrchy_mstr_location.update_at is '更新日時';
 comment on column tests.hrchy_mstr_location.update_user_id is '更新者ID';
 comment on column tests.hrchy_mstr_location.update_user_history_id is '更新者履歴ID';
 comment on column tests.hrchy_mstr_location.remove is '削除';
-comment on table tests.trans_disposal_detail is '異常処置明細';
-comment on column tests.trans_disposal_detail.trans_disposal_detail_id is '異常処置ID';
-comment on column tests.trans_disposal_detail.trans_disposal_id is '異常処置明細ID';
-comment on column tests.trans_disposal_detail.trans_complaint_id is '異常ID';
-comment on column tests.trans_disposal_detail.location_id is '取り組み場所ID';
-comment on column tests.trans_disposal_detail.info_company_id is '会社情報';
-comment on column tests.trans_disposal_detail.info_department_id is '組織ID';
-comment on column tests.trans_disposal_detail.name is '名前';
-comment on column tests.trans_disposal_detail.number is '番号';
-comment on column tests.trans_disposal_detail.title is 'タイトル';
-comment on column tests.trans_disposal_detail.detail is '詳細';
-comment on column tests.trans_disposal_detail.symbol is 'リニアシンボル';
-comment on column tests.trans_disposal_detail.remarks is '備考';
-comment on column tests.trans_disposal_detail.update_at is '更新日時';
-comment on column tests.trans_disposal_detail.update_user_id is '更新者ID';
-comment on column tests.trans_disposal_detail.update_user_history_id is '更新者履歴ID';
-comment on column tests.trans_disposal_detail.remove is '削除';
 comment on table tests.mstr_audit_std_checkitem is '監査標準項目マスタ';
 comment on column tests.mstr_audit_std_checkitem.mstr_audit_std_checkitem_id is '項目ID';
 comment on column tests.mstr_audit_std_checkitem.mstr_audit_std_id is '監査標準ID';
 comment on column tests.mstr_audit_std_checkitem.code is '監査標準項目コード';
 comment on column tests.mstr_audit_std_checkitem.control_code is '管理コード';
 comment on column tests.mstr_audit_std_checkitem.names is '標準項目名称';
-comment on column tests.mstr_audit_std_checkitem.detail is '詳細';
+comment on column tests.mstr_audit_std_checkitem.details is '詳細';
 comment on column tests.mstr_audit_std_checkitem.type_class is '型';
 comment on column tests.mstr_audit_std_checkitem.formula_class is '式';
 comment on column tests.mstr_audit_std_checkitem.arg_class is '引数';
@@ -5396,7 +5536,7 @@ comment on column tests.mstr_audit_std.code is '監査標準コード';
 comment on column tests.mstr_audit_std.control_code is '管理コード';
 comment on column tests.mstr_audit_std.category is '区分';
 comment on column tests.mstr_audit_std.names is '監査標準名称';
-comment on column tests.mstr_audit_std.detail is '詳細';
+comment on column tests.mstr_audit_std.details is '詳細';
 comment on column tests.mstr_audit_std.revision is 'レビジョン';
 comment on column tests.mstr_audit_std.symbol is 'リニアシンボル';
 comment on column tests.mstr_audit_std.remarks is '備考';
@@ -5407,9 +5547,8 @@ comment on column tests.mstr_audit_std.remove is '削除';
 comment on table tests.trans_risk is 'リスク';
 comment on column tests.trans_risk.trans_risk_id is 'リスクID';
 comment on column tests.trans_risk.name is '名前';
-comment on column tests.trans_risk.title is 'タイトル';
-comment on column tests.trans_risk.number is '番号';
-comment on column tests.trans_risk.detail is 'リスク詳細';
+comment on column tests.trans_risk.titles is 'タイトル';
+comment on column tests.trans_risk.details is 'リスク詳細';
 comment on column tests.trans_risk.frequency is '発生頻度';
 comment on column tests.trans_risk.momentous is '重大度';
 comment on column tests.trans_risk.action is '対応可否';
@@ -5442,73 +5581,62 @@ comment on column tests.trans_observer_disposal.update_at is '更新日時';
 comment on column tests.trans_observer_disposal.update_user_id is '更新者ID';
 comment on column tests.trans_observer_disposal.update_user_history_id is '更新者履歴ID';
 comment on column tests.trans_observer_disposal.remove is '削除';
-comment on table tests.trans_complaint_stakeholder_adapter is '利害関係者苦情';
-comment on column tests.trans_complaint_stakeholder_adapter.trans_complaint_stakeholder_adapter_id is '異常処理ID';
-comment on column tests.trans_complaint_stakeholder_adapter.trans_complaint_id is '異常ID';
-comment on column tests.trans_complaint_stakeholder_adapter.mstr_stakeholder_id is '利害関係者ID';
-comment on column tests.trans_complaint_stakeholder_adapter.name is '名前';
-comment on column tests.trans_complaint_stakeholder_adapter.number is '番号';
-comment on column tests.trans_complaint_stakeholder_adapter.title is 'タイトル';
-comment on column tests.trans_complaint_stakeholder_adapter.detail is '詳細';
-comment on column tests.trans_complaint_stakeholder_adapter.symbol is 'リニアシンボル';
-comment on column tests.trans_complaint_stakeholder_adapter.remarks is '備考';
-comment on column tests.trans_complaint_stakeholder_adapter.update_at is '更新日時';
-comment on column tests.trans_complaint_stakeholder_adapter.update_user_id is '更新者ID';
-comment on column tests.trans_complaint_stakeholder_adapter.update_user_history_id is '更新者履歴ID';
-comment on column tests.trans_complaint_stakeholder_adapter.remove is '削除';
-comment on table tests.trans_complaint_equipment_adapter is '設備苦情';
-comment on column tests.trans_complaint_equipment_adapter.trans_complaint_equipment_adapter_id is '異常処理ID';
-comment on column tests.trans_complaint_equipment_adapter.trans_complaint_id is '異常ID';
-comment on column tests.trans_complaint_equipment_adapter.mstr_equipment_id is '設備ID';
-comment on column tests.trans_complaint_equipment_adapter.name is '名前';
-comment on column tests.trans_complaint_equipment_adapter.number is '番号';
-comment on column tests.trans_complaint_equipment_adapter.title is 'タイトル';
-comment on column tests.trans_complaint_equipment_adapter.detail is '詳細';
-comment on column tests.trans_complaint_equipment_adapter.symbol is 'リニアシンボル';
-comment on column tests.trans_complaint_equipment_adapter.remarks is '備考';
-comment on column tests.trans_complaint_equipment_adapter.update_at is '更新日時';
-comment on column tests.trans_complaint_equipment_adapter.update_user_id is '更新者ID';
-comment on column tests.trans_complaint_equipment_adapter.update_user_history_id is '更新者履歴ID';
-comment on column tests.trans_complaint_equipment_adapter.remove is '削除';
-comment on table tests.trans_complaint_process_adapter is '工程苦情';
-comment on column tests.trans_complaint_process_adapter.trans_complaint_process_adapter_id is '異常処理ID';
-comment on column tests.trans_complaint_process_adapter.trans_complaint_id is '異常ID';
-comment on column tests.trans_complaint_process_adapter.mstr_task_id is '工程ID';
-comment on column tests.trans_complaint_process_adapter.name is '名前';
-comment on column tests.trans_complaint_process_adapter.number is '番号';
-comment on column tests.trans_complaint_process_adapter.title is 'タイトル';
-comment on column tests.trans_complaint_process_adapter.detail is '詳細';
-comment on column tests.trans_complaint_process_adapter.symbol is 'リニアシンボル';
-comment on column tests.trans_complaint_process_adapter.remarks is '備考';
-comment on column tests.trans_complaint_process_adapter.update_at is '更新日時';
-comment on column tests.trans_complaint_process_adapter.update_user_id is '更新者ID';
-comment on column tests.trans_complaint_process_adapter.update_user_history_id is '更新者履歴ID';
-comment on column tests.trans_complaint_process_adapter.remove is '削除';
-comment on table tests.trans_complaint_order_adapter is '注文苦情';
-comment on column tests.trans_complaint_order_adapter.trans_complaint_order_adapter_id is '異常処理ID';
-comment on column tests.trans_complaint_order_adapter.trans_complaint_id is '異常ID';
-comment on column tests.trans_complaint_order_adapter.trans_order_id is '注文ID';
-comment on column tests.trans_complaint_order_adapter.name is '名前';
-comment on column tests.trans_complaint_order_adapter.number is '番号';
-comment on column tests.trans_complaint_order_adapter.title is 'タイトル';
-comment on column tests.trans_complaint_order_adapter.detail is '詳細';
-comment on column tests.trans_complaint_order_adapter.symbol is 'リニアシンボル';
-comment on column tests.trans_complaint_order_adapter.remarks is '備考';
-comment on column tests.trans_complaint_order_adapter.update_at is '更新日時';
-comment on column tests.trans_complaint_order_adapter.update_user_id is '更新者ID';
-comment on column tests.trans_complaint_order_adapter.update_user_history_id is '更新者履歴ID';
-comment on column tests.trans_complaint_order_adapter.remove is '削除';
+comment on table tests.trans_complaint_stakeholder is '利害関係者苦情';
+comment on column tests.trans_complaint_stakeholder.trans_complaint_stakeholder_id is '利害関係者苦情ID';
+comment on column tests.trans_complaint_stakeholder.trans_complaint_id is '異常ID';
+comment on column tests.trans_complaint_stakeholder.symbol is 'リニアシンボル';
+comment on column tests.trans_complaint_stakeholder.stakeholder_history_id is '利害関係者履歴ID';
+comment on column tests.trans_complaint_stakeholder.stakeholder_id is '利害関係者ID';
+comment on column tests.trans_complaint_stakeholder.remarks is '備考';
+comment on column tests.trans_complaint_stakeholder.update_at is '更新日時';
+comment on column tests.trans_complaint_stakeholder.update_user_id is '更新者ID';
+comment on column tests.trans_complaint_stakeholder.update_user_history_id is '更新者履歴ID';
+comment on column tests.trans_complaint_stakeholder.remove is '削除';
+comment on table tests.trans_complaint_equipment is '設備苦情';
+comment on column tests.trans_complaint_equipment.trans_complaint_equipment_id is '設備苦情ID';
+comment on column tests.trans_complaint_equipment.trans_complaint_id is '異常ID';
+comment on column tests.trans_complaint_equipment.symbol is 'リニアシンボル';
+comment on column tests.trans_complaint_equipment.equipment_history_id is '設備履歴ID';
+comment on column tests.trans_complaint_equipment.equipment_id is '設備ID';
+comment on column tests.trans_complaint_equipment.remarks is '備考';
+comment on column tests.trans_complaint_equipment.update_at is '更新日時';
+comment on column tests.trans_complaint_equipment.update_user_id is '更新者ID';
+comment on column tests.trans_complaint_equipment.update_user_history_id is '更新者履歴ID';
+comment on column tests.trans_complaint_equipment.remove is '削除';
+comment on table tests.trans_complaint_process is '工程苦情';
+comment on column tests.trans_complaint_process.trans_complaint_process_id is '工程苦情ID';
+comment on column tests.trans_complaint_process.trans_complaint_id is '異常ID';
+comment on column tests.trans_complaint_process.mstr_task_id is '工程ID';
+comment on column tests.trans_complaint_process.symbol is 'リニアシンボル';
+comment on column tests.trans_complaint_process.remarks is '備考';
+comment on column tests.trans_complaint_process.update_at is '更新日時';
+comment on column tests.trans_complaint_process.update_user_id is '更新者ID';
+comment on column tests.trans_complaint_process.update_user_history_id is '更新者履歴ID';
+comment on column tests.trans_complaint_process.remove is '削除';
+comment on table tests.trans_complaint_order is '注文苦情';
+comment on column tests.trans_complaint_order.trans_complaint_order_id is '注文苦情ID';
+comment on column tests.trans_complaint_order.trans_complaint_id is '異常ID';
+comment on column tests.trans_complaint_order.trans_order_id is '注文ID';
+comment on column tests.trans_complaint_order.symbol is 'リニアシンボル';
+comment on column tests.trans_complaint_order.remarks is '備考';
+comment on column tests.trans_complaint_order.update_at is '更新日時';
+comment on column tests.trans_complaint_order.update_user_id is '更新者ID';
+comment on column tests.trans_complaint_order.update_user_history_id is '更新者履歴ID';
+comment on column tests.trans_complaint_order.remove is '削除';
 comment on table tests.trans_disposal is '異常処置';
 comment on column tests.trans_disposal.trans_disposal_id is '異常処置ID';
 comment on column tests.trans_disposal.trans_complaint_id is '異常ID';
 comment on column tests.trans_disposal.disposal_at is '処置年月日';
-comment on column tests.trans_disposal.name is '名前';
-comment on column tests.trans_disposal.number is '番号';
-comment on column tests.trans_disposal.title is 'タイトル';
-comment on column tests.trans_disposal.detail is '内容';
+comment on column tests.trans_disposal.titles is 'タイトル';
+comment on column tests.trans_disposal.details is '処置詳細';
 comment on column tests.trans_disposal.approval is '承認';
 comment on column tests.trans_disposal.approval_at is '承認日';
+comment on column tests.trans_disposal.department_history_id is '処置組織履歴ID';
+comment on column tests.trans_disposal.department_id is '処置組織ID';
+comment on column tests.trans_disposal.operation_staff_history_id is '処置担当者履歴ID';
+comment on column tests.trans_disposal.operation_staff_id is '処置担当者ID';
 comment on column tests.trans_disposal.symbol is 'リニアシンボル';
+comment on column tests.trans_disposal.approvals is '承認';
 comment on column tests.trans_disposal.remarks is '備考';
 comment on column tests.trans_disposal.update_at is '更新日時';
 comment on column tests.trans_disposal.update_user_id is '更新者ID';
@@ -5516,14 +5644,13 @@ comment on column tests.trans_disposal.update_user_history_id is '更新者履�
 comment on column tests.trans_disposal.remove is '削除';
 comment on table tests.trans_recurrence_prevention is '再発防止処置';
 comment on column tests.trans_recurrence_prevention.trans_recurrence_prevention_id is '再発防止ID';
-comment on column tests.trans_recurrence_prevention.trans_complaint_id is '異常ID';
 comment on column tests.trans_recurrence_prevention.trans_disposal_id is '異常処置ID';
 comment on column tests.trans_recurrence_prevention.occurent_at is '発生年月日';
-comment on column tests.trans_recurrence_prevention.title is 'タイトル';
-comment on column tests.trans_recurrence_prevention.detail is '内容';
-comment on column tests.trans_recurrence_prevention.reporter is '報告者';
-comment on column tests.trans_recurrence_prevention.recipient is '受領者';
-comment on column tests.trans_recurrence_prevention.approved is '受領承認';
+comment on column tests.trans_recurrence_prevention.approvals is '承認';
+comment on column tests.trans_recurrence_prevention.titles is 'タイトル';
+comment on column tests.trans_recurrence_prevention.details is '処置詳細';
+comment on column tests.trans_recurrence_prevention.operation_staff_history_id is '実施担当者履歴ID';
+comment on column tests.trans_recurrence_prevention.operation_staff_id is '実施担当者ID';
 comment on column tests.trans_recurrence_prevention.symbol is 'リニアシンボル';
 comment on column tests.trans_recurrence_prevention.remarks is '備考';
 comment on column tests.trans_recurrence_prevention.update_at is '更新日時';
@@ -5533,11 +5660,11 @@ comment on column tests.trans_recurrence_prevention.remove is '削除';
 comment on table tests.trans_complaint is '異常';
 comment on column tests.trans_complaint.trans_complaint_id is '異常ID';
 comment on column tests.trans_complaint.occurent_at is '発生年月日';
-comment on column tests.trans_complaint.title is 'タイトル';
-comment on column tests.trans_complaint.detail is '内容';
-comment on column tests.trans_complaint.reporter is '報告者';
-comment on column tests.trans_complaint.recipient is '受領者';
-comment on column tests.trans_complaint.approved is '受領承認';
+comment on column tests.trans_complaint.titles is 'タイトル';
+comment on column tests.trans_complaint.details is '詳細';
+comment on column tests.trans_complaint.reporter_history_id is '報告者履歴ID';
+comment on column tests.trans_complaint.reporter_staff_id is '報告者ID';
+comment on column tests.trans_complaint.approvals is '承認';
 comment on column tests.trans_complaint.symbol is 'リニアシンボル';
 comment on column tests.trans_complaint.remarks is '備考';
 comment on column tests.trans_complaint.update_at is '更新日時';
@@ -5621,8 +5748,8 @@ comment on column tests.mstr_inspection.base_date is '標準起算日';
 comment on column tests.mstr_inspection.time_interval is '標準間隔';
 comment on column tests.mstr_inspection.external_inspection is '外部点検整備';
 comment on column tests.mstr_inspection.inspection_formula_id is '点検整備項目ID';
-comment on column tests.mstr_inspection.revision is 'レビジョン';
 comment on column tests.mstr_inspection.mstr_item_id is '点検整備サービス品目ID';
+comment on column tests.mstr_inspection.revision is 'レビジョン';
 comment on column tests.mstr_inspection.symbol is 'リニアシンボル';
 comment on column tests.mstr_inspection.remarks is '備考';
 comment on column tests.mstr_inspection.update_at is '更新日時';
@@ -5758,9 +5885,7 @@ comment on table tests.trans_file is 'ファイル';
 comment on column tests.trans_file.trans_file_id is 'ファイルID';
 comment on column tests.trans_file.binary_data is 'バイナリ';
 comment on column tests.trans_file.name is 'ファイル名';
-comment on column tests.trans_file.number is '番号';
-comment on column tests.trans_file.title is 'タイトル';
-comment on column tests.trans_file.detail is '詳細';
+comment on column tests.trans_file.media_type is 'メディアタイプ';
 comment on column tests.trans_file.symbol is 'リニアシンボル';
 comment on column tests.trans_file.remarks is '備考';
 comment on column tests.trans_file.update_at is '更新日時';
@@ -6300,7 +6425,73 @@ comment on column tests.info_office.update_at is '更新日時';
 comment on column tests.info_office.update_user_id is '更新者ID';
 comment on column tests.info_office.update_user_history_id is '更新者履歴ID';
 comment on column tests.info_office.remove is '削除';
---222.add table primary key and index
+--231.add table primary key and index
+create unique index trans_text_PKI
+    on tests.trans_text(trans_text_id);
+alter table tests.trans_text
+    add constraint trans_text_PKC primary key (trans_text_id);
+alter table tests.trans_text
+     add constraint trans_text_IX1 unique (symbol);
+create unique index trans_text_value_PKI
+    on tests.trans_text_value(trans_text_value_id);
+alter table tests.trans_text_value
+    add constraint trans_text_value_PKC primary key (trans_text_value_id);
+alter table tests.trans_text_value
+     add constraint trans_text_value_IX1 unique (symbol);
+alter table tests.trans_text_value
+     add constraint trans_text_value_IX2 unique (shared_language_code_id,trans_text_id);
+create unique index trans_label_value_PKI
+    on tests.trans_label_value(trans_label_value_id);
+alter table tests.trans_label_value
+    add constraint trans_label_value_PKC primary key (trans_label_value_id);
+alter table tests.trans_label_value
+     add constraint trans_label_value_IX1 unique (shared_language_code_id,trans_label_id);
+alter table tests.trans_label_value
+     add constraint trans_label_value_IX2 unique (symbol);
+create unique index history_shared_text_value_PKI
+    on tests.history_shared_text_value(history_id,shared_text_value_id);
+alter table tests.history_shared_text_value
+    add constraint history_shared_text_value_PKC primary key (history_id,shared_text_value_id);
+alter table tests.history_shared_text_value
+     add constraint history_shared_text_value_IX1 unique (shared_text_value_id,revision);
+create unique index trans_label_PKI
+    on tests.trans_label(trans_label_id);
+alter table tests.trans_label
+    add constraint trans_label_PKC primary key (trans_label_id);
+alter table tests.trans_label
+     add constraint trans_label_IX1 unique (symbol);
+create unique index trans_complaint_receive_PKI
+    on tests.trans_complaint_receive(trans_complaint_receive_id);
+alter table tests.trans_complaint_receive
+    add constraint trans_complaint_receive_PKC primary key (trans_complaint_receive_id);
+alter table tests.trans_complaint_receive
+     add constraint trans_complaint_receive_IX1 unique (symbol);
+create unique index trans_complaint_file_PKI
+    on tests.trans_complaint_file(trans_complaint_file_id);
+alter table tests.trans_complaint_file
+    add constraint trans_complaint_file_PKC primary key (trans_complaint_file_id);
+alter table tests.trans_complaint_file
+     add constraint trans_complaint_file_IX1 unique (symbol);
+create unique index history_shared_text_PKI
+    on tests.history_shared_text(history_id,shared_text_id);
+alter table tests.history_shared_text
+    add constraint history_shared_text_PKC primary key (history_id,shared_text_id);
+alter table tests.history_shared_text
+     add constraint history_shared_text_IX1 unique (shared_text_id,revision);
+create unique index shared_text_PKI
+    on tests.shared_text(shared_text_id);
+alter table tests.shared_text
+    add constraint shared_text_PKC primary key (shared_text_id);
+alter table tests.shared_text
+     add constraint shared_text_IX1 unique (symbol);
+create unique index shared_text_value_PKI
+    on tests.shared_text_value(shared_text_value_id);
+alter table tests.shared_text_value
+    add constraint shared_text_value_PKC primary key (shared_text_value_id);
+alter table tests.shared_text_value
+     add constraint shared_text_value_IX1 unique (symbol);
+alter table tests.shared_text_value
+     add constraint shared_text_value_IX2 unique (shared_language_code_id,shared_text_id);
 create unique index history_mstr_item_lot_PKI
     on tests.history_mstr_item_lot(history_id,mstr_item_lot_id);
 alter table tests.history_mstr_item_lot
@@ -6853,9 +7044,9 @@ alter table tests.history_mstr_item
 alter table tests.history_mstr_item
      add constraint history_mstr_item_IX1 unique (mstr_item_id,revision);
 create unique index history_mstr_audit_std_checkitem_PKI
-    on tests.history_mstr_audit_std_checkitem(history_id,mstr_audit_std_checkitem_id,mstr_audit_std_id);
+    on tests.history_mstr_audit_std_checkitem(history_id,mstr_audit_std_checkitem_id);
 alter table tests.history_mstr_audit_std_checkitem
-    add constraint history_mstr_audit_std_checkitem_PKC primary key (history_id,mstr_audit_std_checkitem_id,mstr_audit_std_id);
+    add constraint history_mstr_audit_std_checkitem_PKC primary key (history_id,mstr_audit_std_checkitem_id);
 alter table tests.history_mstr_audit_std_checkitem
      add constraint history_mstr_audit_std_checkitem_IX1 unique (mstr_audit_std_checkitem_id,revision);
 create unique index history_mstr_audit_std_PKI
@@ -7179,15 +7370,15 @@ alter table tests.trans_audit_member
 alter table tests.trans_audit_member
      add constraint trans_audit_member_IX1 unique (symbol);
 create unique index trans_auditor_PKI
-    on tests.trans_auditor(trans_auditor_id,trans_audit_id,trans_audit_team_id);
+    on tests.trans_auditor(trans_auditor_id);
 alter table tests.trans_auditor
-    add constraint trans_auditor_PKC primary key (trans_auditor_id,trans_audit_id,trans_audit_team_id);
+    add constraint trans_auditor_PKC primary key (trans_auditor_id);
 alter table tests.trans_auditor
      add constraint trans_auditor_IX1 unique (symbol);
 create unique index trans_audit_team_PKI
-    on tests.trans_audit_team(trans_audit_team_id,trans_audit_id);
+    on tests.trans_audit_team(trans_audit_team_id);
 alter table tests.trans_audit_team
-    add constraint trans_audit_team_PKC primary key (trans_audit_team_id,trans_audit_id);
+    add constraint trans_audit_team_PKC primary key (trans_audit_team_id);
 alter table tests.trans_audit_team
      add constraint trans_audit_team_IX1 unique (symbol);
 create unique index trans_audit_PKI
@@ -7209,15 +7400,15 @@ alter table tests.trans_order_detail_risk
 alter table tests.trans_order_detail_risk
      add constraint trans_order_detail_risk_IX1 unique (symbol);
 create unique index trans_prevention_detail_PKI
-    on tests.trans_prevention_detail(trans_prevetion_detail_id,trans_risk_id,trans_prevention_id);
+    on tests.trans_prevention_detail(trans_prevetion_detail_id);
 alter table tests.trans_prevention_detail
-    add constraint trans_prevention_detail_PKC primary key (trans_prevetion_detail_id,trans_risk_id,trans_prevention_id);
+    add constraint trans_prevention_detail_PKC primary key (trans_prevetion_detail_id);
 alter table tests.trans_prevention_detail
      add constraint trans_prevention_detail_IX1 unique (symbol);
 create unique index trans_prevention_PKI
-    on tests.trans_prevention(trans_prevention_id,trans_risk_id);
+    on tests.trans_prevention(trans_prevention_id);
 alter table tests.trans_prevention
-    add constraint trans_prevention_PKC primary key (trans_prevention_id,trans_risk_id);
+    add constraint trans_prevention_PKC primary key (trans_prevention_id);
 alter table tests.trans_prevention
      add constraint trans_prevention_IX1 unique (symbol);
 create unique index trans_order_risk_PKI
@@ -7236,16 +7427,10 @@ create unique index hrchy_mstr_location_PKI
     on tests.hrchy_mstr_location(hrchy_mstr_location_id);
 alter table tests.hrchy_mstr_location
     add constraint hrchy_mstr_location_PKC primary key (hrchy_mstr_location_id);
-create unique index trans_disposal_detail_PKI
-    on tests.trans_disposal_detail(trans_disposal_detail_id,trans_disposal_id,trans_complaint_id);
-alter table tests.trans_disposal_detail
-    add constraint trans_disposal_detail_PKC primary key (trans_disposal_detail_id,trans_disposal_id,trans_complaint_id);
-alter table tests.trans_disposal_detail
-     add constraint trans_disposal_detail_IX1 unique (symbol);
 create unique index mstr_audit_std_checkitem_PKI
-    on tests.mstr_audit_std_checkitem(mstr_audit_std_checkitem_id,mstr_audit_std_id);
+    on tests.mstr_audit_std_checkitem(mstr_audit_std_checkitem_id);
 alter table tests.mstr_audit_std_checkitem
-    add constraint mstr_audit_std_checkitem_PKC primary key (mstr_audit_std_checkitem_id,mstr_audit_std_id);
+    add constraint mstr_audit_std_checkitem_PKC primary key (mstr_audit_std_checkitem_id);
 alter table tests.mstr_audit_std_checkitem
      add constraint mstr_audit_std_checkitem_IX1 unique (symbol);
 create unique index mstr_audit_std_PKI
@@ -7272,36 +7457,34 @@ alter table tests.trans_observer_disposal
     add constraint trans_observer_disposal_PKC primary key (trans_observer_disposal_id);
 alter table tests.trans_observer_disposal
      add constraint trans_observer_disposal_IX1 unique (symbol);
-create unique index trans_complaint_stakeholder_adapter_PKI
-    on tests.trans_complaint_stakeholder_adapter(trans_complaint_stakeholder_adapter_id,trans_complaint_id);
-alter table tests.trans_complaint_stakeholder_adapter
-    add constraint trans_complaint_stakeholder_adapter_PKC primary key (trans_complaint_stakeholder_adapter_id,trans_complaint_id);
-alter table tests.trans_complaint_stakeholder_adapter
-     add constraint trans_complaint_stakeholder_adapter_IX1 unique (symbol);
-create unique index trans_complaint_equipment_adapter_PKI
-    on tests.trans_complaint_equipment_adapter(trans_complaint_equipment_adapter_id);
-alter table tests.trans_complaint_equipment_adapter
-    add constraint trans_complaint_equipment_adapter_PKC primary key (trans_complaint_equipment_adapter_id);
-alter table tests.trans_complaint_equipment_adapter
-     add constraint trans_complaint_equipment_adapter_IX1 unique (trans_complaint_equipment_adapter_id,trans_complaint_id);
-alter table tests.trans_complaint_equipment_adapter
-     add constraint trans_complaint_equipment_adapter_IX2 unique (symbol);
-create unique index trans_complaint_process_adapter_PKI
-    on tests.trans_complaint_process_adapter(trans_complaint_process_adapter_id,trans_complaint_id);
-alter table tests.trans_complaint_process_adapter
-    add constraint trans_complaint_process_adapter_PKC primary key (trans_complaint_process_adapter_id,trans_complaint_id);
-alter table tests.trans_complaint_process_adapter
-     add constraint trans_complaint_process_adapter_IX1 unique (symbol);
-create unique index trans_complaint_order_adapter_PKI
-    on tests.trans_complaint_order_adapter(trans_complaint_order_adapter_id,trans_complaint_id);
-alter table tests.trans_complaint_order_adapter
-    add constraint trans_complaint_order_adapter_PKC primary key (trans_complaint_order_adapter_id,trans_complaint_id);
-alter table tests.trans_complaint_order_adapter
-     add constraint trans_complaint_order_adapter_IX1 unique (symbol);
+create unique index trans_complaint_stakeholder_PKI
+    on tests.trans_complaint_stakeholder(trans_complaint_stakeholder_id);
+alter table tests.trans_complaint_stakeholder
+    add constraint trans_complaint_stakeholder_PKC primary key (trans_complaint_stakeholder_id);
+alter table tests.trans_complaint_stakeholder
+     add constraint trans_complaint_stakeholder_IX1 unique (symbol);
+create unique index trans_complaint_equipment_PKI
+    on tests.trans_complaint_equipment(trans_complaint_equipment_id);
+alter table tests.trans_complaint_equipment
+    add constraint trans_complaint_equipment_PKC primary key (trans_complaint_equipment_id);
+alter table tests.trans_complaint_equipment
+     add constraint trans_complaint_equipment_IX1 unique (symbol);
+create unique index trans_complaint_process_PKI
+    on tests.trans_complaint_process(trans_complaint_process_id);
+alter table tests.trans_complaint_process
+    add constraint trans_complaint_process_PKC primary key (trans_complaint_process_id);
+alter table tests.trans_complaint_process
+     add constraint trans_complaint_process_IX1 unique (symbol);
+create unique index trans_complaint_order_PKI
+    on tests.trans_complaint_order(trans_complaint_order_id);
+alter table tests.trans_complaint_order
+    add constraint trans_complaint_order_PKC primary key (trans_complaint_order_id);
+alter table tests.trans_complaint_order
+     add constraint trans_complaint_order_IX1 unique (symbol);
 create unique index trans_disposal_PKI
-    on tests.trans_disposal(trans_disposal_id,trans_complaint_id);
+    on tests.trans_disposal(trans_disposal_id);
 alter table tests.trans_disposal
-    add constraint trans_disposal_PKC primary key (trans_disposal_id,trans_complaint_id);
+    add constraint trans_disposal_PKC primary key (trans_disposal_id);
 alter table tests.trans_disposal
      add constraint trans_disposal_IX1 unique (symbol);
 create unique index trans_recurrence_prevention_PKI
@@ -7654,7 +7837,30 @@ alter table tests.info_office
     add constraint info_office_PKC primary key (info_office_id);
 alter table tests.info_office
      add constraint info_office_IX1 unique (symbol);
---222.add table foreign key
+--231.add table foreign key
+alter table tests.trans_text add constraint trans_text_FK1 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_text_value add constraint trans_text_value_FK1 foreign key (trans_text_id) references tests.trans_text (trans_text_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_text_value add constraint trans_text_value_FK2 foreign key (shared_language_code_id) references tests.shared_language_code (shared_language_code_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_text_value add constraint trans_text_value_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_label_value add constraint trans_label_value_FK1 foreign key (trans_label_id) references tests.trans_label (trans_label_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_label_value add constraint trans_label_value_FK2 foreign key (shared_language_code_id) references tests.shared_language_code (shared_language_code_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_label_value add constraint trans_label_value_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.history_shared_text_value add constraint history_shared_text_value_FK1 foreign key (shared_text_value_id) references tests.shared_text_value (shared_text_value_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.history_shared_text_value add constraint history_shared_text_value_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_label add constraint trans_label_FK1 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint_receive add constraint trans_complaint_receive_FK1 foreign key (details) references tests.trans_text (trans_text_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint_receive add constraint trans_complaint_receive_FK2 foreign key (receive_history_id,receive_staff_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint_receive add constraint trans_complaint_receive_FK3 foreign key (trans_complaint_id) references tests.trans_complaint (trans_complaint_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint_receive add constraint trans_complaint_receive_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint_file add constraint trans_complaint_file_FK1 foreign key (trans_file_id) references tests.trans_file (trans_file_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint_file add constraint trans_complaint_file_FK2 foreign key (trans_complaint_id) references tests.trans_complaint (trans_complaint_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint_file add constraint trans_complaint_file_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.history_shared_text add constraint history_shared_text_FK1 foreign key (shared_text_id) references tests.shared_text (shared_text_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.history_shared_text add constraint history_shared_text_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.shared_text add constraint shared_text_FK1 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.shared_text_value add constraint shared_text_value_FK1 foreign key (shared_text_id) references tests.shared_text (shared_text_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.shared_text_value add constraint shared_text_value_FK2 foreign key (shared_language_code_id) references tests.shared_language_code (shared_language_code_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.shared_text_value add constraint shared_text_value_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_item_lot add constraint history_mstr_item_lot_FK1 foreign key (mstr_item_lot_id) references tests.mstr_item_lot (mstr_item_lot_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_item_lot add constraint history_mstr_item_lot_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_item_lot add constraint mstr_item_lot_FK1 foreign key (mstr_packing_spec_id) references tests.mstr_packing_spec (mstr_packing_spec_id) DEFERRABLE INITIALLY DEFERRED;
@@ -7865,7 +8071,7 @@ alter table tests.history_mstr_item_tree add constraint history_mstr_item_tree_F
 alter table tests.history_mstr_item add constraint history_mstr_item_FK1 foreign key (mstr_item_lot_id) references tests.mstr_item_lot (mstr_item_lot_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_item add constraint history_mstr_item_FK2 foreign key (mstr_item_id) references tests.mstr_item (mstr_item_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_item add constraint history_mstr_item_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.history_mstr_audit_std_checkitem add constraint history_mstr_audit_std_checkitem_FK1 foreign key (mstr_audit_std_checkitem_id,mstr_audit_std_id) references tests.mstr_audit_std_checkitem (mstr_audit_std_checkitem_id,mstr_audit_std_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.history_mstr_audit_std_checkitem add constraint history_mstr_audit_std_checkitem_FK1 foreign key (mstr_audit_std_checkitem_id) references tests.mstr_audit_std_checkitem (mstr_audit_std_checkitem_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_audit_std_checkitem add constraint history_mstr_audit_std_checkitem_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_audit_std add constraint history_mstr_audit_std_FK1 foreign key (mstr_audit_std_id) references tests.mstr_audit_std (mstr_audit_std_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_audit_std add constraint history_mstr_audit_std_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
@@ -7989,63 +8195,86 @@ alter table tests.trans_approval_pattern add constraint trans_approval_pattern_F
 alter table tests.trans_approval_pattern add constraint trans_approval_pattern_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_audit_member add constraint trans_audit_member_FK1 foreign key (trans_audit_id) references tests.trans_audit (trans_audit_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_audit_member add constraint trans_audit_member_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_auditor add constraint trans_auditor_FK1 foreign key (audit_history_id,mstr_audit_std_id) references tests.history_mstr_audit_std (history_id,mstr_audit_std_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_auditor add constraint trans_auditor_FK2 foreign key (trans_audit_team_id,trans_audit_id) references tests.trans_audit_team (trans_audit_team_id,trans_audit_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_auditor add constraint trans_auditor_FK3 foreign key (trans_audit_id) references tests.trans_audit (trans_audit_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_auditor add constraint trans_auditor_FK1 foreign key (history_id,info_staff_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_auditor add constraint trans_auditor_FK2 foreign key (audit_history_id,mstr_audit_std_id) references tests.history_mstr_audit_std (history_id,mstr_audit_std_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_auditor add constraint trans_auditor_FK3 foreign key (trans_audit_team_id) references tests.trans_audit_team (trans_audit_team_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_auditor add constraint trans_auditor_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_audit_team add constraint trans_audit_team_FK1 foreign key (trans_audit_id) references tests.trans_audit (trans_audit_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_audit_team add constraint trans_audit_team_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_audit add constraint trans_audit_FK1 foreign key (audit_history_id,mstr_audit_std_id) references tests.history_mstr_audit_std (history_id,mstr_audit_std_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_audit add constraint trans_audit_FK2 foreign key (mstr_stakeholder_id) references tests.mstr_stakeholder (mstr_stakeholder_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_audit add constraint trans_audit_FK3 foreign key (info_department_id) references tests.info_department (info_department_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_audit add constraint trans_audit_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_audit_team add constraint trans_audit_team_FK1 foreign key (names) references tests.trans_label (trans_label_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_audit_team add constraint trans_audit_team_FK2 foreign key (trans_audit_id) references tests.trans_audit (trans_audit_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_audit_team add constraint trans_audit_team_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_audit add constraint trans_audit_FK1 foreign key (staff_history_id,info_staff_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_audit add constraint trans_audit_FK2 foreign key (details) references tests.trans_text (trans_text_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_audit add constraint trans_audit_FK3 foreign key (titles) references tests.trans_label (trans_label_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_audit add constraint trans_audit_FK4 foreign key (audit_history_id,mstr_audit_std_id) references tests.history_mstr_audit_std (history_id,mstr_audit_std_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_audit add constraint trans_audit_FK5 foreign key (mstr_stakeholder_id) references tests.mstr_stakeholder (mstr_stakeholder_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_audit add constraint trans_audit_FK6 foreign key (info_department_id) references tests.info_department (info_department_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_audit add constraint trans_audit_FK7 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_task_risk add constraint trans_task_risk_FK1 foreign key (mstr_task_id) references tests.mstr_task (mstr_task_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_task_risk add constraint trans_task_risk_FK2 foreign key (risk_id) references tests.trans_risk (trans_risk_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_task_risk add constraint trans_task_risk_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_order_detail_risk add constraint trans_order_detail_risk_FK1 foreign key (risk_id) references tests.trans_risk (trans_risk_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_order_detail_risk add constraint trans_order_detail_risk_FK2 foreign key (trans_order_detail_id) references tests.trans_order_detail (trans_order_detail_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_order_detail_risk add constraint trans_order_detail_risk_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_prevention_detail add constraint trans_prevention_detail_FK1 foreign key (trans_risk_id) references tests.trans_risk (trans_risk_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_prevention_detail add constraint trans_prevention_detail_FK2 foreign key (info_department_id) references tests.info_department (info_department_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_prevention_detail add constraint trans_prevention_detail_FK3 foreign key (trans_prevention_id,trans_risk_id) references tests.trans_prevention (trans_prevention_id,trans_risk_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_prevention_detail add constraint trans_prevention_detail_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_prevention add constraint trans_prevention_FK1 foreign key (trans_risk_id) references tests.trans_risk (trans_risk_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_prevention add constraint trans_prevention_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_prevention_detail add constraint trans_prevention_detail_FK1 foreign key (details) references tests.trans_text (trans_text_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_prevention_detail add constraint trans_prevention_detail_FK2 foreign key (titles) references tests.trans_label (trans_label_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_prevention_detail add constraint trans_prevention_detail_FK3 foreign key (trans_risk_id) references tests.trans_risk (trans_risk_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_prevention_detail add constraint trans_prevention_detail_FK4 foreign key (info_department_id) references tests.info_department (info_department_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_prevention_detail add constraint trans_prevention_detail_FK5 foreign key (trans_prevention_id) references tests.trans_prevention (trans_prevention_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_prevention_detail add constraint trans_prevention_detail_FK6 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_prevention add constraint trans_prevention_FK1 foreign key (details) references tests.trans_text (trans_text_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_prevention add constraint trans_prevention_FK2 foreign key (titles) references tests.trans_label (trans_label_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_prevention add constraint trans_prevention_FK3 foreign key (trans_risk_id) references tests.trans_risk (trans_risk_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_prevention add constraint trans_prevention_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_order_risk add constraint trans_order_risk_FK1 foreign key (trans_risk_id) references tests.trans_risk (trans_risk_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_order_risk add constraint trans_order_risk_FK2 foreign key (trans_order_id) references tests.trans_order (trans_order_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_order_risk add constraint trans_order_risk_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_equipment_lent add constraint trans_equipment_lent_FK1 foreign key (equipment_history_id,mstr_equipment_id) references tests.history_mstr_equipment (history_id,mstr_equipment_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_equipment_lent add constraint trans_equipment_lent_FK2 foreign key (info_staff_id) references tests.info_staff (info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_equipment_lent add constraint trans_equipment_lent_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_disposal_detail add constraint trans_disposal_detail_FK1 foreign key (trans_disposal_id,trans_complaint_id) references tests.trans_disposal (trans_disposal_id,trans_complaint_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_disposal_detail add constraint trans_disposal_detail_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_audit_std_checkitem add constraint mstr_audit_std_checkitem_FK1 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_audit_std_checkitem add constraint mstr_audit_std_checkitem_FK2 foreign key (mstr_audit_std_id) references tests.mstr_audit_std (mstr_audit_std_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_audit_std_checkitem add constraint mstr_audit_std_checkitem_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_audit_std add constraint mstr_audit_std_FK1 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_audit_std add constraint mstr_audit_std_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_risk add constraint trans_risk_FK1 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_audit_std_checkitem add constraint mstr_audit_std_checkitem_FK1 foreign key (details) references tests.shared_text (shared_text_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_audit_std_checkitem add constraint mstr_audit_std_checkitem_FK2 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_audit_std_checkitem add constraint mstr_audit_std_checkitem_FK3 foreign key (mstr_audit_std_id) references tests.mstr_audit_std (mstr_audit_std_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_audit_std_checkitem add constraint mstr_audit_std_checkitem_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_audit_std add constraint mstr_audit_std_FK1 foreign key (details) references tests.shared_text (shared_text_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_audit_std add constraint mstr_audit_std_FK2 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_audit_std add constraint mstr_audit_std_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_risk add constraint trans_risk_FK1 foreign key (details) references tests.trans_text (trans_text_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_risk add constraint trans_risk_FK2 foreign key (titles) references tests.trans_label (trans_label_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_risk add constraint trans_risk_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_observer_preventive add constraint trans_observer_preventive_FK1 foreign key (trans_recurrence_prevention_id) references tests.trans_recurrence_prevention (trans_recurrence_prevention_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_observer_preventive add constraint trans_observer_preventive_FK2 foreign key (trans_observer_disposal_id) references tests.trans_observer_disposal (trans_observer_disposal_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_observer_preventive add constraint trans_observer_preventive_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_observer_disposal add constraint trans_observer_disposal_FK1 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_complaint_stakeholder_adapter add constraint trans_complaint_stakeholder_adapter_FK1 foreign key (mstr_stakeholder_id) references tests.mstr_stakeholder (mstr_stakeholder_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_complaint_stakeholder_adapter add constraint trans_complaint_stakeholder_adapter_FK2 foreign key (trans_complaint_id) references tests.trans_complaint (trans_complaint_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_complaint_stakeholder_adapter add constraint trans_complaint_stakeholder_adapter_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_complaint_equipment_adapter add constraint trans_complaint_equipment_adapter_FK1 foreign key (mstr_equipment_id) references tests.mstr_equipment (mstr_equipment_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_complaint_equipment_adapter add constraint trans_complaint_equipment_adapter_FK2 foreign key (trans_complaint_id) references tests.trans_complaint (trans_complaint_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_complaint_equipment_adapter add constraint trans_complaint_equipment_adapter_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_complaint_process_adapter add constraint trans_complaint_process_adapter_FK1 foreign key (mstr_task_id) references tests.mstr_task (mstr_task_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_complaint_process_adapter add constraint trans_complaint_process_adapter_FK2 foreign key (trans_complaint_id) references tests.trans_complaint (trans_complaint_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_complaint_process_adapter add constraint trans_complaint_process_adapter_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_complaint_order_adapter add constraint trans_complaint_order_adapter_FK1 foreign key (trans_order_id) references tests.trans_order (trans_order_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_complaint_order_adapter add constraint trans_complaint_order_adapter_FK2 foreign key (trans_complaint_id) references tests.trans_complaint (trans_complaint_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_complaint_order_adapter add constraint trans_complaint_order_adapter_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_disposal add constraint trans_disposal_FK1 foreign key (trans_complaint_id) references tests.trans_complaint (trans_complaint_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_disposal add constraint trans_disposal_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_recurrence_prevention add constraint trans_recurrence_prevention_FK1 foreign key (trans_disposal_id,trans_complaint_id) references tests.trans_disposal (trans_disposal_id,trans_complaint_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_recurrence_prevention add constraint trans_recurrence_prevention_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_complaint add constraint trans_complaint_FK1 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint_stakeholder add constraint trans_complaint_stakeholder_FK1 foreign key (stakeholder_history_id,stakeholder_id) references tests.history_mstr_stakeholder (history_id,mstr_stakeholder_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint_stakeholder add constraint trans_complaint_stakeholder_FK2 foreign key (trans_complaint_id) references tests.trans_complaint (trans_complaint_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint_stakeholder add constraint trans_complaint_stakeholder_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint_equipment add constraint trans_complaint_equipment_FK1 foreign key (equipment_history_id,equipment_id) references tests.history_mstr_equipment (history_id,mstr_equipment_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint_equipment add constraint trans_complaint_equipment_FK2 foreign key (trans_complaint_id) references tests.trans_complaint (trans_complaint_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint_equipment add constraint trans_complaint_equipment_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint_process add constraint trans_complaint_process_FK1 foreign key (mstr_task_id) references tests.mstr_task (mstr_task_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint_process add constraint trans_complaint_process_FK2 foreign key (trans_complaint_id) references tests.trans_complaint (trans_complaint_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint_process add constraint trans_complaint_process_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint_order add constraint trans_complaint_order_FK1 foreign key (trans_order_id) references tests.trans_order (trans_order_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint_order add constraint trans_complaint_order_FK2 foreign key (trans_complaint_id) references tests.trans_complaint (trans_complaint_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint_order add constraint trans_complaint_order_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_disposal add constraint trans_disposal_FK1 foreign key (approval) references tests.trans_approval_pattern (trans_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_disposal add constraint trans_disposal_FK2 foreign key (operation_staff_history_id,operation_staff_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_disposal add constraint trans_disposal_FK3 foreign key (department_history_id,department_id) references tests.history_info_department (history_id,info_department_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_disposal add constraint trans_disposal_FK4 foreign key (details) references tests.trans_text (trans_text_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_disposal add constraint trans_disposal_FK5 foreign key (titles) references tests.trans_label (trans_label_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_disposal add constraint trans_disposal_FK6 foreign key (trans_complaint_id) references tests.trans_complaint (trans_complaint_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_disposal add constraint trans_disposal_FK7 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_recurrence_prevention add constraint trans_recurrence_prevention_FK1 foreign key (approvals) references tests.trans_approval_pattern (trans_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_recurrence_prevention add constraint trans_recurrence_prevention_FK2 foreign key (operation_staff_history_id,operation_staff_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_recurrence_prevention add constraint trans_recurrence_prevention_FK3 foreign key (details) references tests.trans_text (trans_text_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_recurrence_prevention add constraint trans_recurrence_prevention_FK4 foreign key (titles) references tests.trans_label (trans_label_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_recurrence_prevention add constraint trans_recurrence_prevention_FK5 foreign key (trans_disposal_id) references tests.trans_disposal (trans_disposal_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_recurrence_prevention add constraint trans_recurrence_prevention_FK6 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint add constraint trans_complaint_FK1 foreign key (approvals) references tests.trans_approval_pattern (trans_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint add constraint trans_complaint_FK2 foreign key (details) references tests.trans_text (trans_text_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint add constraint trans_complaint_FK3 foreign key (titles) references tests.trans_label (trans_label_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint add constraint trans_complaint_FK4 foreign key (reporter_history_id,reporter_staff_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_complaint add constraint trans_complaint_FK5 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_inspect_imp_file add constraint trans_inspect_imp_file_FK1 foreign key (trans_file_reminder_id) references tests.trans_file_reminder (trans_file_reminder_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_inspect_imp_file add constraint trans_inspect_imp_file_FK2 foreign key (trans_inspect_record_id) references tests.trans_inspect_record (trans_inspect_record_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_inspect_imp_file add constraint trans_inspect_imp_file_FK3 foreign key (trans_file_id) references tests.trans_file (trans_file_id) DEFERRABLE INITIALLY DEFERRED;
@@ -8221,7 +8450,377 @@ alter table tests.info_office add constraint info_office_FK1 foreign key (names)
 alter table tests.info_office add constraint info_office_FK2 foreign key (info_company_id) references tests.info_company (info_company_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_office add constraint info_office_FK3 foreign key (info_address_id) references tests.info_address (info_address_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_office add constraint info_office_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
---222.add table trigger
+--231.add table trigger
+-- trans_text update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_text() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.trans_text_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_trans_text BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_text FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_trans_text();
+
+
+CREATE TRIGGER trg_04_symbol_trans_text BEFORE INSERT ON tests.trans_text FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
+-- trans_text_value update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_text_value() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.trans_text_value_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_trans_text_value BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_text_value FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_trans_text_value();
+
+
+CREATE TRIGGER trg_04_symbol_trans_text_value BEFORE INSERT ON tests.trans_text_value FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
+-- trans_label_value update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_label_value() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.trans_label_value_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_trans_label_value BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_label_value FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_trans_label_value();
+
+
+CREATE TRIGGER trg_04_symbol_trans_label_value BEFORE INSERT ON tests.trans_label_value FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
+-- history_shared_text_value update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_shared_text_value() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.history_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_history_shared_text_value BEFORE INSERT OR UPDATE OR DELETE ON tests.history_shared_text_value FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_history_shared_text_value();
+
+
+CREATE TRIGGER trg_04_symbol_history_shared_text_value BEFORE INSERT ON tests.history_shared_text_value FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- trans_label update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_label() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.trans_label_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_trans_label BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_label FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_trans_label();
+
+
+CREATE TRIGGER trg_04_symbol_trans_label BEFORE INSERT ON tests.trans_label FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
+-- trans_complaint_receive update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_complaint_receive() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.trans_complaint_receive_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_trans_complaint_receive BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_complaint_receive FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_trans_complaint_receive();
+
+
+CREATE TRIGGER trg_04_symbol_trans_complaint_receive BEFORE INSERT ON tests.trans_complaint_receive FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
+-- trans_complaint_file update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_complaint_file() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.trans_complaint_file_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_trans_complaint_file BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_complaint_file FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_trans_complaint_file();
+
+
+CREATE TRIGGER trg_04_symbol_trans_complaint_file BEFORE INSERT ON tests.trans_complaint_file FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
+-- history_shared_text update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_shared_text() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.history_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_history_shared_text BEFORE INSERT OR UPDATE OR DELETE ON tests.history_shared_text FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_history_shared_text();
+
+
+CREATE TRIGGER trg_04_symbol_history_shared_text BEFORE INSERT ON tests.history_shared_text FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- shared_text update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_shared_text() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.shared_text_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_shared_text BEFORE INSERT OR UPDATE OR DELETE ON tests.shared_text FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_shared_text();
+
+
+CREATE TRIGGER trg_04_symbol_shared_text BEFORE INSERT ON tests.shared_text FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- shared_text history trigger
+CREATE OR REPLACE FUNCTION tests.trg_02_history_shared_text() RETURNS trigger AS
+$BODY$
+DECLARE
+    revisions int;
+BEGIN
+    IF (TG_OP = 'UPDATE') OR (TG_OP='INSERT') THEN
+        SELECT Max(revision) INTO revisions FROM tests.history_shared_text WHERE shared_text_id=NEW.shared_text_id;
+        IF (revisions >= 0) THEN
+            IF (
+                NEW.shared_text_id,
+                NEW.symbol,
+                NEW.remarks,
+                NEW.remove
+            ) IS NOT DISTINCT FROM (
+                OLD.shared_text_id,
+                OLD.symbol,
+                OLD.remarks,
+                OLD.remove
+            )
+            THEN
+                RETURN NULL;
+            END IF;
+            NEW.revision := revisions + 1;
+        ELSE
+            NEW.revision := 1;
+        END IF;
+        INSERT INTO tests.history_shared_text (
+            shared_text_id,
+            revision,
+            symbol,
+            remarks,
+            update_at,
+            update_user_id,
+            update_user_history_id,
+            remove
+        )
+        VALUES
+        (
+            NEW.shared_text_id,
+            NEW.revision,
+            NEW.symbol,
+            NEW.remarks,
+            NEW.update_at,
+            NEW.update_user_id,
+            NEW.update_user_history_id,
+            NEW.remove
+        );
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_02_history_shared_text BEFORE INSERT OR UPDATE OR DELETE ON tests.shared_text FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_02_history_shared_text();
+
+
+-- shared_text_value update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_shared_text_value() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.shared_text_value_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_01_updatetimes_shared_text_value BEFORE INSERT OR UPDATE OR DELETE ON tests.shared_text_value FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_shared_text_value();
+
+
+CREATE TRIGGER trg_04_symbol_shared_text_value BEFORE INSERT ON tests.shared_text_value FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_seq();
+-- shared_text_value history trigger
+CREATE OR REPLACE FUNCTION tests.trg_02_history_shared_text_value() RETURNS trigger AS
+$BODY$
+DECLARE
+    revisions int;
+BEGIN
+    IF (TG_OP = 'UPDATE') OR (TG_OP='INSERT') THEN
+        SELECT Max(revision) INTO revisions FROM tests.history_shared_text_value WHERE shared_text_value_id=NEW.shared_text_value_id;
+        IF (revisions >= 0) THEN
+            IF (
+                NEW.shared_text_value_id,
+                NEW.shared_language_code_id,
+                NEW.shared_text_id,
+                NEW.text_value,
+                NEW.symbol,
+                NEW.remarks,
+                NEW.remove
+            ) IS NOT DISTINCT FROM (
+                OLD.shared_text_value_id,
+                OLD.shared_language_code_id,
+                OLD.shared_text_id,
+                OLD.text_value,
+                OLD.symbol,
+                OLD.remarks,
+                OLD.remove
+            )
+            THEN
+                RETURN NULL;
+            END IF;
+            NEW.revision := revisions + 1;
+        ELSE
+            NEW.revision := 1;
+        END IF;
+        INSERT INTO tests.history_shared_text_value (
+            shared_text_value_id,
+            shared_language_code_id,
+            shared_text_id,
+            text_value,
+            revision,
+            symbol,
+            remarks,
+            update_at,
+            update_user_id,
+            update_user_history_id,
+            remove
+        )
+        VALUES
+        (
+            NEW.shared_text_value_id,
+            NEW.shared_language_code_id,
+            NEW.shared_text_id,
+            NEW.text_value,
+            NEW.revision,
+            NEW.symbol,
+            NEW.remarks,
+            NEW.update_at,
+            NEW.update_user_id,
+            NEW.update_user_history_id,
+            NEW.remove
+        );
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+CREATE TRIGGER trg_02_history_shared_text_value BEFORE INSERT OR UPDATE OR DELETE ON tests.shared_text_value FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_02_history_shared_text_value();
+
+
 -- history_mstr_item_lot update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_item_lot() RETURNS trigger AS
 $BODY$
@@ -15488,30 +16087,6 @@ CREATE TRIGGER trg_01_updatetimes_hrchy_mstr_location BEFORE INSERT OR UPDATE OR
 PROCEDURE tests.trg_01_updatetimes_hrchy_mstr_location();
 
 
--- trans_disposal_detail update trigger
-CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_disposal_detail() RETURNS trigger AS
-$BODY$
-DECLARE
-    latest_row record;
-BEGIN
-    IF (TG_OP = 'UPDATE') THEN
-        NEW.update_at:=now();
-        RETURN NEW;
-    ELSEIF (TG_OP='INSERT') THEN
-        NEW.trans_disposal_detail_id := gen_random_uuid();
-        NEW.update_at:=now();
-        RETURN NEW;
-    ELSEIF (TG_OP = 'DELETE') THEN
-        RETURN OLD;
-    END IF;
-END
-$BODY$
-LANGUAGE plpgsql VOLATILE;
-CREATE TRIGGER trg_01_updatetimes_trans_disposal_detail BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_disposal_detail FOR EACH ROW EXECUTE
-PROCEDURE tests.trg_01_updatetimes_trans_disposal_detail();
-
-
-CREATE TRIGGER trg_04_symbol_trans_disposal_detail BEFORE INSERT ON tests.trans_disposal_detail FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- mstr_audit_std_checkitem update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_audit_std_checkitem() RETURNS trigger AS
 $BODY$
@@ -15551,7 +16126,7 @@ BEGIN
                 NEW.code,
                 NEW.control_code,
                 NEW.names,
-                NEW.detail,
+                NEW.details,
                 NEW.type_class,
                 NEW.formula_class,
                 NEW.arg_class,
@@ -15564,7 +16139,7 @@ BEGIN
                 OLD.code,
                 OLD.control_code,
                 OLD.names,
-                OLD.detail,
+                OLD.details,
                 OLD.type_class,
                 OLD.formula_class,
                 OLD.arg_class,
@@ -15585,7 +16160,7 @@ BEGIN
             code,
             control_code,
             names,
-            detail,
+            details,
             type_class,
             formula_class,
             arg_class,
@@ -15604,7 +16179,7 @@ BEGIN
             NEW.code,
             NEW.control_code,
             NEW.names,
-            NEW.detail,
+            NEW.details,
             NEW.type_class,
             NEW.formula_class,
             NEW.arg_class,
@@ -15666,7 +16241,7 @@ BEGIN
                 NEW.control_code,
                 NEW.category,
                 NEW.names,
-                NEW.detail,
+                NEW.details,
                 NEW.symbol,
                 NEW.remarks,
                 NEW.remove
@@ -15676,7 +16251,7 @@ BEGIN
                 OLD.control_code,
                 OLD.category,
                 OLD.names,
-                OLD.detail,
+                OLD.details,
                 OLD.symbol,
                 OLD.remarks,
                 OLD.remove
@@ -15694,7 +16269,7 @@ BEGIN
             control_code,
             category,
             names,
-            detail,
+            details,
             revision,
             symbol,
             remarks,
@@ -15710,7 +16285,7 @@ BEGIN
             NEW.control_code,
             NEW.category,
             NEW.names,
-            NEW.detail,
+            NEW.details,
             NEW.revision,
             NEW.symbol,
             NEW.remarks,
@@ -15802,8 +16377,8 @@ PROCEDURE tests.trg_01_updatetimes_trans_observer_disposal();
 
 
 CREATE TRIGGER trg_04_symbol_trans_observer_disposal BEFORE INSERT ON tests.trans_observer_disposal FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
--- trans_complaint_stakeholder_adapter update trigger
-CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_complaint_stakeholder_adapter() RETURNS trigger AS
+-- trans_complaint_stakeholder update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_complaint_stakeholder() RETURNS trigger AS
 $BODY$
 DECLARE
     latest_row record;
@@ -15812,7 +16387,7 @@ BEGIN
         NEW.update_at:=now();
         RETURN NEW;
     ELSEIF (TG_OP='INSERT') THEN
-        NEW.trans_complaint_stakeholder_adapter_id := gen_random_uuid();
+        NEW.trans_complaint_stakeholder_id := gen_random_uuid();
         NEW.update_at:=now();
         RETURN NEW;
     ELSEIF (TG_OP = 'DELETE') THEN
@@ -15821,13 +16396,13 @@ BEGIN
 END
 $BODY$
 LANGUAGE plpgsql VOLATILE;
-CREATE TRIGGER trg_01_updatetimes_trans_complaint_stakeholder_adapter BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_complaint_stakeholder_adapter FOR EACH ROW EXECUTE
-PROCEDURE tests.trg_01_updatetimes_trans_complaint_stakeholder_adapter();
+CREATE TRIGGER trg_01_updatetimes_trans_complaint_stakeholder BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_complaint_stakeholder FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_trans_complaint_stakeholder();
 
 
-CREATE TRIGGER trg_04_symbol_trans_complaint_stakeholder_adapter BEFORE INSERT ON tests.trans_complaint_stakeholder_adapter FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
--- trans_complaint_equipment_adapter update trigger
-CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_complaint_equipment_adapter() RETURNS trigger AS
+CREATE TRIGGER trg_04_symbol_trans_complaint_stakeholder BEFORE INSERT ON tests.trans_complaint_stakeholder FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
+-- trans_complaint_equipment update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_complaint_equipment() RETURNS trigger AS
 $BODY$
 DECLARE
     latest_row record;
@@ -15836,7 +16411,7 @@ BEGIN
         NEW.update_at:=now();
         RETURN NEW;
     ELSEIF (TG_OP='INSERT') THEN
-        NEW.trans_complaint_equipment_adapter_id := gen_random_uuid();
+        NEW.trans_complaint_equipment_id := gen_random_uuid();
         NEW.update_at:=now();
         RETURN NEW;
     ELSEIF (TG_OP = 'DELETE') THEN
@@ -15845,13 +16420,13 @@ BEGIN
 END
 $BODY$
 LANGUAGE plpgsql VOLATILE;
-CREATE TRIGGER trg_01_updatetimes_trans_complaint_equipment_adapter BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_complaint_equipment_adapter FOR EACH ROW EXECUTE
-PROCEDURE tests.trg_01_updatetimes_trans_complaint_equipment_adapter();
+CREATE TRIGGER trg_01_updatetimes_trans_complaint_equipment BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_complaint_equipment FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_trans_complaint_equipment();
 
 
-CREATE TRIGGER trg_04_symbol_trans_complaint_equipment_adapter BEFORE INSERT ON tests.trans_complaint_equipment_adapter FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
--- trans_complaint_process_adapter update trigger
-CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_complaint_process_adapter() RETURNS trigger AS
+CREATE TRIGGER trg_04_symbol_trans_complaint_equipment BEFORE INSERT ON tests.trans_complaint_equipment FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
+-- trans_complaint_process update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_complaint_process() RETURNS trigger AS
 $BODY$
 DECLARE
     latest_row record;
@@ -15860,6 +16435,7 @@ BEGIN
         NEW.update_at:=now();
         RETURN NEW;
     ELSEIF (TG_OP='INSERT') THEN
+        NEW.trans_complaint_process_id := gen_random_uuid();
         NEW.update_at:=now();
         RETURN NEW;
     ELSEIF (TG_OP = 'DELETE') THEN
@@ -15868,13 +16444,13 @@ BEGIN
 END
 $BODY$
 LANGUAGE plpgsql VOLATILE;
-CREATE TRIGGER trg_01_updatetimes_trans_complaint_process_adapter BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_complaint_process_adapter FOR EACH ROW EXECUTE
-PROCEDURE tests.trg_01_updatetimes_trans_complaint_process_adapter();
+CREATE TRIGGER trg_01_updatetimes_trans_complaint_process BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_complaint_process FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_trans_complaint_process();
 
 
-CREATE TRIGGER trg_04_symbol_trans_complaint_process_adapter BEFORE INSERT ON tests.trans_complaint_process_adapter FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
--- trans_complaint_order_adapter update trigger
-CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_complaint_order_adapter() RETURNS trigger AS
+CREATE TRIGGER trg_04_symbol_trans_complaint_process BEFORE INSERT ON tests.trans_complaint_process FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
+-- trans_complaint_order update trigger
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_complaint_order() RETURNS trigger AS
 $BODY$
 DECLARE
     latest_row record;
@@ -15883,7 +16459,7 @@ BEGIN
         NEW.update_at:=now();
         RETURN NEW;
     ELSEIF (TG_OP='INSERT') THEN
-        NEW.trans_complaint_order_adapter_id := gen_random_uuid();
+        NEW.trans_complaint_order_id := gen_random_uuid();
         NEW.update_at:=now();
         RETURN NEW;
     ELSEIF (TG_OP = 'DELETE') THEN
@@ -15892,11 +16468,11 @@ BEGIN
 END
 $BODY$
 LANGUAGE plpgsql VOLATILE;
-CREATE TRIGGER trg_01_updatetimes_trans_complaint_order_adapter BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_complaint_order_adapter FOR EACH ROW EXECUTE
-PROCEDURE tests.trg_01_updatetimes_trans_complaint_order_adapter();
+CREATE TRIGGER trg_01_updatetimes_trans_complaint_order BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_complaint_order FOR EACH ROW EXECUTE
+PROCEDURE tests.trg_01_updatetimes_trans_complaint_order();
 
 
-CREATE TRIGGER trg_04_symbol_trans_complaint_order_adapter BEFORE INSERT ON tests.trans_complaint_order_adapter FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
+CREATE TRIGGER trg_04_symbol_trans_complaint_order BEFORE INSERT ON tests.trans_complaint_order FOR EACH ROW EXECUTE PROCEDURE tests.trg_gen_symbol_by_month();
 -- trans_disposal update trigger
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_disposal() RETURNS trigger AS
 $BODY$
@@ -16141,8 +16717,8 @@ BEGIN
             time_interval,
             external_inspection,
             inspection_formula_id,
-            revision,
             mstr_item_id,
+            revision,
             symbol,
             remarks,
             update_at,
@@ -16160,8 +16736,8 @@ BEGIN
             NEW.time_interval,
             NEW.external_inspection,
             NEW.inspection_formula_id,
-            NEW.revision,
             NEW.mstr_item_id,
+            NEW.revision,
             NEW.symbol,
             NEW.remarks,
             NEW.update_at,
