@@ -646,6 +646,41 @@ DepartmentCategoryPageEdit:
     - update_user_history_id
     - remove
 
+# 組織参照表示フィールド
+DepartmentReadFields: &DepartmentReadFields
+  kind: read
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - info_department_id
+    - info_company_id
+    - code
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      pick: # 2026/09/29　追加
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - name: address
+      arrayType: toFirstOne
+      using: info_address_id
+      <<: *AddressReadFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
 # 組織
 DepartmentPage: &DepartmentPage
   kind: read
@@ -1427,6 +1462,7 @@ LicenseHoldersPageEdit:
 
 # 承認の読み込み
 # 必ず参照で使用するためPageにはしない
+# 承認関連の最下層
 ApprovalReadFields: &ApprovalReadFields
   kind: read
   from: mstr_approval
@@ -1441,7 +1477,18 @@ ApprovalReadFields: &ApprovalReadFields
   columns:
     - mstr_approval_id
     - info_department_id
-    - info_position_id # 要件0026追記15(2026-09-30のschema.graphql再取得)で解消:
+    - name: department
+      as: department
+      arrayType: toFirstOne
+      using: info_department_id
+      <<: *DepartmentReadFields
+    - info_position_id
+    - name: positions
+      as: positions
+      arrayType: toFirstOne
+      using: info_position_id
+      <<: *PositionPage
+     # 要件0026追記15(2026-09-30のschema.graphql再取得)で解消:
       # 従来は列名がinfo_role_idのままでリレーション先だけinfo_positionという不一致
       # だったが、今回のDB側対応でMstrApproval.info_role_id列自体がinfo_position_idへ
       # リネームされたことをschema.graphqlで確認した(infoPositionId列・
@@ -1486,7 +1533,7 @@ ApprovalEditFields: &ApprovalEditFields
       as: department # 要件確認: タイプミス(pdepartmentn)を修正
       using: info_department_id
       editable: false # 要件0047: IDの割り当てのみ(子は書き込まず、usingのFK列だけを書き込む)
-      <<: *DepartmentPage #IDを割り当てるだけ
+      <<: *DepartmentReadFields #IDを割り当てるだけ
     - info_position_id # 要件0026追記15で解消(ApprovalReadFields参照、詳細は同箇所のコメント)
     - name: position
       arrayType: toFirstOne
@@ -1557,7 +1604,7 @@ ApprovalDetailEditFields: &ApprovalDetailEditFields
     - update_user_id
     - update_user_history_id
     - remove
-
+  
 #承認オペレーション読み込み
 ApprovalOperationPage:
   kind: read
@@ -1815,6 +1862,165 @@ ItemKindPageEdit:
     - update_user_history_id
     - remove
 
+# HSコードのフィールド読み込み
+HsCodeReadFields: &HsCodeReadFields
+  kind: read
+  filter: true
+  from: mstr_item_hcdcs
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_item_hcdcs_id
+    - mstr_item_id
+    - iso3166_3
+    - code
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# HSコードのフィールド書き込み
+HsCodeReadEditFields: &HsCodeReadEditFields
+  kind: edit
+  from: mstr_item_hcdcs
+  requiredWhere: 
+    - mstr_manufacturer_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_item_hcdcs_id
+    - mstr_item_id
+    - iso3166_3
+    - code
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+#  品目サイズ区分の読み込み
+ItemSizeKindPage: &ItemSizeKindPage
+  kind: read
+  from: mstr_item_size_kind
+  requiredWhere: 
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_item_size_kind_id
+    - code
+    - names
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - shared_unit_id
+    - name: unit # IDの解決のみ(UnitReadFieldsは参照用アーム)
+      arrayType: toFirstOne
+      using:  shared_unit_id
+      <<: *UnitReadFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 品目サイズ区分の書き込み委
+ItemSizeKindPageEdit:
+  kind: edit
+  from: mstr_item_size_kind
+  requiredWhere:
+    - mstr_item_size_kind_id
+  generateRfe: true
+  columns:
+    - mstr_item_size_kind_id
+    - code
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    - name: unit # IDの解決のみ(UnitReadFieldsは参照用アーム)
+      arrayType: toFirstOne
+      using:  shared_unit_id
+      editable: false # 要件0047: IDの割り当てのみ(子は書き込まず、usingのFK列だけを書き込む)
+      <<: *UnitReadFields
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 品目のサイズ
+ItemSizePage: &temSizePag
+  kind: read
+  from: mstr_item_actual_size
+  filter: true
+  requiredWhere:
+    - mstr_item_id
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_item_actual_size_id
+    - mstr_item_id
+    - mstr_item_size_kind_id
+    - name: kinds
+      as: kinds
+      arrayType: toFirstOne
+      using:  mstr_item_size_kind_id
+      <<: *ItemSizeKindPage
+    - details
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 品目サイズの書き込み
+ItemSizePageEdit: &ItemSizePageEdit
+  kind: edit
+  from: mstr_item_actual_size
+  generateRfe: true
+  requiredWhere:
+    - mstr_item_actual_size_id
+  columns:
+    - mstr_item_id
+    - mstr_item_size_kind_id
+    - name: kinds
+      as: kinds
+      arrayType: toFirstOne
+      using:  mstr_item_size_kind_id
+      <<: *ItemSizeKindPage
+    - details
+      - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+
 # 品目のうち、設備などネストオブジェクトになるモノの読込
 ItemReadFields: &ItemReadFields
   kind: read
@@ -1867,6 +2073,46 @@ ItemReadFields: &ItemReadFields
       using: [update_user_history_id,update_user_id]
       arrayType: toFirstOne
       <<: *UpdateStaffReadFields
+
+# 品目のうち、設備などネストオブジェクトになるモノの書き込み
+ItemEditFields: &ItemEditFields
+  kind: edit
+  from: mstr_item
+  requiredWhere:
+    - mstr_item_id
+  columns:
+    - mstr_item_id
+    - mstr_item_kind_id
+    - name: kinds
+      arrayType: toFirstOne
+      using: mstr_item_kind_id
+      editable: false
+      <<: *ItemKindReadFields
+    - code
+    - identification
+    - control_code
+    - name: manufacture
+      arrayType: toFirstOne
+      using: mstr_manufacturer_id
+      <<: *ManufacturePageEdit
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    - label_code
+    - description
+    - name: unit
+      arrayType: toFirstOne
+      using:  shared_unit_id
+      editable: false
+      <<: *UnitReadFields
+    - increment
+    - lot
+    - stock_quantity 
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
 
 # 品目ツリーの読込
 ItemPage:
@@ -2024,6 +2270,53 @@ ItemPageEdit:
     - remove
 
 ##### 場所
+
+# 場所の選択フィールド読み込み
+LocationReadFields: &LocationReadFields
+  kind: read
+  from: mstr_location
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_location_id
+    - code
+    - info_department_id
+    - name: department
+      arrayType: toFirstOne
+      as: department
+      using: info_department_id
+      <<: *DepartmentReadFields
+    - control_code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - info_address_id
+    - name: info_address_id
+      as: address
+      arrayType: toFirstOne
+      using: info_address_id
+      <<: *AddressReadFields
+    - available
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
 
 LocationPage: &LocationPage
   kind: read
@@ -2200,8 +2493,8 @@ EquipmentCategoryPageEdit:
     - update_user_history_id
     - remove
 
-# 設備
-EquipmentPage:
+# 設備の読み込み
+EquipmentPage:  &EquipmentPage
   kind: read
   from: mstr_equipment
   filter: true
@@ -2229,6 +2522,11 @@ EquipmentPage:
     - control_code
     - label_code
     - mstr_location_id 
+    - name: locations
+      as: locations
+      arrayType: toFirstOne
+      using:  mstr_location_id
+      <<: *LocationReadFields
     - symbol
     - remarks
     - update_at
@@ -2238,3 +2536,393 @@ EquipmentPage:
       arrayType: toFirstOne
       <<: *UpdateStaffReadFields
 
+# 設備の書き込み
+EquipmentPageEdit:
+  kind: edit
+  from: mstr_equipment
+  requiredWhere:
+    - mstr_equipment_id
+  generateRfe: true
+  columns:
+    - mstr_equipment_id
+    - mstr_item_id
+    - name: item
+      arrayType: toFirstOne
+      using: mstr_item_id
+      <<: *ItemEditFields
+    - mstr_equipment_category_id
+    - name: kinds
+      arrayType: toFirstOne
+      using: mstr_equipment_category_id
+      editable: false
+      <<: *EquipmentCategoryPage
+    - code
+    - control_code
+    - label_code
+    - mstr_location_id
+    - name: locations
+      arrayType: toFirstOne
+      using: mstr_location_id
+      editable: false
+      <<: *LocationReadFields
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 設備点検が未設定
+
+##### 点検
+
+# 点検区分
+InspectionKindPage: &InspectionKindPage
+  kind: read
+  from: mstr_inspection_kind
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_inspection_kind_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 点検区分書き込み
+InspectionKindPageEdit:
+  kind: edit
+  from: mstr_inspection_kind
+  requiredWhere:
+    - mstr_inspection_kind_id
+  generateRfe: true
+  columns:
+    - mstr_inspection_kind_id
+    - code
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 点検の式
+InspectionFormulaReadFields:  &InspectionFormulaReadFields
+  kind: read
+  from: mstr_inspection_formula
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_inspection_formula_id
+    - formula_class
+    - arg_class
+    - type_class
+    - format_class
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 点検の式書き込み
+InspectionFormulaEditFields:  &InspectionFormulaEditFields
+  kind: edit
+  from: mstr_inspection_formula
+  requiredWhere:
+    - mstr_inspection_kind_id
+  columns:
+    - mstr_inspection_formula_id
+    - formula_class
+    - arg_class
+    - type_class
+    - format_class
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 点検整備項目
+InspectionItemPage: &InspectionItemPage
+  kind: read
+  from: mstr_inspection
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_inspection_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - name: kinds
+      as: kinds
+      arrayType: toFirstOne
+      using:  inspection_kind
+      <<: *InspectionKindPage
+    - base_date
+    - time_interval
+    - external_inspection
+    - name: formulas
+      as: formulas
+      arrayType: toFirstOne
+      using:  inspection_formula_id
+      <<: *InspectionFormulaReadFields
+    - name: items
+      as: items
+      arrayType: toFirstOne
+      using:  mstr_item_id
+      <<: *ItemReadFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+#点検整備項目
+InspectionItemPageEdit:
+  kind: edit
+  from: mstr_inspection
+  requiredWhere:
+    - mstr_inspection_id
+  generateRfe: true
+  columns:
+    - mstr_inspection_id
+    - code
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    - name: kinds
+      arrayType: toFirstOne
+      using:  inspection_kind
+      editable: false
+      <<: *InspectionKindPage
+    - base_date
+    - time_interval
+    - external_inspection
+    - name: formulas
+      arrayType: toFirstOne
+      using:  inspection_formula_id
+      <<: *InspectionFormulaEditFields
+    - name: items
+      arrayType: toFirstOne
+      using:  mstr_item_id
+      <<: *ItemEditFields
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 設備と点検の関連付け
+InspectionOperationPage:
+  kind: read
+  from: mstr_inspection_operation
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_inspection_operation_id
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - code
+    - name: equipments
+      as: equipments
+      arrayType: toFirstOne
+      using:  mstr_equipment_id
+      <<: *EquipmentPage
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 設備と点検の関連付けの書き込み
+InspectionOperationPageEdit:
+  kind: edit
+  from: mstr_inspection_operation
+  requiredWhere:
+    - mstr_inspection_operation_id
+  generateRfe: true
+  columns:
+    - mstr_inspection_operation_id
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    - code
+    - name: equipments
+      arrayType: toFirstOne
+      using:  mstr_equipment_id
+      editable: false
+      <<: *EquipmentPage
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 点検項目と設備点検の関連付けの明細
+InspectionEquipentPage:
+  kind: read
+  from: mstr_inspection_operation_task
+  filter: true
+  requiredWhere:
+    - languageCode
+    - mstr_inspection_operation_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_inspection_operation_task_id
+    - mstr_inspection_operation_id
+    - name: inspections
+      as: inspections
+      arrayType: toFirstOne
+      using:  mstr_inspection_id
+      <<: *InspectionItemPage
+    - sequence
+    - commencement_date
+    - time_interval
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 点検項目と設備点検の関連付けの明細の書き込み
+InspectionEquipentPageEdit:
+  kind: edit
+  from: mstr_inspection_operation_task
+  requiredWhere:
+    - mstr_inspection_operation_task_id
+  generateRfe: true
+  columns:
+    - mstr_inspection_operation_task_id
+    - mstr_inspection_operation_id
+    - name: inspections
+      arrayType: toFirstOne
+      using:  mstr_inspection_id
+      editable: false
+      <<: *InspectionItemPage
+    - sequence
+    - commencement_date
+    - time_interval
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+##### 工程
+
+# 工程グループの読み込み
+TaskGroupPage:  &TaskGroupPage
+  kind: read
+  from: mstr_task_group
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_task_group_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - details
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 工程グループの読み込み
+TaskGroupPageEdit:  &TaskGroupPageEdit
+  kind: edit
+  from: mstr_task_group
+  requiredWhere:
+    - mstr_task_group_id
+  generateRfe: true
+  columns:
+    - mstr_task_group_id
+    - code
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    - details
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+TaskPage:
+  

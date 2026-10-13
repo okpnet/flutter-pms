@@ -39,15 +39,17 @@
 +   ページ
 ##  共通
 ### 全共通
-+  更新者情報<!--更新した担当者のスナップショット-->  
-+  住所情報
-+  単位<!--単位の選択-->
++  更新者情報[UpdateStaffReadFields]<!--更新した担当者のスナップショット-->  
++  住所項目[AddressReadFields]
+    +   住所情報[AddressEditFields]
++  単位[UnitReadFields]<!--単位の選択-->
 ### マスタ・インフォメーション共通
 +   呼称セット項目[AppellationLabelsReadFields]
     +  呼称セット情報[AppellationLabelsEditFields]<!--名前、読み、略称のセット-->
         +  辞書項目[DictionaryLabelReadFields]
             +  辞書情報[DictionaryLabelReadFields]
                 +   言語別ラベル情報[DictionaryEditFields]
+
 ### トラザクション共通
 +  ラベル情報
     +   言語別ラベル情報
@@ -57,57 +59,71 @@
     +   承認作業情報
 ##  システム
 1.  単位
-    +   単位台帳
-        +   単位情報
+    +   単位台帳[UnitPage]
+        +   単位情報[UnitPageEdit]
 ##  会社情報
 1. 会社
-    +   統計情報
-        +   会社情報
-            +   提供項目
-                +   提供情報
+    +   統計情報[CompanyPage,]<!--不足-->
+        +   会社情報[CompanyPageEdit]
+            +   提供項目[ProvisionPage]
+                +   提供情報[ProvisionPageEdit]
+    +   役職台帳[PositionPage]
+        +   役職明細
+        +   役職情報[PositionPageEdit]
+        +   役職割当明細[AssignPage]
+            +   役職割当情報[AssignPageEdit]
 1.  事業所
-    +   事業所台帳
-        +   事業所情報
+    +   事業所台帳[OfficePage]
+        +   事業所情報[OfficePageEdit]
 1.  部門・部署
-    +   部署体系
-        +   部署情報
+    +   部署区分台帳[DepartmentCategoryPage]
+        +   部署区分情報[DepartmentCategoryPageEdit]
+    +   部署体系[DepartmentPage]
+        +   部署情報[DepartmentPageEdit]
 1.  作業者
-    +   作業者台帳
-        +   作業者情報
-            +   作業者力量明細
-                +   作業者力量情報
-            +   作業者資格明細
-                +   作業者資格情報
+    +   作業者台帳[StaffPage]
+        +   作業者情報[StaffPageEdit]
+            +   作業者力量明細[StaffCapabilityPage]
+                +   作業者力量情報[StaffCapabilityPageEdit]
+            +   作業者資格明細[StaffHeldLicensePage]
+                +   作業者資格情報[StaffHeldLicensePageEdit]
 1.  承認
-    +   承認パターン台帳
-        +   承認パターン情報
-            +   承認範囲明細
-                +   承認範囲情報
-            +   承認者明細
-                +   承認者情報
+    +   承認パターン台帳[ApprovalOperationPage]
+        +   承認パターン情報[ApprovalOperationPageEdit]
+            +   承認範囲明細[X]
+                +   承認範囲情報[X]
+            +   承認者明細[ApprovalReadFields]
+                +   承認権限情報[ApprovalEditFields]
 ##  資源
 1.  力量・資格
-    +   力量項目
-        +   力量情報
-    +   資格項目
-        +   資格情報
+    +   力量項目[CapabilityPage]
+        +   力量情報[CapabilityPageEdit]
+            +   力量保持作業者明細[CapableStaffPage]
+                +   力量保持作業者情報[CapableStaffPageEdit]
+    +   資格項目[LicensePage]
+        +   資格情報[LicensePageEdit]
+            +   資格保持者明細[LicenseHoldersPage]
+                +   資格保持者情報[LicenseHoldersPageEdit]
 1.  場所
-    +   場所台帳
-        +   場所情報
+    +   場所台帳[LocationPage]
+        +   場所情報[LocationPageEdit]
 1.  設備
-    +   設備分類台帳
-        +   設備分類情報
-    +   設備台帳
-        +   設備情報
+    +   設備分類台帳[EquipmentCategoryPage]
+        +   設備分類情報[EquipmentCategoryPageEdit]
+    +   設備台帳[EquipmentPage]
+        +   設備情報[EquipmentPageEdit]
             +   設備点検運用情報
             1.  点検実績明細
                 +   点検実績情報
 1.  保全
-    +   点検整備項目台帳
-        +   点検整備項目情報
-    +   設備点検整備運用台帳
-        +   点検整備運用明細
-            +   点検整備項目情報
+    +   点検整備区分台帳[InspectionKindPage]
+        +   点検整備区分情報[InspectionKindPageEdit]
+    +   点検整備項目台帳[InspectionItemPage]
+        +   点検整備項目情報[InspectionItemPageEdit]
+    +   設備点検整備運用台帳[InspectionOperationPage]
+        +   設備点検整備運用情報[InspectionOperationPageEdit]
+            +   点検整備運用明細[InspectionEquipentPage]
+                +   点検整備項目情報[InspectionEquipentPageEdit]
     +   設備点検整備予定台帳
         +   設備点検整備予定情報
             +   設備点検整備予定明細
@@ -117,22 +133,26 @@
             +   点検結果ファイル明細
 ##  提供
 1.  品目
-    +   品目区分項目
-        +   品目区分情報
-    +   品目台帳
-        +   品目情報
-            +   HSコード情報
-            +   大きさ情報
-            +   梱包サイズ情報
+    +   品目区分項目[ItemKindPage,ItemKindReadFields]
+        +   品目区分情報[ItemKindPageEdit]
+    +   品目体系[ItemPage]
+        +   品目項目[ItemReadFields]
+        +   品目情報[ItemPageEdit]
+            +   HSコード情報[HsCodeReadEditFields]
+            +   大きさ明細[ItemSizePage]
+                +   大きさ情報[ItemSizePageEdit]
+            +   梱包サイズ明細[SpecMeasurementPage]
+                +   梱包サイズ情報[SpecMeasurementPageEdit]
             +   品目工程計画情報
-        +   製造元情報
+        +   製造元項目[ManufacturePage]
+            +   製造元情報[ManufacturePageEdit]
 <!--1.  ##購買品目-->
 1.  工程
     +   工程体系
-        +   工程項目
+        +   工程項目[]
             +   工程情報
-    +   工程グループ項目
-        +   工程グループ情報
+    +   工程グループ項目[TaskGroupPage]
+        +   工程グループ情報[TaskGroupPageEdit]
     +   工程明細台帳
         +   工程明細
         +   品目工程計画情報
