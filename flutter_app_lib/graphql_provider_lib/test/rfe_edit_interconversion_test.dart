@@ -31,6 +31,8 @@ import 'package:gqlprvlib/postgraphile/license_page/license_page_edit.graphql.da
 import 'package:gqlprvlib/postgraphile/license_page/license_page_rfe.graphql.dart' as license_page_rfe;
 import 'package:gqlprvlib/postgraphile/office_page/office_page_edit.graphql.dart' as office_page_edit;
 import 'package:gqlprvlib/postgraphile/office_page/office_page_rfe.graphql.dart' as office_page_rfe;
+import 'package:gqlprvlib/postgraphile/operation_page/operation_page_edit.graphql.dart' as operation_page_edit;
+import 'package:gqlprvlib/postgraphile/operation_page/operation_page_rfe.graphql.dart' as operation_page_rfe;
 import 'package:gqlprvlib/postgraphile/position_page/position_page_edit.graphql.dart' as position_page_edit;
 import 'package:gqlprvlib/postgraphile/position_page/position_page_rfe.graphql.dart' as position_page_rfe;
 import 'package:gqlprvlib/postgraphile/provision_page/provision_page_edit.graphql.dart' as provision_page_edit;
@@ -125,6 +127,13 @@ final _pairs = <RfeEditPair>[
     editFromJson: (j) => office_page_edit.Mutation$OfficePageEdit.fromJson(j).toJson(),
     editVariablesFromJson: (j) =>
         office_page_edit.Variables$Mutation$OfficePageEdit.fromJson(j).toJson(),
+  ),
+  RfeEditPair(
+    page: 'operation_page',
+    rfeFromJson: (j) => operation_page_rfe.Query$OperationPageRfe.fromJson(j).toJson(),
+    editFromJson: (j) => operation_page_edit.Mutation$OperationPageEdit.fromJson(j).toJson(),
+    editVariablesFromJson: (j) =>
+        operation_page_edit.Variables$Mutation$OperationPageEdit.fromJson(j).toJson(),
   ),
   RfeEditPair(
     page: 'position_page',

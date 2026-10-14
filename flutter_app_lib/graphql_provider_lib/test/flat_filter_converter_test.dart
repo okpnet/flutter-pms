@@ -22,6 +22,7 @@ import 'package:gqlprvlib/contents/item_kind_page_filter_spec.dart';
 import 'package:gqlprvlib/contents/license_holders_page_filter_spec.dart';
 import 'package:gqlprvlib/contents/license_page_filter_spec.dart';
 import 'package:gqlprvlib/contents/office_page_filter_spec.dart';
+import 'package:gqlprvlib/contents/operation_page_filter_spec.dart';
 import 'package:gqlprvlib/contents/position_page_filter_spec.dart';
 import 'package:gqlprvlib/contents/provision_page_filter_spec.dart';
 import 'package:gqlprvlib/contents/spec_measurement_page_filter_spec.dart';
@@ -52,6 +53,7 @@ final _roundTrips =
       'MstrItemKindFilter': (j) =>
           Input$MstrItemKindFilter.fromJson(j).toJson(),
       'MstrLicenseFilter': (j) => Input$MstrLicenseFilter.fromJson(j).toJson(),
+      'MstrOperationFilter': (j) => Input$MstrOperationFilter.fromJson(j).toJson(),
       'MstrSpecMeasurementFilter': (j) =>
           Input$MstrSpecMeasurementFilter.fromJson(j).toJson(),
       'SharedUnitFilter': (j) => Input$SharedUnitFilter.fromJson(j).toJson(),
@@ -69,6 +71,7 @@ final _specs = <String, FlatFilterSpec>{
   'license_holders_page': LicenseHoldersPageFilterSpec.spec,
   'license_page': LicensePageFilterSpec.spec,
   'office_page': OfficePageFilterSpec.spec,
+  'operation_page': OperationPageFilterSpec.spec,
   'position_page': PositionPageFilterSpec.spec,
   'provision_page': ProvisionPageFilterSpec.spec,
   'spec_measurement_page': SpecMeasurementPageFilterSpec.spec,

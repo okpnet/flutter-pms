@@ -446,6 +446,18 @@ second occurrence
 
 ---
 
+## 11. 生成ツール(要件0051)
+
+この章の規則は、`tool/view_graphql`(build_runnerのBuilder、CLI`tool/gen_view_graphql.dart`)として実装されている。
+詳細と既存の画面との比較は`docs/view_graphql_generator_2026-10-14.md`を参照する。
+
+- 入力は`source/view.yaml`と全量スキーマ(`source/schema.full.graphql`)。関連の向き・フィールド名・入力型はスキーマから求める。
+- `using`は、親側のFK列(外向き)または子側のFK列(内向き)。`toMany`はコネクション、`toFirstOne`は単数のフィールドを優先する。
+- 呼称(`shared_appellations`)配下の辞書は、別名を付けない(平坦化キーを安定させるため)。単数の関連は主キーを必ず含める。
+- edit・RFEの引数名は、関係の名前を接頭辞に連ねる(`labels`・`address`は連ねない)。言語別の値は`<接頭辞>Ja`/`En`。
+- 1対多の件数は、`pagination`が無ければ`$<名前>First`(既定30)。列に`sequence`があれば`orderBy: SEQUENCE_ASC`。
+- 解釈できない構成はエラーとして記録し、そのノードは生成しない。
+
 ## 変更履歴
 
 - 2026-10-07(要件0050): トップノードの命名規則と生成対象を10章として追加。`condition`を`filter`に
@@ -484,3 +496,4 @@ second occurrence
   文字列または文字列配列(`$defs/using`に集約)に拡張し、6-2節に複合FKの列順に関する
   注意を追記。`test.yaml`の列順を修正した。
 - 2026-09-26(要件0037): 独立した`kind: "RFE"`を廃止した。`company_page`の実装で「`CompanyPageRFE`が対応する`CompanyPageEdit`ではなく無関係な`dictionaryEdit`を誤って参照する」という事故(0034ログ)が発生し、根本原因が「同一であるべきedit/RFE定義がYAML上2箇所に独立して書けてしまうこと」にあると判明したため。`kind: "edit"`のノードに`generateRfe: true`を指定すると、そのeditと全く同一の`columns`ツリーから読み込み専用クエリ(旧RFE相当)を自動導出する方式に変更した(1章・2章・7章を修正、8章を全面書き換え)。`schema.json`の`kind`enumから`"RFE"`を削除し、新規プロパティ`generateRfe`(`node`のみ)を追加。`view.yaml`から`dictionaryRFE`・`appellationLabelsRFE`・`CompanyPageRFE`ノードを削除し、`CompanyPageEdit`に`requiredWhere: [info_company_id]`・`generateRfe: true`を追加した。
+- 2026-10-14(要件0051): view.yaml→GraphQLの生成ツール(`tool/view_graphql`)を追加し、11章に規則の実装を記した。

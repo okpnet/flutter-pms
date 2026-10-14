@@ -51,6 +51,8 @@ tool/
   fetch_schema.dart       全量スキーマの取得(4-1節)
   prune_schema.dart       生成用スキーマの絞り込み(4-2節)
   gen_filter_spec.dart    検索条件の対応表の生成(4-5節)
+  gen_view_graphql.dart   view.yaml→GraphQLの生成(CLI、5-8節)
+  view_graphql/           view.yaml→GraphQLの生成ライブラリとbuild_runnerのBuilder(5-8節)
 test/                     モデルごとの往復変換テスト、RFE/Edit相互変換テスト
 docs/                     要件ごとの実施ログ
 ```
@@ -76,7 +78,7 @@ docs/                     要件ごとの実施ログ
     それ以外の入れ子(他テーブルへの入れ子書き込み)を変数で渡す必要が出た場合は、ツールの規則に追加する。
   - 関連フィルタ(`$filter: <テーブル>Filter`、0050)は、そのクエリの選択経路に沿って残す。自テーブルの列(列用のフィルタ)とand/or/notに加え、選択セットに現れる関連(前方の関連、1対多はsome/every/none)を辿り、辿った先でも同様に残す。全量には約760のFilter型があり、すべて残すと入力型が再び肥大化するため、経路に限る。選択セットに無い関連では検索できない。
   - 全量スキーマは、graphql_codegenの読み込み対象外の場所(`source/schema.full.graphql`)に置く。
-- 全量スキーマの更新後、および画面のGraphQLを追加・変更した後は、必ず「絞り込み → 検索条件の対応表の生成(4-5節) → build_runner」の順で実行する。
+- 全量スキーマの更新後、および画面のGraphQLを追加・変更した後は、必ず「view.yaml→GraphQLの生成(5-8節) → 絞り込み → 検索条件の対応表の生成(4-5節) → build_runner」の順で実行する。
 - 生成用スキーマに含まれない型・フィールドは、生成モデルにも含まれない。新しい画面で使う場合は、絞り込みを再実行する。
 
 ### 4-3. build_runner(0012・0024・0042)
@@ -187,6 +189,15 @@ docs/                     要件ごとの実施ログ
   - 対象は変更を含むノードとする。生成済みで変更が無いものは対象外とする。
   - モデルの生成は、GraphQLの生成に成功したものだけを対象とする。
 
+### 5-8. view.yaml→GraphQLの生成(0051)
+
+- `lib/graphql`のGraphQLは、`tool/view_graphql`(build_runnerのBuilder、またはCLI`dart run tool/gen_view_graphql.dart`)が、view.yamlと全量スキーマから生成する。手作業で作らない。
+  - 出力先は`source/generated_graphql/`(git対象外、`build.yaml`の`view_graphql.options.output_dir`)。`lib/graphql`へはコピーして採用する。
+  - 採用するときは、コピー → 絞り込み → 検索条件の対応表の生成 → build_runnerの順に進める(4-2節)。
+- 規則は27章に従い、関連の向き・フィールド名・入力型は全量スキーマから求める。解釈できない箇所は、エラーを警告として出力し、そのノードは生成しない(5-7節)。
+- 規則と生成物の詳細・既存の画面との比較は、`docs/view_graphql_generator_2026-10-14.md`を参照する。
+- 既存の画面との回帰は`test/view_graphql_generator_test.dart`で固定する。view.yamlを変更して生成物が変わるのは正しいため、既存のGraphQLを生成物で置き換えてから、このテストの一覧を見直す。
+
 ## 6. テストと品質条件
 
 | 条件 | 内容 |
@@ -194,6 +205,7 @@ docs/                     要件ごとの実施ログ
 | 往復変換(0013・0032・0044) | 生成モデルごとに、`nested_map_flattener.dart`で平坦化→復元して元と一致するテストを作る。再生成のときはテストも見直す |
 | RFE/Edit相互変換(0046・0048) | `test/rfe_edit_interconversion_test.dart`で全画面を検証する。RFE→Editの結果モデル・引数モデル、Editの結果モデル→RFEのいずれも変換できること。変換できない場合は、view.yamlの修正案をログに出力する。監査列がRFEにのみあるのは方針どおり(A1)とし、条件付き取得の混入は失敗(F6)とする |
 | nested_map_flattener.dartの扱い(0044) | 相互変換できないときだけ見直す。根本的な見直しが必要なら提案し、それ以外は対応できるよう修正する |
+| 生成ツール(0051) | `test/view_graphql_generator_test.dart`で、名前の規則・YAMLのマージ・既存の画面との一致(回帰)を検証する |
 | 検索条件(0050) | `test/flat_filter_converter_test.dart`で、コンバーター単体の挙動、全画面の対応表のすべてのキーが生成モデル`Input$<テーブル>Filter`のfromJson/toJsonで欠落なく往復できること、OfficePageの実例を検証する |
 
 ## 7. 作業の進め方
@@ -303,3 +315,14 @@ docs/                     要件ごとの実施ログ
     1. PostGraphileで、postgraphile-plugin-connection-filterの関連フィルタ(connectionFilterRelations: true)が有効になっていること。有効化と全量スキーマの再取得(4-1節)は別途行う。
 10. 対象外
     1. 言語の引数の一般化(ISO 639-1準拠、言語の数を限定しない、ja/enの固定の廃止)と、5-5節の見直しは、別の要件とする。
+
+2026/10/14_0051:view.yamlからGraphQLを生成するツールを定める。
+
+1. 目的: view.yaml→GraphQLの変換を、Claudeによる毎回の作成から、build_runnerで実行できるツールに置き換える。
+2. 構成: `tool/view_graphql`(純Dartのライブラリ)を、build_runnerのBuilder(`build.yaml`)とCLI(`tool/gen_view_graphql.dart`)の両方から使う。
+3. 入力: `source/view.yaml`と`source/schema.full.graphql`。出力: `source/generated_graphql/<ディレクトリ>/<ディレクトリ>_{read,edit,rfe}.graphql`。
+4. 規則: 27章(11章)に従う。既存の生成物から読み取った慣習(呼称・辞書の別名なし、単数の関連は主キーを必ず含める、引数名の接頭辞など)をツールに実装した。
+5. 検証: 既存の`lib/graphql`と、書式・コメント・選択の順序を除いて比較する。2026/10/14時点で54ファイル中36ファイルが一致し、残りの差分はview.yaml側(または古い既存ファイル)の原因による(docsのログ)。
+6. 既存の`lib/graphql`は、view.yamlとの差分の扱い(どちらを正とするか)を決めてから、生成物で置き換える。`operation_page`は置き換え済み。
+7. 未対応: 内向きの1対1を入れ子で更新する子(`DepartmentPageEdit.parent`・`kinds`)。エラーとして記録する。
+8. view.yamlの誤字(AppellationLabels系の`pronunciatione`・`npronunciatione`・`nicknam`)を修正した。ほかの不具合はログ5章に列挙した。

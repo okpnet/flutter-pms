@@ -68,6 +68,58 @@ FixLabelEditFields: &FixLabelEditFields
     - update_user_history_id
     - remove
 
+# ほぼ確定のテキストの読み込み
+FixTextReadFields: &FixTextReadFields
+  kind: read
+  from: shared_text
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - name: value
+      arrayType: toFirstOne
+      from: shared_text_value
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+      columns:
+        - text_value
+        - name: language
+          arrayType: toFirstOne
+          from: shared_language_code
+          output: false
+          requiredWhere:
+            - column: code
+              as: languageCode
+          defaultWhere:
+            - column: remove
+              operator: "="
+              value: false
+
+# ほぼ確定テキストの書き込み
+FixTextEditFields: &FixTextEditFields
+  kind: edit
+  from: shared_text
+  columns:
+    - shared_text_id
+    - name: value
+      arrayType: toMany
+      from: shared_text_value
+      columns:
+        - shared_text_value_id
+        - shared_language_code_id
+        - text_value
+        - remarks
+        - update_user_id
+        - update_user_history_id
+        - remove
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
 # 不確定ラベル読み込み
 FlexibleLabelReadFields: &FlexibleLabelReadFields
   kind: read
@@ -197,12 +249,12 @@ AppellationLabelsEditFields: &AppellationLabelsEditFields
       using: shared_dictionary_name_id
       arrayType: toFirstOne
       <<: *FixLabelEditFields
-    - name: pronunciatione
+    - name: pronunciation
       as: pronunciation
       using: shared_dictionary_pronunciation_id
       arrayType: toFirstOne
       <<: *FixLabelEditFields
-    - name: nicknam
+    - name: nickname
       as: nickname
       using: shared_dictionary_nickname_id
       arrayType: toFirstOne
@@ -227,7 +279,7 @@ AppellationLabelsReadFields: &AppellationLabelsReadFields
       using: shared_dictionary_name_id 
       arrayType: toFirstOne
       <<: *FixLabelReadFields
-    - name: npronunciatione
+    - name: pronunciation
       as: pronunciation
       using: shared_dictionary_pronunciation_id
       arrayType: toFirstOne
@@ -3321,7 +3373,7 @@ TaskGroupPageEdit:  &TaskGroupPageEdit
 
 # 工程の読み込み
 # 選択など一部の情報で良い場合のリスト
-TaskReadFields:
+TaskReadFields: &TaskReadFields
   kind: read
   from: mstr_task
   filter: true
@@ -3348,7 +3400,11 @@ TaskReadFields:
         - pronunciation
         - nickname
       <<: *AppellationLabelsReadFields
-    - detail
+    - name: detailTexts
+      as: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FixTextReadFields
     - class
     - default_time
     - symbol
@@ -3410,7 +3466,11 @@ TaskPage:
         - pronunciation
         - nickname
       <<: *AppellationLabelsReadFields
-    - detail
+    - name: detailTexts
+      as: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FixTextReadFields
     - class
     - default_time
     - symbol
@@ -3453,7 +3513,10 @@ TaskPageEdit:
       arrayType: toFirstOne
       using: names
       <<: *AppellationLabelsEditFields
-    - detail
+    - name: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FixTextEditFields
     - class
     - default_time
     - remarks
@@ -3531,6 +3594,93 @@ TaskResourcePageEdit:
       arrayType: toFirstOne
       using:  mstr_stakeholder_id
       <<: *StakeholderReadFields
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 工程運用の読込
+OperationPage:
+  kind: read
+  from: mstr_operation
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_operation_id
+    - control_code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - name: detailTexts
+      as: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FixTextReadFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 工程運用の書込
+OperationPageEdit:
+  kind: edit
+  from: mstr_operation
+  requiredWhere:
+    - mstr_operation_id
+  generateRfe: true
+  columns:
+    - mstr_operation_id
+    - control_code
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    - name: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FixTextEditFields
+    - name: operationTasks
+      arrayType: toMany
+      using: mstr_operation_id
+      from: mstr_operation_task
+      editable: true
+      columns:
+        - mstr_operation_task_id
+        - mstr_operation_id
+        - name: tasks
+          arrayType: toFirstOne
+          using:  mstr_task_id
+          editable: false
+          <<: *TaskReadFields
+        - sequence
+        - control_code
+        - name: labels
+          arrayType: toFirstOne
+          using: names
+          <<: *AppellationLabelsEditFields
+        - name: detailTexts
+          arrayType: toFirstOne
+          using:  details
+          <<: *FixTextEditFields
+        - remarks
+        - update_user_id
+        - update_user_history_id
+        - remove
     - remarks
     - update_user_id
     - update_user_history_id

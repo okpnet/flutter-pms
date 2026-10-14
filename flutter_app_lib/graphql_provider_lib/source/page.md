@@ -151,16 +151,15 @@
             +   製造元情報[ManufacturePageEdit]
 <!--1.  ##購買品目-->
 1.  工程
+    +   工程項目[TaskReadFields]
     +   工程体系[TaskPag]
-        +   工程項目[TaskReadFields]
         +   工程情報[TaskPageEdit]
             +   工程場所明細
                 +   工程場所情報
     +   工程グループ項目[TaskGroupPage]
         +   工程グループ情報[TaskGroupPageEdit]
-    +   工程明細台帳
-        +   工程明細情報
-            +   
+    +   工程明細台帳[OperationPage]
+        +   工程明細情報[OperationPageEdit:]
         +   品目工程計画情報
 ##  営業
 1.  配送区分
