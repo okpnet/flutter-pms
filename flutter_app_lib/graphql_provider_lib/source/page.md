@@ -46,16 +46,19 @@
 ### マスタ・インフォメーション共通
 +   呼称セット項目[AppellationLabelsReadFields]
     +  呼称セット情報[AppellationLabelsEditFields]<!--名前、読み、略称のセット-->
-        +  辞書項目[DictionaryLabelReadFields]
-            +  辞書情報[DictionaryLabelReadFields]
-                +   言語別ラベル情報[DictionaryEditFields]
+        +  名前辞書項目[FixLabelReadFields]
+            +  名前辞書情報[FixLabelEditFields]
+        +  読み辞書項目[FixLabelReadFields]
+            +  読み辞書情報[FixLabelEditFields]
+        +  略称辞書項目[FixLabelReadFields]
+            +  略称辞書情報[FixLabelEditFields]
 
 ### トラザクション共通
-+  ラベル情報
-    +   言語別ラベル情報
-+  テキスト情報
-    +   言語別テキスト情報
-+   承認経路台帳
++  ラベル情報[FlexibleLabelReadFields]
+    +   言語別ラベル情報[FlexibleLabelEditFields]
++  テキスト情報[FlexibleTextReadFields]
+    +   言語別テキスト情報[FlexibleTextEditFields]
++  承認経路台帳
     +   承認作業情報
 ##  システム
 1.  単位
@@ -148,29 +151,34 @@
             +   製造元情報[ManufacturePageEdit]
 <!--1.  ##購買品目-->
 1.  工程
-    +   工程体系
-        +   工程項目[]
-            +   工程情報
+    +   工程体系[TaskPag]
+        +   工程項目[TaskReadFields]
+        +   工程情報[TaskPageEdit]
+            +   工程場所明細
+                +   工程場所情報
     +   工程グループ項目[TaskGroupPage]
         +   工程グループ情報[TaskGroupPageEdit]
     +   工程明細台帳
-        +   工程明細
+        +   工程明細情報
+            +   
         +   品目工程計画情報
 ##  営業
 1.  配送区分
-    +   配送区分項目
-        +   配送区分情報
-1.  顧客台帳
-    +   顧客情報
-        +   担当者情報
+    +   配送区分項目[ShippingKindReadFields]
+        +   配送区分情報[ShippingKindEditFields]
+1.  顧客台帳[CustomerPage]
+    +   顧客情報[StakeholderEditFields]
+        +   担当者明細[ContactReadFields]
+        +   担当者情報[ContactEditFields]
 1.  受注
 ##  購買
 1.  配送区分
-    +   配送区分項目
-        +   配送区分情報
-1.  外部供給者台帳
-    +   外部供給者情報
-        +   担当者情報
+    +   配送区分項目[ShippingKindReadFields]
+        +   配送区分情報[ShippingKindEditFields]
+1.  外部供給者台帳[SupplierPage]
+    +   外部供給者情報[StakeholderEditFields]
+        +   担当者明細[ContactReadFields]
+        +   担当者情報[ContactEditFields]
 1.  発注
     +   非計上発注台帳
         +   非計上発注明細

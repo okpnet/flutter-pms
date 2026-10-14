@@ -4,8 +4,9 @@
 # shared_appellationsが持つ3本のFK(shared_dictionary_name_id / _pronunciation_id / _nickname_id)は
 # いずれも「shared_dictionaryへのFK1本を辿ってJA表示名を得る」という同じ形をしている。
 # using(どのFK列を使うか)だけを変えて使い回せるよう、shared_dictionary以下を1本の
-# 共有アームとして定義する(test.yamlのDictionaryLabelReadFieldsと同型)。
-DictionaryLabelReadFields: &DictionaryLabelReadFields
+# 共有アームとして定義する(test.yamlのFixLabelReadFieldsと同型)。
+# 名前変更
+FixLabelReadFields: &FixLabelReadFields
   kind: read
   from: shared_dictionary
   defaultWhere:
@@ -26,10 +27,10 @@ DictionaryLabelReadFields: &DictionaryLabelReadFields
         # codeは呼び出し側が必ず指定する引数(requiredWhere)であり、ハードコードしない。
         # output: false … 常に出力から除外する。where/requiredWhere/defaultWhereはpickと違い
         # 除外されず、親(value)のLATERALサブクエリのJOIN/WHERE句の構築には使われ続ける。
-        # 要件0043: DictionaryLabelReadFieldsは画面のツリーの深い位置(子・孫)で使い回されるため、
+        # 要件0043: FixLabelReadFieldsは画面のツリーの深い位置(子・孫)で使い回されるため、
         # 祖先・兄弟の別ノードが持つ同名列(例: 各マスタ自身のcode列)とGraphQL引数名が
         # 衝突しうる。{column, as}でこの1箇所だけ明示的にlanguageCodeへ改名しておけば、
-        # DictionaryLabelReadFieldsを経由する全画面に自動的に反映され、各画面での個別対応は不要になる。
+        # FixLabelReadFieldsを経由する全画面に自動的に反映され、各画面での個別対応は不要になる。
         - name: language
           arrayType: toFirstOne
           from: shared_language_code
@@ -43,9 +44,10 @@ DictionaryLabelReadFields: &DictionaryLabelReadFields
               value: false
 
 # --- Edit用アーム: shared_dictionary配下の言語別値(shared_dictionary_value)をまとめて編集する。
-#     1辞書エントリは言語の数だけ行を持つ(1対N)ため、ReadのDictionaryLabelReadFieldsとは異なりarrayType: toMany(複数件)にする。
+#     1辞書エントリは言語の数だけ行を持つ(1対N)ため、ReadのFixLabelReadFieldsとは異なりarrayType: toMany(複数件)にする。
 #     (下書きではtoFirstOneになっていたが、複数言語を同時に編集できなくなるため修正)
-DictionaryEditFields: &DictionaryEditFields
+# 名前変更
+FixLabelEditFields: &FixLabelEditFields
   kind: edit
   from: shared_dictionary
   columns:
@@ -57,6 +59,118 @@ DictionaryEditFields: &DictionaryEditFields
         - shared_dictionary_value_id
         - shared_language_code_id
         - dictionary_value
+        - remarks
+        - update_user_id
+        - update_user_history_id
+        - remove
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 不確定ラベル読み込み
+FlexibleLabelReadFields: &FlexibleLabelReadFields
+  kind: read
+  from: trans_label
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - trans_label_id
+    - name: value
+      arrayType: toFirstOne
+      using:  trans_label_id
+      from: trans_label_value
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+      columns:
+        - label_value
+        - name: language
+          arrayType: toFirstOne
+          from: shared_language_code
+          output: false
+          requiredWhere:
+            - column: code
+              as: languageCode
+          defaultWhere:
+            - column: remove
+              operator: "="
+              value: false
+
+# 不確定ラベルの編集
+FlexibleLabelEditFields: &FlexibleLabelEditFields
+  kind: edit
+  from: trans_label
+  columns:
+    - trans_label_id
+    - name: value
+      arrayType: toMany
+      using:  trans_label_id
+      from: trans_label_value
+      columns:
+        - trans_label_value_id
+        - trans_label_id
+        - shared_language_code_id
+        - label_value
+        - remarks
+        - update_user_id
+        - update_user_history_id
+        - remove
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 不確定テキスト読み込み
+FlexibleTextReadFields: &FlexibleTextReadFields
+  kind: read
+  from: trans_text
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - trans_text_id
+    - name: value
+      arrayType: toFirstOne
+      using:  trans_text_id
+      from: trans_label_value
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+      columns:
+        - text_value
+        - name: language
+          arrayType: toFirstOne
+          from: shared_language_code
+          output: false
+          requiredWhere:
+            - column: code
+              as: languageCode
+          defaultWhere:
+            - column: remove
+              operator: "="
+              value: false
+
+# 不確定テキストの編集
+FlexibleTextEditFields: &FlexibleTextEditFields
+  kind: edit
+  from: trans_text
+  columns:
+    - trans_text_id
+    - name: value
+      arrayType: toMany
+      using:  trans_text_id
+      from: trans_label_value
+      columns:
+        - ttrans_text_value_idd
+        - trans_text_id
+        - shared_language_code_id
+        - text_value
         - remarks
         - update_user_id
         - update_user_history_id
@@ -82,17 +196,17 @@ AppellationLabelsEditFields: &AppellationLabelsEditFields
       as: name
       using: shared_dictionary_name_id
       arrayType: toFirstOne
-      <<: *DictionaryEditFields
+      <<: *FixLabelEditFields
     - name: pronunciatione
       as: pronunciation
       using: shared_dictionary_pronunciation_id
       arrayType: toFirstOne
-      <<: *DictionaryEditFields
+      <<: *FixLabelEditFields
     - name: nicknam
       as: nickname
       using: shared_dictionary_nickname_id
       arrayType: toFirstOne
-      <<: *DictionaryEditFields
+      <<: *FixLabelEditFields
     - remarks
     - update_user_id
     - update_user_history_id
@@ -112,17 +226,17 @@ AppellationLabelsReadFields: &AppellationLabelsReadFields
       as: name
       using: shared_dictionary_name_id 
       arrayType: toFirstOne
-      <<: *DictionaryLabelReadFields
+      <<: *FixLabelReadFields
     - name: npronunciatione
       as: pronunciation
       using: shared_dictionary_pronunciation_id
       arrayType: toFirstOne
-      <<: *DictionaryLabelReadFields
+      <<: *FixLabelReadFields
     - name: nickname
       as: nickname
       using: shared_dictionary_nickname_id
       arrayType: toFirstOne
-      <<: *DictionaryLabelReadFields
+      <<: *FixLabelReadFields
 
 # 共有(参照)定義: 住所情報 (点8) — info_address由来。company以外からも参照されうるため独立定義し、
 # 実際の利用箇所ではYAMLエイリアス(*AddressReadFields)で共有参照する。
@@ -1664,6 +1778,287 @@ ApprovalOperationPageEdit:
     - update_user_history_id
     - remove
 
+##### ステークホルダー
+
+# 配送区分の読み込み
+ShippingKindReadFields: &ShippingKindReadFields
+  kind: read
+  from: mstr_shipping_kind
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+  - mstr_shipping_kind_id
+  - code
+  - name: labels
+    as: labels
+    arrayType: toFirstOne
+    using: names
+    pick: 
+      - name
+      - pronunciation
+      - nickname
+    <<: *AppellationLabelsReadFields
+  - symbol
+  - remarks
+  - update_at
+  - name: update_user
+    as: update_user
+    using: [update_user_history_id,update_user_id]
+    arrayType: toFirstOne
+    <<: *UpdateStaffReadFields
+
+# 配送区分の書き込み
+ShippingKindEditFields: &ShippingKindEditFields
+  kind: edit
+  from: mstr_shipping_kind
+  requiredWhere: 
+    - mstr_shipping_kind_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_shipping_kind_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# ステークホルダー読み込み
+StakeholderReadFields: &StakeholderReadFields
+  kind: read
+  from: mstr_stakeholder
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_stakeholder_id
+    - is_customer
+    - is_supplier
+    - is_logistics
+    - code
+    - control_code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - mail
+    - name: address
+      arrayType: toFirstOne
+      using: info_address_id
+      <<: *AddressReadFields
+    - mstr_shipping_kind_id
+    - name: shippingKinds
+      arrayType: toFirstOne
+      as: shippingKinds
+      using:  mstr_shipping_kind_id
+      <<: *ShippingKindReadFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# ステークホルダー書き込み
+StakeholderEditFields:  &StakeholderEditFields
+  kind: edit
+  from: mstr_stakeholder
+  requiredWhere: 
+    - mstr_stakeholder_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_stakeholder_id
+    - is_customer
+    - is_supplier
+    - is_logistics
+    - code
+    - control_code
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    - mail
+    - name: address
+      arrayType: toFirstOne
+      using: info_address_id
+      <<: *AddressEditFields
+    - mstr_shipping_kind_id
+    - name: shippingKinds
+      arrayType: toFirstOne
+      using:  mstr_shipping_kind_id
+      <<: *ShippingKindEditFields
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+#窓口読み込み
+ContactReadFields:  &ContactReadFields
+  kind: read
+  from: mstr_stakeholder_contact
+  filter: true
+  requiredWhere:
+    - languageCode
+    - mstr_stakeholder_id
+    - mstr_stakeholder_contact_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_stakeholder_contact_id
+    - mstr_stakeholder_id
+    - code
+    - name: labels
+      as: officeLbels
+      arrayType: toFirstOne
+      using: office_appellations_id
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - name: labels
+      as: departmentLabels
+      arrayType: toFirstOne
+      using: department_appellations_id
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - name: labels
+      as: contacterLabels
+      arrayType: toFirstOne
+      using: contact_person_appellations_id
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - mail
+    - name: address
+      arrayType: toFirstOne
+      using: info_address_id
+      <<: *AddressReadFields
+    - name: shippingKinds
+      arrayType: toFirstOne
+      as: shippingKinds
+      using:  mstr_shipping_kind_id
+      <<: *ShippingKindReadFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 窓口書き込み
+ContactEditFields: &ContactEditFields
+  kind: edit
+  from: mstr_stakeholder_contact
+  requiredWhere: 
+    - mstr_stakeholder_id
+    - mstr_stakeholder_contact_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_stakeholder_contact_id
+    - mstr_stakeholder_id
+    - code
+    - name: labels
+      as: officeLbels
+      arrayType: toFirstOne
+      using: office_appellations_id
+      <<: *AppellationLabelsEditFields
+    - name: labels
+      as: departmentLabels
+      arrayType: toFirstOne
+      using: department_appellations_id
+      <<: *AppellationLabelsEditFields
+    - name: labels
+      as: contacterLabels
+      arrayType: toFirstOne
+      using: contact_person_appellations_id
+      <<: *AppellationLabelsEditFields
+    - mail
+    - name: address
+      arrayType: toFirstOne
+      using: info_address_id
+      <<: *AddressEditFields
+    - name: shippingKinds
+      arrayType: toFirstOne
+      using:  mstr_shipping_kind_id
+      <<: *ShippingKindEditFields
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# サプライヤー
+SupplierPage:
+  kind: read
+  <<: *StakeholderReadFields
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+    - column: is_supplier
+      operator: =
+      valuer: true;
+
+# 顧客
+CustomerPage:
+  kind: read
+  <<: *StakeholderReadFields
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+    - column: is_customer
+      operator: =
+      valuer: true;
+
 ##### 品目
 
 # 梱包サイズ読み込み用
@@ -2924,5 +3319,219 @@ TaskGroupPageEdit:  &TaskGroupPageEdit
     - update_user_history_id
     - remove
 
+# 工程の読み込み
+# 選択など一部の情報で良い場合のリスト
+TaskReadFields:
+  kind: read
+  from: mstr_task
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_task_id
+    - name: groups
+      arrayType: toFirstOne
+      as: groups
+      using:  mstr_task_group_id
+      <<: *TaskGroupPage
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - detail
+    - class
+    - default_time
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+#　工程の読み込み
 TaskPage:
+  kind: read
+  from: mstr_task
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_task_id
+    - name: parent
+      arrayType: toFirstOne
+      as: parent
+      using: mstr_task_id
+      from: mstr_task_tree
+      # NULL許容(呼び出し側がNULLを渡したときはトップノードを表す)。
+      requiredWhere:
+        - parent_mstr_task_id
+      columns:
+        - mstr_task_tree_id
+        - parent_mstr_task_id
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+    - name: descendants
+      arrayType: toFirstOne
+      as: descendants
+      using: mstr_task_id
+      pick:
+        - descendant_count
+      from: v_task_descendants
+    - name: groups
+      arrayType: toFirstOne
+      as: groups
+      using:  mstr_task_group_id
+      <<: *TaskGroupPage
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - detail
+    - class
+    - default_time
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 工程の書き込み
+TaskPageEdit:
+  kind: edit
+  from: mstr_task
+  requiredWhere:
+    - mstr_task_id
+  generateRfe: true
+  columns:
+    - mstr_task_id
+    - name: parent
+      arrayType: toFirstOne
+      as: parent
+      using: mstr_task_id
+      from: mstr_task_tree
+      columns:
+        - mstr_task_tree_id
+        - parent_mstr_task_id
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+    - name: groups
+      arrayType: toFirstOne
+      using:  mstr_task_group_id
+      editable: false
+      <<: *TaskGroupPage
+    - code
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    - detail
+    - class
+    - default_time
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
   
+# 工程の場所、設備、外部委託の読み込み
+# 工程が必要
+TaskResourcePage:
+  kind: read
+  from: mstr_task_location
+  filter: true
+  requiredWhere:
+    - languageCode
+    - mstr_task_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_task_location_id
+    - mstr_task_id
+    - info_department_id
+    - name: departments
+      as: departments
+      arrayType: toFirstOne
+      using:  info_department_id
+      <<: *DepartmentReadFields
+    - mstr_equipment_id
+    - name: equipments
+      as: equipments
+      arrayType: toFirstOne
+      using:  mstr_equipment_id
+      <<: *EquipmentPage
+    - mstr_stakeholder_id
+    - name: suppliers
+      as: suppliers
+      arrayType: toFirstOne
+      using:  mstr_stakeholder_id
+      <<: *StakeholderReadFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 工程の場所、設備、外部委託の書き込み
+# 工程が必要
+TaskResourcePageEdit:
+  kind: edit
+  from: mstr_task_location
+  requiredWhere:
+    - mstr_task_id
+    - mstr_task_location_id
+  generateRfe: true
+  columns:
+    - mstr_task_location_id
+    - mstr_task_id
+    - info_department_id
+    - name: departments
+      arrayType: toFirstOne
+      using:  info_department_id
+      <<: *DepartmentReadFields
+    - mstr_equipment_id
+    - name: equipments
+      arrayType: toFirstOne
+      using:  mstr_equipment_id
+      <<: *EquipmentPage
+    - mstr_stakeholder_id
+    - name: suppliers
+      arrayType: toFirstOne
+      using:  mstr_stakeholder_id
+      <<: *StakeholderReadFields
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
