@@ -1,16 +1,13 @@
 # assign_page画面 - Read(一覧取得クエリ)
 #
-# 画面仕様: source/view.yaml #AssignPage(担当者の組織割り当て、info_assign)
-# 命名規則: CLAUDE.md 画面仕様命名規則(要件0033)により`assign_page`をファイル名にする。
-#
-# staff(担当者、StaffPage共有アーム)はstaff_page_read.graphqlと同型(labelsのみ、住所無し)。
-# position/office/departmentはIDのみ(view.yamlに埋め込み指定が無いため)。
+# 画面仕様: source/views/ #AssignPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
 
 query AssignPageRead(
   $first: Int!
   $offset: Int
   $filter: InfoAssignFilter = {}
-  $orderBy: [InfoAssignsOrderBy!] = [PRIMARY_KEY_ASC]
+  $orderBy: [InfoAssignsOrderBy!]
   $languageCodeId: UUID!
   $removed: Boolean = false
 ) {
@@ -27,27 +24,11 @@ query AssignPageRead(
     }
     nodes {
       infoAssignId
-      infoPositionId
-      infoOfficeId
-      infoDepartmentId
-      enable
-      priority
-      symbol
-      remarks
-      updateAt
-      remove
 
       staff: infoStaffByInfoStaffId {
         infoStaffId
         infoCompanyId
         code
-        sex
-        phone
-        privatePhone
-        symbol
-        remarks
-        updateAt
-        remove
 
         labels: sharedAppellationByNames {
           sharedAppellationsId
@@ -61,6 +42,7 @@ query AssignPageRead(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryPronunciationId {
             sharedDictionaryId
             value: sharedDictionaryValuesBySharedDictionaryId(
@@ -71,6 +53,7 @@ query AssignPageRead(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryNicknameId {
             sharedDictionaryId
             value: sharedDictionaryValuesBySharedDictionaryId(
@@ -83,15 +66,20 @@ query AssignPageRead(
           }
         }
 
+        sex
+        phone
+        privatePhone
+        symbol
+        remarks
+        updateAt
+        remove
+
         update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
           historyId
           infoStaffId
           infoCompanyId
           code
-          sex
-          phone
-          symbol
-          privatePhone
+
           name: sharedAppellationByNames {
             sharedAppellationsId
             sharedDictionaryBySharedDictionaryNameId {
@@ -104,6 +92,7 @@ query AssignPageRead(
                 }
               }
             }
+
             sharedDictionaryBySharedDictionaryPronunciationId {
               sharedDictionaryId
               value: sharedDictionaryValuesBySharedDictionaryId(
@@ -114,6 +103,7 @@ query AssignPageRead(
                 }
               }
             }
+
             sharedDictionaryBySharedDictionaryNicknameId {
               sharedDictionaryId
               value: sharedDictionaryValuesBySharedDictionaryId(
@@ -125,18 +115,30 @@ query AssignPageRead(
               }
             }
           }
+
+          sex
+          phone
+          symbol
+          privatePhone
         }
       }
+
+      infoPositionId
+      infoOfficeId
+      infoDepartmentId
+      enable
+      priority
+      symbol
+      remarks
+      updateAt
+      remove
 
       update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
         historyId
         infoStaffId
         infoCompanyId
         code
-        sex
-        phone
-        symbol
-        privatePhone
+
         name: sharedAppellationByNames {
           sharedAppellationsId
           sharedDictionaryBySharedDictionaryNameId {
@@ -149,6 +151,7 @@ query AssignPageRead(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryPronunciationId {
             sharedDictionaryId
             value: sharedDictionaryValuesBySharedDictionaryId(
@@ -159,6 +162,7 @@ query AssignPageRead(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryNicknameId {
             sharedDictionaryId
             value: sharedDictionaryValuesBySharedDictionaryId(
@@ -170,6 +174,11 @@ query AssignPageRead(
             }
           }
         }
+
+        sex
+        phone
+        symbol
+        privatePhone
       }
     }
   }

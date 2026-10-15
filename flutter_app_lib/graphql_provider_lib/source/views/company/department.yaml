@@ -1,0 +1,276 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 組織区分
+DepartmentCategoryPage: &DepartmentCategoryPage
+  kind: read
+  from: info_department_kind_value
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - info_department_kind_value_id
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      pick: # 2026/09/29　追加
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 組織区分編集
+DepartmentCategoryPageEdit:
+  kind: edit
+  from: info_department_kind_value
+  requiredWhere:
+    - info_department_kind_value_id
+  generateRfe: true
+  columns:
+    - info_department_kind_value_id
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 組織参照表示フィールド
+DepartmentReadFields: &DepartmentReadFields
+  kind: read
+  from: info_department
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - info_department_id
+    - info_company_id
+    - code
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      pick: # 2026/09/29　追加
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - name: address
+      arrayType: toFirstOne
+      using: info_address_id
+      <<: *AddressReadFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 組織
+DepartmentPage: &DepartmentPage
+  kind: read
+  from: info_department
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - info_department_id
+    - info_company_id
+    - name: parent
+      arrayType: toFirstOne
+      as: parent
+      using: info_department_id
+      from: info_department_tree
+      # NULL許容(呼び出し側がNULLを渡したときは組織テーブルのトップノードを表す)。
+      requiredWhere:
+        - parent_info_department_id
+      columns:
+        - info_department_tree_id
+        - parent_info_department_id
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+    # 要件0046確認(変換不可、要件0047): v_department_descendantsはschema.graphql上InfoDepartmentとの関連(FK)を持たず
+    # (ビューのためPostGraphileが関連フィールドを生成しない)、allVDepartmentDescendantsからしか参照できないため、
+    # 一覧の各行へ入れ子で取得できない。列もancestor_info_department_idでありusing: info_department_idと一致しない。
+    # DB側でスマートコメント(@foreignKey (ancestor_info_department_id) references info_department (info_department_id))を
+    # 付与しschema.graphqlを再取得するまで、department_page_read.graphqlには含めていない。確認後は削除可。
+    - name: descendants
+      arrayType: toFirstOne
+      as: descendants
+      using: info_department_id
+      pick:
+        - descendant_count
+      from: v_department_descendants
+    - info_office_id
+    - name: office
+      arrayType: toFirstOne
+      as: office
+      using: info_office_id      
+      <<: *OfficePage
+    - code
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      pick: # 2026/09/29　追加
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - name: address
+      arrayType: toFirstOne
+      using: info_address_id
+      <<: *AddressReadFields
+    - name: kinds # 要件0045レビュー: info_department_kindはinfo_department_idに一意制約
+      # (Ix1)を持つ1対1(schema.graphqlのInfoDepartmentKindInfoDepartmentKindIx1Connect
+      # 参照)。旧`infoDepartmentKindsByInfoDepartmentId`は非推奨(@deprecated、
+      # `infoDepartmentKindByInfoDepartmentId`を使うよう指示あり)。arrayTypeをtoMany
+      # からtoFirstOneへ修正し、非推奨フィールドを避ける。department_page_read.graphqlも
+      # あわせて再生成する。
+      arrayType: toFirstOne
+      using: info_department_id
+      from: info_department_kind
+      columns:
+        - info_department_kind_id
+        - name: value
+          as: value
+          using: info_department_kind_id
+          arrayType: toMany
+          from: info_department_kind_value
+          columns:
+            - info_department_kind_value_id
+            - name: labels
+              arrayType: toFirstOne
+              using: names
+              <<: *AppellationLabelsReadFields
+              defaultWhere:
+                - column: remove
+                  operator: "="
+                  value: false
+        - info_department_id
+        - symbol
+        - remarks
+        - update_at
+        - name: update_user
+          as: update_user
+          using: [update_user_history_id,update_user_id]
+          arrayType: toFirstOne
+          <<: *UpdateStaffReadFields
+          defaultWhere:
+          - column: remove
+            operator: "="
+            value: false
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 組織編集
+DepartmentPageEdit:
+  kind: edit
+  from: info_department # 要件0045レビュー: fromが未指定だった(他のEditノードとの
+    # 一貫性、及びrequiredWhereのinfo_department_idから判断し追記)。
+  generateRfe: true
+  requiredWhere:
+    - info_department_id
+  columns:
+    - info_department_id
+    - info_company_id
+    - name: parent
+      arrayType: toFirstOne
+      as: parent
+      using: info_department_id
+      from: info_department_tree
+      columns:
+        - info_department_tree_id
+        - parent_info_department_id
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+    - name: office
+      arrayType: toFirstOne
+      as: office
+      using: info_office_id
+      kind: edit
+      from: info_office
+      columns:
+        - info_office_id
+        - code
+        - name: labels
+          arrayType: toFirstOne
+          using: names
+          <<: *AppellationLabelsEditFields
+        - name: address
+          arrayType: toFirstOne
+          using: info_address_id
+          <<: *AddressEditFields
+        - remarks
+        - update_user_id
+        - update_user_history_id
+        - remove
+    - code
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    - name: address
+      arrayType: toFirstOne
+      using: info_address_id
+      <<: *AddressEditFields
+    - name: kinds
+      # 要件0047: info_department_kindはinfo_department_idに一意制約(Ix1)を持つ1対1のため
+      # toFirstOneに修正(要件0045でDepartmentPage(read)とGraphQLは修正済みだったが、
+      # このEditノードだけtoManyのまま残っていた)。
+      arrayType: toFirstOne
+      using: info_department_id
+      from: info_department_kind
+      columns:
+        - info_department_kind_id
+        - name: value
+          as: value
+          using: info_department_kind_id
+          arrayType: toMany
+          from: info_department_kind_value
+          columns:
+            - info_department_kind_value_id
+            - name: labels
+              arrayType: toFirstOne
+              using: names
+              <<: *AppellationLabelsEditFields
+        - info_department_id
+        - remarks
+        - update_user_id
+        - update_user_history_id
+        - remove
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove

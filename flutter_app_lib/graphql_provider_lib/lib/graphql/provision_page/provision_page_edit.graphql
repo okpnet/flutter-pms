@@ -1,18 +1,16 @@
 # provision_page画面 - Edit(ミューテーション)
 #
-# 画面仕様: source/view.yaml #ProvisionPageEdit(提供、info_provision)
-# office_page_edit.graphql/staff_page_edit.graphqlの前例にならい、自身の業務コード(`code`)・
-# 所属会社を表すFK(`info_company_id`)はPatch(書き込み対象)から除外し、結果選択(output)・
-# RFEでの表示のみ行う(値そのものを変更する編集操作は想定しない)。
+# 画面仕様: source/views/ #ProvisionPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
 
 mutation ProvisionPageEdit(
   $infoProvisionId: UUID!
-  $details: String
-  $remarks: String
+  $infoCompanyId: UUID
+  $code: String
   $sharedAppellationsId: UUID!
+  $nameSharedDictionaryId: UUID!
   $jaLanguageCodeId: UUID!
   $enLanguageCodeId: UUID!
-  $nameSharedDictionaryId: UUID!
   $nameJa: String!
   $nameEn: String!
   $pronunciationSharedDictionaryId: UUID!
@@ -21,13 +19,17 @@ mutation ProvisionPageEdit(
   $nicknameSharedDictionaryId: UUID!
   $nicknameJa: String!
   $nicknameEn: String!
+  $detailTextsSharedTextId: UUID!
+  $detailTextsJa: String!
+  $detailTextsEn: String!
+  $remarks: String
 ) {
   updateInfoProvisionByInfoProvisionId(
     input: {
       infoProvisionId: $infoProvisionId
       infoProvisionPatch: {
-        details: $details
-        remarks: $remarks
+        infoCompanyId: $infoCompanyId
+        code: $code
 
         sharedAppellationToNames: {
           updateBySharedAppellationsId: {
@@ -47,6 +49,7 @@ mutation ProvisionPageEdit(
                   }
                 }
               }
+
               sharedDictionaryToSharedDictionaryPronunciationId: {
                 updateBySharedDictionaryId: {
                   sharedDictionaryId: $pronunciationSharedDictionaryId
@@ -61,6 +64,7 @@ mutation ProvisionPageEdit(
                   }
                 }
               }
+
               sharedDictionaryToSharedDictionaryNicknameId: {
                 updateBySharedDictionaryId: {
                   sharedDictionaryId: $nicknameSharedDictionaryId
@@ -78,6 +82,23 @@ mutation ProvisionPageEdit(
             }
           }
         }
+
+        sharedTextToDetails: {
+          updateBySharedTextId: {
+            sharedTextId: $detailTextsSharedTextId
+            sharedTextPatch: {
+              sharedTextValuesUsingSharedTextId: {
+                deleteOthers: true
+                create: [
+                  { sharedLanguageCodeId: $jaLanguageCodeId, textValue: $detailTextsJa }
+                  { sharedLanguageCodeId: $enLanguageCodeId, textValue: $detailTextsEn }
+                ]
+              }
+            }
+          }
+        }
+
+        remarks: $remarks
       }
     }
   ) {
@@ -85,12 +106,12 @@ mutation ProvisionPageEdit(
       infoProvisionId
       infoCompanyId
       code
-      details
-      remarks
+
       labels: sharedAppellationByNames {
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -98,6 +119,7 @@ mutation ProvisionPageEdit(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -106,8 +128,10 @@ mutation ProvisionPageEdit(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryPronunciationId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -115,6 +139,7 @@ mutation ProvisionPageEdit(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -123,8 +148,10 @@ mutation ProvisionPageEdit(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryNicknameId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -132,6 +159,7 @@ mutation ProvisionPageEdit(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -141,6 +169,28 @@ mutation ProvisionPageEdit(
           }
         }
       }
+
+      detailTexts: sharedTextByDetails {
+        sharedTextId
+
+        ja: sharedTextValuesBySharedTextId(
+          condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+        ) {
+          nodes {
+            textValue
+          }
+        }
+
+        en: sharedTextValuesBySharedTextId(
+          condition: { sharedLanguageCodeId: $enLanguageCodeId }
+        ) {
+          nodes {
+            textValue
+          }
+        }
+      }
+
+      remarks
     }
   }
 }

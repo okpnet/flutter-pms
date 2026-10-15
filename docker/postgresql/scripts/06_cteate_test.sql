@@ -730,10 +730,9 @@ create table tests.history_mstr_document_content (
     mstr_document_content_id uuid not null,
     mstr_document_id uuid not null,
     code varchar(255) not null,
-    name uuid not null,
+    titles uuid not null,
+    contents uuid not null,
     sequence integer default 1,
-    title uuid not null,
-    content text not null,
     image_content boolean default 'f',
     trans_file_id uuid default null,
     revision integer default 1,
@@ -760,10 +759,9 @@ create table tests.mstr_document_content (
     mstr_document_content_id uuid default gen_random_uuid(),
     mstr_document_id uuid not null,
     code varchar(255) not null,
-    name uuid not null,
+    titles uuid not null,
+    contents uuid not null,
     sequence integer default 1,
-    title uuid not null,
-    content text not null,
     image_content boolean default 'f',
     trans_file_id uuid default null,
     revision integer default 1,
@@ -778,7 +776,7 @@ create table tests.history_mstr_document_tier (
     history_id uuid default gen_random_uuid(),
     mstr_document_tier_id uuid not null,
     code varchar(255) not null,
-    name uuid not null,
+    names uuid not null,
     trans_file_id uuid default null,
     attributive_noun varchar(255) not null,
     Identifier varchar(255) not null,
@@ -794,7 +792,7 @@ create table tests.history_mstr_document_tier (
 create table tests.mstr_document_tier (
     mstr_document_tier_id uuid default gen_random_uuid(),
     code varchar(255) not null,
-    name uuid not null,
+    names uuid not null,
     trans_file_id uuid default null,
     attributive_noun varchar(255) not null,
     Identifier varchar(255) not null,
@@ -846,10 +844,9 @@ create table tests.history_mstr_document (
     history_id uuid default gen_random_uuid(),
     mstr_document_id uuid not null,
     code varchar(255) not null,
-    name uuid not null,
     mstr_document_tier_id uuid not null,
     trans_file_id uuid default null,
-    title uuid not null,
+    titles uuid not null,
     control_number varchar(255) not null,
     version_code varchar(255) default '',
     trans_approval_pattern_id uuid not null,
@@ -864,11 +861,10 @@ create table tests.history_mstr_document (
 create table tests.mstr_document (
     mstr_document_id uuid default gen_random_uuid(),
     code varchar(255) not null,
-    name uuid not null,
+    titles uuid not null,
+    control_number varchar(255) not null,
     mstr_document_tier_id uuid not null,
     trans_file_id uuid default null,
-    title uuid not null,
-    control_number varchar(255) not null,
     version_code varchar(255) default '',
     trans_approval_pattern_id uuid not null,
     revision integer default 1,
@@ -1417,7 +1413,7 @@ create table tests.history_mstr_item_actual_size (
     mstr_item_id uuid not null,
     mstr_item_size_kind_id uuid not null,
     size_value decimal(10,4) default 0.0,
-    detail varchar(1024) default null,
+    details uuid default null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -1435,7 +1431,7 @@ create table tests.history_mstr_item_tree (
     control_code varchar(255) default null,
     names uuid not null,
     quantity decimal(10,2) not null,
-    detail varchar(1024) default null,
+    details uuid default null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -1454,7 +1450,7 @@ create table tests.history_mstr_item (
     mstr_manufacturer_id uuid default null,
     names uuid not null,
     label_code varchar(255) default null,
-    description varchar(255) default null,
+    details uuid default null,
     shared_unit_id uuid default null,
     mstr_item_lot_id uuid default null,
     revision integer default 1,
@@ -1521,7 +1517,7 @@ create table tests.history_mstr_equipment_tag (
     history_id uuid default gen_random_uuid(),
     mstr_equipment_tag_id uuid not null,
     trans_file_id uuid default null,
-    name varchar(255) default null,
+    names uuid default null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -1535,9 +1531,9 @@ create table tests.history_mstr_stakeholder_contact (
     mstr_stakeholder_contact_id uuid not null,
     mstr_stakeholder_id uuid not null,
     code varchar(255) not null,
-    office_appellations_id uuid default null,
-    department_appellations_id uuid default null,
-    contact_person_appellations_id uuid not null,
+    office_names uuid default null,
+    department_names uuid default null,
+    contact_person_names uuid not null,
     mail varchar(255) default null,
     info_address_id uuid default null,
     mstr_shipping_kind_id uuid default null,
@@ -1606,7 +1602,7 @@ create table tests.history_mstr_license (
     mstr_license_id uuid not null,
     code varchar(255) default null,
     names uuid not null,
-    detail varchar(1024) default null,
+    details uuid default null,
     public_license boolean default 'f',
     customer_license boolean default 'f',
     organization_license boolean default 'f',
@@ -1663,7 +1659,7 @@ create table tests.history_mstr_capability (
     mstr_capability_id uuid not null,
     code varchar(255) not null,
     names uuid not null,
-    detail varchar(1024) default null,
+    details uuid default null,
     reference_value decimal(5,2) not null,
     max decimal(5,2) default 100.00,
     min decimal(5,2) default 0.00,
@@ -1771,7 +1767,7 @@ create table tests.history_info_provision (
     info_company_id uuid not null,
     code varchar(255) not null,
     names uuid not null,
-    details varchar(1024) default null,
+    details uuid default null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -1787,7 +1783,7 @@ create table tests.history_info_address (
     zip_code varchar(16) default null,
     address1 uuid default null,
     address2 uuid default null,
-    bill uuid default null,
+    building uuid default null,
     phone varchar(255) default null,
     fax_number varchar(255) default null,
     revision integer default 1,
@@ -1802,7 +1798,7 @@ create table tests.history_shared_unit (
     history_id uuid default gen_random_uuid(),
     shared_unit_id uuid not null,
     names uuid not null,
-    description varchar(1024) default null,
+    details uuid default null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -1933,9 +1929,9 @@ create table tests.trans_anonymouse (
 );
 create table tests.trans_file_reminder (
     trans_file_reminder_id uuid default gen_random_uuid(),
-    name uuid not null,
-    label uuid not null,
-    message uuid default null,
+    reminder_names uuid not null,
+    labels uuid not null,
+    messages uuid default null,
     type_code varchar(255) default null,
     option varchar(1024) default null,
     urls varchar(1024) default null,
@@ -2033,7 +2029,7 @@ create table tests.info_provision (
     info_company_id uuid not null,
     code varchar(255) not null,
     names uuid not null,
-    details varchar(1024) default null,
+    details uuid default null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -2098,7 +2094,7 @@ create table tests.info_address (
     zip_code varchar(16) default null,
     address1 uuid default null,
     address2 uuid default null,
-    bill uuid default null,
+    building uuid default null,
     phone varchar(255) default null,
     fax_number varchar(255) default null,
     revision integer default 1,
@@ -2138,7 +2134,7 @@ create table tests.mstr_report (
 create table tests.mstr_equipment_tag (
     mstr_equipment_tag_id uuid default gen_random_uuid(),
     trans_file_id uuid default null,
-    name varchar(255) default null,
+    names uuid default null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -2239,8 +2235,8 @@ create table tests.trans_audit_member (
     trans_audit_member_id uuid default gen_random_uuid(),
     trans_audit_id uuid not null,
     class smallint not null,
-    name uuid not null,
-    department uuid default null,
+    participant_names uuid not null,
+    department_names uuid default null,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
     update_at timestamp default now(),
@@ -2574,7 +2570,7 @@ create table tests.trans_inspect_record (
     result_value jsonb default null,
     result boolean default 't',
     result_state varchar(255) default null,
-    note uuid default null,
+    notes uuid default null,
     stakeholder_id uuid default null,
     stakeholder_history_id uuid default null,
     symbol varchar(16) default '',
@@ -2614,8 +2610,8 @@ create table tests.trans_inspect_sch (
     equipment_history_id uuid not null,
     equipment_id uuid not null,
     requirements uuid default null,
-    attention uuid default null,
-    recommendation uuid default null,
+    attentions uuid default null,
+    recommendations uuid default null,
     symbol varchar(16) default '',
     inspection_operation_history_id uuid not null,
     inspection_operation_id uuid not null,
@@ -2769,7 +2765,7 @@ create table tests.mstr_item_actual_size (
     mstr_item_id uuid not null,
     mstr_item_size_kind_id uuid not null,
     size_value decimal(10,4) default 0.0,
-    detail varchar(1024) default null,
+    details uuid default null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -3091,7 +3087,7 @@ create table tests.mstr_item_tree (
     control_code varchar(255) default null,
     names uuid not null,
     quantity decimal(10,2) not null,
-    detail varchar(1024) default null,
+    details uuid default null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -3103,7 +3099,7 @@ create table tests.mstr_item_tree (
 create table tests.shared_unit (
     shared_unit_id uuid default gen_random_uuid(),
     names uuid not null,
-    description varchar(1024) default null,
+    details uuid default null,
     revision integer default 1,
     symbol varchar(16) default '',
     remarks varchar(1024) default null,
@@ -3121,7 +3117,7 @@ create table tests.mstr_item (
     mstr_manufacturer_id uuid default null,
     names uuid not null,
     label_code varchar(255) default null,
-    description varchar(255) default null,
+    details uuid default null,
     shared_unit_id uuid default null,
     mstr_item_lot_id uuid default null,
     revision integer default 1,
@@ -3200,9 +3196,9 @@ create table tests.mstr_stakeholder_contact (
     mstr_stakeholder_contact_id uuid default gen_random_uuid(),
     mstr_stakeholder_id uuid not null,
     code varchar(255) not null,
-    office_appellations_id uuid default null,
-    department_appellations_id uuid default null,
-    contact_person_appellations_id uuid not null,
+    office_names uuid default null,
+    department_names uuid default null,
+    contact_person_names uuid not null,
     mail varchar(255) default null,
     info_address_id uuid default null,
     mstr_shipping_kind_id uuid default null,
@@ -3284,7 +3280,7 @@ create table tests.mstr_license (
     mstr_license_id uuid default gen_random_uuid(),
     code varchar(255) default null,
     names uuid not null,
-    detail varchar(1024) default null,
+    details uuid default null,
     public_license boolean default 'f',
     customer_license boolean default 'f',
     organization_license boolean default 'f',
@@ -3301,7 +3297,7 @@ create table tests.mstr_capability (
     mstr_capability_id uuid default gen_random_uuid(),
     code varchar(255) not null,
     names uuid not null,
-    detail varchar(1024) default null,
+    details uuid default null,
     reference_value decimal(5,2) not null,
     max decimal(5,2) default 100.00,
     min decimal(5,2) default 0.00,
@@ -3972,10 +3968,9 @@ comment on column tests.history_mstr_document_content.history_id is '履歴ID';
 comment on column tests.history_mstr_document_content.mstr_document_content_id is 'コンテンツID';
 comment on column tests.history_mstr_document_content.mstr_document_id is '文書ID';
 comment on column tests.history_mstr_document_content.code is 'コード';
-comment on column tests.history_mstr_document_content.name is '名前';
+comment on column tests.history_mstr_document_content.titles is 'タイトル';
+comment on column tests.history_mstr_document_content.contents is 'コンテンツ';
 comment on column tests.history_mstr_document_content.sequence is 'シーケンス';
-comment on column tests.history_mstr_document_content.title is 'タイトル';
-comment on column tests.history_mstr_document_content.content is 'コンテンツ';
 comment on column tests.history_mstr_document_content.image_content is 'イメージコンテンツ';
 comment on column tests.history_mstr_document_content.trans_file_id is 'ファイルID';
 comment on column tests.history_mstr_document_content.revision is 'レビジョン';
@@ -4000,10 +3995,9 @@ comment on table tests.mstr_document_content is '文書コンテンツマスタ'
 comment on column tests.mstr_document_content.mstr_document_content_id is 'コンテンツID';
 comment on column tests.mstr_document_content.mstr_document_id is '文書ID';
 comment on column tests.mstr_document_content.code is 'コード';
-comment on column tests.mstr_document_content.name is '名前';
+comment on column tests.mstr_document_content.titles is 'タイトル';
+comment on column tests.mstr_document_content.contents is 'コンテンツ';
 comment on column tests.mstr_document_content.sequence is 'シーケンス';
-comment on column tests.mstr_document_content.title is 'タイトル';
-comment on column tests.mstr_document_content.content is 'コンテンツ';
 comment on column tests.mstr_document_content.image_content is 'イメージコンテンツ';
 comment on column tests.mstr_document_content.trans_file_id is 'ファイルID';
 comment on column tests.mstr_document_content.revision is 'レビジョン';
@@ -4017,7 +4011,7 @@ comment on table tests.history_mstr_document_tier is '文書階層履歴';
 comment on column tests.history_mstr_document_tier.history_id is '履歴ID';
 comment on column tests.history_mstr_document_tier.mstr_document_tier_id is '文書階層ID';
 comment on column tests.history_mstr_document_tier.code is 'コード';
-comment on column tests.history_mstr_document_tier.name is '名前';
+comment on column tests.history_mstr_document_tier.names is '名前';
 comment on column tests.history_mstr_document_tier.trans_file_id is 'ファイルID';
 comment on column tests.history_mstr_document_tier.attributive_noun is '限定名詞';
 comment on column tests.history_mstr_document_tier.Identifier is '管理番号識別子';
@@ -4032,7 +4026,7 @@ comment on column tests.history_mstr_document_tier.remove is '削除';
 comment on table tests.mstr_document_tier is '文書階層マスタ';
 comment on column tests.mstr_document_tier.mstr_document_tier_id is '文書階層ID';
 comment on column tests.mstr_document_tier.code is 'コード';
-comment on column tests.mstr_document_tier.name is '名前';
+comment on column tests.mstr_document_tier.names is '名前';
 comment on column tests.mstr_document_tier.trans_file_id is 'ファイルID';
 comment on column tests.mstr_document_tier.attributive_noun is '限定名詞';
 comment on column tests.mstr_document_tier.Identifier is '管理番号識別子';
@@ -4080,10 +4074,9 @@ comment on table tests.history_mstr_document is '文書マスタ履歴';
 comment on column tests.history_mstr_document.history_id is '履歴ID';
 comment on column tests.history_mstr_document.mstr_document_id is '文書ID';
 comment on column tests.history_mstr_document.code is 'コード';
-comment on column tests.history_mstr_document.name is '名前';
 comment on column tests.history_mstr_document.mstr_document_tier_id is '文書階層ID';
 comment on column tests.history_mstr_document.trans_file_id is 'ファイルID';
-comment on column tests.history_mstr_document.title is 'タイトル';
+comment on column tests.history_mstr_document.titles is 'タイトル';
 comment on column tests.history_mstr_document.control_number is '管理番号';
 comment on column tests.history_mstr_document.version_code is '版コード';
 comment on column tests.history_mstr_document.trans_approval_pattern_id is '承認実行パターンID';
@@ -4097,11 +4090,10 @@ comment on column tests.history_mstr_document.remove is '削除';
 comment on table tests.mstr_document is '文書マスタ';
 comment on column tests.mstr_document.mstr_document_id is '文書ID';
 comment on column tests.mstr_document.code is 'コード';
-comment on column tests.mstr_document.name is '名前';
+comment on column tests.mstr_document.titles is 'タイトル';
+comment on column tests.mstr_document.control_number is '管理番号';
 comment on column tests.mstr_document.mstr_document_tier_id is '文書階層ID';
 comment on column tests.mstr_document.trans_file_id is 'ファイルID';
-comment on column tests.mstr_document.title is 'タイトル';
-comment on column tests.mstr_document.control_number is '管理番号';
 comment on column tests.mstr_document.version_code is '版コード';
 comment on column tests.mstr_document.trans_approval_pattern_id is '承認実行パターンID';
 comment on column tests.mstr_document.revision is 'レビジョン';
@@ -4611,7 +4603,7 @@ comment on column tests.history_mstr_item_actual_size.mstr_item_actual_size_id i
 comment on column tests.history_mstr_item_actual_size.mstr_item_id is '品目ID';
 comment on column tests.history_mstr_item_actual_size.mstr_item_size_kind_id is '品目大きさ区分ID';
 comment on column tests.history_mstr_item_actual_size.size_value is '大きさ';
-comment on column tests.history_mstr_item_actual_size.detail is '詳細';
+comment on column tests.history_mstr_item_actual_size.details is '詳細';
 comment on column tests.history_mstr_item_actual_size.revision is 'レビジョン';
 comment on column tests.history_mstr_item_actual_size.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_item_actual_size.remarks is '備考';
@@ -4628,7 +4620,7 @@ comment on column tests.history_mstr_item_tree.code is '品目体系コード';
 comment on column tests.history_mstr_item_tree.control_code is '管理コード';
 comment on column tests.history_mstr_item_tree.names is '体系名称';
 comment on column tests.history_mstr_item_tree.quantity is '数量';
-comment on column tests.history_mstr_item_tree.detail is '詳細';
+comment on column tests.history_mstr_item_tree.details is '詳細';
 comment on column tests.history_mstr_item_tree.revision is 'レビジョン';
 comment on column tests.history_mstr_item_tree.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_item_tree.remarks is '備考';
@@ -4646,7 +4638,7 @@ comment on column tests.history_mstr_item.control_code is '管理コード';
 comment on column tests.history_mstr_item.mstr_manufacturer_id is '製造元ID';
 comment on column tests.history_mstr_item.names is '品目名称';
 comment on column tests.history_mstr_item.label_code is '表示コード';
-comment on column tests.history_mstr_item.description is '詳細';
+comment on column tests.history_mstr_item.details is '詳細';
 comment on column tests.history_mstr_item.shared_unit_id is '個別単位';
 comment on column tests.history_mstr_item.mstr_item_lot_id is 'ロット';
 comment on column tests.history_mstr_item.revision is 'レビジョン';
@@ -4709,7 +4701,7 @@ comment on table tests.history_mstr_equipment_tag is '設備識別タグマス�
 comment on column tests.history_mstr_equipment_tag.history_id is '履歴ID';
 comment on column tests.history_mstr_equipment_tag.mstr_equipment_tag_id is '設備識別タグID';
 comment on column tests.history_mstr_equipment_tag.trans_file_id is '様式ファイルID';
-comment on column tests.history_mstr_equipment_tag.name is '名前';
+comment on column tests.history_mstr_equipment_tag.names is '名前';
 comment on column tests.history_mstr_equipment_tag.revision is 'レビジョン';
 comment on column tests.history_mstr_equipment_tag.symbol is 'リニアシンボル';
 comment on column tests.history_mstr_equipment_tag.remarks is '備考';
@@ -4722,9 +4714,9 @@ comment on column tests.history_mstr_stakeholder_contact.history_id is '履歴ID
 comment on column tests.history_mstr_stakeholder_contact.mstr_stakeholder_contact_id is '窓口ID';
 comment on column tests.history_mstr_stakeholder_contact.mstr_stakeholder_id is '利害関係者ID';
 comment on column tests.history_mstr_stakeholder_contact.code is '利害関係者コード';
-comment on column tests.history_mstr_stakeholder_contact.office_appellations_id is '事業所名';
-comment on column tests.history_mstr_stakeholder_contact.department_appellations_id is '部署名';
-comment on column tests.history_mstr_stakeholder_contact.contact_person_appellations_id is '担当者名';
+comment on column tests.history_mstr_stakeholder_contact.office_names is '事業所名';
+comment on column tests.history_mstr_stakeholder_contact.department_names is '部署名';
+comment on column tests.history_mstr_stakeholder_contact.contact_person_names is '担当者名';
 comment on column tests.history_mstr_stakeholder_contact.mail is 'メール';
 comment on column tests.history_mstr_stakeholder_contact.info_address_id is '住所ID';
 comment on column tests.history_mstr_stakeholder_contact.mstr_shipping_kind_id is '配送区分ID';
@@ -4789,7 +4781,7 @@ comment on column tests.history_mstr_license.history_id is '履歴ID';
 comment on column tests.history_mstr_license.mstr_license_id is '資格ID';
 comment on column tests.history_mstr_license.code is '資格コード';
 comment on column tests.history_mstr_license.names is '塩飽名称';
-comment on column tests.history_mstr_license.detail is '詳細';
+comment on column tests.history_mstr_license.details is '詳細';
 comment on column tests.history_mstr_license.public_license is '公的';
 comment on column tests.history_mstr_license.customer_license is '顧客';
 comment on column tests.history_mstr_license.organization_license is '内部';
@@ -4842,7 +4834,7 @@ comment on column tests.history_mstr_capability.history_id is '履歴ID';
 comment on column tests.history_mstr_capability.mstr_capability_id is '力量ID';
 comment on column tests.history_mstr_capability.code is '力量コード';
 comment on column tests.history_mstr_capability.names is '力量名称';
-comment on column tests.history_mstr_capability.detail is '力量詳細';
+comment on column tests.history_mstr_capability.details is '力量詳細';
 comment on column tests.history_mstr_capability.reference_value is '基準';
 comment on column tests.history_mstr_capability.max is '最大';
 comment on column tests.history_mstr_capability.min is '最小';
@@ -4958,7 +4950,7 @@ comment on column tests.history_info_address.iso3166_3 is '国';
 comment on column tests.history_info_address.zip_code is '郵便番号';
 comment on column tests.history_info_address.address1 is '住所1';
 comment on column tests.history_info_address.address2 is '住所2';
-comment on column tests.history_info_address.bill is '建物';
+comment on column tests.history_info_address.building is '建物';
 comment on column tests.history_info_address.phone is '電話番号';
 comment on column tests.history_info_address.fax_number is 'FAX';
 comment on column tests.history_info_address.revision is 'レビジョン';
@@ -4972,7 +4964,7 @@ comment on table tests.history_shared_unit is '単位履歴';
 comment on column tests.history_shared_unit.history_id is '履歴ID';
 comment on column tests.history_shared_unit.shared_unit_id is '単位ID';
 comment on column tests.history_shared_unit.names is '単位名称';
-comment on column tests.history_shared_unit.description is '詳細';
+comment on column tests.history_shared_unit.details is '詳細';
 comment on column tests.history_shared_unit.revision is 'レビジョン';
 comment on column tests.history_shared_unit.symbol is 'リニアシンボル';
 comment on column tests.history_shared_unit.remarks is '備考';
@@ -5059,7 +5051,7 @@ comment on column tests.info_company.info_company_id is '会社ID';
 comment on column tests.info_company.names is '会社名';
 comment on column tests.info_company.info_address_id is '住所ID';
 comment on column tests.info_company.web_page is 'ホームページ';
-comment on column tests.info_company.ceo_names is '代表社名';
+comment on column tests.info_company.ceo_names is '代表者名';
 comment on column tests.info_company.revision is 'レビジョン';
 comment on column tests.info_company.symbol is 'リニアシンボル';
 comment on column tests.info_company.remarks is '備考';
@@ -5094,9 +5086,9 @@ comment on column tests.trans_anonymouse.update_user_history_id is '更新者履
 comment on column tests.trans_anonymouse.remove is '削除';
 comment on table tests.trans_file_reminder is 'ファイルリマインダー';
 comment on column tests.trans_file_reminder.trans_file_reminder_id is 'リマインダID';
-comment on column tests.trans_file_reminder.name is '名前';
-comment on column tests.trans_file_reminder.label is 'ヘッダーラベル';
-comment on column tests.trans_file_reminder.message is 'メッセージ';
+comment on column tests.trans_file_reminder.reminder_names is 'リマインダー名';
+comment on column tests.trans_file_reminder.labels is 'ヘッダーラベル';
+comment on column tests.trans_file_reminder.messages is 'メッセージ';
 comment on column tests.trans_file_reminder.type_code is 'タイプ';
 comment on column tests.trans_file_reminder.option is 'オプション';
 comment on column tests.trans_file_reminder.urls is 'URLアドレス';
@@ -5247,7 +5239,7 @@ comment on column tests.info_address.iso3166_3 is '国';
 comment on column tests.info_address.zip_code is '郵便番号';
 comment on column tests.info_address.address1 is '住所1';
 comment on column tests.info_address.address2 is '住所2';
-comment on column tests.info_address.bill is '建物';
+comment on column tests.info_address.building is '建物';
 comment on column tests.info_address.phone is '電話番号';
 comment on column tests.info_address.fax_number is 'FAX';
 comment on column tests.info_address.revision is 'レビジョン';
@@ -5284,7 +5276,7 @@ comment on column tests.mstr_report.remove is '削除';
 comment on table tests.mstr_equipment_tag is '設備識別タグマスタ';
 comment on column tests.mstr_equipment_tag.mstr_equipment_tag_id is '設備識別タグID';
 comment on column tests.mstr_equipment_tag.trans_file_id is '様式ファイルID';
-comment on column tests.mstr_equipment_tag.name is '名前';
+comment on column tests.mstr_equipment_tag.names is '名前';
 comment on column tests.mstr_equipment_tag.revision is 'レビジョン';
 comment on column tests.mstr_equipment_tag.symbol is 'リニアシンボル';
 comment on column tests.mstr_equipment_tag.remarks is '備考';
@@ -5377,8 +5369,8 @@ comment on table tests.trans_audit_member is '監査参加者';
 comment on column tests.trans_audit_member.trans_audit_member_id is '監査参加者ID';
 comment on column tests.trans_audit_member.trans_audit_id is '監査ID';
 comment on column tests.trans_audit_member.class is '参加区分';
-comment on column tests.trans_audit_member.name is '参加者名';
-comment on column tests.trans_audit_member.department is '参加者組織名';
+comment on column tests.trans_audit_member.participant_names is '参加者名';
+comment on column tests.trans_audit_member.department_names is '参加者組織名';
 comment on column tests.trans_audit_member.symbol is 'リニアシンボル';
 comment on column tests.trans_audit_member.remarks is '備考';
 comment on column tests.trans_audit_member.update_at is '更新日時';
@@ -5688,7 +5680,7 @@ comment on column tests.trans_inspect_record.implement_stop_date is '実施終�
 comment on column tests.trans_inspect_record.result_value is '測定値';
 comment on column tests.trans_inspect_record.result is '結果';
 comment on column tests.trans_inspect_record.result_state is '結果ステータス';
-comment on column tests.trans_inspect_record.note is '特記';
+comment on column tests.trans_inspect_record.notes is '特記';
 comment on column tests.trans_inspect_record.stakeholder_id is '利害関係者ID';
 comment on column tests.trans_inspect_record.stakeholder_history_id is '利害関係者履歴ID';
 comment on column tests.trans_inspect_record.symbol is 'リニアシンボル';
@@ -5726,8 +5718,8 @@ comment on column tests.trans_inspect_sch.titles is '予定名称';
 comment on column tests.trans_inspect_sch.equipment_history_id is '設備履歴ID';
 comment on column tests.trans_inspect_sch.equipment_id is '設備ID';
 comment on column tests.trans_inspect_sch.requirements is '要求事項';
-comment on column tests.trans_inspect_sch.attention is '注意事項';
-comment on column tests.trans_inspect_sch.recommendation is '補足事項';
+comment on column tests.trans_inspect_sch.attentions is '注意事項';
+comment on column tests.trans_inspect_sch.recommendations is '補足事項';
 comment on column tests.trans_inspect_sch.symbol is 'リニアシンボル';
 comment on column tests.trans_inspect_sch.inspection_operation_history_id is '点検整備運用履歴ID';
 comment on column tests.trans_inspect_sch.inspection_operation_id is '点検整備運用ID';
@@ -5870,7 +5862,7 @@ comment on column tests.mstr_item_actual_size.mstr_item_actual_size_id is '大�
 comment on column tests.mstr_item_actual_size.mstr_item_id is '品目ID';
 comment on column tests.mstr_item_actual_size.mstr_item_size_kind_id is '品目大きさ区分ID';
 comment on column tests.mstr_item_actual_size.size_value is '大きさ';
-comment on column tests.mstr_item_actual_size.detail is '詳細';
+comment on column tests.mstr_item_actual_size.details is '詳細';
 comment on column tests.mstr_item_actual_size.revision is 'レビジョン';
 comment on column tests.mstr_item_actual_size.symbol is 'リニアシンボル';
 comment on column tests.mstr_item_actual_size.remarks is '備考';
@@ -6170,7 +6162,7 @@ comment on column tests.mstr_item_tree.code is '品目体系コード';
 comment on column tests.mstr_item_tree.control_code is '管理コード';
 comment on column tests.mstr_item_tree.names is '体系名称';
 comment on column tests.mstr_item_tree.quantity is '数量';
-comment on column tests.mstr_item_tree.detail is '詳細';
+comment on column tests.mstr_item_tree.details is '詳細';
 comment on column tests.mstr_item_tree.revision is 'レビジョン';
 comment on column tests.mstr_item_tree.symbol is 'リニアシンボル';
 comment on column tests.mstr_item_tree.remarks is '備考';
@@ -6181,7 +6173,7 @@ comment on column tests.mstr_item_tree.remove is '削除';
 comment on table tests.shared_unit is '単位';
 comment on column tests.shared_unit.shared_unit_id is '単位ID';
 comment on column tests.shared_unit.names is '単位名称';
-comment on column tests.shared_unit.description is '詳細';
+comment on column tests.shared_unit.details is '詳細';
 comment on column tests.shared_unit.revision is 'レビジョン';
 comment on column tests.shared_unit.symbol is 'リニアシンボル';
 comment on column tests.shared_unit.remarks is '備考';
@@ -6198,7 +6190,7 @@ comment on column tests.mstr_item.control_code is '管理コード';
 comment on column tests.mstr_item.mstr_manufacturer_id is '製造元ID';
 comment on column tests.mstr_item.names is '品目名称';
 comment on column tests.mstr_item.label_code is '表示コード';
-comment on column tests.mstr_item.description is '詳細';
+comment on column tests.mstr_item.details is '詳細';
 comment on column tests.mstr_item.shared_unit_id is '個別単位';
 comment on column tests.mstr_item.mstr_item_lot_id is 'ロット';
 comment on column tests.mstr_item.revision is 'レビジョン';
@@ -6272,9 +6264,9 @@ comment on table tests.mstr_stakeholder_contact is '利害関係者窓口マス�
 comment on column tests.mstr_stakeholder_contact.mstr_stakeholder_contact_id is '窓口ID';
 comment on column tests.mstr_stakeholder_contact.mstr_stakeholder_id is '利害関係者ID';
 comment on column tests.mstr_stakeholder_contact.code is '利害関係者コード';
-comment on column tests.mstr_stakeholder_contact.office_appellations_id is '事業所名';
-comment on column tests.mstr_stakeholder_contact.department_appellations_id is '部署名';
-comment on column tests.mstr_stakeholder_contact.contact_person_appellations_id is '担当者名';
+comment on column tests.mstr_stakeholder_contact.office_names is '事業所名';
+comment on column tests.mstr_stakeholder_contact.department_names is '部署名';
+comment on column tests.mstr_stakeholder_contact.contact_person_names is '担当者名';
 comment on column tests.mstr_stakeholder_contact.mail is 'メール';
 comment on column tests.mstr_stakeholder_contact.info_address_id is '住所ID';
 comment on column tests.mstr_stakeholder_contact.mstr_shipping_kind_id is '配送区分ID';
@@ -6351,7 +6343,7 @@ comment on table tests.mstr_license is '資格マスタ';
 comment on column tests.mstr_license.mstr_license_id is '資格ID';
 comment on column tests.mstr_license.code is '資格コード';
 comment on column tests.mstr_license.names is '資格名称';
-comment on column tests.mstr_license.detail is '詳細';
+comment on column tests.mstr_license.details is '詳細';
 comment on column tests.mstr_license.public_license is '公的';
 comment on column tests.mstr_license.customer_license is '顧客';
 comment on column tests.mstr_license.organization_license is '内部';
@@ -6367,7 +6359,7 @@ comment on table tests.mstr_capability is '力量マスタ';
 comment on column tests.mstr_capability.mstr_capability_id is '力量ID';
 comment on column tests.mstr_capability.code is '力量コード';
 comment on column tests.mstr_capability.names is '力量名称';
-comment on column tests.mstr_capability.detail is '力量詳細';
+comment on column tests.mstr_capability.details is '力量詳細';
 comment on column tests.mstr_capability.reference_value is '基準';
 comment on column tests.mstr_capability.max is '最大';
 comment on column tests.mstr_capability.min is '最小';
@@ -7955,14 +7947,14 @@ alter table tests.history_mstr_document_content add constraint history_mstr_docu
 alter table tests.mstr_document_content_tree add constraint mstr_document_content_tree_FK1 foreign key (parent_mstr_document_content_id) references tests.mstr_document_content (mstr_document_content_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_document_content_tree add constraint mstr_document_content_tree_FK2 foreign key (mstr_document_content_id) references tests.mstr_document_content (mstr_document_content_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_document_content_tree add constraint mstr_document_content_tree_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_document_content add constraint mstr_document_content_FK1 foreign key (title) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_document_content add constraint mstr_document_content_FK2 foreign key (name) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_document_content add constraint mstr_document_content_FK1 foreign key (contents) references tests.shared_text (shared_text_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_document_content add constraint mstr_document_content_FK2 foreign key (titles) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_document_content add constraint mstr_document_content_FK3 foreign key (trans_file_id) references tests.trans_file (trans_file_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_document_content add constraint mstr_document_content_FK4 foreign key (mstr_document_id) references tests.mstr_document (mstr_document_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_document_content add constraint mstr_document_content_FK5 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_document_tier add constraint history_mstr_document_tier_FK1 foreign key (mstr_document_tier_id) references tests.mstr_document_tier (mstr_document_tier_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_document_tier add constraint history_mstr_document_tier_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_document_tier add constraint mstr_document_tier_FK1 foreign key (name) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_document_tier add constraint mstr_document_tier_FK1 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_document_tier add constraint mstr_document_tier_FK2 foreign key (trans_file_id) references tests.trans_file (trans_file_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_document_tier add constraint mstr_document_tier_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_document_tree add constraint history_mstr_document_tree_FK1 foreign key (mstr_document_tree_id) references tests.mstr_document_tree (mstr_document_tree_id) DEFERRABLE INITIALLY DEFERRED;
@@ -7973,11 +7965,10 @@ alter table tests.mstr_document_tree add constraint mstr_document_tree_FK3 forei
 alter table tests.history_mstr_document add constraint history_mstr_document_FK1 foreign key (mstr_document_id) references tests.mstr_document (mstr_document_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.history_mstr_document add constraint history_mstr_document_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_document add constraint mstr_document_FK1 foreign key (trans_approval_pattern_id) references tests.trans_approval_pattern (trans_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_document add constraint mstr_document_FK2 foreign key (title) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_document add constraint mstr_document_FK3 foreign key (name) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_document add constraint mstr_document_FK4 foreign key (trans_file_id) references tests.trans_file (trans_file_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_document add constraint mstr_document_FK5 foreign key (mstr_document_tier_id) references tests.mstr_document_tier (mstr_document_tier_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_document add constraint mstr_document_FK6 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_document add constraint mstr_document_FK2 foreign key (titles) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_document add constraint mstr_document_FK3 foreign key (trans_file_id) references tests.trans_file (trans_file_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_document add constraint mstr_document_FK4 foreign key (mstr_document_tier_id) references tests.mstr_document_tier (mstr_document_tier_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_document add constraint mstr_document_FK5 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_container_tree add constraint trans_container_tree_FK1 foreign key (parent_trans_container_id) references tests.trans_container (trans_container_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_container_tree add constraint trans_container_tree_FK2 foreign key (trans_container_id) references tests.trans_container (trans_container_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_container_tree add constraint trans_container_tree_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
@@ -8132,9 +8123,9 @@ alter table tests.history_info_app add constraint history_info_app_FK1 foreign k
 alter table tests.history_info_app add constraint history_info_app_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_anonymouse add constraint trans_anonymouse_FK1 foreign key (mstr_sign_id) references tests.mstr_sign (mstr_sign_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_anonymouse add constraint trans_anonymouse_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_file_reminder add constraint trans_file_reminder_FK1 foreign key (name) references tests.trans_label (trans_label_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_file_reminder add constraint trans_file_reminder_FK2 foreign key (message) references tests.trans_text (trans_text_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_file_reminder add constraint trans_file_reminder_FK3 foreign key (label) references tests.trans_label (trans_label_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_file_reminder add constraint trans_file_reminder_FK1 foreign key (reminder_names) references tests.trans_label (trans_label_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_file_reminder add constraint trans_file_reminder_FK2 foreign key (messages) references tests.trans_text (trans_text_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_file_reminder add constraint trans_file_reminder_FK3 foreign key (labels) references tests.trans_label (trans_label_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_file_reminder add constraint trans_file_reminder_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_equipment_available add constraint mstr_equipment_available_FK1 foreign key (mstr_task_location_id) references tests.mstr_task_location (mstr_task_location_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_equipment_available add constraint mstr_equipment_available_FK2 foreign key (mstr_equipment_id) references tests.mstr_equipment (mstr_equipment_id) DEFERRABLE INITIALLY DEFERRED;
@@ -8152,9 +8143,10 @@ alter table tests.trans_unrecognized add constraint trans_unrecognized_FK1 forei
 alter table tests.mstr_stakeholder_provision add constraint mstr_stakeholder_provision_FK1 foreign key (info_provision_id) references tests.info_provision (info_provision_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_stakeholder_provision add constraint mstr_stakeholder_provision_FK2 foreign key (mstr_stakeholder_id) references tests.mstr_stakeholder (mstr_stakeholder_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_stakeholder_provision add constraint mstr_stakeholder_provision_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.info_provision add constraint info_provision_FK1 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.info_provision add constraint info_provision_FK2 foreign key (info_company_id) references tests.info_company (info_company_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.info_provision add constraint info_provision_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.info_provision add constraint info_provision_FK1 foreign key (details) references tests.shared_text (shared_text_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.info_provision add constraint info_provision_FK2 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.info_provision add constraint info_provision_FK3 foreign key (info_company_id) references tests.info_company (info_company_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.info_provision add constraint info_provision_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_inspection_formula add constraint mstr_inspection_formula_FK1 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_manufacturer add constraint mstr_manufacturer_FK1 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_manufacturer add constraint mstr_manufacturer_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
@@ -8164,7 +8156,7 @@ alter table tests.mstr_approval_scope_pattern add constraint mstr_approval_scope
 alter table tests.mstr_approval_pattern_detail add constraint mstr_approval_pattern_detail_FK1 foreign key (mstr_approval_pattern_id) references tests.mstr_approval_pattern (mstr_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_approval_pattern_detail add constraint mstr_approval_pattern_detail_FK2 foreign key (mstr_approval_id) references tests.mstr_approval (mstr_approval_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_approval_pattern_detail add constraint mstr_approval_pattern_detail_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.info_address add constraint info_address_FK1 foreign key (bill) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.info_address add constraint info_address_FK1 foreign key (building) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_address add constraint info_address_FK2 foreign key (address2) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_address add constraint info_address_FK3 foreign key (address1) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_address add constraint info_address_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
@@ -8176,8 +8168,9 @@ alter table tests.mstr_report add constraint mstr_report_FK1 foreign key (names)
 alter table tests.mstr_report add constraint mstr_report_FK2 foreign key (info_access_path_id) references tests.info_access_path (info_access_path_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_report add constraint mstr_report_FK3 foreign key (trans_file_id) references tests.trans_file (trans_file_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_report add constraint mstr_report_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_equipment_tag add constraint mstr_equipment_tag_FK1 foreign key (trans_file_id) references tests.trans_file (trans_file_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_equipment_tag add constraint mstr_equipment_tag_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_equipment_tag add constraint mstr_equipment_tag_FK1 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_equipment_tag add constraint mstr_equipment_tag_FK2 foreign key (trans_file_id) references tests.trans_file (trans_file_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_equipment_tag add constraint mstr_equipment_tag_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_access_path_approval add constraint info_access_path_approval_FK1 foreign key (info_access_path_id) references tests.info_access_path (info_access_path_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_access_path_approval add constraint info_access_path_approval_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_approved add constraint trans_approved_FK1 foreign key (approved_staff_history_id,approved_staff_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
@@ -8196,8 +8189,8 @@ alter table tests.trans_preapproval add constraint trans_preapproval_FK2 foreign
 alter table tests.trans_preapproval add constraint trans_preapproval_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_approval_pattern add constraint trans_approval_pattern_FK1 foreign key (mstr_approval_pattern_id) references tests.mstr_approval_pattern (mstr_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_approval_pattern add constraint trans_approval_pattern_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_audit_member add constraint trans_audit_member_FK1 foreign key (department) references tests.trans_label (trans_label_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_audit_member add constraint trans_audit_member_FK2 foreign key (name) references tests.trans_label (trans_label_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_audit_member add constraint trans_audit_member_FK1 foreign key (department_names) references tests.trans_label (trans_label_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_audit_member add constraint trans_audit_member_FK2 foreign key (participant_names) references tests.trans_label (trans_label_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_audit_member add constraint trans_audit_member_FK3 foreign key (trans_audit_id) references tests.trans_audit (trans_audit_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_audit_member add constraint trans_audit_member_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_auditor add constraint trans_auditor_FK1 foreign key (staff_history_id,staff_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
@@ -8289,7 +8282,7 @@ alter table tests.trans_inspect_imp_file add constraint trans_inspect_imp_file_F
 alter table tests.trans_inspect_imp_file add constraint trans_inspect_imp_file_FK4 foreign key (trans_file_id) references tests.trans_file (trans_file_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_inspect_imp_file add constraint trans_inspect_imp_file_FK5 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_inspect_record add constraint trans_inspect_record_FK1 foreign key (stakeholder_history_id,stakeholder_id) references tests.history_mstr_stakeholder (history_id,mstr_stakeholder_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_inspect_record add constraint trans_inspect_record_FK2 foreign key (note) references tests.trans_text (trans_text_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_inspect_record add constraint trans_inspect_record_FK2 foreign key (notes) references tests.trans_text (trans_text_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_inspect_record add constraint trans_inspect_record_FK3 foreign key (trans_inspect_sch_detail_id) references tests.trans_inspect_sch_detail (trans_inspect_sch_detail_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_inspect_record add constraint trans_inspect_record_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_inspect_sch_detail add constraint trans_inspect_sch_detail_FK1 foreign key (inspection_operation_task_history_id,inspection_operation_task_id) references tests.history_mstr_inspection_operation_task (history_id,mstr_inspection_operation_task_id) DEFERRABLE INITIALLY DEFERRED;
@@ -8300,8 +8293,8 @@ alter table tests.trans_inspect_sch_detail add constraint trans_inspect_sch_deta
 alter table tests.trans_inspect_sch_detail add constraint trans_inspect_sch_detail_FK6 foreign key (trans_purchase_detail_id) references tests.trans_purchase_detail (trans_purchase_detail_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_inspect_sch_detail add constraint trans_inspect_sch_detail_FK7 foreign key (trans_inspect_sch_id) references tests.trans_inspect_sch (trans_inspect_sch_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_inspect_sch_detail add constraint trans_inspect_sch_detail_FK8 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_inspect_sch add constraint trans_inspect_sch_FK1 foreign key (recommendation) references tests.trans_text (trans_text_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.trans_inspect_sch add constraint trans_inspect_sch_FK2 foreign key (attention) references tests.trans_text (trans_text_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_inspect_sch add constraint trans_inspect_sch_FK1 foreign key (recommendations) references tests.trans_text (trans_text_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.trans_inspect_sch add constraint trans_inspect_sch_FK2 foreign key (attentions) references tests.trans_text (trans_text_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_inspect_sch add constraint trans_inspect_sch_FK3 foreign key (requirements) references tests.trans_text (trans_text_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_inspect_sch add constraint trans_inspect_sch_FK4 foreign key (titles) references tests.trans_label (trans_label_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_inspect_sch add constraint trans_inspect_sch_FK5 foreign key (inspection_operation_history_id,inspection_operation_id) references tests.history_mstr_inspection_operation (history_id,mstr_inspection_operation_id) DEFERRABLE INITIALLY DEFERRED;
@@ -8339,9 +8332,10 @@ alter table tests.trans_purchase_rec_visiter add constraint trans_purchase_rec_v
 alter table tests.trans_purchase_rec_visiter add constraint trans_purchase_rec_visiter_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_visiter add constraint trans_visiter_FK1 foreign key (trans_container_id) references tests.trans_container (trans_container_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_visiter add constraint trans_visiter_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_item_actual_size add constraint mstr_item_actual_size_FK1 foreign key (mstr_item_size_kind_id) references tests.mstr_item_size_kind (mstr_item_size_kind_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_item_actual_size add constraint mstr_item_actual_size_FK2 foreign key (mstr_item_id) references tests.mstr_item (mstr_item_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_item_actual_size add constraint mstr_item_actual_size_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item_actual_size add constraint mstr_item_actual_size_FK1 foreign key (details) references tests.shared_text (shared_text_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item_actual_size add constraint mstr_item_actual_size_FK2 foreign key (mstr_item_size_kind_id) references tests.mstr_item_size_kind (mstr_item_size_kind_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item_actual_size add constraint mstr_item_actual_size_FK3 foreign key (mstr_item_id) references tests.mstr_item (mstr_item_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item_actual_size add constraint mstr_item_actual_size_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.trans_file add constraint trans_file_FK1 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_operation_task add constraint mstr_operation_task_FK1 foreign key (details) references tests.shared_text (shared_text_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_operation_task add constraint mstr_operation_task_FK2 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
@@ -8407,18 +8401,21 @@ alter table tests.trans_order add constraint trans_order_FK3 foreign key (update
 alter table tests.mstr_item_operation_task add constraint mstr_item_operation_task_FK1 foreign key (mstr_item_id) references tests.mstr_item (mstr_item_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_item_operation_task add constraint mstr_item_operation_task_FK2 foreign key (mstr_operation_task_id) references tests.mstr_operation_task (mstr_operation_task_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_item_operation_task add constraint mstr_item_operation_task_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_item_tree add constraint mstr_item_tree_FK1 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_item_tree add constraint mstr_item_tree_FK2 foreign key (parent_mstr_item_id) references tests.mstr_item (mstr_item_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_item_tree add constraint mstr_item_tree_FK3 foreign key (mstr_item_id) references tests.mstr_item (mstr_item_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_item_tree add constraint mstr_item_tree_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.shared_unit add constraint shared_unit_FK1 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.shared_unit add constraint shared_unit_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_item add constraint mstr_item_FK1 foreign key (shared_unit_id) references tests.shared_unit (shared_unit_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_item add constraint mstr_item_FK2 foreign key (mstr_item_lot_id) references tests.mstr_item_lot (mstr_item_lot_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_item add constraint mstr_item_FK3 foreign key (mstr_item_kind_id) references tests.mstr_item_kind (mstr_item_kind_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_item add constraint mstr_item_FK4 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_item add constraint mstr_item_FK5 foreign key (mstr_manufacturer_id) references tests.mstr_manufacturer (mstr_manufacturer_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_item add constraint mstr_item_FK6 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item_tree add constraint mstr_item_tree_FK1 foreign key (details) references tests.shared_text (shared_text_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item_tree add constraint mstr_item_tree_FK2 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item_tree add constraint mstr_item_tree_FK3 foreign key (parent_mstr_item_id) references tests.mstr_item (mstr_item_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item_tree add constraint mstr_item_tree_FK4 foreign key (mstr_item_id) references tests.mstr_item (mstr_item_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item_tree add constraint mstr_item_tree_FK5 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.shared_unit add constraint shared_unit_FK1 foreign key (details) references tests.shared_text (shared_text_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.shared_unit add constraint shared_unit_FK2 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.shared_unit add constraint shared_unit_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item add constraint mstr_item_FK1 foreign key (details) references tests.shared_text (shared_text_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item add constraint mstr_item_FK2 foreign key (shared_unit_id) references tests.shared_unit (shared_unit_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item add constraint mstr_item_FK3 foreign key (mstr_item_lot_id) references tests.mstr_item_lot (mstr_item_lot_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item add constraint mstr_item_FK4 foreign key (mstr_item_kind_id) references tests.mstr_item_kind (mstr_item_kind_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item add constraint mstr_item_FK5 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item add constraint mstr_item_FK6 foreign key (mstr_manufacturer_id) references tests.mstr_manufacturer (mstr_manufacturer_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_item add constraint mstr_item_FK7 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_task_tree add constraint mstr_task_tree_FK1 foreign key (details) references tests.shared_text (shared_text_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_task_tree add constraint mstr_task_tree_FK2 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_task_tree add constraint mstr_task_tree_FK3 foreign key (parent_mstr_task_id) references tests.mstr_task (mstr_task_id) DEFERRABLE INITIALLY DEFERRED;
@@ -8437,9 +8434,9 @@ alter table tests.mstr_equipment add constraint mstr_equipment_FK2 foreign key (
 alter table tests.mstr_equipment add constraint mstr_equipment_FK3 foreign key (mstr_location_id) references tests.mstr_location (mstr_location_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_equipment add constraint mstr_equipment_FK4 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_stakeholder_contact add constraint mstr_stakeholder_contact_FK1 foreign key (mstr_shipping_kind_id) references tests.mstr_shipping_kind (mstr_shipping_kind_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_stakeholder_contact add constraint mstr_stakeholder_contact_FK2 foreign key (contact_person_appellations_id) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_stakeholder_contact add constraint mstr_stakeholder_contact_FK3 foreign key (department_appellations_id) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_stakeholder_contact add constraint mstr_stakeholder_contact_FK4 foreign key (office_appellations_id) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_stakeholder_contact add constraint mstr_stakeholder_contact_FK2 foreign key (contact_person_names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_stakeholder_contact add constraint mstr_stakeholder_contact_FK3 foreign key (department_names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_stakeholder_contact add constraint mstr_stakeholder_contact_FK4 foreign key (office_names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_stakeholder_contact add constraint mstr_stakeholder_contact_FK5 foreign key (info_address_id) references tests.info_address (info_address_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_stakeholder_contact add constraint mstr_stakeholder_contact_FK6 foreign key (mstr_stakeholder_id) references tests.mstr_stakeholder (mstr_stakeholder_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_stakeholder_contact add constraint mstr_stakeholder_contact_FK7 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
@@ -8455,10 +8452,12 @@ alter table tests.mstr_staff_capability add constraint mstr_staff_capability_FK2
 alter table tests.mstr_staff_capability add constraint mstr_staff_capability_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_sign add constraint mstr_sign_FK1 foreign key (info_staff_id) references tests.info_staff (info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.mstr_sign add constraint mstr_sign_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_license add constraint mstr_license_FK1 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_license add constraint mstr_license_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_capability add constraint mstr_capability_FK1 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
-alter table tests.mstr_capability add constraint mstr_capability_FK2 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_license add constraint mstr_license_FK1 foreign key (details) references tests.shared_text (shared_text_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_license add constraint mstr_license_FK2 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_license add constraint mstr_license_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_capability add constraint mstr_capability_FK1 foreign key (details) references tests.shared_text (shared_text_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_capability add constraint mstr_capability_FK2 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
+alter table tests.mstr_capability add constraint mstr_capability_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_staff add constraint info_staff_FK1 foreign key (names) references tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_staff add constraint info_staff_FK2 foreign key (info_company_id) references tests.info_company (info_company_id) DEFERRABLE INITIALLY DEFERRED;
 alter table tests.info_staff add constraint info_staff_FK3 foreign key (update_user_history_id,update_user_id) references tests.history_info_staff (history_id,info_staff_id) DEFERRABLE INITIALLY DEFERRED;
@@ -11241,10 +11240,9 @@ BEGIN
                 NEW.mstr_document_content_id,
                 NEW.mstr_document_id,
                 NEW.code,
-                NEW.name,
+                NEW.titles,
+                NEW.contents,
                 NEW.sequence,
-                NEW.title,
-                NEW.content,
                 NEW.image_content,
                 NEW.trans_file_id,
                 NEW.symbol,
@@ -11254,10 +11252,9 @@ BEGIN
                 OLD.mstr_document_content_id,
                 OLD.mstr_document_id,
                 OLD.code,
-                OLD.name,
+                OLD.titles,
+                OLD.contents,
                 OLD.sequence,
-                OLD.title,
-                OLD.content,
                 OLD.image_content,
                 OLD.trans_file_id,
                 OLD.symbol,
@@ -11275,10 +11272,9 @@ BEGIN
             mstr_document_content_id,
             mstr_document_id,
             code,
-            name,
+            titles,
+            contents,
             sequence,
-            title,
-            content,
             image_content,
             trans_file_id,
             revision,
@@ -11294,10 +11290,9 @@ BEGIN
             NEW.mstr_document_content_id,
             NEW.mstr_document_id,
             NEW.code,
-            NEW.name,
+            NEW.titles,
+            NEW.contents,
             NEW.sequence,
-            NEW.title,
-            NEW.content,
             NEW.image_content,
             NEW.trans_file_id,
             NEW.revision,
@@ -11379,7 +11374,7 @@ BEGIN
             IF (
                 NEW.mstr_document_tier_id,
                 NEW.code,
-                NEW.name,
+                NEW.names,
                 NEW.trans_file_id,
                 NEW.attributive_noun,
                 NEW.Identifier,
@@ -11390,7 +11385,7 @@ BEGIN
             ) IS NOT DISTINCT FROM (
                 OLD.mstr_document_tier_id,
                 OLD.code,
-                OLD.name,
+                OLD.names,
                 OLD.trans_file_id,
                 OLD.attributive_noun,
                 OLD.Identifier,
@@ -11409,7 +11404,7 @@ BEGIN
         INSERT INTO tests.history_mstr_document_tier (
             mstr_document_tier_id,
             code,
-            name,
+            names,
             trans_file_id,
             attributive_noun,
             Identifier,
@@ -11426,7 +11421,7 @@ BEGIN
         (
             NEW.mstr_document_tier_id,
             NEW.code,
-            NEW.name,
+            NEW.names,
             NEW.trans_file_id,
             NEW.attributive_noun,
             NEW.Identifier,
@@ -11648,11 +11643,10 @@ BEGIN
             IF (
                 NEW.mstr_document_id,
                 NEW.code,
-                NEW.name,
+                NEW.titles,
+                NEW.control_number,
                 NEW.mstr_document_tier_id,
                 NEW.trans_file_id,
-                NEW.title,
-                NEW.control_number,
                 NEW.version_code,
                 NEW.trans_approval_pattern_id,
                 NEW.symbol,
@@ -11661,11 +11655,10 @@ BEGIN
             ) IS NOT DISTINCT FROM (
                 OLD.mstr_document_id,
                 OLD.code,
-                OLD.name,
+                OLD.titles,
+                OLD.control_number,
                 OLD.mstr_document_tier_id,
                 OLD.trans_file_id,
-                OLD.title,
-                OLD.control_number,
                 OLD.version_code,
                 OLD.trans_approval_pattern_id,
                 OLD.symbol,
@@ -11682,11 +11675,10 @@ BEGIN
         INSERT INTO tests.history_mstr_document (
             mstr_document_id,
             code,
-            name,
+            titles,
+            control_number,
             mstr_document_tier_id,
             trans_file_id,
-            title,
-            control_number,
             version_code,
             trans_approval_pattern_id,
             revision,
@@ -11701,11 +11693,10 @@ BEGIN
         (
             NEW.mstr_document_id,
             NEW.code,
-            NEW.name,
+            NEW.titles,
+            NEW.control_number,
             NEW.mstr_document_tier_id,
             NEW.trans_file_id,
-            NEW.title,
-            NEW.control_number,
             NEW.version_code,
             NEW.trans_approval_pattern_id,
             NEW.revision,
@@ -15107,7 +15098,7 @@ BEGIN
                 NEW.zip_code,
                 NEW.address1,
                 NEW.address2,
-                NEW.bill,
+                NEW.building,
                 NEW.phone,
                 NEW.fax_number,
                 NEW.symbol,
@@ -15119,7 +15110,7 @@ BEGIN
                 OLD.zip_code,
                 OLD.address1,
                 OLD.address2,
-                OLD.bill,
+                OLD.building,
                 OLD.phone,
                 OLD.fax_number,
                 OLD.symbol,
@@ -15139,7 +15130,7 @@ BEGIN
             zip_code,
             address1,
             address2,
-            bill,
+            building,
             phone,
             fax_number,
             revision,
@@ -15157,7 +15148,7 @@ BEGIN
             NEW.zip_code,
             NEW.address1,
             NEW.address2,
-            NEW.bill,
+            NEW.building,
             NEW.phone,
             NEW.fax_number,
             NEW.revision,
@@ -15342,14 +15333,14 @@ BEGIN
             IF (
                 NEW.mstr_equipment_tag_id,
                 NEW.trans_file_id,
-                NEW.name,
+                NEW.names,
                 NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.mstr_equipment_tag_id,
                 OLD.trans_file_id,
-                OLD.name,
+                OLD.names,
                 OLD.symbol,
                 OLD.remarks,
                 OLD.remove
@@ -15364,7 +15355,7 @@ BEGIN
         INSERT INTO tests.history_mstr_equipment_tag (
             mstr_equipment_tag_id,
             trans_file_id,
-            name,
+            names,
             revision,
             symbol,
             remarks,
@@ -15377,7 +15368,7 @@ BEGIN
         (
             NEW.mstr_equipment_tag_id,
             NEW.trans_file_id,
-            NEW.name,
+            NEW.names,
             NEW.revision,
             NEW.symbol,
             NEW.remarks,
@@ -17339,7 +17330,7 @@ BEGIN
                 NEW.mstr_item_id,
                 NEW.mstr_item_size_kind_id,
                 NEW.size_value,
-                NEW.detail,
+                NEW.details,
                 NEW.symbol,
                 NEW.remarks,
                 NEW.remove
@@ -17348,7 +17339,7 @@ BEGIN
                 OLD.mstr_item_id,
                 OLD.mstr_item_size_kind_id,
                 OLD.size_value,
-                OLD.detail,
+                OLD.details,
                 OLD.symbol,
                 OLD.remarks,
                 OLD.remove
@@ -17365,7 +17356,7 @@ BEGIN
             mstr_item_id,
             mstr_item_size_kind_id,
             size_value,
-            detail,
+            details,
             revision,
             symbol,
             remarks,
@@ -17380,7 +17371,7 @@ BEGIN
             NEW.mstr_item_id,
             NEW.mstr_item_size_kind_id,
             NEW.size_value,
-            NEW.detail,
+            NEW.details,
             NEW.revision,
             NEW.symbol,
             NEW.remarks,
@@ -18174,7 +18165,7 @@ BEGIN
                 NEW.control_code,
                 NEW.names,
                 NEW.quantity,
-                NEW.detail,
+                NEW.details,
                 NEW.symbol,
                 NEW.remarks,
                 NEW.remove
@@ -18186,7 +18177,7 @@ BEGIN
                 OLD.control_code,
                 OLD.names,
                 OLD.quantity,
-                OLD.detail,
+                OLD.details,
                 OLD.symbol,
                 OLD.remarks,
                 OLD.remove
@@ -18206,7 +18197,7 @@ BEGIN
             control_code,
             names,
             quantity,
-            detail,
+            details,
             revision,
             symbol,
             remarks,
@@ -18224,7 +18215,7 @@ BEGIN
             NEW.control_code,
             NEW.names,
             NEW.quantity,
-            NEW.detail,
+            NEW.details,
             NEW.revision,
             NEW.symbol,
             NEW.remarks,
@@ -18280,14 +18271,14 @@ BEGIN
             IF (
                 NEW.shared_unit_id,
                 NEW.names,
-                NEW.description,
+                NEW.details,
                 NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.shared_unit_id,
                 OLD.names,
-                OLD.description,
+                OLD.details,
                 OLD.symbol,
                 OLD.remarks,
                 OLD.remove
@@ -18302,7 +18293,7 @@ BEGIN
         INSERT INTO tests.history_shared_unit (
             shared_unit_id,
             names,
-            description,
+            details,
             revision,
             symbol,
             remarks,
@@ -18315,7 +18306,7 @@ BEGIN
         (
             NEW.shared_unit_id,
             NEW.names,
-            NEW.description,
+            NEW.details,
             NEW.revision,
             NEW.symbol,
             NEW.remarks,
@@ -18377,7 +18368,7 @@ BEGIN
                 NEW.mstr_manufacturer_id,
                 NEW.names,
                 NEW.label_code,
-                NEW.description,
+                NEW.details,
                 NEW.shared_unit_id,
                 NEW.mstr_item_lot_id,
                 NEW.symbol,
@@ -18392,7 +18383,7 @@ BEGIN
                 OLD.mstr_manufacturer_id,
                 OLD.names,
                 OLD.label_code,
-                OLD.description,
+                OLD.details,
                 OLD.shared_unit_id,
                 OLD.mstr_item_lot_id,
                 OLD.symbol,
@@ -18415,7 +18406,7 @@ BEGIN
             mstr_manufacturer_id,
             names,
             label_code,
-            description,
+            details,
             shared_unit_id,
             mstr_item_lot_id,
             revision,
@@ -18436,7 +18427,7 @@ BEGIN
             NEW.mstr_manufacturer_id,
             NEW.names,
             NEW.label_code,
-            NEW.description,
+            NEW.details,
             NEW.shared_unit_id,
             NEW.mstr_item_lot_id,
             NEW.revision,
@@ -18923,9 +18914,9 @@ BEGIN
                 NEW.mstr_stakeholder_contact_id,
                 NEW.mstr_stakeholder_id,
                 NEW.code,
-                NEW.office_appellations_id,
-                NEW.department_appellations_id,
-                NEW.contact_person_appellations_id,
+                NEW.office_names,
+                NEW.department_names,
+                NEW.contact_person_names,
                 NEW.mail,
                 NEW.info_address_id,
                 NEW.mstr_shipping_kind_id,
@@ -18936,9 +18927,9 @@ BEGIN
                 OLD.mstr_stakeholder_contact_id,
                 OLD.mstr_stakeholder_id,
                 OLD.code,
-                OLD.office_appellations_id,
-                OLD.department_appellations_id,
-                OLD.contact_person_appellations_id,
+                OLD.office_names,
+                OLD.department_names,
+                OLD.contact_person_names,
                 OLD.mail,
                 OLD.info_address_id,
                 OLD.mstr_shipping_kind_id,
@@ -18957,9 +18948,9 @@ BEGIN
             mstr_stakeholder_contact_id,
             mstr_stakeholder_id,
             code,
-            office_appellations_id,
-            department_appellations_id,
-            contact_person_appellations_id,
+            office_names,
+            department_names,
+            contact_person_names,
             mail,
             info_address_id,
             mstr_shipping_kind_id,
@@ -18976,9 +18967,9 @@ BEGIN
             NEW.mstr_stakeholder_contact_id,
             NEW.mstr_stakeholder_id,
             NEW.code,
-            NEW.office_appellations_id,
-            NEW.department_appellations_id,
-            NEW.contact_person_appellations_id,
+            NEW.office_names,
+            NEW.department_names,
+            NEW.contact_person_names,
             NEW.mail,
             NEW.info_address_id,
             NEW.mstr_shipping_kind_id,
@@ -19474,7 +19465,7 @@ BEGIN
                 NEW.mstr_license_id,
                 NEW.code,
                 NEW.names,
-                NEW.detail,
+                NEW.details,
                 NEW.public_license,
                 NEW.customer_license,
                 NEW.organization_license,
@@ -19486,7 +19477,7 @@ BEGIN
                 OLD.mstr_license_id,
                 OLD.code,
                 OLD.names,
-                OLD.detail,
+                OLD.details,
                 OLD.public_license,
                 OLD.customer_license,
                 OLD.organization_license,
@@ -19506,7 +19497,7 @@ BEGIN
             mstr_license_id,
             code,
             names,
-            detail,
+            details,
             public_license,
             customer_license,
             organization_license,
@@ -19524,7 +19515,7 @@ BEGIN
             NEW.mstr_license_id,
             NEW.code,
             NEW.names,
-            NEW.detail,
+            NEW.details,
             NEW.public_license,
             NEW.customer_license,
             NEW.organization_license,
@@ -19585,7 +19576,7 @@ BEGIN
                 NEW.mstr_capability_id,
                 NEW.code,
                 NEW.names,
-                NEW.detail,
+                NEW.details,
                 NEW.reference_value,
                 NEW.max,
                 NEW.min,
@@ -19597,7 +19588,7 @@ BEGIN
                 OLD.mstr_capability_id,
                 OLD.code,
                 OLD.names,
-                OLD.detail,
+                OLD.details,
                 OLD.reference_value,
                 OLD.max,
                 OLD.min,
@@ -19617,7 +19608,7 @@ BEGIN
             mstr_capability_id,
             code,
             names,
-            detail,
+            details,
             reference_value,
             max,
             min,
@@ -19635,7 +19626,7 @@ BEGIN
             NEW.mstr_capability_id,
             NEW.code,
             NEW.names,
-            NEW.detail,
+            NEW.details,
             NEW.reference_value,
             NEW.max,
             NEW.min,

@@ -1,0 +1,217 @@
+# yaml-language-server: $schema=../../schema.json
+
+######  承認
+
+# 承認の読み込み
+# 必ず参照で使用するためPageにはしない
+# 承認関連の最下層
+ApprovalReadFields: &ApprovalReadFields
+  kind: read
+  from: mstr_approval
+  filter: true
+  requiredWhere: # 要件確認: labels(shared_appellations)がlanguageCodeを要求するため、
+    # 他のRead画面と同様にルートでも明示する。
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_approval_id
+    - info_department_id
+    - name: department
+      as: department
+      arrayType: toFirstOne
+      using: info_department_id
+      <<: *DepartmentReadFields
+    - info_position_id
+    - name: positions
+      as: positions
+      arrayType: toFirstOne
+      using: info_position_id
+      <<: *PositionPage
+     # 要件0026追記15(2026-09-30のschema.graphql再取得)で解消:
+      # 従来は列名がinfo_role_idのままでリレーション先だけinfo_positionという不一致
+      # だったが、今回のDB側対応でMstrApproval.info_role_id列自体がinfo_position_idへ
+      # リネームされたことをschema.graphqlで確認した(infoPositionId列・
+      # infoPositionByInfoPositionIdリレーション)。旧info_role_id表記を修正した。
+    - priority
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 承認の編集
+# 必ず参照で使用するためPageにはしない
+ApprovalEditFields: &ApprovalEditFields
+  kind: edit
+  from: mstr_approval
+  requiredWhere:
+    - mstr_approval_id
+  # 要件0044レビュー: generateRfe: trueが付いていたが、ApprovalEditFieldsは常に
+  # ApprovalDetailEditFields.approvalへのcolumnEntryとしてのみ参照され(単独のトップレベル
+  # 操作としては使われない、本ノード冒頭コメント参照)、generateRfeはnode専用の
+  # プロパティでcolumnEntryでは許可されない(schema.json)。マージ先(ApprovalDetailEditFields)
+  # 自身が既にgenerateRfe: trueを持ちRFEを導出するため、ここでの指定は不要かつ
+  # スキーマ違反になるため削除した。
+  columns:
+    - mstr_approval_id
+    - info_department_id
+    - name: department
+      arrayType: toFirstOne
+      as: department # 要件確認: タイプミス(pdepartmentn)を修正
+      using: info_department_id
+      editable: false # 要件0047: IDの割り当てのみ(子は書き込まず、usingのFK列だけを書き込む)
+      <<: *DepartmentReadFields #IDを割り当てるだけ
+    - info_position_id # 要件0026追記15で解消(ApprovalReadFields参照、詳細は同箇所のコメント)
+    - name: position
+      arrayType: toFirstOne
+      as: position
+      using: info_position_id
+      editable: false # 要件0047: IDの割り当てのみ(子は書き込まず、usingのFK列だけを書き込む)
+      <<: *PositionPage #IDを割り当てるだけ
+    - priority
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 承認読み込み
+# 役職順に行う承認順序、エスカレーションのペア
+# 必ず参照で使用するためPageにはしない
+ApprovalDetailReadFields: &ApprovalDetailReadFields
+  kind: read
+  from: mstr_approval_pattern_detail
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_approval_pattern_detail_id
+    - mstr_approval_id
+    - name: aprovals
+      arrayType: toFirstOne
+      as: approvals
+      using: mstr_approval_id
+      <<: *ApprovalReadFields
+    - name: approval
+      arrayType: toFirstOne
+      using: mstr_approval_id
+      <<: *ApprovalReadFields
+    - mstr_approval_pattern_id
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 承認書き込み
+# 役職順に行う承認順序、エスカレーションのペア
+# 必ず参照で使用するためPageにはしない
+# 0047:generateRfe: trueを追加。インテリセンスの許可されていない問題、及び0044と競合しているが、明示的に生成しない/したくない場合があるためschema.jsonへの課題がある。
+ApprovalDetailEditFields: &ApprovalDetailEditFields
+  kind: edit
+  from: mstr_approval_pattern_detail
+  requiredWhere:
+    - mstr_approval_pattern_detail_id
+  # 要件0044レビュー: ApprovalEditFieldsと同じ理由(冒頭コメント参照)でgenerateRfe: trueを
+  # 削除した。アンカー未定義(&ApprovalDetailEditFields欠落)でApprovalOperationPageEditからの
+  # `<<: *ApprovalDetailEditFields`参照がYAMLパースエラーになっていたため、あわせて追加した。
+  columns:
+    - mstr_approval_pattern_detail_id
+    - mstr_approval_id
+    - name: aprovals
+      arrayType: toFirstOne
+      as: approvals
+      using: mstr_approval_id
+      <<: *ApprovalEditFields
+    - name: approval
+      arrayType: toFirstOne
+      using: mstr_approval_id
+      editable: true # 要件0047: 親とともに編集する(親のRFEにも含まれる)
+      <<: *ApprovalEditFields
+    - mstr_approval_pattern_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+#承認オペレーション読み込み
+ApprovalOperationPage:
+  kind: read
+  from: mstr_approval_pattern
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_approval_pattern_id
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - name: pattern_detail
+      as: pattern_detail
+      arrayType: toMany
+      using: mstr_approval_pattern_id
+      <<: *ApprovalDetailReadFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+#承認オペレーション書き込み
+ApprovalOperationPageEdit:
+  kind: edit
+  from: mstr_approval_pattern
+  requiredWhere:
+    - mstr_approval_pattern_id
+  generateRfe: true
+  columns:
+    - mstr_approval_pattern_id
+    - name: labels # 要件確認: 誤って`name`にアンカー参照(*AppellationLabelsEditFields)自体を
+      # 指定していた(単純な識別子文字列であるべき)ため修正
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    - name: pattern_detail
+      arrayType: toMany
+      using: mstr_approval_pattern_id 
+      <<: *ApprovalDetailEditFields
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove

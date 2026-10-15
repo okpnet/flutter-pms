@@ -1,23 +1,15 @@
-# staff_held_license_page画面 - Read(一覧取得クエリ、担当者→保有資格)
+# staff_held_license_page画面 - Read(一覧取得クエリ)
 #
-# 画面仕様: source/view.yaml #StaffHeldLicensePage(担当者起点、mstr_staff_license経由で
-# mstr_licenseへ)。要件0045で新規追加。
-#
-# 要件0045レビュー: view.yamlの`holdeLicense`は元々内側に`from: mstr_license`の
-# `licenses`という余分な入れ子層を持ち、mstr_staff_license自身の列
-# (mstr_staff_license_id/info_staff_id)をmstr_license由来として重複宣言していた
-# (LicenseHoldersPage.licensesとの対称性から判断したコピー&ペースト起因の構造ミス)。
-# 1階層に平坦化して生成した。
-#
-# staff自身の列はstaff_page_read.graphqlと同型(住所無し)。license配下のlicense
-# (mstr_license)はlicense_page_read.graphqlのnodesと同型。
+# 画面仕様: source/views/ #StaffHeldLicensePage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
 
 query StaffHeldLicensePageRead(
   $first: Int!
   $offset: Int
   $filter: InfoStaffFilter = {}
-  $orderBy: [InfoStaffsOrderBy!] = [PRIMARY_KEY_ASC]
+  $orderBy: [InfoStaffsOrderBy!]
   $languageCodeId: UUID!
+  $holdeLicenseOrderBy: [MstrStaffLicensesOrderBy!]
   $removed: Boolean = false
 ) {
   allInfoStaffs(
@@ -35,13 +27,6 @@ query StaffHeldLicensePageRead(
       infoStaffId
       infoCompanyId
       code
-      sex
-      phone
-      privatePhone
-      symbol
-      remarks
-      updateAt
-      remove
 
       labels: sharedAppellationByNames {
         sharedAppellationsId
@@ -55,6 +40,7 @@ query StaffHeldLicensePageRead(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryPronunciationId {
           sharedDictionaryId
           value: sharedDictionaryValuesBySharedDictionaryId(
@@ -65,6 +51,7 @@ query StaffHeldLicensePageRead(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryNicknameId {
           sharedDictionaryId
           value: sharedDictionaryValuesBySharedDictionaryId(
@@ -77,7 +64,12 @@ query StaffHeldLicensePageRead(
         }
       }
 
+      sex
+      phone
+      privatePhone
+
       holdeLicense: mstrStaffLicensesByInfoStaffId(
+        orderBy: $holdeLicenseOrderBy
         filter: { remove: { equalTo: false } }
       ) {
         totalCount
@@ -89,32 +81,10 @@ query StaffHeldLicensePageRead(
           mstrStaffLicenseId
           infoStaffId
           mstrLicenseId
-          startAt
-          stopAt
-          abeyance
-          abeyanceAt
-          revocation
-          revocationAt
 
           license: mstrLicenseByMstrLicenseId {
             mstrLicenseId
             code
-            detail
-            publicLicense
-            customerLicense
-            organizationLicense
-            updateInterval {
-              years
-              months
-              days
-              hours
-              minutes
-              seconds
-            }
-            symbol
-            remarks
-            updateAt
-            remove
 
             labels: sharedAppellationByNames {
               sharedAppellationsId
@@ -128,6 +98,7 @@ query StaffHeldLicensePageRead(
                   }
                 }
               }
+
               sharedDictionaryBySharedDictionaryPronunciationId {
                 sharedDictionaryId
                 value: sharedDictionaryValuesBySharedDictionaryId(
@@ -138,6 +109,7 @@ query StaffHeldLicensePageRead(
                   }
                 }
               }
+
               sharedDictionaryBySharedDictionaryNicknameId {
                 sharedDictionaryId
                 value: sharedDictionaryValuesBySharedDictionaryId(
@@ -150,15 +122,39 @@ query StaffHeldLicensePageRead(
               }
             }
 
+            detailTexts: sharedTextByDetails {
+              sharedTextId
+              value: sharedTextValuesBySharedTextId(
+                condition: { sharedLanguageCodeId: $languageCodeId }
+              ) {
+                nodes {
+                  textValue
+                }
+              }
+            }
+
+            publicLicense
+            customerLicense
+            organizationLicense
+            updateInterval {
+              seconds
+              minutes
+              hours
+              days
+              months
+              years
+            }
+            symbol
+            remarks
+            updateAt
+            remove
+
             update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
               historyId
               infoStaffId
               infoCompanyId
               code
-              sex
-              phone
-              symbol
-              privatePhone
+
               name: sharedAppellationByNames {
                 sharedAppellationsId
                 sharedDictionaryBySharedDictionaryNameId {
@@ -171,6 +167,7 @@ query StaffHeldLicensePageRead(
                     }
                   }
                 }
+
                 sharedDictionaryBySharedDictionaryPronunciationId {
                   sharedDictionaryId
                   value: sharedDictionaryValuesBySharedDictionaryId(
@@ -181,6 +178,7 @@ query StaffHeldLicensePageRead(
                     }
                   }
                 }
+
                 sharedDictionaryBySharedDictionaryNicknameId {
                   sharedDictionaryId
                   value: sharedDictionaryValuesBySharedDictionaryId(
@@ -192,20 +190,34 @@ query StaffHeldLicensePageRead(
                   }
                 }
               }
+
+              sex
+              phone
+              symbol
+              privatePhone
             }
           }
+
+          startAt
+          stopAt
+          abeyance
+          abeyanceAt
+          revocation
+          revocationAt
         }
       }
+
+      symbol
+      remarks
+      updateAt
+      remove
 
       update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
         historyId
         infoStaffId
         infoCompanyId
         code
-        sex
-        phone
-        symbol
-        privatePhone
+
         name: sharedAppellationByNames {
           sharedAppellationsId
           sharedDictionaryBySharedDictionaryNameId {
@@ -218,6 +230,7 @@ query StaffHeldLicensePageRead(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryPronunciationId {
             sharedDictionaryId
             value: sharedDictionaryValuesBySharedDictionaryId(
@@ -228,6 +241,7 @@ query StaffHeldLicensePageRead(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryNicknameId {
             sharedDictionaryId
             value: sharedDictionaryValuesBySharedDictionaryId(
@@ -239,6 +253,11 @@ query StaffHeldLicensePageRead(
             }
           }
         }
+
+        sex
+        phone
+        symbol
+        privatePhone
       }
     }
   }

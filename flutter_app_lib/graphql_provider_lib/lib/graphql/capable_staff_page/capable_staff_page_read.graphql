@@ -1,20 +1,15 @@
-# capable_staff_page画面 - Read(一覧取得クエリ、力量→担当者)
+# capable_staff_page画面 - Read(一覧取得クエリ)
 #
-# 画面仕様: source/view.yaml #CapableStaffPage(2026/09/30、旧CapabilityToStaffPageから
-# リネーム。mstr_capability起点、mstr_staff_capability経由でinfo_staffへ)。
-# Edit/RFEはStaffCapabilityEditを参照するCapableStaffPageEditとして要件0045で追加。
-#
-# staff_capability.staffはinfo_staff_id(mstr_staff_capability自身が持つFK、外向きの
-# 関係)であるため、要件0027変換ルール6-1節により実際のGraphQLは単数フィールド
-# (infoStaffByInfoStaffId)になる(view.yamlの`arrayType: toMany`は誤りと判断し
-# `toFirstOne`に修正済み。詳細はdocs/0044ログ参照)。
+# 画面仕様: source/views/ #CapableStaffPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
 
 query CapableStaffPageRead(
   $first: Int!
   $offset: Int
   $filter: MstrCapabilityFilter = {}
-  $orderBy: [MstrCapabilitiesOrderBy!] = [PRIMARY_KEY_ASC]
+  $orderBy: [MstrCapabilitiesOrderBy!]
   $languageCodeId: UUID!
+  $staffCapabilityOrderBy: [MstrStaffCapabilitiesOrderBy!]
   $removed: Boolean = false
 ) {
   allMstrCapabilities(
@@ -31,15 +26,6 @@ query CapableStaffPageRead(
     nodes {
       mstrCapabilityId
       code
-      detail
-      referenceValue
-      max
-      min
-      step
-      symbol
-      remarks
-      updateAt
-      remove
 
       labels: sharedAppellationByNames {
         sharedAppellationsId
@@ -53,6 +39,7 @@ query CapableStaffPageRead(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryPronunciationId {
           sharedDictionaryId
           value: sharedDictionaryValuesBySharedDictionaryId(
@@ -63,6 +50,7 @@ query CapableStaffPageRead(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryNicknameId {
           sharedDictionaryId
           value: sharedDictionaryValuesBySharedDictionaryId(
@@ -75,7 +63,23 @@ query CapableStaffPageRead(
         }
       }
 
-      staff_capability: mstrStaffCapabilitiesByMstrCapabilityId {
+      detailTexts: sharedTextByDetails {
+        sharedTextId
+        value: sharedTextValuesBySharedTextId(
+          condition: { sharedLanguageCodeId: $languageCodeId }
+        ) {
+          nodes {
+            textValue
+          }
+        }
+      }
+
+      referenceValue
+      max
+      min
+      step
+
+      staff_capability: mstrStaffCapabilitiesByMstrCapabilityId(orderBy: $staffCapabilityOrderBy) {
         totalCount
         pageInfo {
           hasNextPage
@@ -84,21 +88,11 @@ query CapableStaffPageRead(
         nodes {
           mstrStaffCapabilityId
           infoStaffId
-          mstrCapabilityId
-          value
-          stop
 
           staff: infoStaffByInfoStaffId {
             infoStaffId
             infoCompanyId
             code
-            sex
-            phone
-            privatePhone
-            symbol
-            remarks
-            updateAt
-            remove
 
             labels: sharedAppellationByNames {
               sharedAppellationsId
@@ -112,6 +106,7 @@ query CapableStaffPageRead(
                   }
                 }
               }
+
               sharedDictionaryBySharedDictionaryPronunciationId {
                 sharedDictionaryId
                 value: sharedDictionaryValuesBySharedDictionaryId(
@@ -122,6 +117,7 @@ query CapableStaffPageRead(
                   }
                 }
               }
+
               sharedDictionaryBySharedDictionaryNicknameId {
                 sharedDictionaryId
                 value: sharedDictionaryValuesBySharedDictionaryId(
@@ -134,15 +130,20 @@ query CapableStaffPageRead(
               }
             }
 
+            sex
+            phone
+            privatePhone
+            symbol
+            remarks
+            updateAt
+            remove
+
             update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
               historyId
               infoStaffId
               infoCompanyId
               code
-              sex
-              phone
-              symbol
-              privatePhone
+
               name: sharedAppellationByNames {
                 sharedAppellationsId
                 sharedDictionaryBySharedDictionaryNameId {
@@ -155,6 +156,7 @@ query CapableStaffPageRead(
                     }
                   }
                 }
+
                 sharedDictionaryBySharedDictionaryPronunciationId {
                   sharedDictionaryId
                   value: sharedDictionaryValuesBySharedDictionaryId(
@@ -165,6 +167,7 @@ query CapableStaffPageRead(
                     }
                   }
                 }
+
                 sharedDictionaryBySharedDictionaryNicknameId {
                   sharedDictionaryId
                   value: sharedDictionaryValuesBySharedDictionaryId(
@@ -176,20 +179,31 @@ query CapableStaffPageRead(
                   }
                 }
               }
+
+              sex
+              phone
+              symbol
+              privatePhone
             }
           }
+
+          mstrCapabilityId
+          value
+          stop
         }
       }
+
+      symbol
+      remarks
+      updateAt
+      remove
 
       update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
         historyId
         infoStaffId
         infoCompanyId
         code
-        sex
-        phone
-        symbol
-        privatePhone
+
         name: sharedAppellationByNames {
           sharedAppellationsId
           sharedDictionaryBySharedDictionaryNameId {
@@ -202,6 +216,7 @@ query CapableStaffPageRead(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryPronunciationId {
             sharedDictionaryId
             value: sharedDictionaryValuesBySharedDictionaryId(
@@ -212,6 +227,7 @@ query CapableStaffPageRead(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryNicknameId {
             sharedDictionaryId
             value: sharedDictionaryValuesBySharedDictionaryId(
@@ -223,6 +239,11 @@ query CapableStaffPageRead(
             }
           }
         }
+
+        sex
+        phone
+        symbol
+        privatePhone
       }
     }
   }

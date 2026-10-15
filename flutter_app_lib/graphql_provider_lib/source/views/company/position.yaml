@@ -1,0 +1,107 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 役割読み込み
+# 組織の役職名や順位、エスカレーションを定義する
+PositionPage: &PositionPage
+  kind: read
+  from: info_position
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - info_position_id
+    - priority
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick:
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 役割書き込み
+# 組織の役職名や順位、エスカレーションを定義する
+PositionPageEdit: 
+  kind: edit
+  from: info_position
+  requiredWhere:
+    - info_position_id
+  generateRfe: true
+  columns:
+    - info_position_id
+    - priority
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 担当者の組織割り当て読み込み
+# 組織の役職名や順位、エスカレーションを担当者に割り当てる責任と権限の付与
+AssignPage:
+  kind: read
+  from: info_assign
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - info_assign_id
+    - name: staff
+      arrayType: toFirstOne
+      as: staff
+      using: info_staff_id
+      <<: *StaffPage
+    - info_position_id
+    - info_office_id
+    - info_department_id
+    - enable
+    - priority 
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 担当者の組織割り当て書き込み
+# 組織の役職名や順位、エスカレーションを担当者に割り当てる責任と権限の付与
+AssignPageEdit:
+  kind: edit
+  from: info_assign
+  requiredWhere:
+    - info_assign_id
+  generateRfe: true
+  columns:
+    - info_assign_id
+    - info_staff_id
+    - info_position_id
+    - info_office_id
+    - info_department_id
+    - enable
+    - priority
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove

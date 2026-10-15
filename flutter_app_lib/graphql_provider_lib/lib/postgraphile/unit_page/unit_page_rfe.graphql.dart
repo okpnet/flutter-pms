@@ -333,48 +333,6 @@ const documentNodeQueryUnitPageRfe = DocumentNode(
                   selectionSet: null,
                 ),
                 FieldNode(
-                  name: NameNode(value: 'description'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'remarks'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'updateAt'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'updateUserId'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'updateUserHistoryId'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'remove'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
                   name: NameNode(value: 'sharedAppellationByNames'),
                   alias: NameNode(value: 'labels'),
                   arguments: [],
@@ -862,6 +820,175 @@ const documentNodeQueryUnitPageRfe = DocumentNode(
                   ),
                 ),
                 FieldNode(
+                  name: NameNode(value: 'sharedTextByDetails'),
+                  alias: NameNode(value: 'detailTexts'),
+                  arguments: [],
+                  directives: [],
+                  selectionSet: SelectionSetNode(
+                    selections: [
+                      FieldNode(
+                        name: NameNode(value: 'sharedTextId'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'sharedTextValuesBySharedTextId'),
+                        alias: NameNode(value: 'ja'),
+                        arguments: [
+                          ArgumentNode(
+                            name: NameNode(value: 'condition'),
+                            value: ObjectValueNode(
+                              fields: [
+                                ObjectFieldNode(
+                                  name: NameNode(value: 'sharedLanguageCodeId'),
+                                  value: VariableNode(
+                                    name: NameNode(value: 'jaLanguageCodeId'),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'nodes'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: SelectionSetNode(
+                                selections: [
+                                  FieldNode(
+                                    name: NameNode(value: 'textValue'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: '__typename'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'sharedTextValuesBySharedTextId'),
+                        alias: NameNode(value: 'en'),
+                        arguments: [
+                          ArgumentNode(
+                            name: NameNode(value: 'condition'),
+                            value: ObjectValueNode(
+                              fields: [
+                                ObjectFieldNode(
+                                  name: NameNode(value: 'sharedLanguageCodeId'),
+                                  value: VariableNode(
+                                    name: NameNode(value: 'enLanguageCodeId'),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'nodes'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: SelectionSetNode(
+                                selections: [
+                                  FieldNode(
+                                    name: NameNode(value: 'textValue'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: '__typename'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(value: '__typename'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                    ],
+                  ),
+                ),
+                FieldNode(
+                  name: NameNode(value: 'remarks'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
+                  name: NameNode(value: 'updateUserId'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
+                  name: NameNode(value: 'updateUserHistoryId'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
+                  name: NameNode(value: 'remove'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
+                  name: NameNode(value: 'updateAt'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
                   name: NameNode(value: '__typename'),
                   alias: null,
                   arguments: [],
@@ -1033,13 +1160,13 @@ class Query$UnitPageRfe$Widget
 class Query$UnitPageRfe$sharedUnitBySharedUnitId {
   Query$UnitPageRfe$sharedUnitBySharedUnitId({
     required this.sharedUnitId,
-    this.description,
+    this.labels,
+    this.detailTexts,
     this.remarks,
-    this.updateAt,
     this.updateUserId,
     this.updateUserHistoryId,
     this.remove,
-    this.labels,
+    this.updateAt,
     this.$__typename = 'SharedUnit',
   });
 
@@ -1047,38 +1174,42 @@ class Query$UnitPageRfe$sharedUnitBySharedUnitId {
     Map<String, dynamic> json,
   ) {
     final l$sharedUnitId = json['sharedUnitId'];
-    final l$description = json['description'];
+    final l$labels = json['labels'];
+    final l$detailTexts = json['detailTexts'];
     final l$remarks = json['remarks'];
-    final l$updateAt = json['updateAt'];
     final l$updateUserId = json['updateUserId'];
     final l$updateUserHistoryId = json['updateUserHistoryId'];
     final l$remove = json['remove'];
-    final l$labels = json['labels'];
+    final l$updateAt = json['updateAt'];
     final l$$__typename = json['__typename'];
     return Query$UnitPageRfe$sharedUnitBySharedUnitId(
       sharedUnitId: (l$sharedUnitId as String),
-      description: (l$description as String?),
-      remarks: (l$remarks as String?),
-      updateAt: (l$updateAt as String?),
-      updateUserId: (l$updateUserId as String?),
-      updateUserHistoryId: (l$updateUserHistoryId as String?),
-      remove: (l$remove as bool?),
       labels: l$labels == null
           ? null
           : Query$UnitPageRfe$sharedUnitBySharedUnitId$labels.fromJson(
               (l$labels as Map<String, dynamic>),
             ),
+      detailTexts: l$detailTexts == null
+          ? null
+          : Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts.fromJson(
+              (l$detailTexts as Map<String, dynamic>),
+            ),
+      remarks: (l$remarks as String?),
+      updateUserId: (l$updateUserId as String?),
+      updateUserHistoryId: (l$updateUserHistoryId as String?),
+      remove: (l$remove as bool?),
+      updateAt: (l$updateAt as String?),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String sharedUnitId;
 
-  final String? description;
+  final Query$UnitPageRfe$sharedUnitBySharedUnitId$labels? labels;
+
+  final Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts? detailTexts;
 
   final String? remarks;
-
-  final String? updateAt;
 
   final String? updateUserId;
 
@@ -1086,7 +1217,7 @@ class Query$UnitPageRfe$sharedUnitBySharedUnitId {
 
   final bool? remove;
 
-  final Query$UnitPageRfe$sharedUnitBySharedUnitId$labels? labels;
+  final String? updateAt;
 
   final String $__typename;
 
@@ -1094,20 +1225,20 @@ class Query$UnitPageRfe$sharedUnitBySharedUnitId {
     final _resultData = <String, dynamic>{};
     final l$sharedUnitId = sharedUnitId;
     _resultData['sharedUnitId'] = l$sharedUnitId;
-    final l$description = description;
-    _resultData['description'] = l$description;
+    final l$labels = labels;
+    _resultData['labels'] = l$labels?.toJson();
+    final l$detailTexts = detailTexts;
+    _resultData['detailTexts'] = l$detailTexts?.toJson();
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
-    final l$updateAt = updateAt;
-    _resultData['updateAt'] = l$updateAt;
     final l$updateUserId = updateUserId;
     _resultData['updateUserId'] = l$updateUserId;
     final l$updateUserHistoryId = updateUserHistoryId;
     _resultData['updateUserHistoryId'] = l$updateUserHistoryId;
     final l$remove = remove;
     _resultData['remove'] = l$remove;
-    final l$labels = labels;
-    _resultData['labels'] = l$labels?.toJson();
+    final l$updateAt = updateAt;
+    _resultData['updateAt'] = l$updateAt;
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -1116,23 +1247,23 @@ class Query$UnitPageRfe$sharedUnitBySharedUnitId {
   @override
   int get hashCode {
     final l$sharedUnitId = sharedUnitId;
-    final l$description = description;
+    final l$labels = labels;
+    final l$detailTexts = detailTexts;
     final l$remarks = remarks;
-    final l$updateAt = updateAt;
     final l$updateUserId = updateUserId;
     final l$updateUserHistoryId = updateUserHistoryId;
     final l$remove = remove;
-    final l$labels = labels;
+    final l$updateAt = updateAt;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$sharedUnitId,
-      l$description,
+      l$labels,
+      l$detailTexts,
       l$remarks,
-      l$updateAt,
       l$updateUserId,
       l$updateUserHistoryId,
       l$remove,
-      l$labels,
+      l$updateAt,
       l$$__typename,
     ]);
   }
@@ -1151,19 +1282,19 @@ class Query$UnitPageRfe$sharedUnitBySharedUnitId {
     if (l$sharedUnitId != lOther$sharedUnitId) {
       return false;
     }
-    final l$description = description;
-    final lOther$description = other.description;
-    if (l$description != lOther$description) {
+    final l$labels = labels;
+    final lOther$labels = other.labels;
+    if (l$labels != lOther$labels) {
+      return false;
+    }
+    final l$detailTexts = detailTexts;
+    final lOther$detailTexts = other.detailTexts;
+    if (l$detailTexts != lOther$detailTexts) {
       return false;
     }
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (l$remarks != lOther$remarks) {
-      return false;
-    }
-    final l$updateAt = updateAt;
-    final lOther$updateAt = other.updateAt;
-    if (l$updateAt != lOther$updateAt) {
       return false;
     }
     final l$updateUserId = updateUserId;
@@ -1181,9 +1312,9 @@ class Query$UnitPageRfe$sharedUnitBySharedUnitId {
     if (l$remove != lOther$remove) {
       return false;
     }
-    final l$labels = labels;
-    final lOther$labels = other.labels;
-    if (l$labels != lOther$labels) {
+    final l$updateAt = updateAt;
+    final lOther$updateAt = other.updateAt;
+    if (l$updateAt != lOther$updateAt) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -1215,16 +1346,18 @@ abstract class CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId<TRes> {
 
   TRes call({
     String? sharedUnitId,
-    String? description,
+    Query$UnitPageRfe$sharedUnitBySharedUnitId$labels? labels,
+    Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts? detailTexts,
     String? remarks,
-    String? updateAt,
     String? updateUserId,
     String? updateUserHistoryId,
     bool? remove,
-    Query$UnitPageRfe$sharedUnitBySharedUnitId$labels? labels,
+    String? updateAt,
     String? $__typename,
   });
   CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$labels<TRes> get labels;
+  CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts<TRes>
+  get detailTexts;
 }
 
 class _CopyWithImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId<TRes>
@@ -1242,26 +1375,27 @@ class _CopyWithImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId<TRes>
 
   TRes call({
     Object? sharedUnitId = _undefined,
-    Object? description = _undefined,
+    Object? labels = _undefined,
+    Object? detailTexts = _undefined,
     Object? remarks = _undefined,
-    Object? updateAt = _undefined,
     Object? updateUserId = _undefined,
     Object? updateUserHistoryId = _undefined,
     Object? remove = _undefined,
-    Object? labels = _undefined,
+    Object? updateAt = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$UnitPageRfe$sharedUnitBySharedUnitId(
       sharedUnitId: sharedUnitId == _undefined || sharedUnitId == null
           ? _instance.sharedUnitId
           : (sharedUnitId as String),
-      description: description == _undefined
-          ? _instance.description
-          : (description as String?),
+      labels: labels == _undefined
+          ? _instance.labels
+          : (labels as Query$UnitPageRfe$sharedUnitBySharedUnitId$labels?),
+      detailTexts: detailTexts == _undefined
+          ? _instance.detailTexts
+          : (detailTexts
+                as Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
-      updateAt: updateAt == _undefined
-          ? _instance.updateAt
-          : (updateAt as String?),
       updateUserId: updateUserId == _undefined
           ? _instance.updateUserId
           : (updateUserId as String?),
@@ -1269,9 +1403,9 @@ class _CopyWithImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId<TRes>
           ? _instance.updateUserHistoryId
           : (updateUserHistoryId as String?),
       remove: remove == _undefined ? _instance.remove : (remove as bool?),
-      labels: labels == _undefined
-          ? _instance.labels
-          : (labels as Query$UnitPageRfe$sharedUnitBySharedUnitId$labels?),
+      updateAt: updateAt == _undefined
+          ? _instance.updateAt
+          : (updateAt as String?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -1289,6 +1423,19 @@ class _CopyWithImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId<TRes>
             (e) => call(labels: e),
           );
   }
+
+  CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts<TRes>
+  get detailTexts {
+    final local$detailTexts = _instance.detailTexts;
+    return local$detailTexts == null
+        ? CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts(
+            local$detailTexts,
+            (e) => call(detailTexts: e),
+          );
+  }
 }
 
 class _CopyWithStubImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId<TRes>
@@ -1299,18 +1446,24 @@ class _CopyWithStubImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId<TRes>
 
   call({
     String? sharedUnitId,
-    String? description,
+    Query$UnitPageRfe$sharedUnitBySharedUnitId$labels? labels,
+    Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts? detailTexts,
     String? remarks,
-    String? updateAt,
     String? updateUserId,
     String? updateUserHistoryId,
     bool? remove,
-    Query$UnitPageRfe$sharedUnitBySharedUnitId$labels? labels,
+    String? updateAt,
     String? $__typename,
   }) => _res;
 
   CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$labels<TRes> get labels =>
       CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$labels.stub(_res);
+
+  CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts<TRes>
+  get detailTexts =>
+      CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts.stub(
+        _res,
+      );
 }
 
 class Query$UnitPageRfe$sharedUnitBySharedUnitId$labels {
@@ -4601,4 +4754,913 @@ class _CopyWithStubImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId$labels$shared
   TRes _res;
 
   call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts {
+  Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts({
+    required this.sharedTextId,
+    required this.ja,
+    required this.en,
+    this.$__typename = 'SharedText',
+  });
+
+  factory Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedTextId = json['sharedTextId'];
+    final l$ja = json['ja'];
+    final l$en = json['en'];
+    final l$$__typename = json['__typename'];
+    return Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts(
+      sharedTextId: (l$sharedTextId as String),
+      ja: Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String sharedTextId;
+
+  final Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja ja;
+
+  final Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en en;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedTextId = sharedTextId;
+    _resultData['sharedTextId'] = l$sharedTextId;
+    final l$ja = ja;
+    _resultData['ja'] = l$ja.toJson();
+    final l$en = en;
+    _resultData['en'] = l$en.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedTextId = sharedTextId;
+    final l$ja = ja;
+    final l$en = en;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$sharedTextId, l$ja, l$en, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedTextId = sharedTextId;
+    final lOther$sharedTextId = other.sharedTextId;
+    if (l$sharedTextId != lOther$sharedTextId) {
+      return false;
+    }
+    final l$ja = ja;
+    final lOther$ja = other.ja;
+    if (l$ja != lOther$ja) {
+      return false;
+    }
+    final l$en = en;
+    final lOther$en = other.en;
+    if (l$en != lOther$en) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts
+    on Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts {
+  CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts<
+    Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts
+  >
+  get copyWith =>
+      CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts<
+  TRes
+> {
+  factory CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts(
+    Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts instance,
+    TRes Function(Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts) then,
+  ) = _CopyWithImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts;
+
+  factory CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts;
+
+  TRes call({
+    String? sharedTextId,
+    Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja? ja,
+    Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en? en,
+    String? $__typename,
+  });
+  CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja<TRes>
+  get ja;
+  CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en<TRes>
+  get en;
+}
+
+class _CopyWithImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts<TRes>
+    implements
+        CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts<TRes> {
+  _CopyWithImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts(
+    this._instance,
+    this._then,
+  );
+
+  final Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts _instance;
+
+  final TRes Function(Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts)
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedTextId = _undefined,
+    Object? ja = _undefined,
+    Object? en = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts(
+      sharedTextId: sharedTextId == _undefined || sharedTextId == null
+          ? _instance.sharedTextId
+          : (sharedTextId as String),
+      ja: ja == _undefined || ja == null
+          ? _instance.ja
+          : (ja as Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja),
+      en: en == _undefined || en == null
+          ? _instance.en
+          : (en as Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja<TRes>
+  get ja {
+    final local$ja = _instance.ja;
+    return CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
+  }
+
+  CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en<TRes>
+  get en {
+    final local$en = _instance.en;
+    return CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en(
+      local$en,
+      (e) => call(en: e),
+    );
+  }
+}
+
+class _CopyWithStubImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts<
+  TRes
+>
+    implements
+        CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts<TRes> {
+  _CopyWithStubImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? sharedTextId,
+    Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja? ja,
+    Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en? en,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja<TRes>
+  get ja =>
+      CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja.stub(
+        _res,
+      );
+
+  CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en<TRes>
+  get en =>
+      CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en.stub(
+        _res,
+      );
+}
+
+class Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja {
+  Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja({
+    required this.nodes,
+    this.$__typename = 'SharedTextValuesConnection',
+  });
+
+  factory Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes?>
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja
+    on Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja {
+  CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja<
+    Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja
+  >
+  get copyWith =>
+      CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja<
+  TRes
+> {
+  factory CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja(
+    Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja instance,
+    TRes Function(Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja)
+    then,
+  ) = _CopyWithImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja;
+
+  factory CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja;
+
+  TRes call({
+    List<Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes?>?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes?>
+    Function(
+      Iterable<
+        CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes<
+          Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja<
+  TRes
+>
+    implements
+        CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja<
+          TRes
+        > {
+  _CopyWithImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja(
+    this._instance,
+    this._then,
+  );
+
+  final Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja _instance;
+
+  final TRes Function(Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja)
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes?>
+    Function(
+      Iterable<
+        CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes<
+          Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja<
+  TRes
+>
+    implements
+        CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes?>?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes {
+  Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes({
+    this.textValue,
+    this.$__typename = 'SharedTextValue',
+  });
+
+  factory Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$textValue = json['textValue'];
+    final l$$__typename = json['__typename'];
+    return Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes(
+      textValue: (l$textValue as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? textValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$textValue = textValue;
+    _resultData['textValue'] = l$textValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$textValue = textValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$textValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$textValue = textValue;
+    final lOther$textValue = other.textValue;
+    if (l$textValue != lOther$textValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes
+    on Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes {
+  CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes<
+    Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes<
+  TRes
+> {
+  factory CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes(
+    Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes instance,
+    TRes Function(
+      Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes;
+
+  factory CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes;
+
+  TRes call({String? textValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes
+  _instance;
+
+  final TRes Function(
+    Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? textValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes(
+      textValue: textValue == _undefined
+          ? _instance.textValue
+          : (textValue as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$ja$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? textValue, String? $__typename}) => _res;
+}
+
+class Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en {
+  Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en({
+    required this.nodes,
+    this.$__typename = 'SharedTextValuesConnection',
+  });
+
+  factory Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes?>
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en
+    on Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en {
+  CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en<
+    Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en
+  >
+  get copyWith =>
+      CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en<
+  TRes
+> {
+  factory CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en(
+    Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en instance,
+    TRes Function(Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en)
+    then,
+  ) = _CopyWithImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en;
+
+  factory CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en;
+
+  TRes call({
+    List<Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes?>?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes?>
+    Function(
+      Iterable<
+        CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes<
+          Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en<
+  TRes
+>
+    implements
+        CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en<
+          TRes
+        > {
+  _CopyWithImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en(
+    this._instance,
+    this._then,
+  );
+
+  final Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en _instance;
+
+  final TRes Function(Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en)
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes?>
+    Function(
+      Iterable<
+        CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes<
+          Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en<
+  TRes
+>
+    implements
+        CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes?>?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes {
+  Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes({
+    this.textValue,
+    this.$__typename = 'SharedTextValue',
+  });
+
+  factory Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$textValue = json['textValue'];
+    final l$$__typename = json['__typename'];
+    return Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes(
+      textValue: (l$textValue as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? textValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$textValue = textValue;
+    _resultData['textValue'] = l$textValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$textValue = textValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$textValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$textValue = textValue;
+    final lOther$textValue = other.textValue;
+    if (l$textValue != lOther$textValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes
+    on Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes {
+  CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes<
+    Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes<
+  TRes
+> {
+  factory CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes(
+    Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes instance,
+    TRes Function(
+      Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes;
+
+  factory CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes;
+
+  TRes call({String? textValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes
+  _instance;
+
+  final TRes Function(
+    Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? textValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes(
+      textValue: textValue == _undefined
+          ? _instance.textValue
+          : (textValue as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$UnitPageRfe$sharedUnitBySharedUnitId$detailTexts$en$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? textValue, String? $__typename}) => _res;
 }

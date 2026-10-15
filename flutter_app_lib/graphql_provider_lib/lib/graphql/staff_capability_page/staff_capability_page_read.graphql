@@ -1,18 +1,15 @@
-# staff_capability_page画面 - Read(一覧取得クエリ、担当者→力量)
+# staff_capability_page画面 - Read(一覧取得クエリ)
 #
-# 画面仕様: source/view.yaml #StaffCapabilityPage(2026/09/30、旧StaffToCapabilityPageから
-# リネーム。info_staff起点、mstr_staff_capability経由でmstr_capabilityへ)。
-# Edit/RFEはStaffCapabilityEditを参照するStaffCapabilityPageEditとして要件0045で追加。
-#
-# staff自身の列はstaff_page_read.graphqlと同型(住所無し)。capabilitys配下の
-# capability(mstr_capability)はcapability_page_read.graphqlのnodesと同型。
+# 画面仕様: source/views/ #StaffCapabilityPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
 
 query StaffCapabilityPageRead(
   $first: Int!
   $offset: Int
   $filter: InfoStaffFilter = {}
-  $orderBy: [InfoStaffsOrderBy!] = [PRIMARY_KEY_ASC]
+  $orderBy: [InfoStaffsOrderBy!]
   $languageCodeId: UUID!
+  $capabilitysOrderBy: [MstrStaffCapabilitiesOrderBy!]
   $removed: Boolean = false
 ) {
   allInfoStaffs(
@@ -30,13 +27,6 @@ query StaffCapabilityPageRead(
       infoStaffId
       infoCompanyId
       code
-      sex
-      phone
-      privatePhone
-      symbol
-      remarks
-      updateAt
-      remove
 
       labels: sharedAppellationByNames {
         sharedAppellationsId
@@ -50,6 +40,7 @@ query StaffCapabilityPageRead(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryPronunciationId {
           sharedDictionaryId
           value: sharedDictionaryValuesBySharedDictionaryId(
@@ -60,6 +51,7 @@ query StaffCapabilityPageRead(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryNicknameId {
           sharedDictionaryId
           value: sharedDictionaryValuesBySharedDictionaryId(
@@ -72,7 +64,11 @@ query StaffCapabilityPageRead(
         }
       }
 
-      capabilitys: mstrStaffCapabilitiesByInfoStaffId {
+      sex
+      phone
+      privatePhone
+
+      capabilitys: mstrStaffCapabilitiesByInfoStaffId(orderBy: $capabilitysOrderBy) {
         totalCount
         pageInfo {
           hasNextPage
@@ -81,21 +77,10 @@ query StaffCapabilityPageRead(
         nodes {
           mstrStaffCapabilityId
           infoStaffId
-          value
-          stop
 
           capability: mstrCapabilityByMstrCapabilityId {
             mstrCapabilityId
             code
-            detail
-            referenceValue
-            max
-            min
-            step
-            symbol
-            remarks
-            updateAt
-            remove
 
             labels: sharedAppellationByNames {
               sharedAppellationsId
@@ -109,6 +94,7 @@ query StaffCapabilityPageRead(
                   }
                 }
               }
+
               sharedDictionaryBySharedDictionaryPronunciationId {
                 sharedDictionaryId
                 value: sharedDictionaryValuesBySharedDictionaryId(
@@ -119,6 +105,7 @@ query StaffCapabilityPageRead(
                   }
                 }
               }
+
               sharedDictionaryBySharedDictionaryNicknameId {
                 sharedDictionaryId
                 value: sharedDictionaryValuesBySharedDictionaryId(
@@ -131,15 +118,32 @@ query StaffCapabilityPageRead(
               }
             }
 
+            detailTexts: sharedTextByDetails {
+              sharedTextId
+              value: sharedTextValuesBySharedTextId(
+                condition: { sharedLanguageCodeId: $languageCodeId }
+              ) {
+                nodes {
+                  textValue
+                }
+              }
+            }
+
+            referenceValue
+            max
+            min
+            step
+            symbol
+            remarks
+            updateAt
+            remove
+
             update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
               historyId
               infoStaffId
               infoCompanyId
               code
-              sex
-              phone
-              symbol
-              privatePhone
+
               name: sharedAppellationByNames {
                 sharedAppellationsId
                 sharedDictionaryBySharedDictionaryNameId {
@@ -152,6 +156,7 @@ query StaffCapabilityPageRead(
                     }
                   }
                 }
+
                 sharedDictionaryBySharedDictionaryPronunciationId {
                   sharedDictionaryId
                   value: sharedDictionaryValuesBySharedDictionaryId(
@@ -162,6 +167,7 @@ query StaffCapabilityPageRead(
                     }
                   }
                 }
+
                 sharedDictionaryBySharedDictionaryNicknameId {
                   sharedDictionaryId
                   value: sharedDictionaryValuesBySharedDictionaryId(
@@ -173,20 +179,30 @@ query StaffCapabilityPageRead(
                   }
                 }
               }
+
+              sex
+              phone
+              symbol
+              privatePhone
             }
           }
+
+          value
+          stop
         }
       }
+
+      symbol
+      remarks
+      updateAt
+      remove
 
       update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
         historyId
         infoStaffId
         infoCompanyId
         code
-        sex
-        phone
-        symbol
-        privatePhone
+
         name: sharedAppellationByNames {
           sharedAppellationsId
           sharedDictionaryBySharedDictionaryNameId {
@@ -199,6 +215,7 @@ query StaffCapabilityPageRead(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryPronunciationId {
             sharedDictionaryId
             value: sharedDictionaryValuesBySharedDictionaryId(
@@ -209,6 +226,7 @@ query StaffCapabilityPageRead(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryNicknameId {
             sharedDictionaryId
             value: sharedDictionaryValuesBySharedDictionaryId(
@@ -220,6 +238,11 @@ query StaffCapabilityPageRead(
             }
           }
         }
+
+        sex
+        phone
+        symbol
+        privatePhone
       }
     }
   }

@@ -12,6 +12,7 @@ class Variables$Query$StaffHeldLicensePageRead {
     Input$InfoStaffFilter? filter,
     List<Enum$InfoStaffsOrderBy>? orderBy,
     required String languageCodeId,
+    List<Enum$MstrStaffLicensesOrderBy>? holdeLicenseOrderBy,
     bool? removed,
   }) => Variables$Query$StaffHeldLicensePageRead._({
     r'first': first,
@@ -19,6 +20,8 @@ class Variables$Query$StaffHeldLicensePageRead {
     if (filter != null) r'filter': filter,
     if (orderBy != null) r'orderBy': orderBy,
     r'languageCodeId': languageCodeId,
+    if (holdeLicenseOrderBy != null)
+      r'holdeLicenseOrderBy': holdeLicenseOrderBy,
     if (removed != null) r'removed': removed,
   });
 
@@ -48,6 +51,15 @@ class Variables$Query$StaffHeldLicensePageRead {
     }
     final l$languageCodeId = data['languageCodeId'];
     result$data['languageCodeId'] = (l$languageCodeId as String);
+    if (data.containsKey('holdeLicenseOrderBy')) {
+      final l$holdeLicenseOrderBy = data['holdeLicenseOrderBy'];
+      result$data['holdeLicenseOrderBy'] =
+          (l$holdeLicenseOrderBy as List<dynamic>?)
+              ?.map(
+                (e) => fromJson$Enum$MstrStaffLicensesOrderBy((e as String)),
+              )
+              .toList();
+    }
     if (data.containsKey('removed')) {
       final l$removed = data['removed'];
       result$data['removed'] = (l$removed as bool?);
@@ -68,6 +80,9 @@ class Variables$Query$StaffHeldLicensePageRead {
       (_$data['orderBy'] as List<Enum$InfoStaffsOrderBy>?);
 
   String get languageCodeId => (_$data['languageCodeId'] as String);
+
+  List<Enum$MstrStaffLicensesOrderBy>? get holdeLicenseOrderBy =>
+      (_$data['holdeLicenseOrderBy'] as List<Enum$MstrStaffLicensesOrderBy>?);
 
   bool? get removed => (_$data['removed'] as bool?);
 
@@ -91,6 +106,12 @@ class Variables$Query$StaffHeldLicensePageRead {
     }
     final l$languageCodeId = languageCodeId;
     result$data['languageCodeId'] = l$languageCodeId;
+    if (_$data.containsKey('holdeLicenseOrderBy')) {
+      final l$holdeLicenseOrderBy = holdeLicenseOrderBy;
+      result$data['holdeLicenseOrderBy'] = l$holdeLicenseOrderBy
+          ?.map((e) => toJson$Enum$MstrStaffLicensesOrderBy(e))
+          .toList();
+    }
     if (_$data.containsKey('removed')) {
       final l$removed = removed;
       result$data['removed'] = l$removed;
@@ -158,6 +179,26 @@ class Variables$Query$StaffHeldLicensePageRead {
     if (l$languageCodeId != lOther$languageCodeId) {
       return false;
     }
+    final l$holdeLicenseOrderBy = holdeLicenseOrderBy;
+    final lOther$holdeLicenseOrderBy = other.holdeLicenseOrderBy;
+    if (_$data.containsKey('holdeLicenseOrderBy') !=
+        other._$data.containsKey('holdeLicenseOrderBy')) {
+      return false;
+    }
+    if (l$holdeLicenseOrderBy != null && lOther$holdeLicenseOrderBy != null) {
+      if (l$holdeLicenseOrderBy.length != lOther$holdeLicenseOrderBy.length) {
+        return false;
+      }
+      for (int i = 0; i < l$holdeLicenseOrderBy.length; i++) {
+        final l$holdeLicenseOrderBy$entry = l$holdeLicenseOrderBy[i];
+        final lOther$holdeLicenseOrderBy$entry = lOther$holdeLicenseOrderBy[i];
+        if (l$holdeLicenseOrderBy$entry != lOther$holdeLicenseOrderBy$entry) {
+          return false;
+        }
+      }
+    } else if (l$holdeLicenseOrderBy != lOther$holdeLicenseOrderBy) {
+      return false;
+    }
     final l$removed = removed;
     final lOther$removed = other.removed;
     if (_$data.containsKey('removed') != other._$data.containsKey('removed')) {
@@ -176,6 +217,7 @@ class Variables$Query$StaffHeldLicensePageRead {
     final l$filter = filter;
     final l$orderBy = orderBy;
     final l$languageCodeId = languageCodeId;
+    final l$holdeLicenseOrderBy = holdeLicenseOrderBy;
     final l$removed = removed;
     return Object.hashAll([
       l$first,
@@ -187,6 +229,11 @@ class Variables$Query$StaffHeldLicensePageRead {
                 : Object.hashAll(l$orderBy.map((v) => v))
           : const {},
       l$languageCodeId,
+      _$data.containsKey('holdeLicenseOrderBy')
+          ? l$holdeLicenseOrderBy == null
+                ? null
+                : Object.hashAll(l$holdeLicenseOrderBy.map((v) => v))
+          : const {},
       _$data.containsKey('removed') ? l$removed : const {},
     ]);
   }
@@ -207,6 +254,7 @@ abstract class CopyWith$Variables$Query$StaffHeldLicensePageRead<TRes> {
     Input$InfoStaffFilter? filter,
     List<Enum$InfoStaffsOrderBy>? orderBy,
     String? languageCodeId,
+    List<Enum$MstrStaffLicensesOrderBy>? holdeLicenseOrderBy,
     bool? removed,
   });
 }
@@ -230,6 +278,7 @@ class _CopyWithImpl$Variables$Query$StaffHeldLicensePageRead<TRes>
     Object? filter = _undefined,
     Object? orderBy = _undefined,
     Object? languageCodeId = _undefined,
+    Object? holdeLicenseOrderBy = _undefined,
     Object? removed = _undefined,
   }) => _then(
     Variables$Query$StaffHeldLicensePageRead._({
@@ -241,6 +290,9 @@ class _CopyWithImpl$Variables$Query$StaffHeldLicensePageRead<TRes>
         'orderBy': (orderBy as List<Enum$InfoStaffsOrderBy>?),
       if (languageCodeId != _undefined && languageCodeId != null)
         'languageCodeId': (languageCodeId as String),
+      if (holdeLicenseOrderBy != _undefined)
+        'holdeLicenseOrderBy':
+            (holdeLicenseOrderBy as List<Enum$MstrStaffLicensesOrderBy>?),
       if (removed != _undefined) 'removed': (removed as bool?),
     }),
   );
@@ -258,6 +310,7 @@ class _CopyWithStubImpl$Variables$Query$StaffHeldLicensePageRead<TRes>
     Input$InfoStaffFilter? filter,
     List<Enum$InfoStaffsOrderBy>? orderBy,
     String? languageCodeId,
+    List<Enum$MstrStaffLicensesOrderBy>? holdeLicenseOrderBy,
     bool? removed,
   }) => _res;
 }
@@ -436,16 +489,24 @@ const documentNodeQueryStaffHeldLicensePageRead = DocumentNode(
             ),
             isNonNull: false,
           ),
-          defaultValue: DefaultValueNode(
-            value: ListValueNode(
-              values: [EnumValueNode(name: NameNode(value: 'PRIMARY_KEY_ASC'))],
-            ),
-          ),
+          defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
         VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'languageCodeId')),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'holdeLicenseOrderBy')),
+          type: ListTypeNode(
+            type: NamedTypeNode(
+              name: NameNode(value: 'MstrStaffLicensesOrderBy'),
+              isNonNull: true,
+            ),
+            isNonNull: false,
+          ),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
@@ -575,55 +636,6 @@ const documentNodeQueryStaffHeldLicensePageRead = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(value: 'code'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'sex'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'phone'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'privatePhone'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'symbol'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'remarks'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'updateAt'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'remove'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -933,9 +945,36 @@ const documentNodeQueryStaffHeldLicensePageRead = DocumentNode(
                         ),
                       ),
                       FieldNode(
+                        name: NameNode(value: 'sex'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'phone'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'privatePhone'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
                         name: NameNode(value: 'mstrStaffLicensesByInfoStaffId'),
                         alias: NameNode(value: 'holdeLicense'),
                         arguments: [
+                          ArgumentNode(
+                            name: NameNode(value: 'orderBy'),
+                            value: VariableNode(
+                              name: NameNode(value: 'holdeLicenseOrderBy'),
+                            ),
+                          ),
                           ArgumentNode(
                             name: NameNode(value: 'filter'),
                             value: ObjectValueNode(
@@ -1025,48 +1064,6 @@ const documentNodeQueryStaffHeldLicensePageRead = DocumentNode(
                                     selectionSet: null,
                                   ),
                                   FieldNode(
-                                    name: NameNode(value: 'startAt'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(value: 'stopAt'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(value: 'abeyance'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(value: 'abeyanceAt'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(value: 'revocation'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(value: 'revocationAt'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
                                     name: NameNode(
                                       value: 'mstrLicenseByMstrLicenseId',
                                     ),
@@ -1086,135 +1083,6 @@ const documentNodeQueryStaffHeldLicensePageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(value: 'code'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(value: 'detail'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(
-                                            value: 'publicLicense',
-                                          ),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(
-                                            value: 'customerLicense',
-                                          ),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(
-                                            value: 'organizationLicense',
-                                          ),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(
-                                            value: 'updateInterval',
-                                          ),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: SelectionSetNode(
-                                            selections: [
-                                              FieldNode(
-                                                name: NameNode(value: 'years'),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(value: 'months'),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(value: 'days'),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(value: 'hours'),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: 'minutes',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: 'seconds',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: '__typename',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(value: 'symbol'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(value: 'remarks'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(value: 'updateAt'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(value: 'remove'),
                                           alias: null,
                                           arguments: [],
                                           directives: [],
@@ -1597,6 +1465,234 @@ const documentNodeQueryStaffHeldLicensePageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
+                                            value: 'sharedTextByDetails',
+                                          ),
+                                          alias: NameNode(value: 'detailTexts'),
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'sharedTextId',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value:
+                                                      'sharedTextValuesBySharedTextId',
+                                                ),
+                                                alias: NameNode(value: 'value'),
+                                                arguments: [
+                                                  ArgumentNode(
+                                                    name: NameNode(
+                                                      value: 'condition',
+                                                    ),
+                                                    value: ObjectValueNode(
+                                                      fields: [
+                                                        ObjectFieldNode(
+                                                          name: NameNode(
+                                                            value:
+                                                                'sharedLanguageCodeId',
+                                                          ),
+                                                          value: VariableNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  'languageCodeId',
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                                directives: [],
+                                                selectionSet: SelectionSetNode(
+                                                  selections: [
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: 'nodes',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: SelectionSetNode(
+                                                        selections: [
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  'textValue',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: null,
+                                                          ),
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  '__typename',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: null,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: '__typename',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(
+                                            value: 'publicLicense',
+                                          ),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(
+                                            value: 'customerLicense',
+                                          ),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(
+                                            value: 'organizationLicense',
+                                          ),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(
+                                            value: 'updateInterval',
+                                          ),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'seconds',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'minutes',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(value: 'hours'),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(value: 'days'),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(value: 'months'),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(value: 'years'),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: 'symbol'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: 'remarks'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: 'updateAt'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: 'remove'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(
                                             value:
                                                 'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
                                           ),
@@ -1634,36 +1730,6 @@ const documentNodeQueryStaffHeldLicensePageRead = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(value: 'code'),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(value: 'sex'),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(value: 'phone'),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(value: 'symbol'),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: 'privatePhone',
-                                                ),
                                                 alias: null,
                                                 arguments: [],
                                                 directives: [],
@@ -2077,6 +2143,36 @@ const documentNodeQueryStaffHeldLicensePageRead = DocumentNode(
                                                 ),
                                               ),
                                               FieldNode(
+                                                name: NameNode(value: 'sex'),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(value: 'phone'),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(value: 'symbol'),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'privatePhone',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
                                                 name: NameNode(
                                                   value: '__typename',
                                                 ),
@@ -2099,6 +2195,48 @@ const documentNodeQueryStaffHeldLicensePageRead = DocumentNode(
                                     ),
                                   ),
                                   FieldNode(
+                                    name: NameNode(value: 'startAt'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: 'stopAt'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: 'abeyance'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: 'abeyanceAt'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: 'revocation'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: 'revocationAt'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
                                     name: NameNode(value: '__typename'),
                                     alias: null,
                                     arguments: [],
@@ -2117,6 +2255,34 @@ const documentNodeQueryStaffHeldLicensePageRead = DocumentNode(
                             ),
                           ],
                         ),
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'symbol'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'updateAt'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'remove'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
                       ),
                       FieldNode(
                         name: NameNode(
@@ -2151,34 +2317,6 @@ const documentNodeQueryStaffHeldLicensePageRead = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(value: 'code'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'sex'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'phone'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'symbol'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'privatePhone'),
                               alias: null,
                               arguments: [],
                               directives: [],
@@ -2512,6 +2650,34 @@ const documentNodeQueryStaffHeldLicensePageRead = DocumentNode(
                                   ),
                                 ],
                               ),
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'sex'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'phone'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'symbol'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'privatePhone'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
                             ),
                             FieldNode(
                               name: NameNode(value: '__typename'),
@@ -3108,15 +3274,15 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes {
     required this.infoStaffId,
     this.infoCompanyId,
     this.code,
+    this.labels,
     this.sex,
     this.phone,
     this.privatePhone,
+    required this.holdeLicense,
     this.symbol,
     this.remarks,
     this.updateAt,
     this.remove,
-    this.labels,
-    required this.holdeLicense,
     this.update_user,
     this.$__typename = 'InfoStaff',
   });
@@ -3127,37 +3293,37 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes {
     final l$infoStaffId = json['infoStaffId'];
     final l$infoCompanyId = json['infoCompanyId'];
     final l$code = json['code'];
+    final l$labels = json['labels'];
     final l$sex = json['sex'];
     final l$phone = json['phone'];
     final l$privatePhone = json['privatePhone'];
+    final l$holdeLicense = json['holdeLicense'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
-    final l$labels = json['labels'];
-    final l$holdeLicense = json['holdeLicense'];
     final l$update_user = json['update_user'];
     final l$$__typename = json['__typename'];
     return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes(
       infoStaffId: (l$infoStaffId as String),
       infoCompanyId: (l$infoCompanyId as String?),
       code: (l$code as String?),
-      sex: (l$sex as String?),
-      phone: (l$phone as String?),
-      privatePhone: (l$privatePhone as String?),
-      symbol: (l$symbol as String?),
-      remarks: (l$remarks as String?),
-      updateAt: (l$updateAt as String?),
-      remove: (l$remove as bool?),
       labels: l$labels == null
           ? null
           : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels.fromJson(
               (l$labels as Map<String, dynamic>),
             ),
+      sex: (l$sex as String?),
+      phone: (l$phone as String?),
+      privatePhone: (l$privatePhone as String?),
       holdeLicense:
           Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense.fromJson(
             (l$holdeLicense as Map<String, dynamic>),
           ),
+      symbol: (l$symbol as String?),
+      remarks: (l$remarks as String?),
+      updateAt: (l$updateAt as String?),
+      remove: (l$remove as bool?),
       update_user: l$update_user == null
           ? null
           : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user.fromJson(
@@ -3173,11 +3339,16 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes {
 
   final String? code;
 
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels? labels;
+
   final String? sex;
 
   final String? phone;
 
   final String? privatePhone;
+
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense
+  holdeLicense;
 
   final String? symbol;
 
@@ -3186,11 +3357,6 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes {
   final String? updateAt;
 
   final bool? remove;
-
-  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels? labels;
-
-  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense
-  holdeLicense;
 
   final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user?
   update_user;
@@ -3205,12 +3371,16 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes {
     _resultData['infoCompanyId'] = l$infoCompanyId;
     final l$code = code;
     _resultData['code'] = l$code;
+    final l$labels = labels;
+    _resultData['labels'] = l$labels?.toJson();
     final l$sex = sex;
     _resultData['sex'] = l$sex;
     final l$phone = phone;
     _resultData['phone'] = l$phone;
     final l$privatePhone = privatePhone;
     _resultData['privatePhone'] = l$privatePhone;
+    final l$holdeLicense = holdeLicense;
+    _resultData['holdeLicense'] = l$holdeLicense.toJson();
     final l$symbol = symbol;
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
@@ -3219,10 +3389,6 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes {
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
     _resultData['remove'] = l$remove;
-    final l$labels = labels;
-    _resultData['labels'] = l$labels?.toJson();
-    final l$holdeLicense = holdeLicense;
-    _resultData['holdeLicense'] = l$holdeLicense.toJson();
     final l$update_user = update_user;
     _resultData['update_user'] = l$update_user?.toJson();
     final l$$__typename = $__typename;
@@ -3235,30 +3401,30 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes {
     final l$infoStaffId = infoStaffId;
     final l$infoCompanyId = infoCompanyId;
     final l$code = code;
+    final l$labels = labels;
     final l$sex = sex;
     final l$phone = phone;
     final l$privatePhone = privatePhone;
+    final l$holdeLicense = holdeLicense;
     final l$symbol = symbol;
     final l$remarks = remarks;
     final l$updateAt = updateAt;
     final l$remove = remove;
-    final l$labels = labels;
-    final l$holdeLicense = holdeLicense;
     final l$update_user = update_user;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoStaffId,
       l$infoCompanyId,
       l$code,
+      l$labels,
       l$sex,
       l$phone,
       l$privatePhone,
+      l$holdeLicense,
       l$symbol,
       l$remarks,
       l$updateAt,
       l$remove,
-      l$labels,
-      l$holdeLicense,
       l$update_user,
       l$$__typename,
     ]);
@@ -3288,6 +3454,11 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes {
     if (l$code != lOther$code) {
       return false;
     }
+    final l$labels = labels;
+    final lOther$labels = other.labels;
+    if (l$labels != lOther$labels) {
+      return false;
+    }
     final l$sex = sex;
     final lOther$sex = other.sex;
     if (l$sex != lOther$sex) {
@@ -3301,6 +3472,11 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes {
     final l$privatePhone = privatePhone;
     final lOther$privatePhone = other.privatePhone;
     if (l$privatePhone != lOther$privatePhone) {
+      return false;
+    }
+    final l$holdeLicense = holdeLicense;
+    final lOther$holdeLicense = other.holdeLicense;
+    if (l$holdeLicense != lOther$holdeLicense) {
       return false;
     }
     final l$symbol = symbol;
@@ -3321,16 +3497,6 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes {
     final l$remove = remove;
     final lOther$remove = other.remove;
     if (l$remove != lOther$remove) {
-      return false;
-    }
-    final l$labels = labels;
-    final lOther$labels = other.labels;
-    if (l$labels != lOther$labels) {
-      return false;
-    }
-    final l$holdeLicense = holdeLicense;
-    final lOther$holdeLicense = other.holdeLicense;
-    if (l$holdeLicense != lOther$holdeLicense) {
       return false;
     }
     final l$update_user = update_user;
@@ -3374,16 +3540,16 @@ abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes<
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels? labels,
     String? sex,
     String? phone,
     String? privatePhone,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense?
+    holdeLicense,
     String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels? labels,
-    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense?
-    holdeLicense,
     Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user? update_user,
     String? $__typename,
   });
@@ -3413,15 +3579,15 @@ class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes<TRes>
     Object? infoStaffId = _undefined,
     Object? infoCompanyId = _undefined,
     Object? code = _undefined,
+    Object? labels = _undefined,
     Object? sex = _undefined,
     Object? phone = _undefined,
     Object? privatePhone = _undefined,
+    Object? holdeLicense = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
-    Object? labels = _undefined,
-    Object? holdeLicense = _undefined,
     Object? update_user = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
@@ -3433,25 +3599,25 @@ class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes<TRes>
           ? _instance.infoCompanyId
           : (infoCompanyId as String?),
       code: code == _undefined ? _instance.code : (code as String?),
+      labels: labels == _undefined
+          ? _instance.labels
+          : (labels
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels?),
       sex: sex == _undefined ? _instance.sex : (sex as String?),
       phone: phone == _undefined ? _instance.phone : (phone as String?),
       privatePhone: privatePhone == _undefined
           ? _instance.privatePhone
           : (privatePhone as String?),
+      holdeLicense: holdeLicense == _undefined || holdeLicense == null
+          ? _instance.holdeLicense
+          : (holdeLicense
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
           : (updateAt as String?),
       remove: remove == _undefined ? _instance.remove : (remove as bool?),
-      labels: labels == _undefined
-          ? _instance.labels
-          : (labels
-                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels?),
-      holdeLicense: holdeLicense == _undefined || holdeLicense == null
-          ? _instance.holdeLicense
-          : (holdeLicense
-                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense),
       update_user: update_user == _undefined
           ? _instance.update_user
           : (update_user
@@ -3511,16 +3677,16 @@ class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes<TRes>
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels? labels,
     String? sex,
     String? phone,
     String? privatePhone,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense?
+    holdeLicense,
     String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$labels? labels,
-    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense?
-    holdeLicense,
     Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user? update_user,
     String? $__typename,
   }) => _res;
@@ -6057,13 +6223,13 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes {
     required this.mstrStaffLicenseId,
     required this.infoStaffId,
     required this.mstrLicenseId,
+    this.license,
     this.startAt,
     required this.stopAt,
     this.abeyance,
     this.abeyanceAt,
     this.revocation,
     this.revocationAt,
-    this.license,
     this.$__typename = 'MstrStaffLicense',
   });
 
@@ -6073,29 +6239,29 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes {
     final l$mstrStaffLicenseId = json['mstrStaffLicenseId'];
     final l$infoStaffId = json['infoStaffId'];
     final l$mstrLicenseId = json['mstrLicenseId'];
+    final l$license = json['license'];
     final l$startAt = json['startAt'];
     final l$stopAt = json['stopAt'];
     final l$abeyance = json['abeyance'];
     final l$abeyanceAt = json['abeyanceAt'];
     final l$revocation = json['revocation'];
     final l$revocationAt = json['revocationAt'];
-    final l$license = json['license'];
     final l$$__typename = json['__typename'];
     return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes(
       mstrStaffLicenseId: (l$mstrStaffLicenseId as String),
       infoStaffId: (l$infoStaffId as String),
       mstrLicenseId: (l$mstrLicenseId as String),
+      license: l$license == null
+          ? null
+          : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license.fromJson(
+              (l$license as Map<String, dynamic>),
+            ),
       startAt: (l$startAt as String?),
       stopAt: (l$stopAt as String),
       abeyance: (l$abeyance as bool?),
       abeyanceAt: (l$abeyanceAt as String?),
       revocation: (l$revocation as bool?),
       revocationAt: (l$revocationAt as String?),
-      license: l$license == null
-          ? null
-          : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license.fromJson(
-              (l$license as Map<String, dynamic>),
-            ),
       $__typename: (l$$__typename as String),
     );
   }
@@ -6105,6 +6271,9 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes {
   final String infoStaffId;
 
   final String mstrLicenseId;
+
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license?
+  license;
 
   final String? startAt;
 
@@ -6118,9 +6287,6 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes {
 
   final String? revocationAt;
 
-  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license?
-  license;
-
   final String $__typename;
 
   Map<String, dynamic> toJson() {
@@ -6131,6 +6297,8 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes {
     _resultData['infoStaffId'] = l$infoStaffId;
     final l$mstrLicenseId = mstrLicenseId;
     _resultData['mstrLicenseId'] = l$mstrLicenseId;
+    final l$license = license;
+    _resultData['license'] = l$license?.toJson();
     final l$startAt = startAt;
     _resultData['startAt'] = l$startAt;
     final l$stopAt = stopAt;
@@ -6143,8 +6311,6 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes {
     _resultData['revocation'] = l$revocation;
     final l$revocationAt = revocationAt;
     _resultData['revocationAt'] = l$revocationAt;
-    final l$license = license;
-    _resultData['license'] = l$license?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -6155,25 +6321,25 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes {
     final l$mstrStaffLicenseId = mstrStaffLicenseId;
     final l$infoStaffId = infoStaffId;
     final l$mstrLicenseId = mstrLicenseId;
+    final l$license = license;
     final l$startAt = startAt;
     final l$stopAt = stopAt;
     final l$abeyance = abeyance;
     final l$abeyanceAt = abeyanceAt;
     final l$revocation = revocation;
     final l$revocationAt = revocationAt;
-    final l$license = license;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$mstrStaffLicenseId,
       l$infoStaffId,
       l$mstrLicenseId,
+      l$license,
       l$startAt,
       l$stopAt,
       l$abeyance,
       l$abeyanceAt,
       l$revocation,
       l$revocationAt,
-      l$license,
       l$$__typename,
     ]);
   }
@@ -6201,6 +6367,11 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes {
     final l$mstrLicenseId = mstrLicenseId;
     final lOther$mstrLicenseId = other.mstrLicenseId;
     if (l$mstrLicenseId != lOther$mstrLicenseId) {
+      return false;
+    }
+    final l$license = license;
+    final lOther$license = other.license;
+    if (l$license != lOther$license) {
       return false;
     }
     final l$startAt = startAt;
@@ -6231,11 +6402,6 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes {
     final l$revocationAt = revocationAt;
     final lOther$revocationAt = other.revocationAt;
     if (l$revocationAt != lOther$revocationAt) {
-      return false;
-    }
-    final l$license = license;
-    final lOther$license = other.license;
-    if (l$license != lOther$license) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -6279,14 +6445,14 @@ abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holde
     String? mstrStaffLicenseId,
     String? infoStaffId,
     String? mstrLicenseId,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license?
+    license,
     String? startAt,
     String? stopAt,
     bool? abeyance,
     String? abeyanceAt,
     bool? revocation,
     String? revocationAt,
-    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license?
-    license,
     String? $__typename,
   });
   CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license<
@@ -6321,13 +6487,13 @@ class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLice
     Object? mstrStaffLicenseId = _undefined,
     Object? infoStaffId = _undefined,
     Object? mstrLicenseId = _undefined,
+    Object? license = _undefined,
     Object? startAt = _undefined,
     Object? stopAt = _undefined,
     Object? abeyance = _undefined,
     Object? abeyanceAt = _undefined,
     Object? revocation = _undefined,
     Object? revocationAt = _undefined,
-    Object? license = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes(
@@ -6341,6 +6507,10 @@ class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLice
       mstrLicenseId: mstrLicenseId == _undefined || mstrLicenseId == null
           ? _instance.mstrLicenseId
           : (mstrLicenseId as String),
+      license: license == _undefined
+          ? _instance.license
+          : (license
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license?),
       startAt: startAt == _undefined ? _instance.startAt : (startAt as String?),
       stopAt: stopAt == _undefined || stopAt == null
           ? _instance.stopAt
@@ -6357,10 +6527,6 @@ class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLice
       revocationAt: revocationAt == _undefined
           ? _instance.revocationAt
           : (revocationAt as String?),
-      license: license == _undefined
-          ? _instance.license
-          : (license
-                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -6400,14 +6566,14 @@ class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holde
     String? mstrStaffLicenseId,
     String? infoStaffId,
     String? mstrLicenseId,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license?
+    license,
     String? startAt,
     String? stopAt,
     bool? abeyance,
     String? abeyanceAt,
     bool? revocation,
     String? revocationAt,
-    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license?
-    license,
     String? $__typename,
   }) => _res;
 
@@ -6424,7 +6590,8 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$lice
   Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license({
     required this.mstrLicenseId,
     this.code,
-    this.detail,
+    this.labels,
+    this.detailTexts,
     this.publicLicense,
     this.customerLicense,
     this.organizationLicense,
@@ -6433,7 +6600,6 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$lice
     this.remarks,
     this.updateAt,
     this.remove,
-    this.labels,
     this.update_user,
     this.$__typename = 'MstrLicense',
   });
@@ -6443,7 +6609,8 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$lice
   ) {
     final l$mstrLicenseId = json['mstrLicenseId'];
     final l$code = json['code'];
-    final l$detail = json['detail'];
+    final l$labels = json['labels'];
+    final l$detailTexts = json['detailTexts'];
     final l$publicLicense = json['publicLicense'];
     final l$customerLicense = json['customerLicense'];
     final l$organizationLicense = json['organizationLicense'];
@@ -6452,13 +6619,21 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$lice
     final l$remarks = json['remarks'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
-    final l$labels = json['labels'];
     final l$update_user = json['update_user'];
     final l$$__typename = json['__typename'];
     return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license(
       mstrLicenseId: (l$mstrLicenseId as String),
       code: (l$code as String?),
-      detail: (l$detail as String?),
+      labels: l$labels == null
+          ? null
+          : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels.fromJson(
+              (l$labels as Map<String, dynamic>),
+            ),
+      detailTexts: l$detailTexts == null
+          ? null
+          : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts.fromJson(
+              (l$detailTexts as Map<String, dynamic>),
+            ),
       publicLicense: (l$publicLicense as bool?),
       customerLicense: (l$customerLicense as bool?),
       organizationLicense: (l$organizationLicense as bool?),
@@ -6471,11 +6646,6 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$lice
       remarks: (l$remarks as String?),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
-      labels: l$labels == null
-          ? null
-          : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels.fromJson(
-              (l$labels as Map<String, dynamic>),
-            ),
       update_user: l$update_user == null
           ? null
           : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user.fromJson(
@@ -6489,7 +6659,11 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$lice
 
   final String? code;
 
-  final String? detail;
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels?
+  labels;
+
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts?
+  detailTexts;
 
   final bool? publicLicense;
 
@@ -6508,9 +6682,6 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$lice
 
   final bool? remove;
 
-  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels?
-  labels;
-
   final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user?
   update_user;
 
@@ -6522,8 +6693,10 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$lice
     _resultData['mstrLicenseId'] = l$mstrLicenseId;
     final l$code = code;
     _resultData['code'] = l$code;
-    final l$detail = detail;
-    _resultData['detail'] = l$detail;
+    final l$labels = labels;
+    _resultData['labels'] = l$labels?.toJson();
+    final l$detailTexts = detailTexts;
+    _resultData['detailTexts'] = l$detailTexts?.toJson();
     final l$publicLicense = publicLicense;
     _resultData['publicLicense'] = l$publicLicense;
     final l$customerLicense = customerLicense;
@@ -6540,8 +6713,6 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$lice
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
     _resultData['remove'] = l$remove;
-    final l$labels = labels;
-    _resultData['labels'] = l$labels?.toJson();
     final l$update_user = update_user;
     _resultData['update_user'] = l$update_user?.toJson();
     final l$$__typename = $__typename;
@@ -6553,7 +6724,8 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$lice
   int get hashCode {
     final l$mstrLicenseId = mstrLicenseId;
     final l$code = code;
-    final l$detail = detail;
+    final l$labels = labels;
+    final l$detailTexts = detailTexts;
     final l$publicLicense = publicLicense;
     final l$customerLicense = customerLicense;
     final l$organizationLicense = organizationLicense;
@@ -6562,13 +6734,13 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$lice
     final l$remarks = remarks;
     final l$updateAt = updateAt;
     final l$remove = remove;
-    final l$labels = labels;
     final l$update_user = update_user;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$mstrLicenseId,
       l$code,
-      l$detail,
+      l$labels,
+      l$detailTexts,
       l$publicLicense,
       l$customerLicense,
       l$organizationLicense,
@@ -6577,7 +6749,6 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$lice
       l$remarks,
       l$updateAt,
       l$remove,
-      l$labels,
       l$update_user,
       l$$__typename,
     ]);
@@ -6603,9 +6774,14 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$lice
     if (l$code != lOther$code) {
       return false;
     }
-    final l$detail = detail;
-    final lOther$detail = other.detail;
-    if (l$detail != lOther$detail) {
+    final l$labels = labels;
+    final lOther$labels = other.labels;
+    if (l$labels != lOther$labels) {
+      return false;
+    }
+    final l$detailTexts = detailTexts;
+    final lOther$detailTexts = other.detailTexts;
+    if (l$detailTexts != lOther$detailTexts) {
       return false;
     }
     final l$publicLicense = publicLicense;
@@ -6646,11 +6822,6 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$lice
     final l$remove = remove;
     final lOther$remove = other.remove;
     if (l$remove != lOther$remove) {
-      return false;
-    }
-    final l$labels = labels;
-    final lOther$labels = other.labels;
-    if (l$labels != lOther$labels) {
       return false;
     }
     final l$update_user = update_user;
@@ -6698,7 +6869,10 @@ abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holde
   TRes call({
     String? mstrLicenseId,
     String? code,
-    String? detail,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels?
+    labels,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts?
+    detailTexts,
     bool? publicLicense,
     bool? customerLicense,
     bool? organizationLicense,
@@ -6708,20 +6882,22 @@ abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holde
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels?
-    labels,
     Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user?
     update_user,
     String? $__typename,
   });
-  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval<
-    TRes
-  >
-  get updateInterval;
   CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels<
     TRes
   >
   get labels;
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts<
+    TRes
+  >
+  get detailTexts;
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval<
+    TRes
+  >
+  get updateInterval;
   CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user<
     TRes
   >
@@ -6753,7 +6929,8 @@ class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLice
   TRes call({
     Object? mstrLicenseId = _undefined,
     Object? code = _undefined,
-    Object? detail = _undefined,
+    Object? labels = _undefined,
+    Object? detailTexts = _undefined,
     Object? publicLicense = _undefined,
     Object? customerLicense = _undefined,
     Object? organizationLicense = _undefined,
@@ -6762,7 +6939,6 @@ class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLice
     Object? remarks = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
-    Object? labels = _undefined,
     Object? update_user = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
@@ -6771,7 +6947,14 @@ class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLice
           ? _instance.mstrLicenseId
           : (mstrLicenseId as String),
       code: code == _undefined ? _instance.code : (code as String?),
-      detail: detail == _undefined ? _instance.detail : (detail as String?),
+      labels: labels == _undefined
+          ? _instance.labels
+          : (labels
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels?),
+      detailTexts: detailTexts == _undefined
+          ? _instance.detailTexts
+          : (detailTexts
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts?),
       publicLicense: publicLicense == _undefined
           ? _instance.publicLicense
           : (publicLicense as bool?),
@@ -6791,10 +6974,6 @@ class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLice
           ? _instance.updateAt
           : (updateAt as String?),
       remove: remove == _undefined ? _instance.remove : (remove as bool?),
-      labels: labels == _undefined
-          ? _instance.labels
-          : (labels
-                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels?),
       update_user: update_user == _undefined
           ? _instance.update_user
           : (update_user
@@ -6804,21 +6983,6 @@ class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLice
           : ($__typename as String),
     ),
   );
-
-  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval<
-    TRes
-  >
-  get updateInterval {
-    final local$updateInterval = _instance.updateInterval;
-    return local$updateInterval == null
-        ? CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval(
-            local$updateInterval,
-            (e) => call(updateInterval: e),
-          );
-  }
 
   CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels<
     TRes
@@ -6832,6 +6996,36 @@ class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLice
         : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels(
             local$labels,
             (e) => call(labels: e),
+          );
+  }
+
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts<
+    TRes
+  >
+  get detailTexts {
+    final local$detailTexts = _instance.detailTexts;
+    return local$detailTexts == null
+        ? CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts(
+            local$detailTexts,
+            (e) => call(detailTexts: e),
+          );
+  }
+
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval<
+    TRes
+  >
+  get updateInterval {
+    final local$updateInterval = _instance.updateInterval;
+    return local$updateInterval == null
+        ? CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval(
+            local$updateInterval,
+            (e) => call(updateInterval: e),
           );
   }
 
@@ -6867,7 +7061,10 @@ class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holde
   call({
     String? mstrLicenseId,
     String? code,
-    String? detail,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels?
+    labels,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts?
+    detailTexts,
     bool? publicLicense,
     bool? customerLicense,
     bool? organizationLicense,
@@ -6877,26 +7074,32 @@ class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holde
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels?
-    labels,
     Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user?
     update_user,
     String? $__typename,
   }) => _res;
-
-  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval<
-    TRes
-  >
-  get updateInterval =>
-      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval.stub(
-        _res,
-      );
 
   CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels<
     TRes
   >
   get labels =>
       CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels.stub(
+        _res,
+      );
+
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts<
+    TRes
+  >
+  get detailTexts =>
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts.stub(
+        _res,
+      );
+
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval<
+    TRes
+  >
+  get updateInterval =>
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval.stub(
         _res,
       );
 
@@ -6907,249 +7110,6 @@ class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holde
       CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user.stub(
         _res,
       );
-}
-
-class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval {
-  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval({
-    this.years,
-    this.months,
-    this.days,
-    this.hours,
-    this.minutes,
-    this.seconds,
-    this.$__typename = 'Interval',
-  });
-
-  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval.fromJson(
-    Map<String, dynamic> json,
-  ) {
-    final l$years = json['years'];
-    final l$months = json['months'];
-    final l$days = json['days'];
-    final l$hours = json['hours'];
-    final l$minutes = json['minutes'];
-    final l$seconds = json['seconds'];
-    final l$$__typename = json['__typename'];
-    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval(
-      years: (l$years as int?),
-      months: (l$months as int?),
-      days: (l$days as int?),
-      hours: (l$hours as int?),
-      minutes: (l$minutes as int?),
-      seconds: (l$seconds as num?)?.toDouble(),
-      $__typename: (l$$__typename as String),
-    );
-  }
-
-  final int? years;
-
-  final int? months;
-
-  final int? days;
-
-  final int? hours;
-
-  final int? minutes;
-
-  final double? seconds;
-
-  final String $__typename;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$years = years;
-    _resultData['years'] = l$years;
-    final l$months = months;
-    _resultData['months'] = l$months;
-    final l$days = days;
-    _resultData['days'] = l$days;
-    final l$hours = hours;
-    _resultData['hours'] = l$hours;
-    final l$minutes = minutes;
-    _resultData['minutes'] = l$minutes;
-    final l$seconds = seconds;
-    _resultData['seconds'] = l$seconds;
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$years = years;
-    final l$months = months;
-    final l$days = days;
-    final l$hours = hours;
-    final l$minutes = minutes;
-    final l$seconds = seconds;
-    final l$$__typename = $__typename;
-    return Object.hashAll([
-      l$years,
-      l$months,
-      l$days,
-      l$hours,
-      l$minutes,
-      l$seconds,
-      l$$__typename,
-    ]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (other
-            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$years = years;
-    final lOther$years = other.years;
-    if (l$years != lOther$years) {
-      return false;
-    }
-    final l$months = months;
-    final lOther$months = other.months;
-    if (l$months != lOther$months) {
-      return false;
-    }
-    final l$days = days;
-    final lOther$days = other.days;
-    if (l$days != lOther$days) {
-      return false;
-    }
-    final l$hours = hours;
-    final lOther$hours = other.hours;
-    if (l$hours != lOther$hours) {
-      return false;
-    }
-    final l$minutes = minutes;
-    final lOther$minutes = other.minutes;
-    if (l$minutes != lOther$minutes) {
-      return false;
-    }
-    final l$seconds = seconds;
-    final lOther$seconds = other.seconds;
-    if (l$seconds != lOther$seconds) {
-      return false;
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval
-    on
-        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval {
-  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval<
-    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval
-  >
-  get copyWith =>
-      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval(
-        this,
-        (i) => i,
-      );
-}
-
-abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval<
-  TRes
-> {
-  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval(
-    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval
-    instance,
-    TRes Function(
-      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval,
-    )
-    then,
-  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval;
-
-  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval.stub(
-    TRes res,
-  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval;
-
-  TRes call({
-    int? years,
-    int? months,
-    int? days,
-    int? hours,
-    int? minutes,
-    double? seconds,
-    String? $__typename,
-  });
-}
-
-class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval<
-  TRes
->
-    implements
-        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval<
-          TRes
-        > {
-  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval(
-    this._instance,
-    this._then,
-  );
-
-  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval
-  _instance;
-
-  final TRes Function(
-    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval,
-  )
-  _then;
-
-  static const _undefined = <dynamic, dynamic>{};
-
-  TRes call({
-    Object? years = _undefined,
-    Object? months = _undefined,
-    Object? days = _undefined,
-    Object? hours = _undefined,
-    Object? minutes = _undefined,
-    Object? seconds = _undefined,
-    Object? $__typename = _undefined,
-  }) => _then(
-    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval(
-      years: years == _undefined ? _instance.years : (years as int?),
-      months: months == _undefined ? _instance.months : (months as int?),
-      days: days == _undefined ? _instance.days : (days as int?),
-      hours: hours == _undefined ? _instance.hours : (hours as int?),
-      minutes: minutes == _undefined ? _instance.minutes : (minutes as int?),
-      seconds: seconds == _undefined ? _instance.seconds : (seconds as double?),
-      $__typename: $__typename == _undefined || $__typename == null
-          ? _instance.$__typename
-          : ($__typename as String),
-    ),
-  );
-}
-
-class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval<
-  TRes
->
-    implements
-        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval<
-          TRes
-        > {
-  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval(
-    this._res,
-  );
-
-  TRes _res;
-
-  call({
-    int? years,
-    int? months,
-    int? days,
-    int? hours,
-    int? minutes,
-    double? seconds,
-    String? $__typename,
-  }) => _res;
 }
 
 class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$labels {
@@ -9216,17 +9176,829 @@ class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holde
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts({
+    required this.sharedTextId,
+    required this.value,
+    this.$__typename = 'SharedText',
+  });
+
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedTextId = json['sharedTextId'];
+    final l$value = json['value'];
+    final l$$__typename = json['__typename'];
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts(
+      sharedTextId: (l$sharedTextId as String),
+      value:
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value.fromJson(
+            (l$value as Map<String, dynamic>),
+          ),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String sharedTextId;
+
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value
+  value;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedTextId = sharedTextId;
+    _resultData['sharedTextId'] = l$sharedTextId;
+    final l$value = value;
+    _resultData['value'] = l$value.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedTextId = sharedTextId;
+    final l$value = value;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$sharedTextId, l$value, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedTextId = sharedTextId;
+    final lOther$sharedTextId = other.sharedTextId;
+    if (l$sharedTextId != lOther$sharedTextId) {
+      return false;
+    }
+    final l$value = value;
+    final lOther$value = other.value;
+    if (l$value != lOther$value) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts
+    on
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts
+  >
+  get copyWith =>
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts<
+  TRes
+> {
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts
+    instance,
+    TRes Function(
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts,
+    )
+    then,
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts;
+
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts;
+
+  TRes call({
+    String? sharedTextId,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value?
+    value,
+    String? $__typename,
+  });
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value<
+    TRes
+  >
+  get value;
+}
+
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts<
+          TRes
+        > {
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts(
+    this._instance,
+    this._then,
+  );
+
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts
+  _instance;
+
+  final TRes Function(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedTextId = _undefined,
+    Object? value = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts(
+      sharedTextId: sharedTextId == _undefined || sharedTextId == null
+          ? _instance.sharedTextId
+          : (sharedTextId as String),
+      value: value == _undefined || value == null
+          ? _instance.value
+          : (value
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value<
+    TRes
+  >
+  get value {
+    final local$value = _instance.value;
+    return CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value(
+      local$value,
+      (e) => call(value: e),
+    );
+  }
+}
+
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? sharedTextId,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value?
+    value,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value<
+    TRes
+  >
+  get value =>
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value.stub(
+        _res,
+      );
+}
+
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value({
+    required this.nodes,
+    this.$__typename = 'SharedTextValuesConnection',
+  });
+
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value
+    on
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value
+  >
+  get copyWith =>
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value<
+  TRes
+> {
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value
+    instance,
+    TRes Function(
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value,
+    )
+    then,
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value;
+
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value;
+
+  TRes call({
+    List<
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes<
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value<
+          TRes
+        > {
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value(
+    this._instance,
+    this._then,
+  );
+
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value
+  _instance;
+
+  final TRes Function(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes<
+          Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes({
+    this.textValue,
+    this.$__typename = 'SharedTextValue',
+  });
+
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$textValue = json['textValue'];
+    final l$$__typename = json['__typename'];
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes(
+      textValue: (l$textValue as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? textValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$textValue = textValue;
+    _resultData['textValue'] = l$textValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$textValue = textValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$textValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$textValue = textValue;
+    final lOther$textValue = other.textValue;
+    if (l$textValue != lOther$textValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes
+    on
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes<
+  TRes
+> {
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes
+    instance,
+    TRes Function(
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes;
+
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes;
+
+  TRes call({String? textValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes
+  _instance;
+
+  final TRes Function(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? textValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes(
+      textValue: textValue == _undefined
+          ? _instance.textValue
+          : (textValue as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$detailTexts$value$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? textValue, String? $__typename}) => _res;
+}
+
+class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval {
+  Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval({
+    this.seconds,
+    this.minutes,
+    this.hours,
+    this.days,
+    this.months,
+    this.years,
+    this.$__typename = 'Interval',
+  });
+
+  factory Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$seconds = json['seconds'];
+    final l$minutes = json['minutes'];
+    final l$hours = json['hours'];
+    final l$days = json['days'];
+    final l$months = json['months'];
+    final l$years = json['years'];
+    final l$$__typename = json['__typename'];
+    return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval(
+      seconds: (l$seconds as num?)?.toDouble(),
+      minutes: (l$minutes as int?),
+      hours: (l$hours as int?),
+      days: (l$days as int?),
+      months: (l$months as int?),
+      years: (l$years as int?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final double? seconds;
+
+  final int? minutes;
+
+  final int? hours;
+
+  final int? days;
+
+  final int? months;
+
+  final int? years;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$seconds = seconds;
+    _resultData['seconds'] = l$seconds;
+    final l$minutes = minutes;
+    _resultData['minutes'] = l$minutes;
+    final l$hours = hours;
+    _resultData['hours'] = l$hours;
+    final l$days = days;
+    _resultData['days'] = l$days;
+    final l$months = months;
+    _resultData['months'] = l$months;
+    final l$years = years;
+    _resultData['years'] = l$years;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$seconds = seconds;
+    final l$minutes = minutes;
+    final l$hours = hours;
+    final l$days = days;
+    final l$months = months;
+    final l$years = years;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$seconds,
+      l$minutes,
+      l$hours,
+      l$days,
+      l$months,
+      l$years,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$seconds = seconds;
+    final lOther$seconds = other.seconds;
+    if (l$seconds != lOther$seconds) {
+      return false;
+    }
+    final l$minutes = minutes;
+    final lOther$minutes = other.minutes;
+    if (l$minutes != lOther$minutes) {
+      return false;
+    }
+    final l$hours = hours;
+    final lOther$hours = other.hours;
+    if (l$hours != lOther$hours) {
+      return false;
+    }
+    final l$days = days;
+    final lOther$days = other.days;
+    if (l$days != lOther$days) {
+      return false;
+    }
+    final l$months = months;
+    final lOther$months = other.months;
+    if (l$months != lOther$months) {
+      return false;
+    }
+    final l$years = years;
+    final lOther$years = other.years;
+    if (l$years != lOther$years) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval
+    on
+        Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval {
+  CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval<
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval
+  >
+  get copyWith =>
+      CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval<
+  TRes
+> {
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval
+    instance,
+    TRes Function(
+      Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval,
+    )
+    then,
+  ) = _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval;
+
+  factory CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval;
+
+  TRes call({
+    double? seconds,
+    int? minutes,
+    int? hours,
+    int? days,
+    int? months,
+    int? years,
+    String? $__typename,
+  });
+}
+
+class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval<
+          TRes
+        > {
+  _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval(
+    this._instance,
+    this._then,
+  );
+
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval
+  _instance;
+
+  final TRes Function(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? seconds = _undefined,
+    Object? minutes = _undefined,
+    Object? hours = _undefined,
+    Object? days = _undefined,
+    Object? months = _undefined,
+    Object? years = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval(
+      seconds: seconds == _undefined ? _instance.seconds : (seconds as double?),
+      minutes: minutes == _undefined ? _instance.minutes : (minutes as int?),
+      hours: hours == _undefined ? _instance.hours : (hours as int?),
+      days: days == _undefined ? _instance.days : (days as int?),
+      months: months == _undefined ? _instance.months : (months as int?),
+      years: years == _undefined ? _instance.years : (years as int?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$updateInterval(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    double? seconds,
+    int? minutes,
+    int? hours,
+    int? days,
+    int? months,
+    int? years,
+    String? $__typename,
+  }) => _res;
+}
+
 class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user {
   Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user({
     required this.historyId,
     required this.infoStaffId,
     this.infoCompanyId,
     this.code,
+    this.name,
     this.sex,
     this.phone,
     this.symbol,
     this.privatePhone,
-    this.name,
     this.$__typename = 'HistoryInfoStaff',
   });
 
@@ -9237,26 +10009,26 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$lice
     final l$infoStaffId = json['infoStaffId'];
     final l$infoCompanyId = json['infoCompanyId'];
     final l$code = json['code'];
+    final l$name = json['name'];
     final l$sex = json['sex'];
     final l$phone = json['phone'];
     final l$symbol = json['symbol'];
     final l$privatePhone = json['privatePhone'];
-    final l$name = json['name'];
     final l$$__typename = json['__typename'];
     return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
       infoCompanyId: (l$infoCompanyId as String?),
       code: (l$code as String?),
-      sex: (l$sex as String?),
-      phone: (l$phone as String?),
-      symbol: (l$symbol as String?),
-      privatePhone: (l$privatePhone as String?),
       name: l$name == null
           ? null
           : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name.fromJson(
               (l$name as Map<String, dynamic>),
             ),
+      sex: (l$sex as String?),
+      phone: (l$phone as String?),
+      symbol: (l$symbol as String?),
+      privatePhone: (l$privatePhone as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -9269,6 +10041,9 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$lice
 
   final String? code;
 
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name?
+  name;
+
   final String? sex;
 
   final String? phone;
@@ -9276,9 +10051,6 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$lice
   final String? symbol;
 
   final String? privatePhone;
-
-  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name?
-  name;
 
   final String $__typename;
 
@@ -9292,6 +10064,8 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$lice
     _resultData['infoCompanyId'] = l$infoCompanyId;
     final l$code = code;
     _resultData['code'] = l$code;
+    final l$name = name;
+    _resultData['name'] = l$name?.toJson();
     final l$sex = sex;
     _resultData['sex'] = l$sex;
     final l$phone = phone;
@@ -9300,8 +10074,6 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$lice
     _resultData['symbol'] = l$symbol;
     final l$privatePhone = privatePhone;
     _resultData['privatePhone'] = l$privatePhone;
-    final l$name = name;
-    _resultData['name'] = l$name?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -9313,22 +10085,22 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$lice
     final l$infoStaffId = infoStaffId;
     final l$infoCompanyId = infoCompanyId;
     final l$code = code;
+    final l$name = name;
     final l$sex = sex;
     final l$phone = phone;
     final l$symbol = symbol;
     final l$privatePhone = privatePhone;
-    final l$name = name;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$historyId,
       l$infoStaffId,
       l$infoCompanyId,
       l$code,
+      l$name,
       l$sex,
       l$phone,
       l$symbol,
       l$privatePhone,
-      l$name,
       l$$__typename,
     ]);
   }
@@ -9363,6 +10135,11 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$lice
     if (l$code != lOther$code) {
       return false;
     }
+    final l$name = name;
+    final lOther$name = other.name;
+    if (l$name != lOther$name) {
+      return false;
+    }
     final l$sex = sex;
     final lOther$sex = other.sex;
     if (l$sex != lOther$sex) {
@@ -9381,11 +10158,6 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$lice
     final l$privatePhone = privatePhone;
     final lOther$privatePhone = other.privatePhone;
     if (l$privatePhone != lOther$privatePhone) {
-      return false;
-    }
-    final l$name = name;
-    final lOther$name = other.name;
-    if (l$name != lOther$name) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -9431,12 +10203,12 @@ abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holde
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name?
+    name,
     String? sex,
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name?
-    name,
     String? $__typename,
   });
   CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name<
@@ -9472,11 +10244,11 @@ class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLice
     Object? infoStaffId = _undefined,
     Object? infoCompanyId = _undefined,
     Object? code = _undefined,
+    Object? name = _undefined,
     Object? sex = _undefined,
     Object? phone = _undefined,
     Object? symbol = _undefined,
     Object? privatePhone = _undefined,
-    Object? name = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user(
@@ -9490,16 +10262,16 @@ class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLice
           ? _instance.infoCompanyId
           : (infoCompanyId as String?),
       code: code == _undefined ? _instance.code : (code as String?),
+      name: name == _undefined
+          ? _instance.name
+          : (name
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name?),
       sex: sex == _undefined ? _instance.sex : (sex as String?),
       phone: phone == _undefined ? _instance.phone : (phone as String?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       privatePhone: privatePhone == _undefined
           ? _instance.privatePhone
           : (privatePhone as String?),
-      name: name == _undefined
-          ? _instance.name
-          : (name
-                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -9540,12 +10312,12 @@ class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holde
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name?
+    name,
     String? sex,
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$holdeLicense$nodes$license$update_user$name?
-    name,
     String? $__typename,
   }) => _res;
 
@@ -11628,11 +12400,11 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user {
     required this.infoStaffId,
     this.infoCompanyId,
     this.code,
+    this.name,
     this.sex,
     this.phone,
     this.symbol,
     this.privatePhone,
-    this.name,
     this.$__typename = 'HistoryInfoStaff',
   });
 
@@ -11643,26 +12415,26 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user {
     final l$infoStaffId = json['infoStaffId'];
     final l$infoCompanyId = json['infoCompanyId'];
     final l$code = json['code'];
+    final l$name = json['name'];
     final l$sex = json['sex'];
     final l$phone = json['phone'];
     final l$symbol = json['symbol'];
     final l$privatePhone = json['privatePhone'];
-    final l$name = json['name'];
     final l$$__typename = json['__typename'];
     return Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
       infoCompanyId: (l$infoCompanyId as String?),
       code: (l$code as String?),
-      sex: (l$sex as String?),
-      phone: (l$phone as String?),
-      symbol: (l$symbol as String?),
-      privatePhone: (l$privatePhone as String?),
       name: l$name == null
           ? null
           : Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name.fromJson(
               (l$name as Map<String, dynamic>),
             ),
+      sex: (l$sex as String?),
+      phone: (l$phone as String?),
+      symbol: (l$symbol as String?),
+      privatePhone: (l$privatePhone as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -11675,6 +12447,9 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user {
 
   final String? code;
 
+  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name?
+  name;
+
   final String? sex;
 
   final String? phone;
@@ -11682,9 +12457,6 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user {
   final String? symbol;
 
   final String? privatePhone;
-
-  final Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name?
-  name;
 
   final String $__typename;
 
@@ -11698,6 +12470,8 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user {
     _resultData['infoCompanyId'] = l$infoCompanyId;
     final l$code = code;
     _resultData['code'] = l$code;
+    final l$name = name;
+    _resultData['name'] = l$name?.toJson();
     final l$sex = sex;
     _resultData['sex'] = l$sex;
     final l$phone = phone;
@@ -11706,8 +12480,6 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user {
     _resultData['symbol'] = l$symbol;
     final l$privatePhone = privatePhone;
     _resultData['privatePhone'] = l$privatePhone;
-    final l$name = name;
-    _resultData['name'] = l$name?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -11719,22 +12491,22 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user {
     final l$infoStaffId = infoStaffId;
     final l$infoCompanyId = infoCompanyId;
     final l$code = code;
+    final l$name = name;
     final l$sex = sex;
     final l$phone = phone;
     final l$symbol = symbol;
     final l$privatePhone = privatePhone;
-    final l$name = name;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$historyId,
       l$infoStaffId,
       l$infoCompanyId,
       l$code,
+      l$name,
       l$sex,
       l$phone,
       l$symbol,
       l$privatePhone,
-      l$name,
       l$$__typename,
     ]);
   }
@@ -11769,6 +12541,11 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user {
     if (l$code != lOther$code) {
       return false;
     }
+    final l$name = name;
+    final lOther$name = other.name;
+    if (l$name != lOther$name) {
+      return false;
+    }
     final l$sex = sex;
     final lOther$sex = other.sex;
     if (l$sex != lOther$sex) {
@@ -11787,11 +12564,6 @@ class Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user {
     final l$privatePhone = privatePhone;
     final lOther$privatePhone = other.privatePhone;
     if (l$privatePhone != lOther$privatePhone) {
-      return false;
-    }
-    final l$name = name;
-    final lOther$name = other.name;
-    if (l$name != lOther$name) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -11835,11 +12607,11 @@ abstract class CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$updat
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name? name,
     String? sex,
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name? name,
     String? $__typename,
   });
   CopyWith$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name<
@@ -11875,11 +12647,11 @@ class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_us
     Object? infoStaffId = _undefined,
     Object? infoCompanyId = _undefined,
     Object? code = _undefined,
+    Object? name = _undefined,
     Object? sex = _undefined,
     Object? phone = _undefined,
     Object? symbol = _undefined,
     Object? privatePhone = _undefined,
-    Object? name = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user(
@@ -11893,16 +12665,16 @@ class _CopyWithImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_us
           ? _instance.infoCompanyId
           : (infoCompanyId as String?),
       code: code == _undefined ? _instance.code : (code as String?),
+      name: name == _undefined
+          ? _instance.name
+          : (name
+                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name?),
       sex: sex == _undefined ? _instance.sex : (sex as String?),
       phone: phone == _undefined ? _instance.phone : (phone as String?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       privatePhone: privatePhone == _undefined
           ? _instance.privatePhone
           : (privatePhone as String?),
-      name: name == _undefined
-          ? _instance.name
-          : (name
-                as Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -11943,11 +12715,11 @@ class _CopyWithStubImpl$Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$updat
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name? name,
     String? sex,
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$StaffHeldLicensePageRead$allInfoStaffs$nodes$update_user$name? name,
     String? $__typename,
   }) => _res;
 

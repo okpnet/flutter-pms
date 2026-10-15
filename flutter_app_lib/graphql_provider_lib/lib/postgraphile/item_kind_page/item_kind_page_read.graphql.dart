@@ -423,11 +423,7 @@ const documentNodeQueryItemKindPageRead = DocumentNode(
             ),
             isNonNull: false,
           ),
-          defaultValue: DefaultValueNode(
-            value: ListValueNode(
-              values: [EnumValueNode(name: NameNode(value: 'PRIMARY_KEY_ASC'))],
-            ),
-          ),
+          defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
         VariableDefinitionNode(
@@ -555,34 +551,6 @@ const documentNodeQueryItemKindPageRead = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(value: 'code'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'symbol'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'remarks'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'updateAt'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'remove'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -892,6 +860,34 @@ const documentNodeQueryItemKindPageRead = DocumentNode(
                         ),
                       ),
                       FieldNode(
+                        name: NameNode(value: 'symbol'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'updateAt'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'remove'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
                         name: NameNode(
                           value:
                               'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
@@ -924,34 +920,6 @@ const documentNodeQueryItemKindPageRead = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(value: 'code'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'sex'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'phone'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'symbol'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'privatePhone'),
                               alias: null,
                               arguments: [],
                               directives: [],
@@ -1285,6 +1253,34 @@ const documentNodeQueryItemKindPageRead = DocumentNode(
                                   ),
                                 ],
                               ),
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'sex'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'phone'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'symbol'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'privatePhone'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
                             ),
                             FieldNode(
                               name: NameNode(value: '__typename'),
@@ -1849,11 +1845,11 @@ class Query$ItemKindPageRead$allMstrItemKinds$nodes {
   Query$ItemKindPageRead$allMstrItemKinds$nodes({
     required this.mstrItemKindId,
     this.code,
+    this.labels,
     this.symbol,
     this.remarks,
     this.updateAt,
     this.remove,
-    this.labels,
     this.update_user,
     this.$__typename = 'MstrItemKind',
   });
@@ -1863,25 +1859,25 @@ class Query$ItemKindPageRead$allMstrItemKinds$nodes {
   ) {
     final l$mstrItemKindId = json['mstrItemKindId'];
     final l$code = json['code'];
+    final l$labels = json['labels'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
-    final l$labels = json['labels'];
     final l$update_user = json['update_user'];
     final l$$__typename = json['__typename'];
     return Query$ItemKindPageRead$allMstrItemKinds$nodes(
       mstrItemKindId: (l$mstrItemKindId as String),
       code: (l$code as String?),
-      symbol: (l$symbol as String?),
-      remarks: (l$remarks as String?),
-      updateAt: (l$updateAt as String?),
-      remove: (l$remove as bool?),
       labels: l$labels == null
           ? null
           : Query$ItemKindPageRead$allMstrItemKinds$nodes$labels.fromJson(
               (l$labels as Map<String, dynamic>),
             ),
+      symbol: (l$symbol as String?),
+      remarks: (l$remarks as String?),
+      updateAt: (l$updateAt as String?),
+      remove: (l$remove as bool?),
       update_user: l$update_user == null
           ? null
           : Query$ItemKindPageRead$allMstrItemKinds$nodes$update_user.fromJson(
@@ -1895,6 +1891,8 @@ class Query$ItemKindPageRead$allMstrItemKinds$nodes {
 
   final String? code;
 
+  final Query$ItemKindPageRead$allMstrItemKinds$nodes$labels? labels;
+
   final String? symbol;
 
   final String? remarks;
@@ -1902,8 +1900,6 @@ class Query$ItemKindPageRead$allMstrItemKinds$nodes {
   final String? updateAt;
 
   final bool? remove;
-
-  final Query$ItemKindPageRead$allMstrItemKinds$nodes$labels? labels;
 
   final Query$ItemKindPageRead$allMstrItemKinds$nodes$update_user? update_user;
 
@@ -1915,6 +1911,8 @@ class Query$ItemKindPageRead$allMstrItemKinds$nodes {
     _resultData['mstrItemKindId'] = l$mstrItemKindId;
     final l$code = code;
     _resultData['code'] = l$code;
+    final l$labels = labels;
+    _resultData['labels'] = l$labels?.toJson();
     final l$symbol = symbol;
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
@@ -1923,8 +1921,6 @@ class Query$ItemKindPageRead$allMstrItemKinds$nodes {
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
     _resultData['remove'] = l$remove;
-    final l$labels = labels;
-    _resultData['labels'] = l$labels?.toJson();
     final l$update_user = update_user;
     _resultData['update_user'] = l$update_user?.toJson();
     final l$$__typename = $__typename;
@@ -1936,21 +1932,21 @@ class Query$ItemKindPageRead$allMstrItemKinds$nodes {
   int get hashCode {
     final l$mstrItemKindId = mstrItemKindId;
     final l$code = code;
+    final l$labels = labels;
     final l$symbol = symbol;
     final l$remarks = remarks;
     final l$updateAt = updateAt;
     final l$remove = remove;
-    final l$labels = labels;
     final l$update_user = update_user;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$mstrItemKindId,
       l$code,
+      l$labels,
       l$symbol,
       l$remarks,
       l$updateAt,
       l$remove,
-      l$labels,
       l$update_user,
       l$$__typename,
     ]);
@@ -1975,6 +1971,11 @@ class Query$ItemKindPageRead$allMstrItemKinds$nodes {
     if (l$code != lOther$code) {
       return false;
     }
+    final l$labels = labels;
+    final lOther$labels = other.labels;
+    if (l$labels != lOther$labels) {
+      return false;
+    }
     final l$symbol = symbol;
     final lOther$symbol = other.symbol;
     if (l$symbol != lOther$symbol) {
@@ -1993,11 +1994,6 @@ class Query$ItemKindPageRead$allMstrItemKinds$nodes {
     final l$remove = remove;
     final lOther$remove = other.remove;
     if (l$remove != lOther$remove) {
-      return false;
-    }
-    final l$labels = labels;
-    final lOther$labels = other.labels;
-    if (l$labels != lOther$labels) {
       return false;
     }
     final l$update_user = update_user;
@@ -2036,11 +2032,11 @@ abstract class CopyWith$Query$ItemKindPageRead$allMstrItemKinds$nodes<TRes> {
   TRes call({
     String? mstrItemKindId,
     String? code,
+    Query$ItemKindPageRead$allMstrItemKinds$nodes$labels? labels,
     String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$ItemKindPageRead$allMstrItemKinds$nodes$labels? labels,
     Query$ItemKindPageRead$allMstrItemKinds$nodes$update_user? update_user,
     String? $__typename,
   });
@@ -2066,11 +2062,11 @@ class _CopyWithImpl$Query$ItemKindPageRead$allMstrItemKinds$nodes<TRes>
   TRes call({
     Object? mstrItemKindId = _undefined,
     Object? code = _undefined,
+    Object? labels = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
-    Object? labels = _undefined,
     Object? update_user = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
@@ -2079,15 +2075,15 @@ class _CopyWithImpl$Query$ItemKindPageRead$allMstrItemKinds$nodes<TRes>
           ? _instance.mstrItemKindId
           : (mstrItemKindId as String),
       code: code == _undefined ? _instance.code : (code as String?),
+      labels: labels == _undefined
+          ? _instance.labels
+          : (labels as Query$ItemKindPageRead$allMstrItemKinds$nodes$labels?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
           : (updateAt as String?),
       remove: remove == _undefined ? _instance.remove : (remove as bool?),
-      labels: labels == _undefined
-          ? _instance.labels
-          : (labels as Query$ItemKindPageRead$allMstrItemKinds$nodes$labels?),
       update_user: update_user == _undefined
           ? _instance.update_user
           : (update_user
@@ -2134,11 +2130,11 @@ class _CopyWithStubImpl$Query$ItemKindPageRead$allMstrItemKinds$nodes<TRes>
   call({
     String? mstrItemKindId,
     String? code,
+    Query$ItemKindPageRead$allMstrItemKinds$nodes$labels? labels,
     String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$ItemKindPageRead$allMstrItemKinds$nodes$labels? labels,
     Query$ItemKindPageRead$allMstrItemKinds$nodes$update_user? update_user,
     String? $__typename,
   }) => _res;
@@ -4208,11 +4204,11 @@ class Query$ItemKindPageRead$allMstrItemKinds$nodes$update_user {
     required this.infoStaffId,
     this.infoCompanyId,
     this.code,
+    this.name,
     this.sex,
     this.phone,
     this.symbol,
     this.privatePhone,
-    this.name,
     this.$__typename = 'HistoryInfoStaff',
   });
 
@@ -4223,26 +4219,26 @@ class Query$ItemKindPageRead$allMstrItemKinds$nodes$update_user {
     final l$infoStaffId = json['infoStaffId'];
     final l$infoCompanyId = json['infoCompanyId'];
     final l$code = json['code'];
+    final l$name = json['name'];
     final l$sex = json['sex'];
     final l$phone = json['phone'];
     final l$symbol = json['symbol'];
     final l$privatePhone = json['privatePhone'];
-    final l$name = json['name'];
     final l$$__typename = json['__typename'];
     return Query$ItemKindPageRead$allMstrItemKinds$nodes$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
       infoCompanyId: (l$infoCompanyId as String?),
       code: (l$code as String?),
-      sex: (l$sex as String?),
-      phone: (l$phone as String?),
-      symbol: (l$symbol as String?),
-      privatePhone: (l$privatePhone as String?),
       name: l$name == null
           ? null
           : Query$ItemKindPageRead$allMstrItemKinds$nodes$update_user$name.fromJson(
               (l$name as Map<String, dynamic>),
             ),
+      sex: (l$sex as String?),
+      phone: (l$phone as String?),
+      symbol: (l$symbol as String?),
+      privatePhone: (l$privatePhone as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -4255,6 +4251,8 @@ class Query$ItemKindPageRead$allMstrItemKinds$nodes$update_user {
 
   final String? code;
 
+  final Query$ItemKindPageRead$allMstrItemKinds$nodes$update_user$name? name;
+
   final String? sex;
 
   final String? phone;
@@ -4262,8 +4260,6 @@ class Query$ItemKindPageRead$allMstrItemKinds$nodes$update_user {
   final String? symbol;
 
   final String? privatePhone;
-
-  final Query$ItemKindPageRead$allMstrItemKinds$nodes$update_user$name? name;
 
   final String $__typename;
 
@@ -4277,6 +4273,8 @@ class Query$ItemKindPageRead$allMstrItemKinds$nodes$update_user {
     _resultData['infoCompanyId'] = l$infoCompanyId;
     final l$code = code;
     _resultData['code'] = l$code;
+    final l$name = name;
+    _resultData['name'] = l$name?.toJson();
     final l$sex = sex;
     _resultData['sex'] = l$sex;
     final l$phone = phone;
@@ -4285,8 +4283,6 @@ class Query$ItemKindPageRead$allMstrItemKinds$nodes$update_user {
     _resultData['symbol'] = l$symbol;
     final l$privatePhone = privatePhone;
     _resultData['privatePhone'] = l$privatePhone;
-    final l$name = name;
-    _resultData['name'] = l$name?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -4298,22 +4294,22 @@ class Query$ItemKindPageRead$allMstrItemKinds$nodes$update_user {
     final l$infoStaffId = infoStaffId;
     final l$infoCompanyId = infoCompanyId;
     final l$code = code;
+    final l$name = name;
     final l$sex = sex;
     final l$phone = phone;
     final l$symbol = symbol;
     final l$privatePhone = privatePhone;
-    final l$name = name;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$historyId,
       l$infoStaffId,
       l$infoCompanyId,
       l$code,
+      l$name,
       l$sex,
       l$phone,
       l$symbol,
       l$privatePhone,
-      l$name,
       l$$__typename,
     ]);
   }
@@ -4347,6 +4343,11 @@ class Query$ItemKindPageRead$allMstrItemKinds$nodes$update_user {
     if (l$code != lOther$code) {
       return false;
     }
+    final l$name = name;
+    final lOther$name = other.name;
+    if (l$name != lOther$name) {
+      return false;
+    }
     final l$sex = sex;
     final lOther$sex = other.sex;
     if (l$sex != lOther$sex) {
@@ -4365,11 +4366,6 @@ class Query$ItemKindPageRead$allMstrItemKinds$nodes$update_user {
     final l$privatePhone = privatePhone;
     final lOther$privatePhone = other.privatePhone;
     if (l$privatePhone != lOther$privatePhone) {
-      return false;
-    }
-    final l$name = name;
-    final lOther$name = other.name;
-    if (l$name != lOther$name) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -4411,11 +4407,11 @@ abstract class CopyWith$Query$ItemKindPageRead$allMstrItemKinds$nodes$update_use
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$ItemKindPageRead$allMstrItemKinds$nodes$update_user$name? name,
     String? sex,
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$ItemKindPageRead$allMstrItemKinds$nodes$update_user$name? name,
     String? $__typename,
   });
   CopyWith$Query$ItemKindPageRead$allMstrItemKinds$nodes$update_user$name<TRes>
@@ -4446,11 +4442,11 @@ class _CopyWithImpl$Query$ItemKindPageRead$allMstrItemKinds$nodes$update_user<
     Object? infoStaffId = _undefined,
     Object? infoCompanyId = _undefined,
     Object? code = _undefined,
+    Object? name = _undefined,
     Object? sex = _undefined,
     Object? phone = _undefined,
     Object? symbol = _undefined,
     Object? privatePhone = _undefined,
-    Object? name = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$ItemKindPageRead$allMstrItemKinds$nodes$update_user(
@@ -4464,16 +4460,16 @@ class _CopyWithImpl$Query$ItemKindPageRead$allMstrItemKinds$nodes$update_user<
           ? _instance.infoCompanyId
           : (infoCompanyId as String?),
       code: code == _undefined ? _instance.code : (code as String?),
+      name: name == _undefined
+          ? _instance.name
+          : (name
+                as Query$ItemKindPageRead$allMstrItemKinds$nodes$update_user$name?),
       sex: sex == _undefined ? _instance.sex : (sex as String?),
       phone: phone == _undefined ? _instance.phone : (phone as String?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       privatePhone: privatePhone == _undefined
           ? _instance.privatePhone
           : (privatePhone as String?),
-      name: name == _undefined
-          ? _instance.name
-          : (name
-                as Query$ItemKindPageRead$allMstrItemKinds$nodes$update_user$name?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -4512,11 +4508,11 @@ class _CopyWithStubImpl$Query$ItemKindPageRead$allMstrItemKinds$nodes$update_use
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$ItemKindPageRead$allMstrItemKinds$nodes$update_user$name? name,
     String? sex,
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$ItemKindPageRead$allMstrItemKinds$nodes$update_user$name? name,
     String? $__typename,
   }) => _res;
 

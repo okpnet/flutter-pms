@@ -1,9 +1,7 @@
-# staff_capability_page - RFE(read for editing、要件0037: StaffCapabilityPageEditのgenerateRfe: trueから導出)
+# staff_capability_page画面 - RFE(編集フォームへのプリロード用の読み込み専用クエリ)
 #
-# 要件0050: StaffCapabilityEditFieldsを取り込むStaffCapabilityPageEditの新設に伴い、このフォルダへ生成する。
-# mstr_staff_capabilityの一意キー更新はByMstrStaffCapabilityIdAndInfoStaffId(複合)のため、
-# RFEの単一レコード取得も同じ複合引数を取る(staff_capability_page_edit.graphql参照)。
-# 要件0036の方式: $jaLanguageCodeId/$enLanguageCodeId(UUID!、必須)で両言語を常時取得する。
+# 画面仕様: source/views/ #StaffCapabilityPageEdit(generateRfe: true)
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
 
 query StaffCapabilityPageRfe(
   $mstrStaffCapabilityId: UUID!
@@ -11,32 +9,14 @@ query StaffCapabilityPageRfe(
   $jaLanguageCodeId: UUID!
   $enLanguageCodeId: UUID!
 ) {
-  mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId(
-    mstrStaffCapabilityId: $mstrStaffCapabilityId
-    infoStaffId: $infoStaffId
-  ) {
+  mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId(mstrStaffCapabilityId: $mstrStaffCapabilityId, infoStaffId: $infoStaffId) {
     mstrStaffCapabilityId
     infoStaffId
-    mstrCapabilityId
-    value
-    stop
-    remarks
-    updateAt
-    updateUserId
-    updateUserHistoryId
-    remove
 
     staff: infoStaffByInfoStaffId {
       infoStaffId
       infoCompanyId
       code
-      sex
-      phone
-      privatePhone
-      symbol
-      remarks
-      updateAt
-      remove
 
       labels: sharedAppellationByNames {
         sharedAppellationsId
@@ -49,6 +29,7 @@ query StaffCapabilityPageRfe(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -57,6 +38,7 @@ query StaffCapabilityPageRfe(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryPronunciationId {
           sharedDictionaryId
           ja: sharedDictionaryValuesBySharedDictionaryId(
@@ -66,6 +48,7 @@ query StaffCapabilityPageRfe(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -74,6 +57,7 @@ query StaffCapabilityPageRfe(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryNicknameId {
           sharedDictionaryId
           ja: sharedDictionaryValuesBySharedDictionaryId(
@@ -83,6 +67,7 @@ query StaffCapabilityPageRfe(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -93,15 +78,20 @@ query StaffCapabilityPageRfe(
         }
       }
 
+      sex
+      phone
+      privatePhone
+      symbol
+      remarks
+      updateAt
+      remove
+
       update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
         historyId
         infoStaffId
         infoCompanyId
         code
-        sex
-        phone
-        symbol
-        privatePhone
+
         name: sharedAppellationByNames {
           sharedAppellationsId
           sharedDictionaryBySharedDictionaryNameId {
@@ -113,6 +103,7 @@ query StaffCapabilityPageRfe(
                 dictionaryValue
               }
             }
+
             en: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $enLanguageCodeId }
             ) {
@@ -121,6 +112,7 @@ query StaffCapabilityPageRfe(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryPronunciationId {
             sharedDictionaryId
             ja: sharedDictionaryValuesBySharedDictionaryId(
@@ -130,6 +122,7 @@ query StaffCapabilityPageRfe(
                 dictionaryValue
               }
             }
+
             en: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $enLanguageCodeId }
             ) {
@@ -138,6 +131,7 @@ query StaffCapabilityPageRfe(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryNicknameId {
             sharedDictionaryId
             ja: sharedDictionaryValuesBySharedDictionaryId(
@@ -147,6 +141,7 @@ query StaffCapabilityPageRfe(
                 dictionaryValue
               }
             }
+
             en: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $enLanguageCodeId }
             ) {
@@ -156,13 +151,98 @@ query StaffCapabilityPageRfe(
             }
           }
         }
+
+        sex
+        phone
+        symbol
+        privatePhone
       }
     }
+    mstrCapabilityId
 
     capability: mstrCapabilityByMstrCapabilityId {
       mstrCapabilityId
       code
-      detail
+
+      labels: sharedAppellationByNames {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          ja: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+
+          en: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+
+        sharedDictionaryBySharedDictionaryPronunciationId {
+          sharedDictionaryId
+          ja: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+
+          en: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+
+        sharedDictionaryBySharedDictionaryNicknameId {
+          sharedDictionaryId
+          ja: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+
+          en: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+      }
+
+      detailTexts: sharedTextByDetails {
+        sharedTextId
+        ja: sharedTextValuesBySharedTextId(
+          condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+        ) {
+          nodes {
+            textValue
+          }
+        }
+
+        en: sharedTextValuesBySharedTextId(
+          condition: { sharedLanguageCodeId: $enLanguageCodeId }
+        ) {
+          nodes {
+            textValue
+          }
+        }
+      }
+
       referenceValue
       max
       min
@@ -172,70 +252,12 @@ query StaffCapabilityPageRfe(
       updateAt
       remove
 
-      labels: sharedAppellationByNames {
-        sharedAppellationsId
-        sharedDictionaryBySharedDictionaryNameId {
-          sharedDictionaryId
-          ja: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-          ) {
-            nodes {
-              dictionaryValue
-            }
-          }
-          en: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $enLanguageCodeId }
-          ) {
-            nodes {
-              dictionaryValue
-            }
-          }
-        }
-        sharedDictionaryBySharedDictionaryPronunciationId {
-          sharedDictionaryId
-          ja: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-          ) {
-            nodes {
-              dictionaryValue
-            }
-          }
-          en: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $enLanguageCodeId }
-          ) {
-            nodes {
-              dictionaryValue
-            }
-          }
-        }
-        sharedDictionaryBySharedDictionaryNicknameId {
-          sharedDictionaryId
-          ja: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-          ) {
-            nodes {
-              dictionaryValue
-            }
-          }
-          en: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $enLanguageCodeId }
-          ) {
-            nodes {
-              dictionaryValue
-            }
-          }
-        }
-      }
-
       update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
         historyId
         infoStaffId
         infoCompanyId
         code
-        sex
-        phone
-        symbol
-        privatePhone
+
         name: sharedAppellationByNames {
           sharedAppellationsId
           sharedDictionaryBySharedDictionaryNameId {
@@ -247,6 +269,7 @@ query StaffCapabilityPageRfe(
                 dictionaryValue
               }
             }
+
             en: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $enLanguageCodeId }
             ) {
@@ -255,6 +278,7 @@ query StaffCapabilityPageRfe(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryPronunciationId {
             sharedDictionaryId
             ja: sharedDictionaryValuesBySharedDictionaryId(
@@ -264,6 +288,7 @@ query StaffCapabilityPageRfe(
                 dictionaryValue
               }
             }
+
             en: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $enLanguageCodeId }
             ) {
@@ -272,6 +297,7 @@ query StaffCapabilityPageRfe(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryNicknameId {
             sharedDictionaryId
             ja: sharedDictionaryValuesBySharedDictionaryId(
@@ -281,6 +307,7 @@ query StaffCapabilityPageRfe(
                 dictionaryValue
               }
             }
+
             en: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $enLanguageCodeId }
             ) {
@@ -290,7 +317,20 @@ query StaffCapabilityPageRfe(
             }
           }
         }
+
+        sex
+        phone
+        symbol
+        privatePhone
       }
     }
+
+    value
+    stop
+    remarks
+    updateUserId
+    updateUserHistoryId
+    remove
+    updateAt
   }
 }

@@ -8,14 +8,14 @@
 #     assetsPathの対象に含め、スキーマ・問い合わせを同一グロブで読み込む本来の構成にした。
 targets:
   $default:
-    # source/ は、view.yaml・全量スキーマだけを入力に含める(view_graphqlビルダー用)。
+    # source/ は、分割したview.yaml(source/views/)・全量スキーマだけを入力に含める(view_graphqlビルダー用)。
     sources:
       - "$package$"
       - "lib/**"
       - "tool/**"
       - "test/**"
       - "pubspec.*"
-      - "source/view.yaml"
+      - "source/views/**"
       - "source/schema.full.graphql"
     builders:
       graphql_codegen:
@@ -26,14 +26,14 @@ targets:
           clients: #ここが無いとOptionsが生成されない
             - graphql_flutter
 
-# view.yaml -> GraphQL の生成(tool/view_graphql)。出力先は検証用の source/generated_graphql。
+# 分割したview.yaml(source/views/) -> GraphQL の生成(tool/view_graphql)。出力先は検証用の source/generated_graphql。
 # 既存の lib/graphql を置き換えるときは、options.output_dir を lib/graphql に変更する。
 builders:
   view_graphql:
     import: "tool/view_graphql/builder.dart"
     builder_factories: ["viewGraphqlBuilder"]
     build_extensions:
-      "source/view.yaml": ["source/generated_graphql/_none"]
+      "$package$": ["source/generated_graphql/_none"]
     auto_apply: root_package
     build_to: source
     defaults:

@@ -1,0 +1,16 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 顧客
+CustomerPage:
+  kind: read
+  <<: *StakeholderReadFields
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+    - column: is_customer
+      operator: =
+      valuer: true;

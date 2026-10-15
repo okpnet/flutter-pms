@@ -445,11 +445,7 @@ const documentNodeQuerySpecMeasurementPageRead = DocumentNode(
             ),
             isNonNull: false,
           ),
-          defaultValue: DefaultValueNode(
-            value: ListValueNode(
-              values: [EnumValueNode(name: NameNode(value: 'PRIMARY_KEY_ASC'))],
-            ),
-          ),
+          defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
         VariableDefinitionNode(
@@ -577,34 +573,6 @@ const documentNodeQuerySpecMeasurementPageRead = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(value: 'measurementValue'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'symbol'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'remarks'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'updateAt'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'remove'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -964,6 +932,34 @@ const documentNodeQuerySpecMeasurementPageRead = DocumentNode(
                         ),
                       ),
                       FieldNode(
+                        name: NameNode(value: 'symbol'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'updateAt'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'remove'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
                         name: NameNode(
                           value:
                               'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
@@ -996,34 +992,6 @@ const documentNodeQuerySpecMeasurementPageRead = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(value: 'code'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'sex'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'phone'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'symbol'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'privatePhone'),
                               alias: null,
                               arguments: [],
                               directives: [],
@@ -1357,6 +1325,34 @@ const documentNodeQuerySpecMeasurementPageRead = DocumentNode(
                                   ),
                                 ],
                               ),
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'sex'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'phone'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'symbol'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'privatePhone'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
                             ),
                             FieldNode(
                               name: NameNode(value: '__typename'),
@@ -1987,11 +1983,11 @@ class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes {
   Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes({
     required this.mstrSpecMeasurementId,
     required this.measurementValue,
+    this.unit,
     this.symbol,
     this.remarks,
     this.updateAt,
     this.remove,
-    this.unit,
     this.update_user,
     this.$__typename = 'MstrSpecMeasurement',
   });
@@ -2001,25 +1997,25 @@ class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes {
   ) {
     final l$mstrSpecMeasurementId = json['mstrSpecMeasurementId'];
     final l$measurementValue = json['measurementValue'];
+    final l$unit = json['unit'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
-    final l$unit = json['unit'];
     final l$update_user = json['update_user'];
     final l$$__typename = json['__typename'];
     return Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes(
       mstrSpecMeasurementId: (l$mstrSpecMeasurementId as String),
       measurementValue: (l$measurementValue as String),
-      symbol: (l$symbol as String?),
-      remarks: (l$remarks as String?),
-      updateAt: (l$updateAt as String?),
-      remove: (l$remove as bool?),
       unit: l$unit == null
           ? null
           : Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit.fromJson(
               (l$unit as Map<String, dynamic>),
             ),
+      symbol: (l$symbol as String?),
+      remarks: (l$remarks as String?),
+      updateAt: (l$updateAt as String?),
+      remove: (l$remove as bool?),
       update_user: l$update_user == null
           ? null
           : Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user.fromJson(
@@ -2033,6 +2029,8 @@ class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes {
 
   final String measurementValue;
 
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit? unit;
+
   final String? symbol;
 
   final String? remarks;
@@ -2040,8 +2038,6 @@ class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes {
   final String? updateAt;
 
   final bool? remove;
-
-  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit? unit;
 
   final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user?
   update_user;
@@ -2054,6 +2050,8 @@ class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes {
     _resultData['mstrSpecMeasurementId'] = l$mstrSpecMeasurementId;
     final l$measurementValue = measurementValue;
     _resultData['measurementValue'] = l$measurementValue;
+    final l$unit = unit;
+    _resultData['unit'] = l$unit?.toJson();
     final l$symbol = symbol;
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
@@ -2062,8 +2060,6 @@ class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes {
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
     _resultData['remove'] = l$remove;
-    final l$unit = unit;
-    _resultData['unit'] = l$unit?.toJson();
     final l$update_user = update_user;
     _resultData['update_user'] = l$update_user?.toJson();
     final l$$__typename = $__typename;
@@ -2075,21 +2071,21 @@ class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes {
   int get hashCode {
     final l$mstrSpecMeasurementId = mstrSpecMeasurementId;
     final l$measurementValue = measurementValue;
+    final l$unit = unit;
     final l$symbol = symbol;
     final l$remarks = remarks;
     final l$updateAt = updateAt;
     final l$remove = remove;
-    final l$unit = unit;
     final l$update_user = update_user;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$mstrSpecMeasurementId,
       l$measurementValue,
+      l$unit,
       l$symbol,
       l$remarks,
       l$updateAt,
       l$remove,
-      l$unit,
       l$update_user,
       l$$__typename,
     ]);
@@ -2114,6 +2110,11 @@ class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes {
     if (l$measurementValue != lOther$measurementValue) {
       return false;
     }
+    final l$unit = unit;
+    final lOther$unit = other.unit;
+    if (l$unit != lOther$unit) {
+      return false;
+    }
     final l$symbol = symbol;
     final lOther$symbol = other.symbol;
     if (l$symbol != lOther$symbol) {
@@ -2132,11 +2133,6 @@ class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes {
     final l$remove = remove;
     final lOther$remove = other.remove;
     if (l$remove != lOther$remove) {
-      return false;
-    }
-    final l$unit = unit;
-    final lOther$unit = other.unit;
-    if (l$unit != lOther$unit) {
       return false;
     }
     final l$update_user = update_user;
@@ -2181,11 +2177,11 @@ abstract class CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$no
   TRes call({
     String? mstrSpecMeasurementId,
     String? measurementValue,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit? unit,
     String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit? unit,
     Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user?
     update_user,
     String? $__typename,
@@ -2224,11 +2220,11 @@ class _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes<
   TRes call({
     Object? mstrSpecMeasurementId = _undefined,
     Object? measurementValue = _undefined,
+    Object? unit = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
-    Object? unit = _undefined,
     Object? update_user = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
@@ -2241,16 +2237,16 @@ class _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes<
           measurementValue == _undefined || measurementValue == null
           ? _instance.measurementValue
           : (measurementValue as String),
+      unit: unit == _undefined
+          ? _instance.unit
+          : (unit
+                as Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
           : (updateAt as String?),
       remove: remove == _undefined ? _instance.remove : (remove as bool?),
-      unit: unit == _undefined
-          ? _instance.unit
-          : (unit
-                as Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit?),
       update_user: update_user == _undefined
           ? _instance.update_user
           : (update_user
@@ -2308,11 +2304,11 @@ class _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$no
   call({
     String? mstrSpecMeasurementId,
     String? measurementValue,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit? unit,
     String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$unit? unit,
     Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user?
     update_user,
     String? $__typename,
@@ -4608,11 +4604,11 @@ class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user {
     required this.infoStaffId,
     this.infoCompanyId,
     this.code,
+    this.name,
     this.sex,
     this.phone,
     this.symbol,
     this.privatePhone,
-    this.name,
     this.$__typename = 'HistoryInfoStaff',
   });
 
@@ -4623,26 +4619,26 @@ class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user {
     final l$infoStaffId = json['infoStaffId'];
     final l$infoCompanyId = json['infoCompanyId'];
     final l$code = json['code'];
+    final l$name = json['name'];
     final l$sex = json['sex'];
     final l$phone = json['phone'];
     final l$symbol = json['symbol'];
     final l$privatePhone = json['privatePhone'];
-    final l$name = json['name'];
     final l$$__typename = json['__typename'];
     return Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
       infoCompanyId: (l$infoCompanyId as String?),
       code: (l$code as String?),
-      sex: (l$sex as String?),
-      phone: (l$phone as String?),
-      symbol: (l$symbol as String?),
-      privatePhone: (l$privatePhone as String?),
       name: l$name == null
           ? null
           : Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name.fromJson(
               (l$name as Map<String, dynamic>),
             ),
+      sex: (l$sex as String?),
+      phone: (l$phone as String?),
+      symbol: (l$symbol as String?),
+      privatePhone: (l$privatePhone as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -4655,6 +4651,9 @@ class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user {
 
   final String? code;
 
+  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name?
+  name;
+
   final String? sex;
 
   final String? phone;
@@ -4662,9 +4661,6 @@ class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user {
   final String? symbol;
 
   final String? privatePhone;
-
-  final Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name?
-  name;
 
   final String $__typename;
 
@@ -4678,6 +4674,8 @@ class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user {
     _resultData['infoCompanyId'] = l$infoCompanyId;
     final l$code = code;
     _resultData['code'] = l$code;
+    final l$name = name;
+    _resultData['name'] = l$name?.toJson();
     final l$sex = sex;
     _resultData['sex'] = l$sex;
     final l$phone = phone;
@@ -4686,8 +4684,6 @@ class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user {
     _resultData['symbol'] = l$symbol;
     final l$privatePhone = privatePhone;
     _resultData['privatePhone'] = l$privatePhone;
-    final l$name = name;
-    _resultData['name'] = l$name?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -4699,22 +4695,22 @@ class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user {
     final l$infoStaffId = infoStaffId;
     final l$infoCompanyId = infoCompanyId;
     final l$code = code;
+    final l$name = name;
     final l$sex = sex;
     final l$phone = phone;
     final l$symbol = symbol;
     final l$privatePhone = privatePhone;
-    final l$name = name;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$historyId,
       l$infoStaffId,
       l$infoCompanyId,
       l$code,
+      l$name,
       l$sex,
       l$phone,
       l$symbol,
       l$privatePhone,
-      l$name,
       l$$__typename,
     ]);
   }
@@ -4749,6 +4745,11 @@ class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user {
     if (l$code != lOther$code) {
       return false;
     }
+    final l$name = name;
+    final lOther$name = other.name;
+    if (l$name != lOther$name) {
+      return false;
+    }
     final l$sex = sex;
     final lOther$sex = other.sex;
     if (l$sex != lOther$sex) {
@@ -4767,11 +4768,6 @@ class Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user {
     final l$privatePhone = privatePhone;
     final lOther$privatePhone = other.privatePhone;
     if (l$privatePhone != lOther$privatePhone) {
-      return false;
-    }
-    final l$name = name;
-    final lOther$name = other.name;
-    if (l$name != lOther$name) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -4816,12 +4812,12 @@ abstract class CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$no
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name?
+    name,
     String? sex,
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name?
-    name,
     String? $__typename,
   });
   CopyWith$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name<
@@ -4857,11 +4853,11 @@ class _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$
     Object? infoStaffId = _undefined,
     Object? infoCompanyId = _undefined,
     Object? code = _undefined,
+    Object? name = _undefined,
     Object? sex = _undefined,
     Object? phone = _undefined,
     Object? symbol = _undefined,
     Object? privatePhone = _undefined,
-    Object? name = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user(
@@ -4875,16 +4871,16 @@ class _CopyWithImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$
           ? _instance.infoCompanyId
           : (infoCompanyId as String?),
       code: code == _undefined ? _instance.code : (code as String?),
+      name: name == _undefined
+          ? _instance.name
+          : (name
+                as Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name?),
       sex: sex == _undefined ? _instance.sex : (sex as String?),
       phone: phone == _undefined ? _instance.phone : (phone as String?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       privatePhone: privatePhone == _undefined
           ? _instance.privatePhone
           : (privatePhone as String?),
-      name: name == _undefined
-          ? _instance.name
-          : (name
-                as Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -4925,12 +4921,12 @@ class _CopyWithStubImpl$Query$SpecMeasurementPageRead$allMstrSpecMeasurements$no
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name?
+    name,
     String? sex,
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$SpecMeasurementPageRead$allMstrSpecMeasurements$nodes$update_user$name?
-    name,
     String? $__typename,
   }) => _res;
 

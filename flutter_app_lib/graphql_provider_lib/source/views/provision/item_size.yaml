@@ -1,0 +1,185 @@
+# yaml-language-server: $schema=../../schema.json
+
+##### 品目
+
+# 梱包サイズ読み込み用
+# 変更:SpecMeasurement->SpecMeasurementPage 統一。
+# 画面でSymbolが必要になる。誰が変更したか詳細画面で必要になる。
+SpecMeasurementPage:  &SpecMeasurementPage
+  kind: read
+  from: mstr_spec_measurement
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_spec_measurement_id
+    - measurement_value
+    # 要件0044フィードバック: 生のshared_unit_id列とunit(呼称アーム、内部で
+    # sharedUnitIdを出力する)が同じ値を二重に持っていたため、列数が少なくデータが
+    # 小さくなる後者のみに統一し、前者を削除した(差は軽微だが冗長なため)。
+    - name: unit # IDの解決のみ(UnitReadFieldsは参照用アーム)
+      arrayType: toFirstOne
+      using:  shared_unit_id
+      <<: *UnitReadFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 梱包サイズ書き込み
+SpecMeasurementPageEdit:  &SpecMeasurementPageEdit
+  kind: edit
+  from: mstr_spec_measurement
+  requiredWhere: # 要件0044レビュー: readのrequiredWhereをそのままコピーしたためlanguageCode
+    # (表示言語解決用、editの識別条件としては無関係)が混入していた。他のEditノードと同様、
+    # 自身のPK(mstr_spec_measurement_id)のみに修正。
+    - mstr_spec_measurement_id
+  generateRfe: true # 要件0044レビュー: 他の全Editノードと同様に付与されるべきだが
+    # 欠落していたため追加した。
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_spec_measurement_id
+    - measurement_value
+    - shared_unit_id # Readとは異なりここでは削除しない: unitはIDの取得のみ(書き込み
+      # 不可)のため、既存のshared_unit行への付け替え自体はこの生FK列をPatch対象として
+      # 使う必要がある(出力側の重複は無くし、Patch入力としてのみ機能させる)。
+    - name: unit
+      arrayType: toFirstOne
+      using:  shared_unit_id
+      editable: false # 要件0047: IDの割り当てのみ(子は書き込まず、usingのFK列だけを書き込む)
+      <<: *UnitReadFields #IDを割り当てるだけ
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+#  品目サイズ区分の読み込み
+ItemSizeKindPage: &ItemSizeKindPage
+  kind: read
+  from: mstr_item_size_kind
+  requiredWhere: 
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_item_size_kind_id
+    - code
+    - names
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - shared_unit_id
+    - name: unit # IDの解決のみ(UnitReadFieldsは参照用アーム)
+      arrayType: toFirstOne
+      using:  shared_unit_id
+      <<: *UnitReadFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 品目サイズ区分の書き込み委
+ItemSizeKindPageEdit:
+  kind: edit
+  from: mstr_item_size_kind
+  requiredWhere:
+    - mstr_item_size_kind_id
+  generateRfe: true
+  columns:
+    - mstr_item_size_kind_id
+    - code
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    - name: unit # IDの解決のみ(UnitReadFieldsは参照用アーム)
+      arrayType: toFirstOne
+      using:  shared_unit_id
+      editable: false # 要件0047: IDの割り当てのみ(子は書き込まず、usingのFK列だけを書き込む)
+      <<: *UnitReadFields
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 品目のサイズ
+ItemSizePage: &temSizePag
+  kind: read
+  from: mstr_item_actual_size
+  filter: true
+  requiredWhere:
+    - mstr_item_id
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_item_actual_size_id
+    - mstr_item_id
+    - mstr_item_size_kind_id
+    - name: kinds
+      as: kinds
+      arrayType: toFirstOne
+      using:  mstr_item_size_kind_id
+      <<: *ItemSizeKindPage
+    - name: detailTexts
+      as: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FixTextReadFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 品目サイズの書き込み
+ItemSizePageEdit: &ItemSizePageEdit
+  kind: edit
+  from: mstr_item_actual_size
+  generateRfe: true
+  requiredWhere:
+    - mstr_item_actual_size_id
+  columns:
+    - mstr_item_id
+    - mstr_item_size_kind_id
+    - name: kinds
+      as: kinds
+      arrayType: toFirstOne
+      using:  mstr_item_size_kind_id
+      <<: *ItemSizeKindPage
+    - name: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FixTextEditFields
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove

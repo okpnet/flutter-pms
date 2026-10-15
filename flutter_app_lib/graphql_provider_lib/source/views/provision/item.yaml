@@ -1,0 +1,391 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 品目区分読み込み。参照用。
+ItemKindReadFields: &ItemKindReadFields
+  kind: read
+  from: mstr_item_kind
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_item_kind_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+
+# 品目区分読み込み
+ItemKindPage:
+  kind: read
+  from: mstr_item_kind
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_item_kind_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 品目区分書き込み
+ItemKindPageEdit:
+  kind: edit
+  from: mstr_item_kind
+  requiredWhere:
+    - mstr_item_kind_id
+  generateRfe: true
+  columns:
+    - mstr_item_kind_id
+    - code
+    - name: labels
+      arrayType: toFirstOne
+      using: names # 要件0044レビュー: `ceo_names`(CompanyPageEditからのコピー&ペースト
+        # 起因の誤り)になっていた。mstr_item_kindはcompanyのような複数呼称セットを
+        # 持たないテーブルのため、他画面と同様の汎用列名`names`に修正した。
+      <<: *AppellationLabelsEditFields
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# HSコードのフィールド読み込み
+HsCodeReadFields: &HsCodeReadFields
+  kind: read
+  filter: true
+  from: mstr_item_hcdcs
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_item_hcdcs_id
+    - mstr_item_id
+    - iso3166_3
+    - code
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# HSコードのフィールド書き込み
+HsCodeReadEditFields: &HsCodeReadEditFields
+  kind: edit
+  from: mstr_item_hcdcs
+  requiredWhere: 
+    - mstr_manufacturer_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_item_hcdcs_id
+    - mstr_item_id
+    - iso3166_3
+    - code
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 品目のうち、設備などネストオブジェクトになるモノの読込
+ItemReadFields: &ItemReadFields
+  kind: read
+  from: mstr_item
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_item_id
+    - mstr_item_kind_id
+    - name: kinds
+      arrayType: toFirstOne
+      as: kinds
+      using: mstr_item_kind_id
+      <<: *ItemKindReadFields
+    - code
+    - identification
+    - control_code
+    - name: manufacture
+      arrayType: toFirstOne
+      as: manufacture
+      using: mstr_manufacturer_id
+      <<: *ManufacturePage
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - label_code
+    - name: detailTexts
+      as: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FixTextReadFields
+    - name: unit # IDの解決のみ(UnitReadFieldsは参照用アーム)
+      arrayType: toFirstOne
+      using:  shared_unit_id
+      <<: *UnitReadFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 品目のうち、設備などネストオブジェクトになるモノの書き込み
+ItemEditFields: &ItemEditFields
+  kind: edit
+  from: mstr_item
+  requiredWhere:
+    - mstr_item_id
+  columns:
+    - mstr_item_id
+    - mstr_item_kind_id
+    - name: kinds
+      arrayType: toFirstOne
+      using: mstr_item_kind_id
+      editable: false
+      <<: *ItemKindReadFields
+    - code
+    - identification
+    - control_code
+    - name: manufacture
+      arrayType: toFirstOne
+      using: mstr_manufacturer_id
+      <<: *ManufacturePageEdit
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    - label_code
+    - name: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FixTextEditFields
+    - name: unit
+      arrayType: toFirstOne
+      using:  shared_unit_id
+      editable: false
+      <<: *UnitReadFields
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 品目ツリーの読込
+ItemPage:
+  kind: read
+  from: mstr_item
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_item_id
+    - name: parent
+      arrayType: toFirstOne
+      as: parent
+      using: mstr_item_id
+      from: mstr_item_tree
+      # NULL許容(呼び出し側がNULLを渡したときは組織テーブルのトップノードを表す)。
+      requiredWhere:
+        - parent_mstr_item_id
+      columns:
+        - mstr_item_tree_id
+        - parent_mstr_item_id
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+    - name: descendants
+      arrayType: toFirstOne
+      as: descendants
+      using: mstr_item_id
+      pick:
+        - descendant_count
+      from: v_item_descendants
+    - mstr_item_kind_id
+    - name: kinds
+      arrayType: toFirstOne
+      as: kinds
+      using: mstr_item_kind_id
+      <<: *ItemKindReadFields
+    - code
+    - identification
+    - control_code
+    - name: manufacture
+      arrayType: toFirstOne
+      as: manufacture
+      using: mstr_manufacturer_id
+      <<: *ManufacturePage
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - label_code
+    - name: detailTexts
+      as: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FixTextReadFields
+    - name: unit # IDの解決のみ(UnitReadFieldsは参照用アーム)
+      arrayType: toFirstOne
+      using:  shared_unit_id
+      <<: *UnitReadFields
+    - shared_unit_id
+    - name: units
+      arrayType: toFirstOne
+      as: units
+      using: shared_unit_id
+      <<: *UnitReadFields
+    - mstr_item_lot_id
+    - name: lots
+      arrayType: toFirstOne
+      as: lots
+      using: mstr_item_lot_id
+      from: mstr_item_lot
+      pick:
+        - safety_inventory
+        - lot_size
+        - batch_size
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+#品目の書き込み
+# ツリーから選択したもの、設備など参照から選択されたものが編集として該当する
+ItemPageEdit:
+  kind: edit
+  from: mstr_item
+  requiredWhere:
+    - mstr_item_id
+  generateRfe: true
+  columns:
+    - mstr_item_id
+    - name: parent
+      arrayType: toFirstOne
+      as: parent
+      using: mstr_item_id
+      from: mstr_item_tree
+      # NULL許容(呼び出し側がNULLを渡したときは組織テーブルのトップノードを表す)。
+      requiredWhere:
+        - parent_mstr_item_id
+      columns:
+        - mstr_item_tree_id
+        - parent_mstr_item_id
+        - code
+        - control_code
+        - name: labels
+          arrayType: toFirstOne
+          using: names
+          <<: *AppellationLabelsEditFields
+        - quantity
+        - name: detailTexts
+          arrayType: toFirstOne
+          using: details
+          <<: *FixTextEditFields
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+    - name: descendants
+      arrayType: toFirstOne
+      as: descendants
+      using: mstr_item_id
+      pick:
+        - descendant_count
+      from: v_item_descendants
+    - mstr_item_kind_id
+    - name: kinds
+      arrayType: toFirstOne
+      using: mstr_item_kind_id
+      editable: false # 要件0047: IDの割り当てのみ(子は書き込まず、usingのFK列だけを書き込む)
+      <<: *ItemKindReadFields #IDの取得のみ
+    - code
+    - identification
+    - control_code
+    # 製造元
+    - name: manufacture
+      arrayType: toFirstOne
+      using: mstr_manufacturer_id
+      editable: true # 要件0047: 親とともに編集する(親のRFEにも含まれる)
+      <<: *ManufacturePageEdit
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    - label_code
+    - name: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FixTextEditFields
+    - name: unit # IDの解決のみ(UnitReadFieldsは参照用アーム)
+      arrayType: toFirstOne
+      using:  shared_unit_id
+      editable: false # 要件0047: IDの割り当てのみ(子は書き込まず、usingのFK列だけを書き込む)
+      <<: *UnitReadFields
+    - mstr_item_lot_id # ロットの内容(mstr_item_lot)は、品目とは別に編集する
+    # 梱包サイズ(spec)は、品目との関連(mstr_item→mstr_spec_measurement)がDBから無くなったため削除した。
+    # 梱包は mstr_item_lot → mstr_packing_spec 経由になった。再設計が必要(docs/schema_refetch_2026-10-15.md)。
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove

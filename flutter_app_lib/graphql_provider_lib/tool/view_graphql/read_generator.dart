@@ -90,7 +90,9 @@ class ReadGenerator {
       ..declare('offset', 'Int');
     final hasFilter = node['filter'] == true;
     if (hasFilter) vars.declare('filter', '${root.filterType} = {}');
-    vars.declare('orderBy', '[${root.orderByType}!] = [PRIMARY_KEY_ASC]');
+    // 並び順(要件0053): defaultSortが引数の既定値になる。noneは既定値なし(引数がnullなら並べない)。
+    final rootSort = _defaultOrder(node, type, path);
+    vars.declare('orderBy', '[${root.orderByType}!]${rootSort == null ? '' : ' = [$rootSort]'}');
 
     // ルートのrequiredWhere。languageCodeは表示言語(5-5節)、それ以外は必須の絞り込み。
     final rootAnd = <String>[];
@@ -130,7 +132,7 @@ class ReadGenerator {
     final b = StringBuffer()
       ..writeln('# $dir画面 - Read(一覧取得クエリ)')
       ..writeln('#')
-      ..writeln('# 画面仕様: source/view.yaml #$name')
+      ..writeln('# 画面仕様: source/views/ #$name')
       ..writeln('# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。')
       ..writeln()
       ..writeln('query $op(');
@@ -375,8 +377,16 @@ class ReadGenerator {
           } else if (e['limit'] != null) {
             args.add('first: ${e['limit']}');
           }
-          if (cols.contains('sequence') && schema.hasOrderBy(nodeType, 'SEQUENCE_ASC')) {
-            args.add('orderBy: SEQUENCE_ASC');
+          // 並び順の引数(要件0053)。既定値は、defaultSortとsortColumnsから求める。
+          final orderByType = schema.rootConnection(nodeType)?.orderByType;
+          if (orderByType != null) {
+            final base = camel(outName);
+            final def = _defaultOrder(e, nodeType, path);
+            if (def == null && cols.contains('sequence')) {
+              log.warn(path, 'sequence列がありますが、並び順の既定値がありません(defaultSort: { asc: { sortColumns: [sequence] } } で指定できます)');
+            }
+            args.add('orderBy: \$${base}OrderBy');
+            vars.declare('${base}OrderBy', '[$orderByType!]${def == null ? '' : ' = [$def]'}');
           }
           if (_hasRemoveGuard(e)) {
             args.add('filter: { remove: { equalTo: false } }');
@@ -400,6 +410,63 @@ class ReadGenerator {
           _selection(e, nodeType, vars, path, mode: childMode, forcePk: !rel.isConnection));
     }
     return lines;
+  }
+
+  /// `defaultSort`から、並び順の既定値(例: `SEQUENCE_ASC, NAME_ASC`)を求める。
+  ///
+  /// 形: 省略・null・`none`は並べない。並べるときは`defaultSort: { asc | desc: { sortColumns: [列名...] } }`。
+  /// ascとdescは同時に指定できない。sortColumnsがnull・空・省略のときはnoneと同義(null)。
+  String? _defaultOrder(Map<String, dynamic> e, String nodeType, String path) {
+    if (e.containsKey('sortColumns')) {
+      log.error(path, 'sortColumnsはdefaultSortの下に書きます(defaultSort: { asc: { sortColumns: [...] } })');
+      return null;
+    }
+    final sort = e['defaultSort'];
+    if (sort == null || sort == 'none') return null;
+    if (sort is! Map) {
+      log.error(path, 'defaultSortは none、または asc / desc をキーにした入れ子で指定します(指定: $sort)');
+      return null;
+    }
+    final keys = sort.keys.map((k) => k.toString()).toList();
+    if (keys.contains('asc') && keys.contains('desc')) {
+      log.error(path, 'defaultSortにascとdescは同時に指定できません');
+      return null;
+    }
+    final unknown = keys.where((k) => k != 'asc' && k != 'desc').toList();
+    if (unknown.isNotEmpty) {
+      log.error(path, 'defaultSortのキーは asc / desc のいずれかです(指定: ${unknown.join(', ')})');
+      return null;
+    }
+    if (keys.isEmpty) return null;
+    final dir = keys.single;
+    final body = sort[dir];
+    if (body != null && body is! Map) {
+      log.error(path, 'defaultSort.$dirの中には sortColumns を書きます');
+      return null;
+    }
+    final other = (body as Map?)?.keys.where((k) => k != 'sortColumns').toList() ?? const [];
+    if (other.isNotEmpty) {
+      log.error(path, 'defaultSort.$dirのキーは sortColumns のみです(指定: ${other.join(', ')})');
+      return null;
+    }
+    final columns = body?['sortColumns'];
+    if (columns != null && columns is! List) {
+      log.error(path, 'sortColumnsは列名の配列で指定します');
+      return null;
+    }
+    final names = [for (final c in (columns as List? ?? const [])) c.toString()];
+    if (names.isEmpty) return null; // sortColumnsがnull/空のときはnoneと同義
+    final suffix = dir.toUpperCase();
+    final values = <String>[];
+    for (final c in names) {
+      final value = '${c == 'primary_key' ? 'PRIMARY_KEY' : c.toUpperCase()}_$suffix';
+      if (!schema.hasOrderBy(nodeType, value)) {
+        log.error(path, 'sortColumnsの$cは並べられません(型$nodeTypeの並び順に$valueがありません。関連先の列では並べられません)');
+        return null;
+      }
+      values.add(value);
+    }
+    return values.join(', ');
   }
 
   /// 関連のフィールドを求める。`using`は、親側のFK列(外向き)か、子側のFK列(内向き)。

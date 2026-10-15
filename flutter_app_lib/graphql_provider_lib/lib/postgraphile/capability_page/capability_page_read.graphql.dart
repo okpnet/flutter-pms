@@ -437,11 +437,7 @@ const documentNodeQueryCapabilityPageRead = DocumentNode(
             ),
             isNonNull: false,
           ),
-          defaultValue: DefaultValueNode(
-            value: ListValueNode(
-              values: [EnumValueNode(name: NameNode(value: 'PRIMARY_KEY_ASC'))],
-            ),
-          ),
+          defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
         VariableDefinitionNode(
@@ -569,69 +565,6 @@ const documentNodeQueryCapabilityPageRead = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(value: 'code'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'detail'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'referenceValue'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'max'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'min'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'step'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'symbol'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'remarks'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'updateAt'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'remove'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -941,6 +874,147 @@ const documentNodeQueryCapabilityPageRead = DocumentNode(
                         ),
                       ),
                       FieldNode(
+                        name: NameNode(value: 'sharedTextByDetails'),
+                        alias: NameNode(value: 'detailTexts'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'sharedTextId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(
+                                value: 'sharedTextValuesBySharedTextId',
+                              ),
+                              alias: NameNode(value: 'value'),
+                              arguments: [
+                                ArgumentNode(
+                                  name: NameNode(value: 'condition'),
+                                  value: ObjectValueNode(
+                                    fields: [
+                                      ObjectFieldNode(
+                                        name: NameNode(
+                                          value: 'sharedLanguageCodeId',
+                                        ),
+                                        value: VariableNode(
+                                          name: NameNode(
+                                            value: 'languageCodeId',
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                              directives: [],
+                              selectionSet: SelectionSetNode(
+                                selections: [
+                                  FieldNode(
+                                    name: NameNode(value: 'nodes'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'textValue'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: '__typename'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'referenceValue'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'max'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'min'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'step'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'symbol'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'updateAt'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'remove'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
                         name: NameNode(
                           value:
                               'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
@@ -973,34 +1047,6 @@ const documentNodeQueryCapabilityPageRead = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(value: 'code'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'sex'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'phone'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'symbol'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'privatePhone'),
                               alias: null,
                               arguments: [],
                               directives: [],
@@ -1334,6 +1380,34 @@ const documentNodeQueryCapabilityPageRead = DocumentNode(
                                   ),
                                 ],
                               ),
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'sex'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'phone'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'symbol'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'privatePhone'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
                             ),
                             FieldNode(
                               name: NameNode(value: '__typename'),
@@ -1918,7 +1992,8 @@ class Query$CapabilityPageRead$allMstrCapabilities$nodes {
   Query$CapabilityPageRead$allMstrCapabilities$nodes({
     required this.mstrCapabilityId,
     required this.code,
-    this.detail,
+    this.labels,
+    this.detailTexts,
     required this.referenceValue,
     this.max,
     this.min,
@@ -1927,7 +2002,6 @@ class Query$CapabilityPageRead$allMstrCapabilities$nodes {
     this.remarks,
     this.updateAt,
     this.remove,
-    this.labels,
     this.update_user,
     this.$__typename = 'MstrCapability',
   });
@@ -1937,7 +2011,8 @@ class Query$CapabilityPageRead$allMstrCapabilities$nodes {
   ) {
     final l$mstrCapabilityId = json['mstrCapabilityId'];
     final l$code = json['code'];
-    final l$detail = json['detail'];
+    final l$labels = json['labels'];
+    final l$detailTexts = json['detailTexts'];
     final l$referenceValue = json['referenceValue'];
     final l$max = json['max'];
     final l$min = json['min'];
@@ -1946,13 +2021,21 @@ class Query$CapabilityPageRead$allMstrCapabilities$nodes {
     final l$remarks = json['remarks'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
-    final l$labels = json['labels'];
     final l$update_user = json['update_user'];
     final l$$__typename = json['__typename'];
     return Query$CapabilityPageRead$allMstrCapabilities$nodes(
       mstrCapabilityId: (l$mstrCapabilityId as String),
       code: (l$code as String),
-      detail: (l$detail as String?),
+      labels: l$labels == null
+          ? null
+          : Query$CapabilityPageRead$allMstrCapabilities$nodes$labels.fromJson(
+              (l$labels as Map<String, dynamic>),
+            ),
+      detailTexts: l$detailTexts == null
+          ? null
+          : Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts.fromJson(
+              (l$detailTexts as Map<String, dynamic>),
+            ),
       referenceValue: (l$referenceValue as String),
       max: (l$max as String?),
       min: (l$min as String?),
@@ -1961,11 +2044,6 @@ class Query$CapabilityPageRead$allMstrCapabilities$nodes {
       remarks: (l$remarks as String?),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
-      labels: l$labels == null
-          ? null
-          : Query$CapabilityPageRead$allMstrCapabilities$nodes$labels.fromJson(
-              (l$labels as Map<String, dynamic>),
-            ),
       update_user: l$update_user == null
           ? null
           : Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user.fromJson(
@@ -1979,7 +2057,10 @@ class Query$CapabilityPageRead$allMstrCapabilities$nodes {
 
   final String code;
 
-  final String? detail;
+  final Query$CapabilityPageRead$allMstrCapabilities$nodes$labels? labels;
+
+  final Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts?
+  detailTexts;
 
   final String referenceValue;
 
@@ -1997,8 +2078,6 @@ class Query$CapabilityPageRead$allMstrCapabilities$nodes {
 
   final bool? remove;
 
-  final Query$CapabilityPageRead$allMstrCapabilities$nodes$labels? labels;
-
   final Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user?
   update_user;
 
@@ -2010,8 +2089,10 @@ class Query$CapabilityPageRead$allMstrCapabilities$nodes {
     _resultData['mstrCapabilityId'] = l$mstrCapabilityId;
     final l$code = code;
     _resultData['code'] = l$code;
-    final l$detail = detail;
-    _resultData['detail'] = l$detail;
+    final l$labels = labels;
+    _resultData['labels'] = l$labels?.toJson();
+    final l$detailTexts = detailTexts;
+    _resultData['detailTexts'] = l$detailTexts?.toJson();
     final l$referenceValue = referenceValue;
     _resultData['referenceValue'] = l$referenceValue;
     final l$max = max;
@@ -2028,8 +2109,6 @@ class Query$CapabilityPageRead$allMstrCapabilities$nodes {
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
     _resultData['remove'] = l$remove;
-    final l$labels = labels;
-    _resultData['labels'] = l$labels?.toJson();
     final l$update_user = update_user;
     _resultData['update_user'] = l$update_user?.toJson();
     final l$$__typename = $__typename;
@@ -2041,7 +2120,8 @@ class Query$CapabilityPageRead$allMstrCapabilities$nodes {
   int get hashCode {
     final l$mstrCapabilityId = mstrCapabilityId;
     final l$code = code;
-    final l$detail = detail;
+    final l$labels = labels;
+    final l$detailTexts = detailTexts;
     final l$referenceValue = referenceValue;
     final l$max = max;
     final l$min = min;
@@ -2050,13 +2130,13 @@ class Query$CapabilityPageRead$allMstrCapabilities$nodes {
     final l$remarks = remarks;
     final l$updateAt = updateAt;
     final l$remove = remove;
-    final l$labels = labels;
     final l$update_user = update_user;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$mstrCapabilityId,
       l$code,
-      l$detail,
+      l$labels,
+      l$detailTexts,
       l$referenceValue,
       l$max,
       l$min,
@@ -2065,7 +2145,6 @@ class Query$CapabilityPageRead$allMstrCapabilities$nodes {
       l$remarks,
       l$updateAt,
       l$remove,
-      l$labels,
       l$update_user,
       l$$__typename,
     ]);
@@ -2090,9 +2169,14 @@ class Query$CapabilityPageRead$allMstrCapabilities$nodes {
     if (l$code != lOther$code) {
       return false;
     }
-    final l$detail = detail;
-    final lOther$detail = other.detail;
-    if (l$detail != lOther$detail) {
+    final l$labels = labels;
+    final lOther$labels = other.labels;
+    if (l$labels != lOther$labels) {
+      return false;
+    }
+    final l$detailTexts = detailTexts;
+    final lOther$detailTexts = other.detailTexts;
+    if (l$detailTexts != lOther$detailTexts) {
       return false;
     }
     final l$referenceValue = referenceValue;
@@ -2135,11 +2219,6 @@ class Query$CapabilityPageRead$allMstrCapabilities$nodes {
     if (l$remove != lOther$remove) {
       return false;
     }
-    final l$labels = labels;
-    final lOther$labels = other.labels;
-    if (l$labels != lOther$labels) {
-      return false;
-    }
     final l$update_user = update_user;
     final lOther$update_user = other.update_user;
     if (l$update_user != lOther$update_user) {
@@ -2180,7 +2259,8 @@ abstract class CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes<
   TRes call({
     String? mstrCapabilityId,
     String? code,
-    String? detail,
+    Query$CapabilityPageRead$allMstrCapabilities$nodes$labels? labels,
+    Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts? detailTexts,
     String? referenceValue,
     String? max,
     String? min,
@@ -2189,12 +2269,13 @@ abstract class CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes<
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$CapabilityPageRead$allMstrCapabilities$nodes$labels? labels,
     Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user? update_user,
     String? $__typename,
   });
   CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$labels<TRes>
   get labels;
+  CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts<TRes>
+  get detailTexts;
   CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user<TRes>
   get update_user;
 }
@@ -2216,7 +2297,8 @@ class _CopyWithImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes<TRes>
   TRes call({
     Object? mstrCapabilityId = _undefined,
     Object? code = _undefined,
-    Object? detail = _undefined,
+    Object? labels = _undefined,
+    Object? detailTexts = _undefined,
     Object? referenceValue = _undefined,
     Object? max = _undefined,
     Object? min = _undefined,
@@ -2225,7 +2307,6 @@ class _CopyWithImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes<TRes>
     Object? remarks = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
-    Object? labels = _undefined,
     Object? update_user = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
@@ -2237,7 +2318,14 @@ class _CopyWithImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes<TRes>
       code: code == _undefined || code == null
           ? _instance.code
           : (code as String),
-      detail: detail == _undefined ? _instance.detail : (detail as String?),
+      labels: labels == _undefined
+          ? _instance.labels
+          : (labels
+                as Query$CapabilityPageRead$allMstrCapabilities$nodes$labels?),
+      detailTexts: detailTexts == _undefined
+          ? _instance.detailTexts
+          : (detailTexts
+                as Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts?),
       referenceValue: referenceValue == _undefined || referenceValue == null
           ? _instance.referenceValue
           : (referenceValue as String),
@@ -2250,10 +2338,6 @@ class _CopyWithImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes<TRes>
           ? _instance.updateAt
           : (updateAt as String?),
       remove: remove == _undefined ? _instance.remove : (remove as bool?),
-      labels: labels == _undefined
-          ? _instance.labels
-          : (labels
-                as Query$CapabilityPageRead$allMstrCapabilities$nodes$labels?),
       update_user: update_user == _undefined
           ? _instance.update_user
           : (update_user
@@ -2274,6 +2358,19 @@ class _CopyWithImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes<TRes>
         : CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$labels(
             local$labels,
             (e) => call(labels: e),
+          );
+  }
+
+  CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts<TRes>
+  get detailTexts {
+    final local$detailTexts = _instance.detailTexts;
+    return local$detailTexts == null
+        ? CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts(
+            local$detailTexts,
+            (e) => call(detailTexts: e),
           );
   }
 
@@ -2303,7 +2400,8 @@ class _CopyWithStubImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes<TRes>
   call({
     String? mstrCapabilityId,
     String? code,
-    String? detail,
+    Query$CapabilityPageRead$allMstrCapabilities$nodes$labels? labels,
+    Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts? detailTexts,
     String? referenceValue,
     String? max,
     String? min,
@@ -2312,7 +2410,6 @@ class _CopyWithStubImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes<TRes>
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$CapabilityPageRead$allMstrCapabilities$nodes$labels? labels,
     Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user? update_user,
     String? $__typename,
   }) => _res;
@@ -2320,6 +2417,12 @@ class _CopyWithStubImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes<TRes>
   CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$labels<TRes>
   get labels =>
       CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$labels.stub(
+        _res,
+      );
+
+  CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts<TRes>
+  get detailTexts =>
+      CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts.stub(
         _res,
       );
 
@@ -4386,17 +4489,580 @@ class _CopyWithStubImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes$label
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
+class Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts {
+  Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts({
+    required this.sharedTextId,
+    required this.value,
+    this.$__typename = 'SharedText',
+  });
+
+  factory Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedTextId = json['sharedTextId'];
+    final l$value = json['value'];
+    final l$$__typename = json['__typename'];
+    return Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts(
+      sharedTextId: (l$sharedTextId as String),
+      value:
+          Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value.fromJson(
+            (l$value as Map<String, dynamic>),
+          ),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String sharedTextId;
+
+  final Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value
+  value;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedTextId = sharedTextId;
+    _resultData['sharedTextId'] = l$sharedTextId;
+    final l$value = value;
+    _resultData['value'] = l$value.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedTextId = sharedTextId;
+    final l$value = value;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$sharedTextId, l$value, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedTextId = sharedTextId;
+    final lOther$sharedTextId = other.sharedTextId;
+    if (l$sharedTextId != lOther$sharedTextId) {
+      return false;
+    }
+    final l$value = value;
+    final lOther$value = other.value;
+    if (l$value != lOther$value) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts
+    on Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts {
+  CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts<
+    Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts
+  >
+  get copyWith =>
+      CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts<
+  TRes
+> {
+  factory CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts(
+    Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts instance,
+    TRes Function(
+      Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts;
+
+  factory CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts;
+
+  TRes call({
+    String? sharedTextId,
+    Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value? value,
+    String? $__typename,
+  });
+  CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value<
+    TRes
+  >
+  get value;
+}
+
+class _CopyWithImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts<
+  TRes
+>
+    implements
+        CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts<
+          TRes
+        > {
+  _CopyWithImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts
+  _instance;
+
+  final TRes Function(
+    Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedTextId = _undefined,
+    Object? value = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts(
+      sharedTextId: sharedTextId == _undefined || sharedTextId == null
+          ? _instance.sharedTextId
+          : (sharedTextId as String),
+      value: value == _undefined || value == null
+          ? _instance.value
+          : (value
+                as Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value<
+    TRes
+  >
+  get value {
+    final local$value = _instance.value;
+    return CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value(
+      local$value,
+      (e) => call(value: e),
+    );
+  }
+}
+
+class _CopyWithStubImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts<
+  TRes
+>
+    implements
+        CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? sharedTextId,
+    Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value? value,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value<
+    TRes
+  >
+  get value =>
+      CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value.stub(
+        _res,
+      );
+}
+
+class Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value {
+  Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value({
+    required this.nodes,
+    this.$__typename = 'SharedTextValuesConnection',
+  });
+
+  factory Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value
+    on Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value {
+  CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value<
+    Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value
+  >
+  get copyWith =>
+      CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value<
+  TRes
+> {
+  factory CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value(
+    Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value
+    instance,
+    TRes Function(
+      Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value;
+
+  factory CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value;
+
+  TRes call({
+    List<
+      Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes<
+          Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value<
+  TRes
+>
+    implements
+        CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value<
+          TRes
+        > {
+  _CopyWithImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value
+  _instance;
+
+  final TRes Function(
+    Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes<
+          Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value<
+  TRes
+>
+    implements
+        CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes {
+  Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes({
+    this.textValue,
+    this.$__typename = 'SharedTextValue',
+  });
+
+  factory Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$textValue = json['textValue'];
+    final l$$__typename = json['__typename'];
+    return Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes(
+      textValue: (l$textValue as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? textValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$textValue = textValue;
+    _resultData['textValue'] = l$textValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$textValue = textValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$textValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$textValue = textValue;
+    final lOther$textValue = other.textValue;
+    if (l$textValue != lOther$textValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes
+    on Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes {
+  CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes<
+    Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes<
+  TRes
+> {
+  factory CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes(
+    Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes
+    instance,
+    TRes Function(
+      Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes;
+
+  factory CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes;
+
+  TRes call({String? textValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes
+  _instance;
+
+  final TRes Function(
+    Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? textValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes(
+      textValue: textValue == _undefined
+          ? _instance.textValue
+          : (textValue as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes$detailTexts$value$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? textValue, String? $__typename}) => _res;
+}
+
 class Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user {
   Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user({
     required this.historyId,
     required this.infoStaffId,
     this.infoCompanyId,
     this.code,
+    this.name,
     this.sex,
     this.phone,
     this.symbol,
     this.privatePhone,
-    this.name,
     this.$__typename = 'HistoryInfoStaff',
   });
 
@@ -4407,26 +5073,26 @@ class Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user {
     final l$infoStaffId = json['infoStaffId'];
     final l$infoCompanyId = json['infoCompanyId'];
     final l$code = json['code'];
+    final l$name = json['name'];
     final l$sex = json['sex'];
     final l$phone = json['phone'];
     final l$symbol = json['symbol'];
     final l$privatePhone = json['privatePhone'];
-    final l$name = json['name'];
     final l$$__typename = json['__typename'];
     return Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
       infoCompanyId: (l$infoCompanyId as String?),
       code: (l$code as String?),
-      sex: (l$sex as String?),
-      phone: (l$phone as String?),
-      symbol: (l$symbol as String?),
-      privatePhone: (l$privatePhone as String?),
       name: l$name == null
           ? null
           : Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user$name.fromJson(
               (l$name as Map<String, dynamic>),
             ),
+      sex: (l$sex as String?),
+      phone: (l$phone as String?),
+      symbol: (l$symbol as String?),
+      privatePhone: (l$privatePhone as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -4439,6 +5105,9 @@ class Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user {
 
   final String? code;
 
+  final Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user$name?
+  name;
+
   final String? sex;
 
   final String? phone;
@@ -4446,9 +5115,6 @@ class Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user {
   final String? symbol;
 
   final String? privatePhone;
-
-  final Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user$name?
-  name;
 
   final String $__typename;
 
@@ -4462,6 +5128,8 @@ class Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user {
     _resultData['infoCompanyId'] = l$infoCompanyId;
     final l$code = code;
     _resultData['code'] = l$code;
+    final l$name = name;
+    _resultData['name'] = l$name?.toJson();
     final l$sex = sex;
     _resultData['sex'] = l$sex;
     final l$phone = phone;
@@ -4470,8 +5138,6 @@ class Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user {
     _resultData['symbol'] = l$symbol;
     final l$privatePhone = privatePhone;
     _resultData['privatePhone'] = l$privatePhone;
-    final l$name = name;
-    _resultData['name'] = l$name?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -4483,22 +5149,22 @@ class Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user {
     final l$infoStaffId = infoStaffId;
     final l$infoCompanyId = infoCompanyId;
     final l$code = code;
+    final l$name = name;
     final l$sex = sex;
     final l$phone = phone;
     final l$symbol = symbol;
     final l$privatePhone = privatePhone;
-    final l$name = name;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$historyId,
       l$infoStaffId,
       l$infoCompanyId,
       l$code,
+      l$name,
       l$sex,
       l$phone,
       l$symbol,
       l$privatePhone,
-      l$name,
       l$$__typename,
     ]);
   }
@@ -4533,6 +5199,11 @@ class Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user {
     if (l$code != lOther$code) {
       return false;
     }
+    final l$name = name;
+    final lOther$name = other.name;
+    if (l$name != lOther$name) {
+      return false;
+    }
     final l$sex = sex;
     final lOther$sex = other.sex;
     if (l$sex != lOther$sex) {
@@ -4551,11 +5222,6 @@ class Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user {
     final l$privatePhone = privatePhone;
     final lOther$privatePhone = other.privatePhone;
     if (l$privatePhone != lOther$privatePhone) {
-      return false;
-    }
-    final l$name = name;
-    final lOther$name = other.name;
-    if (l$name != lOther$name) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -4599,11 +5265,11 @@ abstract class CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$updat
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user$name? name,
     String? sex,
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user$name? name,
     String? $__typename,
   });
   CopyWith$Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user$name<
@@ -4639,11 +5305,11 @@ class _CopyWithImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes$update_us
     Object? infoStaffId = _undefined,
     Object? infoCompanyId = _undefined,
     Object? code = _undefined,
+    Object? name = _undefined,
     Object? sex = _undefined,
     Object? phone = _undefined,
     Object? symbol = _undefined,
     Object? privatePhone = _undefined,
-    Object? name = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user(
@@ -4657,16 +5323,16 @@ class _CopyWithImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes$update_us
           ? _instance.infoCompanyId
           : (infoCompanyId as String?),
       code: code == _undefined ? _instance.code : (code as String?),
+      name: name == _undefined
+          ? _instance.name
+          : (name
+                as Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user$name?),
       sex: sex == _undefined ? _instance.sex : (sex as String?),
       phone: phone == _undefined ? _instance.phone : (phone as String?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       privatePhone: privatePhone == _undefined
           ? _instance.privatePhone
           : (privatePhone as String?),
-      name: name == _undefined
-          ? _instance.name
-          : (name
-                as Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user$name?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -4707,11 +5373,11 @@ class _CopyWithStubImpl$Query$CapabilityPageRead$allMstrCapabilities$nodes$updat
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user$name? name,
     String? sex,
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$CapabilityPageRead$allMstrCapabilities$nodes$update_user$name? name,
     String? $__typename,
   }) => _res;
 

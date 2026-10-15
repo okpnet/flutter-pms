@@ -1,6 +1,6 @@
 # operation_page画面 - Edit(ミューテーション)
 #
-# 画面仕様: source/view.yaml #OperationPageEdit
+# 画面仕様: source/views/ #OperationPageEdit
 # このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
 
 mutation OperationPageEdit(
@@ -26,6 +26,7 @@ mutation OperationPageEdit(
   $operationTasksDelete: [MstrOperationTaskMstrOperationTaskPkcDelete!]
   $remarks: String
   $operationTasksFirst: Int = 30
+  $operationTasksOrderBy: [MstrOperationTasksOrderBy!] = [SEQUENCE_ASC]
 ) {
   updateMstrOperationByMstrOperationId(
     input: {
@@ -199,7 +200,7 @@ mutation OperationPageEdit(
 
       operationTasks: mstrOperationTasksByMstrOperationId(
         first: $operationTasksFirst
-        orderBy: SEQUENCE_ASC
+        orderBy: $operationTasksOrderBy
       ) {
         totalCount
         pageInfo {

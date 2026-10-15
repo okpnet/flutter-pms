@@ -353,76 +353,6 @@ const documentNodeQueryCapabilityPageRfe = DocumentNode(
                   selectionSet: null,
                 ),
                 FieldNode(
-                  name: NameNode(value: 'detail'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'referenceValue'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'max'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'min'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'step'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'remarks'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'updateAt'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'updateUserId'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'updateUserHistoryId'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'remove'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
                   name: NameNode(value: 'sharedAppellationByNames'),
                   alias: NameNode(value: 'labels'),
                   arguments: [],
@@ -910,6 +840,203 @@ const documentNodeQueryCapabilityPageRfe = DocumentNode(
                   ),
                 ),
                 FieldNode(
+                  name: NameNode(value: 'sharedTextByDetails'),
+                  alias: NameNode(value: 'detailTexts'),
+                  arguments: [],
+                  directives: [],
+                  selectionSet: SelectionSetNode(
+                    selections: [
+                      FieldNode(
+                        name: NameNode(value: 'sharedTextId'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'sharedTextValuesBySharedTextId'),
+                        alias: NameNode(value: 'ja'),
+                        arguments: [
+                          ArgumentNode(
+                            name: NameNode(value: 'condition'),
+                            value: ObjectValueNode(
+                              fields: [
+                                ObjectFieldNode(
+                                  name: NameNode(value: 'sharedLanguageCodeId'),
+                                  value: VariableNode(
+                                    name: NameNode(value: 'jaLanguageCodeId'),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'nodes'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: SelectionSetNode(
+                                selections: [
+                                  FieldNode(
+                                    name: NameNode(value: 'textValue'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: '__typename'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'sharedTextValuesBySharedTextId'),
+                        alias: NameNode(value: 'en'),
+                        arguments: [
+                          ArgumentNode(
+                            name: NameNode(value: 'condition'),
+                            value: ObjectValueNode(
+                              fields: [
+                                ObjectFieldNode(
+                                  name: NameNode(value: 'sharedLanguageCodeId'),
+                                  value: VariableNode(
+                                    name: NameNode(value: 'enLanguageCodeId'),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'nodes'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: SelectionSetNode(
+                                selections: [
+                                  FieldNode(
+                                    name: NameNode(value: 'textValue'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: '__typename'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(value: '__typename'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                    ],
+                  ),
+                ),
+                FieldNode(
+                  name: NameNode(value: 'referenceValue'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
+                  name: NameNode(value: 'max'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
+                  name: NameNode(value: 'min'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
+                  name: NameNode(value: 'step'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
+                  name: NameNode(value: 'remarks'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
+                  name: NameNode(value: 'updateUserId'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
+                  name: NameNode(value: 'updateUserHistoryId'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
+                  name: NameNode(value: 'remove'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
+                  name: NameNode(value: 'updateAt'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
                   name: NameNode(value: '__typename'),
                   alias: null,
                   arguments: [],
@@ -1088,17 +1215,17 @@ class Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId {
   Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId({
     required this.mstrCapabilityId,
     required this.code,
-    this.detail,
+    this.labels,
+    this.detailTexts,
     required this.referenceValue,
     this.max,
     this.min,
     this.step,
     this.remarks,
-    this.updateAt,
     this.updateUserId,
     this.updateUserHistoryId,
     this.remove,
-    this.labels,
+    this.updateAt,
     this.$__typename = 'MstrCapability',
   });
 
@@ -1107,36 +1234,40 @@ class Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId {
   ) {
     final l$mstrCapabilityId = json['mstrCapabilityId'];
     final l$code = json['code'];
-    final l$detail = json['detail'];
+    final l$labels = json['labels'];
+    final l$detailTexts = json['detailTexts'];
     final l$referenceValue = json['referenceValue'];
     final l$max = json['max'];
     final l$min = json['min'];
     final l$step = json['step'];
     final l$remarks = json['remarks'];
-    final l$updateAt = json['updateAt'];
     final l$updateUserId = json['updateUserId'];
     final l$updateUserHistoryId = json['updateUserHistoryId'];
     final l$remove = json['remove'];
-    final l$labels = json['labels'];
+    final l$updateAt = json['updateAt'];
     final l$$__typename = json['__typename'];
     return Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId(
       mstrCapabilityId: (l$mstrCapabilityId as String),
       code: (l$code as String),
-      detail: (l$detail as String?),
-      referenceValue: (l$referenceValue as String),
-      max: (l$max as String?),
-      min: (l$min as String?),
-      step: (l$step as String?),
-      remarks: (l$remarks as String?),
-      updateAt: (l$updateAt as String?),
-      updateUserId: (l$updateUserId as String?),
-      updateUserHistoryId: (l$updateUserHistoryId as String?),
-      remove: (l$remove as bool?),
       labels: l$labels == null
           ? null
           : Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$labels.fromJson(
               (l$labels as Map<String, dynamic>),
             ),
+      detailTexts: l$detailTexts == null
+          ? null
+          : Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts.fromJson(
+              (l$detailTexts as Map<String, dynamic>),
+            ),
+      referenceValue: (l$referenceValue as String),
+      max: (l$max as String?),
+      min: (l$min as String?),
+      step: (l$step as String?),
+      remarks: (l$remarks as String?),
+      updateUserId: (l$updateUserId as String?),
+      updateUserHistoryId: (l$updateUserHistoryId as String?),
+      remove: (l$remove as bool?),
+      updateAt: (l$updateAt as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -1145,7 +1276,10 @@ class Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId {
 
   final String code;
 
-  final String? detail;
+  final Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$labels? labels;
+
+  final Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts?
+  detailTexts;
 
   final String referenceValue;
 
@@ -1157,15 +1291,13 @@ class Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId {
 
   final String? remarks;
 
-  final String? updateAt;
-
   final String? updateUserId;
 
   final String? updateUserHistoryId;
 
   final bool? remove;
 
-  final Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$labels? labels;
+  final String? updateAt;
 
   final String $__typename;
 
@@ -1175,8 +1307,10 @@ class Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId {
     _resultData['mstrCapabilityId'] = l$mstrCapabilityId;
     final l$code = code;
     _resultData['code'] = l$code;
-    final l$detail = detail;
-    _resultData['detail'] = l$detail;
+    final l$labels = labels;
+    _resultData['labels'] = l$labels?.toJson();
+    final l$detailTexts = detailTexts;
+    _resultData['detailTexts'] = l$detailTexts?.toJson();
     final l$referenceValue = referenceValue;
     _resultData['referenceValue'] = l$referenceValue;
     final l$max = max;
@@ -1187,16 +1321,14 @@ class Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId {
     _resultData['step'] = l$step;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
-    final l$updateAt = updateAt;
-    _resultData['updateAt'] = l$updateAt;
     final l$updateUserId = updateUserId;
     _resultData['updateUserId'] = l$updateUserId;
     final l$updateUserHistoryId = updateUserHistoryId;
     _resultData['updateUserHistoryId'] = l$updateUserHistoryId;
     final l$remove = remove;
     _resultData['remove'] = l$remove;
-    final l$labels = labels;
-    _resultData['labels'] = l$labels?.toJson();
+    final l$updateAt = updateAt;
+    _resultData['updateAt'] = l$updateAt;
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -1206,32 +1338,32 @@ class Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId {
   int get hashCode {
     final l$mstrCapabilityId = mstrCapabilityId;
     final l$code = code;
-    final l$detail = detail;
+    final l$labels = labels;
+    final l$detailTexts = detailTexts;
     final l$referenceValue = referenceValue;
     final l$max = max;
     final l$min = min;
     final l$step = step;
     final l$remarks = remarks;
-    final l$updateAt = updateAt;
     final l$updateUserId = updateUserId;
     final l$updateUserHistoryId = updateUserHistoryId;
     final l$remove = remove;
-    final l$labels = labels;
+    final l$updateAt = updateAt;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$mstrCapabilityId,
       l$code,
-      l$detail,
+      l$labels,
+      l$detailTexts,
       l$referenceValue,
       l$max,
       l$min,
       l$step,
       l$remarks,
-      l$updateAt,
       l$updateUserId,
       l$updateUserHistoryId,
       l$remove,
-      l$labels,
+      l$updateAt,
       l$$__typename,
     ]);
   }
@@ -1255,9 +1387,14 @@ class Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId {
     if (l$code != lOther$code) {
       return false;
     }
-    final l$detail = detail;
-    final lOther$detail = other.detail;
-    if (l$detail != lOther$detail) {
+    final l$labels = labels;
+    final lOther$labels = other.labels;
+    if (l$labels != lOther$labels) {
+      return false;
+    }
+    final l$detailTexts = detailTexts;
+    final lOther$detailTexts = other.detailTexts;
+    if (l$detailTexts != lOther$detailTexts) {
       return false;
     }
     final l$referenceValue = referenceValue;
@@ -1285,11 +1422,6 @@ class Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId {
     if (l$remarks != lOther$remarks) {
       return false;
     }
-    final l$updateAt = updateAt;
-    final lOther$updateAt = other.updateAt;
-    if (l$updateAt != lOther$updateAt) {
-      return false;
-    }
     final l$updateUserId = updateUserId;
     final lOther$updateUserId = other.updateUserId;
     if (l$updateUserId != lOther$updateUserId) {
@@ -1305,9 +1437,9 @@ class Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId {
     if (l$remove != lOther$remove) {
       return false;
     }
-    final l$labels = labels;
-    final lOther$labels = other.labels;
-    if (l$labels != lOther$labels) {
+    final l$updateAt = updateAt;
+    final lOther$updateAt = other.updateAt;
+    if (l$updateAt != lOther$updateAt) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -1347,21 +1479,26 @@ abstract class CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId
   TRes call({
     String? mstrCapabilityId,
     String? code,
-    String? detail,
+    Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$labels? labels,
+    Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts?
+    detailTexts,
     String? referenceValue,
     String? max,
     String? min,
     String? step,
     String? remarks,
-    String? updateAt,
     String? updateUserId,
     String? updateUserHistoryId,
     bool? remove,
-    Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$labels? labels,
+    String? updateAt,
     String? $__typename,
   });
   CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$labels<TRes>
   get labels;
+  CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts<
+    TRes
+  >
+  get detailTexts;
 }
 
 class _CopyWithImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId<
@@ -1386,17 +1523,17 @@ class _CopyWithImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId<
   TRes call({
     Object? mstrCapabilityId = _undefined,
     Object? code = _undefined,
-    Object? detail = _undefined,
+    Object? labels = _undefined,
+    Object? detailTexts = _undefined,
     Object? referenceValue = _undefined,
     Object? max = _undefined,
     Object? min = _undefined,
     Object? step = _undefined,
     Object? remarks = _undefined,
-    Object? updateAt = _undefined,
     Object? updateUserId = _undefined,
     Object? updateUserHistoryId = _undefined,
     Object? remove = _undefined,
-    Object? labels = _undefined,
+    Object? updateAt = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId(
@@ -1407,7 +1544,14 @@ class _CopyWithImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId<
       code: code == _undefined || code == null
           ? _instance.code
           : (code as String),
-      detail: detail == _undefined ? _instance.detail : (detail as String?),
+      labels: labels == _undefined
+          ? _instance.labels
+          : (labels
+                as Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$labels?),
+      detailTexts: detailTexts == _undefined
+          ? _instance.detailTexts
+          : (detailTexts
+                as Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts?),
       referenceValue: referenceValue == _undefined || referenceValue == null
           ? _instance.referenceValue
           : (referenceValue as String),
@@ -1415,9 +1559,6 @@ class _CopyWithImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId<
       min: min == _undefined ? _instance.min : (min as String?),
       step: step == _undefined ? _instance.step : (step as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
-      updateAt: updateAt == _undefined
-          ? _instance.updateAt
-          : (updateAt as String?),
       updateUserId: updateUserId == _undefined
           ? _instance.updateUserId
           : (updateUserId as String?),
@@ -1425,10 +1566,9 @@ class _CopyWithImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId<
           ? _instance.updateUserHistoryId
           : (updateUserHistoryId as String?),
       remove: remove == _undefined ? _instance.remove : (remove as bool?),
-      labels: labels == _undefined
-          ? _instance.labels
-          : (labels
-                as Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$labels?),
+      updateAt: updateAt == _undefined
+          ? _instance.updateAt
+          : (updateAt as String?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -1445,6 +1585,21 @@ class _CopyWithImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId<
         : CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$labels(
             local$labels,
             (e) => call(labels: e),
+          );
+  }
+
+  CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts<
+    TRes
+  >
+  get detailTexts {
+    final local$detailTexts = _instance.detailTexts;
+    return local$detailTexts == null
+        ? CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts(
+            local$detailTexts,
+            (e) => call(detailTexts: e),
           );
   }
 }
@@ -1465,23 +1620,32 @@ class _CopyWithStubImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId
   call({
     String? mstrCapabilityId,
     String? code,
-    String? detail,
+    Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$labels? labels,
+    Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts?
+    detailTexts,
     String? referenceValue,
     String? max,
     String? min,
     String? step,
     String? remarks,
-    String? updateAt,
     String? updateUserId,
     String? updateUserHistoryId,
     bool? remove,
-    Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$labels? labels,
+    String? updateAt,
     String? $__typename,
   }) => _res;
 
   CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$labels<TRes>
   get labels =>
       CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$labels.stub(
+        _res,
+      );
+
+  CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts<
+    TRes
+  >
+  get detailTexts =>
+      CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts.stub(
         _res,
       );
 }
@@ -4791,4 +4955,979 @@ class _CopyWithStubImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId
   TRes _res;
 
   call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts {
+  Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts({
+    required this.sharedTextId,
+    required this.ja,
+    required this.en,
+    this.$__typename = 'SharedText',
+  });
+
+  factory Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedTextId = json['sharedTextId'];
+    final l$ja = json['ja'];
+    final l$en = json['en'];
+    final l$$__typename = json['__typename'];
+    return Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts(
+      sharedTextId: (l$sharedTextId as String),
+      ja: Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String sharedTextId;
+
+  final Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja
+  ja;
+
+  final Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en
+  en;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedTextId = sharedTextId;
+    _resultData['sharedTextId'] = l$sharedTextId;
+    final l$ja = ja;
+    _resultData['ja'] = l$ja.toJson();
+    final l$en = en;
+    _resultData['en'] = l$en.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedTextId = sharedTextId;
+    final l$ja = ja;
+    final l$en = en;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$sharedTextId, l$ja, l$en, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedTextId = sharedTextId;
+    final lOther$sharedTextId = other.sharedTextId;
+    if (l$sharedTextId != lOther$sharedTextId) {
+      return false;
+    }
+    final l$ja = ja;
+    final lOther$ja = other.ja;
+    if (l$ja != lOther$ja) {
+      return false;
+    }
+    final l$en = en;
+    final lOther$en = other.en;
+    if (l$en != lOther$en) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts
+    on Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts {
+  CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts<
+    Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts
+  >
+  get copyWith =>
+      CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts<
+  TRes
+> {
+  factory CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts(
+    Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts
+    instance,
+    TRes Function(
+      Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts;
+
+  factory CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts;
+
+  TRes call({
+    String? sharedTextId,
+    Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja? ja,
+    Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en? en,
+    String? $__typename,
+  });
+  CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja<
+    TRes
+  >
+  get ja;
+  CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en<
+    TRes
+  >
+  get en;
+}
+
+class _CopyWithImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts<
+  TRes
+>
+    implements
+        CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts<
+          TRes
+        > {
+  _CopyWithImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts
+  _instance;
+
+  final TRes Function(
+    Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedTextId = _undefined,
+    Object? ja = _undefined,
+    Object? en = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts(
+      sharedTextId: sharedTextId == _undefined || sharedTextId == null
+          ? _instance.sharedTextId
+          : (sharedTextId as String),
+      ja: ja == _undefined || ja == null
+          ? _instance.ja
+          : (ja
+                as Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja),
+      en: en == _undefined || en == null
+          ? _instance.en
+          : (en
+                as Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja<
+    TRes
+  >
+  get ja {
+    final local$ja = _instance.ja;
+    return CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
+  }
+
+  CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en<
+    TRes
+  >
+  get en {
+    final local$en = _instance.en;
+    return CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en(
+      local$en,
+      (e) => call(en: e),
+    );
+  }
+}
+
+class _CopyWithStubImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts<
+  TRes
+>
+    implements
+        CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? sharedTextId,
+    Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja? ja,
+    Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en? en,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja<
+    TRes
+  >
+  get ja =>
+      CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja.stub(
+        _res,
+      );
+
+  CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en<
+    TRes
+  >
+  get en =>
+      CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en.stub(
+        _res,
+      );
+}
+
+class Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja {
+  Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja({
+    required this.nodes,
+    this.$__typename = 'SharedTextValuesConnection',
+  });
+
+  factory Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja
+    on Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja {
+  CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja<
+    Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja
+  >
+  get copyWith =>
+      CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja<
+  TRes
+> {
+  factory CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja(
+    Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja
+    instance,
+    TRes Function(
+      Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja;
+
+  factory CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja;
+
+  TRes call({
+    List<
+      Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes<
+          Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja<
+  TRes
+>
+    implements
+        CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja<
+          TRes
+        > {
+  _CopyWithImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja
+  _instance;
+
+  final TRes Function(
+    Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes<
+          Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja<
+  TRes
+>
+    implements
+        CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes {
+  Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes({
+    this.textValue,
+    this.$__typename = 'SharedTextValue',
+  });
+
+  factory Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$textValue = json['textValue'];
+    final l$$__typename = json['__typename'];
+    return Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes(
+      textValue: (l$textValue as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? textValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$textValue = textValue;
+    _resultData['textValue'] = l$textValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$textValue = textValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$textValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$textValue = textValue;
+    final lOther$textValue = other.textValue;
+    if (l$textValue != lOther$textValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes
+    on Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes {
+  CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes<
+    Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes<
+  TRes
+> {
+  factory CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes(
+    Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes
+    instance,
+    TRes Function(
+      Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes;
+
+  factory CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes;
+
+  TRes call({String? textValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes
+  _instance;
+
+  final TRes Function(
+    Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? textValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes(
+      textValue: textValue == _undefined
+          ? _instance.textValue
+          : (textValue as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$ja$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? textValue, String? $__typename}) => _res;
+}
+
+class Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en {
+  Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en({
+    required this.nodes,
+    this.$__typename = 'SharedTextValuesConnection',
+  });
+
+  factory Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en
+    on Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en {
+  CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en<
+    Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en
+  >
+  get copyWith =>
+      CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en<
+  TRes
+> {
+  factory CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en(
+    Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en
+    instance,
+    TRes Function(
+      Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en;
+
+  factory CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en;
+
+  TRes call({
+    List<
+      Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes<
+          Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en<
+  TRes
+>
+    implements
+        CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en<
+          TRes
+        > {
+  _CopyWithImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en
+  _instance;
+
+  final TRes Function(
+    Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes<
+          Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en<
+  TRes
+>
+    implements
+        CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes {
+  Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes({
+    this.textValue,
+    this.$__typename = 'SharedTextValue',
+  });
+
+  factory Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$textValue = json['textValue'];
+    final l$$__typename = json['__typename'];
+    return Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes(
+      textValue: (l$textValue as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? textValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$textValue = textValue;
+    _resultData['textValue'] = l$textValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$textValue = textValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$textValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$textValue = textValue;
+    final lOther$textValue = other.textValue;
+    if (l$textValue != lOther$textValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes
+    on Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes {
+  CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes<
+    Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes<
+  TRes
+> {
+  factory CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes(
+    Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes
+    instance,
+    TRes Function(
+      Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes;
+
+  factory CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes;
+
+  TRes call({String? textValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes
+  _instance;
+
+  final TRes Function(
+    Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? textValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes(
+      textValue: textValue == _undefined
+          ? _instance.textValue
+          : (textValue as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$CapabilityPageRfe$mstrCapabilityByMstrCapabilityId$detailTexts$en$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? textValue, String? $__typename}) => _res;
 }

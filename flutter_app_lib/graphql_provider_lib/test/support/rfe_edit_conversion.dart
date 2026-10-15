@@ -278,7 +278,7 @@ class RfeEditConversionAnalyzer {
 
     _envValues = {
       for (final v in _rfeOp.variableDefinitions)
-        v.variable.name.value: _synthScalar(namedTypeOf(v.type),'env:${v.variable.name.value}'),
+        v.variable.name.value: _synthEnv(v.type, 'env:${v.variable.name.value}'),
     };
 
     _compareSelections();
@@ -423,6 +423,12 @@ class RfeEditConversionAnalyzer {
       return _synthesize(sel, name, path);
     }
     return _synthScalar(name, pathToString(path));
+  }
+
+  /// 変数の値を作る。リスト型(並び順の引数`[XOrderBy!]`等、要件0053)は要素1つのリストにする。
+  dynamic _synthEnv(TypeNode type, String seed) {
+    if (type is ListTypeNode) return [_synthEnv(type.type, seed)];
+    return _synthScalar(namedTypeOf(type), seed);
   }
 
   dynamic _synthScalar(String typeName, String seed) {

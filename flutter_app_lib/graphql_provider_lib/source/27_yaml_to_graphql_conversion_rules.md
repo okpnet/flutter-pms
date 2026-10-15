@@ -357,6 +357,25 @@ readを参照する子は、引き継いだ言語の条件を、edit・RFEの言
   ただし子の位置では値に関わらず独立したRFEファイルは生成しない(RFEはトップレベルnodeごとに1つ)。
   `editable: true`の子は、親とともに編集モデルと相互変換する必要があるため、常に親のRFEに含まれる。
 
+### 6-9. `defaultSort` → 並び順の引数と既定値(要件0053)
+
+`defaultSort`は、`node`(kind: readのトップ)と`columnEntry`(`arrayType: toMany`)に指定できる。省略または`none`は並べない(標準)。並べるときは、`asc`(昇順)または`desc`(降順)をキーにし、その下の`sortColumns`に列名の配列を書く。ascとdescは同時に指定できない。
+
+```yaml
+defaultSort:
+  asc:
+    sortColumns:
+      - sequence
+```
+
+- GraphQLには、並び順の引数を**必ず**生成する。トップは`$orderBy: [<テーブル>sOrderBy!]`、1対多は`$<子の出力名>OrderBy: [<テーブル>sOrderBy!]`(`first`/`offset`の変数名と同じ規則)。
+- `defaultSort`は、この引数の既定値になる。`sortColumns`の各列を、指定した順に`= [<列>_ASC, ...]`/`[<列>_DESC, ...]`とする。`none`、または`sortColumns`がnull・空・省略のときは既定値を付けない(並べない)。
+- `sortColumns`は、このノードの列名(snake_case)で指定する。主キーは`primary_key`とも書ける。関連先の列は、PostGraphileの並び順(`orderBy`)に無いため指定できない。
+- 呼び出し側が引数を指定すると、`defaultSort`は効かない(GraphQLの変数の既定値は、変数が省略されたときだけ使われる)。引数に`null`を渡すと、並び順を設定しない。
+- 次のときはエラーとする: `defaultSort`が`none`でも`asc`/`desc`をキーにした入れ子でもない(文字列の`asc`/`desc`を含む)、ascとdescの同時指定、`sortColumns`が配列でない、`defaultSort`と同じ階層に`sortColumns`がある、列の並び順がスキーマに無い。
+- `sequence`列があるのに並び順の既定値が無い1対多は、警告を出す(要件0053以前は固定で`SEQUENCE_ASC`だったため、その挙動を残すには`defaultSort: { asc: { sortColumns: [sequence] } }`を指定する)。
+- edit(ミューテーション)では無視する。RFEは、読み込みと同じ規則で1対多に並び順の引数を生成する。
+
 ## 7. `edit`での書き込み対象の表現
 
 書き込み対象は次の2通りの表現が併存する。生成側はどちらの形式にも対応する前提とし、1つの`node`内で混在させることも構造上は可能だが、可読性のため通常はどちらか一方に統一することを推奨する。
@@ -451,7 +470,7 @@ second occurrence
 この章の規則は、`tool/view_graphql`(build_runnerのBuilder、CLI`tool/gen_view_graphql.dart`)として実装されている。
 詳細と既存の画面との比較は`docs/view_graphql_generator_2026-10-14.md`を参照する。
 
-- 入力は`source/view.yaml`と全量スキーマ(`source/schema.full.graphql`)。関連の向き・フィールド名・入力型はスキーマから求める。
+- 入力は`source/views/`以下のYAML(要件0052でview.yamlを分割。結合してから解析する)と全量スキーマ(`source/schema.full.graphql`)。関連の向き・フィールド名・入力型はスキーマから求める。
 - `using`は、親側のFK列(外向き)または子側のFK列(内向き)。`toMany`はコネクション、`toFirstOne`は単数のフィールドを優先する。
 - 呼称(`shared_appellations`)配下の辞書は、別名を付けない(平坦化キーを安定させるため)。単数の関連は主キーを必ず含める。
 - edit・RFEの引数名は、関係の名前を接頭辞に連ねる(`labels`・`address`は連ねない)。言語別の値は`<接頭辞>Ja`/`En`。
@@ -497,3 +516,5 @@ second occurrence
   注意を追記。`test.yaml`の列順を修正した。
 - 2026-09-26(要件0037): 独立した`kind: "RFE"`を廃止した。`company_page`の実装で「`CompanyPageRFE`が対応する`CompanyPageEdit`ではなく無関係な`dictionaryEdit`を誤って参照する」という事故(0034ログ)が発生し、根本原因が「同一であるべきedit/RFE定義がYAML上2箇所に独立して書けてしまうこと」にあると判明したため。`kind: "edit"`のノードに`generateRfe: true`を指定すると、そのeditと全く同一の`columns`ツリーから読み込み専用クエリ(旧RFE相当)を自動導出する方式に変更した(1章・2章・7章を修正、8章を全面書き換え)。`schema.json`の`kind`enumから`"RFE"`を削除し、新規プロパティ`generateRfe`(`node`のみ)を追加。`view.yaml`から`dictionaryRFE`・`appellationLabelsRFE`・`CompanyPageRFE`ノードを削除し、`CompanyPageEdit`に`requiredWhere: [info_company_id]`・`generateRfe: true`を追加した。
 - 2026-10-14(要件0051): view.yaml→GraphQLの生成ツール(`tool/view_graphql`)を追加し、11章に規則の実装を記した。
+- 2026-10-15(要件0052): view.yamlを`source/views/`以下の機能単位のファイルに分割した(規則は変更なし)。ファイルをまたぐアンカーの参照は、`tool/view_graphql/view_sources.dart`が依存順に結合して解決する。CLAUDE.md 5-9節、`docs/0052_view_yaml_split_log.md`を参照。
+- 2026-10-15(要件0053): `defaultSort`(asc/desc/none)を追加し、並び順の引数(`$orderBy`/`$<子の出力名>OrderBy`)を必ず生成するようにした(6-9節)。

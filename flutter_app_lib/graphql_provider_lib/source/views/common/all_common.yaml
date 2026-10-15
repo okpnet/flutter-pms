@@ -1,0 +1,125 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 共有(参照)定義: 住所情報 (点8) — info_address由来。company以外からも参照されうるため独立定義し、
+# 実際の利用箇所ではYAMLエイリアス(*AddressReadFields)で共有参照する。
+AddressReadFields: &AddressReadFields
+  kind: read
+  from: info_address
+  columns:
+    - iso3166_3
+    - zip_code
+    - name: address1
+      as: address1
+      using: address1
+      arrayType: toFirstOne
+      pick:
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - name: address2
+      as: address2
+      using: address2
+      arrayType: toFirstOne
+      pick:
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - name: bill
+      as: bill_name
+      using: bill
+      arrayType: toFirstOne
+      pick:
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - phone
+    - fax_number
+
+AddressEditFields: &AddressEditFields
+  kind: edit
+  from: info_address
+  columns:
+    - info_address_id
+    - iso3166_3
+    - zip_code
+    - name: address1
+      using: address1
+      arrayType: toFirstOne
+      <<: *AppellationLabelsEditFields
+    - name: address2
+      using: address2
+      arrayType: toFirstOne
+      <<: *AppellationLabelsEditFields
+    - name: bill
+      as: bill_name
+      using: bill
+      arrayType: toFirstOne
+      <<: *AppellationLabelsEditFields
+    - phone
+    - fax_number
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove 
+
+LanguageCodeEditFields: &LanguageCodeEditFields
+  kind: edit
+  from: shared_language_code
+  columns:
+    - shared_language_code_id
+    - code
+    - label
+    - priority
+    - is_default
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# スタッフ履歴
+# update_userに使用
+UpdateStaffReadFields: &UpdateStaffReadFields
+  kind: read
+  from: history_info_staff
+  columns:
+    - history_id
+    - info_staff_id
+    - info_company_id
+    - code
+    - name: name
+      as: name
+      using: names
+      arrayType: toFirstOne
+      pick: # 2026/09/29　追加
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - sex
+    - phone
+    - symbol
+    - private_phone
+
+# 単位の読み込み
+# 参照用の単位
+UnitReadFields: &UnitReadFields
+  kind: read
+  from: shared_unit
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - shared_unit_id
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields

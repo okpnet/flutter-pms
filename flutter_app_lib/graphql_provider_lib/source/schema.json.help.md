@@ -1,7 +1,7 @@
 # schema.json 属性ヘルプ
 
 `source/schema.json`(view.yaml用JSON Schema)が定義する属性ごとのヘルプ。実際に
-`source/view.yaml`で使われている例を示す。schema.jsonをレビュー・変更するたびに
+`source/views/`(分割したview.yaml)で使われている例を示す。schema.jsonをレビュー・変更するたびに
 この内容も更新すること(変更履歴はここには残さない。変更の経緯は
 `source/27_yaml_to_graphql_conversion_rules.md`の変更履歴、または`docs/`配下の
 実施ログを参照)。
@@ -215,6 +215,38 @@ CompanyPage:
 
 ---
 
+## defaultSort / sortColumns
+
+並び順の既定値(要件0053)。`kind: read`のトップノード(一覧の取得)と、
+`arrayType: toMany`の`columnEntry`(1対多)に意味を持つ。
+
+- `defaultSort`: 省略または`none`は並べない(標準)。並べるときは、`asc`(昇順)または
+  `desc`(降順)をキーにした入れ子にする。ascとdescは同時に指定できない。
+  - `sortColumns`: 並べる列名(このノードの列。snake_case)の配列。`asc`/`desc`の下に置く。
+    指定した順に、その向きで並べる。主キーは`primary_key`とも書ける。
+  - `sortColumns`がnull・空・省略のときは、`none`と同義(並べない)。
+  - 関連先の列では並べられない(PostGraphileの`orderBy`に無いためエラー)。
+- GraphQLには並び順の引数を必ず生成する(トップは`$orderBy`、1対多は
+  `$<子の出力名>OrderBy`)。`defaultSort`はその既定値になる。
+  呼び出し側が引数を指定すると`defaultSort`は無効になり、`null`を渡すと
+  並び順を設定しない。edit(ミューテーション)では無視する。
+
+例(`OperationPageEdit.operationTasks`。順(`sequence`)の昇順):
+```yaml
+- name: operationTasks
+  arrayType: toMany
+  defaultSort:
+    asc:
+      sortColumns:
+        - sequence
+```
+生成されるGraphQL: `$operationTasksOrderBy: [MstrOperationTasksOrderBy!] = [SEQUENCE_ASC]`
+
+文字列の`defaultSort: asc`や、`defaultSort`と同じ階層の`sortColumns`は、
+YAMLとして子を持てない(または定義に無い)ためエラーになる。
+
+---
+
 ## generateRfe
 
 真偽値。`kind: edit`のノード(トップレベルの画面ノードを想定。`columnEntry`には
@@ -255,7 +287,7 @@ CompanyPageEdit:
 
 `columnEntry`オブジェクトが持てるプロパティ: `name`・`as`・`arrayType`・`kind`・
 `from`・`using`・`requiredWhere`・`where`・`defaultWhere`・`condition`・
-`columns`・`pick`・`output`・`limit`・`offset`・`pagination`・`editTables`
+`columns`・`pick`・`output`・`limit`・`offset`・`pagination`・`defaultSort`・`editTables`
 (`generateRfe`は含まない。トップレベルのnodeにのみ意味を持つため)。
 
 `name`は結合・マージ元を識別するための識別子(YAMLアンカーで共有アームを
@@ -463,4 +495,4 @@ editTables:
 
 - 変換の考え方・振る舞いの詳細ルールは`source/27_yaml_to_graphql_conversion_rules.md`
   を参照。
-- `view.yaml`の実例は`source/view.yaml`を直接参照。
+- `view.yaml`の実例は`source/views/`以下を直接参照。

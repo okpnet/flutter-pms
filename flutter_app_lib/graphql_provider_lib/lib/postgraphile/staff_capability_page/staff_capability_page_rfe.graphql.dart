@@ -415,62 +415,6 @@ const documentNodeQueryStaffCapabilityPageRfe = DocumentNode(
                   selectionSet: null,
                 ),
                 FieldNode(
-                  name: NameNode(value: 'mstrCapabilityId'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'value'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'stop'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'remarks'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'updateAt'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'updateUserId'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'updateUserHistoryId'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'remove'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
                   name: NameNode(value: 'infoStaffByInfoStaffId'),
                   alias: NameNode(value: 'staff'),
                   arguments: [],
@@ -493,55 +437,6 @@ const documentNodeQueryStaffCapabilityPageRfe = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(value: 'code'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'sex'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'phone'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'privatePhone'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'symbol'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'remarks'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'updateAt'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'remove'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -1049,6 +944,55 @@ const documentNodeQueryStaffCapabilityPageRfe = DocumentNode(
                         ),
                       ),
                       FieldNode(
+                        name: NameNode(value: 'sex'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'phone'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'privatePhone'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'symbol'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'updateAt'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'remove'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
                         name: NameNode(
                           value:
                               'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
@@ -1081,34 +1025,6 @@ const documentNodeQueryStaffCapabilityPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(value: 'code'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'sex'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'phone'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'symbol'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'privatePhone'),
                               alias: null,
                               arguments: [],
                               directives: [],
@@ -1666,6 +1582,34 @@ const documentNodeQueryStaffCapabilityPageRfe = DocumentNode(
                               ),
                             ),
                             FieldNode(
+                              name: NameNode(value: 'sex'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'phone'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'symbol'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'privatePhone'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
                               name: NameNode(value: '__typename'),
                               alias: null,
                               arguments: [],
@@ -1684,6 +1628,13 @@ const documentNodeQueryStaffCapabilityPageRfe = DocumentNode(
                       ),
                     ],
                   ),
+                ),
+                FieldNode(
+                  name: NameNode(value: 'mstrCapabilityId'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
                 ),
                 FieldNode(
                   name: NameNode(value: 'mstrCapabilityByMstrCapabilityId'),
@@ -1707,11 +1658,651 @@ const documentNodeQueryStaffCapabilityPageRfe = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
-                        name: NameNode(value: 'detail'),
-                        alias: null,
+                        name: NameNode(value: 'sharedAppellationByNames'),
+                        alias: NameNode(value: 'labels'),
                         arguments: [],
                         directives: [],
-                        selectionSet: null,
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'sharedAppellationsId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(
+                                value:
+                                    'sharedDictionaryBySharedDictionaryNameId',
+                              ),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: SelectionSetNode(
+                                selections: [
+                                  FieldNode(
+                                    name: NameNode(value: 'sharedDictionaryId'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(
+                                      value:
+                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                    ),
+                                    alias: NameNode(value: 'ja'),
+                                    arguments: [
+                                      ArgumentNode(
+                                        name: NameNode(value: 'condition'),
+                                        value: ObjectValueNode(
+                                          fields: [
+                                            ObjectFieldNode(
+                                              name: NameNode(
+                                                value: 'sharedLanguageCodeId',
+                                              ),
+                                              value: VariableNode(
+                                                name: NameNode(
+                                                  value: 'jaLanguageCodeId',
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                    directives: [],
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'nodes'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'dictionaryValue',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(
+                                      value:
+                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                    ),
+                                    alias: NameNode(value: 'en'),
+                                    arguments: [
+                                      ArgumentNode(
+                                        name: NameNode(value: 'condition'),
+                                        value: ObjectValueNode(
+                                          fields: [
+                                            ObjectFieldNode(
+                                              name: NameNode(
+                                                value: 'sharedLanguageCodeId',
+                                              ),
+                                              value: VariableNode(
+                                                name: NameNode(
+                                                  value: 'enLanguageCodeId',
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                    directives: [],
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'nodes'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'dictionaryValue',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: '__typename'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FieldNode(
+                              name: NameNode(
+                                value:
+                                    'sharedDictionaryBySharedDictionaryPronunciationId',
+                              ),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: SelectionSetNode(
+                                selections: [
+                                  FieldNode(
+                                    name: NameNode(value: 'sharedDictionaryId'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(
+                                      value:
+                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                    ),
+                                    alias: NameNode(value: 'ja'),
+                                    arguments: [
+                                      ArgumentNode(
+                                        name: NameNode(value: 'condition'),
+                                        value: ObjectValueNode(
+                                          fields: [
+                                            ObjectFieldNode(
+                                              name: NameNode(
+                                                value: 'sharedLanguageCodeId',
+                                              ),
+                                              value: VariableNode(
+                                                name: NameNode(
+                                                  value: 'jaLanguageCodeId',
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                    directives: [],
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'nodes'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'dictionaryValue',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(
+                                      value:
+                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                    ),
+                                    alias: NameNode(value: 'en'),
+                                    arguments: [
+                                      ArgumentNode(
+                                        name: NameNode(value: 'condition'),
+                                        value: ObjectValueNode(
+                                          fields: [
+                                            ObjectFieldNode(
+                                              name: NameNode(
+                                                value: 'sharedLanguageCodeId',
+                                              ),
+                                              value: VariableNode(
+                                                name: NameNode(
+                                                  value: 'enLanguageCodeId',
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                    directives: [],
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'nodes'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'dictionaryValue',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: '__typename'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FieldNode(
+                              name: NameNode(
+                                value:
+                                    'sharedDictionaryBySharedDictionaryNicknameId',
+                              ),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: SelectionSetNode(
+                                selections: [
+                                  FieldNode(
+                                    name: NameNode(value: 'sharedDictionaryId'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(
+                                      value:
+                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                    ),
+                                    alias: NameNode(value: 'ja'),
+                                    arguments: [
+                                      ArgumentNode(
+                                        name: NameNode(value: 'condition'),
+                                        value: ObjectValueNode(
+                                          fields: [
+                                            ObjectFieldNode(
+                                              name: NameNode(
+                                                value: 'sharedLanguageCodeId',
+                                              ),
+                                              value: VariableNode(
+                                                name: NameNode(
+                                                  value: 'jaLanguageCodeId',
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                    directives: [],
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'nodes'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'dictionaryValue',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(
+                                      value:
+                                          'sharedDictionaryValuesBySharedDictionaryId',
+                                    ),
+                                    alias: NameNode(value: 'en'),
+                                    arguments: [
+                                      ArgumentNode(
+                                        name: NameNode(value: 'condition'),
+                                        value: ObjectValueNode(
+                                          fields: [
+                                            ObjectFieldNode(
+                                              name: NameNode(
+                                                value: 'sharedLanguageCodeId',
+                                              ),
+                                              value: VariableNode(
+                                                name: NameNode(
+                                                  value: 'enLanguageCodeId',
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                    directives: [],
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'nodes'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'dictionaryValue',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: '__typename'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'sharedTextByDetails'),
+                        alias: NameNode(value: 'detailTexts'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'sharedTextId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(
+                                value: 'sharedTextValuesBySharedTextId',
+                              ),
+                              alias: NameNode(value: 'ja'),
+                              arguments: [
+                                ArgumentNode(
+                                  name: NameNode(value: 'condition'),
+                                  value: ObjectValueNode(
+                                    fields: [
+                                      ObjectFieldNode(
+                                        name: NameNode(
+                                          value: 'sharedLanguageCodeId',
+                                        ),
+                                        value: VariableNode(
+                                          name: NameNode(
+                                            value: 'jaLanguageCodeId',
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                              directives: [],
+                              selectionSet: SelectionSetNode(
+                                selections: [
+                                  FieldNode(
+                                    name: NameNode(value: 'nodes'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'textValue'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: '__typename'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FieldNode(
+                              name: NameNode(
+                                value: 'sharedTextValuesBySharedTextId',
+                              ),
+                              alias: NameNode(value: 'en'),
+                              arguments: [
+                                ArgumentNode(
+                                  name: NameNode(value: 'condition'),
+                                  value: ObjectValueNode(
+                                    fields: [
+                                      ObjectFieldNode(
+                                        name: NameNode(
+                                          value: 'sharedLanguageCodeId',
+                                        ),
+                                        value: VariableNode(
+                                          name: NameNode(
+                                            value: 'enLanguageCodeId',
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                              directives: [],
+                              selectionSet: SelectionSetNode(
+                                selections: [
+                                  FieldNode(
+                                    name: NameNode(value: 'nodes'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'textValue'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: '__typename'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
                       ),
                       FieldNode(
                         name: NameNode(value: 'referenceValue'),
@@ -1770,507 +2361,6 @@ const documentNodeQueryStaffCapabilityPageRfe = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
-                        name: NameNode(value: 'sharedAppellationByNames'),
-                        alias: NameNode(value: 'labels'),
-                        arguments: [],
-                        directives: [],
-                        selectionSet: SelectionSetNode(
-                          selections: [
-                            FieldNode(
-                              name: NameNode(value: 'sharedAppellationsId'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryNameId',
-                              ),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: SelectionSetNode(
-                                selections: [
-                                  FieldNode(
-                                    name: NameNode(value: 'sharedDictionaryId'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
-                                    ),
-                                    alias: NameNode(value: 'ja'),
-                                    arguments: [
-                                      ArgumentNode(
-                                        name: NameNode(value: 'condition'),
-                                        value: ObjectValueNode(
-                                          fields: [
-                                            ObjectFieldNode(
-                                              name: NameNode(
-                                                value: 'sharedLanguageCodeId',
-                                              ),
-                                              value: VariableNode(
-                                                name: NameNode(
-                                                  value: 'jaLanguageCodeId',
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                    directives: [],
-                                    selectionSet: SelectionSetNode(
-                                      selections: [
-                                        FieldNode(
-                                          name: NameNode(value: 'nodes'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: SelectionSetNode(
-                                            selections: [
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: 'dictionaryValue',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: '__typename',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(value: '__typename'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
-                                    ),
-                                    alias: NameNode(value: 'en'),
-                                    arguments: [
-                                      ArgumentNode(
-                                        name: NameNode(value: 'condition'),
-                                        value: ObjectValueNode(
-                                          fields: [
-                                            ObjectFieldNode(
-                                              name: NameNode(
-                                                value: 'sharedLanguageCodeId',
-                                              ),
-                                              value: VariableNode(
-                                                name: NameNode(
-                                                  value: 'enLanguageCodeId',
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                    directives: [],
-                                    selectionSet: SelectionSetNode(
-                                      selections: [
-                                        FieldNode(
-                                          name: NameNode(value: 'nodes'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: SelectionSetNode(
-                                            selections: [
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: 'dictionaryValue',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: '__typename',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(value: '__typename'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(value: '__typename'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            FieldNode(
-                              name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryPronunciationId',
-                              ),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: SelectionSetNode(
-                                selections: [
-                                  FieldNode(
-                                    name: NameNode(value: 'sharedDictionaryId'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
-                                    ),
-                                    alias: NameNode(value: 'ja'),
-                                    arguments: [
-                                      ArgumentNode(
-                                        name: NameNode(value: 'condition'),
-                                        value: ObjectValueNode(
-                                          fields: [
-                                            ObjectFieldNode(
-                                              name: NameNode(
-                                                value: 'sharedLanguageCodeId',
-                                              ),
-                                              value: VariableNode(
-                                                name: NameNode(
-                                                  value: 'jaLanguageCodeId',
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                    directives: [],
-                                    selectionSet: SelectionSetNode(
-                                      selections: [
-                                        FieldNode(
-                                          name: NameNode(value: 'nodes'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: SelectionSetNode(
-                                            selections: [
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: 'dictionaryValue',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: '__typename',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(value: '__typename'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
-                                    ),
-                                    alias: NameNode(value: 'en'),
-                                    arguments: [
-                                      ArgumentNode(
-                                        name: NameNode(value: 'condition'),
-                                        value: ObjectValueNode(
-                                          fields: [
-                                            ObjectFieldNode(
-                                              name: NameNode(
-                                                value: 'sharedLanguageCodeId',
-                                              ),
-                                              value: VariableNode(
-                                                name: NameNode(
-                                                  value: 'enLanguageCodeId',
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                    directives: [],
-                                    selectionSet: SelectionSetNode(
-                                      selections: [
-                                        FieldNode(
-                                          name: NameNode(value: 'nodes'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: SelectionSetNode(
-                                            selections: [
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: 'dictionaryValue',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: '__typename',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(value: '__typename'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(value: '__typename'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            FieldNode(
-                              name: NameNode(
-                                value:
-                                    'sharedDictionaryBySharedDictionaryNicknameId',
-                              ),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: SelectionSetNode(
-                                selections: [
-                                  FieldNode(
-                                    name: NameNode(value: 'sharedDictionaryId'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
-                                    ),
-                                    alias: NameNode(value: 'ja'),
-                                    arguments: [
-                                      ArgumentNode(
-                                        name: NameNode(value: 'condition'),
-                                        value: ObjectValueNode(
-                                          fields: [
-                                            ObjectFieldNode(
-                                              name: NameNode(
-                                                value: 'sharedLanguageCodeId',
-                                              ),
-                                              value: VariableNode(
-                                                name: NameNode(
-                                                  value: 'jaLanguageCodeId',
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                    directives: [],
-                                    selectionSet: SelectionSetNode(
-                                      selections: [
-                                        FieldNode(
-                                          name: NameNode(value: 'nodes'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: SelectionSetNode(
-                                            selections: [
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: 'dictionaryValue',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: '__typename',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(value: '__typename'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(
-                                      value:
-                                          'sharedDictionaryValuesBySharedDictionaryId',
-                                    ),
-                                    alias: NameNode(value: 'en'),
-                                    arguments: [
-                                      ArgumentNode(
-                                        name: NameNode(value: 'condition'),
-                                        value: ObjectValueNode(
-                                          fields: [
-                                            ObjectFieldNode(
-                                              name: NameNode(
-                                                value: 'sharedLanguageCodeId',
-                                              ),
-                                              value: VariableNode(
-                                                name: NameNode(
-                                                  value: 'enLanguageCodeId',
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                    directives: [],
-                                    selectionSet: SelectionSetNode(
-                                      selections: [
-                                        FieldNode(
-                                          name: NameNode(value: 'nodes'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: SelectionSetNode(
-                                            selections: [
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: 'dictionaryValue',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: '__typename',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(value: '__typename'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(value: '__typename'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            FieldNode(
-                              name: NameNode(value: '__typename'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                          ],
-                        ),
-                      ),
-                      FieldNode(
                         name: NameNode(
                           value:
                               'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
@@ -2303,34 +2393,6 @@ const documentNodeQueryStaffCapabilityPageRfe = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(value: 'code'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'sex'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'phone'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'symbol'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'privatePhone'),
                               alias: null,
                               arguments: [],
                               directives: [],
@@ -2888,6 +2950,34 @@ const documentNodeQueryStaffCapabilityPageRfe = DocumentNode(
                               ),
                             ),
                             FieldNode(
+                              name: NameNode(value: 'sex'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'phone'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'symbol'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'privatePhone'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
                               name: NameNode(value: '__typename'),
                               alias: null,
                               arguments: [],
@@ -2906,6 +2996,55 @@ const documentNodeQueryStaffCapabilityPageRfe = DocumentNode(
                       ),
                     ],
                   ),
+                ),
+                FieldNode(
+                  name: NameNode(value: 'value'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
+                  name: NameNode(value: 'stop'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
+                  name: NameNode(value: 'remarks'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
+                  name: NameNode(value: 'updateUserId'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
+                  name: NameNode(value: 'updateUserHistoryId'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
+                  name: NameNode(value: 'remove'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
+                  name: NameNode(value: 'updateAt'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
                 ),
                 FieldNode(
                   name: NameNode(value: '__typename'),
@@ -3097,16 +3236,16 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
   Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId({
     required this.mstrStaffCapabilityId,
     required this.infoStaffId,
+    this.staff,
     this.mstrCapabilityId,
+    this.capability,
     this.value,
     this.stop,
     this.remarks,
-    this.updateAt,
     this.updateUserId,
     this.updateUserHistoryId,
     this.remove,
-    this.staff,
-    this.capability,
+    this.updateAt,
     this.$__typename = 'MstrStaffCapability',
   });
 
@@ -3115,38 +3254,38 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
   ) {
     final l$mstrStaffCapabilityId = json['mstrStaffCapabilityId'];
     final l$infoStaffId = json['infoStaffId'];
+    final l$staff = json['staff'];
     final l$mstrCapabilityId = json['mstrCapabilityId'];
+    final l$capability = json['capability'];
     final l$value = json['value'];
     final l$stop = json['stop'];
     final l$remarks = json['remarks'];
-    final l$updateAt = json['updateAt'];
     final l$updateUserId = json['updateUserId'];
     final l$updateUserHistoryId = json['updateUserHistoryId'];
     final l$remove = json['remove'];
-    final l$staff = json['staff'];
-    final l$capability = json['capability'];
+    final l$updateAt = json['updateAt'];
     final l$$__typename = json['__typename'];
     return Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId(
       mstrStaffCapabilityId: (l$mstrStaffCapabilityId as String),
       infoStaffId: (l$infoStaffId as String),
-      mstrCapabilityId: (l$mstrCapabilityId as String?),
-      value: (l$value as String?),
-      stop: (l$stop as bool?),
-      remarks: (l$remarks as String?),
-      updateAt: (l$updateAt as String?),
-      updateUserId: (l$updateUserId as String?),
-      updateUserHistoryId: (l$updateUserHistoryId as String?),
-      remove: (l$remove as bool?),
       staff: l$staff == null
           ? null
           : Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff.fromJson(
               (l$staff as Map<String, dynamic>),
             ),
+      mstrCapabilityId: (l$mstrCapabilityId as String?),
       capability: l$capability == null
           ? null
           : Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability.fromJson(
               (l$capability as Map<String, dynamic>),
             ),
+      value: (l$value as String?),
+      stop: (l$stop as bool?),
+      remarks: (l$remarks as String?),
+      updateUserId: (l$updateUserId as String?),
+      updateUserHistoryId: (l$updateUserHistoryId as String?),
+      remove: (l$remove as bool?),
+      updateAt: (l$updateAt as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -3155,7 +3294,13 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
 
   final String infoStaffId;
 
+  final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff?
+  staff;
+
   final String? mstrCapabilityId;
+
+  final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability?
+  capability;
 
   final String? value;
 
@@ -3163,19 +3308,13 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
 
   final String? remarks;
 
-  final String? updateAt;
-
   final String? updateUserId;
 
   final String? updateUserHistoryId;
 
   final bool? remove;
 
-  final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff?
-  staff;
-
-  final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability?
-  capability;
+  final String? updateAt;
 
   final String $__typename;
 
@@ -3185,26 +3324,26 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     _resultData['mstrStaffCapabilityId'] = l$mstrStaffCapabilityId;
     final l$infoStaffId = infoStaffId;
     _resultData['infoStaffId'] = l$infoStaffId;
+    final l$staff = staff;
+    _resultData['staff'] = l$staff?.toJson();
     final l$mstrCapabilityId = mstrCapabilityId;
     _resultData['mstrCapabilityId'] = l$mstrCapabilityId;
+    final l$capability = capability;
+    _resultData['capability'] = l$capability?.toJson();
     final l$value = value;
     _resultData['value'] = l$value;
     final l$stop = stop;
     _resultData['stop'] = l$stop;
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
-    final l$updateAt = updateAt;
-    _resultData['updateAt'] = l$updateAt;
     final l$updateUserId = updateUserId;
     _resultData['updateUserId'] = l$updateUserId;
     final l$updateUserHistoryId = updateUserHistoryId;
     _resultData['updateUserHistoryId'] = l$updateUserHistoryId;
     final l$remove = remove;
     _resultData['remove'] = l$remove;
-    final l$staff = staff;
-    _resultData['staff'] = l$staff?.toJson();
-    final l$capability = capability;
-    _resultData['capability'] = l$capability?.toJson();
+    final l$updateAt = updateAt;
+    _resultData['updateAt'] = l$updateAt;
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -3214,30 +3353,30 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
   int get hashCode {
     final l$mstrStaffCapabilityId = mstrStaffCapabilityId;
     final l$infoStaffId = infoStaffId;
+    final l$staff = staff;
     final l$mstrCapabilityId = mstrCapabilityId;
+    final l$capability = capability;
     final l$value = value;
     final l$stop = stop;
     final l$remarks = remarks;
-    final l$updateAt = updateAt;
     final l$updateUserId = updateUserId;
     final l$updateUserHistoryId = updateUserHistoryId;
     final l$remove = remove;
-    final l$staff = staff;
-    final l$capability = capability;
+    final l$updateAt = updateAt;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$mstrStaffCapabilityId,
       l$infoStaffId,
+      l$staff,
       l$mstrCapabilityId,
+      l$capability,
       l$value,
       l$stop,
       l$remarks,
-      l$updateAt,
       l$updateUserId,
       l$updateUserHistoryId,
       l$remove,
-      l$staff,
-      l$capability,
+      l$updateAt,
       l$$__typename,
     ]);
   }
@@ -3262,9 +3401,19 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     if (l$infoStaffId != lOther$infoStaffId) {
       return false;
     }
+    final l$staff = staff;
+    final lOther$staff = other.staff;
+    if (l$staff != lOther$staff) {
+      return false;
+    }
     final l$mstrCapabilityId = mstrCapabilityId;
     final lOther$mstrCapabilityId = other.mstrCapabilityId;
     if (l$mstrCapabilityId != lOther$mstrCapabilityId) {
+      return false;
+    }
+    final l$capability = capability;
+    final lOther$capability = other.capability;
+    if (l$capability != lOther$capability) {
       return false;
     }
     final l$value = value;
@@ -3282,11 +3431,6 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     if (l$remarks != lOther$remarks) {
       return false;
     }
-    final l$updateAt = updateAt;
-    final lOther$updateAt = other.updateAt;
-    if (l$updateAt != lOther$updateAt) {
-      return false;
-    }
     final l$updateUserId = updateUserId;
     final lOther$updateUserId = other.updateUserId;
     if (l$updateUserId != lOther$updateUserId) {
@@ -3302,14 +3446,9 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     if (l$remove != lOther$remove) {
       return false;
     }
-    final l$staff = staff;
-    final lOther$staff = other.staff;
-    if (l$staff != lOther$staff) {
-      return false;
-    }
-    final l$capability = capability;
-    final lOther$capability = other.capability;
-    if (l$capability != lOther$capability) {
+    final l$updateAt = updateAt;
+    final lOther$updateAt = other.updateAt;
+    if (l$updateAt != lOther$updateAt) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -3353,18 +3492,18 @@ abstract class CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrSt
   TRes call({
     String? mstrStaffCapabilityId,
     String? infoStaffId,
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff?
+    staff,
     String? mstrCapabilityId,
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability?
+    capability,
     String? value,
     bool? stop,
     String? remarks,
-    String? updateAt,
     String? updateUserId,
     String? updateUserHistoryId,
     bool? remove,
-    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff?
-    staff,
-    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability?
-    capability,
+    String? updateAt,
     String? $__typename,
   });
   CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff<
@@ -3402,16 +3541,16 @@ class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffC
   TRes call({
     Object? mstrStaffCapabilityId = _undefined,
     Object? infoStaffId = _undefined,
+    Object? staff = _undefined,
     Object? mstrCapabilityId = _undefined,
+    Object? capability = _undefined,
     Object? value = _undefined,
     Object? stop = _undefined,
     Object? remarks = _undefined,
-    Object? updateAt = _undefined,
     Object? updateUserId = _undefined,
     Object? updateUserHistoryId = _undefined,
     Object? remove = _undefined,
-    Object? staff = _undefined,
-    Object? capability = _undefined,
+    Object? updateAt = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId(
@@ -3422,15 +3561,20 @@ class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffC
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
+      staff: staff == _undefined
+          ? _instance.staff
+          : (staff
+                as Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff?),
       mstrCapabilityId: mstrCapabilityId == _undefined
           ? _instance.mstrCapabilityId
           : (mstrCapabilityId as String?),
+      capability: capability == _undefined
+          ? _instance.capability
+          : (capability
+                as Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability?),
       value: value == _undefined ? _instance.value : (value as String?),
       stop: stop == _undefined ? _instance.stop : (stop as bool?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
-      updateAt: updateAt == _undefined
-          ? _instance.updateAt
-          : (updateAt as String?),
       updateUserId: updateUserId == _undefined
           ? _instance.updateUserId
           : (updateUserId as String?),
@@ -3438,14 +3582,9 @@ class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffC
           ? _instance.updateUserHistoryId
           : (updateUserHistoryId as String?),
       remove: remove == _undefined ? _instance.remove : (remove as bool?),
-      staff: staff == _undefined
-          ? _instance.staff
-          : (staff
-                as Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff?),
-      capability: capability == _undefined
-          ? _instance.capability
-          : (capability
-                as Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability?),
+      updateAt: updateAt == _undefined
+          ? _instance.updateAt
+          : (updateAt as String?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -3499,18 +3638,18 @@ class _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrSt
   call({
     String? mstrStaffCapabilityId,
     String? infoStaffId,
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff?
+    staff,
     String? mstrCapabilityId,
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability?
+    capability,
     String? value,
     bool? stop,
     String? remarks,
-    String? updateAt,
     String? updateUserId,
     String? updateUserHistoryId,
     bool? remove,
-    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff?
-    staff,
-    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability?
-    capability,
+    String? updateAt,
     String? $__typename,
   }) => _res;
 
@@ -3536,6 +3675,7 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     required this.infoStaffId,
     this.infoCompanyId,
     this.code,
+    this.labels,
     this.sex,
     this.phone,
     this.privatePhone,
@@ -3543,7 +3683,6 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     this.remarks,
     this.updateAt,
     this.remove,
-    this.labels,
     this.update_user,
     this.$__typename = 'InfoStaff',
   });
@@ -3554,6 +3693,7 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     final l$infoStaffId = json['infoStaffId'];
     final l$infoCompanyId = json['infoCompanyId'];
     final l$code = json['code'];
+    final l$labels = json['labels'];
     final l$sex = json['sex'];
     final l$phone = json['phone'];
     final l$privatePhone = json['privatePhone'];
@@ -3561,13 +3701,17 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     final l$remarks = json['remarks'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
-    final l$labels = json['labels'];
     final l$update_user = json['update_user'];
     final l$$__typename = json['__typename'];
     return Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff(
       infoStaffId: (l$infoStaffId as String),
       infoCompanyId: (l$infoCompanyId as String?),
       code: (l$code as String?),
+      labels: l$labels == null
+          ? null
+          : Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$labels.fromJson(
+              (l$labels as Map<String, dynamic>),
+            ),
       sex: (l$sex as String?),
       phone: (l$phone as String?),
       privatePhone: (l$privatePhone as String?),
@@ -3575,11 +3719,6 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
       remarks: (l$remarks as String?),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
-      labels: l$labels == null
-          ? null
-          : Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$labels.fromJson(
-              (l$labels as Map<String, dynamic>),
-            ),
       update_user: l$update_user == null
           ? null
           : Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$update_user.fromJson(
@@ -3595,6 +3734,9 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
 
   final String? code;
 
+  final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$labels?
+  labels;
+
   final String? sex;
 
   final String? phone;
@@ -3609,9 +3751,6 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
 
   final bool? remove;
 
-  final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$labels?
-  labels;
-
   final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$update_user?
   update_user;
 
@@ -3625,6 +3764,8 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     _resultData['infoCompanyId'] = l$infoCompanyId;
     final l$code = code;
     _resultData['code'] = l$code;
+    final l$labels = labels;
+    _resultData['labels'] = l$labels?.toJson();
     final l$sex = sex;
     _resultData['sex'] = l$sex;
     final l$phone = phone;
@@ -3639,8 +3780,6 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
     _resultData['remove'] = l$remove;
-    final l$labels = labels;
-    _resultData['labels'] = l$labels?.toJson();
     final l$update_user = update_user;
     _resultData['update_user'] = l$update_user?.toJson();
     final l$$__typename = $__typename;
@@ -3653,6 +3792,7 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     final l$infoStaffId = infoStaffId;
     final l$infoCompanyId = infoCompanyId;
     final l$code = code;
+    final l$labels = labels;
     final l$sex = sex;
     final l$phone = phone;
     final l$privatePhone = privatePhone;
@@ -3660,13 +3800,13 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     final l$remarks = remarks;
     final l$updateAt = updateAt;
     final l$remove = remove;
-    final l$labels = labels;
     final l$update_user = update_user;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoStaffId,
       l$infoCompanyId,
       l$code,
+      l$labels,
       l$sex,
       l$phone,
       l$privatePhone,
@@ -3674,7 +3814,6 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
       l$remarks,
       l$updateAt,
       l$remove,
-      l$labels,
       l$update_user,
       l$$__typename,
     ]);
@@ -3703,6 +3842,11 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     final l$code = code;
     final lOther$code = other.code;
     if (l$code != lOther$code) {
+      return false;
+    }
+    final l$labels = labels;
+    final lOther$labels = other.labels;
+    if (l$labels != lOther$labels) {
       return false;
     }
     final l$sex = sex;
@@ -3738,11 +3882,6 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     final l$remove = remove;
     final lOther$remove = other.remove;
     if (l$remove != lOther$remove) {
-      return false;
-    }
-    final l$labels = labels;
-    final lOther$labels = other.labels;
-    if (l$labels != lOther$labels) {
       return false;
     }
     final l$update_user = update_user;
@@ -3792,6 +3931,8 @@ abstract class CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrSt
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$labels?
+    labels,
     String? sex,
     String? phone,
     String? privatePhone,
@@ -3799,8 +3940,6 @@ abstract class CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrSt
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$labels?
-    labels,
     Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$update_user?
     update_user,
     String? $__typename,
@@ -3841,6 +3980,7 @@ class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffC
     Object? infoStaffId = _undefined,
     Object? infoCompanyId = _undefined,
     Object? code = _undefined,
+    Object? labels = _undefined,
     Object? sex = _undefined,
     Object? phone = _undefined,
     Object? privatePhone = _undefined,
@@ -3848,7 +3988,6 @@ class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffC
     Object? remarks = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
-    Object? labels = _undefined,
     Object? update_user = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
@@ -3860,6 +3999,10 @@ class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffC
           ? _instance.infoCompanyId
           : (infoCompanyId as String?),
       code: code == _undefined ? _instance.code : (code as String?),
+      labels: labels == _undefined
+          ? _instance.labels
+          : (labels
+                as Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$labels?),
       sex: sex == _undefined ? _instance.sex : (sex as String?),
       phone: phone == _undefined ? _instance.phone : (phone as String?),
       privatePhone: privatePhone == _undefined
@@ -3871,10 +4014,6 @@ class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffC
           ? _instance.updateAt
           : (updateAt as String?),
       remove: remove == _undefined ? _instance.remove : (remove as bool?),
-      labels: labels == _undefined
-          ? _instance.labels
-          : (labels
-                as Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$labels?),
       update_user: update_user == _undefined
           ? _instance.update_user
           : (update_user
@@ -3933,6 +4072,8 @@ class _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrSt
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$labels?
+    labels,
     String? sex,
     String? phone,
     String? privatePhone,
@@ -3940,8 +4081,6 @@ class _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrSt
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$labels?
-    labels,
     Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$update_user?
     update_user,
     String? $__typename,
@@ -7279,11 +7418,11 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     required this.infoStaffId,
     this.infoCompanyId,
     this.code,
+    this.name,
     this.sex,
     this.phone,
     this.symbol,
     this.privatePhone,
-    this.name,
     this.$__typename = 'HistoryInfoStaff',
   });
 
@@ -7294,26 +7433,26 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     final l$infoStaffId = json['infoStaffId'];
     final l$infoCompanyId = json['infoCompanyId'];
     final l$code = json['code'];
+    final l$name = json['name'];
     final l$sex = json['sex'];
     final l$phone = json['phone'];
     final l$symbol = json['symbol'];
     final l$privatePhone = json['privatePhone'];
-    final l$name = json['name'];
     final l$$__typename = json['__typename'];
     return Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
       infoCompanyId: (l$infoCompanyId as String?),
       code: (l$code as String?),
-      sex: (l$sex as String?),
-      phone: (l$phone as String?),
-      symbol: (l$symbol as String?),
-      privatePhone: (l$privatePhone as String?),
       name: l$name == null
           ? null
           : Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$update_user$name.fromJson(
               (l$name as Map<String, dynamic>),
             ),
+      sex: (l$sex as String?),
+      phone: (l$phone as String?),
+      symbol: (l$symbol as String?),
+      privatePhone: (l$privatePhone as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -7326,6 +7465,9 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
 
   final String? code;
 
+  final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$update_user$name?
+  name;
+
   final String? sex;
 
   final String? phone;
@@ -7333,9 +7475,6 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
   final String? symbol;
 
   final String? privatePhone;
-
-  final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$update_user$name?
-  name;
 
   final String $__typename;
 
@@ -7349,6 +7488,8 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     _resultData['infoCompanyId'] = l$infoCompanyId;
     final l$code = code;
     _resultData['code'] = l$code;
+    final l$name = name;
+    _resultData['name'] = l$name?.toJson();
     final l$sex = sex;
     _resultData['sex'] = l$sex;
     final l$phone = phone;
@@ -7357,8 +7498,6 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     _resultData['symbol'] = l$symbol;
     final l$privatePhone = privatePhone;
     _resultData['privatePhone'] = l$privatePhone;
-    final l$name = name;
-    _resultData['name'] = l$name?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -7370,22 +7509,22 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     final l$infoStaffId = infoStaffId;
     final l$infoCompanyId = infoCompanyId;
     final l$code = code;
+    final l$name = name;
     final l$sex = sex;
     final l$phone = phone;
     final l$symbol = symbol;
     final l$privatePhone = privatePhone;
-    final l$name = name;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$historyId,
       l$infoStaffId,
       l$infoCompanyId,
       l$code,
+      l$name,
       l$sex,
       l$phone,
       l$symbol,
       l$privatePhone,
-      l$name,
       l$$__typename,
     ]);
   }
@@ -7420,6 +7559,11 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     if (l$code != lOther$code) {
       return false;
     }
+    final l$name = name;
+    final lOther$name = other.name;
+    if (l$name != lOther$name) {
+      return false;
+    }
     final l$sex = sex;
     final lOther$sex = other.sex;
     if (l$sex != lOther$sex) {
@@ -7438,11 +7582,6 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     final l$privatePhone = privatePhone;
     final lOther$privatePhone = other.privatePhone;
     if (l$privatePhone != lOther$privatePhone) {
-      return false;
-    }
-    final l$name = name;
-    final lOther$name = other.name;
-    if (l$name != lOther$name) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -7488,12 +7627,12 @@ abstract class CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrSt
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$update_user$name?
+    name,
     String? sex,
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$update_user$name?
-    name,
     String? $__typename,
   });
   CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$update_user$name<
@@ -7529,11 +7668,11 @@ class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffC
     Object? infoStaffId = _undefined,
     Object? infoCompanyId = _undefined,
     Object? code = _undefined,
+    Object? name = _undefined,
     Object? sex = _undefined,
     Object? phone = _undefined,
     Object? symbol = _undefined,
     Object? privatePhone = _undefined,
-    Object? name = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$update_user(
@@ -7547,16 +7686,16 @@ class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffC
           ? _instance.infoCompanyId
           : (infoCompanyId as String?),
       code: code == _undefined ? _instance.code : (code as String?),
+      name: name == _undefined
+          ? _instance.name
+          : (name
+                as Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$update_user$name?),
       sex: sex == _undefined ? _instance.sex : (sex as String?),
       phone: phone == _undefined ? _instance.phone : (phone as String?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       privatePhone: privatePhone == _undefined
           ? _instance.privatePhone
           : (privatePhone as String?),
-      name: name == _undefined
-          ? _instance.name
-          : (name
-                as Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$update_user$name?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -7597,12 +7736,12 @@ class _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrSt
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$update_user$name?
+    name,
     String? sex,
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$staff$update_user$name?
-    name,
     String? $__typename,
   }) => _res;
 
@@ -10928,7 +11067,8 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
   Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability({
     required this.mstrCapabilityId,
     required this.code,
-    this.detail,
+    this.labels,
+    this.detailTexts,
     required this.referenceValue,
     this.max,
     this.min,
@@ -10937,7 +11077,6 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     this.remarks,
     this.updateAt,
     this.remove,
-    this.labels,
     this.update_user,
     this.$__typename = 'MstrCapability',
   });
@@ -10947,7 +11086,8 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
   ) {
     final l$mstrCapabilityId = json['mstrCapabilityId'];
     final l$code = json['code'];
-    final l$detail = json['detail'];
+    final l$labels = json['labels'];
+    final l$detailTexts = json['detailTexts'];
     final l$referenceValue = json['referenceValue'];
     final l$max = json['max'];
     final l$min = json['min'];
@@ -10956,13 +11096,21 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     final l$remarks = json['remarks'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
-    final l$labels = json['labels'];
     final l$update_user = json['update_user'];
     final l$$__typename = json['__typename'];
     return Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability(
       mstrCapabilityId: (l$mstrCapabilityId as String),
       code: (l$code as String),
-      detail: (l$detail as String?),
+      labels: l$labels == null
+          ? null
+          : Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$labels.fromJson(
+              (l$labels as Map<String, dynamic>),
+            ),
+      detailTexts: l$detailTexts == null
+          ? null
+          : Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts.fromJson(
+              (l$detailTexts as Map<String, dynamic>),
+            ),
       referenceValue: (l$referenceValue as String),
       max: (l$max as String?),
       min: (l$min as String?),
@@ -10971,11 +11119,6 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
       remarks: (l$remarks as String?),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
-      labels: l$labels == null
-          ? null
-          : Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$labels.fromJson(
-              (l$labels as Map<String, dynamic>),
-            ),
       update_user: l$update_user == null
           ? null
           : Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$update_user.fromJson(
@@ -10989,7 +11132,11 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
 
   final String code;
 
-  final String? detail;
+  final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$labels?
+  labels;
+
+  final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts?
+  detailTexts;
 
   final String referenceValue;
 
@@ -11007,9 +11154,6 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
 
   final bool? remove;
 
-  final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$labels?
-  labels;
-
   final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$update_user?
   update_user;
 
@@ -11021,8 +11165,10 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     _resultData['mstrCapabilityId'] = l$mstrCapabilityId;
     final l$code = code;
     _resultData['code'] = l$code;
-    final l$detail = detail;
-    _resultData['detail'] = l$detail;
+    final l$labels = labels;
+    _resultData['labels'] = l$labels?.toJson();
+    final l$detailTexts = detailTexts;
+    _resultData['detailTexts'] = l$detailTexts?.toJson();
     final l$referenceValue = referenceValue;
     _resultData['referenceValue'] = l$referenceValue;
     final l$max = max;
@@ -11039,8 +11185,6 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
     _resultData['remove'] = l$remove;
-    final l$labels = labels;
-    _resultData['labels'] = l$labels?.toJson();
     final l$update_user = update_user;
     _resultData['update_user'] = l$update_user?.toJson();
     final l$$__typename = $__typename;
@@ -11052,7 +11196,8 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
   int get hashCode {
     final l$mstrCapabilityId = mstrCapabilityId;
     final l$code = code;
-    final l$detail = detail;
+    final l$labels = labels;
+    final l$detailTexts = detailTexts;
     final l$referenceValue = referenceValue;
     final l$max = max;
     final l$min = min;
@@ -11061,13 +11206,13 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     final l$remarks = remarks;
     final l$updateAt = updateAt;
     final l$remove = remove;
-    final l$labels = labels;
     final l$update_user = update_user;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$mstrCapabilityId,
       l$code,
-      l$detail,
+      l$labels,
+      l$detailTexts,
       l$referenceValue,
       l$max,
       l$min,
@@ -11076,7 +11221,6 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
       l$remarks,
       l$updateAt,
       l$remove,
-      l$labels,
       l$update_user,
       l$$__typename,
     ]);
@@ -11102,9 +11246,14 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     if (l$code != lOther$code) {
       return false;
     }
-    final l$detail = detail;
-    final lOther$detail = other.detail;
-    if (l$detail != lOther$detail) {
+    final l$labels = labels;
+    final lOther$labels = other.labels;
+    if (l$labels != lOther$labels) {
+      return false;
+    }
+    final l$detailTexts = detailTexts;
+    final lOther$detailTexts = other.detailTexts;
+    if (l$detailTexts != lOther$detailTexts) {
       return false;
     }
     final l$referenceValue = referenceValue;
@@ -11145,11 +11294,6 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     final l$remove = remove;
     final lOther$remove = other.remove;
     if (l$remove != lOther$remove) {
-      return false;
-    }
-    final l$labels = labels;
-    final lOther$labels = other.labels;
-    if (l$labels != lOther$labels) {
       return false;
     }
     final l$update_user = update_user;
@@ -11198,7 +11342,10 @@ abstract class CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrSt
   TRes call({
     String? mstrCapabilityId,
     String? code,
-    String? detail,
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$labels?
+    labels,
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts?
+    detailTexts,
     String? referenceValue,
     String? max,
     String? min,
@@ -11207,8 +11354,6 @@ abstract class CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrSt
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$labels?
-    labels,
     Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$update_user?
     update_user,
     String? $__typename,
@@ -11217,6 +11362,10 @@ abstract class CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrSt
     TRes
   >
   get labels;
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts<
+    TRes
+  >
+  get detailTexts;
   CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$update_user<
     TRes
   >
@@ -11248,7 +11397,8 @@ class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffC
   TRes call({
     Object? mstrCapabilityId = _undefined,
     Object? code = _undefined,
-    Object? detail = _undefined,
+    Object? labels = _undefined,
+    Object? detailTexts = _undefined,
     Object? referenceValue = _undefined,
     Object? max = _undefined,
     Object? min = _undefined,
@@ -11257,7 +11407,6 @@ class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffC
     Object? remarks = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
-    Object? labels = _undefined,
     Object? update_user = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
@@ -11269,7 +11418,14 @@ class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffC
       code: code == _undefined || code == null
           ? _instance.code
           : (code as String),
-      detail: detail == _undefined ? _instance.detail : (detail as String?),
+      labels: labels == _undefined
+          ? _instance.labels
+          : (labels
+                as Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$labels?),
+      detailTexts: detailTexts == _undefined
+          ? _instance.detailTexts
+          : (detailTexts
+                as Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts?),
       referenceValue: referenceValue == _undefined || referenceValue == null
           ? _instance.referenceValue
           : (referenceValue as String),
@@ -11282,10 +11438,6 @@ class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffC
           ? _instance.updateAt
           : (updateAt as String?),
       remove: remove == _undefined ? _instance.remove : (remove as bool?),
-      labels: labels == _undefined
-          ? _instance.labels
-          : (labels
-                as Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$labels?),
       update_user: update_user == _undefined
           ? _instance.update_user
           : (update_user
@@ -11308,6 +11460,21 @@ class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffC
         : CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$labels(
             local$labels,
             (e) => call(labels: e),
+          );
+  }
+
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts<
+    TRes
+  >
+  get detailTexts {
+    final local$detailTexts = _instance.detailTexts;
+    return local$detailTexts == null
+        ? CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts(
+            local$detailTexts,
+            (e) => call(detailTexts: e),
           );
   }
 
@@ -11343,7 +11510,10 @@ class _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrSt
   call({
     String? mstrCapabilityId,
     String? code,
-    String? detail,
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$labels?
+    labels,
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts?
+    detailTexts,
     String? referenceValue,
     String? max,
     String? min,
@@ -11352,8 +11522,6 @@ class _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrSt
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$labels?
-    labels,
     Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$update_user?
     update_user,
     String? $__typename,
@@ -11364,6 +11532,14 @@ class _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrSt
   >
   get labels =>
       CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$labels.stub(
+        _res,
+      );
+
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts<
+    TRes
+  >
+  get detailTexts =>
+      CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts.stub(
         _res,
       );
 
@@ -14685,17 +14861,1001 @@ class _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrSt
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
+class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts {
+  Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts({
+    required this.sharedTextId,
+    required this.ja,
+    required this.en,
+    this.$__typename = 'SharedText',
+  });
+
+  factory Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedTextId = json['sharedTextId'];
+    final l$ja = json['ja'];
+    final l$en = json['en'];
+    final l$$__typename = json['__typename'];
+    return Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts(
+      sharedTextId: (l$sharedTextId as String),
+      ja: Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String sharedTextId;
+
+  final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja
+  ja;
+
+  final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en
+  en;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedTextId = sharedTextId;
+    _resultData['sharedTextId'] = l$sharedTextId;
+    final l$ja = ja;
+    _resultData['ja'] = l$ja.toJson();
+    final l$en = en;
+    _resultData['en'] = l$en.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedTextId = sharedTextId;
+    final l$ja = ja;
+    final l$en = en;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$sharedTextId, l$ja, l$en, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedTextId = sharedTextId;
+    final lOther$sharedTextId = other.sharedTextId;
+    if (l$sharedTextId != lOther$sharedTextId) {
+      return false;
+    }
+    final l$ja = ja;
+    final lOther$ja = other.ja;
+    if (l$ja != lOther$ja) {
+      return false;
+    }
+    final l$en = en;
+    final lOther$en = other.en;
+    if (l$en != lOther$en) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts
+    on
+        Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts {
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts<
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts
+  >
+  get copyWith =>
+      CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts<
+  TRes
+> {
+  factory CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts(
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts
+    instance,
+    TRes Function(
+      Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts,
+    )
+    then,
+  ) = _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts;
+
+  factory CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts;
+
+  TRes call({
+    String? sharedTextId,
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja?
+    ja,
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en?
+    en,
+    String? $__typename,
+  });
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja<
+    TRes
+  >
+  get ja;
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en<
+    TRes
+  >
+  get en;
+}
+
+class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts<
+          TRes
+        > {
+  _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts(
+    this._instance,
+    this._then,
+  );
+
+  final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts
+  _instance;
+
+  final TRes Function(
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedTextId = _undefined,
+    Object? ja = _undefined,
+    Object? en = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts(
+      sharedTextId: sharedTextId == _undefined || sharedTextId == null
+          ? _instance.sharedTextId
+          : (sharedTextId as String),
+      ja: ja == _undefined || ja == null
+          ? _instance.ja
+          : (ja
+                as Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja),
+      en: en == _undefined || en == null
+          ? _instance.en
+          : (en
+                as Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja<
+    TRes
+  >
+  get ja {
+    final local$ja = _instance.ja;
+    return CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
+  }
+
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en<
+    TRes
+  >
+  get en {
+    final local$en = _instance.en;
+    return CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en(
+      local$en,
+      (e) => call(en: e),
+    );
+  }
+}
+
+class _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? sharedTextId,
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja?
+    ja,
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en?
+    en,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja<
+    TRes
+  >
+  get ja =>
+      CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja.stub(
+        _res,
+      );
+
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en<
+    TRes
+  >
+  get en =>
+      CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en.stub(
+        _res,
+      );
+}
+
+class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja {
+  Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja({
+    required this.nodes,
+    this.$__typename = 'SharedTextValuesConnection',
+  });
+
+  factory Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja
+    on
+        Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja {
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja<
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja
+  >
+  get copyWith =>
+      CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja<
+  TRes
+> {
+  factory CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja(
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja
+    instance,
+    TRes Function(
+      Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja,
+    )
+    then,
+  ) = _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja;
+
+  factory CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja;
+
+  TRes call({
+    List<
+      Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes<
+          Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja<
+          TRes
+        > {
+  _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja(
+    this._instance,
+    this._then,
+  );
+
+  final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja
+  _instance;
+
+  final TRes Function(
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes<
+          Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes {
+  Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes({
+    this.textValue,
+    this.$__typename = 'SharedTextValue',
+  });
+
+  factory Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$textValue = json['textValue'];
+    final l$$__typename = json['__typename'];
+    return Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes(
+      textValue: (l$textValue as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? textValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$textValue = textValue;
+    _resultData['textValue'] = l$textValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$textValue = textValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$textValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$textValue = textValue;
+    final lOther$textValue = other.textValue;
+    if (l$textValue != lOther$textValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes
+    on
+        Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes {
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes<
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes<
+  TRes
+> {
+  factory CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes(
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes
+    instance,
+    TRes Function(
+      Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes;
+
+  factory CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes;
+
+  TRes call({String? textValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes
+  _instance;
+
+  final TRes Function(
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? textValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes(
+      textValue: textValue == _undefined
+          ? _instance.textValue
+          : (textValue as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$ja$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? textValue, String? $__typename}) => _res;
+}
+
+class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en {
+  Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en({
+    required this.nodes,
+    this.$__typename = 'SharedTextValuesConnection',
+  });
+
+  factory Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en
+    on
+        Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en {
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en<
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en
+  >
+  get copyWith =>
+      CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en<
+  TRes
+> {
+  factory CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en(
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en
+    instance,
+    TRes Function(
+      Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en,
+    )
+    then,
+  ) = _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en;
+
+  factory CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en;
+
+  TRes call({
+    List<
+      Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes<
+          Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en<
+          TRes
+        > {
+  _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en(
+    this._instance,
+    this._then,
+  );
+
+  final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en
+  _instance;
+
+  final TRes Function(
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes<
+          Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes {
+  Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes({
+    this.textValue,
+    this.$__typename = 'SharedTextValue',
+  });
+
+  factory Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$textValue = json['textValue'];
+    final l$$__typename = json['__typename'];
+    return Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes(
+      textValue: (l$textValue as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? textValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$textValue = textValue;
+    _resultData['textValue'] = l$textValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$textValue = textValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$textValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$textValue = textValue;
+    final lOther$textValue = other.textValue;
+    if (l$textValue != lOther$textValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes
+    on
+        Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes {
+  CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes<
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes<
+  TRes
+> {
+  factory CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes(
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes
+    instance,
+    TRes Function(
+      Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes;
+
+  factory CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes;
+
+  TRes call({String? textValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes
+  _instance;
+
+  final TRes Function(
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? textValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes(
+      textValue: textValue == _undefined
+          ? _instance.textValue
+          : (textValue as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$detailTexts$en$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? textValue, String? $__typename}) => _res;
+}
+
 class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$update_user {
   Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$update_user({
     required this.historyId,
     required this.infoStaffId,
     this.infoCompanyId,
     this.code,
+    this.name,
     this.sex,
     this.phone,
     this.symbol,
     this.privatePhone,
-    this.name,
     this.$__typename = 'HistoryInfoStaff',
   });
 
@@ -14706,26 +15866,26 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     final l$infoStaffId = json['infoStaffId'];
     final l$infoCompanyId = json['infoCompanyId'];
     final l$code = json['code'];
+    final l$name = json['name'];
     final l$sex = json['sex'];
     final l$phone = json['phone'];
     final l$symbol = json['symbol'];
     final l$privatePhone = json['privatePhone'];
-    final l$name = json['name'];
     final l$$__typename = json['__typename'];
     return Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
       infoCompanyId: (l$infoCompanyId as String?),
       code: (l$code as String?),
-      sex: (l$sex as String?),
-      phone: (l$phone as String?),
-      symbol: (l$symbol as String?),
-      privatePhone: (l$privatePhone as String?),
       name: l$name == null
           ? null
           : Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$update_user$name.fromJson(
               (l$name as Map<String, dynamic>),
             ),
+      sex: (l$sex as String?),
+      phone: (l$phone as String?),
+      symbol: (l$symbol as String?),
+      privatePhone: (l$privatePhone as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -14738,6 +15898,9 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
 
   final String? code;
 
+  final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$update_user$name?
+  name;
+
   final String? sex;
 
   final String? phone;
@@ -14745,9 +15908,6 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
   final String? symbol;
 
   final String? privatePhone;
-
-  final Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$update_user$name?
-  name;
 
   final String $__typename;
 
@@ -14761,6 +15921,8 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     _resultData['infoCompanyId'] = l$infoCompanyId;
     final l$code = code;
     _resultData['code'] = l$code;
+    final l$name = name;
+    _resultData['name'] = l$name?.toJson();
     final l$sex = sex;
     _resultData['sex'] = l$sex;
     final l$phone = phone;
@@ -14769,8 +15931,6 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     _resultData['symbol'] = l$symbol;
     final l$privatePhone = privatePhone;
     _resultData['privatePhone'] = l$privatePhone;
-    final l$name = name;
-    _resultData['name'] = l$name?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -14782,22 +15942,22 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     final l$infoStaffId = infoStaffId;
     final l$infoCompanyId = infoCompanyId;
     final l$code = code;
+    final l$name = name;
     final l$sex = sex;
     final l$phone = phone;
     final l$symbol = symbol;
     final l$privatePhone = privatePhone;
-    final l$name = name;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$historyId,
       l$infoStaffId,
       l$infoCompanyId,
       l$code,
+      l$name,
       l$sex,
       l$phone,
       l$symbol,
       l$privatePhone,
-      l$name,
       l$$__typename,
     ]);
   }
@@ -14832,6 +15992,11 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     if (l$code != lOther$code) {
       return false;
     }
+    final l$name = name;
+    final lOther$name = other.name;
+    if (l$name != lOther$name) {
+      return false;
+    }
     final l$sex = sex;
     final lOther$sex = other.sex;
     if (l$sex != lOther$sex) {
@@ -14850,11 +16015,6 @@ class Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAnd
     final l$privatePhone = privatePhone;
     final lOther$privatePhone = other.privatePhone;
     if (l$privatePhone != lOther$privatePhone) {
-      return false;
-    }
-    final l$name = name;
-    final lOther$name = other.name;
-    if (l$name != lOther$name) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -14900,12 +16060,12 @@ abstract class CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrSt
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$update_user$name?
+    name,
     String? sex,
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$update_user$name?
-    name,
     String? $__typename,
   });
   CopyWith$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$update_user$name<
@@ -14941,11 +16101,11 @@ class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffC
     Object? infoStaffId = _undefined,
     Object? infoCompanyId = _undefined,
     Object? code = _undefined,
+    Object? name = _undefined,
     Object? sex = _undefined,
     Object? phone = _undefined,
     Object? symbol = _undefined,
     Object? privatePhone = _undefined,
-    Object? name = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$update_user(
@@ -14959,16 +16119,16 @@ class _CopyWithImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffC
           ? _instance.infoCompanyId
           : (infoCompanyId as String?),
       code: code == _undefined ? _instance.code : (code as String?),
+      name: name == _undefined
+          ? _instance.name
+          : (name
+                as Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$update_user$name?),
       sex: sex == _undefined ? _instance.sex : (sex as String?),
       phone: phone == _undefined ? _instance.phone : (phone as String?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       privatePhone: privatePhone == _undefined
           ? _instance.privatePhone
           : (privatePhone as String?),
-      name: name == _undefined
-          ? _instance.name
-          : (name
-                as Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$update_user$name?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -15009,12 +16169,12 @@ class _CopyWithStubImpl$Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrSt
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$update_user$name?
+    name,
     String? sex,
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$StaffCapabilityPageRfe$mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId$capability$update_user$name?
-    name,
     String? $__typename,
   }) => _res;
 

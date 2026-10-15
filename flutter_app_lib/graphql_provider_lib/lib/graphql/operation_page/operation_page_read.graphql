@@ -1,13 +1,13 @@
 # operation_page画面 - Read(一覧取得クエリ)
 #
-# 画面仕様: source/view.yaml #OperationPage
+# 画面仕様: source/views/ #OperationPage
 # このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
 
 query OperationPageRead(
   $first: Int!
   $offset: Int
   $filter: MstrOperationFilter = {}
-  $orderBy: [MstrOperationsOrderBy!] = [PRIMARY_KEY_ASC]
+  $orderBy: [MstrOperationsOrderBy!]
   $languageCodeId: UUID!
   $removed: Boolean = false
 ) {

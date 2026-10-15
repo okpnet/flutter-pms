@@ -8,16 +8,11 @@ import 'package:graphql_flutter/graphql_flutter.dart' as graphql_flutter;
 class Variables$Mutation$LicensePageEdit {
   factory Variables$Mutation$LicensePageEdit({
     required String mstrLicenseId,
-    String? detail,
-    bool? publicLicense,
-    bool? customerLicense,
-    bool? organizationLicense,
-    Input$IntervalInput? updateInterval,
-    String? remarks,
+    String? code,
     required String sharedAppellationsId,
+    required String nameSharedDictionaryId,
     required String jaLanguageCodeId,
     required String enLanguageCodeId,
-    required String nameSharedDictionaryId,
     required String nameJa,
     required String nameEn,
     required String pronunciationSharedDictionaryId,
@@ -26,19 +21,21 @@ class Variables$Mutation$LicensePageEdit {
     required String nicknameSharedDictionaryId,
     required String nicknameJa,
     required String nicknameEn,
+    required String detailTextsSharedTextId,
+    required String detailTextsJa,
+    required String detailTextsEn,
+    bool? publicLicense,
+    bool? customerLicense,
+    bool? organizationLicense,
+    Input$IntervalInput? updateInterval,
+    String? remarks,
   }) => Variables$Mutation$LicensePageEdit._({
     r'mstrLicenseId': mstrLicenseId,
-    if (detail != null) r'detail': detail,
-    if (publicLicense != null) r'publicLicense': publicLicense,
-    if (customerLicense != null) r'customerLicense': customerLicense,
-    if (organizationLicense != null)
-      r'organizationLicense': organizationLicense,
-    if (updateInterval != null) r'updateInterval': updateInterval,
-    if (remarks != null) r'remarks': remarks,
+    if (code != null) r'code': code,
     r'sharedAppellationsId': sharedAppellationsId,
+    r'nameSharedDictionaryId': nameSharedDictionaryId,
     r'jaLanguageCodeId': jaLanguageCodeId,
     r'enLanguageCodeId': enLanguageCodeId,
-    r'nameSharedDictionaryId': nameSharedDictionaryId,
     r'nameJa': nameJa,
     r'nameEn': nameEn,
     r'pronunciationSharedDictionaryId': pronunciationSharedDictionaryId,
@@ -47,6 +44,15 @@ class Variables$Mutation$LicensePageEdit {
     r'nicknameSharedDictionaryId': nicknameSharedDictionaryId,
     r'nicknameJa': nicknameJa,
     r'nicknameEn': nicknameEn,
+    r'detailTextsSharedTextId': detailTextsSharedTextId,
+    r'detailTextsJa': detailTextsJa,
+    r'detailTextsEn': detailTextsEn,
+    if (publicLicense != null) r'publicLicense': publicLicense,
+    if (customerLicense != null) r'customerLicense': customerLicense,
+    if (organizationLicense != null)
+      r'organizationLicense': organizationLicense,
+    if (updateInterval != null) r'updateInterval': updateInterval,
+    if (remarks != null) r'remarks': remarks,
   });
 
   Variables$Mutation$LicensePageEdit._(this._$data);
@@ -57,10 +63,45 @@ class Variables$Mutation$LicensePageEdit {
     final result$data = <String, dynamic>{};
     final l$mstrLicenseId = data['mstrLicenseId'];
     result$data['mstrLicenseId'] = (l$mstrLicenseId as String);
-    if (data.containsKey('detail')) {
-      final l$detail = data['detail'];
-      result$data['detail'] = (l$detail as String?);
+    if (data.containsKey('code')) {
+      final l$code = data['code'];
+      result$data['code'] = (l$code as String?);
     }
+    final l$sharedAppellationsId = data['sharedAppellationsId'];
+    result$data['sharedAppellationsId'] = (l$sharedAppellationsId as String);
+    final l$nameSharedDictionaryId = data['nameSharedDictionaryId'];
+    result$data['nameSharedDictionaryId'] =
+        (l$nameSharedDictionaryId as String);
+    final l$jaLanguageCodeId = data['jaLanguageCodeId'];
+    result$data['jaLanguageCodeId'] = (l$jaLanguageCodeId as String);
+    final l$enLanguageCodeId = data['enLanguageCodeId'];
+    result$data['enLanguageCodeId'] = (l$enLanguageCodeId as String);
+    final l$nameJa = data['nameJa'];
+    result$data['nameJa'] = (l$nameJa as String);
+    final l$nameEn = data['nameEn'];
+    result$data['nameEn'] = (l$nameEn as String);
+    final l$pronunciationSharedDictionaryId =
+        data['pronunciationSharedDictionaryId'];
+    result$data['pronunciationSharedDictionaryId'] =
+        (l$pronunciationSharedDictionaryId as String);
+    final l$pronunciationJa = data['pronunciationJa'];
+    result$data['pronunciationJa'] = (l$pronunciationJa as String);
+    final l$pronunciationEn = data['pronunciationEn'];
+    result$data['pronunciationEn'] = (l$pronunciationEn as String);
+    final l$nicknameSharedDictionaryId = data['nicknameSharedDictionaryId'];
+    result$data['nicknameSharedDictionaryId'] =
+        (l$nicknameSharedDictionaryId as String);
+    final l$nicknameJa = data['nicknameJa'];
+    result$data['nicknameJa'] = (l$nicknameJa as String);
+    final l$nicknameEn = data['nicknameEn'];
+    result$data['nicknameEn'] = (l$nicknameEn as String);
+    final l$detailTextsSharedTextId = data['detailTextsSharedTextId'];
+    result$data['detailTextsSharedTextId'] =
+        (l$detailTextsSharedTextId as String);
+    final l$detailTextsJa = data['detailTextsJa'];
+    result$data['detailTextsJa'] = (l$detailTextsJa as String);
+    final l$detailTextsEn = data['detailTextsEn'];
+    result$data['detailTextsEn'] = (l$detailTextsEn as String);
     if (data.containsKey('publicLicense')) {
       final l$publicLicense = data['publicLicense'];
       result$data['publicLicense'] = (l$publicLicense as bool?);
@@ -85,34 +126,6 @@ class Variables$Mutation$LicensePageEdit {
       final l$remarks = data['remarks'];
       result$data['remarks'] = (l$remarks as String?);
     }
-    final l$sharedAppellationsId = data['sharedAppellationsId'];
-    result$data['sharedAppellationsId'] = (l$sharedAppellationsId as String);
-    final l$jaLanguageCodeId = data['jaLanguageCodeId'];
-    result$data['jaLanguageCodeId'] = (l$jaLanguageCodeId as String);
-    final l$enLanguageCodeId = data['enLanguageCodeId'];
-    result$data['enLanguageCodeId'] = (l$enLanguageCodeId as String);
-    final l$nameSharedDictionaryId = data['nameSharedDictionaryId'];
-    result$data['nameSharedDictionaryId'] =
-        (l$nameSharedDictionaryId as String);
-    final l$nameJa = data['nameJa'];
-    result$data['nameJa'] = (l$nameJa as String);
-    final l$nameEn = data['nameEn'];
-    result$data['nameEn'] = (l$nameEn as String);
-    final l$pronunciationSharedDictionaryId =
-        data['pronunciationSharedDictionaryId'];
-    result$data['pronunciationSharedDictionaryId'] =
-        (l$pronunciationSharedDictionaryId as String);
-    final l$pronunciationJa = data['pronunciationJa'];
-    result$data['pronunciationJa'] = (l$pronunciationJa as String);
-    final l$pronunciationEn = data['pronunciationEn'];
-    result$data['pronunciationEn'] = (l$pronunciationEn as String);
-    final l$nicknameSharedDictionaryId = data['nicknameSharedDictionaryId'];
-    result$data['nicknameSharedDictionaryId'] =
-        (l$nicknameSharedDictionaryId as String);
-    final l$nicknameJa = data['nicknameJa'];
-    result$data['nicknameJa'] = (l$nicknameJa as String);
-    final l$nicknameEn = data['nicknameEn'];
-    result$data['nicknameEn'] = (l$nicknameEn as String);
     return Variables$Mutation$LicensePageEdit._(result$data);
   }
 
@@ -120,27 +133,16 @@ class Variables$Mutation$LicensePageEdit {
 
   String get mstrLicenseId => (_$data['mstrLicenseId'] as String);
 
-  String? get detail => (_$data['detail'] as String?);
-
-  bool? get publicLicense => (_$data['publicLicense'] as bool?);
-
-  bool? get customerLicense => (_$data['customerLicense'] as bool?);
-
-  bool? get organizationLicense => (_$data['organizationLicense'] as bool?);
-
-  Input$IntervalInput? get updateInterval =>
-      (_$data['updateInterval'] as Input$IntervalInput?);
-
-  String? get remarks => (_$data['remarks'] as String?);
+  String? get code => (_$data['code'] as String?);
 
   String get sharedAppellationsId => (_$data['sharedAppellationsId'] as String);
+
+  String get nameSharedDictionaryId =>
+      (_$data['nameSharedDictionaryId'] as String);
 
   String get jaLanguageCodeId => (_$data['jaLanguageCodeId'] as String);
 
   String get enLanguageCodeId => (_$data['enLanguageCodeId'] as String);
-
-  String get nameSharedDictionaryId =>
-      (_$data['nameSharedDictionaryId'] as String);
 
   String get nameJa => (_$data['nameJa'] as String);
 
@@ -160,14 +162,63 @@ class Variables$Mutation$LicensePageEdit {
 
   String get nicknameEn => (_$data['nicknameEn'] as String);
 
+  String get detailTextsSharedTextId =>
+      (_$data['detailTextsSharedTextId'] as String);
+
+  String get detailTextsJa => (_$data['detailTextsJa'] as String);
+
+  String get detailTextsEn => (_$data['detailTextsEn'] as String);
+
+  bool? get publicLicense => (_$data['publicLicense'] as bool?);
+
+  bool? get customerLicense => (_$data['customerLicense'] as bool?);
+
+  bool? get organizationLicense => (_$data['organizationLicense'] as bool?);
+
+  Input$IntervalInput? get updateInterval =>
+      (_$data['updateInterval'] as Input$IntervalInput?);
+
+  String? get remarks => (_$data['remarks'] as String?);
+
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
     final l$mstrLicenseId = mstrLicenseId;
     result$data['mstrLicenseId'] = l$mstrLicenseId;
-    if (_$data.containsKey('detail')) {
-      final l$detail = detail;
-      result$data['detail'] = l$detail;
+    if (_$data.containsKey('code')) {
+      final l$code = code;
+      result$data['code'] = l$code;
     }
+    final l$sharedAppellationsId = sharedAppellationsId;
+    result$data['sharedAppellationsId'] = l$sharedAppellationsId;
+    final l$nameSharedDictionaryId = nameSharedDictionaryId;
+    result$data['nameSharedDictionaryId'] = l$nameSharedDictionaryId;
+    final l$jaLanguageCodeId = jaLanguageCodeId;
+    result$data['jaLanguageCodeId'] = l$jaLanguageCodeId;
+    final l$enLanguageCodeId = enLanguageCodeId;
+    result$data['enLanguageCodeId'] = l$enLanguageCodeId;
+    final l$nameJa = nameJa;
+    result$data['nameJa'] = l$nameJa;
+    final l$nameEn = nameEn;
+    result$data['nameEn'] = l$nameEn;
+    final l$pronunciationSharedDictionaryId = pronunciationSharedDictionaryId;
+    result$data['pronunciationSharedDictionaryId'] =
+        l$pronunciationSharedDictionaryId;
+    final l$pronunciationJa = pronunciationJa;
+    result$data['pronunciationJa'] = l$pronunciationJa;
+    final l$pronunciationEn = pronunciationEn;
+    result$data['pronunciationEn'] = l$pronunciationEn;
+    final l$nicknameSharedDictionaryId = nicknameSharedDictionaryId;
+    result$data['nicknameSharedDictionaryId'] = l$nicknameSharedDictionaryId;
+    final l$nicknameJa = nicknameJa;
+    result$data['nicknameJa'] = l$nicknameJa;
+    final l$nicknameEn = nicknameEn;
+    result$data['nicknameEn'] = l$nicknameEn;
+    final l$detailTextsSharedTextId = detailTextsSharedTextId;
+    result$data['detailTextsSharedTextId'] = l$detailTextsSharedTextId;
+    final l$detailTextsJa = detailTextsJa;
+    result$data['detailTextsJa'] = l$detailTextsJa;
+    final l$detailTextsEn = detailTextsEn;
+    result$data['detailTextsEn'] = l$detailTextsEn;
     if (_$data.containsKey('publicLicense')) {
       final l$publicLicense = publicLicense;
       result$data['publicLicense'] = l$publicLicense;
@@ -188,31 +239,6 @@ class Variables$Mutation$LicensePageEdit {
       final l$remarks = remarks;
       result$data['remarks'] = l$remarks;
     }
-    final l$sharedAppellationsId = sharedAppellationsId;
-    result$data['sharedAppellationsId'] = l$sharedAppellationsId;
-    final l$jaLanguageCodeId = jaLanguageCodeId;
-    result$data['jaLanguageCodeId'] = l$jaLanguageCodeId;
-    final l$enLanguageCodeId = enLanguageCodeId;
-    result$data['enLanguageCodeId'] = l$enLanguageCodeId;
-    final l$nameSharedDictionaryId = nameSharedDictionaryId;
-    result$data['nameSharedDictionaryId'] = l$nameSharedDictionaryId;
-    final l$nameJa = nameJa;
-    result$data['nameJa'] = l$nameJa;
-    final l$nameEn = nameEn;
-    result$data['nameEn'] = l$nameEn;
-    final l$pronunciationSharedDictionaryId = pronunciationSharedDictionaryId;
-    result$data['pronunciationSharedDictionaryId'] =
-        l$pronunciationSharedDictionaryId;
-    final l$pronunciationJa = pronunciationJa;
-    result$data['pronunciationJa'] = l$pronunciationJa;
-    final l$pronunciationEn = pronunciationEn;
-    result$data['pronunciationEn'] = l$pronunciationEn;
-    final l$nicknameSharedDictionaryId = nicknameSharedDictionaryId;
-    result$data['nicknameSharedDictionaryId'] = l$nicknameSharedDictionaryId;
-    final l$nicknameJa = nicknameJa;
-    result$data['nicknameJa'] = l$nicknameJa;
-    final l$nicknameEn = nicknameEn;
-    result$data['nicknameEn'] = l$nicknameEn;
     return result$data;
   }
 
@@ -235,12 +261,89 @@ class Variables$Mutation$LicensePageEdit {
     if (l$mstrLicenseId != lOther$mstrLicenseId) {
       return false;
     }
-    final l$detail = detail;
-    final lOther$detail = other.detail;
-    if (_$data.containsKey('detail') != other._$data.containsKey('detail')) {
+    final l$code = code;
+    final lOther$code = other.code;
+    if (_$data.containsKey('code') != other._$data.containsKey('code')) {
       return false;
     }
-    if (l$detail != lOther$detail) {
+    if (l$code != lOther$code) {
+      return false;
+    }
+    final l$sharedAppellationsId = sharedAppellationsId;
+    final lOther$sharedAppellationsId = other.sharedAppellationsId;
+    if (l$sharedAppellationsId != lOther$sharedAppellationsId) {
+      return false;
+    }
+    final l$nameSharedDictionaryId = nameSharedDictionaryId;
+    final lOther$nameSharedDictionaryId = other.nameSharedDictionaryId;
+    if (l$nameSharedDictionaryId != lOther$nameSharedDictionaryId) {
+      return false;
+    }
+    final l$jaLanguageCodeId = jaLanguageCodeId;
+    final lOther$jaLanguageCodeId = other.jaLanguageCodeId;
+    if (l$jaLanguageCodeId != lOther$jaLanguageCodeId) {
+      return false;
+    }
+    final l$enLanguageCodeId = enLanguageCodeId;
+    final lOther$enLanguageCodeId = other.enLanguageCodeId;
+    if (l$enLanguageCodeId != lOther$enLanguageCodeId) {
+      return false;
+    }
+    final l$nameJa = nameJa;
+    final lOther$nameJa = other.nameJa;
+    if (l$nameJa != lOther$nameJa) {
+      return false;
+    }
+    final l$nameEn = nameEn;
+    final lOther$nameEn = other.nameEn;
+    if (l$nameEn != lOther$nameEn) {
+      return false;
+    }
+    final l$pronunciationSharedDictionaryId = pronunciationSharedDictionaryId;
+    final lOther$pronunciationSharedDictionaryId =
+        other.pronunciationSharedDictionaryId;
+    if (l$pronunciationSharedDictionaryId !=
+        lOther$pronunciationSharedDictionaryId) {
+      return false;
+    }
+    final l$pronunciationJa = pronunciationJa;
+    final lOther$pronunciationJa = other.pronunciationJa;
+    if (l$pronunciationJa != lOther$pronunciationJa) {
+      return false;
+    }
+    final l$pronunciationEn = pronunciationEn;
+    final lOther$pronunciationEn = other.pronunciationEn;
+    if (l$pronunciationEn != lOther$pronunciationEn) {
+      return false;
+    }
+    final l$nicknameSharedDictionaryId = nicknameSharedDictionaryId;
+    final lOther$nicknameSharedDictionaryId = other.nicknameSharedDictionaryId;
+    if (l$nicknameSharedDictionaryId != lOther$nicknameSharedDictionaryId) {
+      return false;
+    }
+    final l$nicknameJa = nicknameJa;
+    final lOther$nicknameJa = other.nicknameJa;
+    if (l$nicknameJa != lOther$nicknameJa) {
+      return false;
+    }
+    final l$nicknameEn = nicknameEn;
+    final lOther$nicknameEn = other.nicknameEn;
+    if (l$nicknameEn != lOther$nicknameEn) {
+      return false;
+    }
+    final l$detailTextsSharedTextId = detailTextsSharedTextId;
+    final lOther$detailTextsSharedTextId = other.detailTextsSharedTextId;
+    if (l$detailTextsSharedTextId != lOther$detailTextsSharedTextId) {
+      return false;
+    }
+    final l$detailTextsJa = detailTextsJa;
+    final lOther$detailTextsJa = other.detailTextsJa;
+    if (l$detailTextsJa != lOther$detailTextsJa) {
+      return false;
+    }
+    final l$detailTextsEn = detailTextsEn;
+    final lOther$detailTextsEn = other.detailTextsEn;
+    if (l$detailTextsEn != lOther$detailTextsEn) {
       return false;
     }
     final l$publicLicense = publicLicense;
@@ -287,84 +390,17 @@ class Variables$Mutation$LicensePageEdit {
     if (l$remarks != lOther$remarks) {
       return false;
     }
-    final l$sharedAppellationsId = sharedAppellationsId;
-    final lOther$sharedAppellationsId = other.sharedAppellationsId;
-    if (l$sharedAppellationsId != lOther$sharedAppellationsId) {
-      return false;
-    }
-    final l$jaLanguageCodeId = jaLanguageCodeId;
-    final lOther$jaLanguageCodeId = other.jaLanguageCodeId;
-    if (l$jaLanguageCodeId != lOther$jaLanguageCodeId) {
-      return false;
-    }
-    final l$enLanguageCodeId = enLanguageCodeId;
-    final lOther$enLanguageCodeId = other.enLanguageCodeId;
-    if (l$enLanguageCodeId != lOther$enLanguageCodeId) {
-      return false;
-    }
-    final l$nameSharedDictionaryId = nameSharedDictionaryId;
-    final lOther$nameSharedDictionaryId = other.nameSharedDictionaryId;
-    if (l$nameSharedDictionaryId != lOther$nameSharedDictionaryId) {
-      return false;
-    }
-    final l$nameJa = nameJa;
-    final lOther$nameJa = other.nameJa;
-    if (l$nameJa != lOther$nameJa) {
-      return false;
-    }
-    final l$nameEn = nameEn;
-    final lOther$nameEn = other.nameEn;
-    if (l$nameEn != lOther$nameEn) {
-      return false;
-    }
-    final l$pronunciationSharedDictionaryId = pronunciationSharedDictionaryId;
-    final lOther$pronunciationSharedDictionaryId =
-        other.pronunciationSharedDictionaryId;
-    if (l$pronunciationSharedDictionaryId !=
-        lOther$pronunciationSharedDictionaryId) {
-      return false;
-    }
-    final l$pronunciationJa = pronunciationJa;
-    final lOther$pronunciationJa = other.pronunciationJa;
-    if (l$pronunciationJa != lOther$pronunciationJa) {
-      return false;
-    }
-    final l$pronunciationEn = pronunciationEn;
-    final lOther$pronunciationEn = other.pronunciationEn;
-    if (l$pronunciationEn != lOther$pronunciationEn) {
-      return false;
-    }
-    final l$nicknameSharedDictionaryId = nicknameSharedDictionaryId;
-    final lOther$nicknameSharedDictionaryId = other.nicknameSharedDictionaryId;
-    if (l$nicknameSharedDictionaryId != lOther$nicknameSharedDictionaryId) {
-      return false;
-    }
-    final l$nicknameJa = nicknameJa;
-    final lOther$nicknameJa = other.nicknameJa;
-    if (l$nicknameJa != lOther$nicknameJa) {
-      return false;
-    }
-    final l$nicknameEn = nicknameEn;
-    final lOther$nicknameEn = other.nicknameEn;
-    if (l$nicknameEn != lOther$nicknameEn) {
-      return false;
-    }
     return true;
   }
 
   @override
   int get hashCode {
     final l$mstrLicenseId = mstrLicenseId;
-    final l$detail = detail;
-    final l$publicLicense = publicLicense;
-    final l$customerLicense = customerLicense;
-    final l$organizationLicense = organizationLicense;
-    final l$updateInterval = updateInterval;
-    final l$remarks = remarks;
+    final l$code = code;
     final l$sharedAppellationsId = sharedAppellationsId;
+    final l$nameSharedDictionaryId = nameSharedDictionaryId;
     final l$jaLanguageCodeId = jaLanguageCodeId;
     final l$enLanguageCodeId = enLanguageCodeId;
-    final l$nameSharedDictionaryId = nameSharedDictionaryId;
     final l$nameJa = nameJa;
     final l$nameEn = nameEn;
     final l$pronunciationSharedDictionaryId = pronunciationSharedDictionaryId;
@@ -373,20 +409,21 @@ class Variables$Mutation$LicensePageEdit {
     final l$nicknameSharedDictionaryId = nicknameSharedDictionaryId;
     final l$nicknameJa = nicknameJa;
     final l$nicknameEn = nicknameEn;
+    final l$detailTextsSharedTextId = detailTextsSharedTextId;
+    final l$detailTextsJa = detailTextsJa;
+    final l$detailTextsEn = detailTextsEn;
+    final l$publicLicense = publicLicense;
+    final l$customerLicense = customerLicense;
+    final l$organizationLicense = organizationLicense;
+    final l$updateInterval = updateInterval;
+    final l$remarks = remarks;
     return Object.hashAll([
       l$mstrLicenseId,
-      _$data.containsKey('detail') ? l$detail : const {},
-      _$data.containsKey('publicLicense') ? l$publicLicense : const {},
-      _$data.containsKey('customerLicense') ? l$customerLicense : const {},
-      _$data.containsKey('organizationLicense')
-          ? l$organizationLicense
-          : const {},
-      _$data.containsKey('updateInterval') ? l$updateInterval : const {},
-      _$data.containsKey('remarks') ? l$remarks : const {},
+      _$data.containsKey('code') ? l$code : const {},
       l$sharedAppellationsId,
+      l$nameSharedDictionaryId,
       l$jaLanguageCodeId,
       l$enLanguageCodeId,
-      l$nameSharedDictionaryId,
       l$nameJa,
       l$nameEn,
       l$pronunciationSharedDictionaryId,
@@ -395,6 +432,16 @@ class Variables$Mutation$LicensePageEdit {
       l$nicknameSharedDictionaryId,
       l$nicknameJa,
       l$nicknameEn,
+      l$detailTextsSharedTextId,
+      l$detailTextsJa,
+      l$detailTextsEn,
+      _$data.containsKey('publicLicense') ? l$publicLicense : const {},
+      _$data.containsKey('customerLicense') ? l$customerLicense : const {},
+      _$data.containsKey('organizationLicense')
+          ? l$organizationLicense
+          : const {},
+      _$data.containsKey('updateInterval') ? l$updateInterval : const {},
+      _$data.containsKey('remarks') ? l$remarks : const {},
     ]);
   }
 }
@@ -410,16 +457,11 @@ abstract class CopyWith$Variables$Mutation$LicensePageEdit<TRes> {
 
   TRes call({
     String? mstrLicenseId,
-    String? detail,
-    bool? publicLicense,
-    bool? customerLicense,
-    bool? organizationLicense,
-    Input$IntervalInput? updateInterval,
-    String? remarks,
+    String? code,
     String? sharedAppellationsId,
+    String? nameSharedDictionaryId,
     String? jaLanguageCodeId,
     String? enLanguageCodeId,
-    String? nameSharedDictionaryId,
     String? nameJa,
     String? nameEn,
     String? pronunciationSharedDictionaryId,
@@ -428,6 +470,14 @@ abstract class CopyWith$Variables$Mutation$LicensePageEdit<TRes> {
     String? nicknameSharedDictionaryId,
     String? nicknameJa,
     String? nicknameEn,
+    String? detailTextsSharedTextId,
+    String? detailTextsJa,
+    String? detailTextsEn,
+    bool? publicLicense,
+    bool? customerLicense,
+    bool? organizationLicense,
+    Input$IntervalInput? updateInterval,
+    String? remarks,
   });
 }
 
@@ -443,16 +493,11 @@ class _CopyWithImpl$Variables$Mutation$LicensePageEdit<TRes>
 
   TRes call({
     Object? mstrLicenseId = _undefined,
-    Object? detail = _undefined,
-    Object? publicLicense = _undefined,
-    Object? customerLicense = _undefined,
-    Object? organizationLicense = _undefined,
-    Object? updateInterval = _undefined,
-    Object? remarks = _undefined,
+    Object? code = _undefined,
     Object? sharedAppellationsId = _undefined,
+    Object? nameSharedDictionaryId = _undefined,
     Object? jaLanguageCodeId = _undefined,
     Object? enLanguageCodeId = _undefined,
-    Object? nameSharedDictionaryId = _undefined,
     Object? nameJa = _undefined,
     Object? nameEn = _undefined,
     Object? pronunciationSharedDictionaryId = _undefined,
@@ -461,30 +506,29 @@ class _CopyWithImpl$Variables$Mutation$LicensePageEdit<TRes>
     Object? nicknameSharedDictionaryId = _undefined,
     Object? nicknameJa = _undefined,
     Object? nicknameEn = _undefined,
+    Object? detailTextsSharedTextId = _undefined,
+    Object? detailTextsJa = _undefined,
+    Object? detailTextsEn = _undefined,
+    Object? publicLicense = _undefined,
+    Object? customerLicense = _undefined,
+    Object? organizationLicense = _undefined,
+    Object? updateInterval = _undefined,
+    Object? remarks = _undefined,
   }) => _then(
     Variables$Mutation$LicensePageEdit._({
       ..._instance._$data,
       if (mstrLicenseId != _undefined && mstrLicenseId != null)
         'mstrLicenseId': (mstrLicenseId as String),
-      if (detail != _undefined) 'detail': (detail as String?),
-      if (publicLicense != _undefined)
-        'publicLicense': (publicLicense as bool?),
-      if (customerLicense != _undefined)
-        'customerLicense': (customerLicense as bool?),
-      if (organizationLicense != _undefined)
-        'organizationLicense': (organizationLicense as bool?),
-      if (updateInterval != _undefined)
-        'updateInterval': (updateInterval as Input$IntervalInput?),
-      if (remarks != _undefined) 'remarks': (remarks as String?),
+      if (code != _undefined) 'code': (code as String?),
       if (sharedAppellationsId != _undefined && sharedAppellationsId != null)
         'sharedAppellationsId': (sharedAppellationsId as String),
+      if (nameSharedDictionaryId != _undefined &&
+          nameSharedDictionaryId != null)
+        'nameSharedDictionaryId': (nameSharedDictionaryId as String),
       if (jaLanguageCodeId != _undefined && jaLanguageCodeId != null)
         'jaLanguageCodeId': (jaLanguageCodeId as String),
       if (enLanguageCodeId != _undefined && enLanguageCodeId != null)
         'enLanguageCodeId': (enLanguageCodeId as String),
-      if (nameSharedDictionaryId != _undefined &&
-          nameSharedDictionaryId != null)
-        'nameSharedDictionaryId': (nameSharedDictionaryId as String),
       if (nameJa != _undefined && nameJa != null) 'nameJa': (nameJa as String),
       if (nameEn != _undefined && nameEn != null) 'nameEn': (nameEn as String),
       if (pronunciationSharedDictionaryId != _undefined &&
@@ -502,6 +546,22 @@ class _CopyWithImpl$Variables$Mutation$LicensePageEdit<TRes>
         'nicknameJa': (nicknameJa as String),
       if (nicknameEn != _undefined && nicknameEn != null)
         'nicknameEn': (nicknameEn as String),
+      if (detailTextsSharedTextId != _undefined &&
+          detailTextsSharedTextId != null)
+        'detailTextsSharedTextId': (detailTextsSharedTextId as String),
+      if (detailTextsJa != _undefined && detailTextsJa != null)
+        'detailTextsJa': (detailTextsJa as String),
+      if (detailTextsEn != _undefined && detailTextsEn != null)
+        'detailTextsEn': (detailTextsEn as String),
+      if (publicLicense != _undefined)
+        'publicLicense': (publicLicense as bool?),
+      if (customerLicense != _undefined)
+        'customerLicense': (customerLicense as bool?),
+      if (organizationLicense != _undefined)
+        'organizationLicense': (organizationLicense as bool?),
+      if (updateInterval != _undefined)
+        'updateInterval': (updateInterval as Input$IntervalInput?),
+      if (remarks != _undefined) 'remarks': (remarks as String?),
     }),
   );
 }
@@ -514,16 +574,11 @@ class _CopyWithStubImpl$Variables$Mutation$LicensePageEdit<TRes>
 
   call({
     String? mstrLicenseId,
-    String? detail,
-    bool? publicLicense,
-    bool? customerLicense,
-    bool? organizationLicense,
-    Input$IntervalInput? updateInterval,
-    String? remarks,
+    String? code,
     String? sharedAppellationsId,
+    String? nameSharedDictionaryId,
     String? jaLanguageCodeId,
     String? enLanguageCodeId,
-    String? nameSharedDictionaryId,
     String? nameJa,
     String? nameEn,
     String? pronunciationSharedDictionaryId,
@@ -532,6 +587,14 @@ class _CopyWithStubImpl$Variables$Mutation$LicensePageEdit<TRes>
     String? nicknameSharedDictionaryId,
     String? nicknameJa,
     String? nicknameEn,
+    String? detailTextsSharedTextId,
+    String? detailTextsJa,
+    String? detailTextsEn,
+    bool? publicLicense,
+    bool? customerLicense,
+    bool? organizationLicense,
+    Input$IntervalInput? updateInterval,
+    String? remarks,
   }) => _res;
 }
 
@@ -700,52 +763,7 @@ const documentNodeMutationLicensePageEdit = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'detail')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'String'),
-            isNonNull: false,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'publicLicense')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'Boolean'),
-            isNonNull: false,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'customerLicense')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'Boolean'),
-            isNonNull: false,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'organizationLicense')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'Boolean'),
-            isNonNull: false,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'updateInterval')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'IntervalInput'),
-            isNonNull: false,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'remarks')),
+          variable: VariableNode(name: NameNode(value: 'code')),
           type: NamedTypeNode(
             name: NameNode(value: 'String'),
             isNonNull: false,
@@ -760,6 +778,14 @@ const documentNodeMutationLicensePageEdit = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
+          variable: VariableNode(
+            name: NameNode(value: 'nameSharedDictionaryId'),
+          ),
+          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'jaLanguageCodeId')),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
@@ -767,14 +793,6 @@ const documentNodeMutationLicensePageEdit = DocumentNode(
         ),
         VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'enLanguageCodeId')),
-          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
-          variable: VariableNode(
-            name: NameNode(value: 'nameSharedDictionaryId'),
-          ),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
@@ -831,6 +849,71 @@ const documentNodeMutationLicensePageEdit = DocumentNode(
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
+        VariableDefinitionNode(
+          variable: VariableNode(
+            name: NameNode(value: 'detailTextsSharedTextId'),
+          ),
+          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'detailTextsJa')),
+          type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'detailTextsEn')),
+          type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'publicLicense')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'Boolean'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'customerLicense')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'Boolean'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'organizationLicense')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'Boolean'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'updateInterval')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'IntervalInput'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'remarks')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
       ],
       directives: [],
       selectionSet: SelectionSetNode(
@@ -854,40 +937,8 @@ const documentNodeMutationLicensePageEdit = DocumentNode(
                       value: ObjectValueNode(
                         fields: [
                           ObjectFieldNode(
-                            name: NameNode(value: 'detail'),
-                            value: VariableNode(
-                              name: NameNode(value: 'detail'),
-                            ),
-                          ),
-                          ObjectFieldNode(
-                            name: NameNode(value: 'publicLicense'),
-                            value: VariableNode(
-                              name: NameNode(value: 'publicLicense'),
-                            ),
-                          ),
-                          ObjectFieldNode(
-                            name: NameNode(value: 'customerLicense'),
-                            value: VariableNode(
-                              name: NameNode(value: 'customerLicense'),
-                            ),
-                          ),
-                          ObjectFieldNode(
-                            name: NameNode(value: 'organizationLicense'),
-                            value: VariableNode(
-                              name: NameNode(value: 'organizationLicense'),
-                            ),
-                          ),
-                          ObjectFieldNode(
-                            name: NameNode(value: 'updateInterval'),
-                            value: VariableNode(
-                              name: NameNode(value: 'updateInterval'),
-                            ),
-                          ),
-                          ObjectFieldNode(
-                            name: NameNode(value: 'remarks'),
-                            value: VariableNode(
-                              name: NameNode(value: 'remarks'),
-                            ),
+                            name: NameNode(value: 'code'),
+                            value: VariableNode(name: NameNode(value: 'code')),
                           ),
                           ObjectFieldNode(
                             name: NameNode(value: 'sharedAppellationToNames'),
@@ -1284,6 +1335,150 @@ const documentNodeMutationLicensePageEdit = DocumentNode(
                               ],
                             ),
                           ),
+                          ObjectFieldNode(
+                            name: NameNode(value: 'sharedTextToDetails'),
+                            value: ObjectValueNode(
+                              fields: [
+                                ObjectFieldNode(
+                                  name: NameNode(value: 'updateBySharedTextId'),
+                                  value: ObjectValueNode(
+                                    fields: [
+                                      ObjectFieldNode(
+                                        name: NameNode(value: 'sharedTextId'),
+                                        value: VariableNode(
+                                          name: NameNode(
+                                            value: 'detailTextsSharedTextId',
+                                          ),
+                                        ),
+                                      ),
+                                      ObjectFieldNode(
+                                        name: NameNode(
+                                          value: 'sharedTextPatch',
+                                        ),
+                                        value: ObjectValueNode(
+                                          fields: [
+                                            ObjectFieldNode(
+                                              name: NameNode(
+                                                value:
+                                                    'sharedTextValuesUsingSharedTextId',
+                                              ),
+                                              value: ObjectValueNode(
+                                                fields: [
+                                                  ObjectFieldNode(
+                                                    name: NameNode(
+                                                      value: 'deleteOthers',
+                                                    ),
+                                                    value: BooleanValueNode(
+                                                      value: true,
+                                                    ),
+                                                  ),
+                                                  ObjectFieldNode(
+                                                    name: NameNode(
+                                                      value: 'create',
+                                                    ),
+                                                    value: ListValueNode(
+                                                      values: [
+                                                        ObjectValueNode(
+                                                          fields: [
+                                                            ObjectFieldNode(
+                                                              name: NameNode(
+                                                                value:
+                                                                    'sharedLanguageCodeId',
+                                                              ),
+                                                              value: VariableNode(
+                                                                name: NameNode(
+                                                                  value:
+                                                                      'jaLanguageCodeId',
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            ObjectFieldNode(
+                                                              name: NameNode(
+                                                                value:
+                                                                    'textValue',
+                                                              ),
+                                                              value: VariableNode(
+                                                                name: NameNode(
+                                                                  value:
+                                                                      'detailTextsJa',
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        ObjectValueNode(
+                                                          fields: [
+                                                            ObjectFieldNode(
+                                                              name: NameNode(
+                                                                value:
+                                                                    'sharedLanguageCodeId',
+                                                              ),
+                                                              value: VariableNode(
+                                                                name: NameNode(
+                                                                  value:
+                                                                      'enLanguageCodeId',
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            ObjectFieldNode(
+                                                              name: NameNode(
+                                                                value:
+                                                                    'textValue',
+                                                              ),
+                                                              value: VariableNode(
+                                                                name: NameNode(
+                                                                  value:
+                                                                      'detailTextsEn',
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          ObjectFieldNode(
+                            name: NameNode(value: 'publicLicense'),
+                            value: VariableNode(
+                              name: NameNode(value: 'publicLicense'),
+                            ),
+                          ),
+                          ObjectFieldNode(
+                            name: NameNode(value: 'customerLicense'),
+                            value: VariableNode(
+                              name: NameNode(value: 'customerLicense'),
+                            ),
+                          ),
+                          ObjectFieldNode(
+                            name: NameNode(value: 'organizationLicense'),
+                            value: VariableNode(
+                              name: NameNode(value: 'organizationLicense'),
+                            ),
+                          ),
+                          ObjectFieldNode(
+                            name: NameNode(value: 'updateInterval'),
+                            value: VariableNode(
+                              name: NameNode(value: 'updateInterval'),
+                            ),
+                          ),
+                          ObjectFieldNode(
+                            name: NameNode(value: 'remarks'),
+                            value: VariableNode(
+                              name: NameNode(value: 'remarks'),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -1310,100 +1505,6 @@ const documentNodeMutationLicensePageEdit = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(value: 'code'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'detail'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'publicLicense'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'customerLicense'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'organizationLicense'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'updateInterval'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: SelectionSetNode(
-                          selections: [
-                            FieldNode(
-                              name: NameNode(value: 'years'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'months'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'days'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'hours'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'minutes'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'seconds'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: '__typename'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                          ],
-                        ),
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'remarks'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -1911,6 +2012,239 @@ const documentNodeMutationLicensePageEdit = DocumentNode(
                         ),
                       ),
                       FieldNode(
+                        name: NameNode(value: 'sharedTextByDetails'),
+                        alias: NameNode(value: 'detailTexts'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'sharedTextId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(
+                                value: 'sharedTextValuesBySharedTextId',
+                              ),
+                              alias: NameNode(value: 'ja'),
+                              arguments: [
+                                ArgumentNode(
+                                  name: NameNode(value: 'condition'),
+                                  value: ObjectValueNode(
+                                    fields: [
+                                      ObjectFieldNode(
+                                        name: NameNode(
+                                          value: 'sharedLanguageCodeId',
+                                        ),
+                                        value: VariableNode(
+                                          name: NameNode(
+                                            value: 'jaLanguageCodeId',
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                              directives: [],
+                              selectionSet: SelectionSetNode(
+                                selections: [
+                                  FieldNode(
+                                    name: NameNode(value: 'nodes'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'textValue'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: '__typename'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FieldNode(
+                              name: NameNode(
+                                value: 'sharedTextValuesBySharedTextId',
+                              ),
+                              alias: NameNode(value: 'en'),
+                              arguments: [
+                                ArgumentNode(
+                                  name: NameNode(value: 'condition'),
+                                  value: ObjectValueNode(
+                                    fields: [
+                                      ObjectFieldNode(
+                                        name: NameNode(
+                                          value: 'sharedLanguageCodeId',
+                                        ),
+                                        value: VariableNode(
+                                          name: NameNode(
+                                            value: 'enLanguageCodeId',
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                              directives: [],
+                              selectionSet: SelectionSetNode(
+                                selections: [
+                                  FieldNode(
+                                    name: NameNode(value: 'nodes'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'textValue'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: '__typename'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'publicLicense'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'customerLicense'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'organizationLicense'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'updateInterval'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'seconds'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'minutes'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'hours'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'days'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'months'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'years'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
                         name: NameNode(value: '__typename'),
                         alias: null,
                         arguments: [],
@@ -2325,13 +2659,13 @@ class Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense {
   Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense({
     required this.mstrLicenseId,
     this.code,
-    this.detail,
+    this.labels,
+    this.detailTexts,
     this.publicLicense,
     this.customerLicense,
     this.organizationLicense,
     this.updateInterval,
     this.remarks,
-    this.labels,
     this.$__typename = 'MstrLicense',
   });
 
@@ -2340,18 +2674,27 @@ class Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense {
   ) {
     final l$mstrLicenseId = json['mstrLicenseId'];
     final l$code = json['code'];
-    final l$detail = json['detail'];
+    final l$labels = json['labels'];
+    final l$detailTexts = json['detailTexts'];
     final l$publicLicense = json['publicLicense'];
     final l$customerLicense = json['customerLicense'];
     final l$organizationLicense = json['organizationLicense'];
     final l$updateInterval = json['updateInterval'];
     final l$remarks = json['remarks'];
-    final l$labels = json['labels'];
     final l$$__typename = json['__typename'];
     return Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense(
       mstrLicenseId: (l$mstrLicenseId as String),
       code: (l$code as String?),
-      detail: (l$detail as String?),
+      labels: l$labels == null
+          ? null
+          : Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$labels.fromJson(
+              (l$labels as Map<String, dynamic>),
+            ),
+      detailTexts: l$detailTexts == null
+          ? null
+          : Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts.fromJson(
+              (l$detailTexts as Map<String, dynamic>),
+            ),
       publicLicense: (l$publicLicense as bool?),
       customerLicense: (l$customerLicense as bool?),
       organizationLicense: (l$organizationLicense as bool?),
@@ -2361,11 +2704,6 @@ class Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense {
               (l$updateInterval as Map<String, dynamic>),
             ),
       remarks: (l$remarks as String?),
-      labels: l$labels == null
-          ? null
-          : Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$labels.fromJson(
-              (l$labels as Map<String, dynamic>),
-            ),
       $__typename: (l$$__typename as String),
     );
   }
@@ -2374,7 +2712,11 @@ class Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense {
 
   final String? code;
 
-  final String? detail;
+  final Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$labels?
+  labels;
+
+  final Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts?
+  detailTexts;
 
   final bool? publicLicense;
 
@@ -2387,9 +2729,6 @@ class Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense {
 
   final String? remarks;
 
-  final Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$labels?
-  labels;
-
   final String $__typename;
 
   Map<String, dynamic> toJson() {
@@ -2398,8 +2737,10 @@ class Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense {
     _resultData['mstrLicenseId'] = l$mstrLicenseId;
     final l$code = code;
     _resultData['code'] = l$code;
-    final l$detail = detail;
-    _resultData['detail'] = l$detail;
+    final l$labels = labels;
+    _resultData['labels'] = l$labels?.toJson();
+    final l$detailTexts = detailTexts;
+    _resultData['detailTexts'] = l$detailTexts?.toJson();
     final l$publicLicense = publicLicense;
     _resultData['publicLicense'] = l$publicLicense;
     final l$customerLicense = customerLicense;
@@ -2410,8 +2751,6 @@ class Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense {
     _resultData['updateInterval'] = l$updateInterval?.toJson();
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
-    final l$labels = labels;
-    _resultData['labels'] = l$labels?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -2421,24 +2760,24 @@ class Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense {
   int get hashCode {
     final l$mstrLicenseId = mstrLicenseId;
     final l$code = code;
-    final l$detail = detail;
+    final l$labels = labels;
+    final l$detailTexts = detailTexts;
     final l$publicLicense = publicLicense;
     final l$customerLicense = customerLicense;
     final l$organizationLicense = organizationLicense;
     final l$updateInterval = updateInterval;
     final l$remarks = remarks;
-    final l$labels = labels;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$mstrLicenseId,
       l$code,
-      l$detail,
+      l$labels,
+      l$detailTexts,
       l$publicLicense,
       l$customerLicense,
       l$organizationLicense,
       l$updateInterval,
       l$remarks,
-      l$labels,
       l$$__typename,
     ]);
   }
@@ -2463,9 +2802,14 @@ class Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense {
     if (l$code != lOther$code) {
       return false;
     }
-    final l$detail = detail;
-    final lOther$detail = other.detail;
-    if (l$detail != lOther$detail) {
+    final l$labels = labels;
+    final lOther$labels = other.labels;
+    if (l$labels != lOther$labels) {
+      return false;
+    }
+    final l$detailTexts = detailTexts;
+    final lOther$detailTexts = other.detailTexts;
+    if (l$detailTexts != lOther$detailTexts) {
       return false;
     }
     final l$publicLicense = publicLicense;
@@ -2491,11 +2835,6 @@ class Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense {
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (l$remarks != lOther$remarks) {
-      return false;
-    }
-    final l$labels = labels;
-    final lOther$labels = other.labels;
-    if (l$labels != lOther$labels) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -2538,25 +2877,30 @@ abstract class CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseI
   TRes call({
     String? mstrLicenseId,
     String? code,
-    String? detail,
+    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$labels?
+    labels,
+    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts?
+    detailTexts,
     bool? publicLicense,
     bool? customerLicense,
     bool? organizationLicense,
     Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval?
     updateInterval,
     String? remarks,
-    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$labels?
-    labels,
     String? $__typename,
   });
-  CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval<
-    TRes
-  >
-  get updateInterval;
   CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$labels<
     TRes
   >
   get labels;
+  CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts<
+    TRes
+  >
+  get detailTexts;
+  CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval<
+    TRes
+  >
+  get updateInterval;
 }
 
 class _CopyWithImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense<
@@ -2584,13 +2928,13 @@ class _CopyWithImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$ms
   TRes call({
     Object? mstrLicenseId = _undefined,
     Object? code = _undefined,
-    Object? detail = _undefined,
+    Object? labels = _undefined,
+    Object? detailTexts = _undefined,
     Object? publicLicense = _undefined,
     Object? customerLicense = _undefined,
     Object? organizationLicense = _undefined,
     Object? updateInterval = _undefined,
     Object? remarks = _undefined,
-    Object? labels = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense(
@@ -2598,7 +2942,14 @@ class _CopyWithImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$ms
           ? _instance.mstrLicenseId
           : (mstrLicenseId as String),
       code: code == _undefined ? _instance.code : (code as String?),
-      detail: detail == _undefined ? _instance.detail : (detail as String?),
+      labels: labels == _undefined
+          ? _instance.labels
+          : (labels
+                as Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$labels?),
+      detailTexts: detailTexts == _undefined
+          ? _instance.detailTexts
+          : (detailTexts
+                as Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts?),
       publicLicense: publicLicense == _undefined
           ? _instance.publicLicense
           : (publicLicense as bool?),
@@ -2613,30 +2964,11 @@ class _CopyWithImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$ms
           : (updateInterval
                 as Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
-      labels: labels == _undefined
-          ? _instance.labels
-          : (labels
-                as Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$labels?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
-
-  CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval<
-    TRes
-  >
-  get updateInterval {
-    final local$updateInterval = _instance.updateInterval;
-    return local$updateInterval == null
-        ? CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval.stub(
-            _then(_instance),
-          )
-        : CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval(
-            local$updateInterval,
-            (e) => call(updateInterval: e),
-          );
-  }
 
   CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$labels<
     TRes
@@ -2650,6 +2982,36 @@ class _CopyWithImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$ms
         : CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$labels(
             local$labels,
             (e) => call(labels: e),
+          );
+  }
+
+  CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts<
+    TRes
+  >
+  get detailTexts {
+    final local$detailTexts = _instance.detailTexts;
+    return local$detailTexts == null
+        ? CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts.stub(
+            _then(_instance),
+          )
+        : CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts(
+            local$detailTexts,
+            (e) => call(detailTexts: e),
+          );
+  }
+
+  CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval<
+    TRes
+  >
+  get updateInterval {
+    final local$updateInterval = _instance.updateInterval;
+    return local$updateInterval == null
+        ? CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval.stub(
+            _then(_instance),
+          )
+        : CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval(
+            local$updateInterval,
+            (e) => call(updateInterval: e),
           );
   }
 }
@@ -2670,25 +3032,18 @@ class _CopyWithStubImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseI
   call({
     String? mstrLicenseId,
     String? code,
-    String? detail,
+    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$labels?
+    labels,
+    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts?
+    detailTexts,
     bool? publicLicense,
     bool? customerLicense,
     bool? organizationLicense,
     Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval?
     updateInterval,
     String? remarks,
-    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$labels?
-    labels,
     String? $__typename,
   }) => _res;
-
-  CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval<
-    TRes
-  >
-  get updateInterval =>
-      CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval.stub(
-        _res,
-      );
 
   CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$labels<
     TRes
@@ -2697,249 +3052,22 @@ class _CopyWithStubImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseI
       CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$labels.stub(
         _res,
       );
-}
 
-class Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval {
-  Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval({
-    this.years,
-    this.months,
-    this.days,
-    this.hours,
-    this.minutes,
-    this.seconds,
-    this.$__typename = 'Interval',
-  });
-
-  factory Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval.fromJson(
-    Map<String, dynamic> json,
-  ) {
-    final l$years = json['years'];
-    final l$months = json['months'];
-    final l$days = json['days'];
-    final l$hours = json['hours'];
-    final l$minutes = json['minutes'];
-    final l$seconds = json['seconds'];
-    final l$$__typename = json['__typename'];
-    return Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval(
-      years: (l$years as int?),
-      months: (l$months as int?),
-      days: (l$days as int?),
-      hours: (l$hours as int?),
-      minutes: (l$minutes as int?),
-      seconds: (l$seconds as num?)?.toDouble(),
-      $__typename: (l$$__typename as String),
-    );
-  }
-
-  final int? years;
-
-  final int? months;
-
-  final int? days;
-
-  final int? hours;
-
-  final int? minutes;
-
-  final double? seconds;
-
-  final String $__typename;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$years = years;
-    _resultData['years'] = l$years;
-    final l$months = months;
-    _resultData['months'] = l$months;
-    final l$days = days;
-    _resultData['days'] = l$days;
-    final l$hours = hours;
-    _resultData['hours'] = l$hours;
-    final l$minutes = minutes;
-    _resultData['minutes'] = l$minutes;
-    final l$seconds = seconds;
-    _resultData['seconds'] = l$seconds;
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$years = years;
-    final l$months = months;
-    final l$days = days;
-    final l$hours = hours;
-    final l$minutes = minutes;
-    final l$seconds = seconds;
-    final l$$__typename = $__typename;
-    return Object.hashAll([
-      l$years,
-      l$months,
-      l$days,
-      l$hours,
-      l$minutes,
-      l$seconds,
-      l$$__typename,
-    ]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (other
-            is! Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$years = years;
-    final lOther$years = other.years;
-    if (l$years != lOther$years) {
-      return false;
-    }
-    final l$months = months;
-    final lOther$months = other.months;
-    if (l$months != lOther$months) {
-      return false;
-    }
-    final l$days = days;
-    final lOther$days = other.days;
-    if (l$days != lOther$days) {
-      return false;
-    }
-    final l$hours = hours;
-    final lOther$hours = other.hours;
-    if (l$hours != lOther$hours) {
-      return false;
-    }
-    final l$minutes = minutes;
-    final lOther$minutes = other.minutes;
-    if (l$minutes != lOther$minutes) {
-      return false;
-    }
-    final l$seconds = seconds;
-    final lOther$seconds = other.seconds;
-    if (l$seconds != lOther$seconds) {
-      return false;
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval
-    on
-        Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval {
-  CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval<
-    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval
+  CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts<
+    TRes
   >
-  get copyWith =>
-      CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval(
-        this,
-        (i) => i,
+  get detailTexts =>
+      CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts.stub(
+        _res,
       );
-}
 
-abstract class CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval<
-  TRes
-> {
-  factory CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval(
-    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval
-    instance,
-    TRes Function(
-      Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval,
-    )
-    then,
-  ) = _CopyWithImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval;
-
-  factory CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval.stub(
-    TRes res,
-  ) = _CopyWithStubImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval;
-
-  TRes call({
-    int? years,
-    int? months,
-    int? days,
-    int? hours,
-    int? minutes,
-    double? seconds,
-    String? $__typename,
-  });
-}
-
-class _CopyWithImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval<
-  TRes
->
-    implements
-        CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval<
-          TRes
-        > {
-  _CopyWithImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval(
-    this._instance,
-    this._then,
-  );
-
-  final Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval
-  _instance;
-
-  final TRes Function(
-    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval,
-  )
-  _then;
-
-  static const _undefined = <dynamic, dynamic>{};
-
-  TRes call({
-    Object? years = _undefined,
-    Object? months = _undefined,
-    Object? days = _undefined,
-    Object? hours = _undefined,
-    Object? minutes = _undefined,
-    Object? seconds = _undefined,
-    Object? $__typename = _undefined,
-  }) => _then(
-    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval(
-      years: years == _undefined ? _instance.years : (years as int?),
-      months: months == _undefined ? _instance.months : (months as int?),
-      days: days == _undefined ? _instance.days : (days as int?),
-      hours: hours == _undefined ? _instance.hours : (hours as int?),
-      minutes: minutes == _undefined ? _instance.minutes : (minutes as int?),
-      seconds: seconds == _undefined ? _instance.seconds : (seconds as double?),
-      $__typename: $__typename == _undefined || $__typename == null
-          ? _instance.$__typename
-          : ($__typename as String),
-    ),
-  );
-}
-
-class _CopyWithStubImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval<
-  TRes
->
-    implements
-        CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval<
-          TRes
-        > {
-  _CopyWithStubImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval(
-    this._res,
-  );
-
-  TRes _res;
-
-  call({
-    int? years,
-    int? months,
-    int? days,
-    int? hours,
-    int? minutes,
-    double? seconds,
-    String? $__typename,
-  }) => _res;
+  CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval<
+    TRes
+  >
+  get updateInterval =>
+      CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval.stub(
+        _res,
+      );
 }
 
 class Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$labels {
@@ -6248,4 +6376,1231 @@ class _CopyWithStubImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseI
   TRes _res;
 
   call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts {
+  Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts({
+    required this.sharedTextId,
+    required this.ja,
+    required this.en,
+    this.$__typename = 'SharedText',
+  });
+
+  factory Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedTextId = json['sharedTextId'];
+    final l$ja = json['ja'];
+    final l$en = json['en'];
+    final l$$__typename = json['__typename'];
+    return Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts(
+      sharedTextId: (l$sharedTextId as String),
+      ja: Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String sharedTextId;
+
+  final Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja
+  ja;
+
+  final Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en
+  en;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedTextId = sharedTextId;
+    _resultData['sharedTextId'] = l$sharedTextId;
+    final l$ja = ja;
+    _resultData['ja'] = l$ja.toJson();
+    final l$en = en;
+    _resultData['en'] = l$en.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedTextId = sharedTextId;
+    final l$ja = ja;
+    final l$en = en;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$sharedTextId, l$ja, l$en, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedTextId = sharedTextId;
+    final lOther$sharedTextId = other.sharedTextId;
+    if (l$sharedTextId != lOther$sharedTextId) {
+      return false;
+    }
+    final l$ja = ja;
+    final lOther$ja = other.ja;
+    if (l$ja != lOther$ja) {
+      return false;
+    }
+    final l$en = en;
+    final lOther$en = other.en;
+    if (l$en != lOther$en) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts
+    on
+        Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts {
+  CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts<
+    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts
+  >
+  get copyWith =>
+      CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts<
+  TRes
+> {
+  factory CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts(
+    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts
+    instance,
+    TRes Function(
+      Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts;
+
+  factory CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts;
+
+  TRes call({
+    String? sharedTextId,
+    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja?
+    ja,
+    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en?
+    en,
+    String? $__typename,
+  });
+  CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja<
+    TRes
+  >
+  get ja;
+  CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en<
+    TRes
+  >
+  get en;
+}
+
+class _CopyWithImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts<
+  TRes
+>
+    implements
+        CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts
+  _instance;
+
+  final TRes Function(
+    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedTextId = _undefined,
+    Object? ja = _undefined,
+    Object? en = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts(
+      sharedTextId: sharedTextId == _undefined || sharedTextId == null
+          ? _instance.sharedTextId
+          : (sharedTextId as String),
+      ja: ja == _undefined || ja == null
+          ? _instance.ja
+          : (ja
+                as Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja),
+      en: en == _undefined || en == null
+          ? _instance.en
+          : (en
+                as Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja<
+    TRes
+  >
+  get ja {
+    final local$ja = _instance.ja;
+    return CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
+  }
+
+  CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en<
+    TRes
+  >
+  get en {
+    final local$en = _instance.en;
+    return CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en(
+      local$en,
+      (e) => call(en: e),
+    );
+  }
+}
+
+class _CopyWithStubImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts<
+  TRes
+>
+    implements
+        CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? sharedTextId,
+    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja?
+    ja,
+    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en?
+    en,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja<
+    TRes
+  >
+  get ja =>
+      CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja.stub(
+        _res,
+      );
+
+  CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en<
+    TRes
+  >
+  get en =>
+      CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en.stub(
+        _res,
+      );
+}
+
+class Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja {
+  Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja({
+    required this.nodes,
+    this.$__typename = 'SharedTextValuesConnection',
+  });
+
+  factory Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja
+    on
+        Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja {
+  CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja<
+    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja
+  >
+  get copyWith =>
+      CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja<
+  TRes
+> {
+  factory CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja(
+    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja
+    instance,
+    TRes Function(
+      Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja;
+
+  factory CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja;
+
+  TRes call({
+    List<
+      Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes<
+          Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja<
+  TRes
+>
+    implements
+        CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja
+  _instance;
+
+  final TRes Function(
+    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes<
+          Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja<
+  TRes
+>
+    implements
+        CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes {
+  Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes({
+    this.textValue,
+    this.$__typename = 'SharedTextValue',
+  });
+
+  factory Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$textValue = json['textValue'];
+    final l$$__typename = json['__typename'];
+    return Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes(
+      textValue: (l$textValue as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? textValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$textValue = textValue;
+    _resultData['textValue'] = l$textValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$textValue = textValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$textValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$textValue = textValue;
+    final lOther$textValue = other.textValue;
+    if (l$textValue != lOther$textValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes
+    on
+        Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes {
+  CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes<
+    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes
+  >
+  get copyWith =>
+      CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes<
+  TRes
+> {
+  factory CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes(
+    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes
+    instance,
+    TRes Function(
+      Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes;
+
+  factory CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes;
+
+  TRes call({String? textValue, String? $__typename});
+}
+
+class _CopyWithImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes
+  _instance;
+
+  final TRes Function(
+    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? textValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes(
+      textValue: textValue == _undefined
+          ? _instance.textValue
+          : (textValue as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$ja$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? textValue, String? $__typename}) => _res;
+}
+
+class Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en {
+  Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en({
+    required this.nodes,
+    this.$__typename = 'SharedTextValuesConnection',
+  });
+
+  factory Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en
+    on
+        Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en {
+  CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en<
+    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en
+  >
+  get copyWith =>
+      CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en<
+  TRes
+> {
+  factory CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en(
+    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en
+    instance,
+    TRes Function(
+      Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en;
+
+  factory CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en;
+
+  TRes call({
+    List<
+      Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes<
+          Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en<
+  TRes
+>
+    implements
+        CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en
+  _instance;
+
+  final TRes Function(
+    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes<
+          Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en<
+  TRes
+>
+    implements
+        CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes {
+  Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes({
+    this.textValue,
+    this.$__typename = 'SharedTextValue',
+  });
+
+  factory Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$textValue = json['textValue'];
+    final l$$__typename = json['__typename'];
+    return Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes(
+      textValue: (l$textValue as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? textValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$textValue = textValue;
+    _resultData['textValue'] = l$textValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$textValue = textValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$textValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$textValue = textValue;
+    final lOther$textValue = other.textValue;
+    if (l$textValue != lOther$textValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes
+    on
+        Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes {
+  CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes<
+    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes
+  >
+  get copyWith =>
+      CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes<
+  TRes
+> {
+  factory CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes(
+    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes
+    instance,
+    TRes Function(
+      Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes;
+
+  factory CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes;
+
+  TRes call({String? textValue, String? $__typename});
+}
+
+class _CopyWithImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes
+  _instance;
+
+  final TRes Function(
+    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? textValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes(
+      textValue: textValue == _undefined
+          ? _instance.textValue
+          : (textValue as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$detailTexts$en$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? textValue, String? $__typename}) => _res;
+}
+
+class Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval {
+  Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval({
+    this.seconds,
+    this.minutes,
+    this.hours,
+    this.days,
+    this.months,
+    this.years,
+    this.$__typename = 'Interval',
+  });
+
+  factory Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$seconds = json['seconds'];
+    final l$minutes = json['minutes'];
+    final l$hours = json['hours'];
+    final l$days = json['days'];
+    final l$months = json['months'];
+    final l$years = json['years'];
+    final l$$__typename = json['__typename'];
+    return Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval(
+      seconds: (l$seconds as num?)?.toDouble(),
+      minutes: (l$minutes as int?),
+      hours: (l$hours as int?),
+      days: (l$days as int?),
+      months: (l$months as int?),
+      years: (l$years as int?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final double? seconds;
+
+  final int? minutes;
+
+  final int? hours;
+
+  final int? days;
+
+  final int? months;
+
+  final int? years;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$seconds = seconds;
+    _resultData['seconds'] = l$seconds;
+    final l$minutes = minutes;
+    _resultData['minutes'] = l$minutes;
+    final l$hours = hours;
+    _resultData['hours'] = l$hours;
+    final l$days = days;
+    _resultData['days'] = l$days;
+    final l$months = months;
+    _resultData['months'] = l$months;
+    final l$years = years;
+    _resultData['years'] = l$years;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$seconds = seconds;
+    final l$minutes = minutes;
+    final l$hours = hours;
+    final l$days = days;
+    final l$months = months;
+    final l$years = years;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$seconds,
+      l$minutes,
+      l$hours,
+      l$days,
+      l$months,
+      l$years,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$seconds = seconds;
+    final lOther$seconds = other.seconds;
+    if (l$seconds != lOther$seconds) {
+      return false;
+    }
+    final l$minutes = minutes;
+    final lOther$minutes = other.minutes;
+    if (l$minutes != lOther$minutes) {
+      return false;
+    }
+    final l$hours = hours;
+    final lOther$hours = other.hours;
+    if (l$hours != lOther$hours) {
+      return false;
+    }
+    final l$days = days;
+    final lOther$days = other.days;
+    if (l$days != lOther$days) {
+      return false;
+    }
+    final l$months = months;
+    final lOther$months = other.months;
+    if (l$months != lOther$months) {
+      return false;
+    }
+    final l$years = years;
+    final lOther$years = other.years;
+    if (l$years != lOther$years) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval
+    on
+        Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval {
+  CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval<
+    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval
+  >
+  get copyWith =>
+      CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval<
+  TRes
+> {
+  factory CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval(
+    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval
+    instance,
+    TRes Function(
+      Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval;
+
+  factory CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval;
+
+  TRes call({
+    double? seconds,
+    int? minutes,
+    int? hours,
+    int? days,
+    int? months,
+    int? years,
+    String? $__typename,
+  });
+}
+
+class _CopyWithImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval<
+  TRes
+>
+    implements
+        CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval
+  _instance;
+
+  final TRes Function(
+    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? seconds = _undefined,
+    Object? minutes = _undefined,
+    Object? hours = _undefined,
+    Object? days = _undefined,
+    Object? months = _undefined,
+    Object? years = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval(
+      seconds: seconds == _undefined ? _instance.seconds : (seconds as double?),
+      minutes: minutes == _undefined ? _instance.minutes : (minutes as int?),
+      hours: hours == _undefined ? _instance.hours : (hours as int?),
+      days: days == _undefined ? _instance.days : (days as int?),
+      months: months == _undefined ? _instance.months : (months as int?),
+      years: years == _undefined ? _instance.years : (years as int?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval<
+  TRes
+>
+    implements
+        CopyWith$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$LicensePageEdit$updateMstrLicenseByMstrLicenseId$mstrLicense$updateInterval(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    double? seconds,
+    int? minutes,
+    int? hours,
+    int? days,
+    int? months,
+    int? years,
+    String? $__typename,
+  }) => _res;
 }

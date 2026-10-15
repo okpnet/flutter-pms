@@ -7,12 +7,12 @@ import 'package:graphql_flutter/graphql_flutter.dart' as graphql_flutter;
 class Variables$Mutation$ProvisionPageEdit {
   factory Variables$Mutation$ProvisionPageEdit({
     required String infoProvisionId,
-    String? details,
-    String? remarks,
+    String? infoCompanyId,
+    String? code,
     required String sharedAppellationsId,
+    required String nameSharedDictionaryId,
     required String jaLanguageCodeId,
     required String enLanguageCodeId,
-    required String nameSharedDictionaryId,
     required String nameJa,
     required String nameEn,
     required String pronunciationSharedDictionaryId,
@@ -21,14 +21,18 @@ class Variables$Mutation$ProvisionPageEdit {
     required String nicknameSharedDictionaryId,
     required String nicknameJa,
     required String nicknameEn,
+    required String detailTextsSharedTextId,
+    required String detailTextsJa,
+    required String detailTextsEn,
+    String? remarks,
   }) => Variables$Mutation$ProvisionPageEdit._({
     r'infoProvisionId': infoProvisionId,
-    if (details != null) r'details': details,
-    if (remarks != null) r'remarks': remarks,
+    if (infoCompanyId != null) r'infoCompanyId': infoCompanyId,
+    if (code != null) r'code': code,
     r'sharedAppellationsId': sharedAppellationsId,
+    r'nameSharedDictionaryId': nameSharedDictionaryId,
     r'jaLanguageCodeId': jaLanguageCodeId,
     r'enLanguageCodeId': enLanguageCodeId,
-    r'nameSharedDictionaryId': nameSharedDictionaryId,
     r'nameJa': nameJa,
     r'nameEn': nameEn,
     r'pronunciationSharedDictionaryId': pronunciationSharedDictionaryId,
@@ -37,6 +41,10 @@ class Variables$Mutation$ProvisionPageEdit {
     r'nicknameSharedDictionaryId': nicknameSharedDictionaryId,
     r'nicknameJa': nicknameJa,
     r'nicknameEn': nicknameEn,
+    r'detailTextsSharedTextId': detailTextsSharedTextId,
+    r'detailTextsJa': detailTextsJa,
+    r'detailTextsEn': detailTextsEn,
+    if (remarks != null) r'remarks': remarks,
   });
 
   Variables$Mutation$ProvisionPageEdit._(this._$data);
@@ -47,23 +55,23 @@ class Variables$Mutation$ProvisionPageEdit {
     final result$data = <String, dynamic>{};
     final l$infoProvisionId = data['infoProvisionId'];
     result$data['infoProvisionId'] = (l$infoProvisionId as String);
-    if (data.containsKey('details')) {
-      final l$details = data['details'];
-      result$data['details'] = (l$details as String?);
+    if (data.containsKey('infoCompanyId')) {
+      final l$infoCompanyId = data['infoCompanyId'];
+      result$data['infoCompanyId'] = (l$infoCompanyId as String?);
     }
-    if (data.containsKey('remarks')) {
-      final l$remarks = data['remarks'];
-      result$data['remarks'] = (l$remarks as String?);
+    if (data.containsKey('code')) {
+      final l$code = data['code'];
+      result$data['code'] = (l$code as String?);
     }
     final l$sharedAppellationsId = data['sharedAppellationsId'];
     result$data['sharedAppellationsId'] = (l$sharedAppellationsId as String);
+    final l$nameSharedDictionaryId = data['nameSharedDictionaryId'];
+    result$data['nameSharedDictionaryId'] =
+        (l$nameSharedDictionaryId as String);
     final l$jaLanguageCodeId = data['jaLanguageCodeId'];
     result$data['jaLanguageCodeId'] = (l$jaLanguageCodeId as String);
     final l$enLanguageCodeId = data['enLanguageCodeId'];
     result$data['enLanguageCodeId'] = (l$enLanguageCodeId as String);
-    final l$nameSharedDictionaryId = data['nameSharedDictionaryId'];
-    result$data['nameSharedDictionaryId'] =
-        (l$nameSharedDictionaryId as String);
     final l$nameJa = data['nameJa'];
     result$data['nameJa'] = (l$nameJa as String);
     final l$nameEn = data['nameEn'];
@@ -83,6 +91,17 @@ class Variables$Mutation$ProvisionPageEdit {
     result$data['nicknameJa'] = (l$nicknameJa as String);
     final l$nicknameEn = data['nicknameEn'];
     result$data['nicknameEn'] = (l$nicknameEn as String);
+    final l$detailTextsSharedTextId = data['detailTextsSharedTextId'];
+    result$data['detailTextsSharedTextId'] =
+        (l$detailTextsSharedTextId as String);
+    final l$detailTextsJa = data['detailTextsJa'];
+    result$data['detailTextsJa'] = (l$detailTextsJa as String);
+    final l$detailTextsEn = data['detailTextsEn'];
+    result$data['detailTextsEn'] = (l$detailTextsEn as String);
+    if (data.containsKey('remarks')) {
+      final l$remarks = data['remarks'];
+      result$data['remarks'] = (l$remarks as String?);
+    }
     return Variables$Mutation$ProvisionPageEdit._(result$data);
   }
 
@@ -90,18 +109,18 @@ class Variables$Mutation$ProvisionPageEdit {
 
   String get infoProvisionId => (_$data['infoProvisionId'] as String);
 
-  String? get details => (_$data['details'] as String?);
+  String? get infoCompanyId => (_$data['infoCompanyId'] as String?);
 
-  String? get remarks => (_$data['remarks'] as String?);
+  String? get code => (_$data['code'] as String?);
 
   String get sharedAppellationsId => (_$data['sharedAppellationsId'] as String);
+
+  String get nameSharedDictionaryId =>
+      (_$data['nameSharedDictionaryId'] as String);
 
   String get jaLanguageCodeId => (_$data['jaLanguageCodeId'] as String);
 
   String get enLanguageCodeId => (_$data['enLanguageCodeId'] as String);
-
-  String get nameSharedDictionaryId =>
-      (_$data['nameSharedDictionaryId'] as String);
 
   String get nameJa => (_$data['nameJa'] as String);
 
@@ -121,26 +140,35 @@ class Variables$Mutation$ProvisionPageEdit {
 
   String get nicknameEn => (_$data['nicknameEn'] as String);
 
+  String get detailTextsSharedTextId =>
+      (_$data['detailTextsSharedTextId'] as String);
+
+  String get detailTextsJa => (_$data['detailTextsJa'] as String);
+
+  String get detailTextsEn => (_$data['detailTextsEn'] as String);
+
+  String? get remarks => (_$data['remarks'] as String?);
+
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
     final l$infoProvisionId = infoProvisionId;
     result$data['infoProvisionId'] = l$infoProvisionId;
-    if (_$data.containsKey('details')) {
-      final l$details = details;
-      result$data['details'] = l$details;
+    if (_$data.containsKey('infoCompanyId')) {
+      final l$infoCompanyId = infoCompanyId;
+      result$data['infoCompanyId'] = l$infoCompanyId;
     }
-    if (_$data.containsKey('remarks')) {
-      final l$remarks = remarks;
-      result$data['remarks'] = l$remarks;
+    if (_$data.containsKey('code')) {
+      final l$code = code;
+      result$data['code'] = l$code;
     }
     final l$sharedAppellationsId = sharedAppellationsId;
     result$data['sharedAppellationsId'] = l$sharedAppellationsId;
+    final l$nameSharedDictionaryId = nameSharedDictionaryId;
+    result$data['nameSharedDictionaryId'] = l$nameSharedDictionaryId;
     final l$jaLanguageCodeId = jaLanguageCodeId;
     result$data['jaLanguageCodeId'] = l$jaLanguageCodeId;
     final l$enLanguageCodeId = enLanguageCodeId;
     result$data['enLanguageCodeId'] = l$enLanguageCodeId;
-    final l$nameSharedDictionaryId = nameSharedDictionaryId;
-    result$data['nameSharedDictionaryId'] = l$nameSharedDictionaryId;
     final l$nameJa = nameJa;
     result$data['nameJa'] = l$nameJa;
     final l$nameEn = nameEn;
@@ -158,6 +186,16 @@ class Variables$Mutation$ProvisionPageEdit {
     result$data['nicknameJa'] = l$nicknameJa;
     final l$nicknameEn = nicknameEn;
     result$data['nicknameEn'] = l$nicknameEn;
+    final l$detailTextsSharedTextId = detailTextsSharedTextId;
+    result$data['detailTextsSharedTextId'] = l$detailTextsSharedTextId;
+    final l$detailTextsJa = detailTextsJa;
+    result$data['detailTextsJa'] = l$detailTextsJa;
+    final l$detailTextsEn = detailTextsEn;
+    result$data['detailTextsEn'] = l$detailTextsEn;
+    if (_$data.containsKey('remarks')) {
+      final l$remarks = remarks;
+      result$data['remarks'] = l$remarks;
+    }
     return result$data;
   }
 
@@ -180,25 +218,31 @@ class Variables$Mutation$ProvisionPageEdit {
     if (l$infoProvisionId != lOther$infoProvisionId) {
       return false;
     }
-    final l$details = details;
-    final lOther$details = other.details;
-    if (_$data.containsKey('details') != other._$data.containsKey('details')) {
+    final l$infoCompanyId = infoCompanyId;
+    final lOther$infoCompanyId = other.infoCompanyId;
+    if (_$data.containsKey('infoCompanyId') !=
+        other._$data.containsKey('infoCompanyId')) {
       return false;
     }
-    if (l$details != lOther$details) {
+    if (l$infoCompanyId != lOther$infoCompanyId) {
       return false;
     }
-    final l$remarks = remarks;
-    final lOther$remarks = other.remarks;
-    if (_$data.containsKey('remarks') != other._$data.containsKey('remarks')) {
+    final l$code = code;
+    final lOther$code = other.code;
+    if (_$data.containsKey('code') != other._$data.containsKey('code')) {
       return false;
     }
-    if (l$remarks != lOther$remarks) {
+    if (l$code != lOther$code) {
       return false;
     }
     final l$sharedAppellationsId = sharedAppellationsId;
     final lOther$sharedAppellationsId = other.sharedAppellationsId;
     if (l$sharedAppellationsId != lOther$sharedAppellationsId) {
+      return false;
+    }
+    final l$nameSharedDictionaryId = nameSharedDictionaryId;
+    final lOther$nameSharedDictionaryId = other.nameSharedDictionaryId;
+    if (l$nameSharedDictionaryId != lOther$nameSharedDictionaryId) {
       return false;
     }
     final l$jaLanguageCodeId = jaLanguageCodeId;
@@ -209,11 +253,6 @@ class Variables$Mutation$ProvisionPageEdit {
     final l$enLanguageCodeId = enLanguageCodeId;
     final lOther$enLanguageCodeId = other.enLanguageCodeId;
     if (l$enLanguageCodeId != lOther$enLanguageCodeId) {
-      return false;
-    }
-    final l$nameSharedDictionaryId = nameSharedDictionaryId;
-    final lOther$nameSharedDictionaryId = other.nameSharedDictionaryId;
-    if (l$nameSharedDictionaryId != lOther$nameSharedDictionaryId) {
       return false;
     }
     final l$nameJa = nameJa;
@@ -258,18 +297,41 @@ class Variables$Mutation$ProvisionPageEdit {
     if (l$nicknameEn != lOther$nicknameEn) {
       return false;
     }
+    final l$detailTextsSharedTextId = detailTextsSharedTextId;
+    final lOther$detailTextsSharedTextId = other.detailTextsSharedTextId;
+    if (l$detailTextsSharedTextId != lOther$detailTextsSharedTextId) {
+      return false;
+    }
+    final l$detailTextsJa = detailTextsJa;
+    final lOther$detailTextsJa = other.detailTextsJa;
+    if (l$detailTextsJa != lOther$detailTextsJa) {
+      return false;
+    }
+    final l$detailTextsEn = detailTextsEn;
+    final lOther$detailTextsEn = other.detailTextsEn;
+    if (l$detailTextsEn != lOther$detailTextsEn) {
+      return false;
+    }
+    final l$remarks = remarks;
+    final lOther$remarks = other.remarks;
+    if (_$data.containsKey('remarks') != other._$data.containsKey('remarks')) {
+      return false;
+    }
+    if (l$remarks != lOther$remarks) {
+      return false;
+    }
     return true;
   }
 
   @override
   int get hashCode {
     final l$infoProvisionId = infoProvisionId;
-    final l$details = details;
-    final l$remarks = remarks;
+    final l$infoCompanyId = infoCompanyId;
+    final l$code = code;
     final l$sharedAppellationsId = sharedAppellationsId;
+    final l$nameSharedDictionaryId = nameSharedDictionaryId;
     final l$jaLanguageCodeId = jaLanguageCodeId;
     final l$enLanguageCodeId = enLanguageCodeId;
-    final l$nameSharedDictionaryId = nameSharedDictionaryId;
     final l$nameJa = nameJa;
     final l$nameEn = nameEn;
     final l$pronunciationSharedDictionaryId = pronunciationSharedDictionaryId;
@@ -278,14 +340,18 @@ class Variables$Mutation$ProvisionPageEdit {
     final l$nicknameSharedDictionaryId = nicknameSharedDictionaryId;
     final l$nicknameJa = nicknameJa;
     final l$nicknameEn = nicknameEn;
+    final l$detailTextsSharedTextId = detailTextsSharedTextId;
+    final l$detailTextsJa = detailTextsJa;
+    final l$detailTextsEn = detailTextsEn;
+    final l$remarks = remarks;
     return Object.hashAll([
       l$infoProvisionId,
-      _$data.containsKey('details') ? l$details : const {},
-      _$data.containsKey('remarks') ? l$remarks : const {},
+      _$data.containsKey('infoCompanyId') ? l$infoCompanyId : const {},
+      _$data.containsKey('code') ? l$code : const {},
       l$sharedAppellationsId,
+      l$nameSharedDictionaryId,
       l$jaLanguageCodeId,
       l$enLanguageCodeId,
-      l$nameSharedDictionaryId,
       l$nameJa,
       l$nameEn,
       l$pronunciationSharedDictionaryId,
@@ -294,6 +360,10 @@ class Variables$Mutation$ProvisionPageEdit {
       l$nicknameSharedDictionaryId,
       l$nicknameJa,
       l$nicknameEn,
+      l$detailTextsSharedTextId,
+      l$detailTextsJa,
+      l$detailTextsEn,
+      _$data.containsKey('remarks') ? l$remarks : const {},
     ]);
   }
 }
@@ -309,12 +379,12 @@ abstract class CopyWith$Variables$Mutation$ProvisionPageEdit<TRes> {
 
   TRes call({
     String? infoProvisionId,
-    String? details,
-    String? remarks,
+    String? infoCompanyId,
+    String? code,
     String? sharedAppellationsId,
+    String? nameSharedDictionaryId,
     String? jaLanguageCodeId,
     String? enLanguageCodeId,
-    String? nameSharedDictionaryId,
     String? nameJa,
     String? nameEn,
     String? pronunciationSharedDictionaryId,
@@ -323,6 +393,10 @@ abstract class CopyWith$Variables$Mutation$ProvisionPageEdit<TRes> {
     String? nicknameSharedDictionaryId,
     String? nicknameJa,
     String? nicknameEn,
+    String? detailTextsSharedTextId,
+    String? detailTextsJa,
+    String? detailTextsEn,
+    String? remarks,
   });
 }
 
@@ -341,12 +415,12 @@ class _CopyWithImpl$Variables$Mutation$ProvisionPageEdit<TRes>
 
   TRes call({
     Object? infoProvisionId = _undefined,
-    Object? details = _undefined,
-    Object? remarks = _undefined,
+    Object? infoCompanyId = _undefined,
+    Object? code = _undefined,
     Object? sharedAppellationsId = _undefined,
+    Object? nameSharedDictionaryId = _undefined,
     Object? jaLanguageCodeId = _undefined,
     Object? enLanguageCodeId = _undefined,
-    Object? nameSharedDictionaryId = _undefined,
     Object? nameJa = _undefined,
     Object? nameEn = _undefined,
     Object? pronunciationSharedDictionaryId = _undefined,
@@ -355,22 +429,27 @@ class _CopyWithImpl$Variables$Mutation$ProvisionPageEdit<TRes>
     Object? nicknameSharedDictionaryId = _undefined,
     Object? nicknameJa = _undefined,
     Object? nicknameEn = _undefined,
+    Object? detailTextsSharedTextId = _undefined,
+    Object? detailTextsJa = _undefined,
+    Object? detailTextsEn = _undefined,
+    Object? remarks = _undefined,
   }) => _then(
     Variables$Mutation$ProvisionPageEdit._({
       ..._instance._$data,
       if (infoProvisionId != _undefined && infoProvisionId != null)
         'infoProvisionId': (infoProvisionId as String),
-      if (details != _undefined) 'details': (details as String?),
-      if (remarks != _undefined) 'remarks': (remarks as String?),
+      if (infoCompanyId != _undefined)
+        'infoCompanyId': (infoCompanyId as String?),
+      if (code != _undefined) 'code': (code as String?),
       if (sharedAppellationsId != _undefined && sharedAppellationsId != null)
         'sharedAppellationsId': (sharedAppellationsId as String),
+      if (nameSharedDictionaryId != _undefined &&
+          nameSharedDictionaryId != null)
+        'nameSharedDictionaryId': (nameSharedDictionaryId as String),
       if (jaLanguageCodeId != _undefined && jaLanguageCodeId != null)
         'jaLanguageCodeId': (jaLanguageCodeId as String),
       if (enLanguageCodeId != _undefined && enLanguageCodeId != null)
         'enLanguageCodeId': (enLanguageCodeId as String),
-      if (nameSharedDictionaryId != _undefined &&
-          nameSharedDictionaryId != null)
-        'nameSharedDictionaryId': (nameSharedDictionaryId as String),
       if (nameJa != _undefined && nameJa != null) 'nameJa': (nameJa as String),
       if (nameEn != _undefined && nameEn != null) 'nameEn': (nameEn as String),
       if (pronunciationSharedDictionaryId != _undefined &&
@@ -388,6 +467,14 @@ class _CopyWithImpl$Variables$Mutation$ProvisionPageEdit<TRes>
         'nicknameJa': (nicknameJa as String),
       if (nicknameEn != _undefined && nicknameEn != null)
         'nicknameEn': (nicknameEn as String),
+      if (detailTextsSharedTextId != _undefined &&
+          detailTextsSharedTextId != null)
+        'detailTextsSharedTextId': (detailTextsSharedTextId as String),
+      if (detailTextsJa != _undefined && detailTextsJa != null)
+        'detailTextsJa': (detailTextsJa as String),
+      if (detailTextsEn != _undefined && detailTextsEn != null)
+        'detailTextsEn': (detailTextsEn as String),
+      if (remarks != _undefined) 'remarks': (remarks as String?),
     }),
   );
 }
@@ -400,12 +487,12 @@ class _CopyWithStubImpl$Variables$Mutation$ProvisionPageEdit<TRes>
 
   call({
     String? infoProvisionId,
-    String? details,
-    String? remarks,
+    String? infoCompanyId,
+    String? code,
     String? sharedAppellationsId,
+    String? nameSharedDictionaryId,
     String? jaLanguageCodeId,
     String? enLanguageCodeId,
-    String? nameSharedDictionaryId,
     String? nameJa,
     String? nameEn,
     String? pronunciationSharedDictionaryId,
@@ -414,6 +501,10 @@ class _CopyWithStubImpl$Variables$Mutation$ProvisionPageEdit<TRes>
     String? nicknameSharedDictionaryId,
     String? nicknameJa,
     String? nicknameEn,
+    String? detailTextsSharedTextId,
+    String? detailTextsJa,
+    String? detailTextsEn,
+    String? remarks,
   }) => _res;
 }
 
@@ -588,16 +679,13 @@ const documentNodeMutationProvisionPageEdit = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'details')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'String'),
-            isNonNull: false,
-          ),
+          variable: VariableNode(name: NameNode(value: 'infoCompanyId')),
+          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: false),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
         VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'remarks')),
+          variable: VariableNode(name: NameNode(value: 'code')),
           type: NamedTypeNode(
             name: NameNode(value: 'String'),
             isNonNull: false,
@@ -612,6 +700,14 @@ const documentNodeMutationProvisionPageEdit = DocumentNode(
           directives: [],
         ),
         VariableDefinitionNode(
+          variable: VariableNode(
+            name: NameNode(value: 'nameSharedDictionaryId'),
+          ),
+          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'jaLanguageCodeId')),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
@@ -619,14 +715,6 @@ const documentNodeMutationProvisionPageEdit = DocumentNode(
         ),
         VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'enLanguageCodeId')),
-          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
-        ),
-        VariableDefinitionNode(
-          variable: VariableNode(
-            name: NameNode(value: 'nameSharedDictionaryId'),
-          ),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
@@ -683,6 +771,35 @@ const documentNodeMutationProvisionPageEdit = DocumentNode(
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
+        VariableDefinitionNode(
+          variable: VariableNode(
+            name: NameNode(value: 'detailTextsSharedTextId'),
+          ),
+          type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'detailTextsJa')),
+          type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'detailTextsEn')),
+          type: NamedTypeNode(name: NameNode(value: 'String'), isNonNull: true),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'remarks')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
       ],
       directives: [],
       selectionSet: SelectionSetNode(
@@ -706,16 +823,14 @@ const documentNodeMutationProvisionPageEdit = DocumentNode(
                       value: ObjectValueNode(
                         fields: [
                           ObjectFieldNode(
-                            name: NameNode(value: 'details'),
+                            name: NameNode(value: 'infoCompanyId'),
                             value: VariableNode(
-                              name: NameNode(value: 'details'),
+                              name: NameNode(value: 'infoCompanyId'),
                             ),
                           ),
                           ObjectFieldNode(
-                            name: NameNode(value: 'remarks'),
-                            value: VariableNode(
-                              name: NameNode(value: 'remarks'),
-                            ),
+                            name: NameNode(value: 'code'),
+                            value: VariableNode(name: NameNode(value: 'code')),
                           ),
                           ObjectFieldNode(
                             name: NameNode(value: 'sharedAppellationToNames'),
@@ -1112,6 +1227,126 @@ const documentNodeMutationProvisionPageEdit = DocumentNode(
                               ],
                             ),
                           ),
+                          ObjectFieldNode(
+                            name: NameNode(value: 'sharedTextToDetails'),
+                            value: ObjectValueNode(
+                              fields: [
+                                ObjectFieldNode(
+                                  name: NameNode(value: 'updateBySharedTextId'),
+                                  value: ObjectValueNode(
+                                    fields: [
+                                      ObjectFieldNode(
+                                        name: NameNode(value: 'sharedTextId'),
+                                        value: VariableNode(
+                                          name: NameNode(
+                                            value: 'detailTextsSharedTextId',
+                                          ),
+                                        ),
+                                      ),
+                                      ObjectFieldNode(
+                                        name: NameNode(
+                                          value: 'sharedTextPatch',
+                                        ),
+                                        value: ObjectValueNode(
+                                          fields: [
+                                            ObjectFieldNode(
+                                              name: NameNode(
+                                                value:
+                                                    'sharedTextValuesUsingSharedTextId',
+                                              ),
+                                              value: ObjectValueNode(
+                                                fields: [
+                                                  ObjectFieldNode(
+                                                    name: NameNode(
+                                                      value: 'deleteOthers',
+                                                    ),
+                                                    value: BooleanValueNode(
+                                                      value: true,
+                                                    ),
+                                                  ),
+                                                  ObjectFieldNode(
+                                                    name: NameNode(
+                                                      value: 'create',
+                                                    ),
+                                                    value: ListValueNode(
+                                                      values: [
+                                                        ObjectValueNode(
+                                                          fields: [
+                                                            ObjectFieldNode(
+                                                              name: NameNode(
+                                                                value:
+                                                                    'sharedLanguageCodeId',
+                                                              ),
+                                                              value: VariableNode(
+                                                                name: NameNode(
+                                                                  value:
+                                                                      'jaLanguageCodeId',
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            ObjectFieldNode(
+                                                              name: NameNode(
+                                                                value:
+                                                                    'textValue',
+                                                              ),
+                                                              value: VariableNode(
+                                                                name: NameNode(
+                                                                  value:
+                                                                      'detailTextsJa',
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        ObjectValueNode(
+                                                          fields: [
+                                                            ObjectFieldNode(
+                                                              name: NameNode(
+                                                                value:
+                                                                    'sharedLanguageCodeId',
+                                                              ),
+                                                              value: VariableNode(
+                                                                name: NameNode(
+                                                                  value:
+                                                                      'enLanguageCodeId',
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            ObjectFieldNode(
+                                                              name: NameNode(
+                                                                value:
+                                                                    'textValue',
+                                                              ),
+                                                              value: VariableNode(
+                                                                name: NameNode(
+                                                                  value:
+                                                                      'detailTextsEn',
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          ObjectFieldNode(
+                            name: NameNode(value: 'remarks'),
+                            value: VariableNode(
+                              name: NameNode(value: 'remarks'),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -1145,20 +1380,6 @@ const documentNodeMutationProvisionPageEdit = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(value: 'code'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'details'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'remarks'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -1666,6 +1887,159 @@ const documentNodeMutationProvisionPageEdit = DocumentNode(
                         ),
                       ),
                       FieldNode(
+                        name: NameNode(value: 'sharedTextByDetails'),
+                        alias: NameNode(value: 'detailTexts'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'sharedTextId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(
+                                value: 'sharedTextValuesBySharedTextId',
+                              ),
+                              alias: NameNode(value: 'ja'),
+                              arguments: [
+                                ArgumentNode(
+                                  name: NameNode(value: 'condition'),
+                                  value: ObjectValueNode(
+                                    fields: [
+                                      ObjectFieldNode(
+                                        name: NameNode(
+                                          value: 'sharedLanguageCodeId',
+                                        ),
+                                        value: VariableNode(
+                                          name: NameNode(
+                                            value: 'jaLanguageCodeId',
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                              directives: [],
+                              selectionSet: SelectionSetNode(
+                                selections: [
+                                  FieldNode(
+                                    name: NameNode(value: 'nodes'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'textValue'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: '__typename'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FieldNode(
+                              name: NameNode(
+                                value: 'sharedTextValuesBySharedTextId',
+                              ),
+                              alias: NameNode(value: 'en'),
+                              arguments: [
+                                ArgumentNode(
+                                  name: NameNode(value: 'condition'),
+                                  value: ObjectValueNode(
+                                    fields: [
+                                      ObjectFieldNode(
+                                        name: NameNode(
+                                          value: 'sharedLanguageCodeId',
+                                        ),
+                                        value: VariableNode(
+                                          name: NameNode(
+                                            value: 'enLanguageCodeId',
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                              directives: [],
+                              selectionSet: SelectionSetNode(
+                                selections: [
+                                  FieldNode(
+                                    name: NameNode(value: 'nodes'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'textValue'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: '__typename'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
                         name: NameNode(value: '__typename'),
                         alias: null,
                         arguments: [],
@@ -2091,9 +2465,9 @@ class Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvis
     required this.infoProvisionId,
     required this.infoCompanyId,
     required this.code,
-    this.details,
-    this.remarks,
     this.labels,
+    this.detailTexts,
+    this.remarks,
     this.$__typename = 'InfoProvision',
   });
 
@@ -2103,21 +2477,25 @@ class Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvis
     final l$infoProvisionId = json['infoProvisionId'];
     final l$infoCompanyId = json['infoCompanyId'];
     final l$code = json['code'];
-    final l$details = json['details'];
-    final l$remarks = json['remarks'];
     final l$labels = json['labels'];
+    final l$detailTexts = json['detailTexts'];
+    final l$remarks = json['remarks'];
     final l$$__typename = json['__typename'];
     return Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision(
       infoProvisionId: (l$infoProvisionId as String),
       infoCompanyId: (l$infoCompanyId as String),
       code: (l$code as String),
-      details: (l$details as String?),
-      remarks: (l$remarks as String?),
       labels: l$labels == null
           ? null
           : Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$labels.fromJson(
               (l$labels as Map<String, dynamic>),
             ),
+      detailTexts: l$detailTexts == null
+          ? null
+          : Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts.fromJson(
+              (l$detailTexts as Map<String, dynamic>),
+            ),
+      remarks: (l$remarks as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -2128,12 +2506,13 @@ class Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvis
 
   final String code;
 
-  final String? details;
-
-  final String? remarks;
-
   final Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$labels?
   labels;
+
+  final Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts?
+  detailTexts;
+
+  final String? remarks;
 
   final String $__typename;
 
@@ -2145,12 +2524,12 @@ class Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvis
     _resultData['infoCompanyId'] = l$infoCompanyId;
     final l$code = code;
     _resultData['code'] = l$code;
-    final l$details = details;
-    _resultData['details'] = l$details;
-    final l$remarks = remarks;
-    _resultData['remarks'] = l$remarks;
     final l$labels = labels;
     _resultData['labels'] = l$labels?.toJson();
+    final l$detailTexts = detailTexts;
+    _resultData['detailTexts'] = l$detailTexts?.toJson();
+    final l$remarks = remarks;
+    _resultData['remarks'] = l$remarks;
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -2161,17 +2540,17 @@ class Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvis
     final l$infoProvisionId = infoProvisionId;
     final l$infoCompanyId = infoCompanyId;
     final l$code = code;
-    final l$details = details;
-    final l$remarks = remarks;
     final l$labels = labels;
+    final l$detailTexts = detailTexts;
+    final l$remarks = remarks;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoProvisionId,
       l$infoCompanyId,
       l$code,
-      l$details,
-      l$remarks,
       l$labels,
+      l$detailTexts,
+      l$remarks,
       l$$__typename,
     ]);
   }
@@ -2201,19 +2580,19 @@ class Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvis
     if (l$code != lOther$code) {
       return false;
     }
-    final l$details = details;
-    final lOther$details = other.details;
-    if (l$details != lOther$details) {
+    final l$labels = labels;
+    final lOther$labels = other.labels;
+    if (l$labels != lOther$labels) {
+      return false;
+    }
+    final l$detailTexts = detailTexts;
+    final lOther$detailTexts = other.detailTexts;
+    if (l$detailTexts != lOther$detailTexts) {
       return false;
     }
     final l$remarks = remarks;
     final lOther$remarks = other.remarks;
     if (l$remarks != lOther$remarks) {
-      return false;
-    }
-    final l$labels = labels;
-    final lOther$labels = other.labels;
-    if (l$labels != lOther$labels) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -2257,16 +2636,21 @@ abstract class CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProv
     String? infoProvisionId,
     String? infoCompanyId,
     String? code,
-    String? details,
-    String? remarks,
     Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$labels?
     labels,
+    Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts?
+    detailTexts,
+    String? remarks,
     String? $__typename,
   });
   CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$labels<
     TRes
   >
   get labels;
+  CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts<
+    TRes
+  >
+  get detailTexts;
 }
 
 class _CopyWithImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision<
@@ -2295,9 +2679,9 @@ class _CopyWithImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisio
     Object? infoProvisionId = _undefined,
     Object? infoCompanyId = _undefined,
     Object? code = _undefined,
-    Object? details = _undefined,
-    Object? remarks = _undefined,
     Object? labels = _undefined,
+    Object? detailTexts = _undefined,
+    Object? remarks = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision(
@@ -2310,12 +2694,15 @@ class _CopyWithImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisio
       code: code == _undefined || code == null
           ? _instance.code
           : (code as String),
-      details: details == _undefined ? _instance.details : (details as String?),
-      remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       labels: labels == _undefined
           ? _instance.labels
           : (labels
                 as Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$labels?),
+      detailTexts: detailTexts == _undefined
+          ? _instance.detailTexts
+          : (detailTexts
+                as Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts?),
+      remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -2334,6 +2721,21 @@ class _CopyWithImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisio
         : CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$labels(
             local$labels,
             (e) => call(labels: e),
+          );
+  }
+
+  CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts<
+    TRes
+  >
+  get detailTexts {
+    final local$detailTexts = _instance.detailTexts;
+    return local$detailTexts == null
+        ? CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts.stub(
+            _then(_instance),
+          )
+        : CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts(
+            local$detailTexts,
+            (e) => call(detailTexts: e),
           );
   }
 }
@@ -2355,10 +2757,11 @@ class _CopyWithStubImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProv
     String? infoProvisionId,
     String? infoCompanyId,
     String? code,
-    String? details,
-    String? remarks,
     Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$labels?
     labels,
+    Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts?
+    detailTexts,
+    String? remarks,
     String? $__typename,
   }) => _res;
 
@@ -2367,6 +2770,14 @@ class _CopyWithStubImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProv
   >
   get labels =>
       CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$labels.stub(
+        _res,
+      );
+
+  CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts<
+    TRes
+  >
+  get detailTexts =>
+      CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts.stub(
         _res,
       );
 }
@@ -5678,4 +6089,988 @@ class _CopyWithStubImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProv
   TRes _res;
 
   call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts {
+  Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts({
+    required this.sharedTextId,
+    required this.ja,
+    required this.en,
+    this.$__typename = 'SharedText',
+  });
+
+  factory Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedTextId = json['sharedTextId'];
+    final l$ja = json['ja'];
+    final l$en = json['en'];
+    final l$$__typename = json['__typename'];
+    return Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts(
+      sharedTextId: (l$sharedTextId as String),
+      ja: Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String sharedTextId;
+
+  final Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja
+  ja;
+
+  final Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en
+  en;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedTextId = sharedTextId;
+    _resultData['sharedTextId'] = l$sharedTextId;
+    final l$ja = ja;
+    _resultData['ja'] = l$ja.toJson();
+    final l$en = en;
+    _resultData['en'] = l$en.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedTextId = sharedTextId;
+    final l$ja = ja;
+    final l$en = en;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$sharedTextId, l$ja, l$en, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedTextId = sharedTextId;
+    final lOther$sharedTextId = other.sharedTextId;
+    if (l$sharedTextId != lOther$sharedTextId) {
+      return false;
+    }
+    final l$ja = ja;
+    final lOther$ja = other.ja;
+    if (l$ja != lOther$ja) {
+      return false;
+    }
+    final l$en = en;
+    final lOther$en = other.en;
+    if (l$en != lOther$en) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts
+    on
+        Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts {
+  CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts<
+    Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts
+  >
+  get copyWith =>
+      CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts<
+  TRes
+> {
+  factory CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts(
+    Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts
+    instance,
+    TRes Function(
+      Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts;
+
+  factory CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts;
+
+  TRes call({
+    String? sharedTextId,
+    Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja?
+    ja,
+    Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en?
+    en,
+    String? $__typename,
+  });
+  CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja<
+    TRes
+  >
+  get ja;
+  CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en<
+    TRes
+  >
+  get en;
+}
+
+class _CopyWithImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts<
+  TRes
+>
+    implements
+        CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts
+  _instance;
+
+  final TRes Function(
+    Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedTextId = _undefined,
+    Object? ja = _undefined,
+    Object? en = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts(
+      sharedTextId: sharedTextId == _undefined || sharedTextId == null
+          ? _instance.sharedTextId
+          : (sharedTextId as String),
+      ja: ja == _undefined || ja == null
+          ? _instance.ja
+          : (ja
+                as Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja),
+      en: en == _undefined || en == null
+          ? _instance.en
+          : (en
+                as Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja<
+    TRes
+  >
+  get ja {
+    final local$ja = _instance.ja;
+    return CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
+  }
+
+  CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en<
+    TRes
+  >
+  get en {
+    final local$en = _instance.en;
+    return CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en(
+      local$en,
+      (e) => call(en: e),
+    );
+  }
+}
+
+class _CopyWithStubImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts<
+  TRes
+>
+    implements
+        CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? sharedTextId,
+    Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja?
+    ja,
+    Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en?
+    en,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja<
+    TRes
+  >
+  get ja =>
+      CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja.stub(
+        _res,
+      );
+
+  CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en<
+    TRes
+  >
+  get en =>
+      CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en.stub(
+        _res,
+      );
+}
+
+class Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja {
+  Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja({
+    required this.nodes,
+    this.$__typename = 'SharedTextValuesConnection',
+  });
+
+  factory Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja
+    on
+        Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja {
+  CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja<
+    Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja
+  >
+  get copyWith =>
+      CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja<
+  TRes
+> {
+  factory CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja(
+    Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja
+    instance,
+    TRes Function(
+      Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja;
+
+  factory CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja;
+
+  TRes call({
+    List<
+      Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes<
+          Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja<
+  TRes
+>
+    implements
+        CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja
+  _instance;
+
+  final TRes Function(
+    Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes<
+          Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja<
+  TRes
+>
+    implements
+        CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes {
+  Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes({
+    this.textValue,
+    this.$__typename = 'SharedTextValue',
+  });
+
+  factory Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$textValue = json['textValue'];
+    final l$$__typename = json['__typename'];
+    return Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes(
+      textValue: (l$textValue as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? textValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$textValue = textValue;
+    _resultData['textValue'] = l$textValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$textValue = textValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$textValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$textValue = textValue;
+    final lOther$textValue = other.textValue;
+    if (l$textValue != lOther$textValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes
+    on
+        Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes {
+  CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes<
+    Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes
+  >
+  get copyWith =>
+      CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes<
+  TRes
+> {
+  factory CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes(
+    Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes
+    instance,
+    TRes Function(
+      Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes;
+
+  factory CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes;
+
+  TRes call({String? textValue, String? $__typename});
+}
+
+class _CopyWithImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes
+  _instance;
+
+  final TRes Function(
+    Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? textValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes(
+      textValue: textValue == _undefined
+          ? _instance.textValue
+          : (textValue as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$ja$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? textValue, String? $__typename}) => _res;
+}
+
+class Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en {
+  Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en({
+    required this.nodes,
+    this.$__typename = 'SharedTextValuesConnection',
+  });
+
+  factory Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en
+    on
+        Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en {
+  CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en<
+    Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en
+  >
+  get copyWith =>
+      CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en<
+  TRes
+> {
+  factory CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en(
+    Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en
+    instance,
+    TRes Function(
+      Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en;
+
+  factory CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en;
+
+  TRes call({
+    List<
+      Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes<
+          Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en<
+  TRes
+>
+    implements
+        CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en
+  _instance;
+
+  final TRes Function(
+    Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes<
+          Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en<
+  TRes
+>
+    implements
+        CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes {
+  Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes({
+    this.textValue,
+    this.$__typename = 'SharedTextValue',
+  });
+
+  factory Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$textValue = json['textValue'];
+    final l$$__typename = json['__typename'];
+    return Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes(
+      textValue: (l$textValue as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? textValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$textValue = textValue;
+    _resultData['textValue'] = l$textValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$textValue = textValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$textValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$textValue = textValue;
+    final lOther$textValue = other.textValue;
+    if (l$textValue != lOther$textValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes
+    on
+        Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes {
+  CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes<
+    Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes
+  >
+  get copyWith =>
+      CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes<
+  TRes
+> {
+  factory CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes(
+    Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes
+    instance,
+    TRes Function(
+      Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes;
+
+  factory CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes;
+
+  TRes call({String? textValue, String? $__typename});
+}
+
+class _CopyWithImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes
+  _instance;
+
+  final TRes Function(
+    Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? textValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes(
+      textValue: textValue == _undefined
+          ? _instance.textValue
+          : (textValue as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Mutation$ProvisionPageEdit$updateInfoProvisionByInfoProvisionId$infoProvision$detailTexts$en$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? textValue, String? $__typename}) => _res;
 }

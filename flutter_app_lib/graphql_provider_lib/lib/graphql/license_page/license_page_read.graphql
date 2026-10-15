@@ -1,15 +1,13 @@
 # license_page画面 - Read(一覧取得クエリ)
 #
-# 画面仕様: source/view.yaml #LicensePage(資格、mstr_license)
-# 命名規則: CLAUDE.md 画面仕様命名規則(要件0033)により`license_page`をファイル名にする。
-#
-# 言語解決はcompany_page_read.graphqlと同じ方式(要件0036、$languageCodeId: UUID!)。
+# 画面仕様: source/views/ #LicensePage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
 
 query LicensePageRead(
   $first: Int!
   $offset: Int
   $filter: MstrLicenseFilter = {}
-  $orderBy: [MstrLicensesOrderBy!] = [PRIMARY_KEY_ASC]
+  $orderBy: [MstrLicensesOrderBy!]
   $languageCodeId: UUID!
   $removed: Boolean = false
 ) {
@@ -27,22 +25,6 @@ query LicensePageRead(
     nodes {
       mstrLicenseId
       code
-      detail
-      publicLicense
-      customerLicense
-      organizationLicense
-      updateInterval {
-        years
-        months
-        days
-        hours
-        minutes
-        seconds
-      }
-      symbol
-      remarks
-      updateAt
-      remove
 
       labels: sharedAppellationByNames {
         sharedAppellationsId
@@ -56,6 +38,7 @@ query LicensePageRead(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryPronunciationId {
           sharedDictionaryId
           value: sharedDictionaryValuesBySharedDictionaryId(
@@ -66,6 +49,7 @@ query LicensePageRead(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryNicknameId {
           sharedDictionaryId
           value: sharedDictionaryValuesBySharedDictionaryId(
@@ -78,15 +62,39 @@ query LicensePageRead(
         }
       }
 
+      detailTexts: sharedTextByDetails {
+        sharedTextId
+        value: sharedTextValuesBySharedTextId(
+          condition: { sharedLanguageCodeId: $languageCodeId }
+        ) {
+          nodes {
+            textValue
+          }
+        }
+      }
+
+      publicLicense
+      customerLicense
+      organizationLicense
+      updateInterval {
+        seconds
+        minutes
+        hours
+        days
+        months
+        years
+      }
+      symbol
+      remarks
+      updateAt
+      remove
+
       update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
         historyId
         infoStaffId
         infoCompanyId
         code
-        sex
-        phone
-        symbol
-        privatePhone
+
         name: sharedAppellationByNames {
           sharedAppellationsId
           sharedDictionaryBySharedDictionaryNameId {
@@ -99,6 +107,7 @@ query LicensePageRead(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryPronunciationId {
             sharedDictionaryId
             value: sharedDictionaryValuesBySharedDictionaryId(
@@ -109,6 +118,7 @@ query LicensePageRead(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryNicknameId {
             sharedDictionaryId
             value: sharedDictionaryValuesBySharedDictionaryId(
@@ -120,6 +130,11 @@ query LicensePageRead(
             }
           }
         }
+
+        sex
+        phone
+        symbol
+        privatePhone
       }
     }
   }

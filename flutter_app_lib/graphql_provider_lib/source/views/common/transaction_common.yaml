@@ -1,0 +1,113 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 不確定ラベル読み込み
+FlexibleLabelReadFields: &FlexibleLabelReadFields
+  kind: read
+  from: trans_label
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - trans_label_id
+    - name: value
+      arrayType: toFirstOne
+      using:  trans_label_id
+      from: trans_label_value
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+      columns:
+        - label_value
+        - name: language
+          arrayType: toFirstOne
+          from: shared_language_code
+          output: false
+          requiredWhere:
+            - column: code
+              as: languageCode
+          defaultWhere:
+            - column: remove
+              operator: "="
+              value: false
+
+# 不確定ラベルの編集
+FlexibleLabelEditFields: &FlexibleLabelEditFields
+  kind: edit
+  from: trans_label
+  columns:
+    - trans_label_id
+    - name: value
+      arrayType: toMany
+      using:  trans_label_id
+      from: trans_label_value
+      columns:
+        - trans_label_value_id
+        - trans_label_id
+        - shared_language_code_id
+        - label_value
+        - remarks
+        - update_user_id
+        - update_user_history_id
+        - remove
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 不確定テキスト読み込み
+FlexibleTextReadFields: &FlexibleTextReadFields
+  kind: read
+  from: trans_text
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - trans_text_id
+    - name: value
+      arrayType: toFirstOne
+      using:  trans_text_id
+      from: trans_text_value
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+      columns:
+        - text_value
+        - name: language
+          arrayType: toFirstOne
+          from: shared_language_code
+          output: false
+          requiredWhere:
+            - column: code
+              as: languageCode
+          defaultWhere:
+            - column: remove
+              operator: "="
+              value: false
+
+# 不確定テキストの編集
+FlexibleTextEditFields: &FlexibleTextEditFields
+  kind: edit
+  from: trans_text
+  columns:
+    - trans_text_id
+    - name: value
+      arrayType: toMany
+      using:  trans_text_id
+      from: trans_label_value
+      columns:
+        - ttrans_text_value_id
+        - trans_text_id
+        - shared_language_code_id
+        - text_value
+        - remarks
+        - update_user_id
+        - update_user_history_id
+        - remove
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove

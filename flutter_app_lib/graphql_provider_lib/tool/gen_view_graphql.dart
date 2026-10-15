@@ -1,7 +1,7 @@
-// view.yaml -> GraphQL の生成ツール(CLI)。build_runnerのBuilderと同じライブラリを使う。
+// source/views/ (分割したview.yaml) -> GraphQL の生成ツール(CLI)。build_runnerのBuilderと同じライブラリを使う。
 //
 // 使い方(パッケージのルートで実行):
-//   dart run tool/gen_view_graphql.dart [--out <出力先>] [--only <ノード名>] [--compare <正規化の出力先>]
+//   dart run tool/gen_view_graphql.dart [--views <分割したview.yamlのDIR>] [--out <出力先>] [--only <ノード名>] [--compare <正規化の出力先>]
 //   既定の出力先: source/generated_graphql
 //   --compare: 生成物と lib/graphql/ の既存ファイルを正規化して比較し、差分のあるファイルを報告する。
 
@@ -9,6 +9,7 @@ import 'dart:io';
 
 import 'view_graphql/generator.dart';
 import 'view_graphql/normalize.dart';
+import 'view_graphql/view_sources.dart';
 
 void main(List<String> args) {
   String? opt(String name) {
@@ -20,8 +21,17 @@ void main(List<String> args) {
   final only = opt('--only');
   final compareDir = opt('--compare');
 
+  final String viewYaml;
+  try {
+    final sources = combineViewDirectory(opt('--views') ?? 'source/views');
+    sources.load(); // 解析エラーを、元のファイルと行番号で報告する
+    viewYaml = sources.text;
+  } on ViewSourceException catch (e) {
+    stderr.writeln('エラー: $e');
+    exit(1);
+  }
   final result = generateAll(
-    viewYaml: File(opt('--yaml') ?? 'source/view.yaml').readAsStringSync(),
+    viewYaml: viewYaml,
     schemaPath: 'source/schema.full.graphql',
     only: only,
   );

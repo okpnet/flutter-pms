@@ -1,0 +1,57 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 製造元の読込
+# 統一
+ManufacturePage: &ManufacturePage
+  kind: read
+  from: mstr_manufacturer
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_manufacturer_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 製造元の書き込み
+ManufacturePageEdit:  &ManufacturePageEdit
+  kind: edit
+  from: mstr_manufacturer
+  requiredWhere: 
+    - mstr_manufacturer_id
+  generateRfe: true #インテリセンスのエラー
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_manufacturer_id
+    - code
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove

@@ -1,0 +1,186 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 提供の読み込み　2026/09/29　追加
+ProvisionPage: &ProvisionPage
+  kind: read
+  from: info_provision
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - info_provision_id
+    - info_company_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick:
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - name: detailTexts
+      as: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FixTextReadFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 提供の書き込み　2026/09/29　追加
+ProvisionPageEdit:
+  from: info_provision
+  kind: edit
+  generateRfe: true
+  requiredWhere:
+    - info_provision_id
+  columns:
+    - info_provision_id
+    - info_company_id
+    - code
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    - name: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FixTextEditFields
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# --- read: 会社情報(info_company) 詳細画面 ---
+CompanyPage:
+  kind: read
+  from: info_company
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - info_company_id
+    # 要件0047: 共通項(CLAUDE.md「仕様」)の会社名labelsが欠落していたため追加(要件0041で
+    # shared_appellations_id→namesへ改名された際の修正モレ。他のRead画面と同じ形)。
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick:
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - web_page
+    - name: ceo
+      as: ceo_labels
+      arrayType: toFirstOne
+      using: ceo_names
+      pick:
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - name: provision #2026/09/29　追加
+      arrayType: toMany
+      as: provisions
+      <<: *ProvisionPage
+    - symbol
+    - remarks
+    - name: address
+      as: address
+      arrayType: toFirstOne
+      using: info_address_id
+      <<: *AddressReadFields
+      defaultWhere:
+      - column: remove
+        operator: "="
+        value: false
+    - name: offices
+      arrayType: toMany #Q1:toManyであれば展開されず配列になる?
+      limit: 50
+      <<: *OfficePage
+    # 要件0047: 共通項(CLAUDE.md「仕様」)のupdate_at・更新者(name)が欠落していたため追加。
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# --- edit: 会社情報(info_company) 更新/新規作成
+#     要件0037: generateRfe: trueにより、このcolumnsツリーから読み込み専用の
+#     「read for editing」クエリを自動導出する(旧CompanyPageRFEノードは廃止)。
+#     requiredWhereは、read for editing側が1件取得する際の必須引数(通常は主キー)。 ---
+CompanyPageEdit:
+  kind: edit
+  from: info_company
+  requiredWhere:
+    - info_company_id
+  generateRfe: true
+  columns:
+    - info_company_id
+    # 要件0047: 要件0041の改名(shared_appellations_id→names)の修正モレ。旧列名の単純列を、
+    # 他のEdit画面と同じ会社名labels(編集用アーム)に置き換えた。
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    # 要件0047: 子の名前がFK列名(info_address_id)と同じで、出力名がFK列と衝突するため、
+    # OfficePageEdit等と同じaddressに改名した。
+    - name: address
+      arrayType: toFirstOne
+      using: info_address_id
+      <<: *AddressEditFields
+    - web_page
+    # 0048の指示結果が逆。symbolは不要。
+    #- symbol # 要件0048: 修正モレ(要件0047ログ6章の6)。会社の記号を編集対象に追加.
+    - name: ceo
+      arrayType: toFirstOne
+      using: ceo_names
+      <<: *AppellationLabelsEditFields
+    - name: provision #2026/09/29　追加(CompanyPage.provisionsの入れ子編集)
+      # ProvisionPageEdit(トップノード)をそのまま<<でmergeすると、node専用の
+      # generateRfeプロパティがcolumnEntry位置では許可されずスキーマ違反になるため
+      # (schema.jsonのnode.generateRfeはcolumnEntryに無い)、generateRfe/requiredWhereを
+      # 除いたcolumnsのみをこの場で複製する(要件0044追記、ProvisionPageEditと同一内容を
+      # 保つこと)。
+      arrayType: toMany
+      as: provisions
+      kind: edit
+      from: info_provision
+      columns:
+        - info_provision_id
+        - info_company_id
+        - code
+        - name: labels
+          arrayType: toFirstOne
+          using: names
+          <<: *AppellationLabelsEditFields
+        - name: detailTexts
+          arrayType: toFirstOne
+          using: details
+          <<: *FixTextEditFields
+        - remarks
+        - update_user_id
+        - update_user_history_id
+        - remove
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove

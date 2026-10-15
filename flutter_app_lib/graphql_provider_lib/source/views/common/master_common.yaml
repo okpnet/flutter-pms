@@ -1,0 +1,179 @@
+# yaml-language-server: $schema=../../schema.json
+
+# --- Read用アーム: JA表示名のみを解決する(既存のshared_appellations_ja_label.yamlと同型) ---
+# shared_appellationsが持つ3本のFK(shared_dictionary_name_id / _pronunciation_id / _nickname_id)は
+# いずれも「shared_dictionaryへのFK1本を辿ってJA表示名を得る」という同じ形をしている。
+# using(どのFK列を使うか)だけを変えて使い回せるよう、shared_dictionary以下を1本の
+# 共有アームとして定義する(test.yamlのFixLabelReadFieldsと同型)。
+# 名前変更
+FixLabelReadFields: &FixLabelReadFields
+  kind: read
+  from: shared_dictionary
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - name: value
+      arrayType: toFirstOne
+      from: shared_dictionary_value
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+      columns:
+        - dictionary_value
+        # shared_language_code は絞り込み専用のJOIN。出力列は無い。
+        # codeは呼び出し側が必ず指定する引数(requiredWhere)であり、ハードコードしない。
+        # output: false … 常に出力から除外する。where/requiredWhere/defaultWhereはpickと違い
+        # 除外されず、親(value)のLATERALサブクエリのJOIN/WHERE句の構築には使われ続ける。
+        # 要件0043: FixLabelReadFieldsは画面のツリーの深い位置(子・孫)で使い回されるため、
+        # 祖先・兄弟の別ノードが持つ同名列(例: 各マスタ自身のcode列)とGraphQL引数名が
+        # 衝突しうる。{column, as}でこの1箇所だけ明示的にlanguageCodeへ改名しておけば、
+        # FixLabelReadFieldsを経由する全画面に自動的に反映され、各画面での個別対応は不要になる。
+        - name: language
+          arrayType: toFirstOne
+          from: shared_language_code
+          output: false
+          requiredWhere:
+            - column: code
+              as: languageCode
+          defaultWhere:
+            - column: remove
+              operator: "="
+              value: false
+
+# --- Edit用アーム: shared_dictionary配下の言語別値(shared_dictionary_value)をまとめて編集する。
+#     1辞書エントリは言語の数だけ行を持つ(1対N)ため、ReadのFixLabelReadFieldsとは異なりarrayType: toMany(複数件)にする。
+#     (下書きではtoFirstOneになっていたが、複数言語を同時に編集できなくなるため修正)
+# 名前変更
+FixLabelEditFields: &FixLabelEditFields
+  kind: edit
+  from: shared_dictionary
+  columns:
+    - shared_dictionary_id
+    - name: value
+      arrayType: toMany
+      from: shared_dictionary_value
+      columns:
+        - shared_dictionary_value_id
+        - shared_language_code_id
+        - dictionary_value
+        - remarks
+        - update_user_id
+        - update_user_history_id
+        - remove
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# ほぼ確定のテキストの読み込み
+FixTextReadFields: &FixTextReadFields
+  kind: read
+  from: shared_text
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - name: value
+      arrayType: toFirstOne
+      from: shared_text_value
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+      columns:
+        - text_value
+        - name: language
+          arrayType: toFirstOne
+          from: shared_language_code
+          output: false
+          requiredWhere:
+            - column: code
+              as: languageCode
+          defaultWhere:
+            - column: remove
+              operator: "="
+              value: false
+
+# ほぼ確定テキストの書き込み
+FixTextEditFields: &FixTextEditFields
+  kind: edit
+  from: shared_text
+  columns:
+    - shared_text_id
+    - name: value
+      arrayType: toMany
+      from: shared_text_value
+      columns:
+        - shared_text_value_id
+        - shared_language_code_id
+        - text_value
+        - remarks
+        - update_user_id
+        - update_user_history_id
+        - remove
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# --- edit: shared_appellations 更新/新規作成。name/pronunciation/nicknameそれぞれの
+#     shared_dictionary(と配下のshared_dictionary_value)も同時に編集する。 ---
+AppellationLabelsEditFields: &AppellationLabelsEditFields
+  kind: edit
+  from: shared_appellations
+  requiredWhere:
+    - shared_appellations_id
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - name: name #Q1:識別であれば、別々にすればアクセスできないか?
+      as: name
+      using: shared_dictionary_name_id
+      arrayType: toFirstOne
+      <<: *FixLabelEditFields
+    - name: pronunciation
+      as: pronunciation
+      using: shared_dictionary_pronunciation_id
+      arrayType: toFirstOne
+      <<: *FixLabelEditFields
+    - name: nickname
+      as: nickname
+      using: shared_dictionary_nickname_id
+      arrayType: toFirstOne
+      <<: *FixLabelEditFields
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# --- read: shared_appellations 詳細(name/pronunciation/nicknameのJA表示名を取得) ---
+AppellationLabelsReadFields: &AppellationLabelsReadFields
+  kind: read
+  from: shared_appellations
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - shared_appellations_id
+    - name: name 
+      as: name
+      using: shared_dictionary_name_id 
+      arrayType: toFirstOne
+      <<: *FixLabelReadFields
+    - name: pronunciation
+      as: pronunciation
+      using: shared_dictionary_pronunciation_id
+      arrayType: toFirstOne
+      <<: *FixLabelReadFields
+    - name: nickname
+      as: nickname
+      using: shared_dictionary_nickname_id
+      arrayType: toFirstOne
+      <<: *FixLabelReadFields

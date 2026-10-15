@@ -12,6 +12,7 @@ class Variables$Query$StaffCapabilityPageRead {
     Input$InfoStaffFilter? filter,
     List<Enum$InfoStaffsOrderBy>? orderBy,
     required String languageCodeId,
+    List<Enum$MstrStaffCapabilitiesOrderBy>? capabilitysOrderBy,
     bool? removed,
   }) => Variables$Query$StaffCapabilityPageRead._({
     r'first': first,
@@ -19,6 +20,7 @@ class Variables$Query$StaffCapabilityPageRead {
     if (filter != null) r'filter': filter,
     if (orderBy != null) r'orderBy': orderBy,
     r'languageCodeId': languageCodeId,
+    if (capabilitysOrderBy != null) r'capabilitysOrderBy': capabilitysOrderBy,
     if (removed != null) r'removed': removed,
   });
 
@@ -48,6 +50,16 @@ class Variables$Query$StaffCapabilityPageRead {
     }
     final l$languageCodeId = data['languageCodeId'];
     result$data['languageCodeId'] = (l$languageCodeId as String);
+    if (data.containsKey('capabilitysOrderBy')) {
+      final l$capabilitysOrderBy = data['capabilitysOrderBy'];
+      result$data['capabilitysOrderBy'] =
+          (l$capabilitysOrderBy as List<dynamic>?)
+              ?.map(
+                (e) =>
+                    fromJson$Enum$MstrStaffCapabilitiesOrderBy((e as String)),
+              )
+              .toList();
+    }
     if (data.containsKey('removed')) {
       final l$removed = data['removed'];
       result$data['removed'] = (l$removed as bool?);
@@ -68,6 +80,10 @@ class Variables$Query$StaffCapabilityPageRead {
       (_$data['orderBy'] as List<Enum$InfoStaffsOrderBy>?);
 
   String get languageCodeId => (_$data['languageCodeId'] as String);
+
+  List<Enum$MstrStaffCapabilitiesOrderBy>? get capabilitysOrderBy =>
+      (_$data['capabilitysOrderBy']
+          as List<Enum$MstrStaffCapabilitiesOrderBy>?);
 
   bool? get removed => (_$data['removed'] as bool?);
 
@@ -91,6 +107,12 @@ class Variables$Query$StaffCapabilityPageRead {
     }
     final l$languageCodeId = languageCodeId;
     result$data['languageCodeId'] = l$languageCodeId;
+    if (_$data.containsKey('capabilitysOrderBy')) {
+      final l$capabilitysOrderBy = capabilitysOrderBy;
+      result$data['capabilitysOrderBy'] = l$capabilitysOrderBy
+          ?.map((e) => toJson$Enum$MstrStaffCapabilitiesOrderBy(e))
+          .toList();
+    }
     if (_$data.containsKey('removed')) {
       final l$removed = removed;
       result$data['removed'] = l$removed;
@@ -158,6 +180,26 @@ class Variables$Query$StaffCapabilityPageRead {
     if (l$languageCodeId != lOther$languageCodeId) {
       return false;
     }
+    final l$capabilitysOrderBy = capabilitysOrderBy;
+    final lOther$capabilitysOrderBy = other.capabilitysOrderBy;
+    if (_$data.containsKey('capabilitysOrderBy') !=
+        other._$data.containsKey('capabilitysOrderBy')) {
+      return false;
+    }
+    if (l$capabilitysOrderBy != null && lOther$capabilitysOrderBy != null) {
+      if (l$capabilitysOrderBy.length != lOther$capabilitysOrderBy.length) {
+        return false;
+      }
+      for (int i = 0; i < l$capabilitysOrderBy.length; i++) {
+        final l$capabilitysOrderBy$entry = l$capabilitysOrderBy[i];
+        final lOther$capabilitysOrderBy$entry = lOther$capabilitysOrderBy[i];
+        if (l$capabilitysOrderBy$entry != lOther$capabilitysOrderBy$entry) {
+          return false;
+        }
+      }
+    } else if (l$capabilitysOrderBy != lOther$capabilitysOrderBy) {
+      return false;
+    }
     final l$removed = removed;
     final lOther$removed = other.removed;
     if (_$data.containsKey('removed') != other._$data.containsKey('removed')) {
@@ -176,6 +218,7 @@ class Variables$Query$StaffCapabilityPageRead {
     final l$filter = filter;
     final l$orderBy = orderBy;
     final l$languageCodeId = languageCodeId;
+    final l$capabilitysOrderBy = capabilitysOrderBy;
     final l$removed = removed;
     return Object.hashAll([
       l$first,
@@ -187,6 +230,11 @@ class Variables$Query$StaffCapabilityPageRead {
                 : Object.hashAll(l$orderBy.map((v) => v))
           : const {},
       l$languageCodeId,
+      _$data.containsKey('capabilitysOrderBy')
+          ? l$capabilitysOrderBy == null
+                ? null
+                : Object.hashAll(l$capabilitysOrderBy.map((v) => v))
+          : const {},
       _$data.containsKey('removed') ? l$removed : const {},
     ]);
   }
@@ -207,6 +255,7 @@ abstract class CopyWith$Variables$Query$StaffCapabilityPageRead<TRes> {
     Input$InfoStaffFilter? filter,
     List<Enum$InfoStaffsOrderBy>? orderBy,
     String? languageCodeId,
+    List<Enum$MstrStaffCapabilitiesOrderBy>? capabilitysOrderBy,
     bool? removed,
   });
 }
@@ -230,6 +279,7 @@ class _CopyWithImpl$Variables$Query$StaffCapabilityPageRead<TRes>
     Object? filter = _undefined,
     Object? orderBy = _undefined,
     Object? languageCodeId = _undefined,
+    Object? capabilitysOrderBy = _undefined,
     Object? removed = _undefined,
   }) => _then(
     Variables$Query$StaffCapabilityPageRead._({
@@ -241,6 +291,9 @@ class _CopyWithImpl$Variables$Query$StaffCapabilityPageRead<TRes>
         'orderBy': (orderBy as List<Enum$InfoStaffsOrderBy>?),
       if (languageCodeId != _undefined && languageCodeId != null)
         'languageCodeId': (languageCodeId as String),
+      if (capabilitysOrderBy != _undefined)
+        'capabilitysOrderBy':
+            (capabilitysOrderBy as List<Enum$MstrStaffCapabilitiesOrderBy>?),
       if (removed != _undefined) 'removed': (removed as bool?),
     }),
   );
@@ -258,6 +311,7 @@ class _CopyWithStubImpl$Variables$Query$StaffCapabilityPageRead<TRes>
     Input$InfoStaffFilter? filter,
     List<Enum$InfoStaffsOrderBy>? orderBy,
     String? languageCodeId,
+    List<Enum$MstrStaffCapabilitiesOrderBy>? capabilitysOrderBy,
     bool? removed,
   }) => _res;
 }
@@ -435,16 +489,24 @@ const documentNodeQueryStaffCapabilityPageRead = DocumentNode(
             ),
             isNonNull: false,
           ),
-          defaultValue: DefaultValueNode(
-            value: ListValueNode(
-              values: [EnumValueNode(name: NameNode(value: 'PRIMARY_KEY_ASC'))],
-            ),
-          ),
+          defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
         VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'languageCodeId')),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'capabilitysOrderBy')),
+          type: ListTypeNode(
+            type: NamedTypeNode(
+              name: NameNode(value: 'MstrStaffCapabilitiesOrderBy'),
+              isNonNull: true,
+            ),
+            isNonNull: false,
+          ),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
@@ -574,55 +636,6 @@ const documentNodeQueryStaffCapabilityPageRead = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(value: 'code'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'sex'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'phone'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'privatePhone'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'symbol'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'remarks'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'updateAt'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'remove'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -932,11 +945,39 @@ const documentNodeQueryStaffCapabilityPageRead = DocumentNode(
                         ),
                       ),
                       FieldNode(
+                        name: NameNode(value: 'sex'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'phone'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'privatePhone'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
                         name: NameNode(
                           value: 'mstrStaffCapabilitiesByInfoStaffId',
                         ),
                         alias: NameNode(value: 'capabilitys'),
-                        arguments: [],
+                        arguments: [
+                          ArgumentNode(
+                            name: NameNode(value: 'orderBy'),
+                            value: VariableNode(
+                              name: NameNode(value: 'capabilitysOrderBy'),
+                            ),
+                          ),
+                        ],
                         directives: [],
                         selectionSet: SelectionSetNode(
                           selections: [
@@ -1002,20 +1043,6 @@ const documentNodeQueryStaffCapabilityPageRead = DocumentNode(
                                     selectionSet: null,
                                   ),
                                   FieldNode(
-                                    name: NameNode(value: 'value'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(value: 'stop'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
                                     name: NameNode(
                                       value: 'mstrCapabilityByMstrCapabilityId',
                                     ),
@@ -1035,71 +1062,6 @@ const documentNodeQueryStaffCapabilityPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(value: 'code'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(value: 'detail'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(
-                                            value: 'referenceValue',
-                                          ),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(value: 'max'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(value: 'min'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(value: 'step'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(value: 'symbol'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(value: 'remarks'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(value: 'updateAt'),
-                                          alias: null,
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: null,
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(value: 'remove'),
                                           alias: null,
                                           arguments: [],
                                           directives: [],
@@ -1482,6 +1444,170 @@ const documentNodeQueryStaffCapabilityPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
+                                            value: 'sharedTextByDetails',
+                                          ),
+                                          alias: NameNode(value: 'detailTexts'),
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'sharedTextId',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value:
+                                                      'sharedTextValuesBySharedTextId',
+                                                ),
+                                                alias: NameNode(value: 'value'),
+                                                arguments: [
+                                                  ArgumentNode(
+                                                    name: NameNode(
+                                                      value: 'condition',
+                                                    ),
+                                                    value: ObjectValueNode(
+                                                      fields: [
+                                                        ObjectFieldNode(
+                                                          name: NameNode(
+                                                            value:
+                                                                'sharedLanguageCodeId',
+                                                          ),
+                                                          value: VariableNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  'languageCodeId',
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                                directives: [],
+                                                selectionSet: SelectionSetNode(
+                                                  selections: [
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: 'nodes',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: SelectionSetNode(
+                                                        selections: [
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  'textValue',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: null,
+                                                          ),
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  '__typename',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: null,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: '__typename',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(
+                                            value: 'referenceValue',
+                                          ),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: 'max'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: 'min'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: 'step'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: 'symbol'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: 'remarks'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: 'updateAt'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: 'remove'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(
                                             value:
                                                 'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
                                           ),
@@ -1519,36 +1645,6 @@ const documentNodeQueryStaffCapabilityPageRead = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(value: 'code'),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(value: 'sex'),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(value: 'phone'),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(value: 'symbol'),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: 'privatePhone',
-                                                ),
                                                 alias: null,
                                                 arguments: [],
                                                 directives: [],
@@ -1962,6 +2058,36 @@ const documentNodeQueryStaffCapabilityPageRead = DocumentNode(
                                                 ),
                                               ),
                                               FieldNode(
+                                                name: NameNode(value: 'sex'),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(value: 'phone'),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(value: 'symbol'),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'privatePhone',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
                                                 name: NameNode(
                                                   value: '__typename',
                                                 ),
@@ -1984,6 +2110,20 @@ const documentNodeQueryStaffCapabilityPageRead = DocumentNode(
                                     ),
                                   ),
                                   FieldNode(
+                                    name: NameNode(value: 'value'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: 'stop'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
                                     name: NameNode(value: '__typename'),
                                     alias: null,
                                     arguments: [],
@@ -2002,6 +2142,34 @@ const documentNodeQueryStaffCapabilityPageRead = DocumentNode(
                             ),
                           ],
                         ),
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'symbol'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'updateAt'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'remove'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
                       ),
                       FieldNode(
                         name: NameNode(
@@ -2036,34 +2204,6 @@ const documentNodeQueryStaffCapabilityPageRead = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(value: 'code'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'sex'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'phone'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'symbol'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'privatePhone'),
                               alias: null,
                               arguments: [],
                               directives: [],
@@ -2397,6 +2537,34 @@ const documentNodeQueryStaffCapabilityPageRead = DocumentNode(
                                   ),
                                 ],
                               ),
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'sex'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'phone'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'symbol'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'privatePhone'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
                             ),
                             FieldNode(
                               name: NameNode(value: '__typename'),
@@ -2991,15 +3159,15 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes {
     required this.infoStaffId,
     this.infoCompanyId,
     this.code,
+    this.labels,
     this.sex,
     this.phone,
     this.privatePhone,
+    required this.capabilitys,
     this.symbol,
     this.remarks,
     this.updateAt,
     this.remove,
-    this.labels,
-    required this.capabilitys,
     this.update_user,
     this.$__typename = 'InfoStaff',
   });
@@ -3010,37 +3178,37 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes {
     final l$infoStaffId = json['infoStaffId'];
     final l$infoCompanyId = json['infoCompanyId'];
     final l$code = json['code'];
+    final l$labels = json['labels'];
     final l$sex = json['sex'];
     final l$phone = json['phone'];
     final l$privatePhone = json['privatePhone'];
+    final l$capabilitys = json['capabilitys'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
-    final l$labels = json['labels'];
-    final l$capabilitys = json['capabilitys'];
     final l$update_user = json['update_user'];
     final l$$__typename = json['__typename'];
     return Query$StaffCapabilityPageRead$allInfoStaffs$nodes(
       infoStaffId: (l$infoStaffId as String),
       infoCompanyId: (l$infoCompanyId as String?),
       code: (l$code as String?),
-      sex: (l$sex as String?),
-      phone: (l$phone as String?),
-      privatePhone: (l$privatePhone as String?),
-      symbol: (l$symbol as String?),
-      remarks: (l$remarks as String?),
-      updateAt: (l$updateAt as String?),
-      remove: (l$remove as bool?),
       labels: l$labels == null
           ? null
           : Query$StaffCapabilityPageRead$allInfoStaffs$nodes$labels.fromJson(
               (l$labels as Map<String, dynamic>),
             ),
+      sex: (l$sex as String?),
+      phone: (l$phone as String?),
+      privatePhone: (l$privatePhone as String?),
       capabilitys:
           Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys.fromJson(
             (l$capabilitys as Map<String, dynamic>),
           ),
+      symbol: (l$symbol as String?),
+      remarks: (l$remarks as String?),
+      updateAt: (l$updateAt as String?),
+      remove: (l$remove as bool?),
       update_user: l$update_user == null
           ? null
           : Query$StaffCapabilityPageRead$allInfoStaffs$nodes$update_user.fromJson(
@@ -3056,11 +3224,16 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes {
 
   final String? code;
 
+  final Query$StaffCapabilityPageRead$allInfoStaffs$nodes$labels? labels;
+
   final String? sex;
 
   final String? phone;
 
   final String? privatePhone;
+
+  final Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys
+  capabilitys;
 
   final String? symbol;
 
@@ -3069,11 +3242,6 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes {
   final String? updateAt;
 
   final bool? remove;
-
-  final Query$StaffCapabilityPageRead$allInfoStaffs$nodes$labels? labels;
-
-  final Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys
-  capabilitys;
 
   final Query$StaffCapabilityPageRead$allInfoStaffs$nodes$update_user?
   update_user;
@@ -3088,12 +3256,16 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes {
     _resultData['infoCompanyId'] = l$infoCompanyId;
     final l$code = code;
     _resultData['code'] = l$code;
+    final l$labels = labels;
+    _resultData['labels'] = l$labels?.toJson();
     final l$sex = sex;
     _resultData['sex'] = l$sex;
     final l$phone = phone;
     _resultData['phone'] = l$phone;
     final l$privatePhone = privatePhone;
     _resultData['privatePhone'] = l$privatePhone;
+    final l$capabilitys = capabilitys;
+    _resultData['capabilitys'] = l$capabilitys.toJson();
     final l$symbol = symbol;
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
@@ -3102,10 +3274,6 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes {
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
     _resultData['remove'] = l$remove;
-    final l$labels = labels;
-    _resultData['labels'] = l$labels?.toJson();
-    final l$capabilitys = capabilitys;
-    _resultData['capabilitys'] = l$capabilitys.toJson();
     final l$update_user = update_user;
     _resultData['update_user'] = l$update_user?.toJson();
     final l$$__typename = $__typename;
@@ -3118,30 +3286,30 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes {
     final l$infoStaffId = infoStaffId;
     final l$infoCompanyId = infoCompanyId;
     final l$code = code;
+    final l$labels = labels;
     final l$sex = sex;
     final l$phone = phone;
     final l$privatePhone = privatePhone;
+    final l$capabilitys = capabilitys;
     final l$symbol = symbol;
     final l$remarks = remarks;
     final l$updateAt = updateAt;
     final l$remove = remove;
-    final l$labels = labels;
-    final l$capabilitys = capabilitys;
     final l$update_user = update_user;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoStaffId,
       l$infoCompanyId,
       l$code,
+      l$labels,
       l$sex,
       l$phone,
       l$privatePhone,
+      l$capabilitys,
       l$symbol,
       l$remarks,
       l$updateAt,
       l$remove,
-      l$labels,
-      l$capabilitys,
       l$update_user,
       l$$__typename,
     ]);
@@ -3171,6 +3339,11 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes {
     if (l$code != lOther$code) {
       return false;
     }
+    final l$labels = labels;
+    final lOther$labels = other.labels;
+    if (l$labels != lOther$labels) {
+      return false;
+    }
     final l$sex = sex;
     final lOther$sex = other.sex;
     if (l$sex != lOther$sex) {
@@ -3184,6 +3357,11 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes {
     final l$privatePhone = privatePhone;
     final lOther$privatePhone = other.privatePhone;
     if (l$privatePhone != lOther$privatePhone) {
+      return false;
+    }
+    final l$capabilitys = capabilitys;
+    final lOther$capabilitys = other.capabilitys;
+    if (l$capabilitys != lOther$capabilitys) {
       return false;
     }
     final l$symbol = symbol;
@@ -3204,16 +3382,6 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes {
     final l$remove = remove;
     final lOther$remove = other.remove;
     if (l$remove != lOther$remove) {
-      return false;
-    }
-    final l$labels = labels;
-    final lOther$labels = other.labels;
-    if (l$labels != lOther$labels) {
-      return false;
-    }
-    final l$capabilitys = capabilitys;
-    final lOther$capabilitys = other.capabilitys;
-    if (l$capabilitys != lOther$capabilitys) {
       return false;
     }
     final l$update_user = update_user;
@@ -3257,15 +3425,15 @@ abstract class CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes<
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$labels? labels,
     String? sex,
     String? phone,
     String? privatePhone,
+    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys? capabilitys,
     String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$labels? labels,
-    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys? capabilitys,
     Query$StaffCapabilityPageRead$allInfoStaffs$nodes$update_user? update_user,
     String? $__typename,
   });
@@ -3295,15 +3463,15 @@ class _CopyWithImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes<TRes>
     Object? infoStaffId = _undefined,
     Object? infoCompanyId = _undefined,
     Object? code = _undefined,
+    Object? labels = _undefined,
     Object? sex = _undefined,
     Object? phone = _undefined,
     Object? privatePhone = _undefined,
+    Object? capabilitys = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
-    Object? labels = _undefined,
-    Object? capabilitys = _undefined,
     Object? update_user = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
@@ -3315,25 +3483,25 @@ class _CopyWithImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes<TRes>
           ? _instance.infoCompanyId
           : (infoCompanyId as String?),
       code: code == _undefined ? _instance.code : (code as String?),
+      labels: labels == _undefined
+          ? _instance.labels
+          : (labels
+                as Query$StaffCapabilityPageRead$allInfoStaffs$nodes$labels?),
       sex: sex == _undefined ? _instance.sex : (sex as String?),
       phone: phone == _undefined ? _instance.phone : (phone as String?),
       privatePhone: privatePhone == _undefined
           ? _instance.privatePhone
           : (privatePhone as String?),
+      capabilitys: capabilitys == _undefined || capabilitys == null
+          ? _instance.capabilitys
+          : (capabilitys
+                as Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
           : (updateAt as String?),
       remove: remove == _undefined ? _instance.remove : (remove as bool?),
-      labels: labels == _undefined
-          ? _instance.labels
-          : (labels
-                as Query$StaffCapabilityPageRead$allInfoStaffs$nodes$labels?),
-      capabilitys: capabilitys == _undefined || capabilitys == null
-          ? _instance.capabilitys
-          : (capabilitys
-                as Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys),
       update_user: update_user == _undefined
           ? _instance.update_user
           : (update_user
@@ -3393,15 +3561,15 @@ class _CopyWithStubImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes<TRes>
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$labels? labels,
     String? sex,
     String? phone,
     String? privatePhone,
+    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys? capabilitys,
     String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$labels? labels,
-    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys? capabilitys,
     Query$StaffCapabilityPageRead$allInfoStaffs$nodes$update_user? update_user,
     String? $__typename,
   }) => _res;
@@ -5930,9 +6098,9 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes {
   Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes({
     required this.mstrStaffCapabilityId,
     required this.infoStaffId,
+    this.capability,
     this.value,
     this.stop,
-    this.capability,
     this.$__typename = 'MstrStaffCapability',
   });
 
@@ -5941,20 +6109,20 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes {
   ) {
     final l$mstrStaffCapabilityId = json['mstrStaffCapabilityId'];
     final l$infoStaffId = json['infoStaffId'];
+    final l$capability = json['capability'];
     final l$value = json['value'];
     final l$stop = json['stop'];
-    final l$capability = json['capability'];
     final l$$__typename = json['__typename'];
     return Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes(
       mstrStaffCapabilityId: (l$mstrStaffCapabilityId as String),
       infoStaffId: (l$infoStaffId as String),
-      value: (l$value as String?),
-      stop: (l$stop as bool?),
       capability: l$capability == null
           ? null
           : Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability.fromJson(
               (l$capability as Map<String, dynamic>),
             ),
+      value: (l$value as String?),
+      stop: (l$stop as bool?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -5963,12 +6131,12 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes {
 
   final String infoStaffId;
 
+  final Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability?
+  capability;
+
   final String? value;
 
   final bool? stop;
-
-  final Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability?
-  capability;
 
   final String $__typename;
 
@@ -5978,12 +6146,12 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes {
     _resultData['mstrStaffCapabilityId'] = l$mstrStaffCapabilityId;
     final l$infoStaffId = infoStaffId;
     _resultData['infoStaffId'] = l$infoStaffId;
+    final l$capability = capability;
+    _resultData['capability'] = l$capability?.toJson();
     final l$value = value;
     _resultData['value'] = l$value;
     final l$stop = stop;
     _resultData['stop'] = l$stop;
-    final l$capability = capability;
-    _resultData['capability'] = l$capability?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -5993,16 +6161,16 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes {
   int get hashCode {
     final l$mstrStaffCapabilityId = mstrStaffCapabilityId;
     final l$infoStaffId = infoStaffId;
+    final l$capability = capability;
     final l$value = value;
     final l$stop = stop;
-    final l$capability = capability;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$mstrStaffCapabilityId,
       l$infoStaffId,
+      l$capability,
       l$value,
       l$stop,
-      l$capability,
       l$$__typename,
     ]);
   }
@@ -6027,6 +6195,11 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes {
     if (l$infoStaffId != lOther$infoStaffId) {
       return false;
     }
+    final l$capability = capability;
+    final lOther$capability = other.capability;
+    if (l$capability != lOther$capability) {
+      return false;
+    }
     final l$value = value;
     final lOther$value = other.value;
     if (l$value != lOther$value) {
@@ -6035,11 +6208,6 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes {
     final l$stop = stop;
     final lOther$stop = other.stop;
     if (l$stop != lOther$stop) {
-      return false;
-    }
-    final l$capability = capability;
-    final lOther$capability = other.capability;
-    if (l$capability != lOther$capability) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -6082,10 +6250,10 @@ abstract class CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabi
   TRes call({
     String? mstrStaffCapabilityId,
     String? infoStaffId,
-    String? value,
-    bool? stop,
     Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability?
     capability,
+    String? value,
+    bool? stop,
     String? $__typename,
   });
   CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability<
@@ -6119,9 +6287,9 @@ class _CopyWithImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capability
   TRes call({
     Object? mstrStaffCapabilityId = _undefined,
     Object? infoStaffId = _undefined,
+    Object? capability = _undefined,
     Object? value = _undefined,
     Object? stop = _undefined,
-    Object? capability = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes(
@@ -6132,12 +6300,12 @@ class _CopyWithImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capability
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
-      value: value == _undefined ? _instance.value : (value as String?),
-      stop: stop == _undefined ? _instance.stop : (stop as bool?),
       capability: capability == _undefined
           ? _instance.capability
           : (capability
                 as Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability?),
+      value: value == _undefined ? _instance.value : (value as String?),
+      stop: stop == _undefined ? _instance.stop : (stop as bool?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -6176,10 +6344,10 @@ class _CopyWithStubImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabi
   call({
     String? mstrStaffCapabilityId,
     String? infoStaffId,
-    String? value,
-    bool? stop,
     Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability?
     capability,
+    String? value,
+    bool? stop,
     String? $__typename,
   }) => _res;
 
@@ -6196,7 +6364,8 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capabi
   Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability({
     required this.mstrCapabilityId,
     required this.code,
-    this.detail,
+    this.labels,
+    this.detailTexts,
     required this.referenceValue,
     this.max,
     this.min,
@@ -6205,7 +6374,6 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capabi
     this.remarks,
     this.updateAt,
     this.remove,
-    this.labels,
     this.update_user,
     this.$__typename = 'MstrCapability',
   });
@@ -6215,7 +6383,8 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capabi
   ) {
     final l$mstrCapabilityId = json['mstrCapabilityId'];
     final l$code = json['code'];
-    final l$detail = json['detail'];
+    final l$labels = json['labels'];
+    final l$detailTexts = json['detailTexts'];
     final l$referenceValue = json['referenceValue'];
     final l$max = json['max'];
     final l$min = json['min'];
@@ -6224,13 +6393,21 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capabi
     final l$remarks = json['remarks'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
-    final l$labels = json['labels'];
     final l$update_user = json['update_user'];
     final l$$__typename = json['__typename'];
     return Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability(
       mstrCapabilityId: (l$mstrCapabilityId as String),
       code: (l$code as String),
-      detail: (l$detail as String?),
+      labels: l$labels == null
+          ? null
+          : Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels.fromJson(
+              (l$labels as Map<String, dynamic>),
+            ),
+      detailTexts: l$detailTexts == null
+          ? null
+          : Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts.fromJson(
+              (l$detailTexts as Map<String, dynamic>),
+            ),
       referenceValue: (l$referenceValue as String),
       max: (l$max as String?),
       min: (l$min as String?),
@@ -6239,11 +6416,6 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capabi
       remarks: (l$remarks as String?),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
-      labels: l$labels == null
-          ? null
-          : Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels.fromJson(
-              (l$labels as Map<String, dynamic>),
-            ),
       update_user: l$update_user == null
           ? null
           : Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user.fromJson(
@@ -6257,7 +6429,11 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capabi
 
   final String code;
 
-  final String? detail;
+  final Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels?
+  labels;
+
+  final Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts?
+  detailTexts;
 
   final String referenceValue;
 
@@ -6275,9 +6451,6 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capabi
 
   final bool? remove;
 
-  final Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels?
-  labels;
-
   final Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user?
   update_user;
 
@@ -6289,8 +6462,10 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capabi
     _resultData['mstrCapabilityId'] = l$mstrCapabilityId;
     final l$code = code;
     _resultData['code'] = l$code;
-    final l$detail = detail;
-    _resultData['detail'] = l$detail;
+    final l$labels = labels;
+    _resultData['labels'] = l$labels?.toJson();
+    final l$detailTexts = detailTexts;
+    _resultData['detailTexts'] = l$detailTexts?.toJson();
     final l$referenceValue = referenceValue;
     _resultData['referenceValue'] = l$referenceValue;
     final l$max = max;
@@ -6307,8 +6482,6 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capabi
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
     _resultData['remove'] = l$remove;
-    final l$labels = labels;
-    _resultData['labels'] = l$labels?.toJson();
     final l$update_user = update_user;
     _resultData['update_user'] = l$update_user?.toJson();
     final l$$__typename = $__typename;
@@ -6320,7 +6493,8 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capabi
   int get hashCode {
     final l$mstrCapabilityId = mstrCapabilityId;
     final l$code = code;
-    final l$detail = detail;
+    final l$labels = labels;
+    final l$detailTexts = detailTexts;
     final l$referenceValue = referenceValue;
     final l$max = max;
     final l$min = min;
@@ -6329,13 +6503,13 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capabi
     final l$remarks = remarks;
     final l$updateAt = updateAt;
     final l$remove = remove;
-    final l$labels = labels;
     final l$update_user = update_user;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$mstrCapabilityId,
       l$code,
-      l$detail,
+      l$labels,
+      l$detailTexts,
       l$referenceValue,
       l$max,
       l$min,
@@ -6344,7 +6518,6 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capabi
       l$remarks,
       l$updateAt,
       l$remove,
-      l$labels,
       l$update_user,
       l$$__typename,
     ]);
@@ -6370,9 +6543,14 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capabi
     if (l$code != lOther$code) {
       return false;
     }
-    final l$detail = detail;
-    final lOther$detail = other.detail;
-    if (l$detail != lOther$detail) {
+    final l$labels = labels;
+    final lOther$labels = other.labels;
+    if (l$labels != lOther$labels) {
+      return false;
+    }
+    final l$detailTexts = detailTexts;
+    final lOther$detailTexts = other.detailTexts;
+    if (l$detailTexts != lOther$detailTexts) {
       return false;
     }
     final l$referenceValue = referenceValue;
@@ -6413,11 +6591,6 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capabi
     final l$remove = remove;
     final lOther$remove = other.remove;
     if (l$remove != lOther$remove) {
-      return false;
-    }
-    final l$labels = labels;
-    final lOther$labels = other.labels;
-    if (l$labels != lOther$labels) {
       return false;
     }
     final l$update_user = update_user;
@@ -6465,7 +6638,10 @@ abstract class CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabi
   TRes call({
     String? mstrCapabilityId,
     String? code,
-    String? detail,
+    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels?
+    labels,
+    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts?
+    detailTexts,
     String? referenceValue,
     String? max,
     String? min,
@@ -6474,8 +6650,6 @@ abstract class CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabi
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels?
-    labels,
     Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user?
     update_user,
     String? $__typename,
@@ -6484,6 +6658,10 @@ abstract class CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabi
     TRes
   >
   get labels;
+  CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts<
+    TRes
+  >
+  get detailTexts;
   CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user<
     TRes
   >
@@ -6515,7 +6693,8 @@ class _CopyWithImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capability
   TRes call({
     Object? mstrCapabilityId = _undefined,
     Object? code = _undefined,
-    Object? detail = _undefined,
+    Object? labels = _undefined,
+    Object? detailTexts = _undefined,
     Object? referenceValue = _undefined,
     Object? max = _undefined,
     Object? min = _undefined,
@@ -6524,7 +6703,6 @@ class _CopyWithImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capability
     Object? remarks = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
-    Object? labels = _undefined,
     Object? update_user = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
@@ -6536,7 +6714,14 @@ class _CopyWithImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capability
       code: code == _undefined || code == null
           ? _instance.code
           : (code as String),
-      detail: detail == _undefined ? _instance.detail : (detail as String?),
+      labels: labels == _undefined
+          ? _instance.labels
+          : (labels
+                as Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels?),
+      detailTexts: detailTexts == _undefined
+          ? _instance.detailTexts
+          : (detailTexts
+                as Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts?),
       referenceValue: referenceValue == _undefined || referenceValue == null
           ? _instance.referenceValue
           : (referenceValue as String),
@@ -6549,10 +6734,6 @@ class _CopyWithImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capability
           ? _instance.updateAt
           : (updateAt as String?),
       remove: remove == _undefined ? _instance.remove : (remove as bool?),
-      labels: labels == _undefined
-          ? _instance.labels
-          : (labels
-                as Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels?),
       update_user: update_user == _undefined
           ? _instance.update_user
           : (update_user
@@ -6575,6 +6756,21 @@ class _CopyWithImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capability
         : CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels(
             local$labels,
             (e) => call(labels: e),
+          );
+  }
+
+  CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts<
+    TRes
+  >
+  get detailTexts {
+    final local$detailTexts = _instance.detailTexts;
+    return local$detailTexts == null
+        ? CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts(
+            local$detailTexts,
+            (e) => call(detailTexts: e),
           );
   }
 
@@ -6610,7 +6806,10 @@ class _CopyWithStubImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabi
   call({
     String? mstrCapabilityId,
     String? code,
-    String? detail,
+    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels?
+    labels,
+    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts?
+    detailTexts,
     String? referenceValue,
     String? max,
     String? min,
@@ -6619,8 +6818,6 @@ class _CopyWithStubImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabi
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels?
-    labels,
     Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user?
     update_user,
     String? $__typename,
@@ -6631,6 +6828,14 @@ class _CopyWithStubImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabi
   >
   get labels =>
       CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$labels.stub(
+        _res,
+      );
+
+  CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts<
+    TRes
+  >
+  get detailTexts =>
+      CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts.stub(
         _res,
       );
 
@@ -8707,17 +8912,586 @@ class _CopyWithStubImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabi
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
+class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts {
+  Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts({
+    required this.sharedTextId,
+    required this.value,
+    this.$__typename = 'SharedText',
+  });
+
+  factory Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedTextId = json['sharedTextId'];
+    final l$value = json['value'];
+    final l$$__typename = json['__typename'];
+    return Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts(
+      sharedTextId: (l$sharedTextId as String),
+      value:
+          Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value.fromJson(
+            (l$value as Map<String, dynamic>),
+          ),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String sharedTextId;
+
+  final Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value
+  value;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedTextId = sharedTextId;
+    _resultData['sharedTextId'] = l$sharedTextId;
+    final l$value = value;
+    _resultData['value'] = l$value.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedTextId = sharedTextId;
+    final l$value = value;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$sharedTextId, l$value, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedTextId = sharedTextId;
+    final lOther$sharedTextId = other.sharedTextId;
+    if (l$sharedTextId != lOther$sharedTextId) {
+      return false;
+    }
+    final l$value = value;
+    final lOther$value = other.value;
+    if (l$value != lOther$value) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts
+    on
+        Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts {
+  CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts<
+    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts
+  >
+  get copyWith =>
+      CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts<
+  TRes
+> {
+  factory CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts(
+    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts
+    instance,
+    TRes Function(
+      Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts,
+    )
+    then,
+  ) = _CopyWithImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts;
+
+  factory CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts;
+
+  TRes call({
+    String? sharedTextId,
+    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value?
+    value,
+    String? $__typename,
+  });
+  CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value<
+    TRes
+  >
+  get value;
+}
+
+class _CopyWithImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts<
+          TRes
+        > {
+  _CopyWithImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts(
+    this._instance,
+    this._then,
+  );
+
+  final Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts
+  _instance;
+
+  final TRes Function(
+    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedTextId = _undefined,
+    Object? value = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts(
+      sharedTextId: sharedTextId == _undefined || sharedTextId == null
+          ? _instance.sharedTextId
+          : (sharedTextId as String),
+      value: value == _undefined || value == null
+          ? _instance.value
+          : (value
+                as Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value<
+    TRes
+  >
+  get value {
+    final local$value = _instance.value;
+    return CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value(
+      local$value,
+      (e) => call(value: e),
+    );
+  }
+}
+
+class _CopyWithStubImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? sharedTextId,
+    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value?
+    value,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value<
+    TRes
+  >
+  get value =>
+      CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value.stub(
+        _res,
+      );
+}
+
+class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value {
+  Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value({
+    required this.nodes,
+    this.$__typename = 'SharedTextValuesConnection',
+  });
+
+  factory Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value
+    on
+        Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value {
+  CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value<
+    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value
+  >
+  get copyWith =>
+      CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value<
+  TRes
+> {
+  factory CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value(
+    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value
+    instance,
+    TRes Function(
+      Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value,
+    )
+    then,
+  ) = _CopyWithImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value;
+
+  factory CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value;
+
+  TRes call({
+    List<
+      Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes<
+          Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value<
+          TRes
+        > {
+  _CopyWithImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value(
+    this._instance,
+    this._then,
+  );
+
+  final Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value
+  _instance;
+
+  final TRes Function(
+    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes<
+          Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes {
+  Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes({
+    this.textValue,
+    this.$__typename = 'SharedTextValue',
+  });
+
+  factory Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$textValue = json['textValue'];
+    final l$$__typename = json['__typename'];
+    return Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes(
+      textValue: (l$textValue as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? textValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$textValue = textValue;
+    _resultData['textValue'] = l$textValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$textValue = textValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$textValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$textValue = textValue;
+    final lOther$textValue = other.textValue;
+    if (l$textValue != lOther$textValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes
+    on
+        Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes {
+  CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes<
+    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes<
+  TRes
+> {
+  factory CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes(
+    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes
+    instance,
+    TRes Function(
+      Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes;
+
+  factory CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes;
+
+  TRes call({String? textValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes
+  _instance;
+
+  final TRes Function(
+    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? textValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes(
+      textValue: textValue == _undefined
+          ? _instance.textValue
+          : (textValue as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$detailTexts$value$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? textValue, String? $__typename}) => _res;
+}
+
 class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user {
   Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user({
     required this.historyId,
     required this.infoStaffId,
     this.infoCompanyId,
     this.code,
+    this.name,
     this.sex,
     this.phone,
     this.symbol,
     this.privatePhone,
-    this.name,
     this.$__typename = 'HistoryInfoStaff',
   });
 
@@ -8728,26 +9502,26 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capabi
     final l$infoStaffId = json['infoStaffId'];
     final l$infoCompanyId = json['infoCompanyId'];
     final l$code = json['code'];
+    final l$name = json['name'];
     final l$sex = json['sex'];
     final l$phone = json['phone'];
     final l$symbol = json['symbol'];
     final l$privatePhone = json['privatePhone'];
-    final l$name = json['name'];
     final l$$__typename = json['__typename'];
     return Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
       infoCompanyId: (l$infoCompanyId as String?),
       code: (l$code as String?),
-      sex: (l$sex as String?),
-      phone: (l$phone as String?),
-      symbol: (l$symbol as String?),
-      privatePhone: (l$privatePhone as String?),
       name: l$name == null
           ? null
           : Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name.fromJson(
               (l$name as Map<String, dynamic>),
             ),
+      sex: (l$sex as String?),
+      phone: (l$phone as String?),
+      symbol: (l$symbol as String?),
+      privatePhone: (l$privatePhone as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -8760,6 +9534,9 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capabi
 
   final String? code;
 
+  final Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name?
+  name;
+
   final String? sex;
 
   final String? phone;
@@ -8767,9 +9544,6 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capabi
   final String? symbol;
 
   final String? privatePhone;
-
-  final Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name?
-  name;
 
   final String $__typename;
 
@@ -8783,6 +9557,8 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capabi
     _resultData['infoCompanyId'] = l$infoCompanyId;
     final l$code = code;
     _resultData['code'] = l$code;
+    final l$name = name;
+    _resultData['name'] = l$name?.toJson();
     final l$sex = sex;
     _resultData['sex'] = l$sex;
     final l$phone = phone;
@@ -8791,8 +9567,6 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capabi
     _resultData['symbol'] = l$symbol;
     final l$privatePhone = privatePhone;
     _resultData['privatePhone'] = l$privatePhone;
-    final l$name = name;
-    _resultData['name'] = l$name?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -8804,22 +9578,22 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capabi
     final l$infoStaffId = infoStaffId;
     final l$infoCompanyId = infoCompanyId;
     final l$code = code;
+    final l$name = name;
     final l$sex = sex;
     final l$phone = phone;
     final l$symbol = symbol;
     final l$privatePhone = privatePhone;
-    final l$name = name;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$historyId,
       l$infoStaffId,
       l$infoCompanyId,
       l$code,
+      l$name,
       l$sex,
       l$phone,
       l$symbol,
       l$privatePhone,
-      l$name,
       l$$__typename,
     ]);
   }
@@ -8854,6 +9628,11 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capabi
     if (l$code != lOther$code) {
       return false;
     }
+    final l$name = name;
+    final lOther$name = other.name;
+    if (l$name != lOther$name) {
+      return false;
+    }
     final l$sex = sex;
     final lOther$sex = other.sex;
     if (l$sex != lOther$sex) {
@@ -8872,11 +9651,6 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capabi
     final l$privatePhone = privatePhone;
     final lOther$privatePhone = other.privatePhone;
     if (l$privatePhone != lOther$privatePhone) {
-      return false;
-    }
-    final l$name = name;
-    final lOther$name = other.name;
-    if (l$name != lOther$name) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -8922,12 +9696,12 @@ abstract class CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabi
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name?
+    name,
     String? sex,
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name?
-    name,
     String? $__typename,
   });
   CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name<
@@ -8963,11 +9737,11 @@ class _CopyWithImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capability
     Object? infoStaffId = _undefined,
     Object? infoCompanyId = _undefined,
     Object? code = _undefined,
+    Object? name = _undefined,
     Object? sex = _undefined,
     Object? phone = _undefined,
     Object? symbol = _undefined,
     Object? privatePhone = _undefined,
-    Object? name = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user(
@@ -8981,16 +9755,16 @@ class _CopyWithImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capability
           ? _instance.infoCompanyId
           : (infoCompanyId as String?),
       code: code == _undefined ? _instance.code : (code as String?),
+      name: name == _undefined
+          ? _instance.name
+          : (name
+                as Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name?),
       sex: sex == _undefined ? _instance.sex : (sex as String?),
       phone: phone == _undefined ? _instance.phone : (phone as String?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       privatePhone: privatePhone == _undefined
           ? _instance.privatePhone
           : (privatePhone as String?),
-      name: name == _undefined
-          ? _instance.name
-          : (name
-                as Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -9031,12 +9805,12 @@ class _CopyWithStubImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabi
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name?
+    name,
     String? sex,
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$capabilitys$nodes$capability$update_user$name?
-    name,
     String? $__typename,
   }) => _res;
 
@@ -11119,11 +11893,11 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$update_user {
     required this.infoStaffId,
     this.infoCompanyId,
     this.code,
+    this.name,
     this.sex,
     this.phone,
     this.symbol,
     this.privatePhone,
-    this.name,
     this.$__typename = 'HistoryInfoStaff',
   });
 
@@ -11134,26 +11908,26 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$update_user {
     final l$infoStaffId = json['infoStaffId'];
     final l$infoCompanyId = json['infoCompanyId'];
     final l$code = json['code'];
+    final l$name = json['name'];
     final l$sex = json['sex'];
     final l$phone = json['phone'];
     final l$symbol = json['symbol'];
     final l$privatePhone = json['privatePhone'];
-    final l$name = json['name'];
     final l$$__typename = json['__typename'];
     return Query$StaffCapabilityPageRead$allInfoStaffs$nodes$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
       infoCompanyId: (l$infoCompanyId as String?),
       code: (l$code as String?),
-      sex: (l$sex as String?),
-      phone: (l$phone as String?),
-      symbol: (l$symbol as String?),
-      privatePhone: (l$privatePhone as String?),
       name: l$name == null
           ? null
           : Query$StaffCapabilityPageRead$allInfoStaffs$nodes$update_user$name.fromJson(
               (l$name as Map<String, dynamic>),
             ),
+      sex: (l$sex as String?),
+      phone: (l$phone as String?),
+      symbol: (l$symbol as String?),
+      privatePhone: (l$privatePhone as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -11166,6 +11940,9 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$update_user {
 
   final String? code;
 
+  final Query$StaffCapabilityPageRead$allInfoStaffs$nodes$update_user$name?
+  name;
+
   final String? sex;
 
   final String? phone;
@@ -11173,9 +11950,6 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$update_user {
   final String? symbol;
 
   final String? privatePhone;
-
-  final Query$StaffCapabilityPageRead$allInfoStaffs$nodes$update_user$name?
-  name;
 
   final String $__typename;
 
@@ -11189,6 +11963,8 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$update_user {
     _resultData['infoCompanyId'] = l$infoCompanyId;
     final l$code = code;
     _resultData['code'] = l$code;
+    final l$name = name;
+    _resultData['name'] = l$name?.toJson();
     final l$sex = sex;
     _resultData['sex'] = l$sex;
     final l$phone = phone;
@@ -11197,8 +11973,6 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$update_user {
     _resultData['symbol'] = l$symbol;
     final l$privatePhone = privatePhone;
     _resultData['privatePhone'] = l$privatePhone;
-    final l$name = name;
-    _resultData['name'] = l$name?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -11210,22 +11984,22 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$update_user {
     final l$infoStaffId = infoStaffId;
     final l$infoCompanyId = infoCompanyId;
     final l$code = code;
+    final l$name = name;
     final l$sex = sex;
     final l$phone = phone;
     final l$symbol = symbol;
     final l$privatePhone = privatePhone;
-    final l$name = name;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$historyId,
       l$infoStaffId,
       l$infoCompanyId,
       l$code,
+      l$name,
       l$sex,
       l$phone,
       l$symbol,
       l$privatePhone,
-      l$name,
       l$$__typename,
     ]);
   }
@@ -11260,6 +12034,11 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$update_user {
     if (l$code != lOther$code) {
       return false;
     }
+    final l$name = name;
+    final lOther$name = other.name;
+    if (l$name != lOther$name) {
+      return false;
+    }
     final l$sex = sex;
     final lOther$sex = other.sex;
     if (l$sex != lOther$sex) {
@@ -11278,11 +12057,6 @@ class Query$StaffCapabilityPageRead$allInfoStaffs$nodes$update_user {
     final l$privatePhone = privatePhone;
     final lOther$privatePhone = other.privatePhone;
     if (l$privatePhone != lOther$privatePhone) {
-      return false;
-    }
-    final l$name = name;
-    final lOther$name = other.name;
-    if (l$name != lOther$name) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -11324,11 +12098,11 @@ abstract class CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$update
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$update_user$name? name,
     String? sex,
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$update_user$name? name,
     String? $__typename,
   });
   CopyWith$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$update_user$name<
@@ -11363,11 +12137,11 @@ class _CopyWithImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$update_use
     Object? infoStaffId = _undefined,
     Object? infoCompanyId = _undefined,
     Object? code = _undefined,
+    Object? name = _undefined,
     Object? sex = _undefined,
     Object? phone = _undefined,
     Object? symbol = _undefined,
     Object? privatePhone = _undefined,
-    Object? name = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$StaffCapabilityPageRead$allInfoStaffs$nodes$update_user(
@@ -11381,16 +12155,16 @@ class _CopyWithImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$update_use
           ? _instance.infoCompanyId
           : (infoCompanyId as String?),
       code: code == _undefined ? _instance.code : (code as String?),
+      name: name == _undefined
+          ? _instance.name
+          : (name
+                as Query$StaffCapabilityPageRead$allInfoStaffs$nodes$update_user$name?),
       sex: sex == _undefined ? _instance.sex : (sex as String?),
       phone: phone == _undefined ? _instance.phone : (phone as String?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       privatePhone: privatePhone == _undefined
           ? _instance.privatePhone
           : (privatePhone as String?),
-      name: name == _undefined
-          ? _instance.name
-          : (name
-                as Query$StaffCapabilityPageRead$allInfoStaffs$nodes$update_user$name?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -11431,11 +12205,11 @@ class _CopyWithStubImpl$Query$StaffCapabilityPageRead$allInfoStaffs$nodes$update
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$update_user$name? name,
     String? sex,
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$StaffCapabilityPageRead$allInfoStaffs$nodes$update_user$name? name,
     String? $__typename,
   }) => _res;
 

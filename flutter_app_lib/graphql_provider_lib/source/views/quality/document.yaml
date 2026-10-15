@@ -1,0 +1,38 @@
+# ドキュメント
+DocumnetReadFields:
+  kind: read
+  from: mstr_document
+  filter: true 
+  requiredWhere:
+    - languageCode 
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - mstr_document_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - mstr_document_tier_id
+    - trans_file_id
+    - title
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: title
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - control_number
+    - version_code
+    - trans_approval_pattern_id

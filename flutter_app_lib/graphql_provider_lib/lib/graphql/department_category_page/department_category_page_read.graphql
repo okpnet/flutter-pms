@@ -1,15 +1,13 @@
 # department_category_page画面 - Read(一覧取得クエリ)
 #
-# 画面仕様: source/view.yaml #DepartmentCategoryPage(組織区分、info_department_kind_value)
-# 命名規則: 要件0050により、ディレクトリ・ファイル名は`snake(DepartmentCategoryPage)`=`department_category_page`。
-#
-# 言語解決はcompany_page_read.graphqlと同じ方式(要件0036、$languageCodeId: UUID!)。
+# 画面仕様: source/views/ #DepartmentCategoryPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
 
 query DepartmentCategoryPageRead(
   $first: Int!
   $offset: Int
   $filter: InfoDepartmentKindValueFilter = {}
-  $orderBy: [InfoDepartmentKindValuesOrderBy!] = [PRIMARY_KEY_ASC]
+  $orderBy: [InfoDepartmentKindValuesOrderBy!]
   $languageCodeId: UUID!
   $removed: Boolean = false
 ) {
@@ -26,10 +24,6 @@ query DepartmentCategoryPageRead(
     }
     nodes {
       infoDepartmentKindValueId
-      symbol
-      remarks
-      updateAt
-      remove
 
       labels: sharedAppellationByNames {
         sharedAppellationsId
@@ -43,6 +37,7 @@ query DepartmentCategoryPageRead(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryPronunciationId {
           sharedDictionaryId
           value: sharedDictionaryValuesBySharedDictionaryId(
@@ -53,6 +48,7 @@ query DepartmentCategoryPageRead(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryNicknameId {
           sharedDictionaryId
           value: sharedDictionaryValuesBySharedDictionaryId(
@@ -65,15 +61,17 @@ query DepartmentCategoryPageRead(
         }
       }
 
+      symbol
+      remarks
+      updateAt
+      remove
+
       update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
         historyId
         infoStaffId
         infoCompanyId
         code
-        sex
-        phone
-        symbol
-        privatePhone
+
         name: sharedAppellationByNames {
           sharedAppellationsId
           sharedDictionaryBySharedDictionaryNameId {
@@ -86,6 +84,7 @@ query DepartmentCategoryPageRead(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryPronunciationId {
             sharedDictionaryId
             value: sharedDictionaryValuesBySharedDictionaryId(
@@ -96,6 +95,7 @@ query DepartmentCategoryPageRead(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryNicknameId {
             sharedDictionaryId
             value: sharedDictionaryValuesBySharedDictionaryId(
@@ -107,6 +107,11 @@ query DepartmentCategoryPageRead(
             }
           }
         }
+
+        sex
+        phone
+        symbol
+        privatePhone
       }
     }
   }

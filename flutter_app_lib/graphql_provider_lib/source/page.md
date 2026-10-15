@@ -58,8 +58,12 @@
     +   言語別ラベル情報[FlexibleLabelEditFields]
 +  テキスト情報[FlexibleTextReadFields]
     +   言語別テキスト情報[FlexibleTextEditFields]
-+  承認経路台帳
-    +   承認作業情報
++  承認経路台帳[ApprovalOperationPage]
+    +   承認経路情報[ApprovalOperationPageEdit]
+        +   承認明細[ApprovalDetailReadFields]
+        +   承認明細情報[ApprovalDetailEditFields]
+            +   承認[ApprovalReadFields]
+            +   承認情報[ApprovalEditFields]
 ##  システム
 1.  単位
     +   単位台帳[UnitPage]

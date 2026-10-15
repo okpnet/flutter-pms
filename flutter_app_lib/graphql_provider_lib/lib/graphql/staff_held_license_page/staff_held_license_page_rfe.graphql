@@ -1,9 +1,7 @@
-# staff_held_license_page画面 - RFE(read for editing、要件0037:
-#   StaffHeldLicensePageEdit(StaffLicenseEdit参照)のgenerateRfe: trueから導出)
+# staff_held_license_page画面 - RFE(編集フォームへのプリロード用の読み込み専用クエリ)
 #
-# 要件0036の最新方式(company_page_rfe.graphql参照)にあわせ、旧`$ja: Boolean!`/
-# `$en: Boolean!`の`@include`トグルは使わず、`$jaLanguageCodeId`/`$enLanguageCodeId`を
-# `UUID!`(必須)として両言語を常時取得する。
+# 画面仕様: source/views/ #StaffHeldLicensePageEdit(generateRfe: true)
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
 
 query StaffHeldLicensePageRfe(
   $mstrStaffLicenseId: UUID!
@@ -13,23 +11,72 @@ query StaffHeldLicensePageRfe(
   mstrStaffLicenseByMstrStaffLicenseId(mstrStaffLicenseId: $mstrStaffLicenseId) {
     mstrStaffLicenseId
     infoStaffId
-    mstrLicenseId
-    startAt
-    stopAt
-    abeyance
-    abeyanceAt
-    revocation
-    revocationAt
-    remarks
-    updateAt
-    updateUserId
-    updateUserHistoryId
-    remove
 
     staff: infoStaffByInfoStaffId {
       infoStaffId
       infoCompanyId
       code
+
+      labels: sharedAppellationByNames {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          ja: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+
+          en: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+
+        sharedDictionaryBySharedDictionaryPronunciationId {
+          sharedDictionaryId
+          ja: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+
+          en: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+
+        sharedDictionaryBySharedDictionaryNicknameId {
+          sharedDictionaryId
+          ja: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+
+          en: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+      }
+
       sex
       phone
       privatePhone
@@ -38,70 +85,12 @@ query StaffHeldLicensePageRfe(
       updateAt
       remove
 
-      labels: sharedAppellationByNames {
-        sharedAppellationsId
-        sharedDictionaryBySharedDictionaryNameId {
-          sharedDictionaryId
-          ja: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-          ) {
-            nodes {
-              dictionaryValue
-            }
-          }
-          en: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $enLanguageCodeId }
-          ) {
-            nodes {
-              dictionaryValue
-            }
-          }
-        }
-        sharedDictionaryBySharedDictionaryPronunciationId {
-          sharedDictionaryId
-          ja: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-          ) {
-            nodes {
-              dictionaryValue
-            }
-          }
-          en: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $enLanguageCodeId }
-          ) {
-            nodes {
-              dictionaryValue
-            }
-          }
-        }
-        sharedDictionaryBySharedDictionaryNicknameId {
-          sharedDictionaryId
-          ja: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-          ) {
-            nodes {
-              dictionaryValue
-            }
-          }
-          en: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $enLanguageCodeId }
-          ) {
-            nodes {
-              dictionaryValue
-            }
-          }
-        }
-      }
-
       update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
         historyId
         infoStaffId
         infoCompanyId
         code
-        sex
-        phone
-        symbol
-        privatePhone
+
         name: sharedAppellationByNames {
           sharedAppellationsId
           sharedDictionaryBySharedDictionaryNameId {
@@ -113,6 +102,7 @@ query StaffHeldLicensePageRfe(
                 dictionaryValue
               }
             }
+
             en: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $enLanguageCodeId }
             ) {
@@ -121,6 +111,7 @@ query StaffHeldLicensePageRfe(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryPronunciationId {
             sharedDictionaryId
             ja: sharedDictionaryValuesBySharedDictionaryId(
@@ -130,6 +121,7 @@ query StaffHeldLicensePageRfe(
                 dictionaryValue
               }
             }
+
             en: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $enLanguageCodeId }
             ) {
@@ -138,6 +130,7 @@ query StaffHeldLicensePageRfe(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryNicknameId {
             sharedDictionaryId
             ja: sharedDictionaryValuesBySharedDictionaryId(
@@ -147,6 +140,7 @@ query StaffHeldLicensePageRfe(
                 dictionaryValue
               }
             }
+
             en: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $enLanguageCodeId }
             ) {
@@ -156,93 +150,120 @@ query StaffHeldLicensePageRfe(
             }
           }
         }
+
+        sex
+        phone
+        symbol
+        privatePhone
       }
     }
+    mstrLicenseId
 
     license: mstrLicenseByMstrLicenseId {
       mstrLicenseId
       code
-      detail
+
+      labels: sharedAppellationByNames {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          ja: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+
+          en: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+
+        sharedDictionaryBySharedDictionaryPronunciationId {
+          sharedDictionaryId
+          ja: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+
+          en: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+
+        sharedDictionaryBySharedDictionaryNicknameId {
+          sharedDictionaryId
+          ja: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+
+          en: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+      }
+
+      detailTexts: sharedTextByDetails {
+        sharedTextId
+        ja: sharedTextValuesBySharedTextId(
+          condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+        ) {
+          nodes {
+            textValue
+          }
+        }
+
+        en: sharedTextValuesBySharedTextId(
+          condition: { sharedLanguageCodeId: $enLanguageCodeId }
+        ) {
+          nodes {
+            textValue
+          }
+        }
+      }
+
       publicLicense
       customerLicense
       organizationLicense
       updateInterval {
-        years
-        months
-        days
-        hours
-        minutes
         seconds
+        minutes
+        hours
+        days
+        months
+        years
       }
       symbol
       remarks
       updateAt
       remove
 
-      labels: sharedAppellationByNames {
-        sharedAppellationsId
-        sharedDictionaryBySharedDictionaryNameId {
-          sharedDictionaryId
-          ja: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-          ) {
-            nodes {
-              dictionaryValue
-            }
-          }
-          en: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $enLanguageCodeId }
-          ) {
-            nodes {
-              dictionaryValue
-            }
-          }
-        }
-        sharedDictionaryBySharedDictionaryPronunciationId {
-          sharedDictionaryId
-          ja: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-          ) {
-            nodes {
-              dictionaryValue
-            }
-          }
-          en: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $enLanguageCodeId }
-          ) {
-            nodes {
-              dictionaryValue
-            }
-          }
-        }
-        sharedDictionaryBySharedDictionaryNicknameId {
-          sharedDictionaryId
-          ja: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-          ) {
-            nodes {
-              dictionaryValue
-            }
-          }
-          en: sharedDictionaryValuesBySharedDictionaryId(
-            condition: { sharedLanguageCodeId: $enLanguageCodeId }
-          ) {
-            nodes {
-              dictionaryValue
-            }
-          }
-        }
-      }
-
       update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
         historyId
         infoStaffId
         infoCompanyId
         code
-        sex
-        phone
-        symbol
-        privatePhone
+
         name: sharedAppellationByNames {
           sharedAppellationsId
           sharedDictionaryBySharedDictionaryNameId {
@@ -254,6 +275,7 @@ query StaffHeldLicensePageRfe(
                 dictionaryValue
               }
             }
+
             en: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $enLanguageCodeId }
             ) {
@@ -262,6 +284,7 @@ query StaffHeldLicensePageRfe(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryPronunciationId {
             sharedDictionaryId
             ja: sharedDictionaryValuesBySharedDictionaryId(
@@ -271,6 +294,7 @@ query StaffHeldLicensePageRfe(
                 dictionaryValue
               }
             }
+
             en: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $enLanguageCodeId }
             ) {
@@ -279,6 +303,7 @@ query StaffHeldLicensePageRfe(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryNicknameId {
             sharedDictionaryId
             ja: sharedDictionaryValuesBySharedDictionaryId(
@@ -288,6 +313,7 @@ query StaffHeldLicensePageRfe(
                 dictionaryValue
               }
             }
+
             en: sharedDictionaryValuesBySharedDictionaryId(
               condition: { sharedLanguageCodeId: $enLanguageCodeId }
             ) {
@@ -297,7 +323,24 @@ query StaffHeldLicensePageRfe(
             }
           }
         }
+
+        sex
+        phone
+        symbol
+        privatePhone
       }
     }
+
+    startAt
+    stopAt
+    abeyance
+    abeyanceAt
+    revocation
+    revocationAt
+    remarks
+    updateUserId
+    updateUserHistoryId
+    remove
+    updateAt
   }
 }

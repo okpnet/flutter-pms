@@ -1,0 +1,137 @@
+# yaml-language-server: $schema=../../schema.json
+
+##### 設備
+
+# 設備区分
+EquipmentCategoryPage: &EquipmentCategoryPage
+  kind: read
+  from: mstr_equipment_kind
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_equipment_kind_id
+    - kind_code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - start_at
+    - stop_at 
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 設備区分編集
+EquipmentCategoryPageEdit:
+  kind: edit
+  from: mstr_equipment_kind
+  requiredWhere:
+    - mstr_equipment_kind_id
+  generateRfe: true
+  columns:
+    - mstr_equipment_kind_id
+    - kind_code
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    - start_at
+    - stop_at 
+    - remarks
+    - update_at
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 設備の読み込み
+EquipmentPage:  &EquipmentPage
+  kind: read
+  from: mstr_equipment
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_equipment_id
+    - mstr_item_id
+    - name: item
+      arrayType: toFirstOne
+      as: item
+      using: mstr_item_id
+      <<: *ItemReadFields
+    - mstr_equipment_category_id
+    - name: kinds
+      arrayType: toFirstOne
+      as: kinds
+      using: mstr_equipment_category_id
+      <<: *EquipmentCategoryPage
+    - code
+    - control_code
+    - label_code
+    - mstr_location_id 
+    - name: locations
+      as: locations
+      arrayType: toFirstOne
+      using:  mstr_location_id
+      <<: *LocationReadFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 設備の書き込み
+EquipmentPageEdit:
+  kind: edit
+  from: mstr_equipment
+  requiredWhere:
+    - mstr_equipment_id
+  generateRfe: true
+  columns:
+    - mstr_equipment_id
+    - mstr_item_id
+    - name: item
+      arrayType: toFirstOne
+      using: mstr_item_id
+      <<: *ItemEditFields
+    - mstr_equipment_category_id
+    - name: kinds
+      arrayType: toFirstOne
+      using: mstr_equipment_category_id
+      editable: false
+      <<: *EquipmentCategoryPage
+    - code
+    - control_code
+    - label_code
+    - mstr_location_id
+    - name: locations
+      arrayType: toFirstOne
+      using: mstr_location_id
+      editable: false
+      <<: *LocationReadFields
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove

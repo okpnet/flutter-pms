@@ -419,11 +419,7 @@ const documentNodeQueryAssignPageRead = DocumentNode(
             ),
             isNonNull: false,
           ),
-          defaultValue: DefaultValueNode(
-            value: ListValueNode(
-              values: [EnumValueNode(name: NameNode(value: 'PRIMARY_KEY_ASC'))],
-            ),
-          ),
+          defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
         VariableDefinitionNode(
@@ -550,69 +546,6 @@ const documentNodeQueryAssignPageRead = DocumentNode(
                         selectionSet: null,
                       ),
                       FieldNode(
-                        name: NameNode(value: 'infoPositionId'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'infoOfficeId'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'infoDepartmentId'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'enable'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'priority'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'symbol'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'remarks'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'updateAt'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'remove'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
                         name: NameNode(value: 'infoStaffByInfoStaffId'),
                         alias: NameNode(value: 'staff'),
                         arguments: [],
@@ -635,55 +568,6 @@ const documentNodeQueryAssignPageRead = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(value: 'code'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'sex'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'phone'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'privatePhone'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'symbol'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'remarks'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'updateAt'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'remove'),
                               alias: null,
                               arguments: [],
                               directives: [],
@@ -1019,6 +903,55 @@ const documentNodeQueryAssignPageRead = DocumentNode(
                               ),
                             ),
                             FieldNode(
+                              name: NameNode(value: 'sex'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'phone'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'privatePhone'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'symbol'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'remarks'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'updateAt'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'remove'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
                               name: NameNode(
                                 value:
                                     'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
@@ -1051,34 +984,6 @@ const documentNodeQueryAssignPageRead = DocumentNode(
                                   ),
                                   FieldNode(
                                     name: NameNode(value: 'code'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(value: 'sex'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(value: 'phone'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(value: 'symbol'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(value: 'privatePhone'),
                                     alias: null,
                                     arguments: [],
                                     directives: [],
@@ -1434,6 +1339,34 @@ const documentNodeQueryAssignPageRead = DocumentNode(
                                     ),
                                   ),
                                   FieldNode(
+                                    name: NameNode(value: 'sex'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: 'phone'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: 'symbol'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: 'privatePhone'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
                                     name: NameNode(value: '__typename'),
                                     alias: null,
                                     arguments: [],
@@ -1452,6 +1385,69 @@ const documentNodeQueryAssignPageRead = DocumentNode(
                             ),
                           ],
                         ),
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'infoPositionId'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'infoOfficeId'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'infoDepartmentId'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'enable'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'priority'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'symbol'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'updateAt'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'remove'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
                       ),
                       FieldNode(
                         name: NameNode(
@@ -1486,34 +1482,6 @@ const documentNodeQueryAssignPageRead = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(value: 'code'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'sex'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'phone'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'symbol'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'privatePhone'),
                               alias: null,
                               arguments: [],
                               directives: [],
@@ -1847,6 +1815,34 @@ const documentNodeQueryAssignPageRead = DocumentNode(
                                   ),
                                 ],
                               ),
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'sex'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'phone'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'symbol'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'privatePhone'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
                             ),
                             FieldNode(
                               name: NameNode(value: '__typename'),
@@ -2399,6 +2395,7 @@ class _CopyWithStubImpl$Query$AssignPageRead$allInfoAssigns$pageInfo<TRes>
 class Query$AssignPageRead$allInfoAssigns$nodes {
   Query$AssignPageRead$allInfoAssigns$nodes({
     required this.infoAssignId,
+    this.staff,
     required this.infoPositionId,
     this.infoOfficeId,
     this.infoDepartmentId,
@@ -2408,7 +2405,6 @@ class Query$AssignPageRead$allInfoAssigns$nodes {
     this.remarks,
     this.updateAt,
     this.remove,
-    this.staff,
     this.update_user,
     this.$__typename = 'InfoAssign',
   });
@@ -2417,6 +2413,7 @@ class Query$AssignPageRead$allInfoAssigns$nodes {
     Map<String, dynamic> json,
   ) {
     final l$infoAssignId = json['infoAssignId'];
+    final l$staff = json['staff'];
     final l$infoPositionId = json['infoPositionId'];
     final l$infoOfficeId = json['infoOfficeId'];
     final l$infoDepartmentId = json['infoDepartmentId'];
@@ -2426,11 +2423,15 @@ class Query$AssignPageRead$allInfoAssigns$nodes {
     final l$remarks = json['remarks'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
-    final l$staff = json['staff'];
     final l$update_user = json['update_user'];
     final l$$__typename = json['__typename'];
     return Query$AssignPageRead$allInfoAssigns$nodes(
       infoAssignId: (l$infoAssignId as String),
+      staff: l$staff == null
+          ? null
+          : Query$AssignPageRead$allInfoAssigns$nodes$staff.fromJson(
+              (l$staff as Map<String, dynamic>),
+            ),
       infoPositionId: (l$infoPositionId as String),
       infoOfficeId: (l$infoOfficeId as String?),
       infoDepartmentId: (l$infoDepartmentId as String?),
@@ -2440,11 +2441,6 @@ class Query$AssignPageRead$allInfoAssigns$nodes {
       remarks: (l$remarks as String?),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
-      staff: l$staff == null
-          ? null
-          : Query$AssignPageRead$allInfoAssigns$nodes$staff.fromJson(
-              (l$staff as Map<String, dynamic>),
-            ),
       update_user: l$update_user == null
           ? null
           : Query$AssignPageRead$allInfoAssigns$nodes$update_user.fromJson(
@@ -2455,6 +2451,8 @@ class Query$AssignPageRead$allInfoAssigns$nodes {
   }
 
   final String infoAssignId;
+
+  final Query$AssignPageRead$allInfoAssigns$nodes$staff? staff;
 
   final String infoPositionId;
 
@@ -2474,8 +2472,6 @@ class Query$AssignPageRead$allInfoAssigns$nodes {
 
   final bool? remove;
 
-  final Query$AssignPageRead$allInfoAssigns$nodes$staff? staff;
-
   final Query$AssignPageRead$allInfoAssigns$nodes$update_user? update_user;
 
   final String $__typename;
@@ -2484,6 +2480,8 @@ class Query$AssignPageRead$allInfoAssigns$nodes {
     final _resultData = <String, dynamic>{};
     final l$infoAssignId = infoAssignId;
     _resultData['infoAssignId'] = l$infoAssignId;
+    final l$staff = staff;
+    _resultData['staff'] = l$staff?.toJson();
     final l$infoPositionId = infoPositionId;
     _resultData['infoPositionId'] = l$infoPositionId;
     final l$infoOfficeId = infoOfficeId;
@@ -2502,8 +2500,6 @@ class Query$AssignPageRead$allInfoAssigns$nodes {
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
     _resultData['remove'] = l$remove;
-    final l$staff = staff;
-    _resultData['staff'] = l$staff?.toJson();
     final l$update_user = update_user;
     _resultData['update_user'] = l$update_user?.toJson();
     final l$$__typename = $__typename;
@@ -2514,6 +2510,7 @@ class Query$AssignPageRead$allInfoAssigns$nodes {
   @override
   int get hashCode {
     final l$infoAssignId = infoAssignId;
+    final l$staff = staff;
     final l$infoPositionId = infoPositionId;
     final l$infoOfficeId = infoOfficeId;
     final l$infoDepartmentId = infoDepartmentId;
@@ -2523,11 +2520,11 @@ class Query$AssignPageRead$allInfoAssigns$nodes {
     final l$remarks = remarks;
     final l$updateAt = updateAt;
     final l$remove = remove;
-    final l$staff = staff;
     final l$update_user = update_user;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoAssignId,
+      l$staff,
       l$infoPositionId,
       l$infoOfficeId,
       l$infoDepartmentId,
@@ -2537,7 +2534,6 @@ class Query$AssignPageRead$allInfoAssigns$nodes {
       l$remarks,
       l$updateAt,
       l$remove,
-      l$staff,
       l$update_user,
       l$$__typename,
     ]);
@@ -2555,6 +2551,11 @@ class Query$AssignPageRead$allInfoAssigns$nodes {
     final l$infoAssignId = infoAssignId;
     final lOther$infoAssignId = other.infoAssignId;
     if (l$infoAssignId != lOther$infoAssignId) {
+      return false;
+    }
+    final l$staff = staff;
+    final lOther$staff = other.staff;
+    if (l$staff != lOther$staff) {
       return false;
     }
     final l$infoPositionId = infoPositionId;
@@ -2602,11 +2603,6 @@ class Query$AssignPageRead$allInfoAssigns$nodes {
     if (l$remove != lOther$remove) {
       return false;
     }
-    final l$staff = staff;
-    final lOther$staff = other.staff;
-    if (l$staff != lOther$staff) {
-      return false;
-    }
     final l$update_user = update_user;
     final lOther$update_user = other.update_user;
     if (l$update_user != lOther$update_user) {
@@ -2641,6 +2637,7 @@ abstract class CopyWith$Query$AssignPageRead$allInfoAssigns$nodes<TRes> {
 
   TRes call({
     String? infoAssignId,
+    Query$AssignPageRead$allInfoAssigns$nodes$staff? staff,
     String? infoPositionId,
     String? infoOfficeId,
     String? infoDepartmentId,
@@ -2650,7 +2647,6 @@ abstract class CopyWith$Query$AssignPageRead$allInfoAssigns$nodes<TRes> {
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$AssignPageRead$allInfoAssigns$nodes$staff? staff,
     Query$AssignPageRead$allInfoAssigns$nodes$update_user? update_user,
     String? $__typename,
   });
@@ -2674,6 +2670,7 @@ class _CopyWithImpl$Query$AssignPageRead$allInfoAssigns$nodes<TRes>
 
   TRes call({
     Object? infoAssignId = _undefined,
+    Object? staff = _undefined,
     Object? infoPositionId = _undefined,
     Object? infoOfficeId = _undefined,
     Object? infoDepartmentId = _undefined,
@@ -2683,7 +2680,6 @@ class _CopyWithImpl$Query$AssignPageRead$allInfoAssigns$nodes<TRes>
     Object? remarks = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
-    Object? staff = _undefined,
     Object? update_user = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
@@ -2691,6 +2687,9 @@ class _CopyWithImpl$Query$AssignPageRead$allInfoAssigns$nodes<TRes>
       infoAssignId: infoAssignId == _undefined || infoAssignId == null
           ? _instance.infoAssignId
           : (infoAssignId as String),
+      staff: staff == _undefined
+          ? _instance.staff
+          : (staff as Query$AssignPageRead$allInfoAssigns$nodes$staff?),
       infoPositionId: infoPositionId == _undefined || infoPositionId == null
           ? _instance.infoPositionId
           : (infoPositionId as String),
@@ -2710,9 +2709,6 @@ class _CopyWithImpl$Query$AssignPageRead$allInfoAssigns$nodes<TRes>
           ? _instance.updateAt
           : (updateAt as String?),
       remove: remove == _undefined ? _instance.remove : (remove as bool?),
-      staff: staff == _undefined
-          ? _instance.staff
-          : (staff as Query$AssignPageRead$allInfoAssigns$nodes$staff?),
       update_user: update_user == _undefined
           ? _instance.update_user
           : (update_user
@@ -2757,6 +2753,7 @@ class _CopyWithStubImpl$Query$AssignPageRead$allInfoAssigns$nodes<TRes>
 
   call({
     String? infoAssignId,
+    Query$AssignPageRead$allInfoAssigns$nodes$staff? staff,
     String? infoPositionId,
     String? infoOfficeId,
     String? infoDepartmentId,
@@ -2766,7 +2763,6 @@ class _CopyWithStubImpl$Query$AssignPageRead$allInfoAssigns$nodes<TRes>
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$AssignPageRead$allInfoAssigns$nodes$staff? staff,
     Query$AssignPageRead$allInfoAssigns$nodes$update_user? update_user,
     String? $__typename,
   }) => _res;
@@ -2784,6 +2780,7 @@ class Query$AssignPageRead$allInfoAssigns$nodes$staff {
     required this.infoStaffId,
     this.infoCompanyId,
     this.code,
+    this.labels,
     this.sex,
     this.phone,
     this.privatePhone,
@@ -2791,7 +2788,6 @@ class Query$AssignPageRead$allInfoAssigns$nodes$staff {
     this.remarks,
     this.updateAt,
     this.remove,
-    this.labels,
     this.update_user,
     this.$__typename = 'InfoStaff',
   });
@@ -2802,6 +2798,7 @@ class Query$AssignPageRead$allInfoAssigns$nodes$staff {
     final l$infoStaffId = json['infoStaffId'];
     final l$infoCompanyId = json['infoCompanyId'];
     final l$code = json['code'];
+    final l$labels = json['labels'];
     final l$sex = json['sex'];
     final l$phone = json['phone'];
     final l$privatePhone = json['privatePhone'];
@@ -2809,13 +2806,17 @@ class Query$AssignPageRead$allInfoAssigns$nodes$staff {
     final l$remarks = json['remarks'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
-    final l$labels = json['labels'];
     final l$update_user = json['update_user'];
     final l$$__typename = json['__typename'];
     return Query$AssignPageRead$allInfoAssigns$nodes$staff(
       infoStaffId: (l$infoStaffId as String),
       infoCompanyId: (l$infoCompanyId as String?),
       code: (l$code as String?),
+      labels: l$labels == null
+          ? null
+          : Query$AssignPageRead$allInfoAssigns$nodes$staff$labels.fromJson(
+              (l$labels as Map<String, dynamic>),
+            ),
       sex: (l$sex as String?),
       phone: (l$phone as String?),
       privatePhone: (l$privatePhone as String?),
@@ -2823,11 +2824,6 @@ class Query$AssignPageRead$allInfoAssigns$nodes$staff {
       remarks: (l$remarks as String?),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
-      labels: l$labels == null
-          ? null
-          : Query$AssignPageRead$allInfoAssigns$nodes$staff$labels.fromJson(
-              (l$labels as Map<String, dynamic>),
-            ),
       update_user: l$update_user == null
           ? null
           : Query$AssignPageRead$allInfoAssigns$nodes$staff$update_user.fromJson(
@@ -2843,6 +2839,8 @@ class Query$AssignPageRead$allInfoAssigns$nodes$staff {
 
   final String? code;
 
+  final Query$AssignPageRead$allInfoAssigns$nodes$staff$labels? labels;
+
   final String? sex;
 
   final String? phone;
@@ -2857,8 +2855,6 @@ class Query$AssignPageRead$allInfoAssigns$nodes$staff {
 
   final bool? remove;
 
-  final Query$AssignPageRead$allInfoAssigns$nodes$staff$labels? labels;
-
   final Query$AssignPageRead$allInfoAssigns$nodes$staff$update_user?
   update_user;
 
@@ -2872,6 +2868,8 @@ class Query$AssignPageRead$allInfoAssigns$nodes$staff {
     _resultData['infoCompanyId'] = l$infoCompanyId;
     final l$code = code;
     _resultData['code'] = l$code;
+    final l$labels = labels;
+    _resultData['labels'] = l$labels?.toJson();
     final l$sex = sex;
     _resultData['sex'] = l$sex;
     final l$phone = phone;
@@ -2886,8 +2884,6 @@ class Query$AssignPageRead$allInfoAssigns$nodes$staff {
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
     _resultData['remove'] = l$remove;
-    final l$labels = labels;
-    _resultData['labels'] = l$labels?.toJson();
     final l$update_user = update_user;
     _resultData['update_user'] = l$update_user?.toJson();
     final l$$__typename = $__typename;
@@ -2900,6 +2896,7 @@ class Query$AssignPageRead$allInfoAssigns$nodes$staff {
     final l$infoStaffId = infoStaffId;
     final l$infoCompanyId = infoCompanyId;
     final l$code = code;
+    final l$labels = labels;
     final l$sex = sex;
     final l$phone = phone;
     final l$privatePhone = privatePhone;
@@ -2907,13 +2904,13 @@ class Query$AssignPageRead$allInfoAssigns$nodes$staff {
     final l$remarks = remarks;
     final l$updateAt = updateAt;
     final l$remove = remove;
-    final l$labels = labels;
     final l$update_user = update_user;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoStaffId,
       l$infoCompanyId,
       l$code,
+      l$labels,
       l$sex,
       l$phone,
       l$privatePhone,
@@ -2921,7 +2918,6 @@ class Query$AssignPageRead$allInfoAssigns$nodes$staff {
       l$remarks,
       l$updateAt,
       l$remove,
-      l$labels,
       l$update_user,
       l$$__typename,
     ]);
@@ -2949,6 +2945,11 @@ class Query$AssignPageRead$allInfoAssigns$nodes$staff {
     final l$code = code;
     final lOther$code = other.code;
     if (l$code != lOther$code) {
+      return false;
+    }
+    final l$labels = labels;
+    final lOther$labels = other.labels;
+    if (l$labels != lOther$labels) {
       return false;
     }
     final l$sex = sex;
@@ -2984,11 +2985,6 @@ class Query$AssignPageRead$allInfoAssigns$nodes$staff {
     final l$remove = remove;
     final lOther$remove = other.remove;
     if (l$remove != lOther$remove) {
-      return false;
-    }
-    final l$labels = labels;
-    final lOther$labels = other.labels;
-    if (l$labels != lOther$labels) {
       return false;
     }
     final l$update_user = update_user;
@@ -3028,6 +3024,7 @@ abstract class CopyWith$Query$AssignPageRead$allInfoAssigns$nodes$staff<TRes> {
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$AssignPageRead$allInfoAssigns$nodes$staff$labels? labels,
     String? sex,
     String? phone,
     String? privatePhone,
@@ -3035,7 +3032,6 @@ abstract class CopyWith$Query$AssignPageRead$allInfoAssigns$nodes$staff<TRes> {
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$AssignPageRead$allInfoAssigns$nodes$staff$labels? labels,
     Query$AssignPageRead$allInfoAssigns$nodes$staff$update_user? update_user,
     String? $__typename,
   });
@@ -3062,6 +3058,7 @@ class _CopyWithImpl$Query$AssignPageRead$allInfoAssigns$nodes$staff<TRes>
     Object? infoStaffId = _undefined,
     Object? infoCompanyId = _undefined,
     Object? code = _undefined,
+    Object? labels = _undefined,
     Object? sex = _undefined,
     Object? phone = _undefined,
     Object? privatePhone = _undefined,
@@ -3069,7 +3066,6 @@ class _CopyWithImpl$Query$AssignPageRead$allInfoAssigns$nodes$staff<TRes>
     Object? remarks = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
-    Object? labels = _undefined,
     Object? update_user = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
@@ -3081,6 +3077,9 @@ class _CopyWithImpl$Query$AssignPageRead$allInfoAssigns$nodes$staff<TRes>
           ? _instance.infoCompanyId
           : (infoCompanyId as String?),
       code: code == _undefined ? _instance.code : (code as String?),
+      labels: labels == _undefined
+          ? _instance.labels
+          : (labels as Query$AssignPageRead$allInfoAssigns$nodes$staff$labels?),
       sex: sex == _undefined ? _instance.sex : (sex as String?),
       phone: phone == _undefined ? _instance.phone : (phone as String?),
       privatePhone: privatePhone == _undefined
@@ -3092,9 +3091,6 @@ class _CopyWithImpl$Query$AssignPageRead$allInfoAssigns$nodes$staff<TRes>
           ? _instance.updateAt
           : (updateAt as String?),
       remove: remove == _undefined ? _instance.remove : (remove as bool?),
-      labels: labels == _undefined
-          ? _instance.labels
-          : (labels as Query$AssignPageRead$allInfoAssigns$nodes$staff$labels?),
       update_user: update_user == _undefined
           ? _instance.update_user
           : (update_user
@@ -3142,6 +3138,7 @@ class _CopyWithStubImpl$Query$AssignPageRead$allInfoAssigns$nodes$staff<TRes>
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$AssignPageRead$allInfoAssigns$nodes$staff$labels? labels,
     String? sex,
     String? phone,
     String? privatePhone,
@@ -3149,7 +3146,6 @@ class _CopyWithStubImpl$Query$AssignPageRead$allInfoAssigns$nodes$staff<TRes>
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$AssignPageRead$allInfoAssigns$nodes$staff$labels? labels,
     Query$AssignPageRead$allInfoAssigns$nodes$staff$update_user? update_user,
     String? $__typename,
   }) => _res;
@@ -5222,11 +5218,11 @@ class Query$AssignPageRead$allInfoAssigns$nodes$staff$update_user {
     required this.infoStaffId,
     this.infoCompanyId,
     this.code,
+    this.name,
     this.sex,
     this.phone,
     this.symbol,
     this.privatePhone,
-    this.name,
     this.$__typename = 'HistoryInfoStaff',
   });
 
@@ -5237,26 +5233,26 @@ class Query$AssignPageRead$allInfoAssigns$nodes$staff$update_user {
     final l$infoStaffId = json['infoStaffId'];
     final l$infoCompanyId = json['infoCompanyId'];
     final l$code = json['code'];
+    final l$name = json['name'];
     final l$sex = json['sex'];
     final l$phone = json['phone'];
     final l$symbol = json['symbol'];
     final l$privatePhone = json['privatePhone'];
-    final l$name = json['name'];
     final l$$__typename = json['__typename'];
     return Query$AssignPageRead$allInfoAssigns$nodes$staff$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
       infoCompanyId: (l$infoCompanyId as String?),
       code: (l$code as String?),
-      sex: (l$sex as String?),
-      phone: (l$phone as String?),
-      symbol: (l$symbol as String?),
-      privatePhone: (l$privatePhone as String?),
       name: l$name == null
           ? null
           : Query$AssignPageRead$allInfoAssigns$nodes$staff$update_user$name.fromJson(
               (l$name as Map<String, dynamic>),
             ),
+      sex: (l$sex as String?),
+      phone: (l$phone as String?),
+      symbol: (l$symbol as String?),
+      privatePhone: (l$privatePhone as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -5269,6 +5265,8 @@ class Query$AssignPageRead$allInfoAssigns$nodes$staff$update_user {
 
   final String? code;
 
+  final Query$AssignPageRead$allInfoAssigns$nodes$staff$update_user$name? name;
+
   final String? sex;
 
   final String? phone;
@@ -5276,8 +5274,6 @@ class Query$AssignPageRead$allInfoAssigns$nodes$staff$update_user {
   final String? symbol;
 
   final String? privatePhone;
-
-  final Query$AssignPageRead$allInfoAssigns$nodes$staff$update_user$name? name;
 
   final String $__typename;
 
@@ -5291,6 +5287,8 @@ class Query$AssignPageRead$allInfoAssigns$nodes$staff$update_user {
     _resultData['infoCompanyId'] = l$infoCompanyId;
     final l$code = code;
     _resultData['code'] = l$code;
+    final l$name = name;
+    _resultData['name'] = l$name?.toJson();
     final l$sex = sex;
     _resultData['sex'] = l$sex;
     final l$phone = phone;
@@ -5299,8 +5297,6 @@ class Query$AssignPageRead$allInfoAssigns$nodes$staff$update_user {
     _resultData['symbol'] = l$symbol;
     final l$privatePhone = privatePhone;
     _resultData['privatePhone'] = l$privatePhone;
-    final l$name = name;
-    _resultData['name'] = l$name?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -5312,22 +5308,22 @@ class Query$AssignPageRead$allInfoAssigns$nodes$staff$update_user {
     final l$infoStaffId = infoStaffId;
     final l$infoCompanyId = infoCompanyId;
     final l$code = code;
+    final l$name = name;
     final l$sex = sex;
     final l$phone = phone;
     final l$symbol = symbol;
     final l$privatePhone = privatePhone;
-    final l$name = name;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$historyId,
       l$infoStaffId,
       l$infoCompanyId,
       l$code,
+      l$name,
       l$sex,
       l$phone,
       l$symbol,
       l$privatePhone,
-      l$name,
       l$$__typename,
     ]);
   }
@@ -5361,6 +5357,11 @@ class Query$AssignPageRead$allInfoAssigns$nodes$staff$update_user {
     if (l$code != lOther$code) {
       return false;
     }
+    final l$name = name;
+    final lOther$name = other.name;
+    if (l$name != lOther$name) {
+      return false;
+    }
     final l$sex = sex;
     final lOther$sex = other.sex;
     if (l$sex != lOther$sex) {
@@ -5379,11 +5380,6 @@ class Query$AssignPageRead$allInfoAssigns$nodes$staff$update_user {
     final l$privatePhone = privatePhone;
     final lOther$privatePhone = other.privatePhone;
     if (l$privatePhone != lOther$privatePhone) {
-      return false;
-    }
-    final l$name = name;
-    final lOther$name = other.name;
-    if (l$name != lOther$name) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -5425,11 +5421,11 @@ abstract class CopyWith$Query$AssignPageRead$allInfoAssigns$nodes$staff$update_u
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$AssignPageRead$allInfoAssigns$nodes$staff$update_user$name? name,
     String? sex,
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$AssignPageRead$allInfoAssigns$nodes$staff$update_user$name? name,
     String? $__typename,
   });
   CopyWith$Query$AssignPageRead$allInfoAssigns$nodes$staff$update_user$name<
@@ -5464,11 +5460,11 @@ class _CopyWithImpl$Query$AssignPageRead$allInfoAssigns$nodes$staff$update_user<
     Object? infoStaffId = _undefined,
     Object? infoCompanyId = _undefined,
     Object? code = _undefined,
+    Object? name = _undefined,
     Object? sex = _undefined,
     Object? phone = _undefined,
     Object? symbol = _undefined,
     Object? privatePhone = _undefined,
-    Object? name = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$AssignPageRead$allInfoAssigns$nodes$staff$update_user(
@@ -5482,16 +5478,16 @@ class _CopyWithImpl$Query$AssignPageRead$allInfoAssigns$nodes$staff$update_user<
           ? _instance.infoCompanyId
           : (infoCompanyId as String?),
       code: code == _undefined ? _instance.code : (code as String?),
+      name: name == _undefined
+          ? _instance.name
+          : (name
+                as Query$AssignPageRead$allInfoAssigns$nodes$staff$update_user$name?),
       sex: sex == _undefined ? _instance.sex : (sex as String?),
       phone: phone == _undefined ? _instance.phone : (phone as String?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       privatePhone: privatePhone == _undefined
           ? _instance.privatePhone
           : (privatePhone as String?),
-      name: name == _undefined
-          ? _instance.name
-          : (name
-                as Query$AssignPageRead$allInfoAssigns$nodes$staff$update_user$name?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -5532,11 +5528,11 @@ class _CopyWithStubImpl$Query$AssignPageRead$allInfoAssigns$nodes$staff$update_u
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$AssignPageRead$allInfoAssigns$nodes$staff$update_user$name? name,
     String? sex,
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$AssignPageRead$allInfoAssigns$nodes$staff$update_user$name? name,
     String? $__typename,
   }) => _res;
 
@@ -7617,11 +7613,11 @@ class Query$AssignPageRead$allInfoAssigns$nodes$update_user {
     required this.infoStaffId,
     this.infoCompanyId,
     this.code,
+    this.name,
     this.sex,
     this.phone,
     this.symbol,
     this.privatePhone,
-    this.name,
     this.$__typename = 'HistoryInfoStaff',
   });
 
@@ -7632,26 +7628,26 @@ class Query$AssignPageRead$allInfoAssigns$nodes$update_user {
     final l$infoStaffId = json['infoStaffId'];
     final l$infoCompanyId = json['infoCompanyId'];
     final l$code = json['code'];
+    final l$name = json['name'];
     final l$sex = json['sex'];
     final l$phone = json['phone'];
     final l$symbol = json['symbol'];
     final l$privatePhone = json['privatePhone'];
-    final l$name = json['name'];
     final l$$__typename = json['__typename'];
     return Query$AssignPageRead$allInfoAssigns$nodes$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
       infoCompanyId: (l$infoCompanyId as String?),
       code: (l$code as String?),
-      sex: (l$sex as String?),
-      phone: (l$phone as String?),
-      symbol: (l$symbol as String?),
-      privatePhone: (l$privatePhone as String?),
       name: l$name == null
           ? null
           : Query$AssignPageRead$allInfoAssigns$nodes$update_user$name.fromJson(
               (l$name as Map<String, dynamic>),
             ),
+      sex: (l$sex as String?),
+      phone: (l$phone as String?),
+      symbol: (l$symbol as String?),
+      privatePhone: (l$privatePhone as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -7664,6 +7660,8 @@ class Query$AssignPageRead$allInfoAssigns$nodes$update_user {
 
   final String? code;
 
+  final Query$AssignPageRead$allInfoAssigns$nodes$update_user$name? name;
+
   final String? sex;
 
   final String? phone;
@@ -7671,8 +7669,6 @@ class Query$AssignPageRead$allInfoAssigns$nodes$update_user {
   final String? symbol;
 
   final String? privatePhone;
-
-  final Query$AssignPageRead$allInfoAssigns$nodes$update_user$name? name;
 
   final String $__typename;
 
@@ -7686,6 +7682,8 @@ class Query$AssignPageRead$allInfoAssigns$nodes$update_user {
     _resultData['infoCompanyId'] = l$infoCompanyId;
     final l$code = code;
     _resultData['code'] = l$code;
+    final l$name = name;
+    _resultData['name'] = l$name?.toJson();
     final l$sex = sex;
     _resultData['sex'] = l$sex;
     final l$phone = phone;
@@ -7694,8 +7692,6 @@ class Query$AssignPageRead$allInfoAssigns$nodes$update_user {
     _resultData['symbol'] = l$symbol;
     final l$privatePhone = privatePhone;
     _resultData['privatePhone'] = l$privatePhone;
-    final l$name = name;
-    _resultData['name'] = l$name?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -7707,22 +7703,22 @@ class Query$AssignPageRead$allInfoAssigns$nodes$update_user {
     final l$infoStaffId = infoStaffId;
     final l$infoCompanyId = infoCompanyId;
     final l$code = code;
+    final l$name = name;
     final l$sex = sex;
     final l$phone = phone;
     final l$symbol = symbol;
     final l$privatePhone = privatePhone;
-    final l$name = name;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$historyId,
       l$infoStaffId,
       l$infoCompanyId,
       l$code,
+      l$name,
       l$sex,
       l$phone,
       l$symbol,
       l$privatePhone,
-      l$name,
       l$$__typename,
     ]);
   }
@@ -7756,6 +7752,11 @@ class Query$AssignPageRead$allInfoAssigns$nodes$update_user {
     if (l$code != lOther$code) {
       return false;
     }
+    final l$name = name;
+    final lOther$name = other.name;
+    if (l$name != lOther$name) {
+      return false;
+    }
     final l$sex = sex;
     final lOther$sex = other.sex;
     if (l$sex != lOther$sex) {
@@ -7774,11 +7775,6 @@ class Query$AssignPageRead$allInfoAssigns$nodes$update_user {
     final l$privatePhone = privatePhone;
     final lOther$privatePhone = other.privatePhone;
     if (l$privatePhone != lOther$privatePhone) {
-      return false;
-    }
-    final l$name = name;
-    final lOther$name = other.name;
-    if (l$name != lOther$name) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -7819,11 +7815,11 @@ abstract class CopyWith$Query$AssignPageRead$allInfoAssigns$nodes$update_user<
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$AssignPageRead$allInfoAssigns$nodes$update_user$name? name,
     String? sex,
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$AssignPageRead$allInfoAssigns$nodes$update_user$name? name,
     String? $__typename,
   });
   CopyWith$Query$AssignPageRead$allInfoAssigns$nodes$update_user$name<TRes>
@@ -7850,11 +7846,11 @@ class _CopyWithImpl$Query$AssignPageRead$allInfoAssigns$nodes$update_user<TRes>
     Object? infoStaffId = _undefined,
     Object? infoCompanyId = _undefined,
     Object? code = _undefined,
+    Object? name = _undefined,
     Object? sex = _undefined,
     Object? phone = _undefined,
     Object? symbol = _undefined,
     Object? privatePhone = _undefined,
-    Object? name = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$AssignPageRead$allInfoAssigns$nodes$update_user(
@@ -7868,16 +7864,16 @@ class _CopyWithImpl$Query$AssignPageRead$allInfoAssigns$nodes$update_user<TRes>
           ? _instance.infoCompanyId
           : (infoCompanyId as String?),
       code: code == _undefined ? _instance.code : (code as String?),
+      name: name == _undefined
+          ? _instance.name
+          : (name
+                as Query$AssignPageRead$allInfoAssigns$nodes$update_user$name?),
       sex: sex == _undefined ? _instance.sex : (sex as String?),
       phone: phone == _undefined ? _instance.phone : (phone as String?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       privatePhone: privatePhone == _undefined
           ? _instance.privatePhone
           : (privatePhone as String?),
-      name: name == _undefined
-          ? _instance.name
-          : (name
-                as Query$AssignPageRead$allInfoAssigns$nodes$update_user$name?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -7914,11 +7910,11 @@ class _CopyWithStubImpl$Query$AssignPageRead$allInfoAssigns$nodes$update_user<
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$AssignPageRead$allInfoAssigns$nodes$update_user$name? name,
     String? sex,
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$AssignPageRead$allInfoAssigns$nodes$update_user$name? name,
     String? $__typename,
   }) => _res;
 

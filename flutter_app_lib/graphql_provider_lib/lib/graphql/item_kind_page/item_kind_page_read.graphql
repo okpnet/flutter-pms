@@ -1,13 +1,13 @@
 # item_kind_page画面 - Read(一覧取得クエリ)
 #
-# 画面仕様: source/view.yaml #ItemKindPage(品目区分、mstr_item_kind)
-# 命名規則: CLAUDE.md 画面仕様命名規則(要件0033)により`item_kind_page`をファイル名にする。
+# 画面仕様: source/views/ #ItemKindPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
 
 query ItemKindPageRead(
   $first: Int!
   $offset: Int
   $filter: MstrItemKindFilter = {}
-  $orderBy: [MstrItemKindsOrderBy!] = [PRIMARY_KEY_ASC]
+  $orderBy: [MstrItemKindsOrderBy!]
   $languageCodeId: UUID!
   $removed: Boolean = false
 ) {
@@ -25,10 +25,6 @@ query ItemKindPageRead(
     nodes {
       mstrItemKindId
       code
-      symbol
-      remarks
-      updateAt
-      remove
 
       labels: sharedAppellationByNames {
         sharedAppellationsId
@@ -42,6 +38,7 @@ query ItemKindPageRead(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryPronunciationId {
           sharedDictionaryId
           value: sharedDictionaryValuesBySharedDictionaryId(
@@ -52,6 +49,7 @@ query ItemKindPageRead(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryNicknameId {
           sharedDictionaryId
           value: sharedDictionaryValuesBySharedDictionaryId(
@@ -64,15 +62,17 @@ query ItemKindPageRead(
         }
       }
 
+      symbol
+      remarks
+      updateAt
+      remove
+
       update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
         historyId
         infoStaffId
         infoCompanyId
         code
-        sex
-        phone
-        symbol
-        privatePhone
+
         name: sharedAppellationByNames {
           sharedAppellationsId
           sharedDictionaryBySharedDictionaryNameId {
@@ -85,6 +85,7 @@ query ItemKindPageRead(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryPronunciationId {
             sharedDictionaryId
             value: sharedDictionaryValuesBySharedDictionaryId(
@@ -95,6 +96,7 @@ query ItemKindPageRead(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryNicknameId {
             sharedDictionaryId
             value: sharedDictionaryValuesBySharedDictionaryId(
@@ -106,6 +108,11 @@ query ItemKindPageRead(
             }
           }
         }
+
+        sex
+        phone
+        symbol
+        privatePhone
       }
     }
   }

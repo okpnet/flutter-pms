@@ -12,6 +12,7 @@ class Variables$Query$LicenseHoldersPageRead {
     Input$MstrLicenseFilter? filter,
     List<Enum$MstrLicensesOrderBy>? orderBy,
     required String languageCodeId,
+    List<Enum$MstrStaffLicensesOrderBy>? licensesOrderBy,
     bool? removed,
   }) => Variables$Query$LicenseHoldersPageRead._({
     r'first': first,
@@ -19,6 +20,7 @@ class Variables$Query$LicenseHoldersPageRead {
     if (filter != null) r'filter': filter,
     if (orderBy != null) r'orderBy': orderBy,
     r'languageCodeId': languageCodeId,
+    if (licensesOrderBy != null) r'licensesOrderBy': licensesOrderBy,
     if (removed != null) r'removed': removed,
   });
 
@@ -50,6 +52,12 @@ class Variables$Query$LicenseHoldersPageRead {
     }
     final l$languageCodeId = data['languageCodeId'];
     result$data['languageCodeId'] = (l$languageCodeId as String);
+    if (data.containsKey('licensesOrderBy')) {
+      final l$licensesOrderBy = data['licensesOrderBy'];
+      result$data['licensesOrderBy'] = (l$licensesOrderBy as List<dynamic>?)
+          ?.map((e) => fromJson$Enum$MstrStaffLicensesOrderBy((e as String)))
+          .toList();
+    }
     if (data.containsKey('removed')) {
       final l$removed = data['removed'];
       result$data['removed'] = (l$removed as bool?);
@@ -70,6 +78,9 @@ class Variables$Query$LicenseHoldersPageRead {
       (_$data['orderBy'] as List<Enum$MstrLicensesOrderBy>?);
 
   String get languageCodeId => (_$data['languageCodeId'] as String);
+
+  List<Enum$MstrStaffLicensesOrderBy>? get licensesOrderBy =>
+      (_$data['licensesOrderBy'] as List<Enum$MstrStaffLicensesOrderBy>?);
 
   bool? get removed => (_$data['removed'] as bool?);
 
@@ -93,6 +104,12 @@ class Variables$Query$LicenseHoldersPageRead {
     }
     final l$languageCodeId = languageCodeId;
     result$data['languageCodeId'] = l$languageCodeId;
+    if (_$data.containsKey('licensesOrderBy')) {
+      final l$licensesOrderBy = licensesOrderBy;
+      result$data['licensesOrderBy'] = l$licensesOrderBy
+          ?.map((e) => toJson$Enum$MstrStaffLicensesOrderBy(e))
+          .toList();
+    }
     if (_$data.containsKey('removed')) {
       final l$removed = removed;
       result$data['removed'] = l$removed;
@@ -160,6 +177,26 @@ class Variables$Query$LicenseHoldersPageRead {
     if (l$languageCodeId != lOther$languageCodeId) {
       return false;
     }
+    final l$licensesOrderBy = licensesOrderBy;
+    final lOther$licensesOrderBy = other.licensesOrderBy;
+    if (_$data.containsKey('licensesOrderBy') !=
+        other._$data.containsKey('licensesOrderBy')) {
+      return false;
+    }
+    if (l$licensesOrderBy != null && lOther$licensesOrderBy != null) {
+      if (l$licensesOrderBy.length != lOther$licensesOrderBy.length) {
+        return false;
+      }
+      for (int i = 0; i < l$licensesOrderBy.length; i++) {
+        final l$licensesOrderBy$entry = l$licensesOrderBy[i];
+        final lOther$licensesOrderBy$entry = lOther$licensesOrderBy[i];
+        if (l$licensesOrderBy$entry != lOther$licensesOrderBy$entry) {
+          return false;
+        }
+      }
+    } else if (l$licensesOrderBy != lOther$licensesOrderBy) {
+      return false;
+    }
     final l$removed = removed;
     final lOther$removed = other.removed;
     if (_$data.containsKey('removed') != other._$data.containsKey('removed')) {
@@ -178,6 +215,7 @@ class Variables$Query$LicenseHoldersPageRead {
     final l$filter = filter;
     final l$orderBy = orderBy;
     final l$languageCodeId = languageCodeId;
+    final l$licensesOrderBy = licensesOrderBy;
     final l$removed = removed;
     return Object.hashAll([
       l$first,
@@ -189,6 +227,11 @@ class Variables$Query$LicenseHoldersPageRead {
                 : Object.hashAll(l$orderBy.map((v) => v))
           : const {},
       l$languageCodeId,
+      _$data.containsKey('licensesOrderBy')
+          ? l$licensesOrderBy == null
+                ? null
+                : Object.hashAll(l$licensesOrderBy.map((v) => v))
+          : const {},
       _$data.containsKey('removed') ? l$removed : const {},
     ]);
   }
@@ -209,6 +252,7 @@ abstract class CopyWith$Variables$Query$LicenseHoldersPageRead<TRes> {
     Input$MstrLicenseFilter? filter,
     List<Enum$MstrLicensesOrderBy>? orderBy,
     String? languageCodeId,
+    List<Enum$MstrStaffLicensesOrderBy>? licensesOrderBy,
     bool? removed,
   });
 }
@@ -232,6 +276,7 @@ class _CopyWithImpl$Variables$Query$LicenseHoldersPageRead<TRes>
     Object? filter = _undefined,
     Object? orderBy = _undefined,
     Object? languageCodeId = _undefined,
+    Object? licensesOrderBy = _undefined,
     Object? removed = _undefined,
   }) => _then(
     Variables$Query$LicenseHoldersPageRead._({
@@ -243,6 +288,9 @@ class _CopyWithImpl$Variables$Query$LicenseHoldersPageRead<TRes>
         'orderBy': (orderBy as List<Enum$MstrLicensesOrderBy>?),
       if (languageCodeId != _undefined && languageCodeId != null)
         'languageCodeId': (languageCodeId as String),
+      if (licensesOrderBy != _undefined)
+        'licensesOrderBy':
+            (licensesOrderBy as List<Enum$MstrStaffLicensesOrderBy>?),
       if (removed != _undefined) 'removed': (removed as bool?),
     }),
   );
@@ -260,6 +308,7 @@ class _CopyWithStubImpl$Variables$Query$LicenseHoldersPageRead<TRes>
     Input$MstrLicenseFilter? filter,
     List<Enum$MstrLicensesOrderBy>? orderBy,
     String? languageCodeId,
+    List<Enum$MstrStaffLicensesOrderBy>? licensesOrderBy,
     bool? removed,
   }) => _res;
 }
@@ -439,16 +488,24 @@ const documentNodeQueryLicenseHoldersPageRead = DocumentNode(
             ),
             isNonNull: false,
           ),
-          defaultValue: DefaultValueNode(
-            value: ListValueNode(
-              values: [EnumValueNode(name: NameNode(value: 'PRIMARY_KEY_ASC'))],
-            ),
-          ),
+          defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
         VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'languageCodeId')),
           type: NamedTypeNode(name: NameNode(value: 'UUID'), isNonNull: true),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'licensesOrderBy')),
+          type: ListTypeNode(
+            type: NamedTypeNode(
+              name: NameNode(value: 'MstrStaffLicensesOrderBy'),
+              isNonNull: true,
+            ),
+            isNonNull: false,
+          ),
           defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
@@ -571,121 +628,6 @@ const documentNodeQueryLicenseHoldersPageRead = DocumentNode(
                       ),
                       FieldNode(
                         name: NameNode(value: 'code'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'detail'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'publicLicense'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'customerLicense'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'organizationLicense'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'updateInterval'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: SelectionSetNode(
-                          selections: [
-                            FieldNode(
-                              name: NameNode(value: 'years'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'months'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'days'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'hours'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'minutes'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'seconds'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: '__typename'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                          ],
-                        ),
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'symbol'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'remarks'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'updateAt'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'remove'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -995,11 +937,182 @@ const documentNodeQueryLicenseHoldersPageRead = DocumentNode(
                         ),
                       ),
                       FieldNode(
+                        name: NameNode(value: 'sharedTextByDetails'),
+                        alias: NameNode(value: 'detailTexts'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'sharedTextId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(
+                                value: 'sharedTextValuesBySharedTextId',
+                              ),
+                              alias: NameNode(value: 'value'),
+                              arguments: [
+                                ArgumentNode(
+                                  name: NameNode(value: 'condition'),
+                                  value: ObjectValueNode(
+                                    fields: [
+                                      ObjectFieldNode(
+                                        name: NameNode(
+                                          value: 'sharedLanguageCodeId',
+                                        ),
+                                        value: VariableNode(
+                                          name: NameNode(
+                                            value: 'languageCodeId',
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                              directives: [],
+                              selectionSet: SelectionSetNode(
+                                selections: [
+                                  FieldNode(
+                                    name: NameNode(value: 'nodes'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'textValue'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: '__typename'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'publicLicense'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'customerLicense'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'organizationLicense'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'updateInterval'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'seconds'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'minutes'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'hours'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'days'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'months'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'years'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
                         name: NameNode(
                           value: 'mstrStaffLicensesByMstrLicenseId',
                         ),
                         alias: NameNode(value: 'licenses'),
                         arguments: [
+                          ArgumentNode(
+                            name: NameNode(value: 'orderBy'),
+                            value: VariableNode(
+                              name: NameNode(value: 'licensesOrderBy'),
+                            ),
+                          ),
                           ArgumentNode(
                             name: NameNode(value: 'filter'),
                             value: ObjectValueNode(
@@ -1082,55 +1195,6 @@ const documentNodeQueryLicenseHoldersPageRead = DocumentNode(
                                     selectionSet: null,
                                   ),
                                   FieldNode(
-                                    name: NameNode(value: 'mstrLicenseId'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(value: 'startAt'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(value: 'stopAt'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(value: 'abeyance'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(value: 'abeyanceAt'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(value: 'revocation'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
-                                    name: NameNode(value: 'revocationAt'),
-                                    alias: null,
-                                    arguments: [],
-                                    directives: [],
-                                    selectionSet: null,
-                                  ),
-                                  FieldNode(
                                     name: NameNode(
                                       value: 'infoStaffByInfoStaffId',
                                     ),
@@ -1161,6 +1225,381 @@ const documentNodeQueryLicenseHoldersPageRead = DocumentNode(
                                           arguments: [],
                                           directives: [],
                                           selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(
+                                            value: 'sharedAppellationByNames',
+                                          ),
+                                          alias: NameNode(value: 'labels'),
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'sharedAppellationsId',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value:
+                                                      'sharedDictionaryBySharedDictionaryNameId',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: SelectionSetNode(
+                                                  selections: [
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryId',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                      ),
+                                                      alias: NameNode(
+                                                        value: 'value',
+                                                      ),
+                                                      arguments: [
+                                                        ArgumentNode(
+                                                          name: NameNode(
+                                                            value: 'condition',
+                                                          ),
+                                                          value: ObjectValueNode(
+                                                            fields: [
+                                                              ObjectFieldNode(
+                                                                name: NameNode(
+                                                                  value:
+                                                                      'sharedLanguageCodeId',
+                                                                ),
+                                                                value: VariableNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'languageCodeId',
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                      directives: [],
+                                                      selectionSet: SelectionSetNode(
+                                                        selections: [
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value: 'nodes',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: SelectionSetNode(
+                                                              selections: [
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'dictionaryValue',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        '__typename',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  '__typename',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: null,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: '__typename',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value:
+                                                      'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: SelectionSetNode(
+                                                  selections: [
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryId',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                      ),
+                                                      alias: NameNode(
+                                                        value: 'value',
+                                                      ),
+                                                      arguments: [
+                                                        ArgumentNode(
+                                                          name: NameNode(
+                                                            value: 'condition',
+                                                          ),
+                                                          value: ObjectValueNode(
+                                                            fields: [
+                                                              ObjectFieldNode(
+                                                                name: NameNode(
+                                                                  value:
+                                                                      'sharedLanguageCodeId',
+                                                                ),
+                                                                value: VariableNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'languageCodeId',
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                      directives: [],
+                                                      selectionSet: SelectionSetNode(
+                                                        selections: [
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value: 'nodes',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: SelectionSetNode(
+                                                              selections: [
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'dictionaryValue',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        '__typename',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  '__typename',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: null,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: '__typename',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value:
+                                                      'sharedDictionaryBySharedDictionaryNicknameId',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: SelectionSetNode(
+                                                  selections: [
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryId',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                      ),
+                                                      alias: NameNode(
+                                                        value: 'value',
+                                                      ),
+                                                      arguments: [
+                                                        ArgumentNode(
+                                                          name: NameNode(
+                                                            value: 'condition',
+                                                          ),
+                                                          value: ObjectValueNode(
+                                                            fields: [
+                                                              ObjectFieldNode(
+                                                                name: NameNode(
+                                                                  value:
+                                                                      'sharedLanguageCodeId',
+                                                                ),
+                                                                value: VariableNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'languageCodeId',
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                      directives: [],
+                                                      selectionSet: SelectionSetNode(
+                                                        selections: [
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value: 'nodes',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: SelectionSetNode(
+                                                              selections: [
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'dictionaryValue',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        '__typename',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  '__typename',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: null,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: '__typename',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                         FieldNode(
                                           name: NameNode(value: 'sex'),
@@ -1213,381 +1652,6 @@ const documentNodeQueryLicenseHoldersPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value: 'sharedAppellationByNames',
-                                          ),
-                                          alias: NameNode(value: 'labels'),
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: SelectionSetNode(
-                                            selections: [
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: 'sharedAppellationsId',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryNameId',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: SelectionSetNode(
-                                                  selections: [
-                                                    FieldNode(
-                                                      name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
-                                                      ),
-                                                      alias: null,
-                                                      arguments: [],
-                                                      directives: [],
-                                                      selectionSet: null,
-                                                    ),
-                                                    FieldNode(
-                                                      name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
-                                                      ),
-                                                      alias: NameNode(
-                                                        value: 'value',
-                                                      ),
-                                                      arguments: [
-                                                        ArgumentNode(
-                                                          name: NameNode(
-                                                            value: 'condition',
-                                                          ),
-                                                          value: ObjectValueNode(
-                                                            fields: [
-                                                              ObjectFieldNode(
-                                                                name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
-                                                                ),
-                                                                value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'languageCodeId',
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ],
-                                                      directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value: 'nodes',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: SelectionSetNode(
-                                                              selections: [
-                                                                FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
-                                                                  alias: null,
-                                                                  arguments: [],
-                                                                  directives:
-                                                                      [],
-                                                                  selectionSet:
-                                                                      null,
-                                                                ),
-                                                                FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
-                                                                  alias: null,
-                                                                  arguments: [],
-                                                                  directives:
-                                                                      [],
-                                                                  selectionSet:
-                                                                      null,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    FieldNode(
-                                                      name: NameNode(
-                                                        value: '__typename',
-                                                      ),
-                                                      alias: null,
-                                                      arguments: [],
-                                                      directives: [],
-                                                      selectionSet: null,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryPronunciationId',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: SelectionSetNode(
-                                                  selections: [
-                                                    FieldNode(
-                                                      name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
-                                                      ),
-                                                      alias: null,
-                                                      arguments: [],
-                                                      directives: [],
-                                                      selectionSet: null,
-                                                    ),
-                                                    FieldNode(
-                                                      name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
-                                                      ),
-                                                      alias: NameNode(
-                                                        value: 'value',
-                                                      ),
-                                                      arguments: [
-                                                        ArgumentNode(
-                                                          name: NameNode(
-                                                            value: 'condition',
-                                                          ),
-                                                          value: ObjectValueNode(
-                                                            fields: [
-                                                              ObjectFieldNode(
-                                                                name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
-                                                                ),
-                                                                value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'languageCodeId',
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ],
-                                                      directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value: 'nodes',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: SelectionSetNode(
-                                                              selections: [
-                                                                FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
-                                                                  alias: null,
-                                                                  arguments: [],
-                                                                  directives:
-                                                                      [],
-                                                                  selectionSet:
-                                                                      null,
-                                                                ),
-                                                                FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
-                                                                  alias: null,
-                                                                  arguments: [],
-                                                                  directives:
-                                                                      [],
-                                                                  selectionSet:
-                                                                      null,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    FieldNode(
-                                                      name: NameNode(
-                                                        value: '__typename',
-                                                      ),
-                                                      alias: null,
-                                                      arguments: [],
-                                                      directives: [],
-                                                      selectionSet: null,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryNicknameId',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: SelectionSetNode(
-                                                  selections: [
-                                                    FieldNode(
-                                                      name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
-                                                      ),
-                                                      alias: null,
-                                                      arguments: [],
-                                                      directives: [],
-                                                      selectionSet: null,
-                                                    ),
-                                                    FieldNode(
-                                                      name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
-                                                      ),
-                                                      alias: NameNode(
-                                                        value: 'value',
-                                                      ),
-                                                      arguments: [
-                                                        ArgumentNode(
-                                                          name: NameNode(
-                                                            value: 'condition',
-                                                          ),
-                                                          value: ObjectValueNode(
-                                                            fields: [
-                                                              ObjectFieldNode(
-                                                                name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
-                                                                ),
-                                                                value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'languageCodeId',
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ],
-                                                      directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value: 'nodes',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: SelectionSetNode(
-                                                              selections: [
-                                                                FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
-                                                                  alias: null,
-                                                                  arguments: [],
-                                                                  directives:
-                                                                      [],
-                                                                  selectionSet:
-                                                                      null,
-                                                                ),
-                                                                FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
-                                                                  alias: null,
-                                                                  arguments: [],
-                                                                  directives:
-                                                                      [],
-                                                                  selectionSet:
-                                                                      null,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    FieldNode(
-                                                      name: NameNode(
-                                                        value: '__typename',
-                                                      ),
-                                                      alias: null,
-                                                      arguments: [],
-                                                      directives: [],
-                                                      selectionSet: null,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: '__typename',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(
                                             value:
                                                 'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
                                           ),
@@ -1625,36 +1689,6 @@ const documentNodeQueryLicenseHoldersPageRead = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(value: 'code'),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(value: 'sex'),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(value: 'phone'),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(value: 'symbol'),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: 'privatePhone',
-                                                ),
                                                 alias: null,
                                                 arguments: [],
                                                 directives: [],
@@ -2068,6 +2102,36 @@ const documentNodeQueryLicenseHoldersPageRead = DocumentNode(
                                                 ),
                                               ),
                                               FieldNode(
+                                                name: NameNode(value: 'sex'),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(value: 'phone'),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(value: 'symbol'),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'privatePhone',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
                                                 name: NameNode(
                                                   value: '__typename',
                                                 ),
@@ -2088,6 +2152,13 @@ const documentNodeQueryLicenseHoldersPageRead = DocumentNode(
                                         ),
                                       ],
                                     ),
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: 'mstrLicenseId'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
                                   ),
                                   FieldNode(
                                     name: NameNode(
@@ -2115,11 +2186,485 @@ const documentNodeQueryLicenseHoldersPageRead = DocumentNode(
                                           selectionSet: null,
                                         ),
                                         FieldNode(
-                                          name: NameNode(value: 'detail'),
-                                          alias: null,
+                                          name: NameNode(
+                                            value: 'sharedAppellationByNames',
+                                          ),
+                                          alias: NameNode(value: 'labels'),
                                           arguments: [],
                                           directives: [],
-                                          selectionSet: null,
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'sharedAppellationsId',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value:
+                                                      'sharedDictionaryBySharedDictionaryNameId',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: SelectionSetNode(
+                                                  selections: [
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryId',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                      ),
+                                                      alias: NameNode(
+                                                        value: 'value',
+                                                      ),
+                                                      arguments: [
+                                                        ArgumentNode(
+                                                          name: NameNode(
+                                                            value: 'condition',
+                                                          ),
+                                                          value: ObjectValueNode(
+                                                            fields: [
+                                                              ObjectFieldNode(
+                                                                name: NameNode(
+                                                                  value:
+                                                                      'sharedLanguageCodeId',
+                                                                ),
+                                                                value: VariableNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'languageCodeId',
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                      directives: [],
+                                                      selectionSet: SelectionSetNode(
+                                                        selections: [
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value: 'nodes',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: SelectionSetNode(
+                                                              selections: [
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'dictionaryValue',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        '__typename',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  '__typename',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: null,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: '__typename',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value:
+                                                      'sharedDictionaryBySharedDictionaryPronunciationId',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: SelectionSetNode(
+                                                  selections: [
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryId',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                      ),
+                                                      alias: NameNode(
+                                                        value: 'value',
+                                                      ),
+                                                      arguments: [
+                                                        ArgumentNode(
+                                                          name: NameNode(
+                                                            value: 'condition',
+                                                          ),
+                                                          value: ObjectValueNode(
+                                                            fields: [
+                                                              ObjectFieldNode(
+                                                                name: NameNode(
+                                                                  value:
+                                                                      'sharedLanguageCodeId',
+                                                                ),
+                                                                value: VariableNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'languageCodeId',
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                      directives: [],
+                                                      selectionSet: SelectionSetNode(
+                                                        selections: [
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value: 'nodes',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: SelectionSetNode(
+                                                              selections: [
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'dictionaryValue',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        '__typename',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  '__typename',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: null,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: '__typename',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value:
+                                                      'sharedDictionaryBySharedDictionaryNicknameId',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: SelectionSetNode(
+                                                  selections: [
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryId',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value:
+                                                            'sharedDictionaryValuesBySharedDictionaryId',
+                                                      ),
+                                                      alias: NameNode(
+                                                        value: 'value',
+                                                      ),
+                                                      arguments: [
+                                                        ArgumentNode(
+                                                          name: NameNode(
+                                                            value: 'condition',
+                                                          ),
+                                                          value: ObjectValueNode(
+                                                            fields: [
+                                                              ObjectFieldNode(
+                                                                name: NameNode(
+                                                                  value:
+                                                                      'sharedLanguageCodeId',
+                                                                ),
+                                                                value: VariableNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'languageCodeId',
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                      directives: [],
+                                                      selectionSet: SelectionSetNode(
+                                                        selections: [
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value: 'nodes',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: SelectionSetNode(
+                                                              selections: [
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        'dictionaryValue',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                                FieldNode(
+                                                                  name: NameNode(
+                                                                    value:
+                                                                        '__typename',
+                                                                  ),
+                                                                  alias: null,
+                                                                  arguments: [],
+                                                                  directives:
+                                                                      [],
+                                                                  selectionSet:
+                                                                      null,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  '__typename',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: null,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: '__typename',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(
+                                            value: 'sharedTextByDetails',
+                                          ),
+                                          alias: NameNode(value: 'detailTexts'),
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: SelectionSetNode(
+                                            selections: [
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'sharedTextId',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value:
+                                                      'sharedTextValuesBySharedTextId',
+                                                ),
+                                                alias: NameNode(value: 'value'),
+                                                arguments: [
+                                                  ArgumentNode(
+                                                    name: NameNode(
+                                                      value: 'condition',
+                                                    ),
+                                                    value: ObjectValueNode(
+                                                      fields: [
+                                                        ObjectFieldNode(
+                                                          name: NameNode(
+                                                            value:
+                                                                'sharedLanguageCodeId',
+                                                          ),
+                                                          value: VariableNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  'languageCodeId',
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                                directives: [],
+                                                selectionSet: SelectionSetNode(
+                                                  selections: [
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: 'nodes',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: SelectionSetNode(
+                                                        selections: [
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  'textValue',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: null,
+                                                          ),
+                                                          FieldNode(
+                                                            name: NameNode(
+                                                              value:
+                                                                  '__typename',
+                                                            ),
+                                                            alias: null,
+                                                            arguments: [],
+                                                            directives: [],
+                                                            selectionSet: null,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    FieldNode(
+                                                      name: NameNode(
+                                                        value: '__typename',
+                                                      ),
+                                                      alias: null,
+                                                      arguments: [],
+                                                      directives: [],
+                                                      selectionSet: null,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: '__typename',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                         FieldNode(
                                           name: NameNode(
@@ -2158,28 +2703,9 @@ const documentNodeQueryLicenseHoldersPageRead = DocumentNode(
                                           selectionSet: SelectionSetNode(
                                             selections: [
                                               FieldNode(
-                                                name: NameNode(value: 'years'),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(value: 'months'),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(value: 'days'),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(value: 'hours'),
+                                                name: NameNode(
+                                                  value: 'seconds',
+                                                ),
                                                 alias: null,
                                                 arguments: [],
                                                 directives: [],
@@ -2195,9 +2721,28 @@ const documentNodeQueryLicenseHoldersPageRead = DocumentNode(
                                                 selectionSet: null,
                                               ),
                                               FieldNode(
-                                                name: NameNode(
-                                                  value: 'seconds',
-                                                ),
+                                                name: NameNode(value: 'hours'),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(value: 'days'),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(value: 'months'),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(value: 'years'),
                                                 alias: null,
                                                 arguments: [],
                                                 directives: [],
@@ -2245,381 +2790,6 @@ const documentNodeQueryLicenseHoldersPageRead = DocumentNode(
                                         ),
                                         FieldNode(
                                           name: NameNode(
-                                            value: 'sharedAppellationByNames',
-                                          ),
-                                          alias: NameNode(value: 'labels'),
-                                          arguments: [],
-                                          directives: [],
-                                          selectionSet: SelectionSetNode(
-                                            selections: [
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: 'sharedAppellationsId',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryNameId',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: SelectionSetNode(
-                                                  selections: [
-                                                    FieldNode(
-                                                      name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
-                                                      ),
-                                                      alias: null,
-                                                      arguments: [],
-                                                      directives: [],
-                                                      selectionSet: null,
-                                                    ),
-                                                    FieldNode(
-                                                      name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
-                                                      ),
-                                                      alias: NameNode(
-                                                        value: 'value',
-                                                      ),
-                                                      arguments: [
-                                                        ArgumentNode(
-                                                          name: NameNode(
-                                                            value: 'condition',
-                                                          ),
-                                                          value: ObjectValueNode(
-                                                            fields: [
-                                                              ObjectFieldNode(
-                                                                name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
-                                                                ),
-                                                                value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'languageCodeId',
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ],
-                                                      directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value: 'nodes',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: SelectionSetNode(
-                                                              selections: [
-                                                                FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
-                                                                  alias: null,
-                                                                  arguments: [],
-                                                                  directives:
-                                                                      [],
-                                                                  selectionSet:
-                                                                      null,
-                                                                ),
-                                                                FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
-                                                                  alias: null,
-                                                                  arguments: [],
-                                                                  directives:
-                                                                      [],
-                                                                  selectionSet:
-                                                                      null,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    FieldNode(
-                                                      name: NameNode(
-                                                        value: '__typename',
-                                                      ),
-                                                      alias: null,
-                                                      arguments: [],
-                                                      directives: [],
-                                                      selectionSet: null,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryPronunciationId',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: SelectionSetNode(
-                                                  selections: [
-                                                    FieldNode(
-                                                      name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
-                                                      ),
-                                                      alias: null,
-                                                      arguments: [],
-                                                      directives: [],
-                                                      selectionSet: null,
-                                                    ),
-                                                    FieldNode(
-                                                      name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
-                                                      ),
-                                                      alias: NameNode(
-                                                        value: 'value',
-                                                      ),
-                                                      arguments: [
-                                                        ArgumentNode(
-                                                          name: NameNode(
-                                                            value: 'condition',
-                                                          ),
-                                                          value: ObjectValueNode(
-                                                            fields: [
-                                                              ObjectFieldNode(
-                                                                name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
-                                                                ),
-                                                                value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'languageCodeId',
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ],
-                                                      directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value: 'nodes',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: SelectionSetNode(
-                                                              selections: [
-                                                                FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
-                                                                  alias: null,
-                                                                  arguments: [],
-                                                                  directives:
-                                                                      [],
-                                                                  selectionSet:
-                                                                      null,
-                                                                ),
-                                                                FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
-                                                                  alias: null,
-                                                                  arguments: [],
-                                                                  directives:
-                                                                      [],
-                                                                  selectionSet:
-                                                                      null,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    FieldNode(
-                                                      name: NameNode(
-                                                        value: '__typename',
-                                                      ),
-                                                      alias: null,
-                                                      arguments: [],
-                                                      directives: [],
-                                                      selectionSet: null,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value:
-                                                      'sharedDictionaryBySharedDictionaryNicknameId',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: SelectionSetNode(
-                                                  selections: [
-                                                    FieldNode(
-                                                      name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryId',
-                                                      ),
-                                                      alias: null,
-                                                      arguments: [],
-                                                      directives: [],
-                                                      selectionSet: null,
-                                                    ),
-                                                    FieldNode(
-                                                      name: NameNode(
-                                                        value:
-                                                            'sharedDictionaryValuesBySharedDictionaryId',
-                                                      ),
-                                                      alias: NameNode(
-                                                        value: 'value',
-                                                      ),
-                                                      arguments: [
-                                                        ArgumentNode(
-                                                          name: NameNode(
-                                                            value: 'condition',
-                                                          ),
-                                                          value: ObjectValueNode(
-                                                            fields: [
-                                                              ObjectFieldNode(
-                                                                name: NameNode(
-                                                                  value:
-                                                                      'sharedLanguageCodeId',
-                                                                ),
-                                                                value: VariableNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'languageCodeId',
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ],
-                                                      directives: [],
-                                                      selectionSet: SelectionSetNode(
-                                                        selections: [
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value: 'nodes',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: SelectionSetNode(
-                                                              selections: [
-                                                                FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        'dictionaryValue',
-                                                                  ),
-                                                                  alias: null,
-                                                                  arguments: [],
-                                                                  directives:
-                                                                      [],
-                                                                  selectionSet:
-                                                                      null,
-                                                                ),
-                                                                FieldNode(
-                                                                  name: NameNode(
-                                                                    value:
-                                                                        '__typename',
-                                                                  ),
-                                                                  alias: null,
-                                                                  arguments: [],
-                                                                  directives:
-                                                                      [],
-                                                                  selectionSet:
-                                                                      null,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          FieldNode(
-                                                            name: NameNode(
-                                                              value:
-                                                                  '__typename',
-                                                            ),
-                                                            alias: null,
-                                                            arguments: [],
-                                                            directives: [],
-                                                            selectionSet: null,
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    FieldNode(
-                                                      name: NameNode(
-                                                        value: '__typename',
-                                                      ),
-                                                      alias: null,
-                                                      arguments: [],
-                                                      directives: [],
-                                                      selectionSet: null,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: '__typename',
-                                                ),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        FieldNode(
-                                          name: NameNode(
                                             value:
                                                 'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
                                           ),
@@ -2657,36 +2827,6 @@ const documentNodeQueryLicenseHoldersPageRead = DocumentNode(
                                               ),
                                               FieldNode(
                                                 name: NameNode(value: 'code'),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(value: 'sex'),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(value: 'phone'),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(value: 'symbol'),
-                                                alias: null,
-                                                arguments: [],
-                                                directives: [],
-                                                selectionSet: null,
-                                              ),
-                                              FieldNode(
-                                                name: NameNode(
-                                                  value: 'privatePhone',
-                                                ),
                                                 alias: null,
                                                 arguments: [],
                                                 directives: [],
@@ -3100,6 +3240,36 @@ const documentNodeQueryLicenseHoldersPageRead = DocumentNode(
                                                 ),
                                               ),
                                               FieldNode(
+                                                name: NameNode(value: 'sex'),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(value: 'phone'),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(value: 'symbol'),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
+                                                name: NameNode(
+                                                  value: 'privatePhone',
+                                                ),
+                                                alias: null,
+                                                arguments: [],
+                                                directives: [],
+                                                selectionSet: null,
+                                              ),
+                                              FieldNode(
                                                 name: NameNode(
                                                   value: '__typename',
                                                 ),
@@ -3122,6 +3292,48 @@ const documentNodeQueryLicenseHoldersPageRead = DocumentNode(
                                     ),
                                   ),
                                   FieldNode(
+                                    name: NameNode(value: 'startAt'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: 'stopAt'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: 'abeyance'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: 'abeyanceAt'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: 'revocation'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: 'revocationAt'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
                                     name: NameNode(value: '__typename'),
                                     alias: null,
                                     arguments: [],
@@ -3140,6 +3352,34 @@ const documentNodeQueryLicenseHoldersPageRead = DocumentNode(
                             ),
                           ],
                         ),
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'symbol'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'updateAt'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'remove'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
                       ),
                       FieldNode(
                         name: NameNode(
@@ -3174,34 +3414,6 @@ const documentNodeQueryLicenseHoldersPageRead = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(value: 'code'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'sex'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'phone'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'symbol'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'privatePhone'),
                               alias: null,
                               arguments: [],
                               directives: [],
@@ -3535,6 +3747,34 @@ const documentNodeQueryLicenseHoldersPageRead = DocumentNode(
                                   ),
                                 ],
                               ),
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'sex'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'phone'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'symbol'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'privatePhone'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
                             ),
                             FieldNode(
                               name: NameNode(value: '__typename'),
@@ -4128,17 +4368,17 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes {
   Query$LicenseHoldersPageRead$allMstrLicenses$nodes({
     required this.mstrLicenseId,
     this.code,
-    this.detail,
+    this.labels,
+    this.detailTexts,
     this.publicLicense,
     this.customerLicense,
     this.organizationLicense,
     this.updateInterval,
+    required this.licenses,
     this.symbol,
     this.remarks,
     this.updateAt,
     this.remove,
-    this.labels,
-    required this.licenses,
     this.update_user,
     this.$__typename = 'MstrLicense',
   });
@@ -4148,23 +4388,32 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes {
   ) {
     final l$mstrLicenseId = json['mstrLicenseId'];
     final l$code = json['code'];
-    final l$detail = json['detail'];
+    final l$labels = json['labels'];
+    final l$detailTexts = json['detailTexts'];
     final l$publicLicense = json['publicLicense'];
     final l$customerLicense = json['customerLicense'];
     final l$organizationLicense = json['organizationLicense'];
     final l$updateInterval = json['updateInterval'];
+    final l$licenses = json['licenses'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
-    final l$labels = json['labels'];
-    final l$licenses = json['licenses'];
     final l$update_user = json['update_user'];
     final l$$__typename = json['__typename'];
     return Query$LicenseHoldersPageRead$allMstrLicenses$nodes(
       mstrLicenseId: (l$mstrLicenseId as String),
       code: (l$code as String?),
-      detail: (l$detail as String?),
+      labels: l$labels == null
+          ? null
+          : Query$LicenseHoldersPageRead$allMstrLicenses$nodes$labels.fromJson(
+              (l$labels as Map<String, dynamic>),
+            ),
+      detailTexts: l$detailTexts == null
+          ? null
+          : Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts.fromJson(
+              (l$detailTexts as Map<String, dynamic>),
+            ),
       publicLicense: (l$publicLicense as bool?),
       customerLicense: (l$customerLicense as bool?),
       organizationLicense: (l$organizationLicense as bool?),
@@ -4173,19 +4422,14 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes {
           : Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval.fromJson(
               (l$updateInterval as Map<String, dynamic>),
             ),
-      symbol: (l$symbol as String?),
-      remarks: (l$remarks as String?),
-      updateAt: (l$updateAt as String?),
-      remove: (l$remove as bool?),
-      labels: l$labels == null
-          ? null
-          : Query$LicenseHoldersPageRead$allMstrLicenses$nodes$labels.fromJson(
-              (l$labels as Map<String, dynamic>),
-            ),
       licenses:
           Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses.fromJson(
             (l$licenses as Map<String, dynamic>),
           ),
+      symbol: (l$symbol as String?),
+      remarks: (l$remarks as String?),
+      updateAt: (l$updateAt as String?),
+      remove: (l$remove as bool?),
       update_user: l$update_user == null
           ? null
           : Query$LicenseHoldersPageRead$allMstrLicenses$nodes$update_user.fromJson(
@@ -4199,7 +4443,10 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes {
 
   final String? code;
 
-  final String? detail;
+  final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$labels? labels;
+
+  final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts?
+  detailTexts;
 
   final bool? publicLicense;
 
@@ -4210,6 +4457,9 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes {
   final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval?
   updateInterval;
 
+  @Deprecated('Please use mstrStaffLicenseByMstrLicenseId instead')
+  final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses licenses;
+
   final String? symbol;
 
   final String? remarks;
@@ -4217,11 +4467,6 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes {
   final String? updateAt;
 
   final bool? remove;
-
-  final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$labels? labels;
-
-  @Deprecated('Please use mstrStaffLicenseByMstrLicenseId instead')
-  final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses licenses;
 
   final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$update_user?
   update_user;
@@ -4234,8 +4479,10 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes {
     _resultData['mstrLicenseId'] = l$mstrLicenseId;
     final l$code = code;
     _resultData['code'] = l$code;
-    final l$detail = detail;
-    _resultData['detail'] = l$detail;
+    final l$labels = labels;
+    _resultData['labels'] = l$labels?.toJson();
+    final l$detailTexts = detailTexts;
+    _resultData['detailTexts'] = l$detailTexts?.toJson();
     final l$publicLicense = publicLicense;
     _resultData['publicLicense'] = l$publicLicense;
     final l$customerLicense = customerLicense;
@@ -4244,6 +4491,8 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes {
     _resultData['organizationLicense'] = l$organizationLicense;
     final l$updateInterval = updateInterval;
     _resultData['updateInterval'] = l$updateInterval?.toJson();
+    final l$licenses = licenses;
+    _resultData['licenses'] = l$licenses.toJson();
     final l$symbol = symbol;
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
@@ -4252,10 +4501,6 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes {
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
     _resultData['remove'] = l$remove;
-    final l$labels = labels;
-    _resultData['labels'] = l$labels?.toJson();
-    final l$licenses = licenses;
-    _resultData['licenses'] = l$licenses.toJson();
     final l$update_user = update_user;
     _resultData['update_user'] = l$update_user?.toJson();
     final l$$__typename = $__typename;
@@ -4267,33 +4512,33 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes {
   int get hashCode {
     final l$mstrLicenseId = mstrLicenseId;
     final l$code = code;
-    final l$detail = detail;
+    final l$labels = labels;
+    final l$detailTexts = detailTexts;
     final l$publicLicense = publicLicense;
     final l$customerLicense = customerLicense;
     final l$organizationLicense = organizationLicense;
     final l$updateInterval = updateInterval;
+    final l$licenses = licenses;
     final l$symbol = symbol;
     final l$remarks = remarks;
     final l$updateAt = updateAt;
     final l$remove = remove;
-    final l$labels = labels;
-    final l$licenses = licenses;
     final l$update_user = update_user;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$mstrLicenseId,
       l$code,
-      l$detail,
+      l$labels,
+      l$detailTexts,
       l$publicLicense,
       l$customerLicense,
       l$organizationLicense,
       l$updateInterval,
+      l$licenses,
       l$symbol,
       l$remarks,
       l$updateAt,
       l$remove,
-      l$labels,
-      l$licenses,
       l$update_user,
       l$$__typename,
     ]);
@@ -4318,9 +4563,14 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes {
     if (l$code != lOther$code) {
       return false;
     }
-    final l$detail = detail;
-    final lOther$detail = other.detail;
-    if (l$detail != lOther$detail) {
+    final l$labels = labels;
+    final lOther$labels = other.labels;
+    if (l$labels != lOther$labels) {
+      return false;
+    }
+    final l$detailTexts = detailTexts;
+    final lOther$detailTexts = other.detailTexts;
+    if (l$detailTexts != lOther$detailTexts) {
       return false;
     }
     final l$publicLicense = publicLicense;
@@ -4343,6 +4593,11 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes {
     if (l$updateInterval != lOther$updateInterval) {
       return false;
     }
+    final l$licenses = licenses;
+    final lOther$licenses = other.licenses;
+    if (l$licenses != lOther$licenses) {
+      return false;
+    }
     final l$symbol = symbol;
     final lOther$symbol = other.symbol;
     if (l$symbol != lOther$symbol) {
@@ -4361,16 +4616,6 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes {
     final l$remove = remove;
     final lOther$remove = other.remove;
     if (l$remove != lOther$remove) {
-      return false;
-    }
-    final l$labels = labels;
-    final lOther$labels = other.labels;
-    if (l$labels != lOther$labels) {
-      return false;
-    }
-    final l$licenses = licenses;
-    final lOther$licenses = other.licenses;
-    if (l$licenses != lOther$licenses) {
       return false;
     }
     final l$update_user = update_user;
@@ -4413,27 +4658,29 @@ abstract class CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes<
   TRes call({
     String? mstrLicenseId,
     String? code,
-    String? detail,
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$labels? labels,
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts? detailTexts,
     bool? publicLicense,
     bool? customerLicense,
     bool? organizationLicense,
     Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval?
     updateInterval,
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses? licenses,
     String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$labels? labels,
-    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses? licenses,
     Query$LicenseHoldersPageRead$allMstrLicenses$nodes$update_user? update_user,
     String? $__typename,
   });
+  CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$labels<TRes>
+  get labels;
+  CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts<TRes>
+  get detailTexts;
   CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval<
     TRes
   >
   get updateInterval;
-  CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$labels<TRes>
-  get labels;
   CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses<TRes>
   get licenses;
   CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$update_user<TRes>
@@ -4457,17 +4704,17 @@ class _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes<TRes>
   TRes call({
     Object? mstrLicenseId = _undefined,
     Object? code = _undefined,
-    Object? detail = _undefined,
+    Object? labels = _undefined,
+    Object? detailTexts = _undefined,
     Object? publicLicense = _undefined,
     Object? customerLicense = _undefined,
     Object? organizationLicense = _undefined,
     Object? updateInterval = _undefined,
+    Object? licenses = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
-    Object? labels = _undefined,
-    Object? licenses = _undefined,
     Object? update_user = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
@@ -4476,7 +4723,14 @@ class _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes<TRes>
           ? _instance.mstrLicenseId
           : (mstrLicenseId as String),
       code: code == _undefined ? _instance.code : (code as String?),
-      detail: detail == _undefined ? _instance.detail : (detail as String?),
+      labels: labels == _undefined
+          ? _instance.labels
+          : (labels
+                as Query$LicenseHoldersPageRead$allMstrLicenses$nodes$labels?),
+      detailTexts: detailTexts == _undefined
+          ? _instance.detailTexts
+          : (detailTexts
+                as Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts?),
       publicLicense: publicLicense == _undefined
           ? _instance.publicLicense
           : (publicLicense as bool?),
@@ -4490,20 +4744,16 @@ class _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes<TRes>
           ? _instance.updateInterval
           : (updateInterval
                 as Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval?),
+      licenses: licenses == _undefined || licenses == null
+          ? _instance.licenses
+          : (licenses
+                as Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
           : (updateAt as String?),
       remove: remove == _undefined ? _instance.remove : (remove as bool?),
-      labels: labels == _undefined
-          ? _instance.labels
-          : (labels
-                as Query$LicenseHoldersPageRead$allMstrLicenses$nodes$labels?),
-      licenses: licenses == _undefined || licenses == null
-          ? _instance.licenses
-          : (licenses
-                as Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses),
       update_user: update_user == _undefined
           ? _instance.update_user
           : (update_user
@@ -4513,6 +4763,32 @@ class _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes<TRes>
           : ($__typename as String),
     ),
   );
+
+  CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$labels<TRes>
+  get labels {
+    final local$labels = _instance.labels;
+    return local$labels == null
+        ? CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$labels.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$labels(
+            local$labels,
+            (e) => call(labels: e),
+          );
+  }
+
+  CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts<TRes>
+  get detailTexts {
+    final local$detailTexts = _instance.detailTexts;
+    return local$detailTexts == null
+        ? CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts(
+            local$detailTexts,
+            (e) => call(detailTexts: e),
+          );
+  }
 
   CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval<
     TRes
@@ -4526,19 +4802,6 @@ class _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes<TRes>
         : CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval(
             local$updateInterval,
             (e) => call(updateInterval: e),
-          );
-  }
-
-  CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$labels<TRes>
-  get labels {
-    final local$labels = _instance.labels;
-    return local$labels == null
-        ? CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$labels.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$labels(
-            local$labels,
-            (e) => call(labels: e),
           );
   }
 
@@ -4577,33 +4840,39 @@ class _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes<TRes>
   call({
     String? mstrLicenseId,
     String? code,
-    String? detail,
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$labels? labels,
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts? detailTexts,
     bool? publicLicense,
     bool? customerLicense,
     bool? organizationLicense,
     Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval?
     updateInterval,
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses? licenses,
     String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$labels? labels,
-    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses? licenses,
     Query$LicenseHoldersPageRead$allMstrLicenses$nodes$update_user? update_user,
     String? $__typename,
   }) => _res;
+
+  CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$labels<TRes>
+  get labels =>
+      CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$labels.stub(
+        _res,
+      );
+
+  CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts<TRes>
+  get detailTexts =>
+      CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts.stub(
+        _res,
+      );
 
   CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval<
     TRes
   >
   get updateInterval =>
       CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval.stub(
-        _res,
-      );
-
-  CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$labels<TRes>
-  get labels =>
-      CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$labels.stub(
         _res,
       );
 
@@ -4618,247 +4887,6 @@ class _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes<TRes>
       CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$update_user.stub(
         _res,
       );
-}
-
-class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval {
-  Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval({
-    this.years,
-    this.months,
-    this.days,
-    this.hours,
-    this.minutes,
-    this.seconds,
-    this.$__typename = 'Interval',
-  });
-
-  factory Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval.fromJson(
-    Map<String, dynamic> json,
-  ) {
-    final l$years = json['years'];
-    final l$months = json['months'];
-    final l$days = json['days'];
-    final l$hours = json['hours'];
-    final l$minutes = json['minutes'];
-    final l$seconds = json['seconds'];
-    final l$$__typename = json['__typename'];
-    return Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval(
-      years: (l$years as int?),
-      months: (l$months as int?),
-      days: (l$days as int?),
-      hours: (l$hours as int?),
-      minutes: (l$minutes as int?),
-      seconds: (l$seconds as num?)?.toDouble(),
-      $__typename: (l$$__typename as String),
-    );
-  }
-
-  final int? years;
-
-  final int? months;
-
-  final int? days;
-
-  final int? hours;
-
-  final int? minutes;
-
-  final double? seconds;
-
-  final String $__typename;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$years = years;
-    _resultData['years'] = l$years;
-    final l$months = months;
-    _resultData['months'] = l$months;
-    final l$days = days;
-    _resultData['days'] = l$days;
-    final l$hours = hours;
-    _resultData['hours'] = l$hours;
-    final l$minutes = minutes;
-    _resultData['minutes'] = l$minutes;
-    final l$seconds = seconds;
-    _resultData['seconds'] = l$seconds;
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$years = years;
-    final l$months = months;
-    final l$days = days;
-    final l$hours = hours;
-    final l$minutes = minutes;
-    final l$seconds = seconds;
-    final l$$__typename = $__typename;
-    return Object.hashAll([
-      l$years,
-      l$months,
-      l$days,
-      l$hours,
-      l$minutes,
-      l$seconds,
-      l$$__typename,
-    ]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (other
-            is! Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$years = years;
-    final lOther$years = other.years;
-    if (l$years != lOther$years) {
-      return false;
-    }
-    final l$months = months;
-    final lOther$months = other.months;
-    if (l$months != lOther$months) {
-      return false;
-    }
-    final l$days = days;
-    final lOther$days = other.days;
-    if (l$days != lOther$days) {
-      return false;
-    }
-    final l$hours = hours;
-    final lOther$hours = other.hours;
-    if (l$hours != lOther$hours) {
-      return false;
-    }
-    final l$minutes = minutes;
-    final lOther$minutes = other.minutes;
-    if (l$minutes != lOther$minutes) {
-      return false;
-    }
-    final l$seconds = seconds;
-    final lOther$seconds = other.seconds;
-    if (l$seconds != lOther$seconds) {
-      return false;
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval
-    on Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval {
-  CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval<
-    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval
-  >
-  get copyWith =>
-      CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval(
-        this,
-        (i) => i,
-      );
-}
-
-abstract class CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval<
-  TRes
-> {
-  factory CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval(
-    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval instance,
-    TRes Function(
-      Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval,
-    )
-    then,
-  ) = _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval;
-
-  factory CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval.stub(
-    TRes res,
-  ) = _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval;
-
-  TRes call({
-    int? years,
-    int? months,
-    int? days,
-    int? hours,
-    int? minutes,
-    double? seconds,
-    String? $__typename,
-  });
-}
-
-class _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval<
-  TRes
->
-    implements
-        CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval<
-          TRes
-        > {
-  _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval(
-    this._instance,
-    this._then,
-  );
-
-  final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval
-  _instance;
-
-  final TRes Function(
-    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval,
-  )
-  _then;
-
-  static const _undefined = <dynamic, dynamic>{};
-
-  TRes call({
-    Object? years = _undefined,
-    Object? months = _undefined,
-    Object? days = _undefined,
-    Object? hours = _undefined,
-    Object? minutes = _undefined,
-    Object? seconds = _undefined,
-    Object? $__typename = _undefined,
-  }) => _then(
-    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval(
-      years: years == _undefined ? _instance.years : (years as int?),
-      months: months == _undefined ? _instance.months : (months as int?),
-      days: days == _undefined ? _instance.days : (days as int?),
-      hours: hours == _undefined ? _instance.hours : (hours as int?),
-      minutes: minutes == _undefined ? _instance.minutes : (minutes as int?),
-      seconds: seconds == _undefined ? _instance.seconds : (seconds as double?),
-      $__typename: $__typename == _undefined || $__typename == null
-          ? _instance.$__typename
-          : ($__typename as String),
-    ),
-  );
-}
-
-class _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval<
-  TRes
->
-    implements
-        CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval<
-          TRes
-        > {
-  _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval(
-    this._res,
-  );
-
-  TRes _res;
-
-  call({
-    int? years,
-    int? months,
-    int? days,
-    int? hours,
-    int? minutes,
-    double? seconds,
-    String? $__typename,
-  }) => _res;
 }
 
 class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$labels {
@@ -6917,6 +6945,810 @@ class _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$label
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
+class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts {
+  Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts({
+    required this.sharedTextId,
+    required this.value,
+    this.$__typename = 'SharedText',
+  });
+
+  factory Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedTextId = json['sharedTextId'];
+    final l$value = json['value'];
+    final l$$__typename = json['__typename'];
+    return Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts(
+      sharedTextId: (l$sharedTextId as String),
+      value:
+          Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value.fromJson(
+            (l$value as Map<String, dynamic>),
+          ),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String sharedTextId;
+
+  final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value
+  value;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedTextId = sharedTextId;
+    _resultData['sharedTextId'] = l$sharedTextId;
+    final l$value = value;
+    _resultData['value'] = l$value.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedTextId = sharedTextId;
+    final l$value = value;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$sharedTextId, l$value, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedTextId = sharedTextId;
+    final lOther$sharedTextId = other.sharedTextId;
+    if (l$sharedTextId != lOther$sharedTextId) {
+      return false;
+    }
+    final l$value = value;
+    final lOther$value = other.value;
+    if (l$value != lOther$value) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts
+    on Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts {
+  CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts<
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts
+  >
+  get copyWith =>
+      CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts<
+  TRes
+> {
+  factory CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts(
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts instance,
+    TRes Function(
+      Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts,
+    )
+    then,
+  ) = _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts;
+
+  factory CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts;
+
+  TRes call({
+    String? sharedTextId,
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value? value,
+    String? $__typename,
+  });
+  CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value<
+    TRes
+  >
+  get value;
+}
+
+class _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts<
+  TRes
+>
+    implements
+        CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts<
+          TRes
+        > {
+  _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts(
+    this._instance,
+    this._then,
+  );
+
+  final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts
+  _instance;
+
+  final TRes Function(
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedTextId = _undefined,
+    Object? value = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts(
+      sharedTextId: sharedTextId == _undefined || sharedTextId == null
+          ? _instance.sharedTextId
+          : (sharedTextId as String),
+      value: value == _undefined || value == null
+          ? _instance.value
+          : (value
+                as Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value<
+    TRes
+  >
+  get value {
+    final local$value = _instance.value;
+    return CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value(
+      local$value,
+      (e) => call(value: e),
+    );
+  }
+}
+
+class _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts<
+  TRes
+>
+    implements
+        CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? sharedTextId,
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value? value,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value<
+    TRes
+  >
+  get value =>
+      CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value.stub(
+        _res,
+      );
+}
+
+class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value {
+  Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value({
+    required this.nodes,
+    this.$__typename = 'SharedTextValuesConnection',
+  });
+
+  factory Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value
+    on Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value {
+  CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value<
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value
+  >
+  get copyWith =>
+      CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value<
+  TRes
+> {
+  factory CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value(
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value
+    instance,
+    TRes Function(
+      Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value,
+    )
+    then,
+  ) = _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value;
+
+  factory CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value;
+
+  TRes call({
+    List<
+      Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes<
+          Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value<
+  TRes
+>
+    implements
+        CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value<
+          TRes
+        > {
+  _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value(
+    this._instance,
+    this._then,
+  );
+
+  final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value
+  _instance;
+
+  final TRes Function(
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes<
+          Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value<
+  TRes
+>
+    implements
+        CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes {
+  Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes({
+    this.textValue,
+    this.$__typename = 'SharedTextValue',
+  });
+
+  factory Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$textValue = json['textValue'];
+    final l$$__typename = json['__typename'];
+    return Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes(
+      textValue: (l$textValue as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? textValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$textValue = textValue;
+    _resultData['textValue'] = l$textValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$textValue = textValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$textValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$textValue = textValue;
+    final lOther$textValue = other.textValue;
+    if (l$textValue != lOther$textValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes
+    on Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes {
+  CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes<
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes<
+  TRes
+> {
+  factory CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes(
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes
+    instance,
+    TRes Function(
+      Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes;
+
+  factory CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes;
+
+  TRes call({String? textValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes
+  _instance;
+
+  final TRes Function(
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? textValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes(
+      textValue: textValue == _undefined
+          ? _instance.textValue
+          : (textValue as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$detailTexts$value$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? textValue, String? $__typename}) => _res;
+}
+
+class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval {
+  Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval({
+    this.seconds,
+    this.minutes,
+    this.hours,
+    this.days,
+    this.months,
+    this.years,
+    this.$__typename = 'Interval',
+  });
+
+  factory Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$seconds = json['seconds'];
+    final l$minutes = json['minutes'];
+    final l$hours = json['hours'];
+    final l$days = json['days'];
+    final l$months = json['months'];
+    final l$years = json['years'];
+    final l$$__typename = json['__typename'];
+    return Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval(
+      seconds: (l$seconds as num?)?.toDouble(),
+      minutes: (l$minutes as int?),
+      hours: (l$hours as int?),
+      days: (l$days as int?),
+      months: (l$months as int?),
+      years: (l$years as int?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final double? seconds;
+
+  final int? minutes;
+
+  final int? hours;
+
+  final int? days;
+
+  final int? months;
+
+  final int? years;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$seconds = seconds;
+    _resultData['seconds'] = l$seconds;
+    final l$minutes = minutes;
+    _resultData['minutes'] = l$minutes;
+    final l$hours = hours;
+    _resultData['hours'] = l$hours;
+    final l$days = days;
+    _resultData['days'] = l$days;
+    final l$months = months;
+    _resultData['months'] = l$months;
+    final l$years = years;
+    _resultData['years'] = l$years;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$seconds = seconds;
+    final l$minutes = minutes;
+    final l$hours = hours;
+    final l$days = days;
+    final l$months = months;
+    final l$years = years;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$seconds,
+      l$minutes,
+      l$hours,
+      l$days,
+      l$months,
+      l$years,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$seconds = seconds;
+    final lOther$seconds = other.seconds;
+    if (l$seconds != lOther$seconds) {
+      return false;
+    }
+    final l$minutes = minutes;
+    final lOther$minutes = other.minutes;
+    if (l$minutes != lOther$minutes) {
+      return false;
+    }
+    final l$hours = hours;
+    final lOther$hours = other.hours;
+    if (l$hours != lOther$hours) {
+      return false;
+    }
+    final l$days = days;
+    final lOther$days = other.days;
+    if (l$days != lOther$days) {
+      return false;
+    }
+    final l$months = months;
+    final lOther$months = other.months;
+    if (l$months != lOther$months) {
+      return false;
+    }
+    final l$years = years;
+    final lOther$years = other.years;
+    if (l$years != lOther$years) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval
+    on Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval {
+  CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval<
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval
+  >
+  get copyWith =>
+      CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval<
+  TRes
+> {
+  factory CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval(
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval instance,
+    TRes Function(
+      Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval,
+    )
+    then,
+  ) = _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval;
+
+  factory CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval;
+
+  TRes call({
+    double? seconds,
+    int? minutes,
+    int? hours,
+    int? days,
+    int? months,
+    int? years,
+    String? $__typename,
+  });
+}
+
+class _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval<
+  TRes
+>
+    implements
+        CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval<
+          TRes
+        > {
+  _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval(
+    this._instance,
+    this._then,
+  );
+
+  final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval
+  _instance;
+
+  final TRes Function(
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? seconds = _undefined,
+    Object? minutes = _undefined,
+    Object? hours = _undefined,
+    Object? days = _undefined,
+    Object? months = _undefined,
+    Object? years = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval(
+      seconds: seconds == _undefined ? _instance.seconds : (seconds as double?),
+      minutes: minutes == _undefined ? _instance.minutes : (minutes as int?),
+      hours: hours == _undefined ? _instance.hours : (hours as int?),
+      days: days == _undefined ? _instance.days : (days as int?),
+      months: months == _undefined ? _instance.months : (months as int?),
+      years: years == _undefined ? _instance.years : (years as int?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval<
+  TRes
+>
+    implements
+        CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updateInterval(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    double? seconds,
+    int? minutes,
+    int? hours,
+    int? days,
+    int? months,
+    int? years,
+    String? $__typename,
+  }) => _res;
+}
+
 class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses {
   Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses({
     required this.totalCount,
@@ -7359,15 +8191,15 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes {
   Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes({
     required this.mstrStaffLicenseId,
     required this.infoStaffId,
+    this.staff,
     required this.mstrLicenseId,
+    this.license,
     this.startAt,
     required this.stopAt,
     this.abeyance,
     this.abeyanceAt,
     this.revocation,
     this.revocationAt,
-    this.staff,
-    this.license,
     this.$__typename = 'MstrStaffLicense',
   });
 
@@ -7376,36 +8208,36 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes {
   ) {
     final l$mstrStaffLicenseId = json['mstrStaffLicenseId'];
     final l$infoStaffId = json['infoStaffId'];
+    final l$staff = json['staff'];
     final l$mstrLicenseId = json['mstrLicenseId'];
+    final l$license = json['license'];
     final l$startAt = json['startAt'];
     final l$stopAt = json['stopAt'];
     final l$abeyance = json['abeyance'];
     final l$abeyanceAt = json['abeyanceAt'];
     final l$revocation = json['revocation'];
     final l$revocationAt = json['revocationAt'];
-    final l$staff = json['staff'];
-    final l$license = json['license'];
     final l$$__typename = json['__typename'];
     return Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes(
       mstrStaffLicenseId: (l$mstrStaffLicenseId as String),
       infoStaffId: (l$infoStaffId as String),
+      staff: l$staff == null
+          ? null
+          : Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff.fromJson(
+              (l$staff as Map<String, dynamic>),
+            ),
       mstrLicenseId: (l$mstrLicenseId as String),
+      license: l$license == null
+          ? null
+          : Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license.fromJson(
+              (l$license as Map<String, dynamic>),
+            ),
       startAt: (l$startAt as String?),
       stopAt: (l$stopAt as String),
       abeyance: (l$abeyance as bool?),
       abeyanceAt: (l$abeyanceAt as String?),
       revocation: (l$revocation as bool?),
       revocationAt: (l$revocationAt as String?),
-      staff: l$staff == null
-          ? null
-          : Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff.fromJson(
-              (l$staff as Map<String, dynamic>),
-            ),
-      license: l$license == null
-          ? null
-          : Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license.fromJson(
-              (l$license as Map<String, dynamic>),
-            ),
       $__typename: (l$$__typename as String),
     );
   }
@@ -7414,7 +8246,13 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes {
 
   final String infoStaffId;
 
+  final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff?
+  staff;
+
   final String mstrLicenseId;
+
+  final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license?
+  license;
 
   final String? startAt;
 
@@ -7428,12 +8266,6 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes {
 
   final String? revocationAt;
 
-  final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff?
-  staff;
-
-  final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license?
-  license;
-
   final String $__typename;
 
   Map<String, dynamic> toJson() {
@@ -7442,8 +8274,12 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes {
     _resultData['mstrStaffLicenseId'] = l$mstrStaffLicenseId;
     final l$infoStaffId = infoStaffId;
     _resultData['infoStaffId'] = l$infoStaffId;
+    final l$staff = staff;
+    _resultData['staff'] = l$staff?.toJson();
     final l$mstrLicenseId = mstrLicenseId;
     _resultData['mstrLicenseId'] = l$mstrLicenseId;
+    final l$license = license;
+    _resultData['license'] = l$license?.toJson();
     final l$startAt = startAt;
     _resultData['startAt'] = l$startAt;
     final l$stopAt = stopAt;
@@ -7456,10 +8292,6 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes {
     _resultData['revocation'] = l$revocation;
     final l$revocationAt = revocationAt;
     _resultData['revocationAt'] = l$revocationAt;
-    final l$staff = staff;
-    _resultData['staff'] = l$staff?.toJson();
-    final l$license = license;
-    _resultData['license'] = l$license?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -7469,28 +8301,28 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes {
   int get hashCode {
     final l$mstrStaffLicenseId = mstrStaffLicenseId;
     final l$infoStaffId = infoStaffId;
+    final l$staff = staff;
     final l$mstrLicenseId = mstrLicenseId;
+    final l$license = license;
     final l$startAt = startAt;
     final l$stopAt = stopAt;
     final l$abeyance = abeyance;
     final l$abeyanceAt = abeyanceAt;
     final l$revocation = revocation;
     final l$revocationAt = revocationAt;
-    final l$staff = staff;
-    final l$license = license;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$mstrStaffLicenseId,
       l$infoStaffId,
+      l$staff,
       l$mstrLicenseId,
+      l$license,
       l$startAt,
       l$stopAt,
       l$abeyance,
       l$abeyanceAt,
       l$revocation,
       l$revocationAt,
-      l$staff,
-      l$license,
       l$$__typename,
     ]);
   }
@@ -7515,9 +8347,19 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes {
     if (l$infoStaffId != lOther$infoStaffId) {
       return false;
     }
+    final l$staff = staff;
+    final lOther$staff = other.staff;
+    if (l$staff != lOther$staff) {
+      return false;
+    }
     final l$mstrLicenseId = mstrLicenseId;
     final lOther$mstrLicenseId = other.mstrLicenseId;
     if (l$mstrLicenseId != lOther$mstrLicenseId) {
+      return false;
+    }
+    final l$license = license;
+    final lOther$license = other.license;
+    if (l$license != lOther$license) {
       return false;
     }
     final l$startAt = startAt;
@@ -7548,16 +8390,6 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes {
     final l$revocationAt = revocationAt;
     final lOther$revocationAt = other.revocationAt;
     if (l$revocationAt != lOther$revocationAt) {
-      return false;
-    }
-    final l$staff = staff;
-    final lOther$staff = other.staff;
-    if (l$staff != lOther$staff) {
-      return false;
-    }
-    final l$license = license;
-    final lOther$license = other.license;
-    if (l$license != lOther$license) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -7599,17 +8431,17 @@ abstract class CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licen
   TRes call({
     String? mstrStaffLicenseId,
     String? infoStaffId,
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff?
+    staff,
     String? mstrLicenseId,
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license?
+    license,
     String? startAt,
     String? stopAt,
     bool? abeyance,
     String? abeyanceAt,
     bool? revocation,
     String? revocationAt,
-    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff?
-    staff,
-    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license?
-    license,
     String? $__typename,
   });
   CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff<
@@ -7647,15 +8479,15 @@ class _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$
   TRes call({
     Object? mstrStaffLicenseId = _undefined,
     Object? infoStaffId = _undefined,
+    Object? staff = _undefined,
     Object? mstrLicenseId = _undefined,
+    Object? license = _undefined,
     Object? startAt = _undefined,
     Object? stopAt = _undefined,
     Object? abeyance = _undefined,
     Object? abeyanceAt = _undefined,
     Object? revocation = _undefined,
     Object? revocationAt = _undefined,
-    Object? staff = _undefined,
-    Object? license = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes(
@@ -7666,9 +8498,17 @@ class _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$
       infoStaffId: infoStaffId == _undefined || infoStaffId == null
           ? _instance.infoStaffId
           : (infoStaffId as String),
+      staff: staff == _undefined
+          ? _instance.staff
+          : (staff
+                as Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff?),
       mstrLicenseId: mstrLicenseId == _undefined || mstrLicenseId == null
           ? _instance.mstrLicenseId
           : (mstrLicenseId as String),
+      license: license == _undefined
+          ? _instance.license
+          : (license
+                as Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license?),
       startAt: startAt == _undefined ? _instance.startAt : (startAt as String?),
       stopAt: stopAt == _undefined || stopAt == null
           ? _instance.stopAt
@@ -7685,14 +8525,6 @@ class _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$
       revocationAt: revocationAt == _undefined
           ? _instance.revocationAt
           : (revocationAt as String?),
-      staff: staff == _undefined
-          ? _instance.staff
-          : (staff
-                as Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff?),
-      license: license == _undefined
-          ? _instance.license
-          : (license
-                as Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -7746,17 +8578,17 @@ class _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licen
   call({
     String? mstrStaffLicenseId,
     String? infoStaffId,
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff?
+    staff,
     String? mstrLicenseId,
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license?
+    license,
     String? startAt,
     String? stopAt,
     bool? abeyance,
     String? abeyanceAt,
     bool? revocation,
     String? revocationAt,
-    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff?
-    staff,
-    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license?
-    license,
     String? $__typename,
   }) => _res;
 
@@ -7782,6 +8614,7 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff {
     required this.infoStaffId,
     this.infoCompanyId,
     this.code,
+    this.labels,
     this.sex,
     this.phone,
     this.privatePhone,
@@ -7789,7 +8622,6 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff {
     this.remarks,
     this.updateAt,
     this.remove,
-    this.labels,
     this.update_user,
     this.$__typename = 'InfoStaff',
   });
@@ -7800,6 +8632,7 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff {
     final l$infoStaffId = json['infoStaffId'];
     final l$infoCompanyId = json['infoCompanyId'];
     final l$code = json['code'];
+    final l$labels = json['labels'];
     final l$sex = json['sex'];
     final l$phone = json['phone'];
     final l$privatePhone = json['privatePhone'];
@@ -7807,13 +8640,17 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff {
     final l$remarks = json['remarks'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
-    final l$labels = json['labels'];
     final l$update_user = json['update_user'];
     final l$$__typename = json['__typename'];
     return Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff(
       infoStaffId: (l$infoStaffId as String),
       infoCompanyId: (l$infoCompanyId as String?),
       code: (l$code as String?),
+      labels: l$labels == null
+          ? null
+          : Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$labels.fromJson(
+              (l$labels as Map<String, dynamic>),
+            ),
       sex: (l$sex as String?),
       phone: (l$phone as String?),
       privatePhone: (l$privatePhone as String?),
@@ -7821,11 +8658,6 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff {
       remarks: (l$remarks as String?),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
-      labels: l$labels == null
-          ? null
-          : Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$labels.fromJson(
-              (l$labels as Map<String, dynamic>),
-            ),
       update_user: l$update_user == null
           ? null
           : Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$update_user.fromJson(
@@ -7841,6 +8673,9 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff {
 
   final String? code;
 
+  final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$labels?
+  labels;
+
   final String? sex;
 
   final String? phone;
@@ -7855,9 +8690,6 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff {
 
   final bool? remove;
 
-  final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$labels?
-  labels;
-
   final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$update_user?
   update_user;
 
@@ -7871,6 +8703,8 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff {
     _resultData['infoCompanyId'] = l$infoCompanyId;
     final l$code = code;
     _resultData['code'] = l$code;
+    final l$labels = labels;
+    _resultData['labels'] = l$labels?.toJson();
     final l$sex = sex;
     _resultData['sex'] = l$sex;
     final l$phone = phone;
@@ -7885,8 +8719,6 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff {
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
     _resultData['remove'] = l$remove;
-    final l$labels = labels;
-    _resultData['labels'] = l$labels?.toJson();
     final l$update_user = update_user;
     _resultData['update_user'] = l$update_user?.toJson();
     final l$$__typename = $__typename;
@@ -7899,6 +8731,7 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff {
     final l$infoStaffId = infoStaffId;
     final l$infoCompanyId = infoCompanyId;
     final l$code = code;
+    final l$labels = labels;
     final l$sex = sex;
     final l$phone = phone;
     final l$privatePhone = privatePhone;
@@ -7906,13 +8739,13 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff {
     final l$remarks = remarks;
     final l$updateAt = updateAt;
     final l$remove = remove;
-    final l$labels = labels;
     final l$update_user = update_user;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$infoStaffId,
       l$infoCompanyId,
       l$code,
+      l$labels,
       l$sex,
       l$phone,
       l$privatePhone,
@@ -7920,7 +8753,6 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff {
       l$remarks,
       l$updateAt,
       l$remove,
-      l$labels,
       l$update_user,
       l$$__typename,
     ]);
@@ -7949,6 +8781,11 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff {
     final l$code = code;
     final lOther$code = other.code;
     if (l$code != lOther$code) {
+      return false;
+    }
+    final l$labels = labels;
+    final lOther$labels = other.labels;
+    if (l$labels != lOther$labels) {
       return false;
     }
     final l$sex = sex;
@@ -7984,11 +8821,6 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff {
     final l$remove = remove;
     final lOther$remove = other.remove;
     if (l$remove != lOther$remove) {
-      return false;
-    }
-    final l$labels = labels;
-    final lOther$labels = other.labels;
-    if (l$labels != lOther$labels) {
       return false;
     }
     final l$update_user = update_user;
@@ -8037,6 +8869,8 @@ abstract class CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licen
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$labels?
+    labels,
     String? sex,
     String? phone,
     String? privatePhone,
@@ -8044,8 +8878,6 @@ abstract class CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licen
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$labels?
-    labels,
     Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$update_user?
     update_user,
     String? $__typename,
@@ -8086,6 +8918,7 @@ class _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$
     Object? infoStaffId = _undefined,
     Object? infoCompanyId = _undefined,
     Object? code = _undefined,
+    Object? labels = _undefined,
     Object? sex = _undefined,
     Object? phone = _undefined,
     Object? privatePhone = _undefined,
@@ -8093,7 +8926,6 @@ class _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$
     Object? remarks = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
-    Object? labels = _undefined,
     Object? update_user = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
@@ -8105,6 +8937,10 @@ class _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$
           ? _instance.infoCompanyId
           : (infoCompanyId as String?),
       code: code == _undefined ? _instance.code : (code as String?),
+      labels: labels == _undefined
+          ? _instance.labels
+          : (labels
+                as Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$labels?),
       sex: sex == _undefined ? _instance.sex : (sex as String?),
       phone: phone == _undefined ? _instance.phone : (phone as String?),
       privatePhone: privatePhone == _undefined
@@ -8116,10 +8952,6 @@ class _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$
           ? _instance.updateAt
           : (updateAt as String?),
       remove: remove == _undefined ? _instance.remove : (remove as bool?),
-      labels: labels == _undefined
-          ? _instance.labels
-          : (labels
-                as Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$labels?),
       update_user: update_user == _undefined
           ? _instance.update_user
           : (update_user
@@ -8178,6 +9010,8 @@ class _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licen
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$labels?
+    labels,
     String? sex,
     String? phone,
     String? privatePhone,
@@ -8185,8 +9019,6 @@ class _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licen
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$labels?
-    labels,
     Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$update_user?
     update_user,
     String? $__typename,
@@ -10278,11 +11110,11 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$up
     required this.infoStaffId,
     this.infoCompanyId,
     this.code,
+    this.name,
     this.sex,
     this.phone,
     this.symbol,
     this.privatePhone,
-    this.name,
     this.$__typename = 'HistoryInfoStaff',
   });
 
@@ -10293,26 +11125,26 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$up
     final l$infoStaffId = json['infoStaffId'];
     final l$infoCompanyId = json['infoCompanyId'];
     final l$code = json['code'];
+    final l$name = json['name'];
     final l$sex = json['sex'];
     final l$phone = json['phone'];
     final l$symbol = json['symbol'];
     final l$privatePhone = json['privatePhone'];
-    final l$name = json['name'];
     final l$$__typename = json['__typename'];
     return Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
       infoCompanyId: (l$infoCompanyId as String?),
       code: (l$code as String?),
-      sex: (l$sex as String?),
-      phone: (l$phone as String?),
-      symbol: (l$symbol as String?),
-      privatePhone: (l$privatePhone as String?),
       name: l$name == null
           ? null
           : Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$update_user$name.fromJson(
               (l$name as Map<String, dynamic>),
             ),
+      sex: (l$sex as String?),
+      phone: (l$phone as String?),
+      symbol: (l$symbol as String?),
+      privatePhone: (l$privatePhone as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -10325,6 +11157,9 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$up
 
   final String? code;
 
+  final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$update_user$name?
+  name;
+
   final String? sex;
 
   final String? phone;
@@ -10332,9 +11167,6 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$up
   final String? symbol;
 
   final String? privatePhone;
-
-  final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$update_user$name?
-  name;
 
   final String $__typename;
 
@@ -10348,6 +11180,8 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$up
     _resultData['infoCompanyId'] = l$infoCompanyId;
     final l$code = code;
     _resultData['code'] = l$code;
+    final l$name = name;
+    _resultData['name'] = l$name?.toJson();
     final l$sex = sex;
     _resultData['sex'] = l$sex;
     final l$phone = phone;
@@ -10356,8 +11190,6 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$up
     _resultData['symbol'] = l$symbol;
     final l$privatePhone = privatePhone;
     _resultData['privatePhone'] = l$privatePhone;
-    final l$name = name;
-    _resultData['name'] = l$name?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -10369,22 +11201,22 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$up
     final l$infoStaffId = infoStaffId;
     final l$infoCompanyId = infoCompanyId;
     final l$code = code;
+    final l$name = name;
     final l$sex = sex;
     final l$phone = phone;
     final l$symbol = symbol;
     final l$privatePhone = privatePhone;
-    final l$name = name;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$historyId,
       l$infoStaffId,
       l$infoCompanyId,
       l$code,
+      l$name,
       l$sex,
       l$phone,
       l$symbol,
       l$privatePhone,
-      l$name,
       l$$__typename,
     ]);
   }
@@ -10419,6 +11251,11 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$up
     if (l$code != lOther$code) {
       return false;
     }
+    final l$name = name;
+    final lOther$name = other.name;
+    if (l$name != lOther$name) {
+      return false;
+    }
     final l$sex = sex;
     final lOther$sex = other.sex;
     if (l$sex != lOther$sex) {
@@ -10437,11 +11274,6 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$up
     final l$privatePhone = privatePhone;
     final lOther$privatePhone = other.privatePhone;
     if (l$privatePhone != lOther$privatePhone) {
-      return false;
-    }
-    final l$name = name;
-    final lOther$name = other.name;
-    if (l$name != lOther$name) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -10487,12 +11319,12 @@ abstract class CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licen
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$update_user$name?
+    name,
     String? sex,
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$update_user$name?
-    name,
     String? $__typename,
   });
   CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$update_user$name<
@@ -10528,11 +11360,11 @@ class _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$
     Object? infoStaffId = _undefined,
     Object? infoCompanyId = _undefined,
     Object? code = _undefined,
+    Object? name = _undefined,
     Object? sex = _undefined,
     Object? phone = _undefined,
     Object? symbol = _undefined,
     Object? privatePhone = _undefined,
-    Object? name = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$update_user(
@@ -10546,16 +11378,16 @@ class _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$
           ? _instance.infoCompanyId
           : (infoCompanyId as String?),
       code: code == _undefined ? _instance.code : (code as String?),
+      name: name == _undefined
+          ? _instance.name
+          : (name
+                as Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$update_user$name?),
       sex: sex == _undefined ? _instance.sex : (sex as String?),
       phone: phone == _undefined ? _instance.phone : (phone as String?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       privatePhone: privatePhone == _undefined
           ? _instance.privatePhone
           : (privatePhone as String?),
-      name: name == _undefined
-          ? _instance.name
-          : (name
-                as Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$update_user$name?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -10596,12 +11428,12 @@ class _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licen
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$update_user$name?
+    name,
     String? sex,
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$staff$update_user$name?
-    name,
     String? $__typename,
   }) => _res;
 
@@ -12682,7 +13514,8 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license 
   Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license({
     required this.mstrLicenseId,
     this.code,
-    this.detail,
+    this.labels,
+    this.detailTexts,
     this.publicLicense,
     this.customerLicense,
     this.organizationLicense,
@@ -12691,7 +13524,6 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license 
     this.remarks,
     this.updateAt,
     this.remove,
-    this.labels,
     this.update_user,
     this.$__typename = 'MstrLicense',
   });
@@ -12701,7 +13533,8 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license 
   ) {
     final l$mstrLicenseId = json['mstrLicenseId'];
     final l$code = json['code'];
-    final l$detail = json['detail'];
+    final l$labels = json['labels'];
+    final l$detailTexts = json['detailTexts'];
     final l$publicLicense = json['publicLicense'];
     final l$customerLicense = json['customerLicense'];
     final l$organizationLicense = json['organizationLicense'];
@@ -12710,13 +13543,21 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license 
     final l$remarks = json['remarks'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
-    final l$labels = json['labels'];
     final l$update_user = json['update_user'];
     final l$$__typename = json['__typename'];
     return Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license(
       mstrLicenseId: (l$mstrLicenseId as String),
       code: (l$code as String?),
-      detail: (l$detail as String?),
+      labels: l$labels == null
+          ? null
+          : Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$labels.fromJson(
+              (l$labels as Map<String, dynamic>),
+            ),
+      detailTexts: l$detailTexts == null
+          ? null
+          : Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts.fromJson(
+              (l$detailTexts as Map<String, dynamic>),
+            ),
       publicLicense: (l$publicLicense as bool?),
       customerLicense: (l$customerLicense as bool?),
       organizationLicense: (l$organizationLicense as bool?),
@@ -12729,11 +13570,6 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license 
       remarks: (l$remarks as String?),
       updateAt: (l$updateAt as String?),
       remove: (l$remove as bool?),
-      labels: l$labels == null
-          ? null
-          : Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$labels.fromJson(
-              (l$labels as Map<String, dynamic>),
-            ),
       update_user: l$update_user == null
           ? null
           : Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$update_user.fromJson(
@@ -12747,7 +13583,11 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license 
 
   final String? code;
 
-  final String? detail;
+  final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$labels?
+  labels;
+
+  final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts?
+  detailTexts;
 
   final bool? publicLicense;
 
@@ -12766,9 +13606,6 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license 
 
   final bool? remove;
 
-  final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$labels?
-  labels;
-
   final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$update_user?
   update_user;
 
@@ -12780,8 +13617,10 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license 
     _resultData['mstrLicenseId'] = l$mstrLicenseId;
     final l$code = code;
     _resultData['code'] = l$code;
-    final l$detail = detail;
-    _resultData['detail'] = l$detail;
+    final l$labels = labels;
+    _resultData['labels'] = l$labels?.toJson();
+    final l$detailTexts = detailTexts;
+    _resultData['detailTexts'] = l$detailTexts?.toJson();
     final l$publicLicense = publicLicense;
     _resultData['publicLicense'] = l$publicLicense;
     final l$customerLicense = customerLicense;
@@ -12798,8 +13637,6 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license 
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
     _resultData['remove'] = l$remove;
-    final l$labels = labels;
-    _resultData['labels'] = l$labels?.toJson();
     final l$update_user = update_user;
     _resultData['update_user'] = l$update_user?.toJson();
     final l$$__typename = $__typename;
@@ -12811,7 +13648,8 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license 
   int get hashCode {
     final l$mstrLicenseId = mstrLicenseId;
     final l$code = code;
-    final l$detail = detail;
+    final l$labels = labels;
+    final l$detailTexts = detailTexts;
     final l$publicLicense = publicLicense;
     final l$customerLicense = customerLicense;
     final l$organizationLicense = organizationLicense;
@@ -12820,13 +13658,13 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license 
     final l$remarks = remarks;
     final l$updateAt = updateAt;
     final l$remove = remove;
-    final l$labels = labels;
     final l$update_user = update_user;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$mstrLicenseId,
       l$code,
-      l$detail,
+      l$labels,
+      l$detailTexts,
       l$publicLicense,
       l$customerLicense,
       l$organizationLicense,
@@ -12835,7 +13673,6 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license 
       l$remarks,
       l$updateAt,
       l$remove,
-      l$labels,
       l$update_user,
       l$$__typename,
     ]);
@@ -12861,9 +13698,14 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license 
     if (l$code != lOther$code) {
       return false;
     }
-    final l$detail = detail;
-    final lOther$detail = other.detail;
-    if (l$detail != lOther$detail) {
+    final l$labels = labels;
+    final lOther$labels = other.labels;
+    if (l$labels != lOther$labels) {
+      return false;
+    }
+    final l$detailTexts = detailTexts;
+    final lOther$detailTexts = other.detailTexts;
+    if (l$detailTexts != lOther$detailTexts) {
       return false;
     }
     final l$publicLicense = publicLicense;
@@ -12904,11 +13746,6 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license 
     final l$remove = remove;
     final lOther$remove = other.remove;
     if (l$remove != lOther$remove) {
-      return false;
-    }
-    final l$labels = labels;
-    final lOther$labels = other.labels;
-    if (l$labels != lOther$labels) {
       return false;
     }
     final l$update_user = update_user;
@@ -12956,7 +13793,10 @@ abstract class CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licen
   TRes call({
     String? mstrLicenseId,
     String? code,
-    String? detail,
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$labels?
+    labels,
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts?
+    detailTexts,
     bool? publicLicense,
     bool? customerLicense,
     bool? organizationLicense,
@@ -12966,20 +13806,22 @@ abstract class CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licen
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$labels?
-    labels,
     Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$update_user?
     update_user,
     String? $__typename,
   });
-  CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval<
-    TRes
-  >
-  get updateInterval;
   CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$labels<
     TRes
   >
   get labels;
+  CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts<
+    TRes
+  >
+  get detailTexts;
+  CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval<
+    TRes
+  >
+  get updateInterval;
   CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$update_user<
     TRes
   >
@@ -13011,7 +13853,8 @@ class _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$
   TRes call({
     Object? mstrLicenseId = _undefined,
     Object? code = _undefined,
-    Object? detail = _undefined,
+    Object? labels = _undefined,
+    Object? detailTexts = _undefined,
     Object? publicLicense = _undefined,
     Object? customerLicense = _undefined,
     Object? organizationLicense = _undefined,
@@ -13020,7 +13863,6 @@ class _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$
     Object? remarks = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
-    Object? labels = _undefined,
     Object? update_user = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
@@ -13029,7 +13871,14 @@ class _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$
           ? _instance.mstrLicenseId
           : (mstrLicenseId as String),
       code: code == _undefined ? _instance.code : (code as String?),
-      detail: detail == _undefined ? _instance.detail : (detail as String?),
+      labels: labels == _undefined
+          ? _instance.labels
+          : (labels
+                as Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$labels?),
+      detailTexts: detailTexts == _undefined
+          ? _instance.detailTexts
+          : (detailTexts
+                as Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts?),
       publicLicense: publicLicense == _undefined
           ? _instance.publicLicense
           : (publicLicense as bool?),
@@ -13049,10 +13898,6 @@ class _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$
           ? _instance.updateAt
           : (updateAt as String?),
       remove: remove == _undefined ? _instance.remove : (remove as bool?),
-      labels: labels == _undefined
-          ? _instance.labels
-          : (labels
-                as Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$labels?),
       update_user: update_user == _undefined
           ? _instance.update_user
           : (update_user
@@ -13062,21 +13907,6 @@ class _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$
           : ($__typename as String),
     ),
   );
-
-  CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval<
-    TRes
-  >
-  get updateInterval {
-    final local$updateInterval = _instance.updateInterval;
-    return local$updateInterval == null
-        ? CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval(
-            local$updateInterval,
-            (e) => call(updateInterval: e),
-          );
-  }
 
   CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$labels<
     TRes
@@ -13090,6 +13920,36 @@ class _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$
         : CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$labels(
             local$labels,
             (e) => call(labels: e),
+          );
+  }
+
+  CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts<
+    TRes
+  >
+  get detailTexts {
+    final local$detailTexts = _instance.detailTexts;
+    return local$detailTexts == null
+        ? CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts(
+            local$detailTexts,
+            (e) => call(detailTexts: e),
+          );
+  }
+
+  CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval<
+    TRes
+  >
+  get updateInterval {
+    final local$updateInterval = _instance.updateInterval;
+    return local$updateInterval == null
+        ? CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval(
+            local$updateInterval,
+            (e) => call(updateInterval: e),
           );
   }
 
@@ -13125,7 +13985,10 @@ class _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licen
   call({
     String? mstrLicenseId,
     String? code,
-    String? detail,
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$labels?
+    labels,
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts?
+    detailTexts,
     bool? publicLicense,
     bool? customerLicense,
     bool? organizationLicense,
@@ -13135,26 +13998,32 @@ class _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licen
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$labels?
-    labels,
     Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$update_user?
     update_user,
     String? $__typename,
   }) => _res;
-
-  CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval<
-    TRes
-  >
-  get updateInterval =>
-      CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval.stub(
-        _res,
-      );
 
   CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$labels<
     TRes
   >
   get labels =>
       CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$labels.stub(
+        _res,
+      );
+
+  CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts<
+    TRes
+  >
+  get detailTexts =>
+      CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts.stub(
+        _res,
+      );
+
+  CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval<
+    TRes
+  >
+  get updateInterval =>
+      CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval.stub(
         _res,
       );
 
@@ -13165,249 +14034,6 @@ class _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licen
       CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$update_user.stub(
         _res,
       );
-}
-
-class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval {
-  Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval({
-    this.years,
-    this.months,
-    this.days,
-    this.hours,
-    this.minutes,
-    this.seconds,
-    this.$__typename = 'Interval',
-  });
-
-  factory Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval.fromJson(
-    Map<String, dynamic> json,
-  ) {
-    final l$years = json['years'];
-    final l$months = json['months'];
-    final l$days = json['days'];
-    final l$hours = json['hours'];
-    final l$minutes = json['minutes'];
-    final l$seconds = json['seconds'];
-    final l$$__typename = json['__typename'];
-    return Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval(
-      years: (l$years as int?),
-      months: (l$months as int?),
-      days: (l$days as int?),
-      hours: (l$hours as int?),
-      minutes: (l$minutes as int?),
-      seconds: (l$seconds as num?)?.toDouble(),
-      $__typename: (l$$__typename as String),
-    );
-  }
-
-  final int? years;
-
-  final int? months;
-
-  final int? days;
-
-  final int? hours;
-
-  final int? minutes;
-
-  final double? seconds;
-
-  final String $__typename;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$years = years;
-    _resultData['years'] = l$years;
-    final l$months = months;
-    _resultData['months'] = l$months;
-    final l$days = days;
-    _resultData['days'] = l$days;
-    final l$hours = hours;
-    _resultData['hours'] = l$hours;
-    final l$minutes = minutes;
-    _resultData['minutes'] = l$minutes;
-    final l$seconds = seconds;
-    _resultData['seconds'] = l$seconds;
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$years = years;
-    final l$months = months;
-    final l$days = days;
-    final l$hours = hours;
-    final l$minutes = minutes;
-    final l$seconds = seconds;
-    final l$$__typename = $__typename;
-    return Object.hashAll([
-      l$years,
-      l$months,
-      l$days,
-      l$hours,
-      l$minutes,
-      l$seconds,
-      l$$__typename,
-    ]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (other
-            is! Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$years = years;
-    final lOther$years = other.years;
-    if (l$years != lOther$years) {
-      return false;
-    }
-    final l$months = months;
-    final lOther$months = other.months;
-    if (l$months != lOther$months) {
-      return false;
-    }
-    final l$days = days;
-    final lOther$days = other.days;
-    if (l$days != lOther$days) {
-      return false;
-    }
-    final l$hours = hours;
-    final lOther$hours = other.hours;
-    if (l$hours != lOther$hours) {
-      return false;
-    }
-    final l$minutes = minutes;
-    final lOther$minutes = other.minutes;
-    if (l$minutes != lOther$minutes) {
-      return false;
-    }
-    final l$seconds = seconds;
-    final lOther$seconds = other.seconds;
-    if (l$seconds != lOther$seconds) {
-      return false;
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval
-    on
-        Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval {
-  CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval<
-    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval
-  >
-  get copyWith =>
-      CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval(
-        this,
-        (i) => i,
-      );
-}
-
-abstract class CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval<
-  TRes
-> {
-  factory CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval(
-    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval
-    instance,
-    TRes Function(
-      Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval,
-    )
-    then,
-  ) = _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval;
-
-  factory CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval.stub(
-    TRes res,
-  ) = _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval;
-
-  TRes call({
-    int? years,
-    int? months,
-    int? days,
-    int? hours,
-    int? minutes,
-    double? seconds,
-    String? $__typename,
-  });
-}
-
-class _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval<
-  TRes
->
-    implements
-        CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval<
-          TRes
-        > {
-  _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval(
-    this._instance,
-    this._then,
-  );
-
-  final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval
-  _instance;
-
-  final TRes Function(
-    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval,
-  )
-  _then;
-
-  static const _undefined = <dynamic, dynamic>{};
-
-  TRes call({
-    Object? years = _undefined,
-    Object? months = _undefined,
-    Object? days = _undefined,
-    Object? hours = _undefined,
-    Object? minutes = _undefined,
-    Object? seconds = _undefined,
-    Object? $__typename = _undefined,
-  }) => _then(
-    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval(
-      years: years == _undefined ? _instance.years : (years as int?),
-      months: months == _undefined ? _instance.months : (months as int?),
-      days: days == _undefined ? _instance.days : (days as int?),
-      hours: hours == _undefined ? _instance.hours : (hours as int?),
-      minutes: minutes == _undefined ? _instance.minutes : (minutes as int?),
-      seconds: seconds == _undefined ? _instance.seconds : (seconds as double?),
-      $__typename: $__typename == _undefined || $__typename == null
-          ? _instance.$__typename
-          : ($__typename as String),
-    ),
-  );
-}
-
-class _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval<
-  TRes
->
-    implements
-        CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval<
-          TRes
-        > {
-  _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval(
-    this._res,
-  );
-
-  TRes _res;
-
-  call({
-    int? years,
-    int? months,
-    int? days,
-    int? hours,
-    int? minutes,
-    double? seconds,
-    String? $__typename,
-  }) => _res;
 }
 
 class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$labels {
@@ -15474,17 +16100,829 @@ class _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licen
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
+class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts {
+  Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts({
+    required this.sharedTextId,
+    required this.value,
+    this.$__typename = 'SharedText',
+  });
+
+  factory Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedTextId = json['sharedTextId'];
+    final l$value = json['value'];
+    final l$$__typename = json['__typename'];
+    return Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts(
+      sharedTextId: (l$sharedTextId as String),
+      value:
+          Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value.fromJson(
+            (l$value as Map<String, dynamic>),
+          ),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String sharedTextId;
+
+  final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value
+  value;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedTextId = sharedTextId;
+    _resultData['sharedTextId'] = l$sharedTextId;
+    final l$value = value;
+    _resultData['value'] = l$value.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedTextId = sharedTextId;
+    final l$value = value;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$sharedTextId, l$value, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedTextId = sharedTextId;
+    final lOther$sharedTextId = other.sharedTextId;
+    if (l$sharedTextId != lOther$sharedTextId) {
+      return false;
+    }
+    final l$value = value;
+    final lOther$value = other.value;
+    if (l$value != lOther$value) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts
+    on
+        Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts {
+  CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts<
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts
+  >
+  get copyWith =>
+      CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts<
+  TRes
+> {
+  factory CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts(
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts
+    instance,
+    TRes Function(
+      Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts,
+    )
+    then,
+  ) = _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts;
+
+  factory CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts;
+
+  TRes call({
+    String? sharedTextId,
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value?
+    value,
+    String? $__typename,
+  });
+  CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value<
+    TRes
+  >
+  get value;
+}
+
+class _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts<
+  TRes
+>
+    implements
+        CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts<
+          TRes
+        > {
+  _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts(
+    this._instance,
+    this._then,
+  );
+
+  final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts
+  _instance;
+
+  final TRes Function(
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedTextId = _undefined,
+    Object? value = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts(
+      sharedTextId: sharedTextId == _undefined || sharedTextId == null
+          ? _instance.sharedTextId
+          : (sharedTextId as String),
+      value: value == _undefined || value == null
+          ? _instance.value
+          : (value
+                as Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value<
+    TRes
+  >
+  get value {
+    final local$value = _instance.value;
+    return CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value(
+      local$value,
+      (e) => call(value: e),
+    );
+  }
+}
+
+class _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts<
+  TRes
+>
+    implements
+        CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? sharedTextId,
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value?
+    value,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value<
+    TRes
+  >
+  get value =>
+      CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value.stub(
+        _res,
+      );
+}
+
+class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value {
+  Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value({
+    required this.nodes,
+    this.$__typename = 'SharedTextValuesConnection',
+  });
+
+  factory Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value
+    on
+        Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value {
+  CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value<
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value
+  >
+  get copyWith =>
+      CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value<
+  TRes
+> {
+  factory CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value(
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value
+    instance,
+    TRes Function(
+      Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value,
+    )
+    then,
+  ) = _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value;
+
+  factory CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value;
+
+  TRes call({
+    List<
+      Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes<
+          Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value<
+  TRes
+>
+    implements
+        CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value<
+          TRes
+        > {
+  _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value(
+    this._instance,
+    this._then,
+  );
+
+  final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value
+  _instance;
+
+  final TRes Function(
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes<
+          Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value<
+  TRes
+>
+    implements
+        CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<
+      Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes?
+    >?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes {
+  Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes({
+    this.textValue,
+    this.$__typename = 'SharedTextValue',
+  });
+
+  factory Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$textValue = json['textValue'];
+    final l$$__typename = json['__typename'];
+    return Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes(
+      textValue: (l$textValue as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? textValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$textValue = textValue;
+    _resultData['textValue'] = l$textValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$textValue = textValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$textValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$textValue = textValue;
+    final lOther$textValue = other.textValue;
+    if (l$textValue != lOther$textValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes
+    on
+        Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes {
+  CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes<
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes<
+  TRes
+> {
+  factory CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes(
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes
+    instance,
+    TRes Function(
+      Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes;
+
+  factory CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes;
+
+  TRes call({String? textValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes
+  _instance;
+
+  final TRes Function(
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? textValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes(
+      textValue: textValue == _undefined
+          ? _instance.textValue
+          : (textValue as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$detailTexts$value$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? textValue, String? $__typename}) => _res;
+}
+
+class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval {
+  Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval({
+    this.seconds,
+    this.minutes,
+    this.hours,
+    this.days,
+    this.months,
+    this.years,
+    this.$__typename = 'Interval',
+  });
+
+  factory Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$seconds = json['seconds'];
+    final l$minutes = json['minutes'];
+    final l$hours = json['hours'];
+    final l$days = json['days'];
+    final l$months = json['months'];
+    final l$years = json['years'];
+    final l$$__typename = json['__typename'];
+    return Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval(
+      seconds: (l$seconds as num?)?.toDouble(),
+      minutes: (l$minutes as int?),
+      hours: (l$hours as int?),
+      days: (l$days as int?),
+      months: (l$months as int?),
+      years: (l$years as int?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final double? seconds;
+
+  final int? minutes;
+
+  final int? hours;
+
+  final int? days;
+
+  final int? months;
+
+  final int? years;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$seconds = seconds;
+    _resultData['seconds'] = l$seconds;
+    final l$minutes = minutes;
+    _resultData['minutes'] = l$minutes;
+    final l$hours = hours;
+    _resultData['hours'] = l$hours;
+    final l$days = days;
+    _resultData['days'] = l$days;
+    final l$months = months;
+    _resultData['months'] = l$months;
+    final l$years = years;
+    _resultData['years'] = l$years;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$seconds = seconds;
+    final l$minutes = minutes;
+    final l$hours = hours;
+    final l$days = days;
+    final l$months = months;
+    final l$years = years;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$seconds,
+      l$minutes,
+      l$hours,
+      l$days,
+      l$months,
+      l$years,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$seconds = seconds;
+    final lOther$seconds = other.seconds;
+    if (l$seconds != lOther$seconds) {
+      return false;
+    }
+    final l$minutes = minutes;
+    final lOther$minutes = other.minutes;
+    if (l$minutes != lOther$minutes) {
+      return false;
+    }
+    final l$hours = hours;
+    final lOther$hours = other.hours;
+    if (l$hours != lOther$hours) {
+      return false;
+    }
+    final l$days = days;
+    final lOther$days = other.days;
+    if (l$days != lOther$days) {
+      return false;
+    }
+    final l$months = months;
+    final lOther$months = other.months;
+    if (l$months != lOther$months) {
+      return false;
+    }
+    final l$years = years;
+    final lOther$years = other.years;
+    if (l$years != lOther$years) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval
+    on
+        Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval {
+  CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval<
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval
+  >
+  get copyWith =>
+      CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval<
+  TRes
+> {
+  factory CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval(
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval
+    instance,
+    TRes Function(
+      Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval,
+    )
+    then,
+  ) = _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval;
+
+  factory CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval;
+
+  TRes call({
+    double? seconds,
+    int? minutes,
+    int? hours,
+    int? days,
+    int? months,
+    int? years,
+    String? $__typename,
+  });
+}
+
+class _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval<
+  TRes
+>
+    implements
+        CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval<
+          TRes
+        > {
+  _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval(
+    this._instance,
+    this._then,
+  );
+
+  final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval
+  _instance;
+
+  final TRes Function(
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? seconds = _undefined,
+    Object? minutes = _undefined,
+    Object? hours = _undefined,
+    Object? days = _undefined,
+    Object? months = _undefined,
+    Object? years = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval(
+      seconds: seconds == _undefined ? _instance.seconds : (seconds as double?),
+      minutes: minutes == _undefined ? _instance.minutes : (minutes as int?),
+      hours: hours == _undefined ? _instance.hours : (hours as int?),
+      days: days == _undefined ? _instance.days : (days as int?),
+      months: months == _undefined ? _instance.months : (months as int?),
+      years: years == _undefined ? _instance.years : (years as int?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval<
+  TRes
+>
+    implements
+        CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$updateInterval(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    double? seconds,
+    int? minutes,
+    int? hours,
+    int? days,
+    int? months,
+    int? years,
+    String? $__typename,
+  }) => _res;
+}
+
 class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$update_user {
   Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$update_user({
     required this.historyId,
     required this.infoStaffId,
     this.infoCompanyId,
     this.code,
+    this.name,
     this.sex,
     this.phone,
     this.symbol,
     this.privatePhone,
-    this.name,
     this.$__typename = 'HistoryInfoStaff',
   });
 
@@ -15495,26 +16933,26 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$
     final l$infoStaffId = json['infoStaffId'];
     final l$infoCompanyId = json['infoCompanyId'];
     final l$code = json['code'];
+    final l$name = json['name'];
     final l$sex = json['sex'];
     final l$phone = json['phone'];
     final l$symbol = json['symbol'];
     final l$privatePhone = json['privatePhone'];
-    final l$name = json['name'];
     final l$$__typename = json['__typename'];
     return Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
       infoCompanyId: (l$infoCompanyId as String?),
       code: (l$code as String?),
-      sex: (l$sex as String?),
-      phone: (l$phone as String?),
-      symbol: (l$symbol as String?),
-      privatePhone: (l$privatePhone as String?),
       name: l$name == null
           ? null
           : Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$update_user$name.fromJson(
               (l$name as Map<String, dynamic>),
             ),
+      sex: (l$sex as String?),
+      phone: (l$phone as String?),
+      symbol: (l$symbol as String?),
+      privatePhone: (l$privatePhone as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -15527,6 +16965,9 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$
 
   final String? code;
 
+  final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$update_user$name?
+  name;
+
   final String? sex;
 
   final String? phone;
@@ -15534,9 +16975,6 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$
   final String? symbol;
 
   final String? privatePhone;
-
-  final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$update_user$name?
-  name;
 
   final String $__typename;
 
@@ -15550,6 +16988,8 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$
     _resultData['infoCompanyId'] = l$infoCompanyId;
     final l$code = code;
     _resultData['code'] = l$code;
+    final l$name = name;
+    _resultData['name'] = l$name?.toJson();
     final l$sex = sex;
     _resultData['sex'] = l$sex;
     final l$phone = phone;
@@ -15558,8 +16998,6 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$
     _resultData['symbol'] = l$symbol;
     final l$privatePhone = privatePhone;
     _resultData['privatePhone'] = l$privatePhone;
-    final l$name = name;
-    _resultData['name'] = l$name?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -15571,22 +17009,22 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$
     final l$infoStaffId = infoStaffId;
     final l$infoCompanyId = infoCompanyId;
     final l$code = code;
+    final l$name = name;
     final l$sex = sex;
     final l$phone = phone;
     final l$symbol = symbol;
     final l$privatePhone = privatePhone;
-    final l$name = name;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$historyId,
       l$infoStaffId,
       l$infoCompanyId,
       l$code,
+      l$name,
       l$sex,
       l$phone,
       l$symbol,
       l$privatePhone,
-      l$name,
       l$$__typename,
     ]);
   }
@@ -15621,6 +17059,11 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$
     if (l$code != lOther$code) {
       return false;
     }
+    final l$name = name;
+    final lOther$name = other.name;
+    if (l$name != lOther$name) {
+      return false;
+    }
     final l$sex = sex;
     final lOther$sex = other.sex;
     if (l$sex != lOther$sex) {
@@ -15639,11 +17082,6 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$
     final l$privatePhone = privatePhone;
     final lOther$privatePhone = other.privatePhone;
     if (l$privatePhone != lOther$privatePhone) {
-      return false;
-    }
-    final l$name = name;
-    final lOther$name = other.name;
-    if (l$name != lOther$name) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -15689,12 +17127,12 @@ abstract class CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licen
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$update_user$name?
+    name,
     String? sex,
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$update_user$name?
-    name,
     String? $__typename,
   });
   CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$update_user$name<
@@ -15730,11 +17168,11 @@ class _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$
     Object? infoStaffId = _undefined,
     Object? infoCompanyId = _undefined,
     Object? code = _undefined,
+    Object? name = _undefined,
     Object? sex = _undefined,
     Object? phone = _undefined,
     Object? symbol = _undefined,
     Object? privatePhone = _undefined,
-    Object? name = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$update_user(
@@ -15748,16 +17186,16 @@ class _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$
           ? _instance.infoCompanyId
           : (infoCompanyId as String?),
       code: code == _undefined ? _instance.code : (code as String?),
+      name: name == _undefined
+          ? _instance.name
+          : (name
+                as Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$update_user$name?),
       sex: sex == _undefined ? _instance.sex : (sex as String?),
       phone: phone == _undefined ? _instance.phone : (phone as String?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       privatePhone: privatePhone == _undefined
           ? _instance.privatePhone
           : (privatePhone as String?),
-      name: name == _undefined
-          ? _instance.name
-          : (name
-                as Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$update_user$name?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -15798,12 +17236,12 @@ class _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licen
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$update_user$name?
+    name,
     String? sex,
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$licenses$nodes$license$update_user$name?
-    name,
     String? $__typename,
   }) => _res;
 
@@ -17886,11 +19324,11 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$update_user {
     required this.infoStaffId,
     this.infoCompanyId,
     this.code,
+    this.name,
     this.sex,
     this.phone,
     this.symbol,
     this.privatePhone,
-    this.name,
     this.$__typename = 'HistoryInfoStaff',
   });
 
@@ -17901,26 +19339,26 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$update_user {
     final l$infoStaffId = json['infoStaffId'];
     final l$infoCompanyId = json['infoCompanyId'];
     final l$code = json['code'];
+    final l$name = json['name'];
     final l$sex = json['sex'];
     final l$phone = json['phone'];
     final l$symbol = json['symbol'];
     final l$privatePhone = json['privatePhone'];
-    final l$name = json['name'];
     final l$$__typename = json['__typename'];
     return Query$LicenseHoldersPageRead$allMstrLicenses$nodes$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
       infoCompanyId: (l$infoCompanyId as String?),
       code: (l$code as String?),
-      sex: (l$sex as String?),
-      phone: (l$phone as String?),
-      symbol: (l$symbol as String?),
-      privatePhone: (l$privatePhone as String?),
       name: l$name == null
           ? null
           : Query$LicenseHoldersPageRead$allMstrLicenses$nodes$update_user$name.fromJson(
               (l$name as Map<String, dynamic>),
             ),
+      sex: (l$sex as String?),
+      phone: (l$phone as String?),
+      symbol: (l$symbol as String?),
+      privatePhone: (l$privatePhone as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -17933,6 +19371,9 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$update_user {
 
   final String? code;
 
+  final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$update_user$name?
+  name;
+
   final String? sex;
 
   final String? phone;
@@ -17940,9 +19381,6 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$update_user {
   final String? symbol;
 
   final String? privatePhone;
-
-  final Query$LicenseHoldersPageRead$allMstrLicenses$nodes$update_user$name?
-  name;
 
   final String $__typename;
 
@@ -17956,6 +19394,8 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$update_user {
     _resultData['infoCompanyId'] = l$infoCompanyId;
     final l$code = code;
     _resultData['code'] = l$code;
+    final l$name = name;
+    _resultData['name'] = l$name?.toJson();
     final l$sex = sex;
     _resultData['sex'] = l$sex;
     final l$phone = phone;
@@ -17964,8 +19404,6 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$update_user {
     _resultData['symbol'] = l$symbol;
     final l$privatePhone = privatePhone;
     _resultData['privatePhone'] = l$privatePhone;
-    final l$name = name;
-    _resultData['name'] = l$name?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -17977,22 +19415,22 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$update_user {
     final l$infoStaffId = infoStaffId;
     final l$infoCompanyId = infoCompanyId;
     final l$code = code;
+    final l$name = name;
     final l$sex = sex;
     final l$phone = phone;
     final l$symbol = symbol;
     final l$privatePhone = privatePhone;
-    final l$name = name;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$historyId,
       l$infoStaffId,
       l$infoCompanyId,
       l$code,
+      l$name,
       l$sex,
       l$phone,
       l$symbol,
       l$privatePhone,
-      l$name,
       l$$__typename,
     ]);
   }
@@ -18027,6 +19465,11 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$update_user {
     if (l$code != lOther$code) {
       return false;
     }
+    final l$name = name;
+    final lOther$name = other.name;
+    if (l$name != lOther$name) {
+      return false;
+    }
     final l$sex = sex;
     final lOther$sex = other.sex;
     if (l$sex != lOther$sex) {
@@ -18045,11 +19488,6 @@ class Query$LicenseHoldersPageRead$allMstrLicenses$nodes$update_user {
     final l$privatePhone = privatePhone;
     final lOther$privatePhone = other.privatePhone;
     if (l$privatePhone != lOther$privatePhone) {
-      return false;
-    }
-    final l$name = name;
-    final lOther$name = other.name;
-    if (l$name != lOther$name) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -18093,11 +19531,11 @@ abstract class CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updat
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$update_user$name? name,
     String? sex,
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$update_user$name? name,
     String? $__typename,
   });
   CopyWith$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$update_user$name<
@@ -18133,11 +19571,11 @@ class _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$update_us
     Object? infoStaffId = _undefined,
     Object? infoCompanyId = _undefined,
     Object? code = _undefined,
+    Object? name = _undefined,
     Object? sex = _undefined,
     Object? phone = _undefined,
     Object? symbol = _undefined,
     Object? privatePhone = _undefined,
-    Object? name = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$LicenseHoldersPageRead$allMstrLicenses$nodes$update_user(
@@ -18151,16 +19589,16 @@ class _CopyWithImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$update_us
           ? _instance.infoCompanyId
           : (infoCompanyId as String?),
       code: code == _undefined ? _instance.code : (code as String?),
+      name: name == _undefined
+          ? _instance.name
+          : (name
+                as Query$LicenseHoldersPageRead$allMstrLicenses$nodes$update_user$name?),
       sex: sex == _undefined ? _instance.sex : (sex as String?),
       phone: phone == _undefined ? _instance.phone : (phone as String?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       privatePhone: privatePhone == _undefined
           ? _instance.privatePhone
           : (privatePhone as String?),
-      name: name == _undefined
-          ? _instance.name
-          : (name
-                as Query$LicenseHoldersPageRead$allMstrLicenses$nodes$update_user$name?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -18201,11 +19639,11 @@ class _CopyWithStubImpl$Query$LicenseHoldersPageRead$allMstrLicenses$nodes$updat
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$update_user$name? name,
     String? sex,
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$LicenseHoldersPageRead$allMstrLicenses$nodes$update_user$name? name,
     String? $__typename,
   }) => _res;
 

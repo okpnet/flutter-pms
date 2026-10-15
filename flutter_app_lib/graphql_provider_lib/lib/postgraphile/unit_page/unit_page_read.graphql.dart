@@ -419,11 +419,7 @@ const documentNodeQueryUnitPageRead = DocumentNode(
             ),
             isNonNull: false,
           ),
-          defaultValue: DefaultValueNode(
-            value: ListValueNode(
-              values: [EnumValueNode(name: NameNode(value: 'PRIMARY_KEY_ASC'))],
-            ),
-          ),
+          defaultValue: DefaultValueNode(value: null),
           directives: [],
         ),
         VariableDefinitionNode(
@@ -544,41 +540,6 @@ const documentNodeQueryUnitPageRead = DocumentNode(
                     selections: [
                       FieldNode(
                         name: NameNode(value: 'sharedUnitId'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'description'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'symbol'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'remarks'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'updateAt'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'remove'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -888,6 +849,119 @@ const documentNodeQueryUnitPageRead = DocumentNode(
                         ),
                       ),
                       FieldNode(
+                        name: NameNode(value: 'sharedTextByDetails'),
+                        alias: NameNode(value: 'detailTexts'),
+                        arguments: [],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'sharedTextId'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(
+                                value: 'sharedTextValuesBySharedTextId',
+                              ),
+                              alias: NameNode(value: 'value'),
+                              arguments: [
+                                ArgumentNode(
+                                  name: NameNode(value: 'condition'),
+                                  value: ObjectValueNode(
+                                    fields: [
+                                      ObjectFieldNode(
+                                        name: NameNode(
+                                          value: 'sharedLanguageCodeId',
+                                        ),
+                                        value: VariableNode(
+                                          name: NameNode(
+                                            value: 'languageCodeId',
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                              directives: [],
+                              selectionSet: SelectionSetNode(
+                                selections: [
+                                  FieldNode(
+                                    name: NameNode(value: 'nodes'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: SelectionSetNode(
+                                      selections: [
+                                        FieldNode(
+                                          name: NameNode(value: 'textValue'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                        FieldNode(
+                                          name: NameNode(value: '__typename'),
+                                          alias: null,
+                                          arguments: [],
+                                          directives: [],
+                                          selectionSet: null,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: '__typename'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'symbol'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'remarks'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'updateAt'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'remove'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
                         name: NameNode(
                           value:
                               'historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId',
@@ -920,34 +994,6 @@ const documentNodeQueryUnitPageRead = DocumentNode(
                             ),
                             FieldNode(
                               name: NameNode(value: 'code'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'sex'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'phone'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'symbol'),
-                              alias: null,
-                              arguments: [],
-                              directives: [],
-                              selectionSet: null,
-                            ),
-                            FieldNode(
-                              name: NameNode(value: 'privatePhone'),
                               alias: null,
                               arguments: [],
                               directives: [],
@@ -1281,6 +1327,34 @@ const documentNodeQueryUnitPageRead = DocumentNode(
                                   ),
                                 ],
                               ),
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'sex'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'phone'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'symbol'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                            FieldNode(
+                              name: NameNode(value: 'privatePhone'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
                             ),
                             FieldNode(
                               name: NameNode(value: '__typename'),
@@ -1830,12 +1904,12 @@ class _CopyWithStubImpl$Query$UnitPageRead$allSharedUnits$pageInfo<TRes>
 class Query$UnitPageRead$allSharedUnits$nodes {
   Query$UnitPageRead$allSharedUnits$nodes({
     required this.sharedUnitId,
-    this.description,
+    this.labels,
+    this.detailTexts,
     this.symbol,
     this.remarks,
     this.updateAt,
     this.remove,
-    this.labels,
     this.update_user,
     this.$__typename = 'SharedUnit',
   });
@@ -1844,26 +1918,30 @@ class Query$UnitPageRead$allSharedUnits$nodes {
     Map<String, dynamic> json,
   ) {
     final l$sharedUnitId = json['sharedUnitId'];
-    final l$description = json['description'];
+    final l$labels = json['labels'];
+    final l$detailTexts = json['detailTexts'];
     final l$symbol = json['symbol'];
     final l$remarks = json['remarks'];
     final l$updateAt = json['updateAt'];
     final l$remove = json['remove'];
-    final l$labels = json['labels'];
     final l$update_user = json['update_user'];
     final l$$__typename = json['__typename'];
     return Query$UnitPageRead$allSharedUnits$nodes(
       sharedUnitId: (l$sharedUnitId as String),
-      description: (l$description as String?),
-      symbol: (l$symbol as String?),
-      remarks: (l$remarks as String?),
-      updateAt: (l$updateAt as String?),
-      remove: (l$remove as bool?),
       labels: l$labels == null
           ? null
           : Query$UnitPageRead$allSharedUnits$nodes$labels.fromJson(
               (l$labels as Map<String, dynamic>),
             ),
+      detailTexts: l$detailTexts == null
+          ? null
+          : Query$UnitPageRead$allSharedUnits$nodes$detailTexts.fromJson(
+              (l$detailTexts as Map<String, dynamic>),
+            ),
+      symbol: (l$symbol as String?),
+      remarks: (l$remarks as String?),
+      updateAt: (l$updateAt as String?),
+      remove: (l$remove as bool?),
       update_user: l$update_user == null
           ? null
           : Query$UnitPageRead$allSharedUnits$nodes$update_user.fromJson(
@@ -1875,7 +1953,9 @@ class Query$UnitPageRead$allSharedUnits$nodes {
 
   final String sharedUnitId;
 
-  final String? description;
+  final Query$UnitPageRead$allSharedUnits$nodes$labels? labels;
+
+  final Query$UnitPageRead$allSharedUnits$nodes$detailTexts? detailTexts;
 
   final String? symbol;
 
@@ -1885,8 +1965,6 @@ class Query$UnitPageRead$allSharedUnits$nodes {
 
   final bool? remove;
 
-  final Query$UnitPageRead$allSharedUnits$nodes$labels? labels;
-
   final Query$UnitPageRead$allSharedUnits$nodes$update_user? update_user;
 
   final String $__typename;
@@ -1895,8 +1973,10 @@ class Query$UnitPageRead$allSharedUnits$nodes {
     final _resultData = <String, dynamic>{};
     final l$sharedUnitId = sharedUnitId;
     _resultData['sharedUnitId'] = l$sharedUnitId;
-    final l$description = description;
-    _resultData['description'] = l$description;
+    final l$labels = labels;
+    _resultData['labels'] = l$labels?.toJson();
+    final l$detailTexts = detailTexts;
+    _resultData['detailTexts'] = l$detailTexts?.toJson();
     final l$symbol = symbol;
     _resultData['symbol'] = l$symbol;
     final l$remarks = remarks;
@@ -1905,8 +1985,6 @@ class Query$UnitPageRead$allSharedUnits$nodes {
     _resultData['updateAt'] = l$updateAt;
     final l$remove = remove;
     _resultData['remove'] = l$remove;
-    final l$labels = labels;
-    _resultData['labels'] = l$labels?.toJson();
     final l$update_user = update_user;
     _resultData['update_user'] = l$update_user?.toJson();
     final l$$__typename = $__typename;
@@ -1917,22 +1995,22 @@ class Query$UnitPageRead$allSharedUnits$nodes {
   @override
   int get hashCode {
     final l$sharedUnitId = sharedUnitId;
-    final l$description = description;
+    final l$labels = labels;
+    final l$detailTexts = detailTexts;
     final l$symbol = symbol;
     final l$remarks = remarks;
     final l$updateAt = updateAt;
     final l$remove = remove;
-    final l$labels = labels;
     final l$update_user = update_user;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$sharedUnitId,
-      l$description,
+      l$labels,
+      l$detailTexts,
       l$symbol,
       l$remarks,
       l$updateAt,
       l$remove,
-      l$labels,
       l$update_user,
       l$$__typename,
     ]);
@@ -1952,9 +2030,14 @@ class Query$UnitPageRead$allSharedUnits$nodes {
     if (l$sharedUnitId != lOther$sharedUnitId) {
       return false;
     }
-    final l$description = description;
-    final lOther$description = other.description;
-    if (l$description != lOther$description) {
+    final l$labels = labels;
+    final lOther$labels = other.labels;
+    if (l$labels != lOther$labels) {
+      return false;
+    }
+    final l$detailTexts = detailTexts;
+    final lOther$detailTexts = other.detailTexts;
+    if (l$detailTexts != lOther$detailTexts) {
       return false;
     }
     final l$symbol = symbol;
@@ -1975,11 +2058,6 @@ class Query$UnitPageRead$allSharedUnits$nodes {
     final l$remove = remove;
     final lOther$remove = other.remove;
     if (l$remove != lOther$remove) {
-      return false;
-    }
-    final l$labels = labels;
-    final lOther$labels = other.labels;
-    if (l$labels != lOther$labels) {
       return false;
     }
     final l$update_user = update_user;
@@ -2016,16 +2094,18 @@ abstract class CopyWith$Query$UnitPageRead$allSharedUnits$nodes<TRes> {
 
   TRes call({
     String? sharedUnitId,
-    String? description,
+    Query$UnitPageRead$allSharedUnits$nodes$labels? labels,
+    Query$UnitPageRead$allSharedUnits$nodes$detailTexts? detailTexts,
     String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$UnitPageRead$allSharedUnits$nodes$labels? labels,
     Query$UnitPageRead$allSharedUnits$nodes$update_user? update_user,
     String? $__typename,
   });
   CopyWith$Query$UnitPageRead$allSharedUnits$nodes$labels<TRes> get labels;
+  CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts<TRes>
+  get detailTexts;
   CopyWith$Query$UnitPageRead$allSharedUnits$nodes$update_user<TRes>
   get update_user;
 }
@@ -2045,12 +2125,12 @@ class _CopyWithImpl$Query$UnitPageRead$allSharedUnits$nodes<TRes>
 
   TRes call({
     Object? sharedUnitId = _undefined,
-    Object? description = _undefined,
+    Object? labels = _undefined,
+    Object? detailTexts = _undefined,
     Object? symbol = _undefined,
     Object? remarks = _undefined,
     Object? updateAt = _undefined,
     Object? remove = _undefined,
-    Object? labels = _undefined,
     Object? update_user = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
@@ -2058,18 +2138,19 @@ class _CopyWithImpl$Query$UnitPageRead$allSharedUnits$nodes<TRes>
       sharedUnitId: sharedUnitId == _undefined || sharedUnitId == null
           ? _instance.sharedUnitId
           : (sharedUnitId as String),
-      description: description == _undefined
-          ? _instance.description
-          : (description as String?),
+      labels: labels == _undefined
+          ? _instance.labels
+          : (labels as Query$UnitPageRead$allSharedUnits$nodes$labels?),
+      detailTexts: detailTexts == _undefined
+          ? _instance.detailTexts
+          : (detailTexts
+                as Query$UnitPageRead$allSharedUnits$nodes$detailTexts?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
       updateAt: updateAt == _undefined
           ? _instance.updateAt
           : (updateAt as String?),
       remove: remove == _undefined ? _instance.remove : (remove as bool?),
-      labels: labels == _undefined
-          ? _instance.labels
-          : (labels as Query$UnitPageRead$allSharedUnits$nodes$labels?),
       update_user: update_user == _undefined
           ? _instance.update_user
           : (update_user
@@ -2089,6 +2170,19 @@ class _CopyWithImpl$Query$UnitPageRead$allSharedUnits$nodes<TRes>
         : CopyWith$Query$UnitPageRead$allSharedUnits$nodes$labels(
             local$labels,
             (e) => call(labels: e),
+          );
+  }
+
+  CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts<TRes>
+  get detailTexts {
+    final local$detailTexts = _instance.detailTexts;
+    return local$detailTexts == null
+        ? CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts(
+            local$detailTexts,
+            (e) => call(detailTexts: e),
           );
   }
 
@@ -2114,18 +2208,22 @@ class _CopyWithStubImpl$Query$UnitPageRead$allSharedUnits$nodes<TRes>
 
   call({
     String? sharedUnitId,
-    String? description,
+    Query$UnitPageRead$allSharedUnits$nodes$labels? labels,
+    Query$UnitPageRead$allSharedUnits$nodes$detailTexts? detailTexts,
     String? symbol,
     String? remarks,
     String? updateAt,
     bool? remove,
-    Query$UnitPageRead$allSharedUnits$nodes$labels? labels,
     Query$UnitPageRead$allSharedUnits$nodes$update_user? update_user,
     String? $__typename,
   }) => _res;
 
   CopyWith$Query$UnitPageRead$allSharedUnits$nodes$labels<TRes> get labels =>
       CopyWith$Query$UnitPageRead$allSharedUnits$nodes$labels.stub(_res);
+
+  CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts<TRes>
+  get detailTexts =>
+      CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts.stub(_res);
 
   CopyWith$Query$UnitPageRead$allSharedUnits$nodes$update_user<TRes>
   get update_user =>
@@ -4169,17 +4267,540 @@ class _CopyWithStubImpl$Query$UnitPageRead$allSharedUnits$nodes$labels$sharedDic
   call({String? dictionaryValue, String? $__typename}) => _res;
 }
 
+class Query$UnitPageRead$allSharedUnits$nodes$detailTexts {
+  Query$UnitPageRead$allSharedUnits$nodes$detailTexts({
+    required this.sharedTextId,
+    required this.value,
+    this.$__typename = 'SharedText',
+  });
+
+  factory Query$UnitPageRead$allSharedUnits$nodes$detailTexts.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedTextId = json['sharedTextId'];
+    final l$value = json['value'];
+    final l$$__typename = json['__typename'];
+    return Query$UnitPageRead$allSharedUnits$nodes$detailTexts(
+      sharedTextId: (l$sharedTextId as String),
+      value: Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value.fromJson(
+        (l$value as Map<String, dynamic>),
+      ),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String sharedTextId;
+
+  final Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value value;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedTextId = sharedTextId;
+    _resultData['sharedTextId'] = l$sharedTextId;
+    final l$value = value;
+    _resultData['value'] = l$value.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedTextId = sharedTextId;
+    final l$value = value;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$sharedTextId, l$value, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Query$UnitPageRead$allSharedUnits$nodes$detailTexts ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedTextId = sharedTextId;
+    final lOther$sharedTextId = other.sharedTextId;
+    if (l$sharedTextId != lOther$sharedTextId) {
+      return false;
+    }
+    final l$value = value;
+    final lOther$value = other.value;
+    if (l$value != lOther$value) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$UnitPageRead$allSharedUnits$nodes$detailTexts
+    on Query$UnitPageRead$allSharedUnits$nodes$detailTexts {
+  CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts<
+    Query$UnitPageRead$allSharedUnits$nodes$detailTexts
+  >
+  get copyWith => CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts(
+    this,
+    (i) => i,
+  );
+}
+
+abstract class CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts<
+  TRes
+> {
+  factory CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts(
+    Query$UnitPageRead$allSharedUnits$nodes$detailTexts instance,
+    TRes Function(Query$UnitPageRead$allSharedUnits$nodes$detailTexts) then,
+  ) = _CopyWithImpl$Query$UnitPageRead$allSharedUnits$nodes$detailTexts;
+
+  factory CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$UnitPageRead$allSharedUnits$nodes$detailTexts;
+
+  TRes call({
+    String? sharedTextId,
+    Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value? value,
+    String? $__typename,
+  });
+  CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value<TRes>
+  get value;
+}
+
+class _CopyWithImpl$Query$UnitPageRead$allSharedUnits$nodes$detailTexts<TRes>
+    implements
+        CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts<TRes> {
+  _CopyWithImpl$Query$UnitPageRead$allSharedUnits$nodes$detailTexts(
+    this._instance,
+    this._then,
+  );
+
+  final Query$UnitPageRead$allSharedUnits$nodes$detailTexts _instance;
+
+  final TRes Function(Query$UnitPageRead$allSharedUnits$nodes$detailTexts)
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedTextId = _undefined,
+    Object? value = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$UnitPageRead$allSharedUnits$nodes$detailTexts(
+      sharedTextId: sharedTextId == _undefined || sharedTextId == null
+          ? _instance.sharedTextId
+          : (sharedTextId as String),
+      value: value == _undefined || value == null
+          ? _instance.value
+          : (value
+                as Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value<TRes>
+  get value {
+    final local$value = _instance.value;
+    return CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value(
+      local$value,
+      (e) => call(value: e),
+    );
+  }
+}
+
+class _CopyWithStubImpl$Query$UnitPageRead$allSharedUnits$nodes$detailTexts<
+  TRes
+>
+    implements
+        CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts<TRes> {
+  _CopyWithStubImpl$Query$UnitPageRead$allSharedUnits$nodes$detailTexts(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? sharedTextId,
+    Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value? value,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value<TRes>
+  get value =>
+      CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value.stub(
+        _res,
+      );
+}
+
+class Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value {
+  Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value({
+    required this.nodes,
+    this.$__typename = 'SharedTextValuesConnection',
+  });
+
+  factory Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes?>
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value
+    on Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value {
+  CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value<
+    Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value
+  >
+  get copyWith =>
+      CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value<
+  TRes
+> {
+  factory CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value(
+    Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value instance,
+    TRes Function(Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value)
+    then,
+  ) = _CopyWithImpl$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value;
+
+  factory CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value;
+
+  TRes call({
+    List<Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes?>?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes?>
+    Function(
+      Iterable<
+        CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes<
+          Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value<
+  TRes
+>
+    implements
+        CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value<
+          TRes
+        > {
+  _CopyWithImpl$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value(
+    this._instance,
+    this._then,
+  );
+
+  final Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value _instance;
+
+  final TRes Function(Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value)
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes?>
+    Function(
+      Iterable<
+        CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes<
+          Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value<
+  TRes
+>
+    implements
+        CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes?>?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes {
+  Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes({
+    this.textValue,
+    this.$__typename = 'SharedTextValue',
+  });
+
+  factory Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$textValue = json['textValue'];
+    final l$$__typename = json['__typename'];
+    return Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes(
+      textValue: (l$textValue as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? textValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$textValue = textValue;
+    _resultData['textValue'] = l$textValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$textValue = textValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$textValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$textValue = textValue;
+    final lOther$textValue = other.textValue;
+    if (l$textValue != lOther$textValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes
+    on Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes {
+  CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes<
+    Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes<
+  TRes
+> {
+  factory CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes(
+    Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes instance,
+    TRes Function(
+      Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes;
+
+  factory CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes;
+
+  TRes call({String? textValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes
+  _instance;
+
+  final TRes Function(
+    Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? textValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes(
+      textValue: textValue == _undefined
+          ? _instance.textValue
+          : (textValue as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$UnitPageRead$allSharedUnits$nodes$detailTexts$value$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? textValue, String? $__typename}) => _res;
+}
+
 class Query$UnitPageRead$allSharedUnits$nodes$update_user {
   Query$UnitPageRead$allSharedUnits$nodes$update_user({
     required this.historyId,
     required this.infoStaffId,
     this.infoCompanyId,
     this.code,
+    this.name,
     this.sex,
     this.phone,
     this.symbol,
     this.privatePhone,
-    this.name,
     this.$__typename = 'HistoryInfoStaff',
   });
 
@@ -4190,26 +4811,26 @@ class Query$UnitPageRead$allSharedUnits$nodes$update_user {
     final l$infoStaffId = json['infoStaffId'];
     final l$infoCompanyId = json['infoCompanyId'];
     final l$code = json['code'];
+    final l$name = json['name'];
     final l$sex = json['sex'];
     final l$phone = json['phone'];
     final l$symbol = json['symbol'];
     final l$privatePhone = json['privatePhone'];
-    final l$name = json['name'];
     final l$$__typename = json['__typename'];
     return Query$UnitPageRead$allSharedUnits$nodes$update_user(
       historyId: (l$historyId as String),
       infoStaffId: (l$infoStaffId as String),
       infoCompanyId: (l$infoCompanyId as String?),
       code: (l$code as String?),
-      sex: (l$sex as String?),
-      phone: (l$phone as String?),
-      symbol: (l$symbol as String?),
-      privatePhone: (l$privatePhone as String?),
       name: l$name == null
           ? null
           : Query$UnitPageRead$allSharedUnits$nodes$update_user$name.fromJson(
               (l$name as Map<String, dynamic>),
             ),
+      sex: (l$sex as String?),
+      phone: (l$phone as String?),
+      symbol: (l$symbol as String?),
+      privatePhone: (l$privatePhone as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -4222,6 +4843,8 @@ class Query$UnitPageRead$allSharedUnits$nodes$update_user {
 
   final String? code;
 
+  final Query$UnitPageRead$allSharedUnits$nodes$update_user$name? name;
+
   final String? sex;
 
   final String? phone;
@@ -4229,8 +4852,6 @@ class Query$UnitPageRead$allSharedUnits$nodes$update_user {
   final String? symbol;
 
   final String? privatePhone;
-
-  final Query$UnitPageRead$allSharedUnits$nodes$update_user$name? name;
 
   final String $__typename;
 
@@ -4244,6 +4865,8 @@ class Query$UnitPageRead$allSharedUnits$nodes$update_user {
     _resultData['infoCompanyId'] = l$infoCompanyId;
     final l$code = code;
     _resultData['code'] = l$code;
+    final l$name = name;
+    _resultData['name'] = l$name?.toJson();
     final l$sex = sex;
     _resultData['sex'] = l$sex;
     final l$phone = phone;
@@ -4252,8 +4875,6 @@ class Query$UnitPageRead$allSharedUnits$nodes$update_user {
     _resultData['symbol'] = l$symbol;
     final l$privatePhone = privatePhone;
     _resultData['privatePhone'] = l$privatePhone;
-    final l$name = name;
-    _resultData['name'] = l$name?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -4265,22 +4886,22 @@ class Query$UnitPageRead$allSharedUnits$nodes$update_user {
     final l$infoStaffId = infoStaffId;
     final l$infoCompanyId = infoCompanyId;
     final l$code = code;
+    final l$name = name;
     final l$sex = sex;
     final l$phone = phone;
     final l$symbol = symbol;
     final l$privatePhone = privatePhone;
-    final l$name = name;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$historyId,
       l$infoStaffId,
       l$infoCompanyId,
       l$code,
+      l$name,
       l$sex,
       l$phone,
       l$symbol,
       l$privatePhone,
-      l$name,
       l$$__typename,
     ]);
   }
@@ -4314,6 +4935,11 @@ class Query$UnitPageRead$allSharedUnits$nodes$update_user {
     if (l$code != lOther$code) {
       return false;
     }
+    final l$name = name;
+    final lOther$name = other.name;
+    if (l$name != lOther$name) {
+      return false;
+    }
     final l$sex = sex;
     final lOther$sex = other.sex;
     if (l$sex != lOther$sex) {
@@ -4332,11 +4958,6 @@ class Query$UnitPageRead$allSharedUnits$nodes$update_user {
     final l$privatePhone = privatePhone;
     final lOther$privatePhone = other.privatePhone;
     if (l$privatePhone != lOther$privatePhone) {
-      return false;
-    }
-    final l$name = name;
-    final lOther$name = other.name;
-    if (l$name != lOther$name) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -4376,11 +4997,11 @@ abstract class CopyWith$Query$UnitPageRead$allSharedUnits$nodes$update_user<
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$UnitPageRead$allSharedUnits$nodes$update_user$name? name,
     String? sex,
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$UnitPageRead$allSharedUnits$nodes$update_user$name? name,
     String? $__typename,
   });
   CopyWith$Query$UnitPageRead$allSharedUnits$nodes$update_user$name<TRes>
@@ -4407,11 +5028,11 @@ class _CopyWithImpl$Query$UnitPageRead$allSharedUnits$nodes$update_user<TRes>
     Object? infoStaffId = _undefined,
     Object? infoCompanyId = _undefined,
     Object? code = _undefined,
+    Object? name = _undefined,
     Object? sex = _undefined,
     Object? phone = _undefined,
     Object? symbol = _undefined,
     Object? privatePhone = _undefined,
-    Object? name = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$UnitPageRead$allSharedUnits$nodes$update_user(
@@ -4425,15 +5046,15 @@ class _CopyWithImpl$Query$UnitPageRead$allSharedUnits$nodes$update_user<TRes>
           ? _instance.infoCompanyId
           : (infoCompanyId as String?),
       code: code == _undefined ? _instance.code : (code as String?),
+      name: name == _undefined
+          ? _instance.name
+          : (name as Query$UnitPageRead$allSharedUnits$nodes$update_user$name?),
       sex: sex == _undefined ? _instance.sex : (sex as String?),
       phone: phone == _undefined ? _instance.phone : (phone as String?),
       symbol: symbol == _undefined ? _instance.symbol : (symbol as String?),
       privatePhone: privatePhone == _undefined
           ? _instance.privatePhone
           : (privatePhone as String?),
-      name: name == _undefined
-          ? _instance.name
-          : (name as Query$UnitPageRead$allSharedUnits$nodes$update_user$name?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
@@ -4470,11 +5091,11 @@ class _CopyWithStubImpl$Query$UnitPageRead$allSharedUnits$nodes$update_user<
     String? infoStaffId,
     String? infoCompanyId,
     String? code,
+    Query$UnitPageRead$allSharedUnits$nodes$update_user$name? name,
     String? sex,
     String? phone,
     String? symbol,
     String? privatePhone,
-    Query$UnitPageRead$allSharedUnits$nodes$update_user$name? name,
     String? $__typename,
   }) => _res;
 

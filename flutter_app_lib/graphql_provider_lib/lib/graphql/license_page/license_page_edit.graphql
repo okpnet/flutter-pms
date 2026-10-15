@@ -1,29 +1,15 @@
 # license_page画面 - Edit(ミューテーション)
 #
-# 画面仕様: source/view.yaml #LicensePageEdit(資格、mstr_license)
-# office_page_edit.graphql/staff_page_edit.graphqlの前例にならい、自身の業務コード(`code`)は
-# Patch(書き込み対象)から除外し、結果選択(output)・RFEでの表示のみ行う。
-#
-# 要件0044: `update_interval`(Postgresの`interval`型)は出力側ではGraphQLの`Interval`型
-# (`years`/`months`/`days`/`hours`/`minutes`/`seconds`を持つオブジェクト型。スカラーでは
-# ないため他のスカラー同様bareでは選択できずサブセレクションが必須)、Patch入力側では
-# 対応するINPUT型`IntervalInput`(同じ6フィールド)を使う。当初`Interval`(OUTPUT専用の
-# オブジェクト型)をそのままミューテーション変数の型に指定していたためgraphql_codegenが
-# `_printNamedTypeNode`でクラッシュしていた(INPUT位置にOUTPUT専用型は使えないため)。
-# `IntervalInput`に修正して解消した。
+# 画面仕様: source/views/ #LicensePageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
 
 mutation LicensePageEdit(
   $mstrLicenseId: UUID!
-  $detail: String
-  $publicLicense: Boolean
-  $customerLicense: Boolean
-  $organizationLicense: Boolean
-  $updateInterval: IntervalInput
-  $remarks: String
+  $code: String
   $sharedAppellationsId: UUID!
+  $nameSharedDictionaryId: UUID!
   $jaLanguageCodeId: UUID!
   $enLanguageCodeId: UUID!
-  $nameSharedDictionaryId: UUID!
   $nameJa: String!
   $nameEn: String!
   $pronunciationSharedDictionaryId: UUID!
@@ -32,17 +18,20 @@ mutation LicensePageEdit(
   $nicknameSharedDictionaryId: UUID!
   $nicknameJa: String!
   $nicknameEn: String!
+  $detailTextsSharedTextId: UUID!
+  $detailTextsJa: String!
+  $detailTextsEn: String!
+  $publicLicense: Boolean
+  $customerLicense: Boolean
+  $organizationLicense: Boolean
+  $updateInterval: IntervalInput
+  $remarks: String
 ) {
   updateMstrLicenseByMstrLicenseId(
     input: {
       mstrLicenseId: $mstrLicenseId
       mstrLicensePatch: {
-        detail: $detail
-        publicLicense: $publicLicense
-        customerLicense: $customerLicense
-        organizationLicense: $organizationLicense
-        updateInterval: $updateInterval
-        remarks: $remarks
+        code: $code
 
         sharedAppellationToNames: {
           updateBySharedAppellationsId: {
@@ -62,6 +51,7 @@ mutation LicensePageEdit(
                   }
                 }
               }
+
               sharedDictionaryToSharedDictionaryPronunciationId: {
                 updateBySharedDictionaryId: {
                   sharedDictionaryId: $pronunciationSharedDictionaryId
@@ -76,6 +66,7 @@ mutation LicensePageEdit(
                   }
                 }
               }
+
               sharedDictionaryToSharedDictionaryNicknameId: {
                 updateBySharedDictionaryId: {
                   sharedDictionaryId: $nicknameSharedDictionaryId
@@ -93,29 +84,39 @@ mutation LicensePageEdit(
             }
           }
         }
+
+        sharedTextToDetails: {
+          updateBySharedTextId: {
+            sharedTextId: $detailTextsSharedTextId
+            sharedTextPatch: {
+              sharedTextValuesUsingSharedTextId: {
+                deleteOthers: true
+                create: [
+                  { sharedLanguageCodeId: $jaLanguageCodeId, textValue: $detailTextsJa }
+                  { sharedLanguageCodeId: $enLanguageCodeId, textValue: $detailTextsEn }
+                ]
+              }
+            }
+          }
+        }
+
+        publicLicense: $publicLicense
+        customerLicense: $customerLicense
+        organizationLicense: $organizationLicense
+        updateInterval: $updateInterval
+        remarks: $remarks
       }
     }
   ) {
     mstrLicense {
       mstrLicenseId
       code
-      detail
-      publicLicense
-      customerLicense
-      organizationLicense
-      updateInterval {
-        years
-        months
-        days
-        hours
-        minutes
-        seconds
-      }
-      remarks
+
       labels: sharedAppellationByNames {
         sharedAppellationsId
         sharedDictionaryBySharedDictionaryNameId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -123,6 +124,7 @@ mutation LicensePageEdit(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -131,8 +133,10 @@ mutation LicensePageEdit(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryPronunciationId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -140,6 +144,7 @@ mutation LicensePageEdit(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -148,8 +153,10 @@ mutation LicensePageEdit(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryNicknameId {
           sharedDictionaryId
+
           ja: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $jaLanguageCodeId }
           ) {
@@ -157,6 +164,7 @@ mutation LicensePageEdit(
               dictionaryValue
             }
           }
+
           en: sharedDictionaryValuesBySharedDictionaryId(
             condition: { sharedLanguageCodeId: $enLanguageCodeId }
           ) {
@@ -166,6 +174,39 @@ mutation LicensePageEdit(
           }
         }
       }
+
+      detailTexts: sharedTextByDetails {
+        sharedTextId
+
+        ja: sharedTextValuesBySharedTextId(
+          condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+        ) {
+          nodes {
+            textValue
+          }
+        }
+
+        en: sharedTextValuesBySharedTextId(
+          condition: { sharedLanguageCodeId: $enLanguageCodeId }
+        ) {
+          nodes {
+            textValue
+          }
+        }
+      }
+
+      publicLicense
+      customerLicense
+      organizationLicense
+      updateInterval {
+        seconds
+        minutes
+        hours
+        days
+        months
+        years
+      }
+      remarks
     }
   }
 }

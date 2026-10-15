@@ -1,34 +1,41 @@
-// view.yaml -> GraphQL を生成するbuild_runnerのBuilder。
+// 分割したview.yaml(source/views/) -> GraphQL を生成するbuild_runnerのBuilder。
 //
 // 変換ロジックは generator.dart(純Dart)にあり、CLI(tool/gen_view_graphql.dart)と共通。
-// 入力: source/view.yaml、source/schema.full.graphql。出力先は`output_dir`(既定 source/generated_graphql)。
+// 入力: source/views/**.yaml(要件0052)、source/schema.full.graphql。出力先は`output_dir`(既定 source/generated_graphql)。
 // 出力はソースツリーへ書く(build_to: source)。エラーは警告として出力し、そのノードは生成しない(CLAUDE.md 5-7節)。
+// 入力は複数ファイルなので、パッケージ全体(`$package$`)を入力として1回だけ実行し、
+// source/views/ 以下をfindAssetsで読む(読んだファイルが変わると再実行される)。
 
 import 'dart:io';
 
 import 'package:build/build.dart';
+import 'package:glob/glob.dart';
 
 import 'generator.dart';
 import 'names.dart';
-import 'yaml_loader.dart';
+import 'view_sources.dart';
 
-const _viewYaml = 'source/view.yaml';
+const _viewsDir = 'source/views';
 const _schema = 'source/schema.full.graphql';
 
 Builder viewGraphqlBuilder(BuilderOptions options) =>
     ViewGraphqlBuilder((options.config['output_dir'] as String?) ?? 'source/generated_graphql');
 
 class ViewGraphqlBuilder implements Builder {
-  ViewGraphqlBuilder(this.outDir) : _extensions = {_viewYaml: _outputs(outDir)};
+  ViewGraphqlBuilder(this.outDir) : _extensions = {r'$package$': _outputs(outDir)};
 
   final String outDir;
   final Map<String, List<String>> _extensions;
 
-  /// view.yamlのトップノードから、出力ファイルの一覧を求める(build_runnerは出力を事前に宣言する必要がある)。
+  /// 分割したview.yamlのトップノードから、出力ファイルの一覧を求める(build_runnerは出力を事前に宣言する必要がある)。
   static List<String> _outputs(String outDir) {
-    final file = File(_viewYaml);
-    if (!file.existsSync()) return ['$outDir/_none'];
-    final views = loadViewYaml(file.readAsStringSync());
+    if (!Directory(_viewsDir).existsSync()) return ['$outDir/_none'];
+    final Map<String, dynamic> views;
+    try {
+      views = loadViewDirectory(_viewsDir);
+    } on ViewSourceException {
+      return ['$outDir/_none']; // エラーは build() で報告する
+    }
     final out = <String>[];
     for (final e in views.entries) {
       if (!isGenerationTarget(e.key) || e.value is! Map) continue;
@@ -49,9 +56,20 @@ class ViewGraphqlBuilder implements Builder {
 
   @override
   Future<void> build(BuildStep buildStep) async {
-    final yaml = await buildStep.readAsString(buildStep.inputId);
+    final files = <String, String>{};
+    await for (final id in buildStep.findAssets(Glob('$_viewsDir/**.yaml'))) {
+      files[id.path.substring(_viewsDir.length + 1)] = await buildStep.readAsString(id);
+    }
+    final CombinedViewSources sources;
+    try {
+      sources = combineViewSources(files);
+      sources.load();
+    } on ViewSourceException catch (e) {
+      log.severe('view.yamlの結合に失敗: $e');
+      return;
+    }
     final schemaText = await buildStep.readAsString(AssetId(buildStep.inputId.package, _schema));
-    final result = generateAll(viewYaml: yaml, schemaText: schemaText);
+    final result = generateAll(viewYaml: sources.text, schemaText: schemaText);
     for (final w in result.log.warnings) {
       log.info('警告: $w');
     }
@@ -61,6 +79,6 @@ class ViewGraphqlBuilder implements Builder {
     for (final e in result.files.entries) {
       await buildStep.writeAsString(AssetId(buildStep.inputId.package, '$outDir/${e.key}'), e.value);
     }
-    log.info('view.yaml -> GraphQL: ${result.files.length}ファイル、エラー${result.log.errors.length}件');
+    log.info('views -> GraphQL: ${result.files.length}ファイル、エラー${result.log.errors.length}件');
   }
 }

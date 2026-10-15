@@ -98,6 +98,40 @@
       "type": "boolean",
       "description": "trueのとき、GraphQL変換時にPostGraphile標準のページネーション引数(first/offset、またはfirst/last/before/after)をこのクエリ/コネクションの引数シグネチャに追加する(filterと同じ、値の中身はYAML側では表現しないフラグ)。呼び出し側がこれらの引数を指定しなかった場合、limit/offsetに指定した値がデフォルトとして使われる。kind(read/edit)を問わず、arrayType: toManyを持つnode/columnEntryであればどこにでも指定できる(例: 1件編集が対象のeditの内部で、ネストしたtoMany関係だけをページネーション対象にする。generateRfe:trueで自動導出される読み込み側にもそのまま引き継がれる)。省略時(falseと同義)はページネーション引数自体を生成しない(limit/offsetを固定値のまま使う、従来通り)。"
     },
+    "defaultSort": {
+      "description": "並び順の既定値(要件0053)。省略、または\"none\"は並べない(標準)。並べるときは、キーに向き(asc=昇順 / desc=降順)を書き、その下にsortColumns(列名の配列)を書く。ascとdescは同時に指定できない。kind: readのトップノード(一覧の取得)と、arrayType: toManyのcolumnEntry(1対多のコネクション)に意味を持つ。GraphQLには、並び順の引数(トップは$orderBy、1対多は$<子の出力名>OrderBy)を必ず生成し、defaultSortはその引数の既定値になる。呼び出し側が引数を指定するとdefaultSortは無効になり、引数にnullを渡すと並び順を設定しない。edit(ミューテーション)では無視する。",
+      "oneOf": [
+        { "type": "null" },
+        { "const": "none" },
+        {
+          "type": "object",
+          "properties": {
+            "asc": { "$ref": "#/$defs/sortDirection" },
+            "desc": { "$ref": "#/$defs/sortDirection" }
+          },
+          "additionalProperties": false,
+          "not": { "required": ["asc", "desc"] }
+        }
+      ],
+      "examples": [
+        "none",
+        { "asc": { "sortColumns": ["sequence"] } },
+        { "desc": { "sortColumns": ["update_at", "code"] } }
+      ]
+    },
+    "sortDirection": {
+      "description": "defaultSortの向き(ascまたはdesc)の中身。sortColumnsに、並べる列を指定した順に書く。nullまたは省略はnoneと同義。",
+      "type": ["object", "null"],
+      "properties": {
+        "sortColumns": { "$ref": "#/$defs/sortColumns" }
+      },
+      "additionalProperties": false
+    },
+    "sortColumns": {
+      "type": ["array", "null"],
+      "items": { "type": "string", "minLength": 1 },
+      "description": "defaultSortで並べる列名(このノードの列。snake_case。主キーはprimary_keyとも書ける)の配列(要件0053)。指定した順に、defaultSortの向きで並べる。nullまたは空配列、省略はdefaultSortがnoneと同義(並べない)。関連先の列は、PostGraphileの並び順(orderBy)に無いため指定できない(エラーになる)。"
+    },
     "generateRfe": {
       "type": "boolean",
       "description": "kind:editのノードにのみ意味を持つ(read、および対応するcolumnEntryでは無視する。生成時に警告としてもよいが検証はしない、点10と同じ方針)。trueのとき、このeditノードとまったく同じcolumnsツリーを、書き込み対象としてではなく単純なSELECT対象として解釈した「read for editing(旧RFE)」クエリを追加生成する。requiredWhereで指定した列(通常は主キー)を必須引数として1件取得する読み込み専用クエリになり、nested mutation記法(using経由の入れ子更新等)はSELECT用の入れ子(using経由の関連先を辿るだけ)に読み替える。この変換規則の詳細は27_yaml_to_graphql_conversion_rulesを参照。editとread for editingは常に同一のcolumnsツリーから導出されるため、両者が構造的に乖離することはない(要件0037、旧kind:RFEノードの手書き維持による乖離リスクの解消)。省略時(falseと同義)はread for editing用クエリを生成しない。"
@@ -163,6 +197,7 @@
         "limit": { "$ref": "#/$defs/limit" },
         "offset": { "$ref": "#/$defs/offset" },
         "pagination": { "$ref": "#/$defs/pagination" },
+        "defaultSort": { "$ref": "#/$defs/defaultSort" },
         "editTables": { "$ref": "#/$defs/editTablesList" },
         "generateRfe": { "$ref": "#/$defs/generateRfe" }
       },
@@ -212,6 +247,7 @@
             "limit": { "$ref": "#/$defs/limit" },
             "offset": { "$ref": "#/$defs/offset" },
             "pagination": { "$ref": "#/$defs/pagination" },
+        "defaultSort": { "$ref": "#/$defs/defaultSort" },
             "editTables": { "$ref": "#/$defs/editTablesList" },
             "generateRfe": { "$ref": "#/$defs/childGenerateRfe" },
             "editable": { "$ref": "#/$defs/editable" }

@@ -1,22 +1,7 @@
 # license_holders_page画面 - Edit(ミューテーション)
 #
-# 画面仕様: source/view.yaml #LicenseHoldersPageEdit(StaffLicenseEditを参照)。
-# 要件0045で追加。担当者と資格の関連付け(mstr_staff_license)を編集する。
-# mstr_staff_licenseの一意キー更新はupdateMstrStaffLicenseByMstrStaffLicenseId
-# (単独PK)。mstr_staff_capabilityと異なりパーティショニングされていない
-# (lib/graphql/schema.graphql確認済み)。
-#
-# staff/licenseはいずれも「ここでStaffの編集は行わず、IDを割り当てるだけ」
-# (view.yamlコメント)のため、$infoStaffId/$mstrLicenseIdはスカラーのID再割り当てとして
-# Patchに含め、出力側ではStaffPage/LicensePageと同型の全列を返す(ja/en方式、
-# staff_capability_page_edit.graphqlと同じ方針)。
-#
-# 要件0037: generateRfe: trueにより、このcolumnsツリーから読み込み専用の
-# 「read for editing」クエリを自動導出する(license_holders_page_rfe.graphql参照)。
-#
-# 参考: DepartmentCategoryEdit/CompanyPageEditの既存生成物に合わせ、view.yamlの
-# columnsに含まれるupdate_user_id/update_user_history_id/removeは監査列のため
-# このミューテーションの変数・Patch・出力には含めない(既存生成物との一貫性を優先)。
+# 画面仕様: source/views/ #LicenseHoldersPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
 
 mutation LicenseHoldersPageEdit(
   $mstrStaffLicenseId: UUID!
@@ -37,7 +22,9 @@ mutation LicenseHoldersPageEdit(
       mstrStaffLicenseId: $mstrStaffLicenseId
       mstrStaffLicensePatch: {
         infoStaffId: $infoStaffId
+
         mstrLicenseId: $mstrLicenseId
+
         startAt: $startAt
         stopAt: $stopAt
         abeyance: $abeyance
@@ -51,19 +38,72 @@ mutation LicenseHoldersPageEdit(
     mstrStaffLicense {
       mstrStaffLicenseId
       infoStaffId
-      mstrLicenseId
-      startAt
-      stopAt
-      abeyance
-      abeyanceAt
-      revocation
-      revocationAt
-      remarks # 要件0047再生成: 引数・Patchにあるが結果モデルに欠落していた(要件0046のC1)
 
       staff: infoStaffByInfoStaffId {
         infoStaffId
         infoCompanyId
         code
+
+        labels: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+
+          sharedDictionaryBySharedDictionaryPronunciationId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+
+          sharedDictionaryBySharedDictionaryNicknameId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+
         sex
         phone
         privatePhone
@@ -72,70 +112,12 @@ mutation LicenseHoldersPageEdit(
         updateAt
         remove
 
-        labels: sharedAppellationByNames {
-          sharedAppellationsId
-          sharedDictionaryBySharedDictionaryNameId {
-            sharedDictionaryId
-            ja: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-            ) {
-              nodes {
-                dictionaryValue
-              }
-            }
-            en: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $enLanguageCodeId }
-            ) {
-              nodes {
-                dictionaryValue
-              }
-            }
-          }
-          sharedDictionaryBySharedDictionaryPronunciationId {
-            sharedDictionaryId
-            ja: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-            ) {
-              nodes {
-                dictionaryValue
-              }
-            }
-            en: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $enLanguageCodeId }
-            ) {
-              nodes {
-                dictionaryValue
-              }
-            }
-          }
-          sharedDictionaryBySharedDictionaryNicknameId {
-            sharedDictionaryId
-            ja: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-            ) {
-              nodes {
-                dictionaryValue
-              }
-            }
-            en: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $enLanguageCodeId }
-            ) {
-              nodes {
-                dictionaryValue
-              }
-            }
-          }
-        }
-
         update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
           historyId
           infoStaffId
           infoCompanyId
           code
-          sex
-          phone
-          symbol
-          privatePhone
+
           name: sharedAppellationByNames {
             sharedAppellationsId
             sharedDictionaryBySharedDictionaryNameId {
@@ -147,6 +129,7 @@ mutation LicenseHoldersPageEdit(
                   dictionaryValue
                 }
               }
+
               en: sharedDictionaryValuesBySharedDictionaryId(
                 condition: { sharedLanguageCodeId: $enLanguageCodeId }
               ) {
@@ -155,6 +138,7 @@ mutation LicenseHoldersPageEdit(
                 }
               }
             }
+
             sharedDictionaryBySharedDictionaryPronunciationId {
               sharedDictionaryId
               ja: sharedDictionaryValuesBySharedDictionaryId(
@@ -164,6 +148,7 @@ mutation LicenseHoldersPageEdit(
                   dictionaryValue
                 }
               }
+
               en: sharedDictionaryValuesBySharedDictionaryId(
                 condition: { sharedLanguageCodeId: $enLanguageCodeId }
               ) {
@@ -172,6 +157,7 @@ mutation LicenseHoldersPageEdit(
                 }
               }
             }
+
             sharedDictionaryBySharedDictionaryNicknameId {
               sharedDictionaryId
               ja: sharedDictionaryValuesBySharedDictionaryId(
@@ -181,6 +167,7 @@ mutation LicenseHoldersPageEdit(
                   dictionaryValue
                 }
               }
+
               en: sharedDictionaryValuesBySharedDictionaryId(
                 condition: { sharedLanguageCodeId: $enLanguageCodeId }
               ) {
@@ -190,93 +177,120 @@ mutation LicenseHoldersPageEdit(
               }
             }
           }
+
+          sex
+          phone
+          symbol
+          privatePhone
         }
       }
+      mstrLicenseId
 
       license: mstrLicenseByMstrLicenseId {
         mstrLicenseId
         code
-        detail
+
+        labels: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+
+          sharedDictionaryBySharedDictionaryPronunciationId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+
+          sharedDictionaryBySharedDictionaryNicknameId {
+            sharedDictionaryId
+            ja: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+
+            en: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $enLanguageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+
+        detailTexts: sharedTextByDetails {
+          sharedTextId
+          ja: sharedTextValuesBySharedTextId(
+            condition: { sharedLanguageCodeId: $jaLanguageCodeId }
+          ) {
+            nodes {
+              textValue
+            }
+          }
+
+          en: sharedTextValuesBySharedTextId(
+            condition: { sharedLanguageCodeId: $enLanguageCodeId }
+          ) {
+            nodes {
+              textValue
+            }
+          }
+        }
+
         publicLicense
         customerLicense
         organizationLicense
         updateInterval {
-          years
-          months
-          days
-          hours
-          minutes
           seconds
+          minutes
+          hours
+          days
+          months
+          years
         }
         symbol
         remarks
         updateAt
         remove
 
-        labels: sharedAppellationByNames {
-          sharedAppellationsId
-          sharedDictionaryBySharedDictionaryNameId {
-            sharedDictionaryId
-            ja: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-            ) {
-              nodes {
-                dictionaryValue
-              }
-            }
-            en: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $enLanguageCodeId }
-            ) {
-              nodes {
-                dictionaryValue
-              }
-            }
-          }
-          sharedDictionaryBySharedDictionaryPronunciationId {
-            sharedDictionaryId
-            ja: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-            ) {
-              nodes {
-                dictionaryValue
-              }
-            }
-            en: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $enLanguageCodeId }
-            ) {
-              nodes {
-                dictionaryValue
-              }
-            }
-          }
-          sharedDictionaryBySharedDictionaryNicknameId {
-            sharedDictionaryId
-            ja: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-            ) {
-              nodes {
-                dictionaryValue
-              }
-            }
-            en: sharedDictionaryValuesBySharedDictionaryId(
-              condition: { sharedLanguageCodeId: $enLanguageCodeId }
-            ) {
-              nodes {
-                dictionaryValue
-              }
-            }
-          }
-        }
-
         update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
           historyId
           infoStaffId
           infoCompanyId
           code
-          sex
-          phone
-          symbol
-          privatePhone
+
           name: sharedAppellationByNames {
             sharedAppellationsId
             sharedDictionaryBySharedDictionaryNameId {
@@ -288,6 +302,7 @@ mutation LicenseHoldersPageEdit(
                   dictionaryValue
                 }
               }
+
               en: sharedDictionaryValuesBySharedDictionaryId(
                 condition: { sharedLanguageCodeId: $enLanguageCodeId }
               ) {
@@ -296,6 +311,7 @@ mutation LicenseHoldersPageEdit(
                 }
               }
             }
+
             sharedDictionaryBySharedDictionaryPronunciationId {
               sharedDictionaryId
               ja: sharedDictionaryValuesBySharedDictionaryId(
@@ -305,6 +321,7 @@ mutation LicenseHoldersPageEdit(
                   dictionaryValue
                 }
               }
+
               en: sharedDictionaryValuesBySharedDictionaryId(
                 condition: { sharedLanguageCodeId: $enLanguageCodeId }
               ) {
@@ -313,6 +330,7 @@ mutation LicenseHoldersPageEdit(
                 }
               }
             }
+
             sharedDictionaryBySharedDictionaryNicknameId {
               sharedDictionaryId
               ja: sharedDictionaryValuesBySharedDictionaryId(
@@ -322,6 +340,7 @@ mutation LicenseHoldersPageEdit(
                   dictionaryValue
                 }
               }
+
               en: sharedDictionaryValuesBySharedDictionaryId(
                 condition: { sharedLanguageCodeId: $enLanguageCodeId }
               ) {
@@ -331,8 +350,21 @@ mutation LicenseHoldersPageEdit(
               }
             }
           }
+
+          sex
+          phone
+          symbol
+          privatePhone
         }
       }
+
+      startAt
+      stopAt
+      abeyance
+      abeyanceAt
+      revocation
+      revocationAt
+      remarks
     }
   }
 }

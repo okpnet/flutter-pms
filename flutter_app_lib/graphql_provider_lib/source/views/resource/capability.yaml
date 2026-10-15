@@ -1,0 +1,148 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 力量読み込み
+# 力量評価の項目を定義する
+CapabilityPage: &CapabilityPage
+  kind: read
+  from: mstr_capability
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - mstr_capability_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - name: detailTexts
+      as: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FixTextReadFields
+    - reference_value
+    - max
+    - min
+    - step 
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 力量書き込み
+# 力量評価項目を定義する
+CapabilityPageEdit:
+  kind: edit
+  from: mstr_capability
+  requiredWhere:
+    - mstr_capability_id  
+  generateRfe: true
+  columns:
+    - mstr_capability_id
+    - code
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    - name: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FixTextEditFields
+    - reference_value
+    - max
+    - min
+    - step
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 力量と担当者の読み込み
+# 担当者に適用した力量項目、及び力量評価結果を反映する
+# 力量項目をもつ担当者と評価された結果
+# C2026/09/30変更:apabilityToStaffPage->CapableStaffPage
+CapableStaffPage:
+  kind: read
+  from: mstr_capability
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - mstr_capability_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick:
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - name: detailTexts
+      as: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FixTextReadFields
+    - reference_value
+    - max
+    - min
+    - step
+    - name: staff_capability
+      arrayType: toMany
+      as: staff_capability
+      from: mstr_staff_capability
+      using: mstr_capability_id
+      columns:
+        - mstr_staff_capability_id
+        - info_staff_id
+        - name: staff # 意図はCapability(1)-Staff(N)だが、junction(mstr_staff_capability)
+          # 経由のため各行自身のinfo_staff_idは1対1(外向きのFK、要件0027変換ルール6-1節)。
+          # 要件0044レビューで指摘・ユーザー確認済み(生成物は元々toFirstOne相当で
+          # 正しかったため実害なし、view.yamlの記述のみ修正)。
+          arrayType: toFirstOne
+          as: staff
+          using: info_staff_id
+          <<: *StaffPage
+        - mstr_capability_id
+        - value
+        - stop
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 力量と担当者の書き込み(CapableStaffPage側の編集画面)
+# 上記と同じ理由でStaffCapabilityEditFieldsをそのまま参照する。
+# 0047:不要と判断した
+# 0050: 7-2-3により新設した(StaffCapabilityPageEditと同じ)。
+CapableStaffPageEdit:
+  <<: *StaffCapabilityEditFields
+  requiredWhere: # 要件0028: 元は未指定だったため追記。mstr_staff_capabilityは
+    # info_staff_idでパーティショニングされておりPostgraphileの一意キー更新は
+    # ByMstrStaffCapabilityIdAndInfoStaffId(複合)のみ生成されるため、schema.graphqlを
+    # 確認しrequiredWhereも複合にした(単独PKのミューテーションは存在しない)。
+    - mstr_staff_capability_id
+    - info_staff_id
+  generateRfe: true

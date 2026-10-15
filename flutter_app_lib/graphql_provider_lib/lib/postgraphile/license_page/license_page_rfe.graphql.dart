@@ -342,128 +342,6 @@ const documentNodeQueryLicensePageRfe = DocumentNode(
                   selectionSet: null,
                 ),
                 FieldNode(
-                  name: NameNode(value: 'detail'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'publicLicense'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'customerLicense'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'organizationLicense'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'updateInterval'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: SelectionSetNode(
-                    selections: [
-                      FieldNode(
-                        name: NameNode(value: 'years'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'months'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'days'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'hours'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'minutes'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: 'seconds'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                      FieldNode(
-                        name: NameNode(value: '__typename'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null,
-                      ),
-                    ],
-                  ),
-                ),
-                FieldNode(
-                  name: NameNode(value: 'remarks'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'updateAt'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'updateUserId'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'updateUserHistoryId'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
-                  name: NameNode(value: 'remove'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                FieldNode(
                   name: NameNode(value: 'sharedAppellationByNames'),
                   alias: NameNode(value: 'labels'),
                   arguments: [],
@@ -951,6 +829,255 @@ const documentNodeQueryLicensePageRfe = DocumentNode(
                   ),
                 ),
                 FieldNode(
+                  name: NameNode(value: 'sharedTextByDetails'),
+                  alias: NameNode(value: 'detailTexts'),
+                  arguments: [],
+                  directives: [],
+                  selectionSet: SelectionSetNode(
+                    selections: [
+                      FieldNode(
+                        name: NameNode(value: 'sharedTextId'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'sharedTextValuesBySharedTextId'),
+                        alias: NameNode(value: 'ja'),
+                        arguments: [
+                          ArgumentNode(
+                            name: NameNode(value: 'condition'),
+                            value: ObjectValueNode(
+                              fields: [
+                                ObjectFieldNode(
+                                  name: NameNode(value: 'sharedLanguageCodeId'),
+                                  value: VariableNode(
+                                    name: NameNode(value: 'jaLanguageCodeId'),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'nodes'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: SelectionSetNode(
+                                selections: [
+                                  FieldNode(
+                                    name: NameNode(value: 'textValue'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: '__typename'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'sharedTextValuesBySharedTextId'),
+                        alias: NameNode(value: 'en'),
+                        arguments: [
+                          ArgumentNode(
+                            name: NameNode(value: 'condition'),
+                            value: ObjectValueNode(
+                              fields: [
+                                ObjectFieldNode(
+                                  name: NameNode(value: 'sharedLanguageCodeId'),
+                                  value: VariableNode(
+                                    name: NameNode(value: 'enLanguageCodeId'),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                        directives: [],
+                        selectionSet: SelectionSetNode(
+                          selections: [
+                            FieldNode(
+                              name: NameNode(value: 'nodes'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: SelectionSetNode(
+                                selections: [
+                                  FieldNode(
+                                    name: NameNode(value: 'textValue'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                  FieldNode(
+                                    name: NameNode(value: '__typename'),
+                                    alias: null,
+                                    arguments: [],
+                                    directives: [],
+                                    selectionSet: null,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FieldNode(
+                              name: NameNode(value: '__typename'),
+                              alias: null,
+                              arguments: [],
+                              directives: [],
+                              selectionSet: null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      FieldNode(
+                        name: NameNode(value: '__typename'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                    ],
+                  ),
+                ),
+                FieldNode(
+                  name: NameNode(value: 'publicLicense'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
+                  name: NameNode(value: 'customerLicense'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
+                  name: NameNode(value: 'organizationLicense'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
+                  name: NameNode(value: 'updateInterval'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: SelectionSetNode(
+                    selections: [
+                      FieldNode(
+                        name: NameNode(value: 'seconds'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'minutes'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'hours'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'days'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'months'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: 'years'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: '__typename'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                    ],
+                  ),
+                ),
+                FieldNode(
+                  name: NameNode(value: 'remarks'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
+                  name: NameNode(value: 'updateUserId'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
+                  name: NameNode(value: 'updateUserHistoryId'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
+                  name: NameNode(value: 'remove'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
+                  name: NameNode(value: 'updateAt'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                FieldNode(
                   name: NameNode(value: '__typename'),
                   alias: null,
                   arguments: [],
@@ -1124,17 +1251,17 @@ class Query$LicensePageRfe$mstrLicenseByMstrLicenseId {
   Query$LicensePageRfe$mstrLicenseByMstrLicenseId({
     required this.mstrLicenseId,
     this.code,
-    this.detail,
+    this.labels,
+    this.detailTexts,
     this.publicLicense,
     this.customerLicense,
     this.organizationLicense,
     this.updateInterval,
     this.remarks,
-    this.updateAt,
     this.updateUserId,
     this.updateUserHistoryId,
     this.remove,
-    this.labels,
+    this.updateAt,
     this.$__typename = 'MstrLicense',
   });
 
@@ -1143,22 +1270,31 @@ class Query$LicensePageRfe$mstrLicenseByMstrLicenseId {
   ) {
     final l$mstrLicenseId = json['mstrLicenseId'];
     final l$code = json['code'];
-    final l$detail = json['detail'];
+    final l$labels = json['labels'];
+    final l$detailTexts = json['detailTexts'];
     final l$publicLicense = json['publicLicense'];
     final l$customerLicense = json['customerLicense'];
     final l$organizationLicense = json['organizationLicense'];
     final l$updateInterval = json['updateInterval'];
     final l$remarks = json['remarks'];
-    final l$updateAt = json['updateAt'];
     final l$updateUserId = json['updateUserId'];
     final l$updateUserHistoryId = json['updateUserHistoryId'];
     final l$remove = json['remove'];
-    final l$labels = json['labels'];
+    final l$updateAt = json['updateAt'];
     final l$$__typename = json['__typename'];
     return Query$LicensePageRfe$mstrLicenseByMstrLicenseId(
       mstrLicenseId: (l$mstrLicenseId as String),
       code: (l$code as String?),
-      detail: (l$detail as String?),
+      labels: l$labels == null
+          ? null
+          : Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels.fromJson(
+              (l$labels as Map<String, dynamic>),
+            ),
+      detailTexts: l$detailTexts == null
+          ? null
+          : Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts.fromJson(
+              (l$detailTexts as Map<String, dynamic>),
+            ),
       publicLicense: (l$publicLicense as bool?),
       customerLicense: (l$customerLicense as bool?),
       organizationLicense: (l$organizationLicense as bool?),
@@ -1168,15 +1304,10 @@ class Query$LicensePageRfe$mstrLicenseByMstrLicenseId {
               (l$updateInterval as Map<String, dynamic>),
             ),
       remarks: (l$remarks as String?),
-      updateAt: (l$updateAt as String?),
       updateUserId: (l$updateUserId as String?),
       updateUserHistoryId: (l$updateUserHistoryId as String?),
       remove: (l$remove as bool?),
-      labels: l$labels == null
-          ? null
-          : Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels.fromJson(
-              (l$labels as Map<String, dynamic>),
-            ),
+      updateAt: (l$updateAt as String?),
       $__typename: (l$$__typename as String),
     );
   }
@@ -1185,7 +1316,10 @@ class Query$LicensePageRfe$mstrLicenseByMstrLicenseId {
 
   final String? code;
 
-  final String? detail;
+  final Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels? labels;
+
+  final Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts?
+  detailTexts;
 
   final bool? publicLicense;
 
@@ -1198,15 +1332,13 @@ class Query$LicensePageRfe$mstrLicenseByMstrLicenseId {
 
   final String? remarks;
 
-  final String? updateAt;
-
   final String? updateUserId;
 
   final String? updateUserHistoryId;
 
   final bool? remove;
 
-  final Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels? labels;
+  final String? updateAt;
 
   final String $__typename;
 
@@ -1216,8 +1348,10 @@ class Query$LicensePageRfe$mstrLicenseByMstrLicenseId {
     _resultData['mstrLicenseId'] = l$mstrLicenseId;
     final l$code = code;
     _resultData['code'] = l$code;
-    final l$detail = detail;
-    _resultData['detail'] = l$detail;
+    final l$labels = labels;
+    _resultData['labels'] = l$labels?.toJson();
+    final l$detailTexts = detailTexts;
+    _resultData['detailTexts'] = l$detailTexts?.toJson();
     final l$publicLicense = publicLicense;
     _resultData['publicLicense'] = l$publicLicense;
     final l$customerLicense = customerLicense;
@@ -1228,16 +1362,14 @@ class Query$LicensePageRfe$mstrLicenseByMstrLicenseId {
     _resultData['updateInterval'] = l$updateInterval?.toJson();
     final l$remarks = remarks;
     _resultData['remarks'] = l$remarks;
-    final l$updateAt = updateAt;
-    _resultData['updateAt'] = l$updateAt;
     final l$updateUserId = updateUserId;
     _resultData['updateUserId'] = l$updateUserId;
     final l$updateUserHistoryId = updateUserHistoryId;
     _resultData['updateUserHistoryId'] = l$updateUserHistoryId;
     final l$remove = remove;
     _resultData['remove'] = l$remove;
-    final l$labels = labels;
-    _resultData['labels'] = l$labels?.toJson();
+    final l$updateAt = updateAt;
+    _resultData['updateAt'] = l$updateAt;
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -1247,32 +1379,32 @@ class Query$LicensePageRfe$mstrLicenseByMstrLicenseId {
   int get hashCode {
     final l$mstrLicenseId = mstrLicenseId;
     final l$code = code;
-    final l$detail = detail;
+    final l$labels = labels;
+    final l$detailTexts = detailTexts;
     final l$publicLicense = publicLicense;
     final l$customerLicense = customerLicense;
     final l$organizationLicense = organizationLicense;
     final l$updateInterval = updateInterval;
     final l$remarks = remarks;
-    final l$updateAt = updateAt;
     final l$updateUserId = updateUserId;
     final l$updateUserHistoryId = updateUserHistoryId;
     final l$remove = remove;
-    final l$labels = labels;
+    final l$updateAt = updateAt;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$mstrLicenseId,
       l$code,
-      l$detail,
+      l$labels,
+      l$detailTexts,
       l$publicLicense,
       l$customerLicense,
       l$organizationLicense,
       l$updateInterval,
       l$remarks,
-      l$updateAt,
       l$updateUserId,
       l$updateUserHistoryId,
       l$remove,
-      l$labels,
+      l$updateAt,
       l$$__typename,
     ]);
   }
@@ -1296,9 +1428,14 @@ class Query$LicensePageRfe$mstrLicenseByMstrLicenseId {
     if (l$code != lOther$code) {
       return false;
     }
-    final l$detail = detail;
-    final lOther$detail = other.detail;
-    if (l$detail != lOther$detail) {
+    final l$labels = labels;
+    final lOther$labels = other.labels;
+    if (l$labels != lOther$labels) {
+      return false;
+    }
+    final l$detailTexts = detailTexts;
+    final lOther$detailTexts = other.detailTexts;
+    if (l$detailTexts != lOther$detailTexts) {
       return false;
     }
     final l$publicLicense = publicLicense;
@@ -1326,11 +1463,6 @@ class Query$LicensePageRfe$mstrLicenseByMstrLicenseId {
     if (l$remarks != lOther$remarks) {
       return false;
     }
-    final l$updateAt = updateAt;
-    final lOther$updateAt = other.updateAt;
-    if (l$updateAt != lOther$updateAt) {
-      return false;
-    }
     final l$updateUserId = updateUserId;
     final lOther$updateUserId = other.updateUserId;
     if (l$updateUserId != lOther$updateUserId) {
@@ -1346,9 +1478,9 @@ class Query$LicensePageRfe$mstrLicenseByMstrLicenseId {
     if (l$remove != lOther$remove) {
       return false;
     }
-    final l$labels = labels;
-    final lOther$labels = other.labels;
-    if (l$labels != lOther$labels) {
+    final l$updateAt = updateAt;
+    final lOther$updateAt = other.updateAt;
+    if (l$updateAt != lOther$updateAt) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -1382,24 +1514,26 @@ abstract class CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId<TRes> {
   TRes call({
     String? mstrLicenseId,
     String? code,
-    String? detail,
+    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels? labels,
+    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts? detailTexts,
     bool? publicLicense,
     bool? customerLicense,
     bool? organizationLicense,
     Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval?
     updateInterval,
     String? remarks,
-    String? updateAt,
     String? updateUserId,
     String? updateUserHistoryId,
     bool? remove,
-    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels? labels,
+    String? updateAt,
     String? $__typename,
   });
-  CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval<TRes>
-  get updateInterval;
   CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels<TRes>
   get labels;
+  CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts<TRes>
+  get detailTexts;
+  CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval<TRes>
+  get updateInterval;
 }
 
 class _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId<TRes>
@@ -1418,17 +1552,17 @@ class _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId<TRes>
   TRes call({
     Object? mstrLicenseId = _undefined,
     Object? code = _undefined,
-    Object? detail = _undefined,
+    Object? labels = _undefined,
+    Object? detailTexts = _undefined,
     Object? publicLicense = _undefined,
     Object? customerLicense = _undefined,
     Object? organizationLicense = _undefined,
     Object? updateInterval = _undefined,
     Object? remarks = _undefined,
-    Object? updateAt = _undefined,
     Object? updateUserId = _undefined,
     Object? updateUserHistoryId = _undefined,
     Object? remove = _undefined,
-    Object? labels = _undefined,
+    Object? updateAt = _undefined,
     Object? $__typename = _undefined,
   }) => _then(
     Query$LicensePageRfe$mstrLicenseByMstrLicenseId(
@@ -1436,7 +1570,13 @@ class _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId<TRes>
           ? _instance.mstrLicenseId
           : (mstrLicenseId as String),
       code: code == _undefined ? _instance.code : (code as String?),
-      detail: detail == _undefined ? _instance.detail : (detail as String?),
+      labels: labels == _undefined
+          ? _instance.labels
+          : (labels as Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels?),
+      detailTexts: detailTexts == _undefined
+          ? _instance.detailTexts
+          : (detailTexts
+                as Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts?),
       publicLicense: publicLicense == _undefined
           ? _instance.publicLicense
           : (publicLicense as bool?),
@@ -1451,9 +1591,6 @@ class _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId<TRes>
           : (updateInterval
                 as Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval?),
       remarks: remarks == _undefined ? _instance.remarks : (remarks as String?),
-      updateAt: updateAt == _undefined
-          ? _instance.updateAt
-          : (updateAt as String?),
       updateUserId: updateUserId == _undefined
           ? _instance.updateUserId
           : (updateUserId as String?),
@@ -1461,27 +1598,14 @@ class _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId<TRes>
           ? _instance.updateUserHistoryId
           : (updateUserHistoryId as String?),
       remove: remove == _undefined ? _instance.remove : (remove as bool?),
-      labels: labels == _undefined
-          ? _instance.labels
-          : (labels as Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels?),
+      updateAt: updateAt == _undefined
+          ? _instance.updateAt
+          : (updateAt as String?),
       $__typename: $__typename == _undefined || $__typename == null
           ? _instance.$__typename
           : ($__typename as String),
     ),
   );
-
-  CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval<TRes>
-  get updateInterval {
-    final local$updateInterval = _instance.updateInterval;
-    return local$updateInterval == null
-        ? CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval.stub(
-            _then(_instance),
-          )
-        : CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval(
-            local$updateInterval,
-            (e) => call(updateInterval: e),
-          );
-  }
 
   CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels<TRes>
   get labels {
@@ -1495,6 +1619,32 @@ class _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId<TRes>
             (e) => call(labels: e),
           );
   }
+
+  CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts<TRes>
+  get detailTexts {
+    final local$detailTexts = _instance.detailTexts;
+    return local$detailTexts == null
+        ? CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts(
+            local$detailTexts,
+            (e) => call(detailTexts: e),
+          );
+  }
+
+  CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval<TRes>
+  get updateInterval {
+    final local$updateInterval = _instance.updateInterval;
+    return local$updateInterval == null
+        ? CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval.stub(
+            _then(_instance),
+          )
+        : CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval(
+            local$updateInterval,
+            (e) => call(updateInterval: e),
+          );
+  }
 }
 
 class _CopyWithStubImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId<TRes>
@@ -1506,273 +1656,38 @@ class _CopyWithStubImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId<TRes>
   call({
     String? mstrLicenseId,
     String? code,
-    String? detail,
+    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels? labels,
+    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts? detailTexts,
     bool? publicLicense,
     bool? customerLicense,
     bool? organizationLicense,
     Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval?
     updateInterval,
     String? remarks,
-    String? updateAt,
     String? updateUserId,
     String? updateUserHistoryId,
     bool? remove,
-    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels? labels,
+    String? updateAt,
     String? $__typename,
   }) => _res;
-
-  CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval<TRes>
-  get updateInterval =>
-      CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval.stub(
-        _res,
-      );
 
   CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels<TRes>
   get labels =>
       CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels.stub(
         _res,
       );
-}
 
-class Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval {
-  Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval({
-    this.years,
-    this.months,
-    this.days,
-    this.hours,
-    this.minutes,
-    this.seconds,
-    this.$__typename = 'Interval',
-  });
-
-  factory Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval.fromJson(
-    Map<String, dynamic> json,
-  ) {
-    final l$years = json['years'];
-    final l$months = json['months'];
-    final l$days = json['days'];
-    final l$hours = json['hours'];
-    final l$minutes = json['minutes'];
-    final l$seconds = json['seconds'];
-    final l$$__typename = json['__typename'];
-    return Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval(
-      years: (l$years as int?),
-      months: (l$months as int?),
-      days: (l$days as int?),
-      hours: (l$hours as int?),
-      minutes: (l$minutes as int?),
-      seconds: (l$seconds as num?)?.toDouble(),
-      $__typename: (l$$__typename as String),
-    );
-  }
-
-  final int? years;
-
-  final int? months;
-
-  final int? days;
-
-  final int? hours;
-
-  final int? minutes;
-
-  final double? seconds;
-
-  final String $__typename;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$years = years;
-    _resultData['years'] = l$years;
-    final l$months = months;
-    _resultData['months'] = l$months;
-    final l$days = days;
-    _resultData['days'] = l$days;
-    final l$hours = hours;
-    _resultData['hours'] = l$hours;
-    final l$minutes = minutes;
-    _resultData['minutes'] = l$minutes;
-    final l$seconds = seconds;
-    _resultData['seconds'] = l$seconds;
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$years = years;
-    final l$months = months;
-    final l$days = days;
-    final l$hours = hours;
-    final l$minutes = minutes;
-    final l$seconds = seconds;
-    final l$$__typename = $__typename;
-    return Object.hashAll([
-      l$years,
-      l$months,
-      l$days,
-      l$hours,
-      l$minutes,
-      l$seconds,
-      l$$__typename,
-    ]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (other
-            is! Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$years = years;
-    final lOther$years = other.years;
-    if (l$years != lOther$years) {
-      return false;
-    }
-    final l$months = months;
-    final lOther$months = other.months;
-    if (l$months != lOther$months) {
-      return false;
-    }
-    final l$days = days;
-    final lOther$days = other.days;
-    if (l$days != lOther$days) {
-      return false;
-    }
-    final l$hours = hours;
-    final lOther$hours = other.hours;
-    if (l$hours != lOther$hours) {
-      return false;
-    }
-    final l$minutes = minutes;
-    final lOther$minutes = other.minutes;
-    if (l$minutes != lOther$minutes) {
-      return false;
-    }
-    final l$seconds = seconds;
-    final lOther$seconds = other.seconds;
-    if (l$seconds != lOther$seconds) {
-      return false;
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval
-    on Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval {
-  CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval<
-    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval
-  >
-  get copyWith =>
-      CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval(
-        this,
-        (i) => i,
+  CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts<TRes>
+  get detailTexts =>
+      CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts.stub(
+        _res,
       );
-}
 
-abstract class CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval<
-  TRes
-> {
-  factory CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval(
-    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval instance,
-    TRes Function(
-      Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval,
-    )
-    then,
-  ) = _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval;
-
-  factory CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval.stub(
-    TRes res,
-  ) = _CopyWithStubImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval;
-
-  TRes call({
-    int? years,
-    int? months,
-    int? days,
-    int? hours,
-    int? minutes,
-    double? seconds,
-    String? $__typename,
-  });
-}
-
-class _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval<
-  TRes
->
-    implements
-        CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval<
-          TRes
-        > {
-  _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval(
-    this._instance,
-    this._then,
-  );
-
-  final Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval
-  _instance;
-
-  final TRes Function(
-    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval,
-  )
-  _then;
-
-  static const _undefined = <dynamic, dynamic>{};
-
-  TRes call({
-    Object? years = _undefined,
-    Object? months = _undefined,
-    Object? days = _undefined,
-    Object? hours = _undefined,
-    Object? minutes = _undefined,
-    Object? seconds = _undefined,
-    Object? $__typename = _undefined,
-  }) => _then(
-    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval(
-      years: years == _undefined ? _instance.years : (years as int?),
-      months: months == _undefined ? _instance.months : (months as int?),
-      days: days == _undefined ? _instance.days : (days as int?),
-      hours: hours == _undefined ? _instance.hours : (hours as int?),
-      minutes: minutes == _undefined ? _instance.minutes : (minutes as int?),
-      seconds: seconds == _undefined ? _instance.seconds : (seconds as double?),
-      $__typename: $__typename == _undefined || $__typename == null
-          ? _instance.$__typename
-          : ($__typename as String),
-    ),
-  );
-}
-
-class _CopyWithStubImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval<
-  TRes
->
-    implements
-        CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval<
-          TRes
-        > {
-  _CopyWithStubImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval(
-    this._res,
-  );
-
-  TRes _res;
-
-  call({
-    int? years,
-    int? months,
-    int? days,
-    int? hours,
-    int? minutes,
-    double? seconds,
-    String? $__typename,
-  }) => _res;
+  CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval<TRes>
+  get updateInterval =>
+      CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval.stub(
+        _res,
+      );
 }
 
 class Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels {
@@ -5067,4 +4982,1189 @@ class _CopyWithStubImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$labels$s
   TRes _res;
 
   call({String? dictionaryValue, String? $__typename}) => _res;
+}
+
+class Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts {
+  Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts({
+    required this.sharedTextId,
+    required this.ja,
+    required this.en,
+    this.$__typename = 'SharedText',
+  });
+
+  factory Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$sharedTextId = json['sharedTextId'];
+    final l$ja = json['ja'];
+    final l$en = json['en'];
+    final l$$__typename = json['__typename'];
+    return Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts(
+      sharedTextId: (l$sharedTextId as String),
+      ja: Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja.fromJson(
+        (l$ja as Map<String, dynamic>),
+      ),
+      en: Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en.fromJson(
+        (l$en as Map<String, dynamic>),
+      ),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String sharedTextId;
+
+  final Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja ja;
+
+  final Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en en;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$sharedTextId = sharedTextId;
+    _resultData['sharedTextId'] = l$sharedTextId;
+    final l$ja = ja;
+    _resultData['ja'] = l$ja.toJson();
+    final l$en = en;
+    _resultData['en'] = l$en.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$sharedTextId = sharedTextId;
+    final l$ja = ja;
+    final l$en = en;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$sharedTextId, l$ja, l$en, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$sharedTextId = sharedTextId;
+    final lOther$sharedTextId = other.sharedTextId;
+    if (l$sharedTextId != lOther$sharedTextId) {
+      return false;
+    }
+    final l$ja = ja;
+    final lOther$ja = other.ja;
+    if (l$ja != lOther$ja) {
+      return false;
+    }
+    final l$en = en;
+    final lOther$en = other.en;
+    if (l$en != lOther$en) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts
+    on Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts {
+  CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts<
+    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts
+  >
+  get copyWith =>
+      CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts<
+  TRes
+> {
+  factory CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts(
+    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts instance,
+    TRes Function(Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts)
+    then,
+  ) = _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts;
+
+  factory CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts;
+
+  TRes call({
+    String? sharedTextId,
+    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja? ja,
+    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en? en,
+    String? $__typename,
+  });
+  CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja<TRes>
+  get ja;
+  CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en<TRes>
+  get en;
+}
+
+class _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts<
+  TRes
+>
+    implements
+        CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts<
+          TRes
+        > {
+  _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts(
+    this._instance,
+    this._then,
+  );
+
+  final Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts _instance;
+
+  final TRes Function(
+    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? sharedTextId = _undefined,
+    Object? ja = _undefined,
+    Object? en = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts(
+      sharedTextId: sharedTextId == _undefined || sharedTextId == null
+          ? _instance.sharedTextId
+          : (sharedTextId as String),
+      ja: ja == _undefined || ja == null
+          ? _instance.ja
+          : (ja as Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja),
+      en: en == _undefined || en == null
+          ? _instance.en
+          : (en as Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja<TRes>
+  get ja {
+    final local$ja = _instance.ja;
+    return CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja(
+      local$ja,
+      (e) => call(ja: e),
+    );
+  }
+
+  CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en<TRes>
+  get en {
+    final local$en = _instance.en;
+    return CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en(
+      local$en,
+      (e) => call(en: e),
+    );
+  }
+}
+
+class _CopyWithStubImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts<
+  TRes
+>
+    implements
+        CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    String? sharedTextId,
+    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja? ja,
+    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en? en,
+    String? $__typename,
+  }) => _res;
+
+  CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja<TRes>
+  get ja =>
+      CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja.stub(
+        _res,
+      );
+
+  CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en<TRes>
+  get en =>
+      CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en.stub(
+        _res,
+      );
+}
+
+class Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja {
+  Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja({
+    required this.nodes,
+    this.$__typename = 'SharedTextValuesConnection',
+  });
+
+  factory Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja
+    on Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja {
+  CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja<
+    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja
+  >
+  get copyWith =>
+      CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja<
+  TRes
+> {
+  factory CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja(
+    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja instance,
+    TRes Function(
+      Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja,
+    )
+    then,
+  ) = _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja;
+
+  factory CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja;
+
+  TRes call({
+    List<Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes?>?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes<
+          Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja<
+  TRes
+>
+    implements
+        CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja<
+          TRes
+        > {
+  _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja(
+    this._instance,
+    this._then,
+  );
+
+  final Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja
+  _instance;
+
+  final TRes Function(
+    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes<
+          Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja<
+  TRes
+>
+    implements
+        CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes?>?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes {
+  Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes({
+    this.textValue,
+    this.$__typename = 'SharedTextValue',
+  });
+
+  factory Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$textValue = json['textValue'];
+    final l$$__typename = json['__typename'];
+    return Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes(
+      textValue: (l$textValue as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? textValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$textValue = textValue;
+    _resultData['textValue'] = l$textValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$textValue = textValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$textValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$textValue = textValue;
+    final lOther$textValue = other.textValue;
+    if (l$textValue != lOther$textValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes
+    on Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes {
+  CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes<
+    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes<
+  TRes
+> {
+  factory CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes(
+    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes
+    instance,
+    TRes Function(
+      Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes;
+
+  factory CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes;
+
+  TRes call({String? textValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes
+  _instance;
+
+  final TRes Function(
+    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? textValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes(
+      textValue: textValue == _undefined
+          ? _instance.textValue
+          : (textValue as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$ja$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? textValue, String? $__typename}) => _res;
+}
+
+class Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en {
+  Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en({
+    required this.nodes,
+    this.$__typename = 'SharedTextValuesConnection',
+  });
+
+  factory Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$nodes = json['nodes'];
+    final l$$__typename = json['__typename'];
+    return Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en(
+      nodes: (l$nodes as List<dynamic>)
+          .map(
+            (e) => e == null
+                ? null
+                : Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<
+    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes?
+  >
+  nodes;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$nodes = nodes;
+    _resultData['nodes'] = l$nodes.map((e) => e?.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$nodes = nodes;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$nodes.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$nodes = nodes;
+    final lOther$nodes = other.nodes;
+    if (l$nodes.length != lOther$nodes.length) {
+      return false;
+    }
+    for (int i = 0; i < l$nodes.length; i++) {
+      final l$nodes$entry = l$nodes[i];
+      final lOther$nodes$entry = lOther$nodes[i];
+      if (l$nodes$entry != lOther$nodes$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en
+    on Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en {
+  CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en<
+    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en
+  >
+  get copyWith =>
+      CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en<
+  TRes
+> {
+  factory CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en(
+    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en instance,
+    TRes Function(
+      Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en,
+    )
+    then,
+  ) = _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en;
+
+  factory CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en;
+
+  TRes call({
+    List<Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes?>?
+    nodes,
+    String? $__typename,
+  });
+  TRes nodes(
+    Iterable<
+      Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes<
+          Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  );
+}
+
+class _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en<
+  TRes
+>
+    implements
+        CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en<
+          TRes
+        > {
+  _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en(
+    this._instance,
+    this._then,
+  );
+
+  final Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en
+  _instance;
+
+  final TRes Function(
+    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? nodes = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en(
+      nodes: nodes == _undefined || nodes == null
+          ? _instance.nodes
+          : (nodes
+                as List<
+                  Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes?
+                >),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+
+  TRes nodes(
+    Iterable<
+      Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes?
+    >
+    Function(
+      Iterable<
+        CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes<
+          Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes
+        >?
+      >,
+    )
+    _fn,
+  ) => call(
+    nodes: _fn(
+      _instance.nodes.map(
+        (e) => e == null
+            ? null
+            : CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes(
+                e,
+                (i) => i,
+              ),
+      ),
+    ).toList(),
+  );
+}
+
+class _CopyWithStubImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en<
+  TRes
+>
+    implements
+        CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    List<Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes?>?
+    nodes,
+    String? $__typename,
+  }) => _res;
+
+  nodes(_fn) => _res;
+}
+
+class Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes {
+  Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes({
+    this.textValue,
+    this.$__typename = 'SharedTextValue',
+  });
+
+  factory Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$textValue = json['textValue'];
+    final l$$__typename = json['__typename'];
+    return Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes(
+      textValue: (l$textValue as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String? textValue;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$textValue = textValue;
+    _resultData['textValue'] = l$textValue;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$textValue = textValue;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$textValue, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$textValue = textValue;
+    final lOther$textValue = other.textValue;
+    if (l$textValue != lOther$textValue) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes
+    on Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes {
+  CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes<
+    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes
+  >
+  get copyWith =>
+      CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes<
+  TRes
+> {
+  factory CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes(
+    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes
+    instance,
+    TRes Function(
+      Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes,
+    )
+    then,
+  ) = _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes;
+
+  factory CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes;
+
+  TRes call({String? textValue, String? $__typename});
+}
+
+class _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes<
+          TRes
+        > {
+  _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes(
+    this._instance,
+    this._then,
+  );
+
+  final Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes
+  _instance;
+
+  final TRes Function(
+    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? textValue = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes(
+      textValue: textValue == _undefined
+          ? _instance.textValue
+          : (textValue as String?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes<
+  TRes
+>
+    implements
+        CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$detailTexts$en$nodes(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({String? textValue, String? $__typename}) => _res;
+}
+
+class Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval {
+  Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval({
+    this.seconds,
+    this.minutes,
+    this.hours,
+    this.days,
+    this.months,
+    this.years,
+    this.$__typename = 'Interval',
+  });
+
+  factory Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final l$seconds = json['seconds'];
+    final l$minutes = json['minutes'];
+    final l$hours = json['hours'];
+    final l$days = json['days'];
+    final l$months = json['months'];
+    final l$years = json['years'];
+    final l$$__typename = json['__typename'];
+    return Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval(
+      seconds: (l$seconds as num?)?.toDouble(),
+      minutes: (l$minutes as int?),
+      hours: (l$hours as int?),
+      days: (l$days as int?),
+      months: (l$months as int?),
+      years: (l$years as int?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final double? seconds;
+
+  final int? minutes;
+
+  final int? hours;
+
+  final int? days;
+
+  final int? months;
+
+  final int? years;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$seconds = seconds;
+    _resultData['seconds'] = l$seconds;
+    final l$minutes = minutes;
+    _resultData['minutes'] = l$minutes;
+    final l$hours = hours;
+    _resultData['hours'] = l$hours;
+    final l$days = days;
+    _resultData['days'] = l$days;
+    final l$months = months;
+    _resultData['months'] = l$months;
+    final l$years = years;
+    _resultData['years'] = l$years;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$seconds = seconds;
+    final l$minutes = minutes;
+    final l$hours = hours;
+    final l$days = days;
+    final l$months = months;
+    final l$years = years;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$seconds,
+      l$minutes,
+      l$hours,
+      l$days,
+      l$months,
+      l$years,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$seconds = seconds;
+    final lOther$seconds = other.seconds;
+    if (l$seconds != lOther$seconds) {
+      return false;
+    }
+    final l$minutes = minutes;
+    final lOther$minutes = other.minutes;
+    if (l$minutes != lOther$minutes) {
+      return false;
+    }
+    final l$hours = hours;
+    final lOther$hours = other.hours;
+    if (l$hours != lOther$hours) {
+      return false;
+    }
+    final l$days = days;
+    final lOther$days = other.days;
+    if (l$days != lOther$days) {
+      return false;
+    }
+    final l$months = months;
+    final lOther$months = other.months;
+    if (l$months != lOther$months) {
+      return false;
+    }
+    final l$years = years;
+    final lOther$years = other.years;
+    if (l$years != lOther$years) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval
+    on Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval {
+  CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval<
+    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval
+  >
+  get copyWith =>
+      CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval<
+  TRes
+> {
+  factory CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval(
+    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval instance,
+    TRes Function(
+      Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval,
+    )
+    then,
+  ) = _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval;
+
+  factory CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval.stub(
+    TRes res,
+  ) = _CopyWithStubImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval;
+
+  TRes call({
+    double? seconds,
+    int? minutes,
+    int? hours,
+    int? days,
+    int? months,
+    int? years,
+    String? $__typename,
+  });
+}
+
+class _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval<
+  TRes
+>
+    implements
+        CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval<
+          TRes
+        > {
+  _CopyWithImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval(
+    this._instance,
+    this._then,
+  );
+
+  final Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval
+  _instance;
+
+  final TRes Function(
+    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval,
+  )
+  _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? seconds = _undefined,
+    Object? minutes = _undefined,
+    Object? hours = _undefined,
+    Object? days = _undefined,
+    Object? months = _undefined,
+    Object? years = _undefined,
+    Object? $__typename = _undefined,
+  }) => _then(
+    Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval(
+      seconds: seconds == _undefined ? _instance.seconds : (seconds as double?),
+      minutes: minutes == _undefined ? _instance.minutes : (minutes as int?),
+      hours: hours == _undefined ? _instance.hours : (hours as int?),
+      days: days == _undefined ? _instance.days : (days as int?),
+      months: months == _undefined ? _instance.months : (months as int?),
+      years: years == _undefined ? _instance.years : (years as int?),
+      $__typename: $__typename == _undefined || $__typename == null
+          ? _instance.$__typename
+          : ($__typename as String),
+    ),
+  );
+}
+
+class _CopyWithStubImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval<
+  TRes
+>
+    implements
+        CopyWith$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval<
+          TRes
+        > {
+  _CopyWithStubImpl$Query$LicensePageRfe$mstrLicenseByMstrLicenseId$updateInterval(
+    this._res,
+  );
+
+  TRes _res;
+
+  call({
+    double? seconds,
+    int? minutes,
+    int? hours,
+    int? days,
+    int? months,
+    int? years,
+    String? $__typename,
+  }) => _res;
 }

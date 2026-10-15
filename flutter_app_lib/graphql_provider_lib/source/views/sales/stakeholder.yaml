@@ -1,0 +1,191 @@
+# yaml-language-server: $schema=../../schema.json
+
+# ステークホルダー読み込み
+StakeholderReadFields: &StakeholderReadFields
+  kind: read
+  from: mstr_stakeholder
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_stakeholder_id
+    - is_customer
+    - is_supplier
+    - is_logistics
+    - code
+    - control_code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - mail
+    - name: address
+      arrayType: toFirstOne
+      using: info_address_id
+      <<: *AddressReadFields
+    - mstr_shipping_kind_id
+    - name: shippingKinds
+      arrayType: toFirstOne
+      as: shippingKinds
+      using:  mstr_shipping_kind_id
+      <<: *ShippingKindReadFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# ステークホルダー書き込み
+StakeholderEditFields:  &StakeholderEditFields
+  kind: edit
+  from: mstr_stakeholder
+  requiredWhere: 
+    - mstr_stakeholder_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_stakeholder_id
+    - is_customer
+    - is_supplier
+    - is_logistics
+    - code
+    - control_code
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    - mail
+    - name: address
+      arrayType: toFirstOne
+      using: info_address_id
+      <<: *AddressEditFields
+    - mstr_shipping_kind_id
+    - name: shippingKinds
+      arrayType: toFirstOne
+      using:  mstr_shipping_kind_id
+      <<: *ShippingKindEditFields
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+#窓口読み込み
+ContactReadFields:  &ContactReadFields
+  kind: read
+  from: mstr_stakeholder_contact
+  filter: true
+  requiredWhere:
+    - languageCode
+    - mstr_stakeholder_id
+    - mstr_stakeholder_contact_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_stakeholder_contact_id
+    - mstr_stakeholder_id
+    - code
+    - name: labels
+      as: officeLbels
+      arrayType: toFirstOne
+      using: office_appellations_id
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - name: labels
+      as: departmentLabels
+      arrayType: toFirstOne
+      using: department_appellations_id
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - name: labels
+      as: contacterLabels
+      arrayType: toFirstOne
+      using: contact_person_appellations_id
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - mail
+    - name: address
+      arrayType: toFirstOne
+      using: info_address_id
+      <<: *AddressReadFields
+    - name: shippingKinds
+      arrayType: toFirstOne
+      as: shippingKinds
+      using:  mstr_shipping_kind_id
+      <<: *ShippingKindReadFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 窓口書き込み
+ContactEditFields: &ContactEditFields
+  kind: edit
+  from: mstr_stakeholder_contact
+  requiredWhere: 
+    - mstr_stakeholder_id
+    - mstr_stakeholder_contact_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_stakeholder_contact_id
+    - mstr_stakeholder_id
+    - code
+    - name: labels
+      as: officeLbels
+      arrayType: toFirstOne
+      using: office_appellations_id
+      <<: *AppellationLabelsEditFields
+    - name: labels
+      as: departmentLabels
+      arrayType: toFirstOne
+      using: department_appellations_id
+      <<: *AppellationLabelsEditFields
+    - name: labels
+      as: contacterLabels
+      arrayType: toFirstOne
+      using: contact_person_appellations_id
+      <<: *AppellationLabelsEditFields
+    - mail
+    - name: address
+      arrayType: toFirstOne
+      using: info_address_id
+      <<: *AddressEditFields
+    - name: shippingKinds
+      arrayType: toFirstOne
+      using:  mstr_shipping_kind_id
+      <<: *ShippingKindEditFields
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove

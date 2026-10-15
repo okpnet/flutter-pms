@@ -1,0 +1,16 @@
+# yaml-language-server: $schema=../../schema.json
+
+# サプライヤー
+SupplierPage:
+  kind: read
+  <<: *StakeholderReadFields
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+    - column: is_supplier
+      operator: =
+      valuer: true;

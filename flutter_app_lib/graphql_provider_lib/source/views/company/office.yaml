@@ -1,0 +1,67 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 事業所の読み込み
+# (要件0034追記4: CompanyPage.officesがこのOfficePageをアンカー参照するため、
+#  YAMLのアンカー/エイリアスの制約上、CompanyPageより前に定義する必要がある。
+#  以前はCompanyPageより後に定義されており、標準的なYAMLパーサでは
+#  前方参照エラーになる不具合があったため、この位置に移動した)
+OfficePage: &OfficePage
+  kind: read
+  from: info_office
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - info_office_id
+    - info_company_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: # 2026/09/29　追加
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - name: info_address_id
+      as: address
+      arrayType: toFirstOne
+      using: info_address_id
+      <<: *AddressReadFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 事業所編集
+OfficePageEdit:
+  kind: edit
+  from: info_office
+  requiredWhere:
+    - info_office_id
+  generateRfe: true
+  columns:
+    - info_office_id
+    - info_company_id
+    - code
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    - name: address
+      arrayType: toFirstOne
+      using: info_address_id
+      <<: *AddressEditFields
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove

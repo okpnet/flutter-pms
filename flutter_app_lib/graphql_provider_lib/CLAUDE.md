@@ -43,8 +43,10 @@ lib/
   postgraphile/           graphql_codegenの出力(生成モデル)
   gqlmdlib.dart           ライブラリのバレルファイル
 source/
-  view.yaml               画面仕様(GraphQL生成の入力)
-  schema.json             view.yamlのJSON Schema
+  views/                  画面仕様(GraphQL生成の入力)。view.yamlを機能単位に分割したもの(5-9節)
+    <分野>/<機能>.yaml      page.mdの分野・機能に沿ったファイル(common/・system/・company/・resource/・provision/・sales/・purchase/)
+  page.md                 ページの定義(サフィックス・機能の構成)。viewsの分割の基準
+  schema.json             view.yaml(viewsの各ファイル)のJSON Schema
   27_yaml_to_graphql_conversion_rules.md  view.yaml→GraphQLの変換規則
   schema.full.graphql     PostGraphileから取得した全量のスキーマ(git対象外、4-1節)
 tool/
@@ -53,8 +55,9 @@ tool/
   gen_filter_spec.dart    検索条件の対応表の生成(4-5節)
   gen_view_graphql.dart   view.yaml→GraphQLの生成(CLI、5-8節)
   view_graphql/           view.yaml→GraphQLの生成ライブラリとbuild_runnerのBuilder(5-8節)
+    view_sources.dart       分割したviewsの結合(5-9節)
 test/                     モデルごとの往復変換テスト、RFE/Edit相互変換テスト
-docs/                     要件ごとの実施ログ
+docs/                     要件ごとの実施ログ。生成ツールの詳細は`view_graphql_generator_2026-10-14.md`(5-8節)
 ```
 
 ## 4. スキーマとモデル生成
@@ -117,7 +120,7 @@ docs/                     要件ごとの実施ログ
 
 ### 5-1. 入力(0033)
 
-- 変換の対象は`source/view.yaml`とする。
+- 変換の対象は`source/views/`以下のYAML(旧`source/view.yaml`を機能単位に分割したもの、5-9節)とする。
 - 規則は`source/schema.json`と`source/27_yaml_to_graphql_conversion_rules.md`に従う。
 
 ### 5-2. kindと生成物
@@ -168,6 +171,7 @@ docs/                     要件ごとの実施ログ
 
 - RFEで関連の配列を取得する件数は引数で受け取る。引数が無い場合は30件とする。
 - 1対多の列(先頭)は、更新日時が最新の先頭1レコードを指す。
+- 並び順(0053): `defaultSort`は、省略・`none`(並べない)、または`asc`/`desc`をキーにした入れ子(`defaultSort: { asc: { sortColumns: [列名...] } }`)で指定する。並び順の引数(トップは`$orderBy`、1対多は`$<子の出力名>OrderBy`)は常に生成し、defaultSortはその既定値になる。sortColumnsがnull/空のときはnoneと同義。引数を指定するとdefaultSortは無効、nullを渡すと並べない。規則は27章6-9節。
 - 列(結合)はカンマ区切りの文字列とする。
 - GraphQLの列の型は、`GraphQLTypeKind`(content_variable.dart)のEnumに重複せず追加する。Enumは文字列から型を受け取り、文字列へ復元できること。
 - 平坦化キーは、コード補完できるよう定数にする。
@@ -191,12 +195,29 @@ docs/                     要件ごとの実施ログ
 
 ### 5-8. view.yaml→GraphQLの生成(0051)
 
-- `lib/graphql`のGraphQLは、`tool/view_graphql`(build_runnerのBuilder、またはCLI`dart run tool/gen_view_graphql.dart`)が、view.yamlと全量スキーマから生成する。手作業で作らない。
+- `lib/graphql`のGraphQLは、`tool/view_graphql`(build_runnerのBuilder、またはCLI`dart run tool/gen_view_graphql.dart`)が、`source/views/`と全量スキーマから生成する。手作業で作らない。
   - 出力先は`source/generated_graphql/`(git対象外、`build.yaml`の`view_graphql.options.output_dir`)。`lib/graphql`へはコピーして採用する。
   - 採用するときは、コピー → 絞り込み → 検索条件の対応表の生成 → build_runnerの順に進める(4-2節)。
 - 規則は27章に従い、関連の向き・フィールド名・入力型は全量スキーマから求める。解釈できない箇所は、エラーを警告として出力し、そのノードは生成しない(5-7節)。
-- 規則と生成物の詳細・既存の画面との比較は、`docs/view_graphql_generator_2026-10-14.md`を参照する。
+- 規則と生成物の詳細・既存の画面との比較は、`docs/view_graphql_generator_2026-10-14.md`を参照する(要件0051の成果物)。
 - 既存の画面との回帰は`test/view_graphql_generator_test.dart`で固定する。view.yamlを変更して生成物が変わるのは正しいため、既存のGraphQLを生成物で置き換えてから、このテストの一覧を見直す。
+
+### 5-9. view.yamlの分割(0052)
+
+- view.yamlは`source/views/`以下に、機能単位のファイルとして分割した。元の`source/view.yaml`は廃止した。
+  - 分け方は`source/page.md`の分野(##)・機能(1.)に従う。`<分野>/<機能>.yaml`とし、ディレクトリ名・ファイル名はスネークケースとする。
+  - 分野: `common/`(全共通・マスタ共通・トランザクション共通)、`system/`、`company/`、`resource/`、`provision/`、`sales/`、`purchase/`。
+  - 機能に該当する共通定義(`~ReadFields`・`~EditFields`、例: `TaskReadFields`)は、その機能のファイルに置く。複数の機能から使う共通定義だけを`common/`に置く(page.mdの「共通」)。
+  - 各ファイルの先頭に`# yaml-language-server: $schema=<schema.jsonへの相対パス>`を書く。
+- YAMLのアンカー(`&名前`)とエイリアス(`*名前`)は1つのドキュメントの中でしか使えないため、`tool/view_graphql/view_sources.dart`が結合してから解析する。既存の`<<: *名前`はそのまま使える。
+  - ファイルをトップノード(列0のキー)の単位に分け、アンカーの依存先が先になるように並べて連結する。ファイルをまたぐ参照も解決できる。依存が無い範囲では、ファイルのパス順・記述順を保つ。
+  - 同名のトップノード、同名のアンカー、定義の無いアンカーの参照、参照の循環は、エラーとする(ファイルと行番号を示す)。
+  - 結合後の解析エラーは、元のファイルと行番号に戻して報告する。
+  - エディタ(yaml-language-server)は別ファイルのアンカーを知らないため、`*名前`に未定義の警告を出す。これは表示だけの問題で、結合後の検証は生成ツールが行う。
+- build_runnerのBuilderは、パッケージ全体(`$package$`)を入力として1回実行し、`source/views/**.yaml`を読む。`build.yaml`の`sources`には`source/views/**`を含める。
+- CLIは`dart run tool/gen_view_graphql.dart [--views <DIR>]`(既定`source/views`)。
+- 新しい機能を追加するときは、page.mdに機能を追加し、対応するファイルを`source/views/`に作る。
+- 分割は構造だけの変更で、生成物は変わらない(分割前後でGraphQL 68ファイル・エラー68件が一致することを確認した)。
 
 ## 6. テストと品質条件
 
@@ -205,7 +226,7 @@ docs/                     要件ごとの実施ログ
 | 往復変換(0013・0032・0044) | 生成モデルごとに、`nested_map_flattener.dart`で平坦化→復元して元と一致するテストを作る。再生成のときはテストも見直す |
 | RFE/Edit相互変換(0046・0048) | `test/rfe_edit_interconversion_test.dart`で全画面を検証する。RFE→Editの結果モデル・引数モデル、Editの結果モデル→RFEのいずれも変換できること。変換できない場合は、view.yamlの修正案をログに出力する。監査列がRFEにのみあるのは方針どおり(A1)とし、条件付き取得の混入は失敗(F6)とする |
 | nested_map_flattener.dartの扱い(0044) | 相互変換できないときだけ見直す。根本的な見直しが必要なら提案し、それ以外は対応できるよう修正する |
-| 生成ツール(0051) | `test/view_graphql_generator_test.dart`で、名前の規則・YAMLのマージ・既存の画面との一致(回帰)を検証する |
+| 生成ツール(0051・0052) | `test/view_graphql_generator_test.dart`で、名前の規則・YAMLのマージ・分割したviewsの結合(依存順・重複・未定義・循環・エラー位置)・既存の画面との一致(回帰)を検証する |
 | 検索条件(0050) | `test/flat_filter_converter_test.dart`で、コンバーター単体の挙動、全画面の対応表のすべてのキーが生成モデル`Input$<テーブル>Filter`のfromJson/toJsonで欠落なく往復できること、OfficePageの実例を検証する |
 
 ## 7. 作業の進め方
@@ -320,9 +341,38 @@ docs/                     要件ごとの実施ログ
 
 1. 目的: view.yaml→GraphQLの変換を、Claudeによる毎回の作成から、build_runnerで実行できるツールに置き換える。
 2. 構成: `tool/view_graphql`(純Dartのライブラリ)を、build_runnerのBuilder(`build.yaml`)とCLI(`tool/gen_view_graphql.dart`)の両方から使う。
-3. 入力: `source/view.yaml`と`source/schema.full.graphql`。出力: `source/generated_graphql/<ディレクトリ>/<ディレクトリ>_{read,edit,rfe}.graphql`。
+3. 入力: `source/view.yaml`(要件0052で`source/views/`に分割)と`source/schema.full.graphql`。出力: `source/generated_graphql/<ディレクトリ>/<ディレクトリ>_{read,edit,rfe}.graphql`。
 4. 規則: 27章(11章)に従う。既存の生成物から読み取った慣習(呼称・辞書の別名なし、単数の関連は主キーを必ず含める、引数名の接頭辞など)をツールに実装した。
 5. 検証: 既存の`lib/graphql`と、書式・コメント・選択の順序を除いて比較する。2026/10/14時点で54ファイル中36ファイルが一致し、残りの差分はview.yaml側(または古い既存ファイル)の原因による(docsのログ)。
 6. 既存の`lib/graphql`は、view.yamlとの差分の扱い(どちらを正とするか)を決めてから、生成物で置き換える。`operation_page`は置き換え済み。
 7. 未対応: 内向きの1対1を入れ子で更新する子(`DepartmentPageEdit.parent`・`kinds`)。エラーとして記録する。
 8. view.yamlの誤字(AppellationLabels系の`pronunciatione`・`npronunciatione`・`nicknam`)を修正した。ほかの不具合はログ5章に列挙した。
+2026/10/15_0052:view.yamlを機能単位のファイルに分割する。
+
+1. 目的: view.yamlが約3,700行に肥大化し、レビューが困難になったため、機能単位のファイルに分ける。
+2. 配置: `source/views/`を作成し、view.yamlの分割はこのDIR以下に展開する。元の`source/view.yaml`は廃止する。
+3. 分割の基準: `source/page.md`をもとに分割する(分野・機能に沿った`<分野>/<機能>.yaml`)。
+4. 共通参照項目: 機能に該当するもの(例えば`TaskReadFields`)は機能のファイルに含める。複数の機能から使うものは`common/`に置く。
+5. ファイルをまたぐ共通項目の参照(アンカーとエイリアス)は、読み込み側(`tool/view_graphql/view_sources.dart`)が全ファイルを依存順に結合してから解析することで解決する。
+6. 進め方: ローダーの複数ファイル対応(結合・依存順・重複検出・位置の対応表) → 機能単位への切り出し(内容は変更しない) → 分割前後の一致の確認(読み込み結果・GraphQLの生成物・回帰テスト) → 元のview.yamlの廃止。
+7. 要件0051の成果物`docs/view_graphql_generator_2026-10-14.md`を、本ファイルの構成(3章)と5-8節から参照する。
+8. 詳細と確認結果: `docs/0052_view_yaml_split_log.md`。
+
+2026/10/15_0053:view.yamlにデフォルトのソート、ASC/DESCがあるか確認する。もし、ソートが存在しなければdefaultSort属性を追加。値はasc,desc,none(標準)。noneの場合は省略可能。GraphQLにソートの引数がない場合は、追加。ソートの引数があるとき、defaultSortを無効にする。引数がNullのときはソートを設定しない。これらはbuildrunnerへの適用し、view.yamlを再評価、ビルドする。
+0053の実施:
+1. view.yamlには並び順の指定が無かった(トップは生成ツールが固定で`PRIMARY_KEY_ASC`、1対多は`sequence`があれば固定で`SEQUENCE_ASC`)。`schema.json`に`defaultSort`を追加し、`tool/view_graphql/read_generator.dart`を変更した。
+2. 従来のトップの固定の`PRIMARY_KEY_ASC`は廃止し、`none`(並べない。PostGraphileは主キー順)を標準とした(ユーザー採択)。順(`sequence`)で並べる`OperationPageEdit.operationTasks`だけ、`defaultSort: { asc: { sortColumns: [sequence] } }`を指定した。
+3. 1対多に並び順の引数を追加したため、該当するクエリ・RFEの変数が増える(利用側への影響): `$<子の出力名>OrderBy`。詳細は`docs/0053_default_sort_log.md`。
+4. ソートの列は、`defaultSort`の入れ子の`sortColumns`(列名の配列)で指定する。`asc`/`desc`をキーにし、その下に`sortColumns`を置く(YAMLでは`defaultSort: asc`の下に子を置けないため)。例:
+    ```yaml
+    defaultSort:
+      asc:
+        sortColumns:
+          - 列名1
+          - 列名2
+    ```
+    - ascとdescは同時に指定できない(両方書くとエラー)。省略・`none`は並べない。
+    - `sortColumns`がnull・空・省略(`asc:`だけ等)のときはnoneと同義。
+    - 列名はこのノードの列(snake_case、主キーは`primary_key`)。関連先の列は、PostGraphileの`orderBy`に無いため指定できず、エラーとする。
+    - `defaultSort: asc`のような文字列(旧形式)や、`defaultSort`と同じ階層の`sortColumns`はエラーとする。
+5. `source/schema.json.help.md`に、defaultSort / sortColumns の節を追加した。

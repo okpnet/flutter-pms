@@ -34,6 +34,7 @@ class Variables$Mutation$OperationPageEdit {
     operationTasksDelete,
     String? remarks,
     int? operationTasksFirst,
+    List<Enum$MstrOperationTasksOrderBy>? operationTasksOrderBy,
   }) => Variables$Mutation$OperationPageEdit._({
     r'mstrOperationId': mstrOperationId,
     if (controlCode != null) r'controlCode': controlCode,
@@ -61,6 +62,8 @@ class Variables$Mutation$OperationPageEdit {
     if (remarks != null) r'remarks': remarks,
     if (operationTasksFirst != null)
       r'operationTasksFirst': operationTasksFirst,
+    if (operationTasksOrderBy != null)
+      r'operationTasksOrderBy': operationTasksOrderBy,
   });
 
   Variables$Mutation$OperationPageEdit._(this._$data);
@@ -154,6 +157,15 @@ class Variables$Mutation$OperationPageEdit {
       final l$operationTasksFirst = data['operationTasksFirst'];
       result$data['operationTasksFirst'] = (l$operationTasksFirst as int?);
     }
+    if (data.containsKey('operationTasksOrderBy')) {
+      final l$operationTasksOrderBy = data['operationTasksOrderBy'];
+      result$data['operationTasksOrderBy'] =
+          (l$operationTasksOrderBy as List<dynamic>?)
+              ?.map(
+                (e) => fromJson$Enum$MstrOperationTasksOrderBy((e as String)),
+              )
+              .toList();
+    }
     return Variables$Mutation$OperationPageEdit._(result$data);
   }
 
@@ -220,6 +232,10 @@ class Variables$Mutation$OperationPageEdit {
 
   int? get operationTasksFirst => (_$data['operationTasksFirst'] as int?);
 
+  List<Enum$MstrOperationTasksOrderBy>? get operationTasksOrderBy =>
+      (_$data['operationTasksOrderBy']
+          as List<Enum$MstrOperationTasksOrderBy>?);
+
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
     final l$mstrOperationId = mstrOperationId;
@@ -284,6 +300,12 @@ class Variables$Mutation$OperationPageEdit {
     if (_$data.containsKey('operationTasksFirst')) {
       final l$operationTasksFirst = operationTasksFirst;
       result$data['operationTasksFirst'] = l$operationTasksFirst;
+    }
+    if (_$data.containsKey('operationTasksOrderBy')) {
+      final l$operationTasksOrderBy = operationTasksOrderBy;
+      result$data['operationTasksOrderBy'] = l$operationTasksOrderBy
+          ?.map((e) => toJson$Enum$MstrOperationTasksOrderBy(e))
+          .toList();
     }
     return result$data;
   }
@@ -473,6 +495,30 @@ class Variables$Mutation$OperationPageEdit {
     if (l$operationTasksFirst != lOther$operationTasksFirst) {
       return false;
     }
+    final l$operationTasksOrderBy = operationTasksOrderBy;
+    final lOther$operationTasksOrderBy = other.operationTasksOrderBy;
+    if (_$data.containsKey('operationTasksOrderBy') !=
+        other._$data.containsKey('operationTasksOrderBy')) {
+      return false;
+    }
+    if (l$operationTasksOrderBy != null &&
+        lOther$operationTasksOrderBy != null) {
+      if (l$operationTasksOrderBy.length !=
+          lOther$operationTasksOrderBy.length) {
+        return false;
+      }
+      for (int i = 0; i < l$operationTasksOrderBy.length; i++) {
+        final l$operationTasksOrderBy$entry = l$operationTasksOrderBy[i];
+        final lOther$operationTasksOrderBy$entry =
+            lOther$operationTasksOrderBy[i];
+        if (l$operationTasksOrderBy$entry !=
+            lOther$operationTasksOrderBy$entry) {
+          return false;
+        }
+      }
+    } else if (l$operationTasksOrderBy != lOther$operationTasksOrderBy) {
+      return false;
+    }
     return true;
   }
 
@@ -500,6 +546,7 @@ class Variables$Mutation$OperationPageEdit {
     final l$operationTasksDelete = operationTasksDelete;
     final l$remarks = remarks;
     final l$operationTasksFirst = operationTasksFirst;
+    final l$operationTasksOrderBy = operationTasksOrderBy;
     return Object.hashAll([
       l$mstrOperationId,
       _$data.containsKey('controlCode') ? l$controlCode : const {},
@@ -536,6 +583,11 @@ class Variables$Mutation$OperationPageEdit {
       _$data.containsKey('remarks') ? l$remarks : const {},
       _$data.containsKey('operationTasksFirst')
           ? l$operationTasksFirst
+          : const {},
+      _$data.containsKey('operationTasksOrderBy')
+          ? l$operationTasksOrderBy == null
+                ? null
+                : Object.hashAll(l$operationTasksOrderBy.map((v) => v))
           : const {},
     ]);
   }
@@ -578,6 +630,7 @@ abstract class CopyWith$Variables$Mutation$OperationPageEdit<TRes> {
     operationTasksDelete,
     String? remarks,
     int? operationTasksFirst,
+    List<Enum$MstrOperationTasksOrderBy>? operationTasksOrderBy,
   });
 }
 
@@ -617,6 +670,7 @@ class _CopyWithImpl$Variables$Mutation$OperationPageEdit<TRes>
     Object? operationTasksDelete = _undefined,
     Object? remarks = _undefined,
     Object? operationTasksFirst = _undefined,
+    Object? operationTasksOrderBy = _undefined,
   }) => _then(
     Variables$Mutation$OperationPageEdit._({
       ..._instance._$data,
@@ -675,6 +729,9 @@ class _CopyWithImpl$Variables$Mutation$OperationPageEdit<TRes>
       if (remarks != _undefined) 'remarks': (remarks as String?),
       if (operationTasksFirst != _undefined)
         'operationTasksFirst': (operationTasksFirst as int?),
+      if (operationTasksOrderBy != _undefined)
+        'operationTasksOrderBy':
+            (operationTasksOrderBy as List<Enum$MstrOperationTasksOrderBy>?),
     }),
   );
 }
@@ -713,6 +770,7 @@ class _CopyWithStubImpl$Variables$Mutation$OperationPageEdit<TRes>
     operationTasksDelete,
     String? remarks,
     int? operationTasksFirst,
+    List<Enum$MstrOperationTasksOrderBy>? operationTasksOrderBy,
   }) => _res;
 }
 
@@ -1049,6 +1107,24 @@ const documentNodeMutationOperationPageEdit = DocumentNode(
           variable: VariableNode(name: NameNode(value: 'operationTasksFirst')),
           type: NamedTypeNode(name: NameNode(value: 'Int'), isNonNull: false),
           defaultValue: DefaultValueNode(value: IntValueNode(value: '30')),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(
+            name: NameNode(value: 'operationTasksOrderBy'),
+          ),
+          type: ListTypeNode(
+            type: NamedTypeNode(
+              name: NameNode(value: 'MstrOperationTasksOrderBy'),
+              isNonNull: true,
+            ),
+            isNonNull: false,
+          ),
+          defaultValue: DefaultValueNode(
+            value: ListValueNode(
+              values: [EnumValueNode(name: NameNode(value: 'SEQUENCE_ASC'))],
+            ),
+          ),
           directives: [],
         ),
       ],
@@ -2323,8 +2399,8 @@ const documentNodeMutationOperationPageEdit = DocumentNode(
                           ),
                           ArgumentNode(
                             name: NameNode(value: 'orderBy'),
-                            value: EnumValueNode(
-                              name: NameNode(value: 'SEQUENCE_ASC'),
+                            value: VariableNode(
+                              name: NameNode(value: 'operationTasksOrderBy'),
                             ),
                           ),
                         ],

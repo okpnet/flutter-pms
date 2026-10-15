@@ -1,0 +1,375 @@
+# yaml-language-server: $schema=../../schema.json
+
+##### 工程
+
+# 工程グループの読み込み
+TaskGroupPage:  &TaskGroupPage
+  kind: read
+  from: mstr_task_group
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_task_group_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - details
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 工程グループの読み込み
+TaskGroupPageEdit:  &TaskGroupPageEdit
+  kind: edit
+  from: mstr_task_group
+  requiredWhere:
+    - mstr_task_group_id
+  generateRfe: true
+  columns:
+    - mstr_task_group_id
+    - code
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    - details
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 工程の読み込み
+# 選択など一部の情報で良い場合のリスト
+TaskReadFields: &TaskReadFields
+  kind: read
+  from: mstr_task
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_task_id
+    - name: groups
+      arrayType: toFirstOne
+      as: groups
+      using:  mstr_task_group_id
+      <<: *TaskGroupPage
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - name: detailTexts
+      as: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FixTextReadFields
+    - class
+    - default_time
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+#　工程の読み込み
+TaskPage:
+  kind: read
+  from: mstr_task
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_task_id
+    - name: parent
+      arrayType: toFirstOne
+      as: parent
+      using: mstr_task_id
+      from: mstr_task_tree
+      # NULL許容(呼び出し側がNULLを渡したときはトップノードを表す)。
+      requiredWhere:
+        - parent_mstr_task_id
+      columns:
+        - mstr_task_tree_id
+        - parent_mstr_task_id
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+    - name: descendants
+      arrayType: toFirstOne
+      as: descendants
+      using: mstr_task_id
+      pick:
+        - descendant_count
+      from: v_task_descendants
+    - name: groups
+      arrayType: toFirstOne
+      as: groups
+      using:  mstr_task_group_id
+      <<: *TaskGroupPage
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - name: detailTexts
+      as: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FixTextReadFields
+    - class
+    - default_time
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 工程の書き込み
+TaskPageEdit:
+  kind: edit
+  from: mstr_task
+  requiredWhere:
+    - mstr_task_id
+  generateRfe: true
+  columns:
+    - mstr_task_id
+    - name: parent
+      arrayType: toFirstOne
+      as: parent
+      using: mstr_task_id
+      from: mstr_task_tree
+      columns:
+        - mstr_task_tree_id
+        - parent_mstr_task_id
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+    - name: groups
+      arrayType: toFirstOne
+      using:  mstr_task_group_id
+      editable: false
+      <<: *TaskGroupPage
+    - code
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    - name: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FixTextEditFields
+    - class
+    - default_time
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 工程の場所、設備、外部委託の読み込み
+# 工程が必要
+TaskResourcePage:
+  kind: read
+  from: mstr_task_location
+  filter: true
+  requiredWhere:
+    - languageCode
+    - mstr_task_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_task_location_id
+    - mstr_task_id
+    - info_department_id
+    - name: departments
+      as: departments
+      arrayType: toFirstOne
+      using:  info_department_id
+      <<: *DepartmentReadFields
+    - mstr_equipment_id
+    - name: equipments
+      as: equipments
+      arrayType: toFirstOne
+      using:  mstr_equipment_id
+      <<: *EquipmentPage
+    - mstr_stakeholder_id
+    - name: suppliers
+      as: suppliers
+      arrayType: toFirstOne
+      using:  mstr_stakeholder_id
+      <<: *StakeholderReadFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 工程の場所、設備、外部委託の書き込み
+# 工程が必要
+TaskResourcePageEdit:
+  kind: edit
+  from: mstr_task_location
+  requiredWhere:
+    - mstr_task_id
+    - mstr_task_location_id
+  generateRfe: true
+  columns:
+    - mstr_task_location_id
+    - mstr_task_id
+    - info_department_id
+    - name: departments
+      arrayType: toFirstOne
+      using:  info_department_id
+      <<: *DepartmentReadFields
+    - mstr_equipment_id
+    - name: equipments
+      arrayType: toFirstOne
+      using:  mstr_equipment_id
+      <<: *EquipmentPage
+    - mstr_stakeholder_id
+    - name: suppliers
+      arrayType: toFirstOne
+      using:  mstr_stakeholder_id
+      <<: *StakeholderReadFields
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 工程運用の読込
+OperationPage:
+  kind: read
+  from: mstr_operation
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_operation_id
+    - control_code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - name: detailTexts
+      as: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FixTextReadFields
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 工程運用の書込
+OperationPageEdit:
+  kind: edit
+  from: mstr_operation
+  requiredWhere:
+    - mstr_operation_id
+  generateRfe: true
+  columns:
+    - mstr_operation_id
+    - control_code
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    - name: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FixTextEditFields
+    - name: operationTasks
+      arrayType: toMany
+      defaultSort: # 要件0053: 従来のorderBy: SEQUENCE_ASCを維持
+        asc:
+          sortColumns:
+            - sequence
+      using: mstr_operation_id
+      from: mstr_operation_task
+      editable: true
+      columns:
+        - mstr_operation_task_id
+        - mstr_operation_id
+        - name: tasks
+          arrayType: toFirstOne
+          using:  mstr_task_id
+          editable: false
+          <<: *TaskReadFields
+        - sequence
+        - control_code
+        - name: labels
+          arrayType: toFirstOne
+          using: names
+          <<: *AppellationLabelsEditFields
+        - name: detailTexts
+          arrayType: toFirstOne
+          using:  details
+          <<: *FixTextEditFields
+        - remarks
+        - update_user_id
+        - update_user_history_id
+        - remove
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove

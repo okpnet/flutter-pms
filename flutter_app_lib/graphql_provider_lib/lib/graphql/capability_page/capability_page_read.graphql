@@ -1,17 +1,13 @@
 # capability_page画面 - Read(一覧取得クエリ)
 #
-# 画面仕様: source/view.yaml #CapabilityPage(力量、mstr_capability)
-# 命名規則: CLAUDE.md 画面仕様命名規則(要件0033)により`capability_page`をファイル名にする。
-#
-# 言語解決はcompany_page_read.graphqlと同じ方式(要件0036、$languageCodeId: UUID!)。
-# labels(names、shared_appellations経由)・update_user(history_info_staff経由)は
-# office_page_read.graphql/department_category_read.graphqlと同型。
+# 画面仕様: source/views/ #CapabilityPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
 
 query CapabilityPageRead(
   $first: Int!
   $offset: Int
   $filter: MstrCapabilityFilter = {}
-  $orderBy: [MstrCapabilitiesOrderBy!] = [PRIMARY_KEY_ASC]
+  $orderBy: [MstrCapabilitiesOrderBy!]
   $languageCodeId: UUID!
   $removed: Boolean = false
 ) {
@@ -29,15 +25,6 @@ query CapabilityPageRead(
     nodes {
       mstrCapabilityId
       code
-      detail
-      referenceValue
-      max
-      min
-      step
-      symbol
-      remarks
-      updateAt
-      remove
 
       labels: sharedAppellationByNames {
         sharedAppellationsId
@@ -51,6 +38,7 @@ query CapabilityPageRead(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryPronunciationId {
           sharedDictionaryId
           value: sharedDictionaryValuesBySharedDictionaryId(
@@ -61,6 +49,7 @@ query CapabilityPageRead(
             }
           }
         }
+
         sharedDictionaryBySharedDictionaryNicknameId {
           sharedDictionaryId
           value: sharedDictionaryValuesBySharedDictionaryId(
@@ -73,15 +62,32 @@ query CapabilityPageRead(
         }
       }
 
+      detailTexts: sharedTextByDetails {
+        sharedTextId
+        value: sharedTextValuesBySharedTextId(
+          condition: { sharedLanguageCodeId: $languageCodeId }
+        ) {
+          nodes {
+            textValue
+          }
+        }
+      }
+
+      referenceValue
+      max
+      min
+      step
+      symbol
+      remarks
+      updateAt
+      remove
+
       update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
         historyId
         infoStaffId
         infoCompanyId
         code
-        sex
-        phone
-        symbol
-        privatePhone
+
         name: sharedAppellationByNames {
           sharedAppellationsId
           sharedDictionaryBySharedDictionaryNameId {
@@ -94,6 +100,7 @@ query CapabilityPageRead(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryPronunciationId {
             sharedDictionaryId
             value: sharedDictionaryValuesBySharedDictionaryId(
@@ -104,6 +111,7 @@ query CapabilityPageRead(
               }
             }
           }
+
           sharedDictionaryBySharedDictionaryNicknameId {
             sharedDictionaryId
             value: sharedDictionaryValuesBySharedDictionaryId(
@@ -115,6 +123,11 @@ query CapabilityPageRead(
             }
           }
         }
+
+        sex
+        phone
+        symbol
+        privatePhone
       }
     }
   }

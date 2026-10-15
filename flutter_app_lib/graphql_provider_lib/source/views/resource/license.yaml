@@ -1,0 +1,153 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 資格読み込み
+# 作業に必要な公的、私的をとわず資格を定義する
+LicensePage: &LicensePage
+  kind: read
+  from: mstr_license
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_license_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - name: detailTexts
+      as: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FixTextReadFields
+    - public_license
+    - customer_license
+    - organization_license
+    - update_interval 
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 資格書き込み
+# 作業に必要な公的、私的をとわず資格を定義する
+LicensePageEdit:
+  kind: edit
+  from: mstr_license
+  requiredWhere:
+    - mstr_license_id
+  generateRfe: true
+  columns:
+    - mstr_license_id
+    - code
+    - name: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *AppellationLabelsEditFields
+    - name: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FixTextEditFields
+    - public_license
+    - customer_license
+    - organization_license
+    - update_interval 
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 資格を持つ担当者の読み込み
+# 資格を持っている担当者が該当する
+LicenseHoldersPage:
+  kind: read
+  from: mstr_license
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_license_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick: 
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - name: detailTexts
+      as: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FixTextReadFields
+    - public_license
+    - customer_license
+    - organization_license
+    - update_interval 
+    - name: licenses # 要件0045レビュー: 元はlicenses(mstr_license(1)→mstr_staff_license(多))が
+      # toFirstOne、内側のstaff(junction行(1)→info_staff(1))がtoManyと基数が入れ替わっていた
+      # (schema.jsonの方針どおり基数はスキーマ側で検証されないため生成側で修正)。
+      from: mstr_staff_license
+      arrayType: toMany
+      as: licenses
+      using: mstr_license_id
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+      columns:
+        - mstr_staff_license_id
+        - info_staff_id
+        - name: staff
+          arrayType: toFirstOne
+          as: staff
+          using: info_staff_id
+          <<: *StaffPage
+        - mstr_license_id
+        - name: license
+          arrayType: toFirstOne
+          as: license
+          using: mstr_license_id
+          <<: *LicensePage
+        - start_at
+        - stop_at
+        - abeyance
+        - abeyance_at
+        - revocation
+        - revocation_at
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 資格を持つ担当者の書き込み(LicenseHoldersPage側の編集画面)
+# 上記と同じ理由でStaffLicenseEditFieldsをそのまま参照する。
+LicenseHoldersPageEdit:
+  <<: *StaffLicenseEditFields
+  requiredWhere: # 要件0028: info_staff_idは1対多で非一意のためRFEの単一レコード取得条件に
+    # 使えない。from自身のPKに修正(元はinfo_staff_idだった)。
+    - mstr_staff_license_id
+  generateRfe: true

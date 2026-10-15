@@ -109,7 +109,7 @@ class EditGenerator {
     final b = StringBuffer()
       ..writeln('# $dir画面 - Edit(ミューテーション)')
       ..writeln('#')
-      ..writeln('# 画面仕様: source/view.yaml #$name')
+      ..writeln('# 画面仕様: source/views/ #$name')
       ..writeln('# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。')
       ..writeln()
       ..writeln('mutation ${pascal(dir)}Edit(');
@@ -166,7 +166,7 @@ class EditGenerator {
     final b = StringBuffer()
       ..writeln('# $dir画面 - RFE(編集フォームへのプリロード用の読み込み専用クエリ)')
       ..writeln('#')
-      ..writeln('# 画面仕様: source/view.yaml #$name(generateRfe: true)')
+      ..writeln('# 画面仕様: source/views/ #$name(generateRfe: true)')
       ..writeln('# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。')
       ..writeln()
       ..writeln('query ${pascal(dir)}Rfe(');

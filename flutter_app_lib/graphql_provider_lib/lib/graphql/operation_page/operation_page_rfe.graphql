@@ -1,6 +1,6 @@
 # operation_page画面 - RFE(編集フォームへのプリロード用の読み込み専用クエリ)
 #
-# 画面仕様: source/view.yaml #OperationPageEdit(generateRfe: true)
+# 画面仕様: source/views/ #OperationPageEdit(generateRfe: true)
 # このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
 
 query OperationPageRfe(
@@ -8,6 +8,7 @@ query OperationPageRfe(
   $jaLanguageCodeId: UUID!
   $enLanguageCodeId: UUID!
   $operationTasksFirst: Int = 30
+  $operationTasksOrderBy: [MstrOperationTasksOrderBy!] = [SEQUENCE_ASC]
 ) {
   mstrOperationByMstrOperationId(mstrOperationId: $mstrOperationId) {
     mstrOperationId
@@ -98,7 +99,7 @@ query OperationPageRfe(
 
     operationTasks: mstrOperationTasksByMstrOperationId(
       first: $operationTasksFirst
-      orderBy: SEQUENCE_ASC
+      orderBy: $operationTasksOrderBy
     ) {
       totalCount
       pageInfo {
